@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="MeshLibrary" path="res://Blocks/BlockLibrary.tres" id="1_ncftf"]
+
+[node name="CombatMap" type="Node3D" unique_id=1134767484]
+
+[node name="GridMap" type="GridMap" parent="." unique_id=814540756]
+mesh_library = ExtResource("1_ncftf")
+cell_size = Vector3(1, 1, 1)
