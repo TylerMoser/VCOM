@@ -12,10 +12,14 @@ signal actions_changed(remaining: int, per_turn: int)
 ## Physics layer holding the bodies that mouse clicks on units are tested
 ## against. Nothing collides with it, so it never affects movement.
 const PICK_LAYER := 1 << 1
+## Every unit, whichever side it is on.
+const GROUP := &"units"
 
 @export var display_name := "Unit"
 @export var max_health := 10
 @export var actions_per_turn := 3
+## Tiles the unit can walk for each action point spent moving.
+@export var move_range := 4
 
 var health := 0:
 	set(value):
@@ -39,6 +43,7 @@ var color: Color:
 
 
 func _ready() -> void:
+	add_to_group(GROUP)
 	health = max_health
 	actions_remaining = actions_per_turn
 	_add_pick_body()

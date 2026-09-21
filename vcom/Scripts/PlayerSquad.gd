@@ -11,6 +11,8 @@ signal selection_changed(unit: Unit)
 
 var members: Array[Unit] = []
 var selected: Unit
+## While true, the selection cannot change. Set while an action plays out.
+var locked := false
 
 
 func _ready() -> void:
@@ -26,14 +28,16 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if locked:
+		return
 	# Shift+Tab also matches the plain Tab action, so check it first.
 	if event.is_action_pressed(&"select_previous_unit"):
 		cycle(-1)
 	elif event.is_action_pressed(&"select_next_unit"):
 		cycle(1)
 	elif event.is_action_pressed(&"select_unit") and event is InputEventMouseButton:
-		var unit := _unit_at((event as InputEventMouseButton).position)
-		# A click on anything else is left for other handlers, such as moving.
+		var unit := unit_at((event as InputEventMouseButton).position)
+		# A click on anything else is left for other handlers.
 		if unit not in members:
 			return
 		select(unit)
@@ -44,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Makes [param unit] the selected unit. Units outside the squad are ignored.
 func select(unit: Unit) -> void:
-	if unit == selected or unit not in members:
+	if locked or unit == selected or unit not in members:
 		return
 	selected = unit
 	selection_changed.emit(selected)
@@ -59,7 +63,7 @@ func cycle(step: int) -> void:
 
 
 ## The unit whose pick body is under [param screen_position], if any.
-func _unit_at(screen_position: Vector2) -> Unit:
+func unit_at(screen_position: Vector2) -> Unit:
 	var camera := get_viewport().get_camera_3d()
 	if camera == null:
 		return null

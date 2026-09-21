@@ -1,10 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://uxu0hdwgskq0"]
+[gd_scene load_steps=20 format=3 uid="uid://uxu0hdwgskq0"]
 
 [ext_resource type="MeshLibrary" uid="uid://cfo22uhygckag" path="res://Blocks/BlockLibrary.tres" id="1_ncftf"]
 [ext_resource type="Script" uid="uid://cu8fl3v3n4717" path="res://Scripts/CameraRig.gd" id="2_camrig"]
 [ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_unit"]
 [ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="4_squad"]
 [ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="5_playersquad"]
+[ext_resource type="Script" path="res://Scripts/Combat/CombatGrid.gd" id="6_combatgrid"]
+[ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="7_highlights"]
+[ext_resource type="Script" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
+[ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
+[ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="10_actionbar"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
 radius = 0.5
@@ -117,8 +122,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
 
+[node name="CombatGrid" type="Node" parent="." unique_id=1000019]
+script = ExtResource("6_combatgrid")
+
+[node name="TileHighlights" type="MultiMeshInstance3D" parent="." unique_id=1000020]
+script = ExtResource("7_highlights")
+
 [node name="PlayerSquad" type="Node" parent="." unique_id=1000018]
 script = ExtResource("5_playersquad")
+
+[node name="ActionController" type="Node" parent="." unique_id=1000021]
+script = ExtResource("8_actions")
+
+[node name="Move" type="Node" parent="ActionController" unique_id=1000022]
+script = ExtResource("9_move")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
@@ -133,3 +150,16 @@ offset_bottom = -16.0
 grow_vertical = 0
 theme_override_constants/separation = 8
 script = ExtResource("4_squad")
+
+[node name="ActionBar" type="HBoxContainer" parent="HUD" unique_id=1000023]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+script = ExtResource("10_actionbar")
