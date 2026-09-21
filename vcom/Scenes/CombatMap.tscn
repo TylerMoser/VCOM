@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://uxu0hdwgskq0"]
+[gd_scene load_steps=15 format=3 uid="uid://uxu0hdwgskq0"]
 
 [ext_resource type="MeshLibrary" uid="uid://cfo22uhygckag" path="res://Blocks/BlockLibrary.tres" id="1_ncftf"]
 [ext_resource type="Script" uid="uid://cu8fl3v3n4717" path="res://Scripts/CameraRig.gd" id="2_camrig"]
 [ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_unit"]
 [ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="4_squad"]
+[ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="5_playersquad"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
 radius = 0.5
@@ -115,6 +116,9 @@ display_name = "Enemy 1"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
+
+[node name="PlayerSquad" type="Node" parent="." unique_id=1000018]
+script = ExtResource("5_playersquad")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 

@@ -9,6 +9,10 @@ extends Node3D
 signal health_changed(health: int, max_health: int)
 signal actions_changed(remaining: int, per_turn: int)
 
+## Physics layer holding the bodies that mouse clicks on units are tested
+## against. Nothing collides with it, so it never affects movement.
+const PICK_LAYER := 1 << 1
+
 @export var display_name := "Unit"
 @export var max_health := 10
 @export var actions_per_turn := 3
@@ -37,6 +41,7 @@ var color: Color:
 func _ready() -> void:
 	health = max_health
 	actions_remaining = actions_per_turn
+	_add_pick_body()
 
 
 ## Refills the action budget at the start of this unit's turn.
@@ -51,3 +56,21 @@ func spend_actions(cost: int = 1) -> bool:
 		return false
 	actions_remaining -= cost
 	return true
+
+
+## Gives the unit a clickable body shaped like its Mesh child.
+func _add_pick_body() -> void:
+	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
+	if mesh == null or mesh.mesh == null:
+		return
+
+	var shape := CollisionShape3D.new()
+	shape.shape = mesh.mesh.create_convex_shape()
+
+	var body := StaticBody3D.new()
+	body.name = &"PickBody"
+	body.collision_layer = PICK_LAYER
+	body.collision_mask = 0
+	body.transform = mesh.transform
+	body.add_child(shape)
+	add_child(body)
