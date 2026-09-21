@@ -1,7 +1,7 @@
-[gd_resource type="MeshLibrary" format=3]
+[gd_resource type="MeshLibrary" format=3 uid="uid://cfo22uhygckag"]
 
-[ext_resource type="ArrayMesh" path="res://Blocks/BrightGrass1.vox" id="1_80hp8"]
-[ext_resource type="ArrayMesh" path="res://Blocks/BrightCrate1.vox" id="2_53jod"]
+[ext_resource type="ArrayMesh" uid="uid://b32tejrd82h2l" path="res://Blocks/BrightGrass1.vox" id="1_80hp8"]
+[ext_resource type="ArrayMesh" uid="uid://bii7daxc74i0m" path="res://Blocks/BrightCrate1.vox" id="2_53jod"]
 
 [resource]
 item/0/name = "BrightGrass1"
