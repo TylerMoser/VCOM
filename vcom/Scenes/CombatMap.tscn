@@ -9,10 +9,12 @@
 [ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="7_highlights"]
 [ext_resource type="Script" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
 [ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
+[ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="9_shoot"]
 [ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="10_actionbar"]
 [ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_turns"]
 [ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="12_banner"]
 [ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="13_endturn"]
+[ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="14_shotoverlay"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
 radius = 0.5
@@ -140,10 +142,21 @@ script = ExtResource("8_actions")
 [node name="Move" type="Node" parent="ActionController" unique_id=1000022]
 script = ExtResource("9_move")
 
+[node name="Shoot" type="Node" parent="ActionController" unique_id=1000027]
+script = ExtResource("9_shoot")
+
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_turns")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
+
+[node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_shotoverlay")
 
 [node name="SquadPanel" type="HBoxContainer" parent="HUD" unique_id=1000017]
 anchors_preset = 2

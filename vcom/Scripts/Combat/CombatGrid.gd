@@ -12,6 +12,9 @@ extends Node
 const UNIT_HEIGHT := 2
 const MAX_CLIMB := 1
 const MAX_DROP := 2
+## How close two cell boundaries must be for [method is_line_clear] to treat
+## a sight line as crossing both at once, rather than one and then the other.
+const BOUNDARY_EPSILON := 1e-6
 
 const DIRECTIONS: Array[Vector2i] = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
@@ -62,6 +65,11 @@ func is_tile(cell: Vector3i) -> bool:
 		if is_solid(cell + Vector3i.UP * height):
 			return false
 	return true
+
+
+## World position of the centre of [param cell].
+func cell_center(cell: Vector3i) -> Vector3:
+	return _grid.to_global(_grid.map_to_local(cell))
 
 
 ## World position of the floor at the centre of [param tile].
@@ -119,6 +127,43 @@ func find_reachable(start: Vector3i, max_steps: int, blocked: Dictionary = {}) -
 			reach.came_from[next] = tile
 			frontier.append(next)
 	return reach
+
+
+## Whether nothing solid stands between the centres of cells [param from] and
+## [param to]. Neither end is tested, so the cells a unit fills never block
+## its own sight line.
+##
+## Where the line crosses two cell boundaries at once - what a shot straight
+## down a diagonal does - it cuts the corner instead of clipping the cells to
+## either side. Sight lines are therefore permissive where [method neighbours]
+## is strict: a unit can see through a diagonal gap it cannot walk through.
+func is_line_clear(from: Vector3i, to: Vector3i) -> bool:
+	var direction := Vector3(to - from)
+	var cell := from
+	var step := Vector3i.ZERO
+	# Distance along the line, as a fraction of its length, to the next cell
+	# boundary on each axis and to every one after that. Both ends sit at a
+	# cell centre, so the first boundary is half a cell away.
+	var next_cross := Vector3(INF, INF, INF)
+	var cross_spacing := Vector3(INF, INF, INF)
+	for axis in 3:
+		if is_zero_approx(direction[axis]):
+			continue
+		step[axis] = int(signf(direction[axis]))
+		next_cross[axis] = 0.5 / absf(direction[axis])
+		cross_spacing[axis] = 1.0 / absf(direction[axis])
+
+	while cell != to:
+		var crossing: float = next_cross[next_cross.min_axis_index()]
+		if crossing > 1.0:
+			break
+		for axis in 3:
+			if next_cross[axis] <= crossing + BOUNDARY_EPSILON:
+				cell[axis] += step[axis]
+				next_cross[axis] += cross_spacing[axis]
+		if cell != to and is_solid(cell):
+			return false
+	return true
 
 
 ## The tile whose floor a ray first lands on, or null if the ray hits the side

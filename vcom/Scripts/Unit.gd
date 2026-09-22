@@ -20,6 +20,8 @@ const GROUP := &"units"
 @export var actions_per_turn := 3
 ## Tiles the unit can walk for each action point spent moving.
 @export var move_range := 4
+## How far the unit can see, and so shoot, in tiles.
+@export var sight_range := 20
 
 var health := 0:
 	set(value):
