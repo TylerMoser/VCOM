@@ -106,9 +106,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		# the window size.
 		var motion := (event as InputEventMouseMotion).screen_relative
 		_yaw -= motion.x * drag_rotate_speed
-		# Dragging up orbits the camera up, toward a more top-down view.
+		# Dragging down orbits the camera up, toward a more top-down view.
 		_pitch_offset = clampf(
-			_pitch_offset - motion.y * drag_rotate_speed,
+			_pitch_offset + motion.y * drag_rotate_speed,
 			-free_pitch_range,
 			free_pitch_range,
 		)
