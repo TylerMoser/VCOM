@@ -34,5 +34,5 @@ func _on_button_pressed(action: UnitAction) -> void:
 func _refresh() -> void:
 	var unit := _controller.squad.selected
 	for button: ActionButton in get_children():
-		button.available = unit != null and button.action.is_available(unit)
+		button.available = _controller.enabled and unit != null and button.action.is_available(unit)
 		button.active = button.action == _controller.active

@@ -1,10 +1,11 @@
 ## Runs the selected unit's actions: which one is active, the map input it
-## receives, and the white marker under the selected unit.
+## receives, and the white marker under the selected unit. Disabled outside
+## the player's turn.
 ##
 ## The action children are the actions offered on the action bar. The first
 ## one is made active whenever a unit is selected.
 ##
-##   Execute - right-click, e.g. on a highlighted tile to move there.
+##   Execute - right-click; e.g. hold to preview a move, release to go.
 ##   Cancel  - Esc puts the active action away.
 class_name ActionController
 extends Node
@@ -32,8 +33,22 @@ var active: UnitAction
 var busy := false:
 	set(value):
 		busy = value
-		squad.locked = busy
-		_mark_selected_tile()
+		_update_lock()
+
+## False while it is not the player's turn: no action is active, and
+## selection and action input are ignored. Re-enabling activates the
+## default action again.
+var enabled := true:
+	set(value):
+		if enabled == value:
+			return
+		if not value:
+			deactivate()
+		enabled = value
+		_update_lock()
+		if enabled:
+			_activate_default()
+		changed.emit()
 
 
 func _ready() -> void:
@@ -58,17 +73,18 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if busy or active == null:
+	if busy or not enabled or active == null:
 		return
-	if event.is_action_pressed(&"cancel_action"):
-		deactivate()
-		get_viewport().set_input_as_handled()
-		return
-	# Clicking a squad member selects it; PlayerSquad handles that.
-	if event is InputEventMouseButton:
+	# Left-clicking a squad member selects it; PlayerSquad handles that.
+	if event.is_action_pressed(&"select_unit") and event is InputEventMouseButton:
 		if squad.unit_at((event as InputEventMouseButton).position) in squad.members:
 			return
+	# The action sees Esc first, so it can back out of a step in progress,
+	# such as a path preview, before Esc puts the whole action away.
 	if active.handle_input(event):
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"cancel_action"):
+		deactivate()
 		get_viewport().set_input_as_handled()
 
 
@@ -76,7 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 ## available to that unit.
 func activate(action: UnitAction) -> void:
 	var unit := squad.selected
-	if busy or unit == null or action == active or not action.is_available(unit):
+	if busy or not enabled or unit == null or action == active or not action.is_available(unit):
 		return
 	if active != null:
 		active.end()
@@ -93,15 +109,6 @@ func deactivate() -> void:
 	changed.emit()
 
 
-## Tiles standing units occupy, except [param except]'s own, as a set.
-func occupied_tiles(except: Unit = null) -> Dictionary:
-	var tiles := {}
-	for node in get_tree().get_nodes_in_group(Unit.GROUP):
-		if node != except:
-			tiles[grid.tile_at((node as Unit).global_position)] = true
-	return tiles
-
-
 ## The tile whose floor is under [param screen_position], or null.
 func tile_under_cursor(screen_position: Vector2) -> Variant:
 	var camera := get_viewport().get_camera_3d()
@@ -115,8 +122,7 @@ func tile_under_cursor(screen_position: Vector2) -> Variant:
 func _on_selection_changed(unit: Unit) -> void:
 	deactivate()
 	_mark_selected_tile()
-	if unit != null and not actions.is_empty():
-		activate(actions[0])
+	_activate_default()
 	changed.emit()
 
 
@@ -132,9 +138,19 @@ func _on_action_completed() -> void:
 	changed.emit()
 
 
+func _activate_default() -> void:
+	if squad.selected != null and not actions.is_empty():
+		activate(actions[0])
+
+
+func _update_lock() -> void:
+	squad.locked = busy or not enabled
+	_mark_selected_tile()
+
+
 func _mark_selected_tile() -> void:
 	var unit := squad.selected
-	if unit == null or busy:
+	if unit == null or busy or not enabled:
 		highlights.clear_layer(SELECTED_LAYER)
 	else:
 		highlights.set_layer(SELECTED_LAYER, {grid.tile_at(unit.global_position): SELECTED_COLOR})

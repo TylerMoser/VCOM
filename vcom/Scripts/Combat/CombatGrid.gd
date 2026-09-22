@@ -76,6 +76,15 @@ func tile_at(world_position: Vector3) -> Vector3i:
 	return _grid.local_to_map(lifted)
 
 
+## Tiles standing units occupy, except [param except]'s own, as a set.
+func occupied_tiles(except: Unit = null) -> Dictionary:
+	var tiles := {}
+	for node in get_tree().get_nodes_in_group(Unit.GROUP):
+		if node != except:
+			tiles[tile_at((node as Unit).global_position)] = true
+	return tiles
+
+
 ## Tiles one step away from [param tile].
 func neighbours(tile: Vector3i) -> Array[Vector3i]:
 	var result: Array[Vector3i] = []

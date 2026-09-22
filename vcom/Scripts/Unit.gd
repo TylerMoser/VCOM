@@ -63,6 +63,17 @@ func spend_actions(cost: int = 1) -> bool:
 	return true
 
 
+## Walks through [param points] in order, taking [param seconds_per_step]
+## for each. Await it to wait until the unit arrives.
+func walk(points: Array[Vector3], seconds_per_step: float) -> void:
+	if points.is_empty():
+		return
+	var tween := create_tween()
+	for point in points:
+		tween.tween_property(self, ^"global_position", point, seconds_per_step)
+	await tween.finished
+
+
 ## Gives the unit a clickable body shaped like its Mesh child.
 func _add_pick_body() -> void:
 	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D

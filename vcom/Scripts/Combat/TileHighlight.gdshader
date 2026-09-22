@@ -1,12 +1,17 @@
 // Flat tile marker: a translucent fill with a solid border, tinted by the
-// MultiMesh instance colour.
+// MultiMesh instance colour. INSTANCE_CUSTOM.r is the fill's opacity.
 shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_never;
 
-uniform float fill_alpha : hint_range(0.0, 1.0) = 0.55;
 uniform float border_alpha : hint_range(0.0, 1.0) = 0.95;
 // Border thickness as a fraction of the square's width.
 uniform float border_width : hint_range(0.0, 0.5) = 0.09;
+
+varying float fill_alpha;
+
+void vertex() {
+	fill_alpha = INSTANCE_CUSTOM.r;
+}
 
 void fragment() {
 	vec2 from_center = abs(UV - 0.5) * 2.0;
