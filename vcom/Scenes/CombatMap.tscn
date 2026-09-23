@@ -1,27 +1,37 @@
-[gd_scene load_steps=26 format=3 uid="uid://uxu0hdwgskq0"]
+[gd_scene format=3 uid="uid://uxu0hdwgskq0"]
 
 [ext_resource type="MeshLibrary" uid="uid://cfo22uhygckag" path="res://Blocks/BlockLibrary.tres" id="1_ncftf"]
 [ext_resource type="Script" uid="uid://cu8fl3v3n4717" path="res://Scripts/CameraRig.gd" id="2_camrig"]
-[ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_unit"]
-[ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="4_squad"]
-[ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="5_playersquad"]
-[ext_resource type="Script" path="res://Scripts/Combat/CombatGrid.gd" id="6_combatgrid"]
-[ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="7_highlights"]
-[ext_resource type="Script" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
-[ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
-[ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="9_shoot"]
-[ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="10_actionbar"]
-[ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_turns"]
-[ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="12_banner"]
-[ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="13_endturn"]
-[ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="14_shotoverlay"]
+[ext_resource type="Script" uid="uid://bci1llum4d32l" path="res://Scripts/Unit.gd" id="3_unit"]
+[ext_resource type="Script" uid="uid://bpodq4lcjyqhx" path="res://Scripts/UI/SquadPanel.gd" id="4_squad"]
+[ext_resource type="Script" uid="uid://fqwua6qridap" path="res://Scripts/PlayerSquad.gd" id="5_playersquad"]
+[ext_resource type="Script" uid="uid://jy3wo1avod6c" path="res://Scripts/Combat/CombatGrid.gd" id="6_combatgrid"]
+[ext_resource type="Script" uid="uid://3vbrdug4wc10" path="res://Scripts/Combat/TileHighlights.gd" id="7_highlights"]
+[ext_resource type="Script" uid="uid://dxpofg7eiy3qu" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
+[ext_resource type="Script" uid="uid://dnyie85ub5gul" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
+[ext_resource type="Script" uid="uid://bchyfnuhaufwp" path="res://Scripts/Actions/ShootAction.gd" id="9_shoot"]
+[ext_resource type="Script" uid="uid://cvit6k1o8lx0b" path="res://Scripts/UI/ActionBar.gd" id="10_actionbar"]
+[ext_resource type="Script" uid="uid://buqpwf57t4422" path="res://Scripts/TurnManager.gd" id="11_turns"]
+[ext_resource type="Script" uid="uid://dhl74vbchi0oa" path="res://Scripts/UI/TurnBanner.gd" id="12_banner"]
+[ext_resource type="Script" uid="uid://0idaq4j8ybgl" path="res://Scripts/UI/EndTurnPrompt.gd" id="13_endturn"]
+[ext_resource type="Script" uid="uid://bja5100blo2t5" path="res://Scripts/UI/ShotOverlay.gd" id="14_shotoverlay"]
 [ext_resource type="Resource" path="res://Resources/Rifle.tres" id="15_rifle"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+
+[sub_resource type="Sky" id="Sky_world"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_world"]
+background_mode = 1
+background_color = Color(0.08, 0.09, 0.12, 1)
+sky = SubResource("Sky_world")
+ambient_light_source = 3
+ambient_light_energy = 0.45
+tonemap_mode = 2
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
-radius = 0.5
-height = 2.0
 radial_segments = 16
-rings = 8
 
 [sub_resource type="StandardMaterial3D" id="Mat_player1"]
 albedo_color = Color(0.2, 0.45, 0.9, 1)
@@ -37,19 +47,6 @@ albedo_color = Color(0.6, 0.35, 0.85, 1)
 
 [sub_resource type="StandardMaterial3D" id="Mat_enemy1"]
 albedo_color = Color(0.85, 0.15, 0.15, 1)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
-
-[sub_resource type="Sky" id="Sky_world"]
-sky_material = SubResource("ProceduralSkyMaterial_sky")
-
-[sub_resource type="Environment" id="Environment_world"]
-background_mode = 1
-background_color = Color(0.08, 0.09, 0.12, 1)
-sky = SubResource("Sky_world")
-ambient_light_source = 3
-ambient_light_energy = 0.45
-tonemap_mode = 2
 
 [node name="CombatMap" type="Node3D" unique_id=1134767484]
 
@@ -78,7 +75,7 @@ current = true
 
 [node name="Units" type="Node3D" parent="." unique_id=1000005]
 
-[node name="Player1" type="Node3D" parent="Units" groups=["players"] unique_id=1000006]
+[node name="Player1" type="Node3D" parent="Units" unique_id=1000006 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 1"
@@ -89,7 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_player1")
 
-[node name="Player2" type="Node3D" parent="Units" groups=["players"] unique_id=1000008]
+[node name="Player2" type="Node3D" parent="Units" unique_id=1000008 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 2"
@@ -100,7 +97,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_player2")
 
-[node name="Player3" type="Node3D" parent="Units" groups=["players"] unique_id=1000010]
+[node name="Player3" type="Node3D" parent="Units" unique_id=1000010 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 3"
@@ -111,7 +108,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_player3")
 
-[node name="Player4" type="Node3D" parent="Units" groups=["players"] unique_id=1000012]
+[node name="Player4" type="Node3D" parent="Units" unique_id=1000012 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 4"
@@ -122,7 +119,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_player4")
 
-[node name="Enemy1" type="Node3D" parent="Units" groups=["enemies"] unique_id=1000014]
+[node name="Enemy1" type="Node3D" parent="Units" unique_id=1000014 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1, -18.5)
 script = ExtResource("3_unit")
 display_name = "Enemy 1"
@@ -157,6 +154,7 @@ script = ExtResource("11_turns")
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
 [node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
