@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://uxu0hdwgskq0"]
+[gd_scene load_steps=26 format=3 uid="uid://uxu0hdwgskq0"]
 
 [ext_resource type="MeshLibrary" uid="uid://cfo22uhygckag" path="res://Blocks/BlockLibrary.tres" id="1_ncftf"]
 [ext_resource type="Script" uid="uid://cu8fl3v3n4717" path="res://Scripts/CameraRig.gd" id="2_camrig"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="12_banner"]
 [ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="13_endturn"]
 [ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="14_shotoverlay"]
+[ext_resource type="Resource" path="res://Resources/Rifle.tres" id="15_rifle"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
 radius = 0.5
@@ -81,6 +82,7 @@ current = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 1"
+weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player1" unique_id=1000007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -91,6 +93,7 @@ surface_material_override/0 = SubResource("Mat_player1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 2"
+weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player2" unique_id=1000009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -101,6 +104,7 @@ surface_material_override/0 = SubResource("Mat_player2")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 3"
+weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player3" unique_id=1000011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -111,6 +115,7 @@ surface_material_override/0 = SubResource("Mat_player3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
 script = ExtResource("3_unit")
 display_name = "Player 4"
+weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player4" unique_id=1000013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -121,6 +126,7 @@ surface_material_override/0 = SubResource("Mat_player4")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1, -18.5)
 script = ExtResource("3_unit")
 display_name = "Enemy 1"
+weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

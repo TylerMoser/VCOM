@@ -22,6 +22,8 @@ const GROUP := &"units"
 @export var move_range := 4
 ## How far the unit can see, and so shoot, in tiles.
 @export var sight_range := 20
+## The gun this unit shoots with. A plain rifle if the scene leaves it unset.
+@export var weapon: Weapon
 
 var health := 0:
 	set(value):
@@ -48,6 +50,8 @@ func _ready() -> void:
 	add_to_group(GROUP)
 	health = max_health
 	actions_remaining = actions_per_turn
+	if weapon == null:
+		weapon = Weapon.new()
 	_add_pick_body()
 
 
@@ -63,6 +67,23 @@ func spend_actions(cost: int = 1) -> bool:
 		return false
 	actions_remaining -= cost
 	return true
+
+
+## Takes [param amount] off the unit's health, and takes the unit off the map
+## if that finishes it.
+func take_damage(amount: int) -> void:
+	health -= amount
+	if health <= 0:
+		die()
+
+
+## Removes the unit from play. It leaves its groups at once rather than when
+## the node is freed, so nothing shoots at it or walks around it in the
+## meantime.
+func die() -> void:
+	for group in get_groups():
+		remove_from_group(group)
+	queue_free()
 
 
 ## Walks through [param points] in order, taking [param seconds_per_step]

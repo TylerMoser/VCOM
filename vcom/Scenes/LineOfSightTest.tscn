@@ -1,20 +1,21 @@
 [gd_scene format=3]
 
-[ext_resource type="MeshLibrary" path="res://Blocks/BlockLibrary.tres" id="1_7b4cm"]
-[ext_resource type="Script" path="res://Scripts/CameraRig.gd" id="2_gc7j8"]
-[ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_nnhpu"]
-[ext_resource type="Script" path="res://Scripts/Combat/CombatGrid.gd" id="4_lmc1s"]
-[ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="5_oi31o"]
-[ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="6_r3fgy"]
-[ext_resource type="Script" path="res://Scripts/Actions/ActionController.gd" id="7_8g5p0"]
-[ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="8_m35po"]
-[ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="9_h6jhn"]
-[ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="10_56d5i"]
-[ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="11_nxduy"]
-[ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="12_yna0a"]
-[ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="13_i4fiv"]
-[ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="14_78qxd"]
-[ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="15_o3xbv"]
+[ext_resource type="MeshLibrary" path="res://Blocks/BlockLibrary.tres" id="1_gc7j8"]
+[ext_resource type="Script" path="res://Scripts/CameraRig.gd" id="2_nnhpu"]
+[ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_lmc1s"]
+[ext_resource type="Resource" path="res://Resources/Rifle.tres" id="4_oi31o"]
+[ext_resource type="Script" path="res://Scripts/Combat/CombatGrid.gd" id="5_r3fgy"]
+[ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="6_8g5p0"]
+[ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="7_m35po"]
+[ext_resource type="Script" path="res://Scripts/Actions/ActionController.gd" id="8_h6jhn"]
+[ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="9_56d5i"]
+[ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="10_nxduy"]
+[ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_yna0a"]
+[ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="12_i4fiv"]
+[ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="13_78qxd"]
+[ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="14_o3xbv"]
+[ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="15_54i4f"]
+[ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="16_hkwoe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -47,7 +48,7 @@ albedo_color = Color(0.6, 0.35, 0.85, 1)
 [sub_resource type="StandardMaterial3D" id="Mat_enemy1"]
 albedo_color = Color(0.85, 0.15, 0.15, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_54i4f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5rf8"]
 content_margin_left = 48.0
 content_margin_top = 10.0
 content_margin_right = 48.0
@@ -60,7 +61,7 @@ border_color = Color(1, 0.9, 0.55, 1)
 [node name="LineOfSightTest" type="Node3D" unique_id=1134767484]
 
 [node name="GridMap" type="GridMap" parent="." unique_id=814540756]
-mesh_library = ExtResource("1_7b4cm")
+mesh_library = ExtResource("1_gc7j8")
 cell_size = Vector3(1, 1, 1)
 data = {
 "cells": PackedInt32Array(0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 1, 65520, 0, 1, 65521, 0, 1, 65522, 0, 1, 65523, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65527, 0, 1, 65528, 0, 1, 65529, 0, 1, 65530, 0, 1, 65531, 0, 1, 65532, 0, 1, 65533, 0, 1, 65534, 0, 1, 65535, 0, 2, 65520, 0, 2, 65521, 0, 2, 65522, 0, 2, 65523, 0, 2, 65524, 0, 2, 65525, 0, 2, 65526, 0, 2, 65527, 0, 2, 65528, 0, 2, 65529, 0, 2, 65530, 0, 2, 65531, 0, 2, 65532, 0, 2, 65533, 0, 2, 65534, 0, 2, 65535, 0, 3, 65520, 0, 3, 65521, 0, 3, 65522, 0, 3, 65523, 0, 3, 65524, 0, 3, 65525, 0, 3, 65526, 0, 3, 65527, 0, 3, 65528, 0, 3, 65529, 0, 3, 65530, 0, 3, 65531, 0, 3, 65532, 0, 3, 65533, 0, 3, 65534, 0, 3, 65535, 0, 4, 65520, 0, 4, 65521, 0, 4, 65522, 0, 4, 65523, 0, 4, 65524, 0, 4, 65525, 0, 4, 65526, 0, 4, 65527, 0, 4, 65528, 0, 4, 65529, 0, 4, 65530, 0, 4, 65531, 0, 4, 65532, 0, 4, 65533, 0, 4, 65534, 0, 4, 65535, 0, 5, 65520, 0, 5, 65521, 0, 5, 65522, 0, 5, 65523, 0, 5, 65524, 0, 5, 65525, 0, 5, 65526, 0, 5, 65527, 0, 5, 65528, 0, 5, 65529, 0, 5, 65530, 0, 5, 65531, 0, 5, 65532, 0, 5, 65533, 0, 5, 65534, 0, 5, 65535, 0, 6, 65520, 0, 6, 65521, 0, 6, 65522, 0, 6, 65523, 0, 6, 65524, 0, 6, 65525, 0, 6, 65526, 0, 6, 65527, 0, 6, 65528, 0, 6, 65529, 0, 6, 65530, 0, 6, 65531, 0, 6, 65532, 0, 6, 65533, 0, 6, 65534, 0, 6, 65535, 0, 7, 65520, 0, 7, 65521, 0, 7, 65522, 0, 7, 65523, 0, 7, 65524, 0, 7, 65525, 0, 7, 65526, 0, 7, 65527, 0, 7, 65528, 0, 7, 65529, 0, 7, 65530, 0, 7, 65531, 0, 7, 65532, 0, 7, 65533, 0, 7, 65534, 0, 7, 65535, 0, 8, 65520, 0, 8, 65521, 0, 8, 65522, 0, 8, 65523, 0, 8, 65524, 0, 8, 65525, 0, 8, 65526, 0, 8, 65527, 0, 8, 65528, 0, 8, 65529, 0, 8, 65530, 0, 8, 65531, 0, 8, 65532, 0, 8, 65533, 0, 8, 65534, 0, 8, 65535, 0, 9, 65520, 0, 9, 65521, 0, 9, 65522, 0, 9, 65523, 0, 9, 65524, 0, 9, 65525, 0, 9, 65526, 0, 9, 65527, 0, 9, 65528, 0, 9, 65529, 0, 9, 65530, 0, 9, 65531, 0, 9, 65532, 0, 9, 65533, 0, 9, 65534, 0, 9, 65535, 0, 10, 65520, 0, 10, 65521, 0, 10, 65522, 0, 10, 65523, 0, 10, 65524, 0, 10, 65525, 0, 10, 65526, 0, 10, 65527, 0, 10, 65528, 0, 10, 65529, 0, 10, 65530, 0, 10, 65531, 0, 10, 65532, 0, 10, 65533, 0, 10, 65534, 0, 10, 65535, 0, 11, 65520, 0, 11, 65521, 0, 11, 65522, 0, 11, 65523, 0, 11, 65524, 0, 11, 65525, 0, 11, 65526, 0, 11, 65527, 0, 11, 65528, 0, 11, 65529, 0, 11, 65530, 0, 11, 65531, 0, 11, 65532, 0, 11, 65533, 0, 11, 65534, 0, 11, 65535, 0, 12, 65520, 0, 12, 65521, 0, 12, 65522, 0, 12, 65523, 0, 12, 65524, 0, 12, 65525, 0, 12, 65526, 0, 12, 65527, 0, 12, 65528, 0, 12, 65529, 0, 12, 65530, 0, 12, 65531, 0, 12, 65532, 0, 12, 65533, 0, 12, 65534, 0, 12, 65535, 0, 13, 65520, 0, 13, 65521, 0, 13, 65522, 0, 13, 65523, 0, 13, 65524, 0, 13, 65525, 0, 13, 65526, 0, 13, 65527, 0, 13, 65528, 0, 13, 65529, 0, 13, 65530, 0, 13, 65531, 0, 13, 65532, 0, 13, 65533, 0, 13, 65534, 0, 13, 65535, 0, 14, 65520, 0, 14, 65521, 0, 14, 65522, 0, 14, 65523, 0, 14, 65524, 0, 14, 65525, 0, 14, 65526, 0, 14, 65527, 0, 14, 65528, 0, 14, 65529, 0, 14, 65530, 0, 14, 65531, 0, 14, 65532, 0, 14, 65533, 0, 14, 65534, 0, 14, 65535, 0, 15, 65520, 0, 15, 65521, 0, 15, 65522, 0, 15, 65523, 0, 15, 65524, 0, 15, 65525, 0, 15, 65526, 0, 15, 65527, 0, 15, 65528, 0, 15, 65529, 0, 15, 65530, 0, 15, 65531, 0, 15, 65532, 0, 15, 65533, 0, 15, 65534, 0, 15, 65535, 0, 65539, 65530, 1, 65548, 65530, 1, 65539, 65526, 0, 131075, 65526, 0, 65539, 65522, 0, 131075, 65522, 0, 65539, 65521, 0, 131075, 65521, 0, 65539, 65520, 0, 131075, 65520, 0)
@@ -76,7 +77,7 @@ shadow_enabled = true
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=1000003]
 transform = Transform3D(1, 0, 0, 0, 0.8090171, 0.58778524, 0, -0.5877853, 0.809017, 7.5, 1, -8.5)
-script = ExtResource("2_gc7j8")
+script = ExtResource("2_nnhpu")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=1000004]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
@@ -86,8 +87,9 @@ current = true
 
 [node name="Player1" type="Node3D" parent="Units" unique_id=1000006 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -1.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Player 1"
+weapon = ExtResource("4_oi31o")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player1" unique_id=1000007]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -96,8 +98,9 @@ surface_material_override/0 = SubResource("Mat_player1")
 
 [node name="Player2" type="Node3D" parent="Units" unique_id=1000008 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -5.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Player 2"
+weapon = ExtResource("4_oi31o")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player2" unique_id=1000009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -106,8 +109,9 @@ surface_material_override/0 = SubResource("Mat_player2")
 
 [node name="Player3" type="Node3D" parent="Units" unique_id=1000010 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -9.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Player 3"
+weapon = ExtResource("4_oi31o")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player3" unique_id=1000011]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -116,8 +120,9 @@ surface_material_override/0 = SubResource("Mat_player3")
 
 [node name="Player4" type="Node3D" parent="Units" unique_id=1000012 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -13.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Player 4"
+weapon = ExtResource("4_oi31o")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player4" unique_id=1000013]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -126,66 +131,70 @@ surface_material_override/0 = SubResource("Mat_player4")
 
 [node name="Enemy1" type="Node3D" parent="Units" unique_id=1000014 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Enemy 1"
+weapon = ExtResource("4_oi31o")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
 
-[node name="Enemy2" type="Node3D" parent="Units" unique_id=443595129 groups=["enemies"]]
+[node name="Enemy2" type="Node3D" parent="Units" unique_id=785553263 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -5.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Enemy 2"
+weapon = ExtResource("4_oi31o")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy2" unique_id=1534650871]
+[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy2" unique_id=201404884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
 
-[node name="Enemy3" type="Node3D" parent="Units" unique_id=1334514605 groups=["enemies"]]
+[node name="Enemy3" type="Node3D" parent="Units" unique_id=191545739 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -9.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Enemy 3"
+weapon = ExtResource("4_oi31o")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy3" unique_id=1870835911]
+[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy3" unique_id=563326909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
 
-[node name="Enemy4" type="Node3D" parent="Units" unique_id=1863256063 groups=["enemies"]]
+[node name="Enemy4" type="Node3D" parent="Units" unique_id=1004613480 groups=["enemies"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -13.5)
-script = ExtResource("3_nnhpu")
+script = ExtResource("3_lmc1s")
 display_name = "Enemy 4"
+weapon = ExtResource("4_oi31o")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy4" unique_id=1998877834]
+[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy4" unique_id=1428542244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_unit")
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="CombatGrid" type="Node" parent="." unique_id=1000019]
-script = ExtResource("4_lmc1s")
+script = ExtResource("5_r3fgy")
 
 [node name="TileHighlights" type="MultiMeshInstance3D" parent="." unique_id=1000020]
-script = ExtResource("5_oi31o")
+script = ExtResource("6_8g5p0")
 
 [node name="PlayerSquad" type="Node" parent="." unique_id=1000018]
-script = ExtResource("6_r3fgy")
+script = ExtResource("7_m35po")
 
 [node name="ActionController" type="Node" parent="." unique_id=1000021]
-script = ExtResource("7_8g5p0")
+script = ExtResource("8_h6jhn")
 
 [node name="Move" type="Node" parent="ActionController" unique_id=1000022]
-script = ExtResource("8_m35po")
+script = ExtResource("9_56d5i")
 display_name = "Move"
 
 [node name="Shoot" type="Node" parent="ActionController" unique_id=1000027]
-script = ExtResource("9_h6jhn")
+script = ExtResource("10_nxduy")
 display_name = "Shoot"
 
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
-script = ExtResource("10_56d5i")
+script = ExtResource("11_yna0a")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
@@ -198,7 +207,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("11_nxduy")
+script = ExtResource("12_i4fiv")
 
 [node name="SquadPanel" type="HBoxContainer" parent="HUD" unique_id=1000017]
 anchors_preset = 2
@@ -210,7 +219,7 @@ offset_right = 16.0
 offset_bottom = -16.0
 grow_vertical = 0
 theme_override_constants/separation = 8
-script = ExtResource("12_yna0a")
+script = ExtResource("13_78qxd")
 
 [node name="ActionBar" type="HBoxContainer" parent="HUD" unique_id=1000023]
 anchors_preset = 7
@@ -223,7 +232,7 @@ offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
-script = ExtResource("13_i4fiv")
+script = ExtResource("14_o3xbv")
 
 [node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
 anchors_preset = 7
@@ -235,7 +244,7 @@ offset_top = -96.0
 offset_bottom = -96.0
 grow_horizontal = 2
 grow_vertical = 0
-script = ExtResource("14_78qxd")
+script = ExtResource("15_54i4f")
 
 [node name="TurnBanner" type="PanelContainer" parent="HUD" unique_id=1000026]
 modulate = Color(1, 1, 1, 0)
@@ -246,5 +255,5 @@ offset_top = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_54i4f")
-script = ExtResource("15_o3xbv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_n5rf8")
+script = ExtResource("16_hkwoe")

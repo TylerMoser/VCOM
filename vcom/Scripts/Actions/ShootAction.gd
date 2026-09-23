@@ -6,9 +6,11 @@
 ## panel all follow the target.
 ##
 ##   Cycle targets - Tab, or Shift+Tab to go back.
+##   Fire          - Enter or Space.
 ##
-## Pulling the trigger is not wired up yet: this is the targeting interface
-## only, and for now every shot is meant to hit.
+## A shot that needs a step out plays it: the unit leans out to the tile it
+## found the shot from, fires, and settles back into its cover. The shot
+## itself is instant, and for now it always hits.
 class_name ShootAction
 extends UnitAction
 
@@ -18,6 +20,8 @@ const COST := 1
 const STEP_OUT_LAYER := &"shoot_step_out"
 const STEP_OUT_COLOR := Color(1.0, 0.45, 0.35)
 
+## Seconds the unit takes to lean out of cover, and to settle back in.
+@export var step_out_seconds := 0.15
 @export var enemy_group := &"enemies"
 @export var overlay_path: NodePath = ^"../../HUD/ShotOverlay"
 
@@ -53,9 +57,7 @@ func end() -> void:
 	_unit = null
 	_shots.clear()
 	_index = 0
-	controller.highlights.clear_layer(STEP_OUT_LAYER)
-	if _overlay != null:
-		_overlay.clear()
+	_clear_aim()
 
 
 func handle_input(event: InputEvent) -> bool:
@@ -68,6 +70,8 @@ func handle_input(event: InputEvent) -> bool:
 		_cycle(-1)
 	elif event.is_action_pressed(&"next_target"):
 		_cycle(1)
+	elif event.is_action_pressed(&"confirm_action"):
+		_fire()
 	else:
 		return false
 	return true
@@ -76,6 +80,30 @@ func handle_input(event: InputEvent) -> bool:
 ## The shot lined up right now, or null while the unit has no targets.
 func current_shot() -> Variant:
 	return _shots[_index] if not _shots.is_empty() else null
+
+
+## Takes the shot that is lined up: leans out if it needs to, hits, and comes
+## back to cover.
+func _fire() -> void:
+	var shot: Variant = current_shot()
+	if shot == null:
+		return
+	var aimed := shot as LineOfSight.Shot
+	var unit := _unit
+	var cover := unit.global_position
+
+	unit.spend_actions(COST)
+	# Drop the aim before anything moves: the target may be about to leave
+	# the map, and the sight line is drawn from where the unit was.
+	_clear_aim()
+	controller.busy = true
+
+	if aimed.stepped_out:
+		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds)
+	aimed.target.take_damage(unit.weapon.damage)
+	if aimed.stepped_out:
+		await unit.walk([cover], step_out_seconds)
+	completed.emit()
 
 
 func _cycle(step: int) -> void:
@@ -110,3 +138,9 @@ func _show_shot() -> void:
 			grid.cell_center(LineOfSight.eye_cell(aimed.target_tile)),
 			aimed,
 		)
+
+
+func _clear_aim() -> void:
+	controller.highlights.clear_layer(STEP_OUT_LAYER)
+	if _overlay != null:
+		_overlay.clear()
