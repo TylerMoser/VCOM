@@ -78,8 +78,18 @@ func bind(target: Unit) -> void:
 	_portrait.color = unit.color
 	unit.health_changed.connect(_on_health_changed)
 	unit.actions_changed.connect(_on_actions_changed)
+	unit.died.connect(_on_died)
 	_on_health_changed(unit.health, unit.max_health)
 	_on_actions_changed(unit.actions_remaining, unit.actions_per_turn)
+
+
+## The card goes with the unit. It leaves the row at once rather than at the
+## end of the frame, so nothing walking the row meets a card whose unit has
+## been freed.
+func _on_died() -> void:
+	unit = null
+	get_parent().remove_child(self)
+	queue_free()
 
 
 func _update_style() -> void:

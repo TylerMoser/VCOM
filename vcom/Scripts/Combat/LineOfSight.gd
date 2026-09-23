@@ -39,6 +39,10 @@ class Shot:
 	var stepped_out: bool
 	## The cover the target has against this shot.
 	var cover: Cover
+	## True when the target is in cover, but none of it faces this shot.
+	## Catching a target in the open is not flanking it: there was nothing to
+	## get around.
+	var flanked: bool
 	## Distance from [member from] to the target, in tiles.
 	var distance: float
 
@@ -55,15 +59,16 @@ static func eye_cell(tile: Vector3i) -> Vector3i:
 	return tile + Vector3i.UP * EYE_HEIGHT
 
 
-## What to call [param cover] on screen.
-static func cover_name(cover: Cover) -> String:
+## What to call a target's standing on screen: what it is hiding behind, or
+## why it is not.
+static func cover_name(cover: Cover, flanked := false) -> String:
 	match cover:
 		Cover.HIGH:
 			return "Full Cover"
 		Cover.LOW:
 			return "Half Cover"
 		_:
-			return "Flanked"
+			return "Flanked" if flanked else "In the Open"
 
 
 ## The cover on each side of [param tile], as a dictionary of ground
@@ -131,6 +136,7 @@ func find_shot(shooter: Unit, target: Unit) -> Variant:
 		shot.from = from
 		shot.stepped_out = from != shooter_tile
 		shot.cover = cover_against(target_tile, from)
+		shot.flanked = shot.cover == Cover.NONE and not cover_at(target_tile).is_empty()
 		shot.distance = _tile_distance(from, target_tile)
 		return shot
 	return null

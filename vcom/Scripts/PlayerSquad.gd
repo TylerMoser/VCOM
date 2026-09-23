@@ -22,6 +22,7 @@ func _ready() -> void:
 			push_warning("PlayerSquad: '%s' is in '%s' but is not a Unit." % [node.name, unit_group])
 			continue
 		members.append(unit)
+		unit.died.connect(_on_member_died.bind(unit))
 
 	if not members.is_empty():
 		select(members[0])
@@ -51,6 +52,21 @@ func select(unit: Unit) -> void:
 	if locked or unit == selected or unit not in members:
 		return
 	selected = unit
+	selection_changed.emit(selected)
+
+
+## Drops a fallen member and, if it was the one selected, hands the selection
+## to whoever took its place in the line-up.
+func _on_member_died(unit: Unit) -> void:
+	var index := members.find(unit)
+	if index < 0:
+		return
+	members.remove_at(index)
+	if selected != unit:
+		return
+	# The lock stops the player switching units mid-action, and this is not
+	# the player switching: the selection has nowhere to stay.
+	selected = members[index % members.size()] if not members.is_empty() else null
 	selection_changed.emit(selected)
 
 

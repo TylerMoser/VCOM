@@ -8,6 +8,9 @@ extends Node3D
 
 signal health_changed(health: int, max_health: int)
 signal actions_changed(remaining: int, per_turn: int)
+## Emitted as the unit leaves the map, while it is still whole enough to be
+## read from. Whoever was holding on to it should let go.
+signal died
 
 ## Physics layer holding the bodies that mouse clicks on units are tested
 ## against. Nothing collides with it, so it never affects movement.
@@ -24,6 +27,17 @@ const GROUP := &"units"
 @export var sight_range := 20
 ## The gun this unit shoots with. A plain rifle if the scene leaves it unset.
 @export var weapon: Weapon
+
+@export_group("Marksmanship")
+## Chance to hit before anything about the shot is taken into account.
+@export var aim := 90
+## Taken off the chance of anyone shooting at this unit.
+@export var evasion := 0
+## Added per tile this unit stands above what it is shooting at, and taken
+## off per tile below it.
+@export var height_bonus := 5
+## Taken off per full [constant HitChance.DISTANCE_STEP] tiles to the target.
+@export var distance_penalty := 5
 
 var health := 0:
 	set(value):
@@ -77,10 +91,21 @@ func take_damage(amount: int) -> void:
 		die()
 
 
+## Fires at [param target] with [param chance] in 100 of landing. Returns
+## whether it hit. Both the player's [ShootAction] and the enemy turn come
+## through here, so a shot means the same thing whoever takes it.
+func shoot_at(target: Unit, chance: int) -> bool:
+	if not HitChance.roll(chance):
+		return false
+	target.take_damage(weapon.damage)
+	return true
+
+
 ## Removes the unit from play. It leaves its groups at once rather than when
 ## the node is freed, so nothing shoots at it or walks around it in the
 ## meantime.
 func die() -> void:
+	died.emit()
 	for group in get_groups():
 		remove_from_group(group)
 	queue_free()

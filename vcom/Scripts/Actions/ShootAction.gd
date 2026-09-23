@@ -7,10 +7,11 @@
 ##
 ##   Cycle targets - Tab, or Shift+Tab to go back.
 ##   Fire          - Enter or Space.
+##   Show the sum  - hold Ctrl to open the breakdown behind the hit chance.
 ##
 ## A shot that needs a step out plays it: the unit leans out to the tile it
 ## found the shot from, fires, and settles back into its cover. The shot
-## itself is instant, and for now it always hits.
+## itself is instant, and whether it lands is [HitChance]'s business.
 class_name ShootAction
 extends UnitAction
 
@@ -29,6 +30,9 @@ var _unit: Unit
 var _shots: Array[LineOfSight.Shot] = []
 ## Index into [member _shots] of the target currently lined up.
 var _index := 0
+## The odds of the shot lined up, worked out once when it is lined up so the
+## number the player is shown is the number that gets rolled.
+var _estimate: HitChance.Estimate
 var _overlay: ShotOverlay
 
 
@@ -57,6 +61,7 @@ func end() -> void:
 	_unit = null
 	_shots.clear()
 	_index = 0
+	_estimate = null
 	_clear_aim()
 
 
@@ -82,15 +87,19 @@ func current_shot() -> Variant:
 	return _shots[_index] if not _shots.is_empty() else null
 
 
-## Takes the shot that is lined up: leans out if it needs to, hits, and comes
-## back to cover.
+## Takes the shot that is lined up: leans out if it needs to, rolls against
+## the odds the player was shown, calls the result, and comes back to cover.
+## The action is spent either way.
 func _fire() -> void:
 	var shot: Variant = current_shot()
 	if shot == null:
 		return
 	var aimed := shot as LineOfSight.Shot
+	var estimate := _estimate
 	var unit := _unit
 	var cover := unit.global_position
+	# Read where to call the result now: a target that dies is gone by then.
+	var mark := controller.grid.cell_center(LineOfSight.eye_cell(aimed.target_tile))
 
 	unit.spend_actions(COST)
 	# Drop the aim before anything moves: the target may be about to leave
@@ -100,7 +109,11 @@ func _fire() -> void:
 
 	if aimed.stepped_out:
 		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds)
-	aimed.target.take_damage(unit.weapon.damage)
+
+	var hit := unit.shoot_at(aimed.target, estimate.chance)
+	if _overlay != null:
+		_overlay.flash_result(mark, "%d" % unit.weapon.damage if hit else "MISS", hit)
+
 	if aimed.stepped_out:
 		await unit.walk([cover], step_out_seconds)
 	completed.emit()
@@ -125,6 +138,7 @@ func _show_shot() -> void:
 	if shot == null:
 		return
 	var aimed := shot as LineOfSight.Shot
+	_estimate = HitChance.for_shot(_unit, aimed)
 
 	if aimed.stepped_out:
 		controller.highlights.set_layer(STEP_OUT_LAYER, {aimed.from: STEP_OUT_COLOR})
@@ -137,6 +151,7 @@ func _show_shot() -> void:
 			grid.cell_center(LineOfSight.eye_cell(aimed.from)),
 			grid.cell_center(LineOfSight.eye_cell(aimed.target_tile)),
 			aimed,
+			_estimate,
 		)
 
 
