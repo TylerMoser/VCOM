@@ -7,7 +7,9 @@ code.
 ## Layout
 
 The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where commands are run from.
-`MagicaVoxel/` holds source `.vox` art outside the project.
+`MagicaVoxel/` holds source `.vox` art outside the project. `Styles/` holds candidate visual styles
+(screenshots, exact settings, a render harness) not yet applied; `Styles/APPLYING.md` explains how
+to apply one.
 
 ```
 vcom/Scripts/

@@ -1,0 +1,4 @@
+# Same as vcom/.gitattributes: LF everywhere, so render.sh runs in bash even
+# with core.autocrlf on Windows.
+* text=auto eol=lf
+*.png binary
