@@ -17,6 +17,7 @@ chance to hit.
 | Select a squad member | `Tab` / `Shift+Tab`, or left-click one |
 | Move | Select **Move**, hold right-click to preview the path, release to walk |
 | Shoot | Select **Shoot**, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to fire |
+| Overwatch | Select **Overwatch** to see the ground it covers, `Enter` or `Space` to go on overwatch |
 | Show the hit breakdown | Hold `Ctrl` while aiming |
 | Cancel the current action | `Esc` |
 | End the turn early | Hold `Shift` |
@@ -30,6 +31,21 @@ While Shoot is active, `Tab` cycles targets rather than squad members.
 Every unit gets **3 actions** a turn. Moving costs one action per `move_range` (4) tiles of path,
 so a long walk can cost two or three. Shooting costs one. The player's turn ends when every member
 has spent their budget, or early by holding `Shift`.
+
+### Reactions and overwatch
+
+As in Pathfinder, every unit also gets **one reaction**, shown as the triangle beside its action
+circles. Reactions are taken outside the unit's own turn, in answer to something another unit does,
+and the unit gets its reaction back at the start of its turn.
+
+**Overwatch** spends all the actions a unit has left and holds its reaction. The first time an enemy
+steps onto a tile the unit can see (the ground marked in gold while the action is selected), the
+unit spends its reaction on a shot at it — leaning out of cover to take it, if need be. That is one
+shot per overwatch; several units on overwatch can each fire at the same enemy. Overwatch ends when
+it fires or when the unit's next turn starts, and the triangle has a pale rim while it is held.
+
+A reaction shot costs **15 aim** (the **Reaction** term below), for being snapped off at a moving
+target. Only walking sets off overwatch; leaning out of cover to shoot does not.
 
 ### The grid
 
@@ -62,7 +78,7 @@ cannot walk through.
 ### Chance to hit
 
 ```
-Aim − Evasion − Cover + Flanking + Height − Distance
+Aim − Evasion − Cover + Flanking + Height − Distance − Reaction
 ```
 
 clamped to 0–100. Every term is whole percentage points, and all of it is measured from **where the
@@ -77,6 +93,7 @@ tile it leans to.
 | **Flanking** | target in cover that does not face the shot | +20 |
 | **Height** | shooter's stat, per tile of elevation difference | ±5 per tile |
 | **Distance** | shooter's stat, per *full* 4 tiles to the target | −5 per step |
+| **Reaction** | the shot is a reaction, such as overwatch fire | −15 |
 
 Height tells both ways: shooting uphill costs exactly what shooting down gains. Distance is stepped
 rather than continuous, so the number holds still while you shuffle about within a step — 0–3 tiles
@@ -112,9 +129,9 @@ ends the turn either, so the turn loop simply holds still. A proper defeat state
 ```
 vcom/                     the Godot project
   Scripts/
-    Unit.gd               health, actions, movement, taking a shot
+    Unit.gd               health, actions, reaction, movement, taking a shot
     PlayerSquad.gd        the squad and which member is selected
-    TurnManager.gd        turn order, and the placeholder enemy AI
+    TurnManager.gd        turn order, overwatch fire, and the placeholder enemy AI
     CameraRig.gd          orbiting tactical camera
     Combat/
       CombatGrid.gd       tile queries, pathfinding, the sight-line ray
@@ -122,7 +139,7 @@ vcom/                     the Godot project
       HitChance.gd        the to-hit sum, and the roll
       Weapon.gd           what a shot does when it lands
       TileHighlights.gd   coloured squares over tiles
-    Actions/              the action bar's actions: Move, Shoot
+    Actions/              the action bar's actions: Move, Shoot, Overwatch
     UI/                   HUD, built in code rather than scenes
   Scenes/
     CombatMap.tscn        the playable map

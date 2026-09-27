@@ -1,4 +1,5 @@
-## A character on the combat map: its health and its per-turn action budget.
+## A character on the combat map: its health, its per-turn action budget and
+## its reaction.
 ##
 ## The unit's colour comes from the material on its Mesh child, so the scene
 ## stays the single place it is set. UI reads [member color] until real
@@ -8,6 +9,8 @@ extends Node3D
 
 signal health_changed(health: int, max_health: int)
 signal actions_changed(remaining: int, per_turn: int)
+signal reaction_changed(available: bool)
+signal overwatch_changed(watching: bool)
 ## Emitted as the unit leaves the map, while it is still whole enough to be
 ## read from. Whoever was holding on to it should let go.
 signal died
@@ -49,6 +52,24 @@ var actions_remaining := 0:
 		actions_remaining = clampi(value, 0, actions_per_turn)
 		actions_changed.emit(actions_remaining, actions_per_turn)
 
+## Whether the unit still has its one reaction. Reactions are taken outside
+## the unit's own turn, in answer to something another unit does, and like
+## Pathfinder's the unit gets its reaction back at the start of its turn.
+var reaction_available := true:
+	set(value):
+		reaction_available = value
+		reaction_changed.emit(reaction_available)
+
+## Whether the unit is on overwatch: holding its reaction to fire at the
+## first enemy it sees move. Firing, or the unit's next turn coming round,
+## takes it off.
+var overwatching := false:
+	set(value):
+		if overwatching == value:
+			return
+		overwatching = value
+		overwatch_changed.emit(overwatching)
+
 ## Placeholder identity colour, taken from the Mesh child's material.
 var color: Color:
 	get:
@@ -69,9 +90,12 @@ func _ready() -> void:
 	_add_pick_body()
 
 
-## Refills the action budget at the start of this unit's turn.
+## Refills the action budget and the reaction at the start of this unit's
+## turn, and stands down any overwatch left over from the last one.
 func start_turn() -> void:
 	actions_remaining = actions_per_turn
+	reaction_available = true
+	overwatching = false
 
 
 ## Spends [param cost] actions. Returns false, spending nothing, if there are
@@ -80,6 +104,14 @@ func spend_actions(cost: int = 1) -> bool:
 	if cost > actions_remaining:
 		return false
 	actions_remaining -= cost
+	return true
+
+
+## Uses up the unit's reaction. Returns false if it has already been used.
+func spend_reaction() -> bool:
+	if not reaction_available:
+		return false
+	reaction_available = false
 	return true
 
 
@@ -92,8 +124,9 @@ func take_damage(amount: int) -> void:
 
 
 ## Fires at [param target] with [param chance] in 100 of landing. Returns
-## whether it hit. Both the player's [ShootAction] and the enemy turn come
-## through here, so a shot means the same thing whoever takes it.
+## whether it hit. The player's [ShootAction], the enemy turn and overwatch
+## fire all come through here, so a shot means the same thing whoever takes
+## it.
 func shoot_at(target: Unit, chance: int) -> bool:
 	if not HitChance.roll(chance):
 		return false

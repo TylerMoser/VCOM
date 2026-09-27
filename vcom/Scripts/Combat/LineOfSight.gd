@@ -124,22 +124,35 @@ func firing_positions(unit: Unit) -> Array[Vector3i]:
 func find_shot(shooter: Unit, target: Unit) -> Variant:
 	var shooter_tile := _grid.tile_at(shooter.global_position)
 	var target_tile := _grid.tile_at(target.global_position)
-	if _tile_distance(shooter_tile, target_tile) > shooter.sight_range:
+	var positions := firing_positions(shooter)
+	var sighted: Variant = _sight_tile(shooter_tile, positions, target_tile, shooter.sight_range)
+	if sighted == null:
 		return null
 
-	for from in firing_positions(shooter):
-		if not _grid.is_line_clear(eye_cell(from), eye_cell(target_tile)):
+	var from: Vector3i = sighted
+	var shot := Shot.new()
+	shot.target = target
+	shot.target_tile = target_tile
+	shot.from = from
+	shot.stepped_out = from != shooter_tile
+	shot.cover = cover_against(target_tile, from)
+	shot.flanked = shot.cover == Cover.NONE and not cover_at(target_tile).is_empty()
+	shot.distance = _tile_distance(from, target_tile)
+	return shot
+
+
+## Every tile [param unit] could shoot someone standing on, as a set. This is
+## the ground a unit on overwatch covers.
+func watched_tiles(unit: Unit) -> Dictionary:
+	var tile := _grid.tile_at(unit.global_position)
+	var positions := firing_positions(unit)
+	var watched := {}
+	for target_tile in _grid.tiles():
+		if target_tile == tile:
 			continue
-		var shot := Shot.new()
-		shot.target = target
-		shot.target_tile = target_tile
-		shot.from = from
-		shot.stepped_out = from != shooter_tile
-		shot.cover = cover_against(target_tile, from)
-		shot.flanked = shot.cover == Cover.NONE and not cover_at(target_tile).is_empty()
-		shot.distance = _tile_distance(from, target_tile)
-		return shot
-	return null
+		if _sight_tile(tile, positions, target_tile, unit.sight_range) != null:
+			watched[target_tile] = true
+	return watched
 
 
 ## Every shot [param shooter] has at the living units in [param targets],
@@ -154,6 +167,21 @@ func find_shots(shooter: Unit, targets: Array[Unit]) -> Array[Shot]:
 			shots.append(shot)
 	shots.sort_custom(func(a: Shot, b: Shot) -> bool: return a.distance < b.distance)
 	return shots
+
+
+## The first of [param positions] with a clear sight line to someone on
+## [param target_tile], or null if none has one. Out past [param sight_range]
+## tiles from [param tile], where the unit stands, is out of sight however
+## clear the line.
+func _sight_tile(
+	tile: Vector3i, positions: Array[Vector3i], target_tile: Vector3i, sight_range: int
+) -> Variant:
+	if _tile_distance(tile, target_tile) > sight_range:
+		return null
+	for from in positions:
+		if _grid.is_line_clear(eye_cell(from), eye_cell(target_tile)):
+			return from
+	return null
 
 
 ## How far apart two tiles are across the ground, in tiles. Height is left

@@ -67,6 +67,16 @@ func is_tile(cell: Vector3i) -> bool:
 	return true
 
 
+## Every tile on the map.
+func tiles() -> Array[Vector3i]:
+	var result: Array[Vector3i] = []
+	for cell in _grid.get_used_cells():
+		var above := cell + Vector3i.UP
+		if is_tile(above):
+			result.append(above)
+	return result
+
+
 ## World position of the centre of [param cell].
 func cell_center(cell: Vector3i) -> Vector3:
 	return _grid.to_global(_grid.map_to_local(cell))

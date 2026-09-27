@@ -1,4 +1,5 @@
-## HUD card for one unit: portrait, health bar, and a pip per action.
+## HUD card for one unit: portrait, health bar, a pip per action and one for
+## the reaction, which lights up while the unit is on overwatch.
 ## Clicking it emits [signal pressed]; [member selected] highlights it.
 class_name UnitCard
 extends PanelContainer
@@ -6,6 +7,9 @@ extends PanelContainer
 signal pressed
 
 const PORTRAIT_SIZE := Vector2(72, 72)
+## Gap between pips. With 14px pips, three actions and the reaction come to
+## 71px, inside the portrait's width, so the pips never widen the card.
+const PIP_GAP := 5
 
 const BG_COLOR := Color(0.1, 0.11, 0.15, 0.85)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
@@ -23,6 +27,7 @@ var _style: StyleBoxFlat
 var _portrait: ColorRect
 var _health_bar: ProgressBar
 var _pips: HBoxContainer
+var _reaction_pip: ReactionPip
 
 
 func _init() -> void:
@@ -57,11 +62,21 @@ func _init() -> void:
 	_health_bar.add_theme_stylebox_override(&"fill", _bar_style(Color(0.3, 0.8, 0.35)))
 	column.add_child(_health_bar)
 
+	# The actions and the reaction are spaced as one row: the gap between the
+	# last action and the reaction is the same as the gap between actions.
+	var budget_row := HBoxContainer.new()
+	budget_row.alignment = BoxContainer.ALIGNMENT_CENTER
+	budget_row.mouse_filter = MOUSE_FILTER_IGNORE
+	budget_row.add_theme_constant_override(&"separation", PIP_GAP)
+	column.add_child(budget_row)
+
 	_pips = HBoxContainer.new()
-	_pips.alignment = BoxContainer.ALIGNMENT_CENTER
 	_pips.mouse_filter = MOUSE_FILTER_IGNORE
-	_pips.add_theme_constant_override(&"separation", 6)
-	column.add_child(_pips)
+	_pips.add_theme_constant_override(&"separation", PIP_GAP)
+	budget_row.add_child(_pips)
+
+	_reaction_pip = ReactionPip.new()
+	budget_row.add_child(_reaction_pip)
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -78,9 +93,13 @@ func bind(target: Unit) -> void:
 	_portrait.color = unit.color
 	unit.health_changed.connect(_on_health_changed)
 	unit.actions_changed.connect(_on_actions_changed)
+	unit.reaction_changed.connect(_on_reaction_changed)
+	unit.overwatch_changed.connect(_on_overwatch_changed)
 	unit.died.connect(_on_died)
 	_on_health_changed(unit.health, unit.max_health)
 	_on_actions_changed(unit.actions_remaining, unit.actions_per_turn)
+	_on_reaction_changed(unit.reaction_available)
+	_on_overwatch_changed(unit.overwatching)
 
 
 ## The card goes with the unit. It leaves the row at once rather than at the
@@ -112,6 +131,14 @@ func _on_actions_changed(remaining: int, per_turn: int) -> void:
 		extra.queue_free()
 	for i in per_turn:
 		(_pips.get_child(i) as ActionPip).available = i < remaining
+
+
+func _on_reaction_changed(available: bool) -> void:
+	_reaction_pip.available = available
+
+
+func _on_overwatch_changed(watching: bool) -> void:
+	_reaction_pip.readied = watching
 
 
 static func _bar_style(color: Color) -> StyleBoxFlat:

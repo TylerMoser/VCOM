@@ -1,7 +1,7 @@
 ## The odds a shot lands, worked out from the shooter, the target and the
 ## ground between them:
 ##
-##   Aim - Evasion - Cover + Flanking + Height - Distance
+##   Aim - Evasion - Cover + Flanking + Height - Distance - Reaction
 ##
 ## Every term is whole percentage points, and the total is held between 0 and
 ## 100. The terms are kept so the HUD can show its working rather than a bare
@@ -19,6 +19,9 @@ const FULL_COVER := 40
 const FLANKING := 20
 ## Tiles between each step of the distance penalty.
 const DISTANCE_STEP := 4
+## Aim a reaction shot, such as overwatch fire, gives up for being snapped
+## off at a moving target rather than lined up.
+const REACTION_PENALTY := 15
 
 
 ## One named part of the sum.
@@ -49,8 +52,9 @@ class Estimate:
 			terms.append(Term.new(label, value))
 
 
-## The chance [param shooter] lands [param shot].
-static func for_shot(shooter: Unit, shot: LineOfSight.Shot) -> Estimate:
+## The chance [param shooter] lands [param shot]. [param reaction] marks a
+## shot taken as a reaction, out of the shooter's own turn.
+static func for_shot(shooter: Unit, shot: LineOfSight.Shot, reaction := false) -> Estimate:
 	var estimate := Estimate.new()
 	estimate.add("Aim", shooter.aim)
 	estimate.add("Evasion", -shot.target.evasion)
@@ -62,6 +66,7 @@ static func for_shot(shooter: Unit, shot: LineOfSight.Shot) -> Estimate:
 	# Only whole steps count, so the number holds still while the player
 	# shuffles about within a step.
 	estimate.add("Distance", -floori(shot.distance / DISTANCE_STEP) * shooter.distance_penalty)
+	estimate.add("Reaction", -REACTION_PENALTY if reaction else 0)
 	return estimate
 
 

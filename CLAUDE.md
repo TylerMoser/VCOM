@@ -13,9 +13,9 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, walking, shoot_at()
+  Unit.gd              health, actions, reaction, walking, shoot_at()
   PlayerSquad.gd       members + selection; drops the dead
-  TurnManager.gd       turn order, end-turn hold, placeholder enemy AI
+  TurnManager.gd       turn order, end-turn hold, overwatch fire, placeholder enemy AI
   CameraRig.gd         orbiting tactical camera
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), pick_tile()
@@ -23,7 +23,7 @@ vcom/Scripts/
     HitChance.gd       the to-hit sum (Estimate + Term), roll()
     Weapon.gd          Resource: damage
     TileHighlights.gd  named layers of coloured squares
-  Actions/             UnitAction base + ActionController + Move/Shoot
+  Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
 ```
 
@@ -40,7 +40,7 @@ re-`begin`s it if it is still available, or drops it.
 
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
-`shoot_step_out`.
+`shoot_step_out`, `overwatch`.
 
 **The HUD is written in code, not scenes.** Widgets build their children in `_init()` and style
 themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn` files for UI.
@@ -69,9 +69,13 @@ carries on behind `if x != null`; something essential bails.
 - Everything about a shot — cover, height, distance — is measured from `Shot.from`, the tile the
   shot is *taken* from, which may be a step-out tile.
 - **Hit chance is computed once**, when the shot is lined up (`ShootAction._estimate`), and that is
-  what gets rolled. Do not recompute at fire time.
-- `Unit.shoot_at(target, chance)` is the single place a shot is resolved. Both `ShootAction` and the
-  enemy AI go through it; keep it that way so they cannot diverge.
+  what gets rolled. Do not recompute at fire time. Overwatch fire lines its shot up when the enemy
+  steps into view, and `TurnManager._play_shot` shows and rolls that one estimate.
+- `Unit.shoot_at(target, chance)` is the single place a shot is resolved. `ShootAction`, the enemy
+  AI and overwatch fire all go through it; keep it that way so they cannot diverge.
+- **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
+  remaining actions to hold it, fires on the first enemy *step* into view (not on leaning out), and
+  its shot takes `HitChance.REACTION_PENALTY` via `for_shot(..., reaction = true)`.
 - Units never block line of sight. Only terrain does.
 
 ## Verification

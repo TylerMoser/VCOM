@@ -14,7 +14,7 @@ var available := true:
 
 
 func _init() -> void:
-	custom_minimum_size = Vector2(16, 16)
+	custom_minimum_size = Vector2(14, 14)
 	mouse_filter = MOUSE_FILTER_IGNORE
 
 
