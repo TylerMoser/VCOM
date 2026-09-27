@@ -189,5 +189,6 @@ MagicaVoxel/              source .vox art
 
 ## Credits
 
-Voxel models are imported with
-[MagicaVoxel Importer with Extensions](vcom/Addons/MagicaVoxel_Importer_with_Extensions).
+Map assets  by Penflower Ink, 2025, www.penflower-ink.com
+
+Voxel models are imported with [MagicaVoxel Importer with Extensions](vcom/Addons/MagicaVoxel_Importer_with_Extensions).
