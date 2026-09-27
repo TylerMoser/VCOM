@@ -129,8 +129,11 @@ func _on_actions_changed(remaining: int, per_turn: int) -> void:
 		var extra := _pips.get_child(_pips.get_child_count() - 1)
 		_pips.remove_child(extra)
 		extra.queue_free()
+	# Spent actions fill in from the left, so the ones still to use sit next to
+	# the reaction.
+	var spent := per_turn - remaining
 	for i in per_turn:
-		(_pips.get_child(i) as ActionPip).available = i < remaining
+		(_pips.get_child(i) as ActionPip).available = i >= spent
 
 
 func _on_reaction_changed(available: bool) -> void:

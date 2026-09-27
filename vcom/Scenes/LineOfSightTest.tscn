@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/CameraRig.gd" id="2_nnhpu"]
 [ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_lmc1s"]
 [ext_resource type="Resource" path="res://Resources/Rifle.tres" id="4_oi31o"]
+[ext_resource type="Resource" path="res://Resources/AI/Assault.tres" id="16_assault_ai"]
 [ext_resource type="Script" path="res://Scripts/Combat/CombatGrid.gd" id="5_r3fgy"]
 [ext_resource type="Script" path="res://Scripts/Combat/TileHighlights.gd" id="6_8g5p0"]
 [ext_resource type="Script" path="res://Scripts/PlayerSquad.gd" id="7_m35po"]
@@ -12,6 +13,8 @@
 [ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="10_nxduy"]
 [ext_resource type="Script" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
 [ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_yna0a"]
+[ext_resource type="Script" path="res://Scripts/Reactions.gd" id="11_reactions"]
+[ext_resource type="Script" path="res://Scripts/UI/ReactionPrompts.gd" id="14_prompts"]
 [ext_resource type="Script" path="res://Scripts/UI/ShotOverlay.gd" id="12_i4fiv"]
 [ext_resource type="Script" path="res://Scripts/UI/SquadPanel.gd" id="13_78qxd"]
 [ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="14_o3xbv"]
@@ -135,6 +138,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
 script = ExtResource("3_lmc1s")
 display_name = "Enemy 1"
 weapon = ExtResource("4_oi31o")
+ai = ExtResource("16_assault_ai")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -146,6 +150,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -5.5)
 script = ExtResource("3_lmc1s")
 display_name = "Enemy 2"
 weapon = ExtResource("4_oi31o")
+ai = ExtResource("16_assault_ai")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy2" unique_id=201404884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -157,6 +162,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -9.5)
 script = ExtResource("3_lmc1s")
 display_name = "Enemy 3"
 weapon = ExtResource("4_oi31o")
+ai = ExtResource("16_assault_ai")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy3" unique_id=563326909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -168,6 +174,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -13.5)
 script = ExtResource("3_lmc1s")
 display_name = "Enemy 4"
 weapon = ExtResource("4_oi31o")
+ai = ExtResource("16_assault_ai")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy4" unique_id=1428542244]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -200,6 +207,9 @@ script = ExtResource("9_overwatch")
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_yna0a")
 
+[node name="Reactions" type="Node" parent="." unique_id=1000030]
+script = ExtResource("11_reactions")
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
 [node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
@@ -212,6 +222,17 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("12_i4fiv")
+
+[node name="ReactionPrompts" type="Control" parent="HUD" unique_id=1000031]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_prompts")
 
 [node name="SquadPanel" type="HBoxContainer" parent="HUD" unique_id=1000017]
 anchors_preset = 2

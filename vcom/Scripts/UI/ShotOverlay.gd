@@ -155,14 +155,25 @@ func _draw() -> void:
 		else:
 			_draw_reticle(target)
 			_panel.visible = true
-			_panel.position = target - Vector2(
-				_panel.size.x * 0.5, RETICLE_SIZE + PANEL_GAP + _panel.size.y
-			)
+			_panel.position = _panel_position(target)
 	else:
 		_panel.visible = false
 
 	if _result_left > 0.0 and not camera.is_position_behind(_result_at):
 		_draw_result(camera.unproject_position(_result_at), _result_below)
+
+
+## Where the target panel goes for a reticle at [param target]: over it, or
+## under it when a target near the top of the screen leaves no room above,
+## and never off either side.
+func _panel_position(target: Vector2) -> Vector2:
+	var clearance := RETICLE_SIZE + PANEL_GAP
+	var top := target.y - clearance - _panel.size.y
+	if top < PANEL_GAP:
+		top = target.y + clearance
+	var furthest_left := maxf(size.x - _panel.size.x - PANEL_GAP, PANEL_GAP)
+	var left := clampf(target.x - _panel.size.x * 0.5, PANEL_GAP, furthest_left)
+	return Vector2(left, top)
 
 
 ## Four corner brackets around [param center], leaving the target itself

@@ -30,6 +30,9 @@ const GROUP := &"units"
 @export var sight_range := 20
 ## The gun this unit shoots with. A plain rifle if the scene leaves it unset.
 @export var weapon: Weapon
+## What decides this unit's actions when the computer plays it. The squad
+## leaves it empty; an enemy without one sits its turns out.
+@export var ai: EnemyAI
 
 @export_group("Marksmanship")
 ## Chance to hit before anything about the shot is taken into account.
@@ -60,9 +63,9 @@ var reaction_available := true:
 		reaction_available = value
 		reaction_changed.emit(reaction_available)
 
-## Whether the unit is on overwatch: holding its reaction to fire at the
-## first enemy it sees move. Firing, or the unit's next turn coming round,
-## takes it off.
+## Whether the unit is on overwatch: holding its reaction for a shot at an
+## enemy it sees move, taken when the player calls for it (see [Reactions]).
+## Firing, or the unit's next turn coming round, takes it off.
 var overwatching := false:
 	set(value):
 		if overwatching == value:
@@ -147,12 +150,24 @@ func die() -> void:
 ## Walks through [param points] in order, taking [param seconds_per_step]
 ## for each. Await it to wait until the unit arrives.
 func walk(points: Array[Vector3], seconds_per_step: float) -> void:
+	var tween := start_walk(points, seconds_per_step)
+	if tween != null:
+		await tween.finished
+
+
+## Starts the same walk as [method walk] and hands back the tween playing it,
+## for a caller that needs to slow the walk down or hold it still. Null if
+## there is nowhere to go.
+##
+## The tween dies with the unit, without ever finishing, so a caller whose
+## walker might be killed on the way must not wait on [signal Tween.finished].
+func start_walk(points: Array[Vector3], seconds_per_step: float) -> Tween:
 	if points.is_empty():
-		return
+		return null
 	var tween := create_tween()
 	for point in points:
 		tween.tween_property(self, ^"global_position", point, seconds_per_step)
-	await tween.finished
+	return tween
 
 
 ## Gives the unit a clickable body shaped like its Mesh child.

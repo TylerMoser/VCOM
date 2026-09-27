@@ -18,6 +18,7 @@ chance to hit.
 | Move | Select **Move**, hold right-click to preview the path, release to walk |
 | Shoot | Select **Shoot**, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to fire |
 | Overwatch | Select **Overwatch** to see the ground it covers, `Enter` or `Space` to go on overwatch |
+| React | During a reaction window: `1`–`4` fires that squad member, `0` lets the move carry on |
 | Show the hit breakdown | Hold `Ctrl` while aiming |
 | Cancel the current action | `Esc` |
 | End the turn early | Hold `Shift` |
@@ -38,14 +39,44 @@ As in Pathfinder, every unit also gets **one reaction**, shown as the triangle b
 circles. Reactions are taken outside the unit's own turn, in answer to something another unit does,
 and the unit gets its reaction back at the start of its turn.
 
-**Overwatch** spends all the actions a unit has left and holds its reaction. The first time an enemy
-steps onto a tile the unit can see (the ground marked in gold while the action is selected), the
-unit spends its reaction on a shot at it — leaning out of cover to take it, if need be. That is one
-shot per overwatch; several units on overwatch can each fire at the same enemy. Overwatch ends when
-it fires or when the unit's next turn starts, and the triangle has a pale rim while it is held.
+**Overwatch** spends all the actions a unit has left and holds its reaction, for a shot at an enemy
+moving across the ground it can see (marked in gold while the action is selected). The triangle has
+a pale rim while it is held, and overwatch ends when it fires or when the unit's next turn starts.
+
+**Reactions never go off by themselves.** When an enemy moves where squad members on overwatch can
+see it, a *reaction window* opens:
+
+- The move drops to **slow motion** (10% speed) and the camera pulls up to an angled top-down view
+  of the enemy and everyone who could fire at it.
+- Beside each of them is a number, `1`–`4`, their place on the squad panel, and the odds of their
+  shot. The odds move as the enemy does; the number shown when the key goes down is the one rolled.
+- Pressing a number fires that squad member: the enemy freezes while the shot plays out, then carries
+  on. Their reaction is spent and their prompt goes.
+- Pressing `0` lets the move play out at normal speed without firing.
+
+Prompts come and go as the enemy moves in and out of sight, and the window closes when no one has a
+shot left or the enemy stops moving; a standing enemy cannot be fired on. Every move is a new
+trigger with the prompts back up, so the player can let an enemy come closer, or out of cover,
+before choosing to fire. The camera goes back to its normal view when that enemy's turn is over.
 
 A reaction shot costs **15 aim** (the **Reaction** term below), for being snapped off at a moving
-target. Only walking sets off overwatch; leaning out of cover to shoot does not.
+target. Only walking sets off a window; leaning out of cover to shoot does not.
+
+### Enemies
+
+Enemies play by the squad's rules: an action per 4 tiles walked, one per shot, and they walk into
+overwatch the same way. What each one does with its actions is its AI's call. Every enemy so far
+uses the **assault** AI, which takes, for each action, the first of these it can do:
+
+1. **Next to a squad member it can shoot:** shoots them. Once it gets there, every action it has
+   left goes on them.
+2. **Any action but its last:** moves as close as it can get to the nearest squad member, up to 4
+   tiles. Nearest counts steps walked, not distance as the crow flies.
+3. **Its last action:** shoots whoever it has the best odds on, or moves closer if it cannot see
+   anyone.
+
+"Next to" means one tile away in any of the eight directions, at most a level up or down. An enemy
+that cannot get any closer shoots rather than waste the action.
 
 ### The grid
 
@@ -121,6 +152,11 @@ the shot is lined up, and kept until the trigger goes.
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime.
 
+**Enemy AI only decides.** An AI looks at the fight and names one action at a time — walk here,
+shoot that — and the turn manager carries it out and charges for it. Walking, shooting, reactions
+and the camera are the same code for every kind of enemy, so a new enemy type is a new decision
+routine and nothing else.
+
 **A wiped squad stops the clock rather than looping.** With no one left to give orders to, nothing
 ends the turn either, so the turn loop simply holds still. A proper defeat state comes later.
 
@@ -131,16 +167,20 @@ vcom/                     the Godot project
   Scripts/
     Unit.gd               health, actions, reaction, movement, taking a shot
     PlayerSquad.gd        the squad and which member is selected
-    TurnManager.gd        turn order, overwatch fire, and the placeholder enemy AI
-    CameraRig.gd          orbiting tactical camera
+    TurnManager.gd        turn order, and carrying out what enemy AI decides
+    Reactions.gd          the reaction window: slow motion, prompts, reaction fire
+    CameraRig.gd          orbiting tactical camera, and the framed reaction view
     Combat/
       CombatGrid.gd       tile queries, pathfinding, the sight-line ray
       LineOfSight.gd      cover, stepping out, who can see whom
       HitChance.gd        the to-hit sum, and the roll
+      ShotPlayback.gd     plays out enemy fire and reaction fire
       Weapon.gd           what a shot does when it lands
       TileHighlights.gd   coloured squares over tiles
+    AI/                   enemy AI: the base, the assault AI, and the queries they share
     Actions/              the action bar's actions: Move, Shoot, Overwatch
     UI/                   HUD, built in code rather than scenes
+  Resources/              shared weapon and AI resources units are given
   Scenes/
     CombatMap.tscn        the playable map
     LineOfSightTest.tscn  harness for the sight rules

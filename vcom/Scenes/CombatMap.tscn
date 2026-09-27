@@ -13,10 +13,13 @@
 [ext_resource type="Script" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
 [ext_resource type="Script" uid="uid://cvit6k1o8lx0b" path="res://Scripts/UI/ActionBar.gd" id="10_actionbar"]
 [ext_resource type="Script" uid="uid://buqpwf57t4422" path="res://Scripts/TurnManager.gd" id="11_turns"]
+[ext_resource type="Script" path="res://Scripts/Reactions.gd" id="11_reactions"]
+[ext_resource type="Script" path="res://Scripts/UI/ReactionPrompts.gd" id="14_prompts"]
 [ext_resource type="Script" uid="uid://dhl74vbchi0oa" path="res://Scripts/UI/TurnBanner.gd" id="12_banner"]
 [ext_resource type="Script" uid="uid://0idaq4j8ybgl" path="res://Scripts/UI/EndTurnPrompt.gd" id="13_endturn"]
 [ext_resource type="Script" uid="uid://bja5100blo2t5" path="res://Scripts/UI/ShotOverlay.gd" id="14_shotoverlay"]
 [ext_resource type="Resource" path="res://Resources/Rifle.tres" id="15_rifle"]
+[ext_resource type="Resource" path="res://Resources/AI/Assault.tres" id="16_assault_ai"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -125,6 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1, -18.5)
 script = ExtResource("3_unit")
 display_name = "Enemy 1"
 weapon = ExtResource("15_rifle")
+ai = ExtResource("16_assault_ai")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -155,6 +159,9 @@ script = ExtResource("9_overwatch")
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_turns")
 
+[node name="Reactions" type="Node" parent="." unique_id=1000030]
+script = ExtResource("11_reactions")
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
 [node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
@@ -165,6 +172,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("14_shotoverlay")
+
+[node name="ReactionPrompts" type="Control" parent="HUD" unique_id=1000031]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("14_prompts")
 
 [node name="SquadPanel" type="HBoxContainer" parent="HUD" unique_id=1000017]
 anchors_preset = 2

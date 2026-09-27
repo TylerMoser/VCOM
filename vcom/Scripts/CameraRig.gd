@@ -10,6 +10,12 @@
 ##   Zoom   - mouse wheel. Zooming in also lowers the camera toward the action.
 ##
 ## Rotation is free: Q / E sweep continuously and settle on any angle.
+##
+## Something that needs a set of units in view, like a reaction window, can
+## [method frame] them. That takes the height and angle away from the zoom
+## until [method release_frame] hands them back; the player can still pan,
+## turn, tilt and zoom in the meantime.
+class_name CameraRig
 extends Node3D
 
 @export_group("Nodes")
@@ -47,6 +53,18 @@ extends Node3D
 ## Pitch in degrees below horizontal, zoomed all the way out.
 @export var far_pitch := 55.0
 
+@export_group("Framing")
+## Nearest and furthest the camera sits when framing. The near limit keeps a
+## framed view an overview even when everything in it stands close together.
+@export var min_frame_distance := 16.0
+@export var max_frame_distance := 45.0
+## How far out from the centre of the screen framed points may sit, as a
+## share of the way to the edge: across, above, and below. Below is tighter
+## because the squad panel and the action bar run along the bottom.
+@export var frame_margin_x := 0.8
+@export var frame_margin_top := 0.8
+@export var frame_margin_bottom := 0.55
+
 var _camera: Camera3D
 
 # Targets the player drives directly.
@@ -60,6 +78,13 @@ var _current_pivot := Vector3.ZERO
 var _current_yaw := 0.0
 var _current_distance := 0.0
 var _current_pitch := 0.0
+
+# Set while [method frame] holds the view, in place of the zoom's.
+var _framing := false
+var _frame_pitch := 0.0
+var _frame_distance := 0.0
+## Where the camera was looking before [method frame], to go back to.
+var _unframed_pivot := Vector3.ZERO
 
 var _drag_rotating := false
 var _mouse_seen := false
@@ -90,9 +115,9 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"camera_zoom_in"):
-		_zoom = clampf(_zoom - zoom_step, 0.0, 1.0)
+		_step_zoom(-1.0)
 	elif event.is_action_pressed(&"camera_zoom_out"):
-		_zoom = clampf(_zoom + zoom_step, 0.0, 1.0)
+		_step_zoom(1.0)
 	elif event.is_action_pressed(&"camera_free_look"):
 		_drag_rotating = true
 	elif event.is_action_released(&"camera_free_look"):
@@ -107,21 +132,21 @@ func _unhandled_input(event: InputEvent) -> void:
 		var motion := (event as InputEventMouseMotion).screen_relative
 		_yaw -= motion.x * drag_rotate_speed
 		# Dragging down orbits the camera up, toward a more top-down view.
-		_pitch_offset = clampf(
-			_pitch_offset + motion.y * drag_rotate_speed,
-			-free_pitch_range,
-			free_pitch_range,
-		)
+		var tilt := motion.y * drag_rotate_speed
+		if _framing:
+			_frame_pitch = clampf(_frame_pitch + tilt, near_pitch, far_pitch + free_pitch_range)
+		else:
+			_pitch_offset = clampf(_pitch_offset + tilt, -free_pitch_range, free_pitch_range)
 
 
 func _process(delta: float) -> void:
 	_update_rotation(delta)
 	_update_pan(delta)
 
-	_current_distance = lerpf(_current_distance, _zoom_distance(), _weight(delta, zoom_smoothing))
-	_current_pitch = lerpf(
-		_current_pitch, _zoom_pitch() + _pitch_offset, _weight(delta, zoom_smoothing)
-	)
+	var distance := _frame_distance if _framing else _zoom_distance()
+	var pitch := _frame_pitch if _framing else _zoom_pitch() + _pitch_offset
+	_current_distance = lerpf(_current_distance, distance, _weight(delta, zoom_smoothing))
+	_current_pitch = lerpf(_current_pitch, pitch, _weight(delta, zoom_smoothing))
 
 	position = _current_pivot
 	rotation_degrees = Vector3(-_current_pitch, _current_yaw, 0.0)
@@ -131,6 +156,75 @@ func _process(delta: float) -> void:
 ## Centres the camera on a world position, keeping the current angle and zoom.
 func focus_on(world_position: Vector3) -> void:
 	_pivot = _clamp_to_bounds(Vector3(world_position.x, _pivot.y, world_position.z))
+
+
+## Looks down on [param points] from [param pitch] degrees below horizontal,
+## keeping the current heading: pivots over the middle of them and pulls back
+## until every one sits inside the framing margins. Framing again while
+## framed moves the view on; it holds until [method release_frame].
+func frame(points: Array[Vector3], pitch: float) -> void:
+	if points.is_empty() or _camera == null:
+		return
+	if not _framing:
+		_unframed_pivot = _pivot
+		_framing = true
+	var low := points[0]
+	var high := points[0]
+	for point in points:
+		low = low.min(point)
+		high = high.max(point)
+	var middle := (low + high) * 0.5
+	_pivot = _clamp_to_bounds(Vector3(middle.x, _pivot.y, middle.z))
+	_frame_pitch = pitch
+	_frame_distance = clampf(
+		_distance_to_fit(points, _pivot, pitch), min_frame_distance, max_frame_distance
+	)
+
+
+## Gives the height and angle back to the zoom, and looks where the camera
+## was looking before [method frame] took it.
+func release_frame() -> void:
+	if not _framing:
+		return
+	_framing = false
+	_pivot = _unframed_pivot
+
+
+## Whether [method frame] is holding the view.
+func is_framing() -> bool:
+	return _framing
+
+
+## How far back from [param pivot] the camera has to sit, on the current
+## heading and looking down at [param pitch], to have all of [param points]
+## inside the framing margins.
+func _distance_to_fit(points: Array[Vector3], pivot: Vector3, pitch: float) -> float:
+	var view := Basis.from_euler(Vector3(deg_to_rad(-pitch), deg_to_rad(_yaw), 0.0)).inverse()
+	var screen := get_viewport().get_visible_rect().size
+	var half_height := tan(deg_to_rad(_camera.fov * 0.5))
+	var half_width := half_height * screen.x / screen.y
+	var distance := 0.0
+	for point in points:
+		# The point as the rig sees it. The camera sits at z = distance looking
+		# down -z, so the point is (distance - z) in front of it, and must be no
+		# further off-centre than the margin allows at that depth.
+		var local := view * (point - pivot)
+		var margin_y := frame_margin_top if local.y > 0.0 else frame_margin_bottom
+		distance = maxf(distance, local.z + absf(local.x) / (half_width * frame_margin_x))
+		distance = maxf(distance, local.z + absf(local.y) / (half_height * margin_y))
+	return distance
+
+
+## One wheel notch in [param direction], out if positive. While framed it
+## moves the camera by the same distance a notch of zoom would.
+func _step_zoom(direction: float) -> void:
+	if _framing:
+		var step := zoom_step * (far_distance - near_distance)
+		_frame_distance = clampf(
+			_frame_distance + direction * step, near_distance, max_frame_distance
+		)
+	else:
+		_zoom = clampf(_zoom + direction * zoom_step, 0.0, 1.0)
 
 
 func _update_rotation(delta: float) -> void:

@@ -90,7 +90,7 @@ func bind(shot: LineOfSight.Shot, estimate: HitChance.Estimate) -> void:
 	_status_label.text = status
 
 	_chance_label.text = "%d%%" % estimate.chance
-	_chance_label.add_theme_color_override(&"font_color", _chance_color(estimate.chance))
+	_chance_label.add_theme_color_override(&"font_color", chance_color(estimate.chance))
 	_fill_details(estimate)
 	# The panel is placed by its size, so settle it before anyone reads that.
 	reset_size()
@@ -113,7 +113,9 @@ func _fill_details(estimate: HitChance.Estimate) -> void:
 		_details.add_child(row)
 
 
-static func _chance_color(chance: int) -> Color:
+## The colour a hit chance is shown in: green for a good shot, amber for a
+## fair one, red for a poor one.
+static func chance_color(chance: int) -> Color:
 	if chance >= GOOD_CHANCE:
 		return GOOD_COLOR
 	return FAIR_COLOR if chance >= FAIR_CHANCE else POOR_COLOR

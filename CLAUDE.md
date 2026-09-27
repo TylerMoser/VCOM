@@ -15,14 +15,21 @@ to apply one.
 vcom/Scripts/
   Unit.gd              health, actions, reaction, walking, shoot_at()
   PlayerSquad.gd       members + selection; drops the dead
-  TurnManager.gd       turn order, end-turn hold, overwatch fire, placeholder enemy AI
-  CameraRig.gd         orbiting tactical camera
+  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
+  Reactions.gd         reaction window: slow motion, number prompts, reaction fire
+  CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), pick_tile()
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term), roll()
+    ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
     Weapon.gd          Resource: damage
     TileHighlights.gd  named layers of coloured squares
+  AI/
+    EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
+    AssaultAI.gd       close in, point-blank when adjacent, best odds with the last action
+    AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / END_TURN
+    Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
 ```
@@ -49,6 +56,21 @@ themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn`
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
 carries on behind `if x != null`; something essential bails.
 
+**Enemy AI is a `Resource` that only decides.** Each enemy has `Unit.ai` (like `Unit.weapon`), set in
+the scene to a shared `.tres` such as `Resources/AI/Assault.tres`. `TurnManager._take_enemy_turn`
+asks `ai.choose_action(Tactics.new(...))` once per action and carries out the `AIAction`, charging
+squad costs: `ceil(tiles / move_range)` for a move (at least 1, and cut to what the unit can afford),
+`ShootAction.COST` for a shot. So a new enemy type is an `EnemyAI` subclass plus a `.tres`; no turn,
+reaction or camera code changes. Put reusable queries on `Tactics`, not in one AI. AI resources are
+shared between units, so they must stay stateless (the same rule as `Weapon`). An enemy with no `ai`
+sits its turn out with a warning.
+
+**Enemies walk through `Reactions.walk()`.** It starts the walk with `Unit.start_walk()` so it holds
+the tween, then polls it each frame: on every new tile it works out who on overwatch could fire
+(`_find_offers`), opens or closes the window, slows the tween (`slow_motion_scale`), and holds it at
+speed 0 while a reaction shot plays out. `TurnManager` calls `release_view()` after each enemy's
+turn to hand the camera back. A window only exists during a walk; nothing else opens one.
+
 ## Conventions
 
 - `##` doc comments on every class and non-obvious method, written in plain prose explaining *why*,
@@ -69,13 +91,18 @@ carries on behind `if x != null`; something essential bails.
 - Everything about a shot — cover, height, distance — is measured from `Shot.from`, the tile the
   shot is *taken* from, which may be a step-out tile.
 - **Hit chance is computed once**, when the shot is lined up (`ShootAction._estimate`), and that is
-  what gets rolled. Do not recompute at fire time. Overwatch fire lines its shot up when the enemy
-  steps into view, and `TurnManager._play_shot` shows and rolls that one estimate.
+  what gets rolled. Do not recompute at fire time. A reaction's shot is lined up each time the enemy
+  reaches a new tile (`Reactions._find_offers`); its prompt shows that estimate and firing rolls it.
 - `Unit.shoot_at(target, chance)` is the single place a shot is resolved. `ShootAction`, the enemy
-  AI and overwatch fire all go through it; keep it that way so they cannot diverge.
+  AI and reaction fire all go through it; keep it that way so they cannot diverge.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
-  remaining actions to hold it, fires on the first enemy *step* into view (not on leaning out), and
-  its shot takes `HitChance.REACTION_PENALTY` via `for_shot(..., reaction = true)`.
+  remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
+  `for_shot(..., reaction = true)`.
+- **Enemy shots roll the odds their AI chose them by.** `Tactics` builds each `AIAction.shoot` with
+  its `HitChance` estimate, and the turn manager rolls that one; it never recomputes.
+- **Reactions are the player's call, never automatic.** Only an enemy *walking* in sight opens a
+  window (not leaning out to shoot). Keys `1`-`4` follow `PlayerSquad.members`, which is the squad
+  panel's order; `0` passes on the current move only, and the next move is a new trigger.
 - Units never block line of sight. Only terrain does.
 
 ## Verification
@@ -118,6 +145,11 @@ leaves it out of the global class cache, and every script referencing it fails w
 **`_unhandled_input` runs in reverse tree order.** `ActionController` sits after `PlayerSquad` in
 `CombatMap.tscn`, which is the only reason the active action can swallow `Tab` before the squad
 cycles. Do not reorder those nodes.
+
+**A unit's tween dies with it, without finishing.** `create_tween()` binds to the node, so a unit
+freed mid-walk leaves `await tween.finished` hanging forever. Anything that can kill a walker on the
+way (a reaction) must poll `tween.is_running()` instead, as `Reactions.walk()` does. A tween is still
+`is_valid()` on the frame it finishes, so `is_running()` is the test for "still going".
 
 **`is_action_pressed` ignores extra modifiers but honours required ones.** `Shift+Tab` matches both
 `next_target` and `previous_target`, so `previous_target` must be tested **first** (see

@@ -1,19 +1,20 @@
---TODO:
-Destructible terrain: Scripted destruction, a few fallen blocks, total-shatter-destruction
+--TODO Tactical:
 Reactions/Overwatch
+Destructible terrain: Scripted destruction, a few fallen blocks, total-shatter-destruction
 Better Ground Blocks
-
 Characters and animations
 Action cam
 Improved color palette/vibrancy without being over-saturated. More easily readable terrain. Sharp green blocks are too over-saturated.
 More terrain types: Ladders, fences, water, difficult ground, impassible tiles, etc.
 Height/layers to terrain (Buildings with interiors)
-
 Grenades
 Melee
 Enemy AI
 Blood splatter
+Toggleable visible grid (like in style example)
+Fog of war? Maybe make it sections of the map, and obvious.
 
+--TODO Campaign:
 Overworld and general game structure
 Character types, classes, skill trees, gear, RPG elements, etc.
 Weapon types
@@ -24,9 +25,6 @@ Saving/Loading, Main Menu
 Story/Tutorials/In-game documentation for player/etc.
 Music/Ambiance, Sound Effects
 Battle map generation
-
-Toggleable visible grid (like in style example)
-Fog of war? Maybe make it sections of the map, and obvious.
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.

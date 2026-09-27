@@ -2,15 +2,14 @@
 ##
 ## The player's turn ends once every squad member has spent all their
 ## actions, or early by holding Shift for [member end_turn_hold_time]
-## seconds. Enemies then act one at a time with the camera on them. Until
-## there is enemy AI, each enemy spends all but its last action stepping to a
-## random neighbouring tile, then shoots a squad member it can see with the
-## last one, or steps again if it cannot see any.
+## seconds. Enemies then act one at a time with the camera on them.
 ##
-## Every step an enemy takes gives squad members on overwatch the chance to
-## react: each one that can see where the enemy stepped to spends its
-## reaction on a shot at it, until the enemy is dead or nobody is left
-## watching.
+## What an enemy does is up to its [member Unit.ai]. The turn manager asks it
+## for one [AIAction] at a time and carries each out, charging what the squad
+## would pay: an action per [member Unit.move_range] tiles walked, one per
+## shot. Enemies walk through [Reactions], which gives squad members on
+## overwatch their chance to fire at them on the way, and the camera is
+## handed back from any reaction view once each enemy's turn is over.
 ##
 ##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
 class_name TurnManager
@@ -32,9 +31,6 @@ signal end_turn_hold_changed(progress: float)
 ## How long an enemy's sight line hangs there before its shot goes off, so
 ## the player can see where the fire is coming from.
 @export var enemy_aim_seconds := 0.45
-## How long the odds of an overwatch shot stay up before it goes off, so the
-## player can read them.
-@export var reaction_aim_seconds := 0.8
 
 @export_group("Nodes")
 @export var squad_path: NodePath = ^"../PlayerSquad"
@@ -43,15 +39,17 @@ signal end_turn_hold_changed(progress: float)
 @export var camera_rig_path: NodePath = ^"../CameraRig"
 @export var banner_path: NodePath = ^"../HUD/TurnBanner"
 @export var overlay_path: NodePath = ^"../HUD/ShotOverlay"
+@export var reactions_path: NodePath = ^"../Reactions"
 
 var side := Side.PLAYER
 
 var _squad: PlayerSquad
 var _controller: ActionController
 var _grid: CombatGrid
-var _camera_rig: Node3D
+var _camera_rig: CameraRig
 var _banner: TurnBanner
-var _overlay: ShotOverlay
+var _reactions: Reactions
+var _enemy_fire: ShotPlayback
 
 var _hold := 0.0
 ## Set when another key is pressed during a hold, so Shift+Tab and the like
@@ -63,16 +61,24 @@ func _ready() -> void:
 	_squad = get_node_or_null(squad_path) as PlayerSquad
 	_controller = get_node_or_null(controller_path) as ActionController
 	_grid = get_node_or_null(grid_path) as CombatGrid
-	_camera_rig = get_node_or_null(camera_rig_path) as Node3D
+	_camera_rig = get_node_or_null(camera_rig_path) as CameraRig
 	_banner = get_node_or_null(banner_path) as TurnBanner
 	# The overlay only draws enemy fire, so a scene without one still plays.
-	_overlay = get_node_or_null(overlay_path) as ShotOverlay
-	if _overlay == null:
+	var overlay := get_node_or_null(overlay_path) as ShotOverlay
+	if overlay == null:
 		push_error("TurnManager: no ShotOverlay at '%s'." % overlay_path)
+	# Without reactions, enemies simply walk and the squad cannot answer.
+	_reactions = get_node_or_null(reactions_path) as Reactions
+	if _reactions == null:
+		push_error("TurnManager: no Reactions at '%s'." % reactions_path)
 	if _squad == null or _controller == null or _grid == null or _camera_rig == null or _banner == null:
 		push_error("TurnManager: missing a node it depends on.")
 		set_process(false)
 		return
+
+	_enemy_fire = ShotPlayback.new(_grid, overlay)
+	_enemy_fire.step_out_seconds = seconds_per_enemy_step
+	_enemy_fire.aim_seconds = enemy_aim_seconds
 
 	_controller.changed.connect(_on_controller_changed)
 	# Let the HUD finish setting up before the first banner.
@@ -114,6 +120,8 @@ func end_player_turn() -> void:
 		var enemy := node as Unit
 		if enemy != null:
 			await _take_enemy_turn(enemy)
+			if _reactions != null:
+				_reactions.release_view()
 	_start_player_turn(true)
 
 
@@ -128,104 +136,53 @@ func _start_player_turn(focus_camera: bool) -> void:
 	_banner.announce("Player Turn")
 
 
-## Placeholder behaviour until there is enemy AI: wander for every action but
-## the last, then shoot someone if anyone is in sight.
+## Plays out [param enemy]'s turn: asks its AI what to do with each action
+## and carries it out, until it is out of actions, its AI ends the turn, or a
+## reaction finishes it.
 func _take_enemy_turn(enemy: Unit) -> void:
 	enemy.start_turn()
+	if enemy.ai == null:
+		push_warning("TurnManager: '%s' has no ai, so it sits its turn out." % enemy.name)
+		return
 	_camera_rig.focus_on(enemy.global_position)
 	await get_tree().create_timer(enemy_action_pause).timeout
 
 	while enemy.actions_remaining > 0:
-		enemy.spend_actions(1)
-		# Spending first means no actions left is this one being the last.
-		var shot: Variant = _random_shot(enemy) if enemy.actions_remaining == 0 else null
-		if shot == null:
-			await _take_enemy_step(enemy)
-			await _react_to_move(enemy)
-			# Overwatch fire may have finished it, and the node with it.
+		var action := enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
+		if action == null or action.kind == AIAction.Kind.END_TURN:
+			return
+		if action.kind == AIAction.Kind.MOVE:
+			await _move_enemy(enemy, action.path)
+			# A reaction on the way may have finished it, and the node with it.
 			if not is_instance_valid(enemy) or enemy.health <= 0:
 				return
 		else:
-			await _play_shot(enemy, shot, HitChance.for_shot(enemy, shot), false)
+			enemy.spend_actions(ShootAction.COST)
+			await _enemy_fire.play(enemy, action.shot, action.estimate)
 		await get_tree().create_timer(enemy_action_pause).timeout
 
 
-## One step toward a random open neighbouring tile, or a wasted action if
-## boxed in.
-func _take_enemy_step(enemy: Unit) -> void:
-	var blocked := _grid.occupied_tiles(enemy)
-	var options := _grid.neighbours(_grid.tile_at(enemy.global_position)).filter(
-		func(tile: Vector3i) -> bool: return not blocked.has(tile)
-	)
-	if options.is_empty():
+## Walks [param enemy] along [param path], through [Reactions] so the squad
+## can answer. It pays what the squad would: an action per
+## [member Unit.move_range] tiles, and at least one, so an AI that asks for
+## nothing still spends the action and the turn always runs out. A path
+## longer than the enemy has actions for is cut short.
+func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
+	var walked := path.slice(0, enemy.actions_remaining * enemy.move_range)
+	enemy.spend_actions(maxi(ceili(float(walked.size()) / enemy.move_range), 1))
+	if walked.is_empty():
 		return
-	var destination: Vector3i = options.pick_random()
-	await enemy.walk([_grid.tile_position(destination)], seconds_per_enemy_step)
 
-
-## A shot at a squad member [param enemy] can see, picked at random, or null
-## if it cannot see any of them.
-func _random_shot(enemy: Unit) -> Variant:
-	if _squad.members.is_empty():
-		return null
-	var shots := LineOfSight.new(_grid).find_shots(enemy, _squad.members)
-	return null if shots.is_empty() else shots.pick_random()
-
-
-## Overwatch fire at [param mover], which has just stepped onto a new tile.
-## Every squad member on overwatch that can see it takes a shot, one after
-## another, until it is dead or they have all fired.
-func _react_to_move(mover: Unit) -> void:
-	var line_of_sight := LineOfSight.new(_grid)
-	for member: Unit in _squad.members.duplicate():
-		# A kill frees the node once the shot has played out.
-		if not is_instance_valid(mover) or mover.health <= 0:
-			return
-		if not member.overwatching or not member.reaction_available:
-			continue
-		var shot: Variant = line_of_sight.find_shot(member, mover)
-		if shot == null:
-			continue
-		var aimed := shot as LineOfSight.Shot
-		member.spend_reaction()
-		member.overwatching = false
-		await _play_shot(member, aimed, HitChance.for_shot(member, aimed, true), true)
-
-
-## [param shooter] takes [param shot] outside the player's own aiming: leans
-## out of cover if the shot needs it, holds the sight line long enough to be
-## seen, fires against [param estimate], and settles back.
-##
-## [param players] marks a squad member's shot, such as overwatch fire. It
-## gets the player's own aim - reticle and odds - rather than the paler line
-## of fire coming in.
-func _play_shot(
-	shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate, players: bool
-) -> void:
-	var cover := shooter.global_position
-	# Read where to call the result now: a target that dies is gone by then.
-	var mark := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile))
-
-	if shot.stepped_out:
-		await shooter.walk([_grid.tile_position(shot.from)], seconds_per_enemy_step)
-	if _overlay != null:
-		var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
-		if players:
-			_overlay.show_shot(eye, mark, shot, estimate)
-			await get_tree().create_timer(reaction_aim_seconds).timeout
-		else:
-			_overlay.show_incoming(eye, mark)
-			await get_tree().create_timer(enemy_aim_seconds).timeout
-
-	var hit := shooter.shoot_at(shot.target, estimate.chance)
-	if _overlay != null:
-		# Under the target when the odds panel holds the space over it.
-		var text := "%d" % shooter.weapon.damage if hit else "MISS"
-		_overlay.flash_result(mark, text, hit, players)
-		_overlay.clear()
-
-	if shot.stepped_out:
-		await shooter.walk([cover], seconds_per_enemy_step)
+	var points: Array[Vector3] = []
+	for tile in walked:
+		points.append(_grid.tile_position(tile))
+	# Keep the camera with the enemy, unless a reaction view is holding it.
+	if not _camera_rig.is_framing():
+		_camera_rig.focus_on(points[-1])
+	if _reactions != null:
+		await _reactions.walk(enemy, points, seconds_per_enemy_step)
+	else:
+		await enemy.walk(points, seconds_per_enemy_step)
 
 
 func _on_controller_changed() -> void:

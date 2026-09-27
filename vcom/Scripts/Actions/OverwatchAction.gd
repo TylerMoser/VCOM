@@ -1,11 +1,13 @@
-## Hold the unit's reaction to fire at the first enemy it sees move, for
-## every action it has left.
+## Hold the unit's reaction for a shot at an enemy it sees move, for every
+## action it has left.
 ##
 ## While the action is up, the ground the unit would cover is marked on the
 ## map. Confirming spends the rest of the unit's turn and puts it on
-## overwatch; the [TurnManager] takes the shot when an enemy moves into view.
-## Overwatch fire is a reaction, so it costs [constant HitChance.REACTION_PENALTY]
-## aim and cannot be taken if the unit has already used its reaction.
+## overwatch. Nothing fires by itself: when an enemy moves into view,
+## [Reactions] slows the action down and the player chooses whether, and
+## when, to take the shot. It is a reaction, so it costs
+## [constant HitChance.REACTION_PENALTY] aim and cannot be taken if the unit
+## has already used its reaction.
 ##
 ##   Go on overwatch - Enter or Space.
 class_name OverwatchAction
