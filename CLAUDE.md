@@ -31,6 +31,11 @@ vcom/Scripts/
     AssaultAI.gd       close in, point-blank when adjacent, best odds with the last action
     AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / END_TURN
     Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
+  Terrain/
+    TerrainDestruction.gd  breaks struck blocks, brings down stacks, drops stranded units, tidies debris
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter()
+    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall
+    DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
 ```
@@ -78,8 +83,34 @@ for a miss, XCOM 2's placement, an aim point on a ring around the target's body 
 of the time, on the target's cover) traced with `CombatGrid.cast()` until something stops it or it
 leaves the map. It then awaits `show_rounds` (`ShotOverlay.show_rounds`, which draws the tracer and
 returns as it lands), and only then damages the target and reports any terrain the round struck
-through `CombatGrid.strike()` as `terrain_struck`. Nothing listens to `terrain_struck` yet: it is
-where destructible terrain plugs in. `shoot_at` is a coroutine; always `await` it.
+through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; always `await` it.
+
+**Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
+`terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
+`DestructionCatalog` of `Destruction` resources each naming a block by its MeshLibrary item name.
+A block with no entry never breaks. A breaking block leaves the grid at once, then its destruction's
+`shatter(site, at, hit)` plays out what is left under the `TerrainDestruction` node, `at` being
+where the grid drew the block's mesh. Any breakable block left with nothing under it breaks too, so
+stacks come down, and a unit left standing on nothing drops (`Unit.drop_to`) through that rubble.
+
+To make another object break like the crate:
+
+1. Model the pieces in MagicaVoxel in the same frame as the block's own model, as separate models.
+2. Import the `.vox` as a Scene at **Scale 0.0625**, the blocks' scale, or the pieces will not line
+   up with the block they replace. Make an inherited scene of it in `Scenes/` to add to.
+3. Make a `ScriptedDestruction` `.tres` in `Resources/Destruction/` naming the block and that scene,
+   and add it to `Catalog.tres`.
+
+Every bare mesh in the scene becomes a rigid body with a box collider; a `RigidBody3D` you author is
+used as it is, and other nodes are left alone. A new way of breaking is a `Destruction` subclass
+that overrides `shatter()`, the same shape as a new enemy being an `EnemyAI` subclass.
+
+**Physics is only for debris.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3 debris,
+4 unit bodies (`Unit.BODY_LAYER`). Blocks have no collision in the MeshLibrary, so
+`TerrainDestruction` gives the map a copy of it with a cube on every shapeless block. Debris stays
+live for good and sleeps when still. Each unit carries an `AnimatableBody3D` capsule, starting
+`Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and is never pushed back. Debris
+knocked off the map, or wedged inside a block, is removed. The rules never look at debris.
 
 ## Conventions
 
@@ -114,6 +145,8 @@ where destructible terrain plugs in. `shoot_at` is a coroutine; always `await` i
   unit standing in the line of fire itself, which every round passes through since units never block
   sight. A miss never stops on terrain more than `Ballistics.SHORT_OF_TARGET` short of the target.
 - **Damage and terrain strikes land when the round does**, inside `shoot_at`, not when it is fired.
+- **A broken block leaves the grid the moment the round strikes it**, before any debris moves, so
+  sight, cover and paths never wait on physics. Debris is for show: nothing in the rules reads it.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -155,7 +188,12 @@ render, then **delete `_probe/`**.
 half cover, step-out around a pillar, and a wall that can only be leaned around from the north.
 Three shot lanes: a target in the open with a crate backstop behind it, a low crate wall running
 under the line of fire into the target's half cover, and a squad member standing right behind the
-target. Prefer adding a lane there over reasoning about geometry in your head.
+target. Its crates break, so a probe that shoots there changes the lanes as it goes. Prefer adding
+a lane there over reasoning about geometry in your head.
+
+Physics runs headless, and with `--fixed-fps 60` every physics step is exactly 1/60 s, so debris
+can be tested without rendering: break a block by calling `CombatGrid.strike()` with a hand-built
+`RayHit`, then wait on `physics_frame`.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
@@ -206,6 +244,19 @@ where something lands; a hit follows the sight line and is never cast.
 `StandardMaterial3D` overrides, and the viewport mouse position is pinned at `(0,0)` while the
 window reports focus.
 
+**`AnimatableBody3D.sync_to_physics` leaves a body behind when its parent moves.** It hands the
+body's transform to the physics server, and a parent moving underneath does not tell it. A unit's
+body moves with the unit's tweens, so it is not synced. Jolt still moves a kinematic body with
+velocity when its transform is set, so it pushes debris properly.
+
+**A GridMap cell's collision goes at the end of the frame, not on `set_cell_item()`.** Debris
+spawned where a block just was would start inside the block's old collision and be flung out, so
+`ScriptedDestruction` holds the pieces frozen until the next `physics_frame`.
+
+**A kinematic body driven into a heap grinds thin pieces into whatever is under them.** That is why
+a unit dropping into its own rubble passes through it (`drop_to`'s `rubble`), and why its body
+starts above its feet.
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -218,6 +269,8 @@ directly or write a fresh generator.
 
 - A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
   per-unit state like rounds remaining.
-- Nothing breaks yet: `CombatGrid.terrain_struck` has no listener.
+- Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck` but
+  nothing reads it yet: any strike breaks a crate.
+- Rounds fly straight through debris: the trace only sees the grid.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).

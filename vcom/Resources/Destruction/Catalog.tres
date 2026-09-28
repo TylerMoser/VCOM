@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="DestructionCatalog" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Terrain/Destruction.gd" id="1_12ex5"]
+[ext_resource type="Resource" path="res://Resources/Destruction/BrightCrate1.tres" id="2_ieuev"]
+[ext_resource type="Script" path="res://Scripts/Terrain/DestructionCatalog.gd" id="3_o8owx"]
+
+[resource]
+script = ExtResource("3_o8owx")
+destructions = Array[ExtResource("1_12ex5")]([ExtResource("2_ieuev")])

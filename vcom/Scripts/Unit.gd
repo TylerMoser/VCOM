@@ -18,8 +18,18 @@ signal died
 ## Physics layer holding the bodies that mouse clicks on units are tested
 ## against. Nothing collides with it, so it never affects movement.
 const PICK_LAYER := 1 << 1
+## Physics layer holding the bodies debris bumps off. A unit pushes debris
+## aside as it moves and is never pushed back, so it never affects movement
+## either.
+const BODY_LAYER := 1 << 3
+## How far above a unit's feet the body debris bumps off starts, in cells.
+## Debris lying flat on the ground is stood among rather than ground into it.
+const BODY_CLEARANCE := 0.15
 ## Every unit, whichever side it is on.
 const GROUP := &"units"
+## How fast a unit gathers speed when the ground under it gives way, in cells
+## per second per second.
+const FALL_ACCELERATION := 9.8
 
 @export var display_name := "Unit"
 @export var max_health := 10
@@ -73,6 +83,12 @@ var overwatching := false:
 		overwatching = value
 		overwatch_changed.emit(overwatching)
 
+## The tween walking the unit or dropping it. Null, or finished, while it
+## stands still.
+var _motion: Tween
+## The body debris bumps off. Null for a unit with no Mesh to shape it by.
+var _body: AnimatableBody3D
+
 ## Placeholder identity colour, taken from the Mesh child's material.
 var color: Color:
 	get:
@@ -90,7 +106,7 @@ func _ready() -> void:
 	actions_remaining = actions_per_turn
 	if weapon == null:
 		weapon = Weapon.new()
-	_add_pick_body()
+	_add_bodies()
 
 
 ## Refills the action budget and the reaction at the start of this unit's
@@ -182,22 +198,65 @@ func start_walk(points: Array[Vector3], seconds_per_step: float) -> Tween:
 	var tween := create_tween()
 	for point in points:
 		tween.tween_property(self, ^"global_position", point, seconds_per_step)
+	_motion = tween
 	return tween
 
 
-## Gives the unit a clickable body shaped like its Mesh child.
-func _add_pick_body() -> void:
+## Whether the unit is walking or dropping.
+func is_moving() -> bool:
+	return _motion != null and _motion.is_running()
+
+
+## Drops the unit straight down to [param point], gathering speed as it
+## falls, as it does when the ground under it gives way. [param rubble] is the
+## debris of what it stood on, which falls with it: the unit passes through
+## those pieces for good, since landing on the heap from above it would grind
+## them into the ground.
+func drop_to(point: Vector3, rubble: Array[PhysicsBody3D] = []) -> void:
+	var height := maxf(global_position.y - point.y, 0.0)
+	if _motion != null:
+		_motion.kill()
+	_motion = create_tween()
+	var fall := _motion.tween_property(self, ^"global_position", point, sqrt(2.0 * height / FALL_ACCELERATION))
+	fall.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	if _body != null:
+		for piece in rubble:
+			if is_instance_valid(piece):
+				_body.add_collision_exception_with(piece)
+
+
+## Gives the unit a body shaped like its Mesh child for mouse clicks to land
+## on, and a capsule round it for debris to bump off, clear of the ground by
+## [constant BODY_CLEARANCE]. Both move with the unit however it is moved.
+func _add_bodies() -> void:
 	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
 	if mesh == null or mesh.mesh == null:
 		return
 
-	var shape := CollisionShape3D.new()
-	shape.shape = mesh.mesh.create_convex_shape()
+	var pick_shape := CollisionShape3D.new()
+	pick_shape.shape = mesh.mesh.create_convex_shape()
+	var pick := StaticBody3D.new()
+	pick.name = &"PickBody"
+	pick.collision_layer = PICK_LAYER
+	pick.collision_mask = 0
+	pick.transform = mesh.transform
+	pick.add_child(pick_shape)
+	add_child(pick)
 
-	var body := StaticBody3D.new()
-	body.name = &"PickBody"
-	body.collision_layer = PICK_LAYER
-	body.collision_mask = 0
-	body.transform = mesh.transform
-	body.add_child(shape)
-	add_child(body)
+	var box := mesh.transform * mesh.mesh.get_aabb()
+	var capsule := CapsuleShape3D.new()
+	capsule.radius = minf(box.size.x, box.size.z) * 0.5
+	capsule.height = maxf(box.end.y - BODY_CLEARANCE, capsule.radius * 2.0)
+	var shape := CollisionShape3D.new()
+	shape.shape = capsule
+	shape.position = Vector3(box.get_center().x, BODY_CLEARANCE + capsule.height * 0.5, box.get_center().z)
+	_body = AnimatableBody3D.new()
+	_body.name = &"Body"
+	_body.collision_layer = BODY_LAYER
+	_body.collision_mask = 0
+	# Not synced to physics: that takes the body's place from the physics
+	# server, and a body moved by its parent, as this one is by the unit's
+	# tweens, would be left behind.
+	_body.sync_to_physics = false
+	_body.add_child(shape)
+	add_child(_body)

@@ -152,7 +152,21 @@ against a target in cover strike the cover.
 - **A miss never lands well short of the target**, no more than 2 tiles in front of it.
 
 Where a miss strikes terrain it leaves a mark and is reported to the map with the weapon's
-environmental damage (5 for a rifle). **Nothing breaks yet**: destructible terrain is next.
+environmental damage (5 for a rifle).
+
+### Destructible terrain
+
+**Crates break.** A crate struck by a stray round is gone the moment the round arrives: sight,
+cover and paths change at once, so an enemy crouched behind it is in the open for the next shot.
+What is left of it collapses to the ground in pieces.
+
+- **Stacks come down together.** Anything breakable stacked on a broken crate breaks too.
+  Unbreakable blocks stay where they are.
+- **A soldier on a crate falls.** Anyone left standing on nothing drops to the ground below.
+- **The pieces are only for show.** They are real physics debris that stays for the rest of the
+  fight and bumps off soldiers, but they never block sight, give cover or get in anyone's way.
+
+Grass and the ground do not break.
 
 ## Notable decisions
 
@@ -173,6 +187,13 @@ projectile and damaged whatever it bumped into on the way; XCOM 2 works the whol
 has the tracer play it back. The path is traced through the same voxel grid as sight, with no
 physics, so it is decided before anything is drawn, can be tested headless, and can never pass
 through a block the grid says is solid.
+
+**The rules never wait on physics.** A broken block leaves the grid the instant it is struck, and
+its debris is physics for the eye only. The fight stays exactly as predictable as before, however
+the pieces happen to fall.
+
+**Breakable blocks are data.** How a block breaks is a resource naming it, and a new breakable
+object is a pre-cut MagicaVoxel model plus one of those. No code changes are needed.
 
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime.
@@ -204,12 +225,15 @@ vcom/                     the Godot project
       Weapon.gd           what a shot does when it lands, to units and to terrain
       TileHighlights.gd   coloured squares over tiles
     AI/                   enemy AI: the base, the assault AI, and the queries they share
+    Terrain/              destructible terrain: what breaks, how, and what it brings down
     Actions/              the action bar's actions: Move, Shoot, Overwatch
     UI/                   HUD, built in code rather than scenes
   Resources/              shared weapon and AI resources units are given
+    Destruction/          what breaks and how: one resource per breakable block, and the catalog
   Scenes/
     CombatMap.tscn        the playable map
     LineOfSightTest.tscn  harness for the sight and shot rules
+    Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
 ```
 

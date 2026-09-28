@@ -124,6 +124,16 @@ func tile_at(world_position: Vector3) -> Vector3i:
 	return _grid.local_to_map(lifted)
 
 
+## The first tile at or below [param cell], straight down: where anything
+## falling from there comes to rest. Null if there is no ground below it.
+func tile_under(cell: Vector3i) -> Variant:
+	for y in range(cell.y, _bounds_min.y, -1):
+		var below := Vector3i(cell.x, y, cell.z)
+		if is_tile(below):
+			return below
+	return null
+
+
 ## Tiles standing units occupy, except [param except]'s own, as a set.
 func occupied_tiles(except: Unit = null) -> Dictionary:
 	var tiles := {}

@@ -20,6 +20,8 @@
 [ext_resource type="Script" path="res://Scripts/UI/ActionBar.gd" id="14_o3xbv"]
 [ext_resource type="Script" path="res://Scripts/UI/EndTurnPrompt.gd" id="15_54i4f"]
 [ext_resource type="Script" path="res://Scripts/UI/TurnBanner.gd" id="16_hkwoe"]
+[ext_resource type="Script" path="res://Scripts/Terrain/TerrainDestruction.gd" id="17_destruction"]
+[ext_resource type="Resource" path="res://Resources/Destruction/Catalog.tres" id="18_destruction_catalog"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -275,6 +277,10 @@ surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="CombatGrid" type="Node" parent="." unique_id=1000019]
 script = ExtResource("5_r3fgy")
+
+[node name="TerrainDestruction" type="Node3D" parent="."]
+script = ExtResource("17_destruction")
+catalog = ExtResource("18_destruction_catalog")
 
 [node name="TileHighlights" type="MultiMeshInstance3D" parent="." unique_id=1000020]
 script = ExtResource("6_8g5p0")
