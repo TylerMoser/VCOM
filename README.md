@@ -135,6 +135,25 @@ Hold `Ctrl` while aiming to see the sum itself, one line per term that mattered.
 Every shot that lands deals its weapon's damage (a rifle does 4 against 10 health). There are no
 critical hits yet, and damage does not vary.
 
+### Where shots go
+
+Every shot is drawn as a tracer, and its result, damage included, is called when the round arrives.
+A hit flies straight along the sight line into the target, so it never touches terrain.
+
+A miss still goes somewhere, as in XCOM 2. Once the roll has said it misses, the round is aimed at a
+point near the target (above or beside its body, never through it) and flies on until it strikes
+something solid or leaves the map. When the target has cover facing the shot, about a third of misses
+are aimed at that cover instead. With the misses that clip it anyway, around half of all misses
+against a target in cover strike the cover.
+
+- **A stray round never hurts anyone.** It never passes through another unit, friend or foe, unless
+  that unit is standing right in the line of fire, where any round passes through it because units
+  never block sight.
+- **A miss never lands well short of the target**, no more than 2 tiles in front of it.
+
+Where a miss strikes terrain it leaves a mark and is reported to the map with the weapon's
+environmental damage (5 for a rifle). **Nothing breaks yet**: destructible terrain is next.
+
 ## Notable decisions
 
 **Cover is read off whole cells, not thin walls.** XCOM puts cover on tile edges; here every
@@ -148,6 +167,12 @@ every pair of tiles on the test map: if A can see B, B can see A, with no except
 
 **The number you are shown is the number that is rolled.** The hit chance is worked out once, when
 the shot is lined up, and kept until the trigger goes.
+
+**Where a miss goes is settled when it is fired, XCOM 2's way.** XCOM: Enemy Unknown flew a real
+projectile and damaged whatever it bumped into on the way; XCOM 2 works the whole path out first and
+has the tracer play it back. The path is traced through the same voxel grid as sight, with no
+physics, so it is decided before anything is drawn, can be tested headless, and can never pass
+through a block the grid says is solid.
 
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime.
@@ -171,11 +196,12 @@ vcom/                     the Godot project
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
     Combat/
-      CombatGrid.gd       tile queries, pathfinding, the sight-line ray
+      CombatGrid.gd       tile queries, pathfinding, the sight-line ray, ray casts, terrain strikes
       LineOfSight.gd      cover, stepping out, who can see whom
       HitChance.gd        the to-hit sum, and the roll
+      Ballistics.gd       where a round goes, hit or miss
       ShotPlayback.gd     plays out enemy fire and reaction fire
-      Weapon.gd           what a shot does when it lands
+      Weapon.gd           what a shot does when it lands, to units and to terrain
       TileHighlights.gd   coloured squares over tiles
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Actions/              the action bar's actions: Move, Shoot, Overwatch
@@ -183,7 +209,7 @@ vcom/                     the Godot project
   Resources/              shared weapon and AI resources units are given
   Scenes/
     CombatMap.tscn        the playable map
-    LineOfSightTest.tscn  harness for the sight rules
+    LineOfSightTest.tscn  harness for the sight and shot rules
 MagicaVoxel/              source .vox art
 ```
 

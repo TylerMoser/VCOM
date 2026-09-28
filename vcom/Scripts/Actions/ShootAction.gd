@@ -10,8 +10,9 @@
 ##   Show the sum  - hold Ctrl to open the breakdown behind the hit chance.
 ##
 ## A shot that needs a step out plays it: the unit leans out to the tile it
-## found the shot from, fires, and settles back into its cover. The shot
-## itself is instant, and whether it lands is [HitChance]'s business.
+## found the shot from, fires, and settles back into its cover. Whether the
+## shot lands is [HitChance]'s business, and where the round goes is
+## [Ballistics]'s.
 class_name ShootAction
 extends UnitAction
 
@@ -88,8 +89,8 @@ func current_shot() -> Variant:
 
 
 ## Takes the shot that is lined up: leans out if it needs to, rolls against
-## the odds the player was shown, calls the result, and comes back to cover.
-## The action is spent either way.
+## the odds the player was shown, calls the result once the round lands, and
+## comes back to cover. The action is spent either way.
 func _fire() -> void:
 	var shot: Variant = current_shot()
 	if shot == null:
@@ -110,9 +111,12 @@ func _fire() -> void:
 	if aimed.stepped_out:
 		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds)
 
-	var hit := unit.shoot_at(aimed.target, estimate.chance)
+	var show_rounds := _overlay.show_rounds if _overlay != null else Callable()
+	var outcome: Ballistics.Outcome = await unit.shoot_at(
+		aimed, estimate.chance, controller.grid, show_rounds
+	)
 	if _overlay != null:
-		_overlay.flash_result(mark, "%d" % unit.weapon.damage if hit else "MISS", hit)
+		_overlay.flash_result(mark, "%d" % unit.weapon.damage if outcome.hit else "MISS", outcome.hit)
 
 	if aimed.stepped_out:
 		await unit.walk([cover], step_out_seconds)

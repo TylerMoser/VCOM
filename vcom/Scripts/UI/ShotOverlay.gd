@@ -1,7 +1,8 @@
 ## The shot being lined up, drawn over the map: the sight line from wherever
 ## the shooter is firing from, a reticle on the target, and a panel naming it
-## and its odds. Once the trigger goes, it calls the result over the target,
-## which is the only thing that separates a miss from nothing happening.
+## and its odds. Once the trigger goes, it draws the round's tracer to wherever
+## it stops, marks the spot where a stray round struck terrain, and calls the
+## result over the target.
 ##
 ## It is all screen space, redrawn every frame from the world positions it was
 ## handed, so it keeps up with the camera without any 3D nodes to place.
@@ -33,6 +34,23 @@ const MISS_COLOR := Color(0.85, 0.88, 0.95)
 const RESULT_OUTLINE_COLOR := Color(0.04, 0.04, 0.07)
 const RESULT_OUTLINE_WIDTH := 5
 
+## How fast a round flies, in cells a second, and the length of the streak its
+## tracer draws, in cells.
+const ROUND_SPEED := 60.0
+const TRACER_LENGTH := 2.0
+const TRACER_WIDTH := 2.0
+const TRACER_COLOR := Color(1.0, 0.95, 0.7)
+## A softer, wider streak under the tracer, so it reads against bright ground.
+const TRACER_GLOW_WIDTH := 6.0
+const TRACER_GLOW_COLOR := Color(1.0, 0.65, 0.25, 0.4)
+## The mark where a round struck terrain: how long it stays up, and the flash
+## it starts as and the ring that flash spreads into, in pixels.
+const IMPACT_SECONDS := 0.5
+const IMPACT_FLASH_RADIUS := 5.0
+const IMPACT_RADIUS := 16.0
+const IMPACT_WIDTH := 2.0
+const IMPACT_COLOR := Color(1.0, 0.85, 0.55)
+
 ## Eye the shot is taken from, and the eye it is aimed at.
 var _from := Vector3.ZERO
 var _to := Vector3.ZERO
@@ -51,6 +69,14 @@ var _result_below := true
 ## Seconds of the result left to show. Zero once it has faded out.
 var _result_left := 0.0
 
+## The rounds of the last shot fired, seconds since they were fired, and how
+## many their tracers take to draw in to where the rounds stopped.
+var _rounds: Array[Ballistics.Path] = []
+var _round_time := 0.0
+var _rounds_seconds := 0.0
+## Marks where rounds struck terrain, as [code][position, seconds left][/code].
+var _impacts: Array = []
+
 var _panel: TargetPanel
 
 
@@ -68,8 +94,11 @@ func _init() -> void:
 func _process(delta: float) -> void:
 	if _result_left > 0.0:
 		_result_left = maxf(_result_left - delta, 0.0)
-	# Nothing left to draw once the aim is down and the result has faded.
-	if not _aiming and _result_left <= 0.0:
+	_round_time += delta
+	for impact: Array in _impacts:
+		impact[1] -= delta
+	_impacts = _impacts.filter(func(impact: Array) -> bool: return impact[1] > 0.0)
+	if _is_idle():
 		visible = false
 		set_process(false)
 		return
@@ -123,13 +152,45 @@ func show_incoming(from: Vector3, to: Vector3) -> void:
 	queue_redraw()
 
 
+## Draws each round of [param outcome] flying from where it was fired to where
+## it stops, and returns once they have all got there, which is when the shot
+## lands. A round that struck terrain leaves a mark where it hit. Pass it to
+## [method Unit.shoot_at] to hold the shot's landing until then.
+func show_rounds(outcome: Ballistics.Outcome) -> void:
+	_rounds = outcome.paths
+	_round_time = 0.0
+	var flight := 0.0
+	for path in _rounds:
+		flight = maxf(flight, path.from.distance_to(path.to) / ROUND_SPEED)
+	_rounds_seconds = flight + TRACER_LENGTH / ROUND_SPEED
+	visible = true
+	set_process(true)
+	queue_redraw()
+
+	await get_tree().create_timer(flight).timeout
+	for path in outcome.paths:
+		if path.struck != null:
+			_impacts.append([path.to, IMPACT_SECONDS])
+
+
 func clear() -> void:
 	_aiming = false
 	_incoming = false
 	_panel.visible = false
-	if _result_left <= 0.0:
+	if _is_idle():
 		visible = false
 		set_process(false)
+
+
+## Whether there is nothing left to draw: no aim up, no tracer still drawing
+## in, no mark where a round struck, and no result showing.
+func _is_idle() -> bool:
+	return (
+		not _aiming
+		and _result_left <= 0.0
+		and _round_time >= _rounds_seconds
+		and _impacts.is_empty()
+	)
 
 
 func _draw() -> void:
@@ -159,6 +220,11 @@ func _draw() -> void:
 	else:
 		_panel.visible = false
 
+	for path in _rounds:
+		_draw_round(camera, path)
+	for impact: Array in _impacts:
+		_draw_impact(camera, impact[0], impact[1])
+
 	if _result_left > 0.0 and not camera.is_position_behind(_result_at):
 		_draw_result(camera.unproject_position(_result_at), _result_below)
 
@@ -184,6 +250,39 @@ func _draw_reticle(center: Vector2) -> void:
 		var arm := corner * RETICLE_ARM
 		draw_line(point, point - Vector2(arm.x, 0.0), RETICLE_COLOR, RETICLE_WIDTH, true)
 		draw_line(point, point - Vector2(0.0, arm.y), RETICLE_COLOR, RETICLE_WIDTH, true)
+
+
+## The tracer of the round that flew [param path]: a streak
+## [constant TRACER_LENGTH] long behind the round, which draws in to where the
+## round stopped once it gets there.
+func _draw_round(camera: Camera3D, path: Ballistics.Path) -> void:
+	var length := path.from.distance_to(path.to)
+	var travelled := _round_time * ROUND_SPEED
+	if is_zero_approx(length) or travelled >= length + TRACER_LENGTH:
+		return
+	var head := path.from.lerp(path.to, minf(travelled, length) / length)
+	var tail := path.from.lerp(path.to, clampf(travelled - TRACER_LENGTH, 0.0, length) / length)
+	if camera.is_position_behind(head) or camera.is_position_behind(tail):
+		return
+	var from := camera.unproject_position(tail)
+	var to := camera.unproject_position(head)
+	draw_line(from, to, TRACER_GLOW_COLOR, TRACER_GLOW_WIDTH, true)
+	draw_line(from, to, TRACER_COLOR, TRACER_WIDTH, true)
+
+
+## The mark where a round struck terrain at [param at], with [param left]
+## seconds to go: a flash that spreads into a ring as it fades.
+func _draw_impact(camera: Camera3D, at: Vector3, left: float) -> void:
+	if camera.is_position_behind(at):
+		return
+	var center := camera.unproject_position(at)
+	var gone := 1.0 - left / IMPACT_SECONDS
+	var color := IMPACT_COLOR
+	color.a = 1.0 - gone
+	draw_circle(center, lerpf(IMPACT_FLASH_RADIUS, 0.0, gone), color)
+	draw_arc(
+		center, lerpf(IMPACT_FLASH_RADIUS, IMPACT_RADIUS, gone), 0.0, TAU, 24, color, IMPACT_WIDTH, true
+	)
 
 
 ## The result, drifting up and fading as its time runs out. It is outlined

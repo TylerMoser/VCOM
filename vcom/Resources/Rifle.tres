@@ -1,8 +1,6 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://d2l5k82w4sccd"]
 
-[ext_resource type="Script" path="res://Scripts/Combat/Weapon.gd" id="1_weapon"]
+[ext_resource type="Script" uid="uid://ci47t5y6vgtiw" path="res://Scripts/Combat/Weapon.gd" id="1_weapon"]
 
 [resource]
 script = ExtResource("1_weapon")
-display_name = "Rifle"
-damage = 4

@@ -126,15 +126,30 @@ func take_damage(amount: int) -> void:
 		die()
 
 
-## Fires at [param target] with [param chance] in 100 of landing. Returns
-## whether it hit. The player's [ShootAction], the enemy turn and overwatch
-## fire all come through here, so a shot means the same thing whoever takes
-## it.
-func shoot_at(target: Unit, chance: int) -> bool:
-	if not HitChance.roll(chance):
-		return false
-	target.take_damage(weapon.damage)
-	return true
+## Takes [param shot] with [param chance] in 100 of landing, and returns how it
+## went once the round has landed. The player's [ShootAction], the enemy turn
+## and overwatch fire all come through here, so a shot means the same thing
+## whoever takes it.
+##
+## Everything is settled as the round is fired: the roll decides whether it
+## lands, and [Ballistics] where it goes. [param show_rounds], if given, is
+## called with the [Ballistics.Outcome] at that moment and awaited, so whoever
+## is drawing the shot holds the landing until the round is seen to arrive.
+## On landing the target takes the weapon's damage if the shot hit, and any
+## terrain a round struck is reported to [param grid].
+func shoot_at(
+	shot: LineOfSight.Shot, chance: int, grid: CombatGrid, show_rounds := Callable()
+) -> Ballistics.Outcome:
+	var hit := HitChance.roll(chance)
+	var outcome := Ballistics.new(grid).fire(self, shot, hit)
+	if show_rounds.is_valid():
+		await show_rounds.call(outcome)
+	if outcome.hit and is_instance_valid(shot.target):
+		shot.target.take_damage(weapon.damage)
+	for path in outcome.paths:
+		if path.struck != null:
+			grid.strike(path.struck, weapon.environment_damage)
+	return outcome
 
 
 ## Removes the unit from play. It leaves its groups at once rather than when

@@ -1,10 +1,10 @@
 ## Plays out a shot the player is not lining up on the action bar: an enemy's
 ## fire, or a squad member's reaction. The shooter leans out of cover if the
-## shot needs it, the sight line hangs long enough to be seen, the shot is
-## rolled against odds already worked out, the result is called over the
-## target, and the shooter settles back into cover.
+## shot needs it, the sight line hangs long enough to be seen, the round flies
+## to wherever [Ballistics] sends it, the result is called over the target as
+## it lands, and the shooter settles back into cover.
 ##
-## The roll itself is [method Unit.shoot_at], so a shot played out here means
+## The shot itself is [method Unit.shoot_at], so a shot played out here means
 ## the same as one taken from the action bar.
 class_name ShotPlayback
 extends RefCounted
@@ -38,6 +38,7 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 
 	if shot.stepped_out:
 		await shooter.walk([_grid.tile_position(shot.from)], step_out_seconds)
+	var show_rounds := Callable()
 	if _overlay != null:
 		var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
 		if player_fire:
@@ -45,14 +46,16 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 		else:
 			_overlay.show_incoming(eye, mark)
 		await _grid.get_tree().create_timer(aim_seconds).timeout
+		# The round takes over from the sight line once it is fired.
+		_overlay.clear()
+		show_rounds = _overlay.show_rounds
 
-	var hit := shooter.shoot_at(shot.target, estimate.chance)
+	var outcome: Ballistics.Outcome = await shooter.shoot_at(shot, estimate.chance, _grid, show_rounds)
 	if _overlay != null:
 		# Under the target when the odds panel holds the space over it.
-		var text := "%d" % shooter.weapon.damage if hit else "MISS"
-		_overlay.flash_result(mark, text, hit, player_fire)
-		_overlay.clear()
+		var text := "%d" % shooter.weapon.damage if outcome.hit else "MISS"
+		_overlay.flash_result(mark, text, outcome.hit, player_fire)
 
 	if shot.stepped_out:
 		await shooter.walk([cover], step_out_seconds)
-	return hit
+	return outcome.hit

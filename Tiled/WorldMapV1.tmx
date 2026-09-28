@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="1776" tileheight="1776" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="Sectors.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="10" height="10">
+  <data encoding="csv">
+0,0,0,2684354564,3758096392,3221225520,0,0,0,0,
+0,0,1610612757,1,1,3,0,0,0,0,
+0,2684354631,1,1,1,1,1610612745,536870916,0,0,
+0,39,1,1,1,1,1,1,2147483653,0,
+0,3221225479,1,1,1,1,1,1,73,0,
+0,2147483713,1610612816,1073741881,1,1,1,1,2147483652,0,
+0,0,0,49,1,1,1,1073741875,0,0,
+0,0,0,0,71,1,1,7,0,0,
+0,0,0,0,0,72,1,1,18,0,
+0,0,0,0,0,0,3758096386,2684354568,2684354579,0
+</data>
+ </layer>
+</map>

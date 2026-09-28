@@ -19,11 +19,12 @@ vcom/Scripts/
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Combat/
-    CombatGrid.gd      tiles, pathfinding, is_line_clear(), pick_tile()
+    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term), roll()
+    Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
     ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
-    Weapon.gd          Resource: damage
+    Weapon.gd          Resource: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
   AI/
     EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
@@ -71,6 +72,15 @@ the tween, then polls it each frame: on every new tile it works out who on overw
 speed 0 while a reaction shot plays out. `TurnManager` calls `release_view()` after each enemy's
 turn to hand the camera back. A window only exists during a walk; nothing else opens one.
 
+**A shot is settled when it is fired and lands when it arrives.** `Unit.shoot_at(shot, chance,
+grid, show_rounds)` rolls, then asks `Ballistics` for the round's `Path`: the sight line for a hit;
+for a miss, XCOM 2's placement, an aim point on a ring around the target's body (or, `COVER_SHARE`
+of the time, on the target's cover) traced with `CombatGrid.cast()` until something stops it or it
+leaves the map. It then awaits `show_rounds` (`ShotOverlay.show_rounds`, which draws the tracer and
+returns as it lands), and only then damages the target and reports any terrain the round struck
+through `CombatGrid.strike()` as `terrain_struck`. Nothing listens to `terrain_struck` yet: it is
+where destructible terrain plugs in. `shoot_at` is a coroutine; always `await` it.
+
 ## Conventions
 
 - `##` doc comments on every class and non-obvious method, written in plain prose explaining *why*,
@@ -93,8 +103,17 @@ turn to hand the camera back. A window only exists during a walk; nothing else o
 - **Hit chance is computed once**, when the shot is lined up (`ShootAction._estimate`), and that is
   what gets rolled. Do not recompute at fire time. A reaction's shot is lined up each time the enemy
   reaches a new tile (`Reactions._find_offers`); its prompt shows that estimate and firing rolls it.
-- `Unit.shoot_at(target, chance)` is the single place a shot is resolved. `ShootAction`, the enemy
-  AI and reaction fire all go through it; keep it that way so they cannot diverge.
+- `Unit.shoot_at(shot, chance, grid, show_rounds)` is the single place a shot is resolved.
+  `ShootAction`, the enemy AI and reaction fire all go through it; keep it that way so they cannot
+  diverge.
+- **Where a round goes is decided once, after the roll, when it is fired** (XCOM 2's order), by
+  `Ballistics`, and nothing recomputes it: the tracer draws that path and the terrain it ends on is
+  what `terrain_struck` reports. One path per shot, as in XCOM 2.
+- **A hit flies the sight line**, eye to eye, so it never touches terrain. Only misses strike it.
+- **Stray rounds never wound anyone and never pass through a unit**, the target included, except a
+  unit standing in the line of fire itself, which every round passes through since units never block
+  sight. A miss never stops on terrain more than `Ballistics.SHORT_OF_TARGET` short of the target.
+- **Damage and terrain strikes land when the round does**, inside `shoot_at`, not when it is fired.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -132,9 +151,14 @@ Probe scripts belong in the scratchpad directory, not the repo. To render a scen
 state, write a temporary `res://_probe/Probe.tscn` + `.gd` that instantiates the map and drives it,
 render, then **delete `_probe/`**.
 
-`Scenes/LineOfSightTest.tscn` is the harness for the sight rules: four lanes (open, half cover,
-step-out around a pillar, wall that can only be leaned around from the north). Prefer adding a lane
-there over reasoning about geometry in your head.
+`Scenes/LineOfSightTest.tscn` is the harness for the sight and shot rules. Four sight lanes: open,
+half cover, step-out around a pillar, and a wall that can only be leaned around from the north.
+Three shot lanes: a target in the open with a crate backstop behind it, a low crate wall running
+under the line of fire into the target's half cover, and a squad member standing right behind the
+target. Prefer adding a lane there over reasoning about geometry in your head.
+
+A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
+main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
 
 ## Gotchas
 
@@ -169,7 +193,14 @@ press does nothing.
 serialization order is not the constructor order. Have Godot print `var_to_str(...)`, or build the
 scene with a script and `PackedScene.pack()` + `ResourceSaver.save()`. When packing, every node must
 have `owner` set to the root, recursively, or it is silently dropped; clear `scene_file_path` for a
-standalone copy.
+standalone copy. But set it only on the nodes you add: re-saving an instantiated scene with every
+descendant owned also saves the children HUD widgets build in `_init()` (the target panel, the
+banner's label), which then get built twice, and reshuffles resource ids. To add to an existing
+scene, generate it that way and splice just the new blocks into the original text.
+
+**`CombatGrid.cast()` never cuts a corner; `is_line_clear()` does.** A sight line slips between two
+blocks that meet at a corner, a ray does not. Use `is_line_clear` for who can see whom and `cast` for
+where something lands; a hit follows the sight line and is never cast.
 
 **Headless quirks:** the dummy renderer logs a spurious `Parameter "material" is null` for
 `StandardMaterial3D` overrides, and the viewport mouse position is pinned at `(0,0)` while the
@@ -187,3 +218,6 @@ directly or write a fresh generator.
 
 - A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
   per-unit state like rounds remaining.
+- Nothing breaks yet: `CombatGrid.terrain_struck` has no listener.
+- The squad panel does not wrap: past about five members it runs under the action bar, which it does
+  in the harness (eight).

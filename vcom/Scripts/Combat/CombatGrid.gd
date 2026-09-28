@@ -9,6 +9,11 @@
 class_name CombatGrid
 extends Node
 
+## Emitted when a round strikes a solid cell, with the environmental damage
+## behind it. What a strike does to the cell is up to the terrain: the grid
+## only reports it.
+signal terrain_struck(hit: RayHit, damage: int)
+
 const UNIT_HEIGHT := 2
 const MAX_CLIMB := 1
 const MAX_DROP := 2
@@ -24,7 +29,26 @@ const DIRECTIONS: Array[Vector2i] = [
 @export var grid_map_path: NodePath = ^"../GridMap"
 
 var _grid: GridMap
-var _lowest_y := 0
+## The box, in cells, that every solid cell on the map lies within. Worked
+## out once: cells only ever go from the map, so it never needs to grow.
+var _bounds_min := Vector3i.ZERO
+var _bounds_max := Vector3i.ZERO
+
+
+## Where a ray cast by [method cast] first runs into a solid cell.
+class RayHit:
+	## The solid cell the ray ran into.
+	var cell: Vector3i
+	## Where the ray met the cell, on the face it came in through.
+	var point: Vector3
+	## The face of [member cell] the ray came in through, as the way that face
+	## looks out: [code]Vector3i.UP[/code] for the top. Zero if the ray started
+	## inside the cell.
+	var face: Vector3i
+	## Which way the ray was travelling, normalised.
+	var direction: Vector3
+	## How far the ray travelled to get there.
+	var distance: float
 
 
 ## Result of [method find_reachable]: every reachable tile, how many steps it
@@ -50,8 +74,14 @@ func _ready() -> void:
 	if _grid == null:
 		push_error("CombatGrid: no GridMap at '%s'." % grid_map_path)
 		return
-	for cell in _grid.get_used_cells():
-		_lowest_y = mini(_lowest_y, cell.y)
+	var cells := _grid.get_used_cells()
+	if cells.is_empty():
+		return
+	_bounds_min = cells[0]
+	_bounds_max = cells[0]
+	for cell in cells:
+		_bounds_min = _bounds_min.min(cell)
+		_bounds_max = _bounds_max.max(cell)
 
 
 func is_solid(cell: Vector3i) -> bool:
@@ -177,9 +207,27 @@ func is_line_clear(from: Vector3i, to: Vector3i) -> bool:
 
 
 ## The tile whose floor a ray first lands on, or null if the ray hits the side
-## of a block or nothing at all. The ray is traced cell by cell through the
-## grid, because the blocks have no collision shapes.
+## of a block or nothing at all.
 func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant:
+	var hit: Variant = cast(origin, direction, max_distance)
+	if hit == null:
+		return null
+	var landed := hit as RayHit
+	# Only a hit on the top face counts as clicking the floor above.
+	if landed.face == Vector3i.UP and is_tile(landed.cell + Vector3i.UP):
+		return landed.cell + Vector3i.UP
+	return null
+
+
+## The first solid cell a ray from [param origin] along [param direction]
+## runs into, as a [RayHit], or null if it leaves the map or goes
+## [param max_distance] cells without meeting one.
+##
+## The ray is traced cell by cell through the grid, because the blocks have no
+## collision shapes. It enters every cell it touches, so unlike
+## [method is_line_clear] it never slips between two blocks that meet at a
+## corner.
+func cast(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant:
 	# Work in cell units, where cell c spans [c, c + 1) on each axis.
 	var from := _grid.to_local(origin) / _grid.cell_size
 	var dir := (_grid.global_basis.inverse() * direction) / _grid.cell_size
@@ -188,33 +236,51 @@ func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Va
 	dir = dir.normalized()
 
 	var cell := Vector3i(from.floor())
-	var step := Vector3i(int(signf(dir.x)), int(signf(dir.y)), int(signf(dir.z)))
-	var t_max := Vector3.ZERO
-	var t_delta := Vector3.ZERO
+	var step := Vector3i.ZERO
+	var t_max := Vector3(INF, INF, INF)
+	var t_delta := Vector3(INF, INF, INF)
 	for axis in 3:
 		if is_zero_approx(dir[axis]):
-			t_max[axis] = INF
-			t_delta[axis] = INF
-		else:
-			var boundary := cell[axis] + (1 if step[axis] > 0 else 0)
-			t_max[axis] = (boundary - from[axis]) / dir[axis]
-			t_delta[axis] = absf(1.0 / dir[axis])
+			continue
+		step[axis] = int(signf(dir[axis]))
+		var boundary := cell[axis] + (1 if step[axis] > 0 else 0)
+		t_max[axis] = (boundary - from[axis]) / dir[axis]
+		t_delta[axis] = absf(1.0 / dir[axis])
 
 	var entered_axis := -1
 	var t := 0.0
 	while t <= max_distance:
 		if is_solid(cell):
-			# Only a hit on the top face counts as clicking the floor above.
-			if entered_axis == Vector3.AXIS_Y and step.y < 0 and is_tile(cell + Vector3i.UP):
-				return cell + Vector3i.UP
-			return null
-		if cell.y < _lowest_y and step.y <= 0:
+			var face := Vector3i.ZERO
+			if entered_axis >= 0:
+				face[entered_axis] = -step[entered_axis]
+			var hit := RayHit.new()
+			hit.cell = cell
+			hit.face = face
+			hit.point = _grid.to_global((from + dir * t) * _grid.cell_size)
+			hit.direction = direction.normalized()
+			hit.distance = origin.distance_to(hit.point)
+			return hit
+		if _is_leaving_map(cell, step):
 			return null
 		entered_axis = t_max.min_axis_index()
 		t = t_max[entered_axis]
 		cell[entered_axis] += step[entered_axis]
 		t_max[entered_axis] += t_delta[entered_axis]
 	return null
+
+
+## The box every cell on the map lies within, in world space.
+func map_bounds() -> AABB:
+	var cells := AABB(Vector3(_bounds_min), Vector3(_bounds_max - _bounds_min + Vector3i.ONE))
+	var local := AABB(cells.position * _grid.cell_size, cells.size * _grid.cell_size)
+	return _grid.global_transform * local
+
+
+## Reports a round striking the solid cell [param hit] ran into, with
+## [param damage] environmental damage behind it, as [signal terrain_struck].
+func strike(hit: RayHit, damage: int) -> void:
+	terrain_struck.emit(hit, damage)
 
 
 ## The tile reached by stepping from [param from] toward [param direction],
@@ -225,6 +291,17 @@ func _step(from: Vector3i, direction: Vector2i) -> Variant:
 		if is_tile(to) and _is_clear(from, to):
 			return to
 	return null
+
+
+## Whether a ray stepping [param step] through the grid from [param cell] is
+## outside the map and heading away from it, and so can never meet a block.
+func _is_leaving_map(cell: Vector3i, step: Vector3i) -> bool:
+	for axis in 3:
+		if cell[axis] < _bounds_min[axis] and step[axis] <= 0:
+			return true
+		if cell[axis] > _bounds_max[axis] and step[axis] >= 0:
+			return true
+	return false
 
 
 ## Whether both columns are open for the whole climb or drop between
