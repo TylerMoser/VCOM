@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ScriptedDestruction" format=3]
+[gd_resource type="Resource" script_class="ScriptedDestruction" format=3 uid="uid://diuhwotcrxbq7"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Destruct_BrightCrate1.tscn" id="1_8jab2"]
-[ext_resource type="Script" path="res://Scripts/Terrain/ScriptedDestruction.gd" id="2_7mjoi"]
+[ext_resource type="PackedScene" uid="uid://b5l6273l0702r" path="res://Scenes/Destruct_BrightCrate1.tscn" id="1_8jab2"]
+[ext_resource type="Script" uid="uid://tedabb1fyuj" path="res://Scripts/Terrain/ScriptedDestruction.gd" id="2_7mjoi"]
 
 [resource]
 script = ExtResource("2_7mjoi")
 pieces = ExtResource("1_8jab2")
+blast = true
 block = "BrightCrate1"

@@ -28,3 +28,4 @@ Battle map generation
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.
+Debris can take up full tiles, causing weird behavior. If a tile is substantially full of debris, it should count as a full tile for cover and other systems.

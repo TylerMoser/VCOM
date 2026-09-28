@@ -3,11 +3,13 @@
 ## When the [CombatGrid] reports a strike, the struck block breaks if the
 ## [member catalog] has a [Destruction] for it. The block leaves the grid at
 ## once, so sight, cover and paths change the moment it goes, and its
-## destruction plays out what is left of it under this node. A breakable block
-## left with nothing under it comes down the same way, so a stack falls with
-## the block it stood on; a block that cannot break is left where it is. A unit
-## left standing on nothing drops to the ground below, falling with the rubble
-## of what it stood on and passing through it.
+## destruction plays out what is left of it under this node. Every breakable
+## block stacked on it leaves the grid with it, but falls whole, as a
+## [FallingBlock], and breaks where it lands; a block that cannot break is left
+## where it is, and so is everything on it. A unit left standing on nothing
+## drops to the ground below, falling with the rubble of what it stood on and
+## passing through it, and through whatever the blocks falling with it break
+## into.
 ##
 ## Blocks have no collision of their own, so on ready each one without any is
 ## given a cube, the shape it already is to the rules, for debris to land on.
@@ -42,6 +44,20 @@ var _destructions := {}
 var _tidy_in := TIDY_SECONDS
 
 
+## One broken block and everything it brings down: the debris left so far, and
+## the units dropping through it, who pass through whatever more it leaves.
+class Collapse:
+	var rubble: Array[PhysicsBody3D] = []
+	var fallers: Array[Unit] = []
+
+	## Adds [param left] to the rubble, for everyone dropping through it.
+	func add(left: Array[PhysicsBody3D]) -> void:
+		rubble.append_array(left)
+		for unit in fallers:
+			if is_instance_valid(unit):
+				unit.pass_through(left)
+
+
 func _ready() -> void:
 	_grid = get_node_or_null(grid_path) as CombatGrid
 	_map = get_node_or_null(grid_map_path) as GridMap
@@ -64,21 +80,17 @@ func _physics_process(delta: float) -> void:
 	_tidy_debris()
 
 
-## Breaks the block at [param cell], if it is one that breaks, along with every
-## breakable block stacked on it, and drops anyone left standing on nothing.
-## [param hit] is the round that broke it, or null. Returns whether it broke.
+## Breaks the block at [param cell], if it is one that breaks, brings down
+## every breakable block stacked on it, and drops anyone left standing on
+## nothing. [param hit] is the round that broke it, or null. Returns whether it
+## broke.
 func break_block(cell: Vector3i, hit: CombatGrid.RayHit = null) -> bool:
+	var collapse := Collapse.new()
 	var before := get_child_count()
-	if not _break(cell, hit):
+	if not _break(cell, hit, collapse):
 		return false
-	var rubble: Array[PhysicsBody3D] = []
-	for index in range(before, get_child_count()):
-		var left := get_child(index)
-		if left is PhysicsBody3D:
-			rubble.append(left as PhysicsBody3D)
-		for node in left.find_children("*", "PhysicsBody3D", true, false):
-			rubble.append(node as PhysicsBody3D)
-	_drop_stranded_units(rubble)
+	collapse.add(_left_since(before))
+	_drop_stranded_units(collapse)
 	return true
 
 
@@ -108,17 +120,70 @@ func _on_terrain_struck(hit: CombatGrid.RayHit, _damage: int) -> void:
 	break_block(hit.cell, hit)
 
 
-## Breaks the block at [param cell] and then, one by one, each breakable block
-## stacked on it, which the one below leaves standing on nothing.
-func _break(cell: Vector3i, hit: CombatGrid.RayHit) -> bool:
+## Breaks the block at [param cell] where it stands, and lets the blocks
+## stacked on it fall.
+func _break(cell: Vector3i, hit: CombatGrid.RayHit, collapse: Collapse) -> bool:
 	var destruction: Destruction = _destructions.get(_map.get_cell_item(cell))
 	if destruction == null:
 		return false
 	var at := _mesh_transform(cell)
 	_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
 	destruction.shatter(self, at, hit)
-	_break(cell + Vector3i.UP, null)
+	_drop_blocks_above(cell, collapse)
 	return true
+
+
+## Lets each breakable block stacked on [param cell], up to the first that
+## cannot break, fall whole, to break where it lands. They leave the grid now,
+## with the block they stood on, so the rules never wait for them to come down.
+func _drop_blocks_above(cell: Vector3i, collapse: Collapse) -> void:
+	var above := cell + Vector3i.UP
+	var destruction: Destruction = _destructions.get(_map.get_cell_item(above))
+	while destruction != null:
+		var block := _falling_block(above, destruction)
+		_map.set_cell_item(above, GridMap.INVALID_CELL_ITEM)
+		block.landed.connect(_on_landed.bind(destruction, collapse))
+		above += Vector3i.UP
+		destruction = _destructions.get(_map.get_cell_item(above))
+
+
+## Puts the block at [param cell] under this node as a [FallingBlock], standing
+## where the grid draws it, with the mesh and collision the grid gives it, and
+## as heavy as [param destruction] says it is whole.
+func _falling_block(cell: Vector3i, destruction: Destruction) -> FallingBlock:
+	var item := _map.get_cell_item(cell)
+	var library := _map.mesh_library
+	var block := FallingBlock.new(library.get_item_mesh(item), library.get_item_mesh_transform(item),
+		library.get_item_shapes(item), destruction.mass)
+	add_child(block)
+	var turn := _map.get_basis_with_orthogonal_index(_map.get_cell_item_orientation(cell))
+	block.global_transform = _map.global_transform * Transform3D(turn, _map.map_to_local(cell))
+	return block
+
+
+## Breaks a block that fell whole where it landed, [param at], its pieces
+## carrying on its fall, and lets anyone dropping through the collapse pass
+## through them.
+func _on_landed(at: Transform3D, motion: Destruction.Motion, destruction: Destruction, collapse: Collapse) -> void:
+	var before := get_child_count()
+	destruction.shatter(self, at, null, motion)
+	collapse.add(_left_since(before))
+
+
+## Every piece of debris among, or under, the children added since there were
+## [param before] of them: whatever a breaking block has just left. Blocks
+## falling whole are not among them; they never meet a unit.
+func _left_since(before: int) -> Array[PhysicsBody3D]:
+	var left: Array[PhysicsBody3D] = []
+	for index in range(before, get_child_count()):
+		var child := get_child(index)
+		if child is FallingBlock:
+			continue
+		if child is PhysicsBody3D:
+			left.append(child as PhysicsBody3D)
+		for node in child.find_children("*", "PhysicsBody3D", true, false):
+			left.append(node as PhysicsBody3D)
+	return left
 
 
 ## Where the grid draws the mesh of the block at [param cell], in world space:
@@ -132,16 +197,16 @@ func _mesh_transform(cell: Vector3i) -> Transform3D:
 
 
 ## Drops every unit left standing on nothing to the ground below it, through
-## [param rubble], the debris of what just broke.
-func _drop_stranded_units(rubble: Array[PhysicsBody3D]) -> void:
+## the debris of [param collapse].
+func _drop_stranded_units(collapse: Collapse) -> void:
 	for node in get_tree().get_nodes_in_group(Unit.GROUP):
-		_drop_if_stranded(node as Unit, rubble)
+		_drop_if_stranded(node as Unit, collapse)
 
 
-## Drops [param unit] to the ground below if it stands on nothing, through
-## [param rubble]. A unit on the move is left to finish first, since it may be
-## walking off onto solid ground.
-func _drop_if_stranded(unit: Unit, rubble: Array[PhysicsBody3D]) -> void:
+## Drops [param unit] to the ground below if it stands on nothing, through the
+## debris of [param collapse]. A unit on the move is left to finish first,
+## since it may be walking off onto solid ground.
+func _drop_if_stranded(unit: Unit, collapse: Collapse) -> void:
 	while is_instance_valid(unit) and unit.is_moving():
 		await get_tree().process_frame
 	if not is_instance_valid(unit) or unit.health <= 0:
@@ -151,7 +216,8 @@ func _drop_if_stranded(unit: Unit, rubble: Array[PhysicsBody3D]) -> void:
 		return
 	var landing: Variant = _grid.tile_under(tile)
 	if landing != null:
-		unit.drop_to(_grid.tile_position(landing), rubble)
+		unit.drop_to(_grid.tile_position(landing), collapse.rubble)
+		collapse.fallers.append(unit)
 
 
 ## Takes away debris that no longer belongs: fallen well below the map, or

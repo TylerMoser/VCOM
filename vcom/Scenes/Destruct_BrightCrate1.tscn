@@ -3,3 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bh887f2koin34" path="res://Blocks/Destruct_BrightCrate1.vox" id="1_0ricp"]
 
 [node name="Destruct_BrightCrate1" unique_id=361161236 instance=ExtResource("1_0ricp")]
+
+[node name="DestructOrigin" type="Marker3D" parent="." index="54" unique_id=1552628645]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.35)
+metadata/force = 0.5

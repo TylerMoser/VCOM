@@ -219,15 +219,23 @@ func drop_to(point: Vector3, rubble: Array[PhysicsBody3D] = []) -> void:
 	_motion = create_tween()
 	var fall := _motion.tween_property(self, ^"global_position", point, sqrt(2.0 * height / FALL_ACCELERATION))
 	fall.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-	if _body != null:
-		for piece in rubble:
-			if is_instance_valid(piece):
-				_body.add_collision_exception_with(piece)
+	pass_through(rubble)
+
+
+## Lets the unit pass through [param bodies] for good: more of the rubble it is
+## dropping through, left by a block that fell with it and broke on the way.
+func pass_through(bodies: Array[PhysicsBody3D]) -> void:
+	if _body == null:
+		return
+	for body in bodies:
+		if is_instance_valid(body):
+			_body.add_collision_exception_with(body)
 
 
 ## Gives the unit a body shaped like its Mesh child for mouse clicks to land
-## on, and a capsule round it for debris to bump off, clear of the ground by
-## [constant BODY_CLEARANCE]. Both move with the unit however it is moved.
+## on, and a frictionless capsule round it for debris to bump off, clear of the
+## ground by [constant BODY_CLEARANCE]. Both move with the unit however it is
+## moved.
 func _add_bodies() -> void:
 	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
 	if mesh == null or mesh.mesh == null:
@@ -254,6 +262,12 @@ func _add_bodies() -> void:
 	_body.name = &"Body"
 	_body.collision_layer = BODY_LAYER
 	_body.collision_mask = 0
+	# Frictionless, so debris that lands on a unit slides off it. With friction
+	# a board can balance on the round top of the capsule and rock there for
+	# good, keeping every piece it touches awake.
+	var material := PhysicsMaterial.new()
+	material.friction = 0.0
+	_body.physics_material_override = material
 	# Not synced to physics: that takes the body's place from the physics
 	# server, and a body moved by its parent, as this one is by the unit's
 	# tweens, would be left behind.

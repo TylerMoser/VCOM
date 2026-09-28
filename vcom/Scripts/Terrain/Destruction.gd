@@ -15,12 +15,33 @@ extends Resource
 
 ## The block this breaks, by its name in the map's MeshLibrary.
 @export var block := ""
+## How heavy the block is whole, in kilograms: what it weighs as it falls when
+## the block under it breaks, and so how hard it shoves the debris it meets on
+## the way down. A crate's boards weigh about 300 together.
+@export var mass := 300.0
+
+
+## How a block was moving as it broke, for its pieces to carry on the same way.
+class Motion:
+	## How fast the block's centre was moving, in cells a second.
+	var velocity := Vector3.ZERO
+	## How fast it was turning about its centre, in radians a second.
+	var angular_velocity := Vector3.ZERO
+	## Its centre, in world space.
+	var center := Vector3.ZERO
+
+	## How fast the part of the block at [param point], in world space, was
+	## moving.
+	func at(point: Vector3) -> Vector3:
+		return velocity + angular_velocity.cross(point - center)
 
 
 ## Plays out the block breaking. [param at] is where the block's mesh stood,
 ## in world space, so what replaces it can stand in exactly the same place.
 ## Anything left behind goes under [param site]. [param hit] is the round that
-## broke it, or null if it fell for want of anything under it. The base
-## destruction leaves nothing behind.
-func shatter(_site: TerrainDestruction, _at: Transform3D, _hit: CombatGrid.RayHit) -> void:
+## broke it, or null if it broke for want of anything under it. [param motion]
+## is null for a block that broke where it stood; for one that fell whole and
+## broke as it landed it is how the block was falling, which its pieces carry
+## on. The base destruction leaves nothing behind.
+func shatter(_site: TerrainDestruction, _at: Transform3D, _hit: CombatGrid.RayHit, _motion: Motion = null) -> void:
 	pass

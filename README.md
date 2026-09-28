@@ -158,10 +158,12 @@ environmental damage (5 for a rifle).
 
 **Crates break.** A crate struck by a stray round is gone the moment the round arrives: sight,
 cover and paths change at once, so an enemy crouched behind it is in the open for the next shot.
-What is left of it collapses to the ground in pieces.
+What is left of it bursts apart, throwing its boards a cell or two.
 
-- **Stacks come down together.** Anything breakable stacked on a broken crate breaks too.
-  Unbreakable blocks stay where they are.
+- **Stacks fall, then break.** A crate stacked on a broken one drops whole and breaks where it
+  lands, bursting apart just the same, and so does everything breakable above it. They are gone
+  from the fight the moment the crate under them is struck; the fall is only for show.
+  Unbreakable blocks stay where they are, and so does whatever stands on them.
 - **A soldier on a crate falls.** Anyone left standing on nothing drops to the ground below.
 - **The pieces are only for show.** They are real physics debris that stays for the rest of the
   fight and bumps off soldiers, but they never block sight, give cover or get in anyone's way.
@@ -189,11 +191,18 @@ physics, so it is decided before anything is drawn, can be tested headless, and 
 through a block the grid says is solid.
 
 **The rules never wait on physics.** A broken block leaves the grid the instant it is struck, and
+so does everything breakable stacked on it, even while those blocks are still to be seen falling;
 its debris is physics for the eye only. The fight stays exactly as predictable as before, however
 the pieces happen to fall.
 
 **Breakable blocks are data.** How a block breaks is a resource naming it, and a new breakable
-object is a pre-cut MagicaVoxel model plus one of those. No code changes are needed.
+object is a pre-cut MagicaVoxel model plus one of those. No code changes are needed. By default the
+pieces simply collapse; whether they burst apart instead is a tick box on the resource, and where
+the blast goes off and how hard is a marker placed in the model's scene.
+
+**A blast pushes like a real one.** Its push fades with the square of the distance, and each piece
+catches it in proportion to the area it turns toward the blast. So the boards nearest and facing it
+fly furthest, one edge-on to it far less, and every piece tumbles as it goes.
 
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime.

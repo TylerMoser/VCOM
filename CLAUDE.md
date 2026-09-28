@@ -32,9 +32,11 @@ vcom/Scripts/
     AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / END_TURN
     Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
   Terrain/
-    TerrainDestruction.gd  breaks struck blocks, brings down stacks, drops stranded units, tidies debris
-    Destruction.gd         Resource base: how a kind of block comes apart, shatter()
-    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall
+    TerrainDestruction.gd  breaks struck blocks, drops what they held, drops stranded units, tidies debris
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); mass; Motion
+    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart
+    FallingBlock.gd        a block whose support broke, falling whole until it lands
+    Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
@@ -89,9 +91,21 @@ through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; al
 `terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
 `DestructionCatalog` of `Destruction` resources each naming a block by its MeshLibrary item name.
 A block with no entry never breaks. A breaking block leaves the grid at once, then its destruction's
-`shatter(site, at, hit)` plays out what is left under the `TerrainDestruction` node, `at` being
-where the grid drew the block's mesh. Any breakable block left with nothing under it breaks too, so
-stacks come down, and a unit left standing on nothing drops (`Unit.drop_to`) through that rubble.
+`shatter(site, at, hit, motion)` plays out what is left under the `TerrainDestruction` node, `at`
+being where the grid drew the block's mesh.
+
+**Stacks fall, then break.** Every breakable block stacked on a broken one, up to the first that
+cannot break, leaves the grid in the same moment but does not break yet: it becomes a
+`FallingBlock` (its own mesh and collision, as heavy as its destruction's `mass`) that drops
+straight down its column and breaks where it lands, calling `shatter` with a `Destruction.Motion`
+so its pieces carry on its fall. It has landed once something takes more than half its speed away
+after it has got going (0.5 cells a second), once it has sat still for a quarter of a second, or
+three seconds after it was let go; it reports where it was two physics steps earlier (see
+Gotchas). A unit left standing on nothing drops (`Unit.drop_to`) through the rubble, and
+`TerrainDestruction.Collapse` lets it pass through the pieces the falling blocks leave later too
+(`Unit.pass_through`). Where the wreck under a falling block can get out of the way (a stack in the
+open, blasted apart) the blocks fall nearly a whole cell and smash; in a one-cell slot between two
+columns the columns hold the wreck in place, and the blocks drop on to it.
 
 To make another object break like the crate:
 
@@ -99,18 +113,46 @@ To make another object break like the crate:
 2. Import the `.vox` as a Scene at **Scale 0.0625**, the blocks' scale, or the pieces will not line
    up with the block they replace. Make an inherited scene of it in `Scenes/` to add to.
 3. Make a `ScriptedDestruction` `.tres` in `Resources/Destruction/` naming the block and that scene,
-   and add it to `Catalog.tres`.
+   and add it to `Catalog.tres`. Set its **Mass** to what the block weighs whole, if it is not
+   about a crate's 300 kg; that is only felt while it falls.
 
-Every bare mesh in the scene becomes a rigid body with a box collider; a `RigidBody3D` you author is
-used as it is, and other nodes are left alone. A new way of breaking is a `Destruction` subclass
-that overrides `shatter()`, the same shape as a new enemy being an `EnemyAI` subclass.
+Every bare mesh in the scene becomes a rigid body with a box collider, 3.5% smaller than the mesh
+(`ScriptedDestruction.SLACK`, see Gotchas); a `RigidBody3D` you author is used as it is, and other
+nodes are left alone. A new way of breaking is a `Destruction` subclass that overrides `shatter()`,
+the same shape as a new enemy being an `EnemyAI` subclass; it should honour `motion` when given
+one, adding `motion.at(point)` to what it throws each part of the block at.
+
+That block just collapses, which is the default. To have it burst apart instead, as the crate does:
+
+4. In the pieces scene, add a `Marker3D` named **`DestructOrigin`** where the blast goes off, with a
+   `float` metadata entry **`force`**: 1 is a moderate blast (a crate's boards land about a cell and
+   a half out, nine in ten within three), 2 is twice as hard, 0 is none; left out, it is 1.
+5. Tick **Blast** on the block's `ScriptedDestruction` `.tres`.
+
+Untick Blast to go back to the plain collapse; the marker is then ignored, so it can stay in the
+scene. The blast goes off every time the block breaks, including when it comes down because the
+block under it broke. Blast on with no marker warns and collapses. Where the marker sits shapes the
+burst: the crate's is at the bottom centre, like a charge underneath, so it throws up and out; one
+at the middle of the block throws evenly every way.
+
+`Blast.burst(pieces, origin, force)` works on any `RigidBody3D`s, so a new `Destruction` can use it
+too. Each piece gets an impulse away from the origin of `force * Blast.IMPULSE / (r² + Blast.CORE²)`
+times the area it turns toward the origin (from its box colliders), applied at its point nearest the
+origin. So the push falls off with the square of the distance, as a real blast's does, but stays
+finite at the origin; a board facing the blast is thrown harder than one edge-on to it, a light
+piece further than a heavy one, and pieces tumble as they fly. `IMPULSE` is what force 1 means, and
+is the only thing to retune if every blast is too strong or too weak.
 
 **Physics is only for debris.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3 debris,
 4 unit bodies (`Unit.BODY_LAYER`). Blocks have no collision in the MeshLibrary, so
 `TerrainDestruction` gives the map a copy of it with a cube on every shapeless block. Debris stays
-live for good and sleeps when still. Each unit carries an `AnimatableBody3D` capsule, starting
-`Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and is never pushed back. Debris
-knocked off the map, or wedged inside a block, is removed. The rules never look at debris.
+live for good and sleeps when still. Each unit carries a frictionless `AnimatableBody3D` capsule,
+starting `Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and is never pushed back.
+A `FallingBlock` is on the debris layer but never collides with units: nobody can stand in its
+column but units dropping with it. It is 1 cm narrower than its cell on each side
+(`FallingBlock.CLEARANCE`), cannot turn, and is frictionless, so it slides down between the blocks
+either side of it instead of wedging between them. Debris knocked off the map, or wedged inside a
+block, is removed. The rules never look at debris.
 
 ## Conventions
 
@@ -146,7 +188,9 @@ knocked off the map, or wedged inside a block, is removed. The rules never look 
   sight. A miss never stops on terrain more than `Ballistics.SHORT_OF_TARGET` short of the target.
 - **Damage and terrain strikes land when the round does**, inside `shoot_at`, not when it is fired.
 - **A broken block leaves the grid the moment the round strikes it**, before any debris moves, so
-  sight, cover and paths never wait on physics. Debris is for show: nothing in the rules reads it.
+  sight, cover and paths never wait on physics, and so does every breakable block stacked on it,
+  though it is still to be seen falling. Debris, and a falling block, is for show: nothing in the
+  rules reads it.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -257,6 +301,26 @@ spawned where a block just was would start inside the block's old collision and 
 a unit dropping into its own rubble passes through it (`drop_to`'s `rubble`), and why its body
 starts above its feet.
 
+**A board landing on a round top with friction balances there and never comes to rest.** Jolt has
+no rolling resistance, so a blasted board on top of a unit's capsule kept rocking and turning, and
+kept every piece it touched awake: a whole heap creeping for as long as it was watched. That is why
+unit bodies are frictionless; the board slides off instead.
+
+**Contact is only found within 2 cm, so a fast body can end a step well inside what it hit.** Jolt
+makes contacts within its speculative distance (0.02); a block falling 6 cells a second moves 10 cm
+a step, so the step that reaches the floor can carry it 8 cm in, still at full speed, and only the
+next stops it. That is why a `FallingBlock` reports where it was two steps before it was seen to
+stop, and why its pieces are let go at once with continuous collision rather than held a step.
+
+**Anything cut exactly as wide as a gap wedges in it and shivers for good.** A board one cell long
+lying across the one-cell gap a broken block leaves between two others jams at the slightest turn,
+and Jolt pushes it out of both walls every step, feeding energy into every piece it touches. That
+is why debris boxes are 3.5% smaller than their meshes (`ScriptedDestruction.SLACK`) and a falling
+block is 1 cm narrower than its cell.
+
+**Probe runs in parallel can log `Jolt Physics job system exceeded the maximum number of jobs`.**
+That is several Godot processes fighting over the CPU, not the scene; it does not appear run alone.
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -272,5 +336,10 @@ directly or write a fresh generator.
 - Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck` but
   nothing reads it yet: any strike breaks a crate.
 - Rounds fly straight through debris: the trace only sees the grid.
+- A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
+  The columns either side hold the struck crate's wreck in place, so the crates above only drop a
+  fifth of a cell on to it before breaking, and their pieces take more room loose than as crates.
+  Stood in the open the same stack clears its column. Clearing a slot would need debris that can
+  be crushed, or thinned out once it settles.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
