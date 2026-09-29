@@ -116,7 +116,9 @@ func close() -> void:
 ## Down from the tabs into the Roster goes to the selected character, not
 ## whichever one lies nearest the middle of the tab row.
 func _on_tab_bar_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"ui_down") and tabs.get_current_tab_control() == _roster 			and _roster.focus_selection():
+	if not event.is_action_pressed(&"ui_down") or tabs.get_current_tab_control() != _roster:
+		return
+	if _roster.focus_selection():
 		tabs.get_tab_bar().accept_event()
 
 

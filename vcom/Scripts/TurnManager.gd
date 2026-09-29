@@ -85,6 +85,16 @@ func _ready() -> void:
 	_start_player_turn.call_deferred(false)
 
 
+## A battle is on while the turn manager is in the tree, so the pause menu
+## holds equipment still (see [member Campaign.in_mission]).
+func _enter_tree() -> void:
+	Campaign.in_mission = true
+
+
+func _exit_tree() -> void:
+	Campaign.in_mission = false
+
+
 func _input(event: InputEvent) -> void:
 	var key := event as InputEventKey
 	if key != null and key.pressed and not key.echo and not key.is_action(&"end_turn"):

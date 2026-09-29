@@ -3,9 +3,13 @@
 ##
 ## A toggle button in the browser's group, so one square is selected at a
 ## time; focusing a square (arrow keys or a click) selects it too, so the
-## description follows the keyboard.
+## description follows the keyboard. Enter or a double-click on it asks for
+## the browser's action ([signal activated]).
 class_name ItemSquare
 extends Button
+
+## Enter, or a double-click, on the square.
+signal activated
 
 const SIZE := Vector2(96, 96)
 
@@ -51,6 +55,14 @@ func _init(for_stack: ItemStack, group: ButtonGroup) -> void:
 		add_child(_badge(stack.count))
 
 	focus_entered.connect(func() -> void: button_pressed = true)
+
+
+func _gui_input(event: InputEvent) -> void:
+	var click := event as InputEventMouseButton
+	var double_click := click != null and click.double_click and click.button_index == MOUSE_BUTTON_LEFT
+	if double_click or event.is_action_pressed(&"ui_accept"):
+		activated.emit()
+		accept_event()
 
 
 ## The count, in a dark tab in the bottom-right corner.

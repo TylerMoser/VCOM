@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Armor" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Items/Armor.gd" id="1_6au6h"]
+
+[resource]
+script = ExtResource("1_6au6h")
+display_name = "Light Armor"
+description = "Padded plating over the vitals. Keeps a soldier on their feet without slowing them down."

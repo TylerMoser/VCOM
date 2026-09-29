@@ -33,7 +33,7 @@ func _init() -> void:
 	_pages = SubTabs.new()
 	_pages.size_flags_vertical = SIZE_EXPAND_FILL
 	_pages.add_child(DetailsPage.new())
-	_pages.add_child(CharacterPage.new("Equipment"))
+	_pages.add_child(EquipmentPage.new())
 	_pages.add_child(SkillsPage.new())
 	_pages.get_tab_bar().gui_input.connect(_on_pages_bar_input)
 	add_child(_pages)

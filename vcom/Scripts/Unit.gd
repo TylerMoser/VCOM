@@ -2,7 +2,7 @@
 ## its reaction.
 ##
 ## A squad member is someone on the roster: given a [member character], it
-## takes its name, colour and stats (health, move, aim, evasion) from them,
+## takes its name, colour, stats (health, move, aim, evasion) and weapon from them,
 ## painting its Mesh child. Without one (enemies, the test harness) the
 ## scene's values and the Mesh's material stand.
 ## UI reads [member color] until real portraits exist.
@@ -46,6 +46,7 @@ const FALL_ACCELERATION := 9.8
 ## How far the unit can see, and so shoot, in tiles.
 @export var sight_range := 20
 ## The gun this unit shoots with. A plain rifle if the scene leaves it unset.
+## Replaced by [member character]'s Weapon 1 when the unit has one.
 @export var weapon: Weapon
 ## What decides this unit's actions when the computer plays it. The squad
 ## leaves it empty; an enemy without one sits its turns out.
@@ -242,14 +243,16 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 			_body.add_collision_exception_with(body)
 
 
-## Takes on [member character]'s name, colour and stats. Copied once, when
-## the unit enters the map: the rules read the unit, never the character.
+## Takes on [member character]'s name, colour, stats and Weapon 1 (a plain
+## rifle if that slot is empty). Copied once, when the unit enters the map:
+## the rules read the unit, never the character.
 func _take_character() -> void:
 	display_name = character.display_name
 	max_health = character.max_health
 	move_range = character.move_range
 	aim = character.aim
 	evasion = character.evasion
+	weapon = character.weapon_1
 	_paint(character.color)
 
 

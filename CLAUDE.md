@@ -18,7 +18,7 @@ vcom/Scripts/
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
-  Campaign.gd          autoload: state that outlives a scene; roster, inventory
+  Campaign.gd          autoload: state that outlives a scene; roster, inventory, equip() / unequip(), in_mission
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -40,12 +40,13 @@ vcom/Scripts/
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Items/
-    Item.gd            Resource base: display_name, description, icon; Weapon and BattleItem extend it
+    Item.gd            Resource base: display_name, description, icon; Weapon, Armor, BattleItem extend it
+    Armor.gd           the Armor slot's kind: name and description only so far
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
-    Inventory.gd       stacks in display order; stacks_of(kind)
+    Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats (HP, move, aim, evasion), experience
+    Character.gd       Resource: display_name, color, portrait, stats, experience, equipment slots
     Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
@@ -53,12 +54,15 @@ vcom/Scripts/
     RosterTab.gd       strip of CharacterButtons across the top; under it SubTabs of CharacterPages
     CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
     DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
+    EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
+    SlotButton.gd      a slot's name and what is in it
     SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty)
     SkillNode.gd       a node styled locked / available / learned; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it
     SubTabs.gd         the underlined second-level tab row both tabs above use
-    InventoryTab.gd    SubTabs: Weapons, Battle Items, each an ItemBrowser
-    ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right
+    InventoryTab.gd    SubTabs: Weapons, Armor, Battle Items, each an ItemBrowser; follows inventory.changed
+    ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right;
+                       optional action button (Equip), also Enter / double-click on a square
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
     SystemTab.gd       its last tab: Return to Game, Save / Load (not yet), Exit to Desktop
@@ -116,6 +120,17 @@ are still its own. A stat that should differ per character moves to `Character`,
 awards it yet. Unlike an `Item`, a character is state and will change in play; nothing writes it back to
 disk, and save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
 and keep the scene's name and material.
+
+**Equipment is on the character, the spares in the inventory.** A character has six typed slots
+(`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in
+`Character.slots` (a `static var`: a `const` cannot hold a class). Every item is either in
+`Campaign.inventory` or in one slot, never both, so equipment only changes through
+`Campaign.equip()` / `unequip()`, which move one copy across and put a swapped-out item back. What a
+character starts with is set in their `.tres`, not counted in `StartingInventory.tres`. A squad unit
+shoots with its character's Weapon 1 (a plain rifle when empty); nothing else equipped does anything
+in combat yet. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
+tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
+its buttons and says why. This is the menu's first read-only-in-combat rule.
 
 The Roster tab's sub-tabs are `CharacterPage`s. Whenever the selection in the strip changes, every
 page (not just the open one) gets `show_character(character)`, so a page is never left showing

@@ -1,8 +1,10 @@
 [gd_resource type="Resource" script_class="Character" format=3]
 
 [ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="1_5gfvs"]
+[ext_resource type="Resource" path="res://Resources/Rifle.tres" id="2_wijol"]
 
 [resource]
 script = ExtResource("1_5gfvs")
 display_name = "Blue"
 color = Color(0.2, 0.45, 0.9, 1)
+weapon_1 = ExtResource("2_wijol")
