@@ -34,7 +34,7 @@ func _init() -> void:
 	_pages.size_flags_vertical = SIZE_EXPAND_FILL
 	_pages.add_child(DetailsPage.new())
 	_pages.add_child(CharacterPage.new("Equipment"))
-	_pages.add_child(CharacterPage.new("Skills"))
+	_pages.add_child(SkillsPage.new())
 	_pages.get_tab_bar().gui_input.connect(_on_pages_bar_input)
 	add_child(_pages)
 
@@ -80,7 +80,9 @@ func _show_character(character: Character) -> void:
 
 
 ## Up from the pages' tabs goes back to the selected character, not whichever
-## one lies nearest the tabs.
+## one lies nearest the tabs; down goes where the open page says.
 func _on_pages_bar_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"ui_up") and focus_selection():
+		_pages.get_tab_bar().accept_event()
+	elif event.is_action_pressed(&"ui_down") and (_pages.get_current_tab_control() as CharacterPage).focus_selection():
 		_pages.get_tab_bar().accept_event()

@@ -53,6 +53,8 @@ vcom/Scripts/
     RosterTab.gd       strip of CharacterButtons across the top; under it SubTabs of CharacterPages
     CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
     DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
+    SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty)
+    SkillNode.gd       a node styled locked / available / learned; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it
     SubTabs.gd         the underlined second-level tab row both tabs above use
     InventoryTab.gd    SubTabs: Weapons, Battle Items, each an ItemBrowser
@@ -117,8 +119,15 @@ and keep the scene's name and material.
 
 The Roster tab's sub-tabs are `CharacterPage`s. Whenever the selection in the strip changes, every
 page (not just the open one) gets `show_character(character)`, so a page is never left showing
-someone else; a page with content overrides `_refresh()`. Changing character keeps the open page;
-opening the menu goes back to Details.
+someone else; a page with content overrides `_refresh()`, and `focus_selection()` if Down from the
+sub-tabs should land somewhere in it. Changing character keeps the open page; opening the menu goes
+back to Details.
+
+The Skills page is placeholder UI with no data behind it: `SkillsPage.SECTIONS` sets each column's
+title, width share and node count, and every character shows the same `PLACEHOLDER_STATES` (first
+node available, the rest locked). Selecting a node only highlights it, and changing character
+clears the selection. Skills, trees and a character's progress through them are still to be
+designed as resources.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but

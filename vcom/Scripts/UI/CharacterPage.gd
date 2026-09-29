@@ -20,6 +20,12 @@ func show_character(who: Character) -> void:
 	_refresh()
 
 
+## Moves the keyboard into the page, coming down from the sub-tabs. False
+## when the page has nothing to focus, and the tabs keep it.
+func focus_selection() -> bool:
+	return false
+
+
 ## Redraws the page for [member character]. Empty until the page has content.
 func _refresh() -> void:
 	pass
