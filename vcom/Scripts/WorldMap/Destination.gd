@@ -1,9 +1,8 @@
 ## A place on the world map the party can be sent to, such as a village.
 ##
-## It is only a target: it cannot be selected itself. With the party selected,
-## a right click on its icon sends the party to the destination's own
-## position rather than to the pixel clicked, so every trip there ends in the
-## same spot. Hovering over the icon shows [member display_name] in a tooltip
+## It is only a target: a right click on its icon sends the party to the
+## destination's own position rather than to the pixel clicked, so every trip
+## there ends in the same spot. Hovering over the icon shows [member display_name] in a tooltip
 ## above it.
 ##
 ## Like the party dot, the icon and tooltip are drawn at a fixed size on

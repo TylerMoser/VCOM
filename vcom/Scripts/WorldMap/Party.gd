@@ -1,19 +1,18 @@
 ## The player's party on the world map: a red dot that travels where it is
 ## sent.
 ##
-## Clicked with the left button (select_unit, as a unit is picked in combat) it
-## is selected; a right click (execute_action, as a move is given in combat)
-## then sends it to that point at [member travel_speed], over land by the
-## route [WorldMapTerrain] finds: straight when nothing is in the way, around
-## the coast when something is. A right click on a [Destination]'s icon sends
-## it to the destination itself. A right click on the sea, or on land it
-## cannot reach, is ignored. A left click anywhere else, or Esc (cancel_action),
-## drops the selection. A new right click while it is on the way sends it on
-## to the new point instead.
+## It is the only thing on the map that moves, so there is nothing to select
+## first: a right click (execute_action, as a move is given in combat) anywhere
+## sends it to that point at [member travel_speed], over land by the route
+## [WorldMapTerrain] finds: straight when nothing is in the way, around the
+## coast when something is. A right click on a [Destination]'s icon sends it to
+## the destination itself. A right click on the sea, or on land it cannot
+## reach, is ignored. A new right click while it is on the way sends it on to
+## the new point instead. The left button is left free for other things.
 ##
 ## The dot and its markers are drawn at a fixed size on screen, whatever the
-## camera's zoom, so the party stays easy to see and to click on a map drawn
-## thousands of pixels across.
+## camera's zoom, so the party stays easy to see on a map drawn thousands of
+## pixels across.
 class_name Party
 extends Node2D
 
@@ -26,16 +25,7 @@ extends Node2D
 ## Sizes are in screen pixels.
 @export var dot_radius := 6.0
 @export var dot_color := Color(0.85, 0.1, 0.1)
-## How far from the dot's centre a click still picks it.
-@export var pick_radius := 12.0
-@export var selected_ring_radius := 11.0
-@export var selected_color := Color(1.0, 0.85, 0.2)
 @export var destination_color := Color(0.85, 0.1, 0.1, 0.8)
-
-var selected := false:
-	set(value):
-		selected = value
-		queue_redraw()
 
 var _terrain: WorldMapTerrain
 ## The points still to head for, in order, the destination last. Empty when
@@ -63,19 +53,10 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"select_unit") and event is InputEventMouseButton:
-		selected = _is_under_mouse()
-		if selected:
-			get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
-		if selected:
-			var destination := Destination.find_under_mouse(get_tree())
-			_send_to(destination.global_position if destination != null else get_global_mouse_position())
-			get_viewport().set_input_as_handled()
-	elif event.is_action_pressed(&"cancel_action"):
-		if selected:
-			selected = false
-			get_viewport().set_input_as_handled()
+	if event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
+		var destination := Destination.find_under_mouse(get_tree())
+		_send_to(destination.global_position if destination != null else get_global_mouse_position())
+		get_viewport().set_input_as_handled()
 
 
 func _process(delta: float) -> void:
@@ -116,8 +97,6 @@ func _draw() -> void:
 		draw_line(target + Vector2(-arm, arm), target + Vector2(arm, -arm), destination_color, 2.0 * px)
 
 	draw_circle(Vector2.ZERO, dot_radius * px, dot_color)
-	if selected:
-		draw_arc(Vector2.ZERO, selected_ring_radius * px, 0.0, TAU, 32, selected_color, 2.0 * px)
 
 
 ## Sets off for [param destination], if it can be reached over land; if not,
@@ -136,11 +115,6 @@ func _send_to(destination: Vector2) -> void:
 	_waiting_for = null
 	_route = route
 	queue_redraw()
-
-
-func _is_under_mouse() -> bool:
-	var distance := global_position.distance_to(get_global_mouse_position())
-	return distance * _screen_scale() <= pick_radius
 
 
 ## Screen pixels per map pixel under the current camera.

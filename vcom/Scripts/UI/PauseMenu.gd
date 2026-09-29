@@ -3,8 +3,8 @@
 ##
 ## An autoload, so it sits ahead of the current scene in the tree. Input
 ## reaches the scene first ([method Node._unhandled_input] runs in reverse tree
-## order), so Esc backs out of whatever is in progress, an action or a selected
-## party, and only opens the menu once nothing is left to cancel.
+## order), so Esc backs out of whatever is in progress, such as a combat action,
+## and only opens the menu once nothing is left to cancel.
 ##
 ## A tab is a [Control] added to [member tabs]; its node name is its title.
 ## The first tab is the one the menu opens on.
@@ -28,6 +28,7 @@ const TEXT_COLOR := Color(0.85, 0.86, 0.9)
 var tabs: TabContainer
 
 var _root: Control
+var _campaign: CampaignTab
 var _roster: RosterTab
 var _inventory: InventoryTab
 
@@ -64,6 +65,9 @@ func _init() -> void:
 	tabs.add_theme_font_size_override(&"font_size", 20)
 	_root.add_child(tabs)
 
+	_campaign = CampaignTab.new()
+	tabs.add_child(_campaign)
+
 	_roster = RosterTab.new()
 	tabs.add_child(_roster)
 
@@ -97,6 +101,7 @@ func open() -> void:
 	_root.visible = true
 	get_tree().paused = true
 	tabs.current_tab = 0
+	_campaign.show_gold(Campaign.gold)
 	_roster.show_roster(Campaign.roster)
 	_inventory.show_inventory(Campaign.inventory)
 	# The tab row takes the keyboard: left and right change tab, down enters it.

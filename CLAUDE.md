@@ -18,7 +18,7 @@ vcom/Scripts/
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
-  Campaign.gd          autoload: state that outlives a scene; roster, inventory, equip() / unequip(), in_mission
+  Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -50,7 +50,8 @@ vcom/Scripts/
     Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
-    PauseMenu.gd       autoload: the one menu for both scenes (Roster, Inventory, System); pauses the tree
+    PauseMenu.gd       autoload: the one menu for both scenes (Campaign, Roster, Inventory, System); pauses the tree
+    CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
     RosterTab.gd       strip of CharacterButtons across the top; under it SubTabs of CharacterPages
     CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
     DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
@@ -70,7 +71,7 @@ vcom/Scripts/
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: select, send, travel a route
+    Party.gd           the party dot: sent by any right click (no selecting), travels a route
     Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip
 ```
 
