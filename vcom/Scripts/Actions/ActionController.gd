@@ -131,7 +131,8 @@ func _on_action_completed() -> void:
 	var unit := squad.selected
 	var action := active
 	action.end()
-	if action.is_available(unit):
+	# Disabled while it played out (it won the battle), it stays put away.
+	if enabled and action.is_available(unit):
 		action.begin(unit)
 	else:
 		active = null

@@ -25,6 +25,22 @@ chance to hit.
 
 While Shoot is active, `Tab` cycles targets rather than squad members.
 
+## The campaign
+
+The game opens on the world map. Right-click to send the party somewhere; left-click the village it
+is standing in to use it. Travelling through a forest (the green areas) risks an ambush: every short
+stretch of the way has a chance to start a battle.
+
+Before it starts, the roster comes up to choose who fights: double-click a character (or press
+`Enter` on one) to tick or untick them, up to four, then hold **Start** for two seconds. It opens with
+the last battle's squad ticked, less anyone who fell, and it cannot be closed any other way. What
+happens to them in the battle lasts. Wounds carry
+into the next battle (nothing heals them yet), and a character who dies is gone from the roster for
+good, their gear back in the inventory. The battle ends when either side is wiped out: **Victory** or
+**Defeat**, then back to the world map where the party was, still on its way. If that was the last
+character on the roster, the campaign is lost: **Game Over** comes up on the world map and the game
+closes.
+
 ## Combat rules
 
 ### Action points

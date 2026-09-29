@@ -11,11 +11,18 @@
 ## overwatch their chance to fire at them on the way, and the camera is
 ## handed back from any reaction view once each enemy's turn is over.
 ##
+## The battle is decided the moment one side is gone, whoever's turn it is:
+## won when the last enemy dies, lost when the last squad member does. The
+## turns stop, "Victory" or "Defeat" is announced, and either way the game
+## goes back to the world map the battle was started from (see
+## [method Campaign.end_battle]). A battle opened on its own stays open, over.
+##
 ##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
 class_name TurnManager
 extends Node
 
 enum Side { PLAYER, ENEMY }
+enum Outcome { UNDECIDED, WON, LOST }
 
 signal turn_started(side: Side)
 ## Progress of the end-turn hold, from 0 to 1. 0 also means not holding.
@@ -42,6 +49,9 @@ signal end_turn_hold_changed(progress: float)
 @export var reactions_path: NodePath = ^"../Reactions"
 
 var side := Side.PLAYER
+## How the battle went, once one side is gone. No turn starts or ends after
+## it is decided.
+var outcome := Outcome.UNDECIDED
 
 var _squad: PlayerSquad
 var _controller: ActionController
@@ -81,6 +91,12 @@ func _ready() -> void:
 	_enemy_fire.aim_seconds = enemy_aim_seconds
 
 	_controller.changed.connect(_on_controller_changed)
+	for node in get_tree().get_nodes_in_group(enemy_group):
+		var enemy := node as Unit
+		if enemy != null:
+			enemy.died.connect(_on_unit_died)
+	for member in _squad.members:
+		member.died.connect(_on_unit_died)
 	# Let the HUD finish setting up before the first banner.
 	_start_player_turn.call_deferred(false)
 
@@ -107,6 +123,7 @@ func _process(delta: float) -> void:
 		_hold_spoiled = false
 	var holding := (
 		side == Side.PLAYER
+		and not is_over()
 		and Input.is_action_pressed(&"end_turn")
 		and not _hold_spoiled
 		and not _controller.busy
@@ -118,7 +135,7 @@ func _process(delta: float) -> void:
 
 ## Ends the player's turn and plays out the enemies' turn.
 func end_player_turn() -> void:
-	if side != Side.PLAYER or _controller.busy:
+	if side != Side.PLAYER or _controller.busy or is_over():
 		return
 	side = Side.ENEMY
 	_set_hold(0.0)
@@ -132,6 +149,10 @@ func end_player_turn() -> void:
 			await _take_enemy_turn(enemy)
 			if _reactions != null:
 				_reactions.release_view()
+		# A reaction may have finished the last enemy, or a shot the last of
+		# the squad.
+		if is_over():
+			return
 	_start_player_turn(true)
 
 
@@ -157,7 +178,7 @@ func _take_enemy_turn(enemy: Unit) -> void:
 	_camera_rig.focus_on(enemy.global_position)
 	await get_tree().create_timer(enemy_action_pause, false).timeout
 
-	while enemy.actions_remaining > 0:
+	while enemy.actions_remaining > 0 and not is_over():
 		var action := enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
 		if action == null or action.kind == AIAction.Kind.END_TURN:
 			return
@@ -193,6 +214,34 @@ func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
 		await _reactions.walk(enemy, points, seconds_per_enemy_step)
 	else:
 		await enemy.walk(points, seconds_per_enemy_step)
+
+
+## Whether the battle has been decided, one way or the other.
+func is_over() -> bool:
+	return outcome != Outcome.UNDECIDED
+
+
+func _on_unit_died() -> void:
+	# A dying unit leaves its groups, and the squad, only after it has said
+	# so, so count who is left once it has.
+	_end_if_decided.call_deferred()
+
+
+## Ends the battle once either side is gone: stops the turns, announces how
+## it went, then goes back to the world map the battle was started from.
+func _end_if_decided() -> void:
+	if is_over():
+		return
+	if get_tree().get_nodes_in_group(enemy_group).is_empty():
+		outcome = Outcome.WON
+	elif _squad.members.is_empty():
+		outcome = Outcome.LOST
+	else:
+		return
+	_set_hold(0.0)
+	_controller.enabled = false
+	await _banner.announce("Victory" if outcome == Outcome.WON else "Defeat")
+	Campaign.end_battle()
 
 
 func _on_controller_changed() -> void:

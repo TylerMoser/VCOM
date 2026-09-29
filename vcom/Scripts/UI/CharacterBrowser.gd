@@ -9,11 +9,18 @@
 ##
 ## Read only, for characters not on the roster, the pages show the
 ## characters without the means to change them.
+##
+## A character can also be ticked ([method show_ticks]), apart from which one
+## is selected: the [SquadMenu] ticks who is to fight, and toggles them on
+## [signal character_activated].
 class_name CharacterBrowser
 extends VBoxContainer
 
 ## The character now selected, null once there is none to select.
 signal character_selected(character: Character)
+## A character's button was double-clicked, or had Enter or Space pressed on
+## it.
+signal character_activated(character: Character)
 
 ## The character now selected, or null when there are none.
 var selected: Character
@@ -65,6 +72,7 @@ func show_characters(characters: Array[Character]) -> void:
 		button.toggled.connect(func(on: bool) -> void:
 			if on:
 				_show_character(character))
+		button.activated.connect(func() -> void: character_activated.emit(character))
 		_strip.add_child(button)
 	FocusChain.link(_strip.get_children())
 	_pages.current_tab = 0
@@ -74,6 +82,12 @@ func show_characters(characters: Array[Character]) -> void:
 		(_strip.get_child(0) as CharacterButton).button_pressed = true
 	else:
 		_show_character(null)
+
+
+## Ticks the characters in [param characters] and unticks the rest.
+func show_ticks(characters: Array[Character]) -> void:
+	for button in _strip.get_children():
+		(button as CharacterButton).ticked = characters.has((button as CharacterButton).character)
 
 
 ## Moves the keyboard to the selected character. False when there is none.

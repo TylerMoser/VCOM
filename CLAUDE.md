@@ -13,13 +13,17 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats from its character
-  PlayerSquad.gd       members + selection; drops the dead
-  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
+  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats, health from its character
+  PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
+                       writes wounds and deaths back to the characters
+  SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
+  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
-                       for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market)
+                       for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market),
+                       start_battle(map, chosen) / end_battle() (the world map parked out of the tree meanwhile),
+                       squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -47,13 +51,16 @@ vcom/Scripts/
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats, experience, equipment slots, hire_cost
+    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, experience, equipment
+                       slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
     TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
     VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in
+    SquadMenu.gd       TabbedMenu in WorldMap.tscn, opened by Party.encountered, cannot be closed: one SquadTab
+    SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton
     LocationTab.gd     placeholder tab for one Location: its description in the middle
     HiringBoardTab.gd  a HiringBoard's tab: read-only CharacterBrowser of who is for hire, a PurchaseBar
     MarketTab.gd       a Market's tab: an InventoryTab over its stock, a PurchaseBar
@@ -61,15 +68,17 @@ vcom/Scripts/
     HoldButton.gd      a button that acts only once held for hold_time (2 s), filling left to right
     CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
     CharacterBrowser.gd strip of CharacterButtons across the top; under it SubTabs of CharacterPages;
-                       optionally read_only
+                       optionally read_only; show_ticks(), character_activated
     RosterTab.gd       the pause menu's CharacterBrowser of Campaign.roster
     CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
-    DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
+    DetailsPage.gd     the character's stats as one name / value list (HP as left / most); experience bar
+                       bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
     SlotButton.gd      a slot's name and what is in it
     SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty)
     SkillNode.gd       a node styled locked / available / learned; selection ring
-    CharacterButton.gd portrait (or colour swatch) with the name under it
+    CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
+                       activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
     InventoryTab.gd    SubTabs: Weapons, Armor, Battle Items, each an ItemBrowser; follows inventory.changed;
                        selected_stack() + selection_changed
@@ -82,7 +91,10 @@ vcom/Scripts/
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: sent by any right click (no selecting), travels a route; is_at(destination)
+    Party.gd           the party dot: sent by any right click (no selecting), travels a route; is_at(destination);
+                       rolls a forest's encounter chance every step_length map pixels; encountered(map)
+    Forest.gd          Polygon2D (Scenes/Forest.tscn): a forest's outline, encounter_chance per step, encounter_map
+    GameOver.gd        CanvasLayer: once the roster is empty, pauses, shows "Game Over" in a TurnBanner, quits
     Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip listing its locations
     Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
                        description, make_tab()
@@ -127,8 +139,43 @@ tab's `focus_selection()` when it has one.
 light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
 coordinates like the destinations (not under the rotated `Map`). Its outline is its `polygon`,
 reshaped with the editor's polygon tools and saved as an override on that instance; the colour is set
-once in `Forest.tscn`. `Forests` sits before `Destinations` and `Party` so they draw on top. Nothing
-reads forests yet.
+once in `Forest.tscn`. `Forests` sits before `Destinations` and `Party` so they draw on top.
+
+**Random encounters are rolled per step and fought on a battle scene.** The party counts the
+distance it travels in steps of `Party.step_length` map pixels; at the end of each it asks
+`Forest.find_at()` which forest it is in (the one drawn on top where they overlap) and rolls that
+forest's `encounter_chance`, a percentage per step. On a success it emits `encountered(encounter_map)`,
+which opens the map's `SquadMenu` (see below) over the paused map; holding its Start calls
+`Campaign.start_battle(map, chosen)`, which takes the world map's scene out of the tree, without freeing it, and makes a fresh instance of the
+battle scene (`CombatMap.tscn` by default) the current scene; the swap is deferred to the end of the
+frame. `TurnManager` listens to every enemy's and squad member's `died`, and once either side is gone
+it sets `outcome` (`WON` / `LOST`), disables the `ActionController`, announces "Victory" or "Defeat"
+and calls `Campaign.end_battle()`, which frees the battle and puts the same world map node back. A
+defeat goes back to the map like a win. If it killed the last of the roster, the map's `GameOver`
+layer sees the empty roster on its first frame back: it pauses the tree, shows "Game Over" in its own
+`TurnBanner` (laid out as the combat HUD's, over the menus at `TabbedMenu.LAYER + 1`, running through
+the pause), and quits on the banner's `fading` signal, the moment its fade-out starts.
+Nothing on the map is saved or restored: its `_ready`s do not run
+again, so the party is on the spot it was set upon, still on its route, and the camera is where it was.
+Anything on the map that must notice a battle has passed (the navigation map re-registering, for one)
+sees only `_exit_tree` / `_enter_tree`. `WorldMap.tscn` is the main scene; a battle opened on its own (F6, the harness) has
+nothing to go back to, so it is left over and idle after "Victory".
+
+**Who fights is chosen as the battle starts, on a menu that cannot be closed.** `SquadMenu` is a
+`TabbedMenu` in `WorldMap.tscn` that `Party.encountered` opens (a party is its `party_path`). Its one tab,
+titled Roster, is a `SquadTab`: the pause menu's `CharacterBrowser` over `Campaign.roster` (pages and
+equipment work as there, the battle not having begun) above a footer laid out as `PurchaseBar`'s, the
+hint and count on the left and a "Start" `HoldButton` on the right. A `CharacterButton` emits `activated`
+on a double-click (seen in its `_gui_input`, which runs before the button's own) or Enter / Space;
+`CharacterBrowser` passes it on as `character_activated`, and the tab toggles that character's tick, up
+to `Campaign.SQUAD_SIZE` (4), refusing another at the cap. A single click only changes whose pages show.
+Start is greyed out with nobody ticked. It opens on `Campaign.squad()`, which is whoever was chosen
+last and is still on the roster (the first four before any battle, or after a whole squad fell), and
+Start passes the ticks to `Campaign.start_battle(map, chosen)`, which keeps them for the battle's
+`PlayerSquad` and the next menu. It swallows Esc (`cancel_action` and `pause_menu`, the same key) so
+the pause menu, which sees it after the scene, does not open over it; closing it on Start unpauses the
+tree, and the deferred swap takes the map out of it before it moves again. Mouse input pushed into a
+headless probe does not reach the GUI (see Gotchas): drive this menu's clicks in a windowed run.
 
 **Locations are data; their tabs are what they do.** A `Location` is a stateless `.tres` like an
 `Item`, and `make_tab()` gives its tab: a placeholder `LocationTab` unless a subclass overrides it. A
@@ -163,19 +210,34 @@ copied, its items are not). Change that copy, never the `.tres`. A new kind of i
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
 gives it a sub-tab in every market too.
 
-**Squad units are roster characters.** A `Character` (`Resources/Characters/*.tres`) is who someone
-is between battles. `Campaign.roster` is a copy of `Resources/StartingRoster.tres` whose list is its
-own but whose characters are the loaded `.tres`, the same ones CombatMap's players point at with
-`Unit.character`. So they are linked: a unit takes its `display_name`, colour and the character's
-stats (`max_health`, `move_range`, `aim`, `evasion`) from its character in `_ready` (painting its mesh
-on a copy of the material). They are copied once, when the unit enters the map: the rules read the
-unit, never the character. The unit's other stats (actions, sight, height bonus, distance penalty)
-are still its own. A stat that should differ per character moves to `Character`, gets copied in
+**Squad units are roster characters, spawned for each battle.** A `Character`
+(`Resources/Characters/*.tres`) is who someone is between battles. `Campaign.roster` is a copy of
+`Resources/StartingRoster.tres` whose list is its own but whose characters are the loaded `.tres`. A
+combat map has no squad of its own: it has `SquadStart` markers under a `SquadStarts` node, and
+`PlayerSquad` (its `starts_path`) spawns a `Scenes/SquadUnit.tscn` (a `Unit` in `players` with a
+capsule `Mesh`, the old fixed players' pattern) on the tile under each, for each character
+`Campaign.squad(markers)` sends: those chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then gathers `players` as before, so the squad
+panel, the reaction keys and everything else reading `PlayerSquad.members` follow roster order. It
+does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
+reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
+square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
+`display_name`, colour and the character's stats (`max_health`, `move_range`, `aim`, `evasion`) from
+its character in `_ready` (painting its mesh on a copy of the material). They are copied once, when
+the unit enters the map: the rules read the unit, never the character. The unit's other stats
+(actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`.
+
+What happens in battle goes the other way, through `PlayerSquad` as it happens, not at the end:
+every change to a member's health is written to `Character.wounds` (health missing, so a character is
+whole by default and stays as hurt if `max_health` grows; `Character.health` is what is left), and a
+unit starts at its character's `health`. A member who dies is taken off the roster by
+`Campaign.lose()`, which returns everything they had equipped to the inventory, the one way gear
+leaves a character mid-battle. Nothing heals wounds yet. A stat that should differ per character moves to `Character`, gets copied in
 `Unit._take_character()`, and gets a row in `DetailsPage.STATS`. `Character.experience` (out of
 `Character.EXPERIENCE_TO_LEVEL`, 100) is the character's alone and never copied to the unit; nothing
 awards it yet. Unlike an `Item`, a character is state and will change in play; nothing writes it back to
 disk, and save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
-and keep the scene's name and material.
+and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
+its eight fixed units are its squad and spawn nothing.
 
 **Equipment is on the character, the spares in the inventory.** A character has six typed slots
 (`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in
@@ -442,7 +504,9 @@ where something lands; a hit follows the sight line and is never cast.
 
 **Headless quirks:** the dummy renderer logs a spurious `Parameter "material" is null` for
 `StandardMaterial3D` overrides, and the viewport mouse position is pinned at `(0,0)` while the
-window reports focus.
+window reports focus. Mouse button events pushed with `Viewport.push_input` never reach the GUI
+there either (keys do), so a probe that clicks buttons has to run in a window, with `--write-movie`
+to see it.
 
 **`AnimatableBody3D.sync_to_physics` leaves a body behind when its parent moves.** It hands the
 body's transform to the physics server, and a parent moving underneath does not tell it. A unit's
@@ -518,5 +582,5 @@ directly or write a fresh generator.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- A hired character joins `Campaign.roster` but not a battle: `CombatMap.tscn`'s squad is still its
-  four fixed units pointing at their `.tres`.
+- Wounds never heal, and nothing but a death changes a character in battle: no experience, no spent
+  items. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.

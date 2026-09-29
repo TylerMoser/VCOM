@@ -43,6 +43,17 @@ static var slots := [
 ## Earned in play, out of [constant EXPERIENCE_TO_LEVEL]. Nothing awards it
 ## yet. Not copied onto the unit: it is the character's, not the battle's.
 @export var experience := 0
+## Health lost in battle and not yet healed; nothing heals it yet. Kept as
+## what is missing rather than what is left, so a character is whole by
+## default and stays as hurt if [member max_health] ever grows. Written by the
+## squad as its unit is hit (see [PlayerSquad]).
+@export var wounds := 0
+
+## What is left of [member max_health]: the health the character's unit
+## starts a battle with.
+var health: int:
+	get:
+		return maxi(max_health - wounds, 0)
 
 @export_group("Hiring")
 ## Gold the party pays to take the character on from a [HiringBoard].

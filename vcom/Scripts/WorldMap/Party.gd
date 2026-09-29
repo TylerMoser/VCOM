@@ -11,16 +11,29 @@
 ## the new point instead. The left button is left free for other things, such
 ## as a left click on the village the party is in opening its [VillageMenu].
 ##
+## It travels in steps of [member step_length]. Each step that ends in a
+## [Forest] rolls that forest's chance of a random encounter, and one that
+## comes up is announced with [signal encountered]; the [SquadMenu] takes it
+## from there, choosing who fights and starting the battle. The world map
+## waits out of the tree meanwhile, so once the battle is over the party is
+## back where it was set upon, still on its way.
+##
 ## The dot and its markers are drawn at a fixed size on screen, whatever the
 ## camera's zoom, so the party stays easy to see on a map drawn thousands of
 ## pixels across.
 class_name Party
 extends Node2D
 
+## A random encounter came up: a battle on [param map] is to be fought.
+signal encountered(map: PackedScene)
+
 ## Finds the way over land. Leave empty to go anywhere, in a straight line.
 @export var terrain_path: NodePath = ^"../Terrain"
 ## Map pixels per second. The map is about 9000 across.
 @export var travel_speed := 250.0
+## How far the party goes, in map pixels, from one chance of a random
+## encounter to the next. The chance itself is each forest's.
+@export var step_length := 50.0
 
 @export_group("Look")
 ## Sizes are in screen pixels.
@@ -35,6 +48,8 @@ var _route := PackedVector2Array()
 ## Where the party was sent before the terrain could find routes, to set off
 ## for once it can; null when there is none.
 var _waiting_for: Variant = null
+## Map pixels travelled since the last step.
+var _stepped := 0.0
 ## Screen pixels per map pixel as last drawn, to redraw when the zoom changes.
 var _drawn_scale := 0.0
 
@@ -69,15 +84,18 @@ func _process(delta: float) -> void:
 		# Spend the whole frame's travel, carrying on past a turn reached
 		# part-way through it.
 		var travel := travel_speed * delta
+		var moved := travel
 		while travel > 0.0 and not _route.is_empty():
 			var leg := global_position.distance_to(_route[0])
 			if leg > travel:
 				global_position = global_position.move_toward(_route[0], travel)
+				travel = 0.0
 				break
 			global_position = _route[0]
 			travel -= leg
 			_route.remove_at(0)
 		queue_redraw()
+		_take_steps(moved - travel)
 	elif not is_equal_approx(_screen_scale(), _drawn_scale):
 		queue_redraw()
 
@@ -105,6 +123,20 @@ func _draw() -> void:
 ## that very spot with nowhere left to go.
 func is_at(destination: Destination) -> bool:
 	return _route.is_empty() and global_position.is_equal_approx(destination.global_position)
+
+
+## Counts [param distance] travelled towards the next step, and at the end of
+## each step taken in a forest rolls its chance of an encounter. A frame long
+## enough to take several steps rolls for each where the party stands, which
+## is near enough at any real frame rate.
+func _take_steps(distance: float) -> void:
+	_stepped += distance
+	while step_length > 0.0 and _stepped >= step_length:
+		_stepped -= step_length
+		var forest := Forest.find_at(get_tree(), global_position)
+		if forest != null and forest.roll_encounter():
+			encountered.emit(forest.encounter_map)
+			return
 
 
 ## Sets off for [param destination], if it can be reached over land; if not,

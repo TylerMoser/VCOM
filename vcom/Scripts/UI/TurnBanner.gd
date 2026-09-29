@@ -1,6 +1,11 @@
-## Large "Player Turn" / "Enemy Turn" banner that fades in and out.
+## Large banner that fades in and out: "Player Turn" / "Enemy Turn", a
+## battle's "Victory" / "Defeat", and the world map's "Game Over".
 class_name TurnBanner
 extends PanelContainer
+
+## Emitted as the banner starts to fade out, once it has been held up to be
+## read. Not emitted for an announcement a newer one cut short.
+signal fading
 
 @export var fade_seconds := 0.25
 @export var hold_seconds := 0.9
@@ -39,5 +44,6 @@ func announce(text: String) -> void:
 	_tween = create_tween()
 	_tween.tween_property(self, ^"modulate:a", 1.0, fade_seconds)
 	_tween.tween_interval(hold_seconds)
+	_tween.tween_callback(fading.emit)
 	_tween.tween_property(self, ^"modulate:a", 0.0, fade_seconds)
 	await _tween.finished

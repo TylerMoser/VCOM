@@ -4,7 +4,8 @@
 class_name DetailsPage
 extends CharacterPage
 
-## Each row: the name shown, and the [Character] property it shows.
+## Each row: the name shown, and the [Character] property it shows. HP shows
+## what is left of it too (see [method _value_text]).
 const STATS := [
 	["HP", &"max_health"],
 	["Move", &"move_range"],
@@ -40,11 +41,22 @@ func _init() -> void:
 
 func _refresh() -> void:
 	for i in STATS.size():
-		_values[i].text = str(character.get(STATS[i][1])) if character != null else "-"
+		_values[i].text = _value_text(STATS[i][1])
 	var experience := character.experience if character != null else 0
 	_experience_bar.max_value = Character.EXPERIENCE_TO_LEVEL
 	_experience_bar.value = experience
 	_experience.tooltip_text = "Experience: %d / %d" % [experience, Character.EXPERIENCE_TO_LEVEL]
+
+
+## What the row for [param property] shows: the character's value, but for
+## the most health, what is left of it over it, wounds being carried from one
+## battle to the next.
+func _value_text(property: StringName) -> String:
+	if character == null:
+		return "-"
+	if property == &"max_health":
+		return "%d / %d" % [character.health, character.max_health]
+	return str(character.get(property))
 
 
 ## A caption over a thin bar, pinned to the page's bottom-right corner. The

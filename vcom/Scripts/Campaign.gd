@@ -6,11 +6,24 @@
 ##
 ## Equipment moves only through [method equip] and [method unequip], which
 ## keep every item either in the inventory or on a character, never both.
+##
+## Battles are fought by characters from the roster, up to [constant SQUAD_SIZE]
+## of them, chosen on the world map's [SquadMenu] as each battle starts
+## ([method squad]), and what happens to them there stays with them: their wounds are written on
+## the character as they are hit, and one who dies is taken off the roster
+## ([method lose]).
+##
+## It also holds on to the world map while a battle started from it is
+## fought ([method start_battle], [method end_battle]): the map's scene is
+## taken out of the tree whole rather than freed, so it comes back exactly as
+## it was left, the party mid-journey and the camera where it was.
 extends Node
 
 const STARTING_ROSTER := preload("res://Resources/StartingRoster.tres")
 const STARTING_INVENTORY := preload("res://Resources/StartingInventory.tres")
 const STARTING_GOLD := 100
+## The most characters a battle takes: one per [SquadStart] a combat map has.
+const SQUAD_SIZE := 4
 
 ## Who is on the roster is the campaign's to change; the characters in it are
 ## the same resources the combat maps' units point at, so they stay linked.
@@ -33,6 +46,19 @@ var _for_hire := {}
 ## stock made the first time it is asked about, as [member inventory] is of
 ## the starting one (its stacks are copied, its items are not).
 var _stock := {}
+## The scene a battle was started from, out of the tree until the battle
+## ends; null when there is none to go back to.
+var _left_behind: Node = null
+## Who was chosen for the battle being fought, or the last one fought; the dead
+## are left in, and [method squad] leaves them out. Empty before the first.
+var _chosen: Array[Character] = []
+
+
+func _exit_tree() -> void:
+	# Out of the tree, nothing else would ever free it.
+	if _left_behind != null:
+		_left_behind.free()
+		_left_behind = null
 
 
 ## Takes one [param item] out of the inventory and puts it in [param slot]
@@ -102,6 +128,79 @@ func buy(market: Market, item: Item) -> bool:
 	gold -= item.price
 	inventory.add(item)
 	return true
+
+
+## Who fights, at most [param count] of them, in roster order: those chosen
+## for the battle being fought, which in between battles is the last one's,
+## less any who died. When that leaves nobody (before the first battle, or
+## after the whole squad fell), the first on the roster. So it is who a combat
+## map spawns, and who the [SquadMenu] ticks as it opens.
+func squad(count := SQUAD_SIZE) -> Array[Character]:
+	var survivors: Array[Character] = []
+	for character in roster.characters:
+		if survivors.size() < count and _chosen.has(character):
+			survivors.append(character)
+	if survivors.is_empty():
+		return roster.characters.slice(0, maxi(count, 0))
+	return survivors
+
+
+## Takes [param character], killed in battle, off the roster for good. What
+## they had equipped goes back to the inventory, whatever the battle's
+## outcome. This is the one way gear leaves a character during a battle,
+## which [method unequip] refuses: the unit that took it is gone.
+func lose(character: Character) -> void:
+	if not roster.characters.has(character):
+		return
+	roster.characters.erase(character)
+	for slot in Character.slots:
+		var item: Item = character.get(slot[1])
+		if item != null:
+			inventory.add(item)
+			character.set(slot[1], null)
+
+
+## Leaves the scene being played for a battle on [param map], fought by
+## [param chosen], keeping that scene as it stands to go back to in
+## [method end_battle]. False, changing nothing, while a battle is already
+## waiting to be gone back from, or when [param chosen] is nobody, more than
+## [constant SQUAD_SIZE], or anyone not on the roster.
+func start_battle(map: PackedScene, chosen: Array[Character]) -> bool:
+	var tree := get_tree()
+	if _left_behind != null or map == null or tree.current_scene == null:
+		return false
+	if chosen.is_empty() or chosen.size() > SQUAD_SIZE:
+		return false
+	for character in chosen:
+		if not roster.characters.has(character):
+			return false
+	_chosen = chosen.duplicate()
+	_left_behind = tree.current_scene
+	# At the end of the frame, not in the middle of the scene's own processing.
+	_switch_scene.call_deferred(_left_behind, map.instantiate(), false)
+	return true
+
+
+## Ends the battle being played and goes back to the scene it was started
+## from, as it was left. False, changing nothing, when there is none: a battle
+## opened on its own stays open.
+func end_battle() -> bool:
+	if _left_behind == null:
+		return false
+	_switch_scene.call_deferred(get_tree().current_scene, _left_behind, true)
+	_left_behind = null
+	return true
+
+
+## Takes [param from] out of the tree, freeing it when [param free_from], and
+## makes [param to] the current scene.
+func _switch_scene(from: Node, to: Node, free_from: bool) -> void:
+	var tree := get_tree()
+	tree.root.remove_child(from)
+	if free_from:
+		from.queue_free()
+	tree.root.add_child(to)
+	tree.current_scene = to
 
 
 static func _copy_roster(from: Roster) -> Roster:

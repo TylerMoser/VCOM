@@ -11,6 +11,8 @@
 [ext_resource type="Resource" path="res://Resources/Locations/Village1Market.tres" id="9_market"]
 [ext_resource type="Script" uid="uid://dr3m0f87tpbll" path="res://Scripts/UI/VillageMenu.gd" id="10_village_menu"]
 [ext_resource type="PackedScene" path="res://Scenes/Forest.tscn" id="11_forest"]
+[ext_resource type="Script" path="res://Scripts/WorldMap/GameOver.gd" id="12_game_over"]
+[ext_resource type="Script" path="res://Scripts/UI/SquadMenu.gd" id="13_squad_menu"]
 
 [node name="WorldMap" type="Node2D" unique_id=1261504120]
 
@@ -58,3 +60,9 @@ script = ExtResource("2_camera")
 
 [node name="VillageMenu" type="CanvasLayer" parent="." unique_id=297875677]
 script = ExtResource("10_village_menu")
+
+[node name="SquadMenu" type="CanvasLayer" parent="."]
+script = ExtResource("13_squad_menu")
+
+[node name="GameOver" type="CanvasLayer" parent="."]
+script = ExtResource("12_game_over")

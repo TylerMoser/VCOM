@@ -113,7 +113,9 @@ func _ready() -> void:
 	# Before health is filled, which reads the character's max_health.
 	if character != null:
 		_take_character()
-	health = max_health
+	# A character comes into battle as hurt as they left the last one, but
+	# alive: anyone on the roster is.
+	health = maxi(character.health, 1) if character != null else max_health
 	actions_remaining = actions_per_turn
 	if weapon == null:
 		weapon = Weapon.new()
@@ -245,7 +247,8 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 
 ## Takes on [member character]'s name, colour, stats and Weapon 1 (a plain
 ## rifle if that slot is empty). Copied once, when the unit enters the map:
-## the rules read the unit, never the character.
+## the rules read the unit, never the character. Its health starts at the
+## character's, wounds and all.
 func _take_character() -> void:
 	display_name = character.display_name
 	max_health = character.max_health
