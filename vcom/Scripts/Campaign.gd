@@ -1,8 +1,8 @@
 ## The state of the campaign that outlives any one scene: who is on the
-## roster, what the party holds and what each of them has equipped, and the
-## party's gold. An
-## autoload, so the world map and combat read and change the same thing, and
-## so saving has one place to look.
+## roster, what the party holds and what each of them has equipped, the
+## party's gold, and who and what is left at each village's hiring board and
+## market. An autoload, so the world map and combat read and change the same
+## thing, and so saving has one place to look.
 ##
 ## Equipment moves only through [method equip] and [method unequip], which
 ## keep every item either in the inventory or on a character, never both.
@@ -24,6 +24,15 @@ var gold := STARTING_GOLD
 ## while it is in the tree. Equipment cannot change during one: a unit took
 ## its gear when the map loaded, and would not see the change.
 var in_mission := false
+## Who is still for hire at each [HiringBoard], by board: a copy of the board's
+## own list made the first time it is asked about, so the board's resource is
+## never changed. Holding the board keeps it loaded, so the world map gets
+## the same one back each time it opens.
+var _for_hire := {}
+## What is still for sale at each [Market], by market: a copy of the market's
+## stock made the first time it is asked about, as [member inventory] is of
+## the starting one (its stacks are copied, its items are not).
+var _stock := {}
 
 
 ## Takes one [param item] out of the inventory and puts it in [param slot]
@@ -52,6 +61,46 @@ func unequip(character: Character, slot: StringName) -> bool:
 		return false
 	inventory.add(old)
 	character.set(slot, null)
+	return true
+
+
+## Who is still for hire at [param board], in the order it lists them.
+func for_hire(board: HiringBoard) -> Array[Character]:
+	if not _for_hire.has(board):
+		_for_hire[board] = board.characters.duplicate()
+	var available: Array[Character] = _for_hire[board]
+	return available.duplicate()
+
+
+## Pays [param character]'s [member Character.hire_cost] and moves them from
+## [param board] to the end of the roster. False, changing nothing, when they
+## are not for hire there or the party cannot afford them.
+func hire(board: HiringBoard, character: Character) -> bool:
+	if character == null or not for_hire(board).has(character) or gold < character.hire_cost:
+		return false
+	gold -= character.hire_cost
+	(_for_hire[board] as Array).erase(character)
+	roster.characters.append(character)
+	return true
+
+
+## What [param market] still has for sale. It changes only through
+## [method buy], and emits [signal Resource.changed] when it does, so a view
+## of it can keep up.
+func stock_of(market: Market) -> Inventory:
+	if not _stock.has(market):
+		_stock[market] = market.stock.duplicate_deep() if market.stock != null else Inventory.new()
+	return _stock[market]
+
+
+## Pays [param item]'s [member Item.price] and moves one of it from
+## [param market]'s stock into the party's inventory. False, changing
+## nothing, when the market has none left or the party cannot afford it.
+func buy(market: Market, item: Item) -> bool:
+	if item == null or gold < item.price or not stock_of(market).take(item):
+		return false
+	gold -= item.price
+	inventory.add(item)
 	return true
 
 

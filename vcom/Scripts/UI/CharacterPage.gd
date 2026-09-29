@@ -1,5 +1,5 @@
-## One of the Roster tab's sub-tabs (Details, Equipment, Skills): a view of
-## the character selected in the strip above it. The Roster hands every page
+## One of a [CharacterBrowser]'s sub-tabs (Details, Equipment, Skills): a view
+## of the character selected in the strip above it. The browser hands every page
 ## the new character whenever the selection changes, whichever page is open,
 ## so switching sub-tab never shows a page left on someone else.
 ##
@@ -9,6 +9,10 @@ extends Control
 
 ## Who the page is showing. Null when the roster is empty.
 var character: Character
+## Whether the page only shows the character, without the means to change
+## them: for someone not on the roster, such as a character for hire. Set
+## before the first character is shown.
+var read_only := false
 
 
 func _init(title: String) -> void:

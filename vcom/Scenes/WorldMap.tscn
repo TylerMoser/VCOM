@@ -6,6 +6,10 @@
 [ext_resource type="Script" uid="uid://d310x8mtmcdtp" path="res://Scripts/WorldMap/WorldMapTerrain.gd" id="4_terrain"]
 [ext_resource type="PackedScene" path="res://WorldMap/WorldMapV1Land.tscn" id="5_land"]
 [ext_resource type="PackedScene" path="res://Scenes/Village.tscn" id="6_village"]
+[ext_resource type="Script" path="res://Scripts/WorldMap/Location.gd" id="7_location"]
+[ext_resource type="Resource" path="res://Resources/Locations/Village1HiringBoard.tres" id="8_hiring_board"]
+[ext_resource type="Resource" path="res://Resources/Locations/Village1Market.tres" id="9_market"]
+[ext_resource type="Script" path="res://Scripts/UI/VillageMenu.gd" id="10_village_menu"]
 
 [node name="WorldMap" type="Node2D" unique_id=1261504120]
 
@@ -36,6 +40,7 @@ script = ExtResource("4_terrain")
 [node name="Village" parent="Destinations" unique_id=2018877921 instance=ExtResource("6_village")]
 position = Vector2(1000, 0)
 display_name = "Village1"
+locations = Array[ExtResource("7_location")]([ExtResource("8_hiring_board"), ExtResource("9_market")])
 
 [node name="Party" type="Node2D" parent="." unique_id=1808455911]
 script = ExtResource("3_party")
@@ -43,3 +48,6 @@ script = ExtResource("3_party")
 [node name="Camera" type="Camera2D" parent="." unique_id=978397840]
 zoom = Vector2(0.07, 0.07)
 script = ExtResource("2_camera")
+
+[node name="VillageMenu" type="CanvasLayer" parent="."]
+script = ExtResource("10_village_menu")

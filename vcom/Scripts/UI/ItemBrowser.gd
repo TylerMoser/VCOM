@@ -12,6 +12,8 @@ class_name ItemBrowser
 extends HBoxContainer
 
 signal action_requested(stack: ItemStack)
+## Another stack was selected, or [param stack] is null with none left to.
+signal selection_changed(stack: ItemStack)
 
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TEXT_COLOR := Color(0.85, 0.86, 0.9)
@@ -29,8 +31,8 @@ var _group := ButtonGroup.new()
 var _name_label: Label
 var _description_label: Label
 var _action: Button
-## The stack whose description is showing.
-var _selected: ItemStack
+## The stack whose description is showing, or null when there is none.
+var selected: ItemStack
 
 
 func _init(title: String) -> void:
@@ -77,7 +79,7 @@ func _init(title: String) -> void:
 ## stays selected if it is still there, as after equipping one of several;
 ## otherwise the first is. The keyboard stays in the grid if it was there.
 func show_stacks(stacks: Array[ItemStack]) -> void:
-	var keep: Item = _selected.item if _selected != null else null
+	var keep: Item = selected.item if selected != null else null
 	var had_focus := false
 	for square in _grid.get_children():
 		had_focus = had_focus or square.has_focus()
@@ -112,14 +114,14 @@ func show_stacks(stacks: Array[ItemStack]) -> void:
 ## [param text] under its description. An empty text takes it away.
 func set_action(text: String) -> void:
 	_action.text = text
-	_action.visible = not text.is_empty() and _selected != null
+	_action.visible = not text.is_empty() and selected != null
 
 
 ## Whether the action can be taken now; its button is greyed out otherwise.
 ## It never can with nothing selected.
 func set_action_enabled(enabled: bool) -> void:
 	_action.set_meta(&"enabled", enabled)
-	_action.disabled = not enabled or _selected == null
+	_action.disabled = not enabled or selected == null
 
 
 ## Moves the keyboard to the selected square. False when there is none.
@@ -132,7 +134,7 @@ func focus_selection() -> bool:
 
 
 func _show(stack: ItemStack) -> void:
-	_selected = stack
+	selected = stack
 	_details_scroll.scroll_vertical = 0
 	# With nothing to show there is nothing to act on, and no name to leave
 	# a blank line above the empty text.
@@ -143,10 +145,11 @@ func _show(stack: ItemStack) -> void:
 		_name_label.text = ""
 		_description_label.text = empty_text
 		_description_label.add_theme_color_override(&"font_color", MUTED_COLOR)
-		return
-	_name_label.text = stack.item.display_name
-	_description_label.text = stack.item.description
-	_description_label.add_theme_color_override(&"font_color", TEXT_COLOR)
+	else:
+		_name_label.text = stack.item.display_name
+		_description_label.text = stack.item.description
+		_description_label.add_theme_color_override(&"font_color", TEXT_COLOR)
+	selection_changed.emit(stack)
 
 
 func _action_button() -> Button:
@@ -163,8 +166,8 @@ func _action_button() -> Button:
 	button.add_theme_stylebox_override(&"disabled", _button_style(BUTTON_BG_COLOR, BORDER_COLOR))
 	button.add_theme_color_override(&"font_disabled_color", MUTED_COLOR)
 	button.pressed.connect(func() -> void:
-		if _selected != null:
-			action_requested.emit(_selected))
+		if selected != null:
+			action_requested.emit(selected))
 	return button
 
 

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HiringBoard" format=3]
+
+[ext_resource type="Script" path="res://Scripts/WorldMap/HiringBoard.gd" id="1_board"]
+[ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="2_character"]
+[ext_resource type="Resource" path="res://Resources/Characters/White.tres" id="3_white"]
+
+[resource]
+script = ExtResource("1_board")
+display_name = "Hiring Board"
+description = "Fighters looking for work post their names here."
+characters = Array[ExtResource("2_character")]([ExtResource("3_white")])

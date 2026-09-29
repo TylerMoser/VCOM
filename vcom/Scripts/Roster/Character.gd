@@ -44,6 +44,11 @@ static var slots := [
 ## yet. Not copied onto the unit: it is the character's, not the battle's.
 @export var experience := 0
 
+@export_group("Hiring")
+## Gold the party pays to take the character on from a [HiringBoard].
+## Nothing once they are on the roster.
+@export var hire_cost := 0
+
 @export_group("Equipment")
 ## Changed only through [method Campaign.equip] and [method Campaign.unequip]
 ## once the game is running, so an item is never both carried and in the

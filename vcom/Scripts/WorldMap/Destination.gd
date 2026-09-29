@@ -3,7 +3,7 @@
 ## It is only a target: a right click on its icon sends the party to the
 ## destination's own position rather than to the pixel clicked, so every trip
 ## there ends in the same spot. Hovering over the icon shows [member display_name] in a tooltip
-## above it.
+## above it, with a bulleted list of its [member locations] under the name.
 ##
 ## Like the party dot, the icon and tooltip are drawn at a fixed size on
 ## screen, whatever the camera's zoom, and the icon is centred on the node.
@@ -16,6 +16,9 @@ const GROUP := &"destinations"
 
 ## Shown in the tooltip when the icon is hovered.
 @export var display_name := "Village"
+## What the party can use there, in the order the tooltip lists them. Each
+## village has its own mix; a place with none shows just its name.
+@export var locations: Array[Location] = []
 @export var icon: Texture2D:
 	set(value):
 		icon = value
@@ -31,6 +34,8 @@ const GROUP := &"destinations"
 const TOOLTIP_BG_COLOR := Color(0.1, 0.11, 0.15, 0.88)
 const TOOLTIP_BORDER_COLOR := Color(0.78, 0.8, 0.85, 0.6)
 const TOOLTIP_TEXT_COLOR := Color(0.92, 0.93, 0.95)
+## Starts each location's line; its width, spaces included, is the indent.
+const BULLET := "•  "
 
 var hovered := false:
 	set(value):
@@ -84,30 +89,51 @@ func _draw() -> void:
 	draw_texture_rect(icon, box, false)
 
 	if hovered and not display_name.is_empty():
-		var font := ThemeDB.fallback_font
-		var text_size := font.get_string_size(
-			display_name, HORIZONTAL_ALIGNMENT_LEFT, -1.0, tooltip_font_size
-		)
-		var panel_size := text_size + _tooltip_style.get_minimum_size()
-		var panel := Rect2(
-			Vector2(-panel_size.x * 0.5, box.position.y - tooltip_gap - panel_size.y), panel_size
-		)
-		draw_style_box(_tooltip_style, panel)
-		# Text is drawn from its baseline, which sits the ascent below the
-		# top of the text.
-		var baseline := panel.position + Vector2(
-			_tooltip_style.content_margin_left,
-			_tooltip_style.content_margin_top + font.get_ascent(tooltip_font_size),
-		)
-		draw_string(
-			font,
-			baseline,
-			display_name,
-			HORIZONTAL_ALIGNMENT_LEFT,
-			-1.0,
-			tooltip_font_size,
-			TOOLTIP_TEXT_COLOR,
-		)
+		_draw_tooltip(box)
+
+
+## The name, and a line under it for each location, in a panel just above the
+## icon. Called with the transform already in screen pixels.
+func _draw_tooltip(icon_box: Rect2) -> void:
+	var font := ThemeDB.fallback_font
+	var line_height := font.get_height(tooltip_font_size)
+	var indent := _text_width(font, BULLET)
+	var names: Array[String] = []
+	for location in locations:
+		if location != null:
+			names.append(location.display_name)
+
+	var width := _text_width(font, display_name)
+	for location_name in names:
+		width = maxf(width, indent + _text_width(font, location_name))
+	var panel_size := Vector2(width, line_height * (1 + names.size()))
+	panel_size += _tooltip_style.get_minimum_size()
+	var panel := Rect2(
+		Vector2(-panel_size.x * 0.5, icon_box.position.y - tooltip_gap - panel_size.y), panel_size
+	)
+	draw_style_box(_tooltip_style, panel)
+
+	# Text is drawn from its baseline, which sits the ascent below the top of
+	# the text.
+	var baseline := panel.position + Vector2(
+		_tooltip_style.content_margin_left,
+		_tooltip_style.content_margin_top + font.get_ascent(tooltip_font_size),
+	)
+	_draw_text(font, baseline, display_name)
+	for location_name in names:
+		baseline.y += line_height
+		_draw_text(font, baseline, BULLET)
+		_draw_text(font, baseline + Vector2(indent, 0.0), location_name)
+
+
+func _draw_text(font: Font, baseline: Vector2, text: String) -> void:
+	draw_string(
+		font, baseline, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, tooltip_font_size, TOOLTIP_TEXT_COLOR
+	)
+
+
+func _text_width(font: Font, text: String) -> float:
+	return font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, tooltip_font_size).x
 
 
 ## Whether the mouse is over the icon.

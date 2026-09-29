@@ -2,8 +2,14 @@
 ## each an [ItemBrowser] over one kind of item. Opens on its first sub-tab
 ## each time the menu does (see [method show_inventory]), and keeps up with
 ## the inventory while the menu is open, as when the Roster equips something.
+##
+## A [Market]'s tab shows its stock in one too.
 class_name InventoryTab
 extends SubTabs
+
+## What [method selected_stack] gives may have changed: another square was
+## picked, another sub-tab opened, or the inventory changed under it.
+signal selection_changed
 
 var _weapons: ItemBrowser
 var _armor: ItemBrowser
@@ -25,6 +31,9 @@ func _init() -> void:
 	_battle_items.empty_text = "No battle items."
 	add_child(_battle_items)
 
+	for browser: ItemBrowser in [_weapons, _armor, _battle_items]:
+		browser.selection_changed.connect(selection_changed.emit.unbind(1))
+	tab_changed.connect(selection_changed.emit.unbind(1))
 	get_tab_bar().gui_input.connect(_on_tab_bar_input)
 
 
@@ -38,6 +47,11 @@ func show_inventory(inventory: Inventory) -> void:
 		_inventory = inventory
 		_inventory.changed.connect(_fill)
 	_fill()
+
+
+## The stack selected on the open sub-tab, or null when it has none.
+func selected_stack() -> ItemStack:
+	return (get_current_tab_control() as ItemBrowser).selected
 
 
 ## Lists what the inventory holds now, keeping each sub-tab's selection.

@@ -8,7 +8,8 @@
 ## coast when something is. A right click on a [Destination]'s icon sends it to
 ## the destination itself. A right click on the sea, or on land it cannot
 ## reach, is ignored. A new right click while it is on the way sends it on to
-## the new point instead. The left button is left free for other things.
+## the new point instead. The left button is left free for other things, such
+## as a left click on the village the party is in opening its [VillageMenu].
 ##
 ## The dot and its markers are drawn at a fixed size on screen, whatever the
 ## camera's zoom, so the party stays easy to see on a map drawn thousands of
@@ -97,6 +98,13 @@ func _draw() -> void:
 		draw_line(target + Vector2(-arm, arm), target + Vector2(arm, -arm), destination_color, 2.0 * px)
 
 	draw_circle(Vector2.ZERO, dot_radius * px, dot_color)
+
+
+## Whether the party has stopped at [param destination]. A trip there ends
+## exactly on the destination's position, so this is the party standing on
+## that very spot with nowhere left to go.
+func is_at(destination: Destination) -> bool:
+	return _route.is_empty() and global_position.is_equal_approx(destination.global_position)
 
 
 ## Sets off for [param destination], if it can be reached over land; if not,

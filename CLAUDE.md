@@ -18,7 +18,8 @@ vcom/Scripts/
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
-  Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission
+  Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
+                       for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -40,19 +41,28 @@ vcom/Scripts/
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Items/
-    Item.gd            Resource base: display_name, description, icon; Weapon, Armor, BattleItem extend it
+    Item.gd            Resource base: display_name, description, icon, price; Weapon, Armor, BattleItem extend it
     Armor.gd           the Armor slot's kind: name and description only so far
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats, experience, equipment slots
+    Character.gd       Resource: display_name, color, portrait, stats, experience, equipment slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
-    PauseMenu.gd       autoload: the one menu for both scenes (Campaign, Roster, Inventory, System); pauses the tree
+    TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
+    PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
+    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in
+    LocationTab.gd     placeholder tab for one Location: its description in the middle
+    HiringBoardTab.gd  a HiringBoard's tab: read-only CharacterBrowser of who is for hire, a PurchaseBar
+    MarketTab.gd       a Market's tab: an InventoryTab over its stock, a PurchaseBar
+    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy the offer
+    HoldButton.gd      a button that acts only once held for hold_time (2 s), filling left to right
     CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
-    RosterTab.gd       strip of CharacterButtons across the top; under it SubTabs of CharacterPages
+    CharacterBrowser.gd strip of CharacterButtons across the top; under it SubTabs of CharacterPages;
+                       optionally read_only
+    RosterTab.gd       the pause menu's CharacterBrowser of Campaign.roster
     CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
     DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
@@ -61,7 +71,8 @@ vcom/Scripts/
     SkillNode.gd       a node styled locked / available / learned; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it
     SubTabs.gd         the underlined second-level tab row both tabs above use
-    InventoryTab.gd    SubTabs: Weapons, Armor, Battle Items, each an ItemBrowser; follows inventory.changed
+    InventoryTab.gd    SubTabs: Weapons, Armor, Battle Items, each an ItemBrowser; follows inventory.changed;
+                       selected_stack() + selection_changed
     ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right;
                        optional action button (Equip), also Enter / double-click on a square
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
@@ -71,8 +82,12 @@ vcom/Scripts/
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: sent by any right click (no selecting), travels a route
-    Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip
+    Party.gd           the party dot: sent by any right click (no selecting), travels a route; is_at(destination)
+    Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip listing its locations
+    Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
+                       description, make_tab()
+    HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
+    Market.gd          Location: an Inventory of stock for sale at one village; one .tres per village
 ```
 
 ## Architecture
@@ -99,14 +114,48 @@ Esc (`pause_menu`, bound to the same key as `cancel_action`) opens it only once 
 scene has taken Esc to cancel something. Anything that cancels on Esc must mark the event handled,
 or the menu opens on the same press. Opening sets `get_tree().paused`; the menu alone runs
 `PROCESS_MODE_ALWAYS`. A tab is any `Control` added to `PauseMenu.tabs`, titled by its node name.
-The menu refills its tabs from `Campaign` each time it opens, so it never holds state of its own.
+The menu refills its tabs from `Campaign` each time it opens (`_refresh()`), so it never holds state of its own.
+
+Its frame is `TabbedMenu`, which the world map's **`VillageMenu`** shares. A left click (`select_unit`)
+on the icon of the `Destination` the party stands on (`Party.is_at()`: a trip there ends exactly on its
+position) opens it with one tab per entry in that destination's `locations`, rebuilt each time, titled by
+`Location.display_name`; a destination with none does not open. It is in the scene, so it sees Esc
+(`cancel_action`) before the pause menu and takes it. Down from either menu's tabs goes to the open
+tab's `focus_selection()` when it has one.
+
+**Locations are data; their tabs are what they do.** A `Location` is a stateless `.tres` like an
+`Item`, and `make_tab()` gives its tab: a placeholder `LocationTab` unless a subclass overrides it. A
+new kind of location is a `Location` subclass plus its tab, as `HiringBoard` + `HiringBoardTab` and
+`Market` + `MarketTab`. A kind whose content differs has a `.tres` per village
+(`Village1HiringBoard.tres`, `Village1Market.tres`); one the same everywhere could be one shared
+`.tres`. What changes in play lives in `Campaign`, keyed by the resource, and the resource is never
+changed:
+
+- `Campaign.for_hire(board)` copies the board's `characters` the first time it is asked;
+  `Campaign.hire(board, character)` spends `Character.hire_cost` and moves them to the end of
+  `Campaign.roster`. A character belongs on one board only.
+- `Campaign.stock_of(market)` is a `duplicate_deep()` of the market's `stock` `Inventory`, made the
+  first time it is asked; `Campaign.buy(market, item)` spends `Item.price` and moves one from it to
+  `Campaign.inventory`. Prices are on the items, the same in every market; stock counts are in the
+  market's `.tres`.
+
+The two shop tabs look like the pause menu's tab they mirror: the Hiring Board is the Roster tab's
+`CharacterBrowser` made read-only (`CharacterPage.read_only`: the Equipment page shows just the slots)
+over who is for hire, and the Market is an `InventoryTab` over the stock. Both end in a `PurchaseBar`
+whose `HoldButton` buys the selected offer once held for 2 seconds by mouse or Enter / Space. It
+emits `held`, never acts on a click, and empties the moment it is full; held on, it fills afresh and
+buys another of the same offer every 2 seconds. When the offer changes under a held button (the last
+of an item sold, the next character up), `PurchaseBar.show_offer()` calls `HoldButton.interrupt()`,
+and it must be let go first, so holding on never buys something that was not picked. The bar
+rechecks the party's gold whenever it is shown, since the other tab may have spent some.
 
 **Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
 stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
 inventory lists. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
-subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)`.
+subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
+gives it a sub-tab in every market too.
 
 **Squad units are roster characters.** A `Character` (`Resources/Characters/*.tres`) is who someone
 is between battles. `Campaign.roster` is a copy of `Resources/StartingRoster.tres` whose list is its
@@ -133,11 +182,12 @@ in combat yet. During a battle `Campaign.in_mission` is true (the `TurnManager` 
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule.
 
-The Roster tab's sub-tabs are `CharacterPage`s. Whenever the selection in the strip changes, every
-page (not just the open one) gets `show_character(character)`, so a page is never left showing
-someone else; a page with content overrides `_refresh()`, and `focus_selection()` if Down from the
-sub-tabs should land somewhere in it. Changing character keeps the open page; opening the menu goes
-back to Details.
+The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
+in the strip changes, every page (not just the open one) gets `show_character(character)`, so a page
+is never left showing someone else; a page with content overrides `_refresh()`, and
+`focus_selection()` if Down from the sub-tabs should land somewhere in it. Changing character keeps
+the open page; opening the menu goes back to Details. A page that can change the character hides
+the means when `read_only` is set, as it is for characters not on the roster.
 
 The Skills page is placeholder UI with no data behind it: `SkillsPage.SECTIONS` sets each column's
 title, width share and node count, and every character shows the same `PLACEHOLDER_STATES` (first
@@ -462,3 +512,5 @@ directly or write a fresh generator.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
+- A hired character joins `Campaign.roster` but not a battle: `CombatMap.tscn`'s squad is still its
+  four fixed units pointing at their `.tres`.

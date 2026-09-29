@@ -5,7 +5,8 @@
 ##
 ## Equipping and unequipping go through [Campaign], which moves one copy
 ## between the inventory and the character. During a mission the page only
-## shows: both buttons are greyed out and a note says why.
+## shows: both buttons are greyed out and a note says why. Read only, for
+## someone not on the roster, it shows just the slots and what they hold.
 class_name EquipmentPage
 extends CharacterPage
 
@@ -21,6 +22,7 @@ var _slots: Array[SlotButton] = []
 var _status: Label
 var _locked_note: Label
 var _unequip: Button
+var _rule: HSeparator
 var _browser: ItemBrowser
 
 
@@ -60,11 +62,11 @@ func _init() -> void:
 	_locked_note.add_theme_color_override(&"font_color", MUTED_COLOR)
 	status_line.add_child(_locked_note)
 
-	var rule := HSeparator.new()
+	_rule = HSeparator.new()
 	var line := StyleBoxLine.new()
 	line.color = BORDER_COLOR
-	rule.add_theme_stylebox_override(&"separator", line)
-	layout.add_child(rule)
+	_rule.add_theme_stylebox_override(&"separator", line)
+	layout.add_child(_rule)
 
 	_browser = ItemBrowser.new("Items")
 	_browser.size_flags_vertical = SIZE_EXPAND_FILL
@@ -89,6 +91,8 @@ func focus_selection() -> bool:
 func _refresh() -> void:
 	for button in _slots:
 		button.show_item(character.get(button.slot) if character != null else null)
+	_rule.visible = not read_only
+	_browser.visible = not read_only
 	_show_slot()
 
 
@@ -102,11 +106,12 @@ func _show_slot() -> void:
 	var held: Item = character.get(button.slot) if character != null else null
 	var locked := Campaign.in_mission
 	_status.text = "%s: %s" % [button.title, held.display_name if held != null else "Empty"]
-	_unequip.visible = held != null
+	_unequip.visible = held != null and not read_only
 	_unequip.disabled = locked
-	_locked_note.visible = locked
-	_browser.show_stacks(Campaign.inventory.stacks_of(Character.slot_kind(button.slot)))
-	_browser.set_action_enabled(character != null and not locked)
+	_locked_note.visible = locked and not read_only
+	if not read_only:
+		_browser.show_stacks(Campaign.inventory.stacks_of(Character.slot_kind(button.slot)))
+		_browser.set_action_enabled(character != null and not locked)
 
 
 func _on_equip_requested(stack: ItemStack) -> void:
