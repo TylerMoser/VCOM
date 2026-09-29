@@ -5,10 +5,9 @@
 ##
 ## Let go early, or slid off with the mouse still down, and the fill drains
 ## back; press again to carry on from where it has drained to. Full, it empties
-## at once and emits [signal held]; still held, it fills afresh, making the
-## choice again each [member hold_time] for as long as it is held, unless
-## [method interrupt] stops it. A plain click does nothing: listen to
-## [signal held], not [signal BaseButton.pressed].
+## at once and emits [signal held], and stays empty until it is let go and
+## pressed again, so every choice takes a press and a hold of its own. A plain
+## click does nothing: listen to [signal held], not [signal BaseButton.pressed].
 ##
 ## Its caption is a child label drawn over the fill, so set [member caption]
 ## rather than [member Button.text], which stays empty.
@@ -44,7 +43,7 @@ var progress := 0.0
 
 var _label: Label
 var _fill: Panel
-## Set by [method interrupt], until the button is let go.
+## Set once full, until the button is let go.
 var _spent := false
 ## Whether the caption is drawn greyed out, to change it only when that
 ## changes.
@@ -94,8 +93,8 @@ func _process(delta: float) -> void:
 	if holding and not _spent:
 		progress = minf(progress + delta / hold_time, 1.0)
 		if progress >= 1.0:
-			# Emptied first, so a listener that interrupts it leaves it empty.
 			progress = 0.0
+			_spent = true
 			held.emit()
 	elif not holding:
 		progress = maxf(progress - delta * DRAIN_SPEED / hold_time, 0.0)
@@ -104,15 +103,6 @@ func _process(delta: float) -> void:
 	if disabled != _greyed:
 		_greyed = disabled
 		_label.add_theme_color_override(&"font_color", MUTED_COLOR if disabled else TEXT_COLOR)
-
-
-## Empties the fill, and ignores a press held on it until it is let go: for
-## when what the button would do has changed under the press, so that holding
-## on does not carry the choice over to something else.
-func interrupt() -> void:
-	progress = 0.0
-	_spent = true
-	_place_fill()
 
 
 ## Sizes the button round its caption, again whenever the caption's size

@@ -4,9 +4,8 @@
 ## when the party cannot afford it.
 ##
 ## The tab shows each offer with [method show_offer] and does the buying
-## itself on [signal held]. Held on, the button empties and fills afresh to buy
-## another of the same offer every two seconds, but a new offer (the last one
-## sold, the next character up) waits for it to be let go.
+## itself on [signal held], one per press: the button empties as it buys, and
+## must be let go and pressed again to buy another.
 ##
 ## The bar only reads [code]Campaign.gold[/code], and reads it again whenever
 ## it is shown, since the party may have spent gold on another tab of the
@@ -78,8 +77,6 @@ func _init() -> void:
 ## "[param verb] [param what] for [param price] Gold", as "Hire White for 20
 ## Gold".
 func show_offer(verb: String, what: String, price: int) -> void:
-	if verb != _verb or what != _what:
-		_button.interrupt()
 	_verb = verb
 	_what = what
 	_price = price

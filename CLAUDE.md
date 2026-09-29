@@ -143,11 +143,10 @@ The two shop tabs look like the pause menu's tab they mirror: the Hiring Board i
 `CharacterBrowser` made read-only (`CharacterPage.read_only`: the Equipment page shows just the slots)
 over who is for hire, and the Market is an `InventoryTab` over the stock. Both end in a `PurchaseBar`
 whose `HoldButton` buys the selected offer once held for 2 seconds by mouse or Enter / Space. It
-emits `held`, never acts on a click, and empties the moment it is full; held on, it fills afresh and
-buys another of the same offer every 2 seconds. When the offer changes under a held button (the last
-of an item sold, the next character up), `PurchaseBar.show_offer()` calls `HoldButton.interrupt()`,
-and it must be let go first, so holding on never buys something that was not picked. The bar
-rechecks the party's gold whenever it is shown, since the other tab may have spent some.
+emits `held`, never acts on a click, and empties the moment it is full, then stays empty until it is
+let go and pressed again: one purchase per press, so holding on never buys a second, nor the next
+item or character that comes up. The bar rechecks the party's gold whenever it is shown, since the
+other tab may have spent some.
 
 **Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
 stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
