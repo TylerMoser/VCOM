@@ -13,12 +13,12 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, reaction, walking, shoot_at()
+  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats from its character
   PlayerSquad.gd       members + selection; drops the dead
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
-  Campaign.gd          autoload: state that outlives a scene; inventory (a copy of StartingInventory.tres)
+  Campaign.gd          autoload: state that outlives a scene; roster, inventory
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -44,12 +44,21 @@ vcom/Scripts/
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind)
+  Roster/
+    Character.gd       Resource: display_name, color, portrait, stats (HP, move, aim, evasion), experience
+    Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
     PauseMenu.gd       autoload: the one menu for both scenes (Roster, Inventory, System); pauses the tree
-    InventoryTab.gd    sub-tabs: Weapons, Battle Items, each an ItemBrowser
+    RosterTab.gd       strip of CharacterButtons across the top; under it SubTabs of CharacterPages
+    CharacterPage.gd   base for Details / Equipment / Skills: show_character() -> _refresh()
+    DetailsPage.gd     the character's stats as one name / value list; experience bar bottom-right
+    CharacterButton.gd portrait (or colour swatch) with the name under it
+    SubTabs.gd         the underlined second-level tab row both tabs above use
+    InventoryTab.gd    SubTabs: Weapons, Battle Items, each an ItemBrowser
     ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
+    FocusChain.gd      left / right through a run of buttons, stopping at the ends
     SystemTab.gd       its last tab: Return to Game, Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
@@ -91,6 +100,25 @@ inventory lists. How many the party holds lives in `ItemStack`s in an `Inventory
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)`.
+
+**Squad units are roster characters.** A `Character` (`Resources/Characters/*.tres`) is who someone
+is between battles. `Campaign.roster` is a copy of `Resources/StartingRoster.tres` whose list is its
+own but whose characters are the loaded `.tres`, the same ones CombatMap's players point at with
+`Unit.character`. So they are linked: a unit takes its `display_name`, colour and the character's
+stats (`max_health`, `move_range`, `aim`, `evasion`) from its character in `_ready` (painting its mesh
+on a copy of the material). They are copied once, when the unit enters the map: the rules read the
+unit, never the character. The unit's other stats (actions, sight, height bonus, distance penalty)
+are still its own. A stat that should differ per character moves to `Character`, gets copied in
+`Unit._take_character()`, and gets a row in `DetailsPage.STATS`. `Character.experience` (out of
+`Character.EXPERIENCE_TO_LEVEL`, 100) is the character's alone and never copied to the unit; nothing
+awards it yet. Unlike an `Item`, a character is state and will change in play; nothing writes it back to
+disk, and save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
+and keep the scene's name and material.
+
+The Roster tab's sub-tabs are `CharacterPage`s. Whenever the selection in the strip changes, every
+page (not just the open one) gets `show_character(character)`, so a page is never left showing
+someone else; a page with content overrides `_refresh()`. Changing character keeps the open page;
+opening the menu goes back to Details.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -289,6 +317,15 @@ to true, so an enemy's pause between actions or a round in flight would run out 
 menu and the turn would carry on. Game timers pass `false` as the second argument. Tweens bound to
 a node, physics, and `_process` all stop with the tree; `await process_frame` does not, so a
 polling loop keeps spinning (harmless while what it polls is paused).
+
+**A script's `_init()` does not run its parent script's `_init()`.** Call `super()` first, as
+`InventoryTab` does to get `SubTabs`' styling; without it the tabs silently fall back to the default
+theme.
+
+**A `Button` ignores a script's `_get_minimum_size()`.** Its native sizing replaces the hook, and a
+button does not lay out its children, so a button built from child controls (`CharacterButton`)
+sets `custom_minimum_size` from them, again on their `minimum_size_changed`: in `_init()` a label has
+no font yet and measures nothing.
 
 **A unit's tween dies with it, without finishing.** `create_tween()` binds to the node, so a unit
 freed mid-walk leaves `await tween.finished` hanging forever. Anything that can kill a walker on the

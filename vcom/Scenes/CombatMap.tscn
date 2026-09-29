@@ -22,6 +22,10 @@
 [ext_resource type="Resource" path="res://Resources/AI/Assault.tres" id="16_assault_ai"]
 [ext_resource type="Script" uid="uid://dhltqnrat70f8" path="res://Scripts/Terrain/TerrainDestruction.gd" id="17_destruction"]
 [ext_resource type="Resource" path="res://Resources/Destruction/Catalog.tres" id="18_destruction_catalog"]
+[ext_resource type="Resource" path="res://Resources/Characters/Blue.tres" id="19_blue"]
+[ext_resource type="Resource" path="res://Resources/Characters/Green.tres" id="19_green"]
+[ext_resource type="Resource" path="res://Resources/Characters/Yellow.tres" id="19_yellow"]
+[ext_resource type="Resource" path="res://Resources/Characters/Purple.tres" id="19_purple"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -84,7 +88,7 @@ current = true
 [node name="Player1" type="Node3D" parent="Units" unique_id=1000006 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -1.5)
 script = ExtResource("3_unit")
-display_name = "Player 1"
+character = ExtResource("19_blue")
 weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player1" unique_id=1000007]
@@ -95,7 +99,7 @@ surface_material_override/0 = SubResource("Mat_player1")
 [node name="Player2" type="Node3D" parent="Units" unique_id=1000008 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1, -1.5)
 script = ExtResource("3_unit")
-display_name = "Player 2"
+character = ExtResource("19_green")
 weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player2" unique_id=1000009]
@@ -106,7 +110,7 @@ surface_material_override/0 = SubResource("Mat_player2")
 [node name="Player3" type="Node3D" parent="Units" unique_id=1000010 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1, -1.5)
 script = ExtResource("3_unit")
-display_name = "Player 3"
+character = ExtResource("19_yellow")
 weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player3" unique_id=1000011]
@@ -117,7 +121,7 @@ surface_material_override/0 = SubResource("Mat_player3")
 [node name="Player4" type="Node3D" parent="Units" unique_id=1000012 groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
 script = ExtResource("3_unit")
-display_name = "Player 4"
+character = ExtResource("19_purple")
 weapon = ExtResource("15_rifle")
 
 [node name="Mesh" type="MeshInstance3D" parent="Units/Player4" unique_id=1000013]

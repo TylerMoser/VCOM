@@ -1,9 +1,11 @@
 ## A character on the combat map: its health, its per-turn action budget and
 ## its reaction.
 ##
-## The unit's colour comes from the material on its Mesh child, so the scene
-## stays the single place it is set. UI reads [member color] until real
-## portraits exist.
+## A squad member is someone on the roster: given a [member character], it
+## takes its name, colour and stats (health, move, aim, evasion) from them,
+## painting its Mesh child. Without one (enemies, the test harness) the
+## scene's values and the Mesh's material stand.
+## UI reads [member color] until real portraits exist.
 class_name Unit
 extends Node3D
 
@@ -31,7 +33,12 @@ const GROUP := &"units"
 ## per second per second.
 const FALL_ACCELERATION := 9.8
 
+## Replaced by [member character]'s name when the unit has one.
 @export var display_name := "Unit"
+## Who this unit is on the roster: the same resource [member Campaign.roster]
+## holds, so the two stay linked.
+@export var character: Character
+## Replaced by [member character]'s, as are move range, aim and evasion.
 @export var max_health := 10
 @export var actions_per_turn := 3
 ## Tiles the unit can walk for each action point spent moving.
@@ -102,6 +109,9 @@ var color: Color:
 
 func _ready() -> void:
 	add_to_group(GROUP)
+	# Before health is filled, which reads the character's max_health.
+	if character != null:
+		_take_character()
 	health = max_health
 	actions_remaining = actions_per_turn
 	if weapon == null:
@@ -230,6 +240,29 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 	for body in bodies:
 		if is_instance_valid(body):
 			_body.add_collision_exception_with(body)
+
+
+## Takes on [member character]'s name, colour and stats. Copied once, when
+## the unit enters the map: the rules read the unit, never the character.
+func _take_character() -> void:
+	display_name = character.display_name
+	max_health = character.max_health
+	move_range = character.move_range
+	aim = character.aim
+	evasion = character.evasion
+	_paint(character.color)
+
+
+## Colours the Mesh child [param tint], on a copy of its material so a
+## material another unit shares is left alone.
+func _paint(tint: Color) -> void:
+	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
+	if mesh == null:
+		return
+	var material := mesh.get_active_material(0) as BaseMaterial3D
+	material = material.duplicate() if material != null else StandardMaterial3D.new()
+	material.albedo_color = tint
+	mesh.set_surface_override_material(0, material)
 
 
 ## Gives the unit a body shaped like its Mesh child for mouse clicks to land

@@ -28,6 +28,7 @@ const TEXT_COLOR := Color(0.85, 0.86, 0.9)
 var tabs: TabContainer
 
 var _root: Control
+var _roster: RosterTab
 var _inventory: InventoryTab
 
 
@@ -63,8 +64,8 @@ func _init() -> void:
 	tabs.add_theme_font_size_override(&"font_size", 20)
 	_root.add_child(tabs)
 
-	# A placeholder until there is a squad to show.
-	tabs.add_child(_empty_tab("Roster"))
+	_roster = RosterTab.new()
+	tabs.add_child(_roster)
 
 	_inventory = InventoryTab.new()
 	tabs.add_child(_inventory)
@@ -72,6 +73,8 @@ func _init() -> void:
 	var system := SystemTab.new()
 	system.return_requested.connect(close)
 	tabs.add_child(system)
+
+	tabs.get_tab_bar().gui_input.connect(_on_tab_bar_input)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -94,6 +97,7 @@ func open() -> void:
 	_root.visible = true
 	get_tree().paused = true
 	tabs.current_tab = 0
+	_roster.show_roster(Campaign.roster)
 	_inventory.show_inventory(Campaign.inventory)
 	# The tab row takes the keyboard: left and right change tab, down enters it.
 	tabs.get_tab_bar().grab_focus()
@@ -109,10 +113,11 @@ func close() -> void:
 	closed.emit()
 
 
-static func _empty_tab(title: String) -> Control:
-	var page := Control.new()
-	page.name = title
-	return page
+## Down from the tabs into the Roster goes to the selected character, not
+## whichever one lies nearest the middle of the tab row.
+func _on_tab_bar_input(event: InputEvent) -> void:
+	if event.is_action_pressed(&"ui_down") and tabs.get_current_tab_control() == _roster 			and _roster.focus_selection():
+		tabs.get_tab_bar().accept_event()
 
 
 static func _panel_style() -> StyleBoxFlat:

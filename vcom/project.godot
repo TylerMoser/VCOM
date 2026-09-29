@@ -16,11 +16,14 @@ config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
 
-Campaign="*res://Scripts/Campaign.gd"
 PauseMenu="*res://Scripts/UI/PauseMenu.gd"
+Campaign="*res://Scripts/Campaign.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 

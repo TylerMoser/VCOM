@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Character" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="1_6cudr"]
+
+[resource]
+script = ExtResource("1_6cudr")
+display_name = "Purple"
+color = Color(0.6, 0.35, 0.85, 1)

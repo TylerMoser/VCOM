@@ -73,7 +73,7 @@ func show_stacks(stacks: Array[ItemStack]) -> void:
 			if on:
 				_show(stack))
 		_grid.add_child(square)
-	_chain_squares()
+	FocusChain.link(_grid.get_children())
 	if stacks.is_empty():
 		_show(null)
 	else:
@@ -89,19 +89,6 @@ func focus_selection() -> bool:
 		return false
 	square.grab_focus()
 	return true
-
-
-## Left and right step through the squares in reading order, wrapping to the
-## row above or below, and stop at the first and last rather than leaving
-## the grid for whatever lies beside it (the tab rows, by distance).
-func _chain_squares() -> void:
-	var squares := _grid.get_children()
-	for i in squares.size():
-		var square := squares[i] as Control
-		var before: Node = squares[i - 1] if i > 0 else square
-		var after: Node = squares[i + 1] if i + 1 < squares.size() else square
-		square.focus_neighbor_left = square.get_path_to(before)
-		square.focus_neighbor_right = square.get_path_to(after)
 
 
 func _show(stack: ItemStack) -> void:

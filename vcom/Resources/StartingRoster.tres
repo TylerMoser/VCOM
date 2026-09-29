@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Roster" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="1_x8y5y"]
+[ext_resource type="Resource" path="res://Resources/Characters/Blue.tres" id="2_pvn4c"]
+[ext_resource type="Resource" path="res://Resources/Characters/Green.tres" id="3_jeqox"]
+[ext_resource type="Resource" path="res://Resources/Characters/Yellow.tres" id="4_idglw"]
+[ext_resource type="Resource" path="res://Resources/Characters/Purple.tres" id="5_mkkwe"]
+[ext_resource type="Script" path="res://Scripts/Roster/Roster.gd" id="6_wayco"]
+
+[resource]
+script = ExtResource("6_wayco")
+characters = Array[ExtResource("1_x8y5y")]([ExtResource("2_pvn4c"), ExtResource("3_jeqox"), ExtResource("4_idglw"), ExtResource("5_mkkwe")])
