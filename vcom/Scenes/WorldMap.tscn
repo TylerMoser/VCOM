@@ -3,8 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cajn1ble6ceqw" path="res://WorldMap/WorldMapV1.png" id="1_map"]
 [ext_resource type="Script" uid="uid://c7qkni12yiu80" path="res://Scripts/WorldMap/WorldMapCamera.gd" id="2_camera"]
 [ext_resource type="Script" uid="uid://cthdiw86m6jyd" path="res://Scripts/WorldMap/Party.gd" id="3_party"]
-[ext_resource type="Script" path="res://Scripts/WorldMap/WorldMapTerrain.gd" id="4_terrain"]
+[ext_resource type="Script" uid="uid://d310x8mtmcdtp" path="res://Scripts/WorldMap/WorldMapTerrain.gd" id="4_terrain"]
 [ext_resource type="PackedScene" path="res://WorldMap/WorldMapV1Land.tscn" id="5_land"]
+[ext_resource type="PackedScene" path="res://Scenes/Village.tscn" id="6_village"]
 
 [node name="WorldMap" type="Node2D" unique_id=1261504120]
 
@@ -25,10 +26,16 @@ texture_filter = 5
 rotation = -0.17453292
 texture = ExtResource("1_map")
 
-[node name="Land" parent="Map" instance=ExtResource("5_land")]
+[node name="Land" parent="Map" unique_id=1224969683 instance=ExtResource("5_land")]
 
-[node name="Terrain" type="Node" parent="."]
+[node name="Terrain" type="Node" parent="." unique_id=804397267]
 script = ExtResource("4_terrain")
+
+[node name="Destinations" type="Node2D" parent="." unique_id=593851891]
+
+[node name="Village" parent="Destinations" unique_id=2018877921 instance=ExtResource("6_village")]
+position = Vector2(1000, 0)
+display_name = "Village1"
 
 [node name="Party" type="Node2D" parent="." unique_id=1808455911]
 script = ExtResource("3_party")

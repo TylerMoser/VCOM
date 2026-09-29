@@ -145,7 +145,7 @@ func _take_enemy_turn(enemy: Unit) -> void:
 		push_warning("TurnManager: '%s' has no ai, so it sits its turn out." % enemy.name)
 		return
 	_camera_rig.focus_on(enemy.global_position)
-	await get_tree().create_timer(enemy_action_pause).timeout
+	await get_tree().create_timer(enemy_action_pause, false).timeout
 
 	while enemy.actions_remaining > 0:
 		var action := enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
@@ -159,7 +159,7 @@ func _take_enemy_turn(enemy: Unit) -> void:
 		else:
 			enemy.spend_actions(ShootAction.COST)
 			await _enemy_fire.play(enemy, action.shot, action.estimate)
-		await get_tree().create_timer(enemy_action_pause).timeout
+		await get_tree().create_timer(enemy_action_pause, false).timeout
 
 
 ## Walks [param enemy] along [param path], through [Reactions] so the squad

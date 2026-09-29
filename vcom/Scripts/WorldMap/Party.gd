@@ -5,8 +5,9 @@
 ## is selected; a right click (execute_action, as a move is given in combat)
 ## then sends it to that point at [member travel_speed], over land by the
 ## route [WorldMapTerrain] finds: straight when nothing is in the way, around
-## the coast when something is. A right click on the sea, or on land it cannot
-## reach, is ignored. A left click anywhere else, or Esc (cancel_action),
+## the coast when something is. A right click on a [Destination]'s icon sends
+## it to the destination itself. A right click on the sea, or on land it
+## cannot reach, is ignored. A left click anywhere else, or Esc (cancel_action),
 ## drops the selection. A new right click while it is on the way sends it on
 ## to the new point instead.
 ##
@@ -54,6 +55,11 @@ func _ready() -> void:
 			push_error("Party: no WorldMapTerrain at '%s'; travelling in straight lines." % terrain_path)
 	if _terrain != null and not _terrain.is_land(global_position):
 		push_warning("Party: starts off the land at %s, so it can go nowhere." % global_position)
+	if _terrain != null:
+		for destination in get_tree().get_nodes_in_group(Destination.GROUP):
+			if not _terrain.is_land(destination.global_position):
+				push_warning("Party: destination '%s' is off the land at %s, so it can never be reached." % [
+					destination.name, destination.global_position])
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -63,7 +69,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
 		if selected:
-			_send_to(get_global_mouse_position())
+			var destination := Destination.find_under_mouse(get_tree())
+			_send_to(destination.global_position if destination != null else get_global_mouse_position())
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"cancel_action"):
 		if selected:

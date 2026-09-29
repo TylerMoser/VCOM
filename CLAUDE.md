@@ -18,13 +18,14 @@ vcom/Scripts/
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
+  Campaign.gd          autoload: state that outlives a scene; inventory (a copy of StartingInventory.tres)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term), roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
     ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
-    Weapon.gd          Resource: damage, environment_damage
+    Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
   AI/
     EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
@@ -38,13 +39,24 @@ vcom/Scripts/
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
+  Items/
+    Item.gd            Resource base: display_name, description, icon; Weapon and BattleItem extend it
+    BattleItem.gd      grenades, medkits: name and description only so far
+    ItemStack.gd       an item and how many
+    Inventory.gd       stacks in display order; stacks_of(kind)
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
+    PauseMenu.gd       autoload: the one menu for both scenes (Roster, Inventory, System); pauses the tree
+    InventoryTab.gd    sub-tabs: Weapons, Battle Items, each an ItemBrowser
+    ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right
+    ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
+    SystemTab.gd       its last tab: Return to Game, Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
     Party.gd           the party dot: select, send, travel a route
+    Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip
 ```
 
 ## Architecture
@@ -64,6 +76,21 @@ owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_p
 
 **The HUD is written in code, not scenes.** Widgets build their children in `_init()` and style
 themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn` files for UI.
+
+**The pause menu is an autoload, `PauseMenu`**, so the world map and combat share one menu and any
+future scene gets it free. Being ahead of the scene in the tree, it sees `_unhandled_input` last:
+Esc (`pause_menu`, bound to the same key as `cancel_action`) opens it only once nothing in the
+scene has taken Esc to cancel something. Anything that cancels on Esc must mark the event handled,
+or the menu opens on the same press. Opening sets `get_tree().paused`; the menu alone runs
+`PROCESS_MODE_ALWAYS`. A tab is any `Control` added to `PauseMenu.tabs`, titled by its node name.
+The menu refills its tabs from `Campaign` each time it opens, so it never holds state of its own.
+
+**Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
+stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
+inventory lists. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
+is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
+copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
+subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)`.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -256,6 +283,12 @@ leaves it out of the global class cache, and every script referencing it fails w
 **`_unhandled_input` runs in reverse tree order.** `ActionController` sits after `PlayerSquad` in
 `CombatMap.tscn`, which is the only reason the active action can swallow `Tab` before the squad
 cycles. Do not reorder those nodes.
+
+**`get_tree().create_timer()` ignores the pause unless told not to.** Its `process_always` defaults
+to true, so an enemy's pause between actions or a round in flight would run out behind the pause
+menu and the turn would carry on. Game timers pass `false` as the second argument. Tweens bound to
+a node, physics, and `_process` all stop with the tree; `await process_frame` does not, so a
+polling loop keeps spinning (harmless while what it polls is paused).
 
 **A unit's tween dies with it, without finishing.** `create_tween()` binds to the node, so a unit
 freed mid-walk leaves `await tween.finished` hanging forever. Anything that can kill a walker on the

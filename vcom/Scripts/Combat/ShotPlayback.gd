@@ -45,7 +45,7 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 			_overlay.show_shot(eye, mark, shot, estimate)
 		else:
 			_overlay.show_incoming(eye, mark)
-		await _grid.get_tree().create_timer(aim_seconds).timeout
+		await _grid.get_tree().create_timer(aim_seconds, false).timeout
 		# The round takes over from the sight line once it is fired.
 		_overlay.clear()
 		show_rounds = _overlay.show_rounds

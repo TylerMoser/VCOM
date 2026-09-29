@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/WorldMap/Destination.gd" id="1_destination"]
+[ext_resource type="Texture2D" path="res://WorldMap/Village.png" id="2_icon"]
+
+[node name="Village" type="Node2D"]
+texture_filter = 4
+script = ExtResource("1_destination")
+icon = ExtResource("2_icon")

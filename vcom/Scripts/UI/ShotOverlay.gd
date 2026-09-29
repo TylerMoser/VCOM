@@ -167,7 +167,7 @@ func show_rounds(outcome: Ballistics.Outcome) -> void:
 	set_process(true)
 	queue_redraw()
 
-	await get_tree().create_timer(flight).timeout
+	await get_tree().create_timer(flight, false).timeout
 	for path in outcome.paths:
 		if path.struck != null:
 			_impacts.append([path.to, IMPACT_SECONDS])
