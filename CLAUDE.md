@@ -40,6 +40,11 @@ vcom/Scripts/
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
+  WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
+    WorldMapCamera.gd  pan / zoom with the combat camera's input actions
+    WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
+    BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
+    Party.gd           the party dot: select, send, travel a route
 ```
 
 ## Architecture
@@ -321,6 +326,22 @@ block is 1 cm narrower than its cell.
 **Probe runs in parallel can log `Jolt Physics job system exceeded the maximum number of jobs`.**
 That is several Godot processes fighting over the CPU, not the scene; it does not appear run alone.
 
+**`Geometry2D.is_point_in_polygon` is wrong near vertices on big outlines.** It casts a slanted ray
+and fudges any crossing within a relative epsilon of a vertex; on the world map's 33k-corner
+coastline it misjudged about one coast pixel in a hundred. `WorldMapTerrain._encloses` counts
+crossings row by row instead. Do not use the built-in for land tests.
+
+**The 2D navigation server cannot handle long sliver polygons.** Baked whole, the pixel coastline
+gave polygons thousands of pixels long and a few wide, and the server found no polygon under
+points inside them. `BakeLand.gd` bakes in 256 px tiles, and adds every corner on a tile line to
+the edges along it on both sides, or the tiles do not join. The world map's navigation also takes
+over a second after the scene opens to be usable (`WorldMapTerrain.is_ready()`), and a
+`NavigationPathQueryParameters2D` gives up after 4096 polygons unless `path_search_max_polygons`
+is set (0 lifts it).
+
+**A script error does not end a `--script` run.** Godot sits idle after it until killed, so give
+scripted runs a `timeout`.
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -341,5 +362,8 @@ directly or write a fresh generator.
   fifth of a cell on to it before breaking, and their pieces take more room loose than as crates.
   Stood in the open the same stack clears its column. Clearing a slot would need debris that can
   be crushed, or thinned out once it settles.
+- The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
+  land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates
+  the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).

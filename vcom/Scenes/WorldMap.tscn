@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://rcbiy1tdi2ss"]
+
+[ext_resource type="Texture2D" uid="uid://cajn1ble6ceqw" path="res://WorldMap/WorldMapV1.png" id="1_map"]
+[ext_resource type="Script" uid="uid://c7qkni12yiu80" path="res://Scripts/WorldMap/WorldMapCamera.gd" id="2_camera"]
+[ext_resource type="Script" uid="uid://cthdiw86m6jyd" path="res://Scripts/WorldMap/Party.gd" id="3_party"]
+[ext_resource type="Script" path="res://Scripts/WorldMap/WorldMapTerrain.gd" id="4_terrain"]
+[ext_resource type="PackedScene" path="res://WorldMap/WorldMapV1Land.tscn" id="5_land"]
+
+[node name="WorldMap" type="Node2D" unique_id=1261504120]
+
+[node name="Background" type="CanvasLayer" parent="." unique_id=113857]
+layer = -1
+
+[node name="Color" type="ColorRect" parent="Background" unique_id=480968742]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.45490196, 0.65882355, 0.8039216, 1)
+
+[node name="Map" type="Sprite2D" parent="." unique_id=2128109398]
+texture_filter = 5
+rotation = -0.17453292
+texture = ExtResource("1_map")
+
+[node name="Land" parent="Map" instance=ExtResource("5_land")]
+
+[node name="Terrain" type="Node" parent="."]
+script = ExtResource("4_terrain")
+
+[node name="Party" type="Node2D" parent="." unique_id=1808455911]
+script = ExtResource("3_party")
+
+[node name="Camera" type="Camera2D" parent="." unique_id=978397840]
+zoom = Vector2(0.07, 0.07)
+script = ExtResource("2_camera")
