@@ -6,10 +6,11 @@
 [ext_resource type="Script" uid="uid://d310x8mtmcdtp" path="res://Scripts/WorldMap/WorldMapTerrain.gd" id="4_terrain"]
 [ext_resource type="PackedScene" path="res://WorldMap/WorldMapV1Land.tscn" id="5_land"]
 [ext_resource type="PackedScene" path="res://Scenes/Village.tscn" id="6_village"]
-[ext_resource type="Script" path="res://Scripts/WorldMap/Location.gd" id="7_location"]
+[ext_resource type="Script" uid="uid://dp3coy0w7f8ne" path="res://Scripts/WorldMap/Location.gd" id="7_location"]
 [ext_resource type="Resource" path="res://Resources/Locations/Village1HiringBoard.tres" id="8_hiring_board"]
 [ext_resource type="Resource" path="res://Resources/Locations/Village1Market.tres" id="9_market"]
-[ext_resource type="Script" path="res://Scripts/UI/VillageMenu.gd" id="10_village_menu"]
+[ext_resource type="Script" uid="uid://dr3m0f87tpbll" path="res://Scripts/UI/VillageMenu.gd" id="10_village_menu"]
+[ext_resource type="PackedScene" path="res://Scenes/Forest.tscn" id="11_forest"]
 
 [node name="WorldMap" type="Node2D" unique_id=1261504120]
 
@@ -35,6 +36,12 @@ texture = ExtResource("1_map")
 [node name="Terrain" type="Node" parent="." unique_id=804397267]
 script = ExtResource("4_terrain")
 
+[node name="Forests" type="Node2D" parent="." unique_id=671211147]
+
+[node name="Forest" parent="Forests" unique_id=1507189620 instance=ExtResource("11_forest")]
+position = Vector2(-735, -1377)
+polygon = PackedVector2Array(-1122, -84, -970, -507, -50, -600, 709, -734, 1013, -279, 980, 252, 655, 555, -537, 653, -851, 306)
+
 [node name="Destinations" type="Node2D" parent="." unique_id=593851891]
 
 [node name="Village" parent="Destinations" unique_id=2018877921 instance=ExtResource("6_village")]
@@ -49,5 +56,5 @@ script = ExtResource("3_party")
 zoom = Vector2(0.07, 0.07)
 script = ExtResource("2_camera")
 
-[node name="VillageMenu" type="CanvasLayer" parent="."]
+[node name="VillageMenu" type="CanvasLayer" parent="." unique_id=297875677]
 script = ExtResource("10_village_menu")

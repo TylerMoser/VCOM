@@ -123,6 +123,13 @@ position) opens it with one tab per entry in that destination's `locations`, reb
 (`cancel_action`) before the pause menu and takes it. Down from either menu's tabs goes to the open
 tab's `focus_selection()` when it has one.
 
+**Forests are shapes drawn in the editor.** Each is an instance of `Scenes/Forest.tscn`, a
+light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
+coordinates like the destinations (not under the rotated `Map`). Its outline is its `polygon`,
+reshaped with the editor's polygon tools and saved as an override on that instance; the colour is set
+once in `Forest.tscn`. `Forests` sits before `Destinations` and `Party` so they draw on top. Nothing
+reads forests yet.
+
 **Locations are data; their tabs are what they do.** A `Location` is a stateless `.tres` like an
 `Item`, and `make_tab()` gives its tab: a placeholder `LocationTab` unless a subclass overrides it. A
 new kind of location is a `Location` subclass plus its tab, as `HiringBoard` + `HiringBoardTab` and

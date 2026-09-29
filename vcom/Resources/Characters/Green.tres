@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Character" format=3]
+[gd_resource type="Resource" script_class="Character" format=3 uid="uid://b03ojd8k5tu8x"]
 
-[ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="1_dbouw"]
-[ext_resource type="Resource" path="res://Resources/Rifle.tres" id="2_u1v6k"]
+[ext_resource type="Script" uid="uid://cigk7ncdnmhvo" path="res://Scripts/Roster/Character.gd" id="1_dbouw"]
+[ext_resource type="Resource" uid="uid://d2l5k82w4sccd" path="res://Resources/Rifle.tres" id="2_u1v6k"]
 
 [resource]
 script = ExtResource("1_dbouw")
