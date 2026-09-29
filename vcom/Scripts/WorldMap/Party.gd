@@ -11,8 +11,10 @@
 ## the new point instead. The left button is left free for other things, such
 ## as a left click on the village the party is in opening its [VillageMenu].
 ##
-## It travels in steps of [member step_length]. Each step that ends in a
-## [Forest] rolls that forest's chance of a random encounter, and one that
+## It travels in steps of [member step_length]. Every step heals everyone on
+## the roster by [member heal_per_step] ([method Campaign.heal]), wherever it
+## is taken, so wounds mend on the road. Each step that ends in a
+## [Forest] then rolls that forest's chance of a random encounter, and one that
 ## comes up is announced with [signal encountered]; the [SquadMenu] takes it
 ## from there, choosing who fights and starting the battle. The world map
 ## waits out of the tree meanwhile, so once the battle is over the party is
@@ -34,6 +36,9 @@ signal encountered(map: PackedScene)
 ## How far the party goes, in map pixels, from one chance of a random
 ## encounter to the next. The chance itself is each forest's.
 @export var step_length := 50.0
+## Health every wounded character on the roster gets back each step, never
+## past their most.
+@export_range(0, 100, 1, "or_greater") var heal_per_step := 1
 
 @export_group("Look")
 ## Sizes are in screen pixels.
@@ -125,14 +130,15 @@ func is_at(destination: Destination) -> bool:
 	return _route.is_empty() and global_position.is_equal_approx(destination.global_position)
 
 
-## Counts [param distance] travelled towards the next step, and at the end of
-## each step taken in a forest rolls its chance of an encounter. A frame long
-## enough to take several steps rolls for each where the party stands, which
-## is near enough at any real frame rate.
+## Counts [param distance] travelled towards the next step. At the end of
+## each it heals the roster, and in a forest rolls its chance of an encounter.
+## A frame long enough to take several steps heals and rolls for each where
+## the party stands, which is near enough at any real frame rate.
 func _take_steps(distance: float) -> void:
 	_stepped += distance
 	while step_length > 0.0 and _stepped >= step_length:
 		_stepped -= step_length
+		Campaign.heal(heal_per_step)
 		var forest := Forest.find_at(get_tree(), global_position)
 		if forest != null and forest.roll_encounter():
 			encountered.emit(forest.encounter_map)

@@ -32,14 +32,18 @@ is standing in to use it. Travelling through a forest (the green areas) risks an
 stretch of the way has a chance to start a battle.
 
 Before it starts, the roster comes up to choose who fights: double-click a character (or press
-`Enter` on one) to tick or untick them, up to four, then hold **Start** for two seconds. It opens with
-the last battle's squad ticked, less anyone who fell, and it cannot be closed any other way. What
-happens to them in the battle lasts. Wounds carry
-into the next battle (nothing heals them yet), and a character who dies is gone from the roster for
-good, their gear back in the inventory. The battle ends when either side is wiped out: **Victory** or
-**Defeat**, then back to the world map where the party was, still on its way. If that was the last
-character on the roster, the campaign is lost: **Game Over** comes up on the world map and the game
-closes.
+`Enter` on one) to tick or untick them, up to four, then hold **Start** for two seconds. It opens
+with the last battle's squad ticked, less anyone who fell, and it cannot be closed any other way.
+What happens to them in the battle lasts. Wounds carry into the next battle unless they heal first:
+everyone on the roster heals a little (1 HP) for every short stretch the party travels, and a
+character who dies is gone from the roster for good, their gear back in the inventory. The battle
+ends when either side is wiped out: **Victory** or **Defeat**, then back to the world map where the
+party was, still on its way. If a defeat took the last character on the roster, the campaign is
+lost: **Game Over** comes up on the world map and the game closes.
+
+Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
+gold. Every 100 experience becomes a skill point (the rest carries over), shown on the Roster's
+Skills tab as "Skills (1)"; nothing spends them yet.
 
 ## Combat rules
 

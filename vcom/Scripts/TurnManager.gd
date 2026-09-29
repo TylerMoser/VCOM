@@ -15,7 +15,9 @@
 ## won when the last enemy dies, lost when the last squad member does. The
 ## turns stop, "Victory" or "Defeat" is announced, and either way the game
 ## goes back to the world map the battle was started from (see
-## [method Campaign.end_battle]). A battle opened on its own stays open, over.
+## [method Campaign.end_battle]). Whoever of the squad still stands earns
+## their experience then ([method PlayerSquad.award_survivors]), and a win
+## earns the party [member victory_gold]. A battle opened on its own stays open, over.
 ##
 ##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
 class_name TurnManager
@@ -30,6 +32,8 @@ signal end_turn_hold_changed(progress: float)
 
 @export var enemy_group := &"enemies"
 @export var end_turn_hold_time := 1.0
+## Gold the party earns for winning the battle.
+@export var victory_gold := 10
 
 @export_group("Enemy pacing")
 @export var seconds_per_enemy_step := 0.2
@@ -238,6 +242,9 @@ func _end_if_decided() -> void:
 		outcome = Outcome.LOST
 	else:
 		return
+	_squad.award_survivors()
+	if outcome == Outcome.WON:
+		Campaign.gold += victory_gold
 	_set_hold(0.0)
 	_controller.enabled = false
 	await _banner.announce("Victory" if outcome == Outcome.WON else "Defeat")

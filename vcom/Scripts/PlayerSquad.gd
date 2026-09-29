@@ -28,6 +28,9 @@ signal selection_changed(unit: Unit)
 @export var units_path: NodePath = ^"../Units"
 ## Finds the tile under each marker.
 @export var grid_path: NodePath = ^"../CombatGrid"
+## Experience each member still standing earns as a battle ends
+## ([method award_survivors]).
+@export var survival_experience := 50
 
 var members: Array[Unit] = []
 var selected: Unit
@@ -129,6 +132,15 @@ func _spawn() -> void:
 		unit.name = name_from if not name_from.is_empty() else "SquadMember"
 		unit.position = units.to_local(grid.tile_position(tile))
 		units.add_child(unit, true)
+
+
+## Gives every member still standing [member survival_experience], on their
+## character. The [TurnManager] calls it as the battle is decided; after a
+## defeat there is nobody left to earn it.
+func award_survivors() -> void:
+	for unit in members:
+		if unit.character != null:
+			unit.character.gain_experience(survival_experience)
 
 
 ## Writes what [param unit] has lost on its character, as soon as it is hit.

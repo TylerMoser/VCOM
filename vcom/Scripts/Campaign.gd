@@ -11,7 +11,7 @@
 ## of them, chosen on the world map's [SquadMenu] as each battle starts
 ## ([method squad]), and what happens to them there stays with them: their wounds are written on
 ## the character as they are hit, and one who dies is taken off the roster
-## ([method lose]).
+## ([method lose]). Wounds mend as the party travels ([method heal]).
 ##
 ## It also holds on to the world map while a battle started from it is
 ## fought ([method start_battle], [method end_battle]): the map's scene is
@@ -31,7 +31,8 @@ var roster: Roster = _copy_roster(STARTING_ROSTER)
 ## A copy of [constant STARTING_INVENTORY]: its stacks are the campaign's to
 ## change, its items are the shared resources.
 var inventory: Inventory = STARTING_INVENTORY.duplicate_deep()
-## The whole party's gold, one purse. Nothing earns or spends it yet.
+## The whole party's gold, one purse. Won battles earn it (see
+## [member TurnManager.victory_gold]); hiring and buying spend it.
 var gold := STARTING_GOLD
 ## Whether a battle is being fought. Set by the combat scene's [TurnManager]
 ## while it is in the tree. Equipment cannot change during one: a unit took
@@ -143,6 +144,16 @@ func squad(count := SQUAD_SIZE) -> Array[Character]:
 	if survivors.is_empty():
 		return roster.characters.slice(0, maxi(count, 0))
 	return survivors
+
+
+## Heals everyone on the roster by [param amount], none past their
+## [member Character.max_health]: their [member Character.wounds] go down by
+## it, to no less than none. The party does this as it travels.
+func heal(amount: int) -> void:
+	if amount <= 0:
+		return
+	for character in roster.characters:
+		character.wounds = maxi(character.wounds - amount, 0)
 
 
 ## Takes [param character], killed in battle, off the roster for good. What

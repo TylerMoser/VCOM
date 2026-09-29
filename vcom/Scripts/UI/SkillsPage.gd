@@ -1,6 +1,9 @@
 ## The Roster's Skills page: the character's skill trees, one column each,
 ## Species and Sub-Species narrow and the two class trees three times as wide.
 ##
+## Its sub-tab is titled with the character's unspent skill points, as
+## "Skills (2)".
+##
 ## Placeholder so far: the Species trees are a single path of numbered
 ## [SkillNode]s, top to bottom, in the same fixed states for everyone, and the
 ## class trees are still empty. Skills, and a character's progress through
@@ -10,6 +13,7 @@ extends CharacterPage
 
 ## Each column: its title, its share of the width, and how many nodes its
 ## path has (none yet for the class trees).
+const TITLE := "Skills"
 const SECTIONS := [
 	["Species", 1, 4],
 	["Sub-Species", 1, 4],
@@ -35,7 +39,7 @@ var _paths: Array[Array] = []
 
 
 func _init() -> void:
-	super("Skills")
+	super(TITLE)
 	var columns := HBoxContainer.new()
 	columns.set_anchors_preset(PRESET_FULL_RECT)
 	columns.add_theme_constant_override(&"separation", 0)
@@ -47,11 +51,16 @@ func _init() -> void:
 	_link_across()
 
 
-## Clears the selection: it was on the last character's tree.
+## Clears the selection, which was on the last character's tree, and puts the
+## new character's skill points in the sub-tab's title.
 func _refresh() -> void:
 	var selected := _group.get_pressed_button()
 	if selected != null:
 		selected.button_pressed = false
+	var tabs := get_parent() as TabContainer
+	if tabs != null:
+		var title := TITLE if character == null else "%s (%d)" % [TITLE, character.skill_points]
+		tabs.set_tab_title(tabs.get_tab_idx_from_control(self), title)
 
 
 func focus_selection() -> bool:

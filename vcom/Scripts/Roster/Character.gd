@@ -8,8 +8,8 @@
 class_name Character
 extends Resource
 
-## What [member experience] counts up to. Levelling is yet to come; until then
-## this is only what the Details page's bar fills to.
+## What [member experience] counts up to: reaching it turns it into a skill
+## point (see [method gain_experience]). The Details page's bar fills to it.
 const EXPERIENCE_TO_LEVEL := 100
 ## Every equipment slot, in the order shown: its title, the property holding
 ## it, and the kind of [Item] it takes. Static rather than a constant, which
@@ -40,13 +40,20 @@ static var slots := [
 ## The unit's [member Unit.evasion]: taken off the chance of anyone shooting
 ## at it.
 @export var evasion := 0
-## Earned in play, out of [constant EXPERIENCE_TO_LEVEL]. Nothing awards it
-## yet. Not copied onto the unit: it is the character's, not the battle's.
+## Earned in play, out of [constant EXPERIENCE_TO_LEVEL], only through
+## [method gain_experience]; for now surviving a battle is the one way (see
+## [PlayerSquad]). Not copied onto the unit: it is the character's, not the
+## battle's.
 @export var experience := 0
-## Health lost in battle and not yet healed; nothing heals it yet. Kept as
-## what is missing rather than what is left, so a character is whole by
-## default and stays as hurt if [member max_health] ever grows. Written by the
-## squad as its unit is hit (see [PlayerSquad]).
+## Points to spend on the skill trees, one for every
+## [constant EXPERIENCE_TO_LEVEL] experience earned. They stack while unspent;
+## nothing spends them yet.
+@export var skill_points := 0
+## Health lost in battle and not yet healed. Kept as what is missing rather
+## than what is left, so a character is whole by default and stays as hurt if
+## [member max_health] ever grows. Written by the squad as its unit is hit
+## (see [PlayerSquad]), and brought down as the party travels
+## ([method Campaign.heal]).
 @export var wounds := 0
 
 ## What is left of [member max_health]: the health the character's unit
@@ -73,6 +80,19 @@ var health: int:
 @export var item_1: BattleItem
 @export var item_2: BattleItem
 @export var item_3: BattleItem
+
+
+## Adds [param amount] experience. Every [constant EXPERIENCE_TO_LEVEL] of it
+## becomes a skill point and the rest carries over: 10 more at 97 leaves 7 and
+## a point more, and enough for several gives several. Every way of earning
+## experience comes through here, so the rule is kept in one place.
+func gain_experience(amount: int) -> void:
+	if amount <= 0:
+		return
+	experience += amount
+	while experience >= EXPERIENCE_TO_LEVEL:
+		experience -= EXPERIENCE_TO_LEVEL
+		skill_points += 1
 
 
 ## The kind of item [param slot] takes, from [member slots]. Null for a name

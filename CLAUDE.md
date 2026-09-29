@@ -15,7 +15,7 @@ to apply one.
 vcom/Scripts/
   Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats, health from its character
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
-                       writes wounds and deaths back to the characters
+                       writes wounds and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
@@ -23,7 +23,8 @@ vcom/Scripts/
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
                        for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market),
                        start_battle(map, chosen) / end_battle() (the world map parked out of the tree meanwhile),
-                       squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle)
+                       squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle),
+                       heal(amount) (the whole roster's wounds)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
@@ -51,8 +52,8 @@ vcom/Scripts/
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, experience, equipment
-                       slots, hire_cost
+    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, experience,
+                       skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
   UI/                  every HUD widget, built in code
@@ -75,7 +76,8 @@ vcom/Scripts/
                        bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
     SlotButton.gd      a slot's name and what is in it
-    SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty)
+    SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty);
+                       titles its sub-tab "Skills (N)" with the character's skill points
     SkillNode.gd       a node styled locked / available / learned; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
@@ -92,7 +94,8 @@ vcom/Scripts/
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
     Party.gd           the party dot: sent by any right click (no selecting), travels a route; is_at(destination);
-                       rolls a forest's encounter chance every step_length map pixels; encountered(map)
+                       every step_length map pixels heals the roster by heal_per_step, then rolls a forest's
+                       encounter chance; encountered(map)
     Forest.gd          Polygon2D (Scenes/Forest.tscn): a forest's outline, encounter_chance per step, encounter_map
     GameOver.gd        CanvasLayer: once the roster is empty, pauses, shows "Game Over" in a TurnBanner, quits
     Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip listing its locations
@@ -224,18 +227,26 @@ square on the tile it counts as over, and nothing in game. So they are linked: a
 `display_name`, colour and the character's stats (`max_health`, `move_range`, `aim`, `evasion`) from
 its character in `_ready` (painting its mesh on a copy of the material). They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
-(actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`.
+(actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
+that should differ per character moves to `Character`, gets copied in `Unit._take_character()`, and
+gets a row in `DetailsPage.STATS`. `Character.experience` (out of `Character.EXPERIENCE_TO_LEVEL`, 100)
+is the character's alone and never copied to the unit. It only goes up through
+`Character.gain_experience()`, where every 100 becomes a `skill_points` and the rest carries over (97 +
+10 is 7 and a point; a big award gives several); any new way to earn experience calls that. So far the
+one way is surviving a battle: as `TurnManager` decides the battle it calls
+`PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50).
+A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment.
 
 What happens in battle goes the other way, through `PlayerSquad` as it happens, not at the end:
 every change to a member's health is written to `Character.wounds` (health missing, so a character is
 whole by default and stays as hurt if `max_health` grows; `Character.health` is what is left), and a
 unit starts at its character's `health`. A member who dies is taken off the roster by
 `Campaign.lose()`, which returns everything they had equipped to the inventory, the one way gear
-leaves a character mid-battle. Nothing heals wounds yet. A stat that should differ per character moves to `Character`, gets copied in
-`Unit._take_character()`, and gets a row in `DetailsPage.STATS`. `Character.experience` (out of
-`Character.EXPERIENCE_TO_LEVEL`, 100) is the character's alone and never copied to the unit; nothing
-awards it yet. Unlike an `Item`, a character is state and will change in play; nothing writes it back to
-disk, and save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
+leaves a character mid-battle. Wounds mend on the road: every step the party travels
+(`Party.step_length`, the same step the encounters are rolled on) calls `Campaign.heal(heal_per_step)`
+(1), which takes that off every roster character's `wounds`, down to none, before that step's roll.
+Unlike an `Item`, a character is state and changes in play; nothing writes it back to disk, and
+save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
 and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
 its eight fixed units are its squad and spawn nothing.
 
@@ -257,7 +268,9 @@ is never left showing someone else; a page with content overrides `_refresh()`, 
 the open page; opening the menu goes back to Details. A page that can change the character hides
 the means when `read_only` is set, as it is for characters not on the roster.
 
-The Skills page is placeholder UI with no data behind it: `SkillsPage.SECTIONS` sets each column's
+The Skills page titles its own sub-tab in `_refresh()`, "Skills (2)" from `Character.skill_points`, so
+the count follows the selection; nothing spends the points yet. The trees are placeholder UI with no
+data behind them: `SkillsPage.SECTIONS` sets each column's
 title, width share and node count, and every character shows the same `PLACEHOLDER_STATES` (first
 node available, the rest locked). Selecting a node only highlights it, and changing character
 clears the selection. Skills, trees and a character's progress through them are still to be
@@ -582,5 +595,5 @@ directly or write a fresh generator.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- Wounds never heal, and nothing but a death changes a character in battle: no experience, no spent
-  items. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.
+- Nothing spends skill points, and the only experience is for surviving a battle. Items used in battle
+  are never spent. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.
