@@ -55,8 +55,10 @@ extends Node3D
 @export_group("Framing")
 ## Nearest and furthest the camera sits when framing. The near limit keeps a
 ## framed view an overview even when everything in it stands close together.
+## The far limit keeps it from seeing further than the camera zoomed all the
+## way out, which is what the scenery around a map is deep enough to hide.
 @export var min_frame_distance := 16.0
-@export var max_frame_distance := 45.0
+@export var max_frame_distance := 28.0
 ## How far out from the centre of the screen framed points may sit, as a
 ## share of the way to the edge: across, above, and below. Below is tighter
 ## because the squad panel and the action bar run along the bottom.

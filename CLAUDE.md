@@ -397,11 +397,19 @@ block, is removed. The rules never look at debris.
 **Scenery around a combat map is a second GridMap.** The rules, the camera and the destruction read
 only the node at their `grid_map_path` (`GridMap`): the battlefield and the ring of trees walling it
 in. `BoundaryMap.tscn` paints the forest beyond that ring into a sibling GridMap, `Boundary`, with
-the same MeshLibrary, out to 100 tiles past the battlefield. Nothing in the rules sees it, so it
+the same MeshLibrary, out to 75 tiles past the battlefield. Nothing in the rules sees it, so it
 adds no tiles, cover or collision, and `CameraRig`'s pan bounds stop at the battlefield. Paint
 scenery into `Boundary`, never `GridMap`. Debris thrown over the ring falls through it (it has no
 collision) and is removed below the map. It costs frame time: every tree in view is drawn, shadow
 pass included.
+
+75 tiles is the standard depth for a combat map's scenery ring. The least that hides the ring's
+outer edge is 73, found by rendering at 1280×720: zoomed all the way out (`far_distance` at
+`view_pitch`) or framed as far as it goes (`max_frame_distance` at `Reactions.camera_pitch`), with
+the pivot at its pan limit, facing any way. At 72 a sliver of sky shows past a screen corner; 75
+rounds that up. Anything that lets the camera see further (more zoom or framing distance, a lower
+pitch, a wider FOV or window, a larger `pan_margin`) needs the standard deepened to match; that is
+why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 
 ## Conventions
 
