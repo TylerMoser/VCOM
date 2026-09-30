@@ -1,0 +1,36 @@
+[gd_resource type="MeshLibrary" format=3]
+
+[ext_resource type="ArrayMesh" path="res://Blocks/BrightGrass1.vox" id="1_83sgw"]
+[ext_resource type="ArrayMesh" path="res://Blocks/BrightCrate1.vox" id="2_kgitm"]
+[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Bottom.vox" id="3_nncmi"]
+[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Top.vox" id="4_l865p"]
+
+[resource]
+item/0/name = "BrightGrass1"
+item/0/mesh = ExtResource("1_83sgw")
+item/0/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+item/0/mesh_cast_shadow = 0
+item/0/shapes = []
+item/0/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/0/navigation_layers = 1
+item/1/name = "BrightCrate1"
+item/1/mesh = ExtResource("2_kgitm")
+item/1/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
+item/1/mesh_cast_shadow = 0
+item/1/shapes = []
+item/1/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/1/navigation_layers = 1
+item/2/name = "SkinnyTree1Bottom"
+item/2/mesh = ExtResource("3_nncmi")
+item/2/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+item/2/mesh_cast_shadow = 0
+item/2/shapes = []
+item/2/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/2/navigation_layers = 1
+item/3/name = "SkinnyTree1Top"
+item/3/mesh = ExtResource("4_l865p")
+item/3/mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+item/3/mesh_cast_shadow = 0
+item/3/shapes = []
+item/3/navigation_mesh_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+item/3/navigation_layers = 1

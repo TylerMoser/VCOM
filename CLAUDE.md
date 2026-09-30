@@ -396,12 +396,28 @@ block, is removed. The rules never look at debris.
 
 **Scenery around a combat map is a second GridMap.** The rules, the camera and the destruction read
 only the node at their `grid_map_path` (`GridMap`): the battlefield and the ring of trees walling it
-in. `BoundaryMap.tscn` paints the forest beyond that ring into a sibling GridMap, `Boundary`, with
-the same MeshLibrary, out to 75 tiles past the battlefield. Nothing in the rules sees it, so it
-adds no tiles, cover or collision, and `CameraRig`'s pan bounds stop at the battlefield. Paint
-scenery into `Boundary`, never `GridMap`. Debris thrown over the ring falls through it (it has no
-collision) and is removed below the map. It costs frame time: every tree in view is drawn, shadow
-pass included.
+in. `BoundaryMap.tscn` paints the forest beyond that ring into a sibling GridMap, `Boundary`, out
+to 75 tiles past the battlefield. Nothing in the rules sees it, so it adds no tiles, cover or
+collision, and `CameraRig`'s pan bounds stop at the battlefield. Paint scenery into `Boundary`,
+never `GridMap`. Debris thrown over the ring falls through it (it has no collision) and is removed
+below the map.
+
+The scenery is built to be cheap, because it is most of what is drawn: painted like the
+battlefield, the forest took about 50 ms of GPU time a frame (an RTX 3060 laptop), nearly all of it
+trees drawn into the sun's shadow map, on and off screen. Now it costs about 3 ms at most:
+
+- `Boundary` uses `Blocks/SceneryLibrary.tres`, `BlockLibrary.tres`'s blocks with the same ids and
+  shadow casting off. The scenery still receives the battlefield's shadows. A block added to
+  `BlockLibrary` that scenery should use goes in both, shadows off in this one.
+- It has no ground blocks. `Boundary/Ground` is one plane in the grass block's top colour, 2 cm
+  below the top of the ground blocks and covering the ring's whole outer rectangle; under the
+  battlefield it is hidden inside the battlefield's own ground, so it fills the corners the
+  battlefield leaves out too. Resize it with the ring, or the sky shows between the trees.
+- Only the 6 rows nearest the battlefield have trunks (`SkinnyTree1Bottom`); past them the tree
+  tops hide where the trunks would be.
+
+Without their shadows the forest's trees look a little paler and flatter than the battlefield's,
+most visibly zoomed in right beside them.
 
 75 tiles is the standard depth for a combat map's scenery ring. The least that hides the ring's
 outer edge is 73, found by rendering at 1280×720: zoomed all the way out (`far_distance` at
