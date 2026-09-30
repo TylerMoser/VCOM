@@ -7,3 +7,4 @@ script = ExtResource("1_weapon")
 display_name = "Rifle"
 description = "Standard-issue automatic rifle. Reliable at most ranges, and hits hard enough to break a crate."
 price = 2
+tags = Array[StringName]([&"gun"])

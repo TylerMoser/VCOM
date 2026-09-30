@@ -7,3 +7,4 @@ script = ExtResource("1_ymvv3")
 display_name = "Frag Grenade"
 description = "Thrown explosive. Damages everyone caught in the blast and tears apart the cover they hide behind."
 price = 1
+tags = Array[StringName]([&"grenade"])

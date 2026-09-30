@@ -25,10 +25,17 @@ chance to hit.
 
 While Shoot is active, `Tab` cycles targets rather than squad members.
 
+Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
+**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot, and a squad member without one
+can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot; it can be
+selected but does nothing yet.
+
 ## The campaign
 
 The game opens on the world map. Right-click to send the party somewhere; left-click the village it
-is standing in to use it. Travelling through a forest (the green areas) risks an ambush: every short
+is standing in to use it. A village's Market sells its stock and, on its Sell tab, buys anything in
+the inventory (not equipped) for half its price, rounded down; hold the button for two seconds to
+buy or sell one. Travelling through a forest (the green areas) risks an ambush: every short
 stretch of the way has a chance to start a battle.
 
 Before it starts, the roster comes up to choose who fights: double-click a character (or press

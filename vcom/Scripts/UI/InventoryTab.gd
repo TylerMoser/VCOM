@@ -3,7 +3,8 @@
 ## each time the menu does (see [method show_inventory]), and keeps up with
 ## the inventory while the menu is open, as when the Roster equips something.
 ##
-## A [Market]'s tab shows its stock in one too.
+## A [Market]'s tab has two: its stock to buy from, and the party's inventory
+## to sell from.
 class_name InventoryTab
 extends SubTabs
 

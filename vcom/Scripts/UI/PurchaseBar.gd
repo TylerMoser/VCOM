@@ -1,11 +1,12 @@
 ## The row along the bottom of a village's shop tabs (Hiring Board, Market),
 ## under a rule: a note on the left, then the party's gold, and a
 ## [HoldButton] to buy what is selected, greyed out with a note saying so
-## when the party cannot afford it.
+## when the party cannot afford it. The Market's Sell sub-tab sells with it
+## too, which the party can always afford.
 ##
-## The tab shows each offer with [method show_offer] and does the buying
-## itself on [signal held], one per press: the button empties as it buys, and
-## must be let go and pressed again to buy another.
+## The tab shows each offer with [method show_offer] and does the buying or
+## selling itself on [signal held], one per press: the button empties as it
+## acts, and must be let go and pressed again to act again.
 ##
 ## The bar only reads [code]Campaign.gold[/code], and reads it again whenever
 ## it is shown, since the party may have spent gold on another tab of the
@@ -13,7 +14,8 @@
 class_name PurchaseBar
 extends VBoxContainer
 
-## The button has been held down for its whole time: buy what is on offer.
+## The button has been held down for its whole time: buy (or sell) what is
+## on offer.
 signal held
 
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
@@ -33,6 +35,7 @@ var _button: HoldButton
 var _verb := ""
 var _what := ""
 var _price := 0
+var _sale := false
 
 
 func _init() -> void:
@@ -75,11 +78,13 @@ func _init() -> void:
 
 ## Offers [param what] for [param price] gold, the button reading
 ## "[param verb] [param what] for [param price] Gold", as "Hire White for 20
-## Gold".
-func show_offer(verb: String, what: String, price: int) -> void:
+## Gold". A [param sale] pays the party the price rather than costing it, so
+## it is never greyed out.
+func show_offer(verb: String, what: String, price: int, sale := false) -> void:
 	_verb = verb
 	_what = what
 	_price = price
+	_sale = sale
 	_refresh()
 
 
@@ -101,6 +106,6 @@ func _refresh() -> void:
 	if _what.is_empty():
 		return
 	_button.caption = "%s %s for %d Gold" % [_verb, _what, _price]
-	_button.disabled = Campaign.gold < _price
+	_button.disabled = not _sale and Campaign.gold < _price
 	if _button.disabled:
 		_note.text = "Not enough gold to %s %s." % [_verb.to_lower(), _what]

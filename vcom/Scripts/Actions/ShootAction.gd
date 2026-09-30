@@ -1,4 +1,5 @@
-## Pick an enemy to fire at, for one action point.
+## Pick an enemy to fire at, for one action point. Only a unit carrying a gun
+## has it, and it fires [member Unit.weapon].
 ##
 ## The targets on offer are whatever [LineOfSight] says the unit can see, so a
 ## unit behind high cover leans out around it to find its shot. The tile it
@@ -39,6 +40,7 @@ var _overlay: ShotOverlay
 
 func _init() -> void:
 	display_name = "Shoot"
+	required_tag = Item.GUN
 
 
 func _ready() -> void:

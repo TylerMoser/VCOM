@@ -13,7 +13,8 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats, health from its character
+  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats, health from its character;
+                       equipment (its character's, or just its weapon) and carries(tag)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
@@ -21,7 +22,7 @@ vcom/Scripts/
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
-                       for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market),
+                       for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market), sell(),
                        start_battle(map, chosen) / end_battle() (the world map parked out of the tree meanwhile),
                        squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle),
                        heal(amount) (the whole roster's wounds)
@@ -46,7 +47,8 @@ vcom/Scripts/
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Items/
-    Item.gd            Resource base: display_name, description, icon, price; Weapon, Armor, BattleItem extend it
+    Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
+                       tags / has_tag() (GUN, GRENADE); Weapon, Armor, BattleItem extend it
     Armor.gd           the Armor slot's kind: name and description only so far
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
@@ -55,7 +57,8 @@ vcom/Scripts/
     Character.gd       Resource: display_name, color, portrait, stats, wounds / health, experience,
                        skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
-  Actions/             UnitAction base + ActionController + Move/Shoot/Overwatch
+  Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
+                       ThrowGrenade (placeholder: offered, does nothing)
   UI/                  every HUD widget, built in code
     TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
@@ -64,8 +67,8 @@ vcom/Scripts/
     SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton
     LocationTab.gd     placeholder tab for one Location: its description in the middle
     HiringBoardTab.gd  a HiringBoard's tab: read-only CharacterBrowser of who is for hire, a PurchaseBar
-    MarketTab.gd       a Market's tab: an InventoryTab over its stock, a PurchaseBar
-    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy the offer
+    MarketTab.gd       a Market's tab: Buy / Sell SubTabs, InventoryTabs over its stock and the party's; a PurchaseBar
+    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy (or sell) the offer
     HoldButton.gd      a button that acts only once held for hold_time (2 s), filling left to right
     CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
     CharacterBrowser.gd strip of CharacterButtons across the top; under it SubTabs of CharacterPages;
@@ -115,6 +118,18 @@ no UI code changes needed.
 An action gets `begin(unit)` / `end()` / `handle_input(event)` / `is_available(unit)`, sets
 `controller.busy = true` while it plays out, and emits `completed` when done. The controller then
 re-`begin`s it if it is still available, or drops it.
+
+**An action can need an item.** `UnitAction.required_tag`, set in the action's `_init()` beside its
+`display_name`, names an `Item` tag the unit must carry for it to have the action at all
+(`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot and Overwatch need `Item.GUN`, Throw
+Grenade `Item.GRENADE`, and Move, with none, is every unit's. That is a different test from
+`is_available`: an action the unit lacks has no button on the bar (the bar shrinks and re-centres),
+where one it cannot take right now is dimmed; `ActionController.activate()` checks both. The first
+child, the default, must need nothing. What a unit carries is `Unit.equipment`, copied from its
+character's slots as it enters the map (see Squad units below), so it cannot change mid-battle; a
+unit with no character (enemies, the harness) carries just its `weapon`, `Rifle.tres` when the scene
+sets none. Enemies are not gated: their AI shoots whatever it carries. Throw Grenade is a
+placeholder: it can be made active, and nothing more.
 
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
@@ -195,11 +210,16 @@ changed:
   first time it is asked; `Campaign.buy(market, item)` spends `Item.price` and moves one from it to
   `Campaign.inventory`. Prices are on the items, the same in every market; stock counts are in the
   market's `.tres`.
+- `Campaign.sell(item)` takes one from `Campaign.inventory` for good and adds `Item.sale_price()`
+  (half the price, rounded down, so a 1-gold item fetches nothing) to the gold. No market keeps what
+  it buys, so it names none. Equipped items are not in the inventory, so they cannot be sold.
 
 The two shop tabs look like the pause menu's tab they mirror: the Hiring Board is the Roster tab's
 `CharacterBrowser` made read-only (`CharacterPage.read_only`: the Equipment page shows just the slots)
-over who is for hire, and the Market is an `InventoryTab` over the stock. Both end in a `PurchaseBar`
-whose `HoldButton` buys the selected offer once held for 2 seconds by mouse or Enter / Space. It
+over who is for hire, and the Market is two `InventoryTab`s under Buy / Sell `SubTabs`, one over the
+stock and one over the party's inventory. Both end in a `PurchaseBar` (one under both of the Market's
+sides) whose `HoldButton` buys the selected offer, or on Sell sells it, once held for 2 seconds by
+mouse or Enter / Space. A sale is never greyed out for want of gold. It
 emits `held`, never acts on a click, and empties the moment it is full, then stays empty until it is
 let go and pressed again: one purchase per press, so holding on never buys a second, nor the next
 item or character that comes up. The bar rechecks the party's gold whenever it is shown, since the
@@ -207,11 +227,13 @@ other tab may have spent some.
 
 **Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
 stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
-inventory lists. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
+inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
+sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres`
+`grenade`. A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
-gives it a sub-tab in every market too.
+gives it a sub-tab on both sides of every market too.
 
 **Squad units are roster characters, spawned for each battle.** A `Character`
 (`Resources/Characters/*.tres`) is who someone is between battles. `Campaign.roster` is a copy of
@@ -255,9 +277,11 @@ its eight fixed units are its squad and spawn nothing.
 `Character.slots` (a `static var`: a `const` cannot hold a class). Every item is either in
 `Campaign.inventory` or in one slot, never both, so equipment only changes through
 `Campaign.equip()` / `unequip()`, which move one copy across and put a swapped-out item back. What a
-character starts with is set in their `.tres`, not counted in `StartingInventory.tres`. A squad unit
-shoots with its character's Weapon 1 (a plain rifle when empty); nothing else equipped does anything
-in combat yet. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
+character starts with is set in their `.tres`, not counted in `StartingInventory.tres`. What is
+equipped decides a squad unit's actions by its tags (see "An action can need an item"): with no gun
+it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
+(`Unit.weapon`, null with none); a grenade in any item slot gives it Throw Grenade, which does nothing
+yet, and armor does nothing in combat yet. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule.
 
@@ -596,4 +620,5 @@ directly or write a fresh generator.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
 - Nothing spends skill points, and the only experience is for surviving a battle. Items used in battle
-  are never spent. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.
+  are never spent. Throw Grenade is only a button: throwing (reach, blast, damage, using the grenade
+  up) is still to be written. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.

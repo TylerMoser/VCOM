@@ -1,10 +1,8 @@
 Skills & Abilities
 Wire up item behaviors
 
-Selling at the market
-
---TODO Tactical:
-Destructible terrain: Scripted destruction, a few fallen blocks, total-shatter-destruction
+--TODO TACTICAL:
+Destructible terrain: A few fallen blocks, Total-shatter-destruction
 Better Ground Blocks
 Characters and animations
 Map edges
@@ -17,19 +15,20 @@ Melee
 Enemy AI
 Blood splatter
 Toggleable visible grid (like in style example)
-Fog of war? Maybe make it sections of the map, and obvious.
 Coin/loot drops: Enemies and crates
 
---TODO Campaign:
+--TODO CAMPAIGN:
 Character types, classes, skill trees, gear, RPG elements, etc.
 Weapon types
-Less "AI" UI. Apply my own style to it.
 Saving/Loading, Main Menu
 Story/Tutorials/In-game documentation for player/etc.
-Music/Ambiance, Sound Effects
 Battle map generation
-Healing over time/Out of action
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.
 Debris can take up full tiles, causing weird behavior. If a tile is substantially full of debris, it should count as a full tile for cover and other systems. Could also crush to individual voxels when stepped on.
+
+--OUT OF SCOPE:
+Fog of war? Maybe make it sections of the map, and obvious.
+Less "AI" UI. Apply my own style to it.
+Music/Ambiance, Sound Effects

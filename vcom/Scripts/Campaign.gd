@@ -32,7 +32,8 @@ var roster: Roster = _copy_roster(STARTING_ROSTER)
 ## change, its items are the shared resources.
 var inventory: Inventory = STARTING_INVENTORY.duplicate_deep()
 ## The whole party's gold, one purse. Won battles earn it (see
-## [member TurnManager.victory_gold]); hiring and buying spend it.
+## [member TurnManager.victory_gold]), and so does selling; hiring and buying
+## spend it.
 var gold := STARTING_GOLD
 ## Whether a battle is being fought. Set by the combat scene's [TurnManager]
 ## while it is in the tree. Equipment cannot change during one: a unit took
@@ -128,6 +129,18 @@ func buy(market: Market, item: Item) -> bool:
 		return false
 	gold -= item.price
 	inventory.add(item)
+	return true
+
+
+## Takes one [param item] out of the party's inventory for good and adds its
+## [method Item.sale_price] to the gold, which may be nothing. Every market
+## pays the same and none keeps what it buys, so no market is named. False,
+## changing nothing, when the inventory has none: an equipped item is not in
+## it, so it cannot be sold until it is unequipped.
+func sell(item: Item) -> bool:
+	if item == null or not inventory.take(item):
+		return false
+	gold += item.sale_price()
 	return true
 
 

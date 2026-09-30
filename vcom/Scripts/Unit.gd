@@ -2,9 +2,10 @@
 ## its reaction.
 ##
 ## A squad member is someone on the roster: given a [member character], it
-## takes its name, colour, stats (health, move, aim, evasion) and weapon from them,
-## painting its Mesh child. Without one (enemies, the test harness) the
-## scene's values and the Mesh's material stand.
+## takes its name, colour, stats (health, move, aim, evasion) and equipment
+## from them, painting its Mesh child. Without one (enemies, the test harness)
+## the scene's values and the Mesh's material stand, and it carries only its
+## [member weapon].
 ## UI reads [member color] until real portraits exist.
 class_name Unit
 extends Node3D
@@ -32,6 +33,8 @@ const GROUP := &"units"
 ## How fast a unit gathers speed when the ground under it gives way, in cells
 ## per second per second.
 const FALL_ACCELERATION := 9.8
+## The gun a unit without a character carries when the scene gives it none.
+const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
 
 ## Replaced by [member character]'s name when the unit has one.
 @export var display_name := "Unit"
@@ -46,7 +49,9 @@ const FALL_ACCELERATION := 9.8
 ## How far the unit can see, and so shoot, in tiles.
 @export var sight_range := 20
 ## The gun this unit shoots with. A plain rifle if the scene leaves it unset.
-## Replaced by [member character]'s Weapon 1 when the unit has one.
+## Replaced by the first gun [member character] has equipped, Weapon 1 before
+## Weapon 2, when the unit has one; null when they have none, since the unit
+## is then offered nothing to shoot with.
 @export var weapon: Weapon
 ## What decides this unit's actions when the computer plays it. The squad
 ## leaves it empty; an enemy without one sits its turns out.
@@ -91,6 +96,11 @@ var overwatching := false:
 		overwatching = value
 		overwatch_changed.emit(overwatching)
 
+## Everything the unit carries into battle, whose tags decide which actions it
+## has ([method UnitAction.is_granted]): [member character]'s equipment, copied
+## as it enters the map, or without a character just its [member weapon].
+var equipment: Array[Item] = []
+
 ## The tween walking the unit or dropping it. Null, or finished, while it
 ## stands still.
 var _motion: Tween
@@ -113,12 +123,14 @@ func _ready() -> void:
 	# Before health is filled, which reads the character's max_health.
 	if character != null:
 		_take_character()
+	else:
+		if weapon == null:
+			weapon = PLAIN_RIFLE
+		equipment = [weapon]
 	# A character comes into battle as hurt as they left the last one, but
 	# alive: anyone on the roster is.
 	health = maxi(character.health, 1) if character != null else max_health
 	actions_remaining = actions_per_turn
-	if weapon == null:
-		weapon = Weapon.new()
 	_add_bodies()
 
 
@@ -128,6 +140,15 @@ func start_turn() -> void:
 	actions_remaining = actions_per_turn
 	reaction_available = true
 	overwatching = false
+
+
+## Whether anything the unit carries is tagged [param tag], such as
+## [constant Item.GUN].
+func carries(tag: StringName) -> bool:
+	for item in equipment:
+		if item != null and item.has_tag(tag):
+			return true
+	return false
 
 
 ## Spends [param cost] actions. Returns false, spending nothing, if there are
@@ -245,9 +266,9 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 			_body.add_collision_exception_with(body)
 
 
-## Takes on [member character]'s name, colour, stats and Weapon 1 (a plain
-## rifle if that slot is empty). Copied once, when the unit enters the map:
-## the rules read the unit, never the character. Its health starts at the
+## Takes on [member character]'s name, colour, stats and equipment, shooting
+## with the first gun in it. Copied once, when the unit enters the map: the
+## rules read the unit, never the character. Its health starts at the
 ## character's, wounds and all.
 func _take_character() -> void:
 	display_name = character.display_name
@@ -255,7 +276,15 @@ func _take_character() -> void:
 	move_range = character.move_range
 	aim = character.aim
 	evasion = character.evasion
-	weapon = character.weapon_1
+	equipment.clear()
+	weapon = null
+	for slot in Character.slots:
+		var item := character.get(slot[1]) as Item
+		if item == null:
+			continue
+		equipment.append(item)
+		if weapon == null and item is Weapon and item.has_tag(Item.GUN):
+			weapon = item as Weapon
 	_paint(character.color)
 
 

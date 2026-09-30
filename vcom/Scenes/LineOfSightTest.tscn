@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Scripts/Actions/MoveAction.gd" id="9_56d5i"]
 [ext_resource type="Script" path="res://Scripts/Actions/ShootAction.gd" id="10_nxduy"]
 [ext_resource type="Script" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
+[ext_resource type="Script" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="9_grenade"]
 [ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_yna0a"]
 [ext_resource type="Script" path="res://Scripts/Reactions.gd" id="11_reactions"]
 [ext_resource type="Script" path="res://Scripts/UI/ReactionPrompts.gd" id="14_prompts"]
@@ -301,6 +302,9 @@ display_name = "Shoot"
 
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("9_overwatch")
+
+[node name="ThrowGrenade" type="Node" parent="ActionController" unique_id=1000032]
+script = ExtResource("9_grenade")
 
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_yna0a")

@@ -1,5 +1,7 @@
 ## Bottom-centre row of buttons for the selected unit's actions. Clicking a
 ## button activates that action, or puts it away if it is already active.
+## An action the unit does not have, for want of an item, has no button; one
+## it cannot take right now is dimmed.
 extends HBoxContainer
 
 @export var controller_path: NodePath = ^"../../ActionController"
@@ -34,5 +36,6 @@ func _on_button_pressed(action: UnitAction) -> void:
 func _refresh() -> void:
 	var unit := _controller.squad.selected
 	for button: ActionButton in get_children():
+		button.visible = unit == null or button.action.is_granted(unit)
 		button.available = _controller.enabled and unit != null and button.action.is_available(unit)
 		button.active = button.action == _controller.active

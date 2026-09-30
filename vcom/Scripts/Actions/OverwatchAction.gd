@@ -1,5 +1,5 @@
 ## Hold the unit's reaction for a shot at an enemy it sees move, for every
-## action it has left.
+## action it has left. Only a unit carrying a gun has it.
 ##
 ## While the action is up, the ground the unit would cover is marked on the
 ## map. Confirming spends the rest of the unit's turn and puts it on
@@ -25,6 +25,7 @@ var _unit: Unit
 
 func _init() -> void:
 	display_name = "Overwatch"
+	required_tag = Item.GUN
 
 
 func is_available(unit: Unit) -> bool:

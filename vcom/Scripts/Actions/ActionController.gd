@@ -2,8 +2,9 @@
 ## receives, and the white marker under the selected unit. Disabled outside
 ## the player's turn.
 ##
-## The action children are the actions offered on the action bar. The first
-## one is made active whenever a unit is selected.
+## The action children are the actions offered on the action bar, to each
+## unit those it has ([method UnitAction.is_granted]). The first one is made
+## active whenever a unit is selected, so every unit must have it.
 ##
 ##   Execute - right-click; e.g. hold to preview a move, release to go.
 ##   Cancel  - Esc puts the active action away.
@@ -88,11 +89,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-## Makes [param action] the active action for the selected unit, if it is
-## available to that unit.
+## Makes [param action] the active action for the selected unit, if the unit
+## has it and can take it now.
 func activate(action: UnitAction) -> void:
 	var unit := squad.selected
-	if busy or not enabled or unit == null or action == active or not action.is_available(unit):
+	if busy or not enabled or unit == null or action == active:
+		return
+	if not action.is_granted(unit) or not action.is_available(unit):
 		return
 	if active != null:
 		active.end()

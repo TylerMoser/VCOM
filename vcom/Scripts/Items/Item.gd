@@ -7,6 +7,12 @@
 class_name Item
 extends Resource
 
+## The tag on every gun. A unit carrying one is offered Shoot and Overwatch,
+## and shoots with the first it carries.
+const GUN := &"gun"
+## The tag on every grenade. A unit carrying one is offered Throw Grenade.
+const GRENADE := &"grenade"
+
 @export var display_name := ""
 @export_multiline var description := ""
 ## Shown in the inventory's squares; without one the square shows the name.
@@ -14,3 +20,19 @@ extends Resource
 ## Gold a [Market] asks for one. Set here, on the item, so it is the same in
 ## every market.
 @export var price := 0
+## What sort of thing the item is, for the rules that ask, such as
+## [constant GUN]. Finer than its class: a [Weapon] need not be a gun, and
+## every gun gives the same actions whatever else it does. An action that
+## needs one is offered only to a unit carrying an item with its tag (see
+## [member UnitAction.required_tag]).
+@export var tags: Array[StringName] = []
+
+
+## Gold a [Market] pays for one: half its [member price], rounded down, so
+## the same in every market, and nothing for an item priced at 1.
+func sale_price() -> int:
+	return floori(price / 2.0)
+
+
+func has_tag(tag: StringName) -> bool:
+	return tag in tags

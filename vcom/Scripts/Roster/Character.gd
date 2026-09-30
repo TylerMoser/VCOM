@@ -71,11 +71,12 @@ var health: int:
 ## Changed only through [method Campaign.equip] and [method Campaign.unequip]
 ## once the game is running, so an item is never both carried and in the
 ## inventory. What a character starts with is set here, and is not in the
-## starting inventory.
+## starting inventory. What is equipped decides the unit's actions in combat
+## by its tags (see [member Item.tags]): Shoot and Overwatch need a gun, Throw
+## Grenade a grenade.
 @export var armor: Armor
-## The gun the character's unit shoots with in combat.
+## The character's unit shoots with the first gun of the two, this one first.
 @export var weapon_1: Weapon
-## Carried but not used in combat yet.
 @export var weapon_2: Weapon
 @export var item_1: BattleItem
 @export var item_2: BattleItem
