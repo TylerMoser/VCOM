@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://Characters/BaseCharacter.vox" id="1_gau8p"]
+
+[node name="BaseCharacter" type="MeshInstance3D" unique_id=583409919]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1025, 0, 0)
+mesh = ExtResource("1_gau8p")

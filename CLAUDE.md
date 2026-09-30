@@ -240,7 +240,7 @@ gives it a sub-tab on both sides of every market too.
 `Resources/StartingRoster.tres` whose list is its own but whose characters are the loaded `.tres`. A
 combat map has no squad of its own: it has `SquadStart` markers under a `SquadStarts` node, and
 `PlayerSquad` (its `starts_path`) spawns a `Scenes/SquadUnit.tscn` (a `Unit` in `players` with a
-capsule `Mesh`, the old fixed players' pattern) on the tile under each, for each character
+`Mesh`, the old fixed players' pattern) on the tile under each, for each character
 `Campaign.squad(markers)` sends: those chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then gathers `players` as before, so the squad
 panel, the reaction keys and everything else reading `PlayerSquad.members` follow roster order. It
 does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
@@ -271,6 +271,17 @@ Unlike an `Item`, a character is state and changes in play; nothing writes it ba
 save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
 and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
 its eight fixed units are its squad and spawn nothing.
+
+**Every unit wears one voxel model for now.** A unit's `Mesh` child, squad or enemy, is an instance
+of `Scenes/BaseCharacter.tscn`: `Characters/BaseCharacter.vox` imported as a mesh, moved so the
+figure stands centred on its tile with its feet on the floor. The `.vox` places the figure off-centre
+in MagicaVoxel's scene, so that offset is on the model scene's root; if the model is re-exported
+somewhere else, re-centre it there. Each unit sets its own `surface_material_override`, a plain
+`StandardMaterial3D` that ignores the model's vertex colours, so it shows one flat colour: the
+scene's for enemies and the harness, the character's `color` for the squad (`Unit._paint`). The rules
+never read the model: shots take a unit's body from `Ballistics`' constants and its two cells. It
+shapes only the click body and the debris capsule (`Unit._add_bodies()`), which is as thick as the
+figure's torso, so debris passes through its outstretched arms.
 
 **Equipment is on the character, the spares in the inventory.** A character has six typed slots
 (`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in

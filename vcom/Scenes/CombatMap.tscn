@@ -25,6 +25,7 @@
 [ext_resource type="Resource" path="res://Resources/Destruction/Catalog.tres" id="18_destruction_catalog"]
 [ext_resource type="Script" uid="uid://cvjbf5vvw3efo" path="res://Scripts/SquadStart.gd" id="19_squad_start"]
 [ext_resource type="PackedScene" path="res://Scenes/SquadUnit.tscn" id="20_squad_unit"]
+[ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -38,9 +39,6 @@ sky = SubResource("Sky_world")
 ambient_light_source = 3
 ambient_light_energy = 0.45
 tonemap_mode = 2
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
-radial_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="Mat_enemy1"]
 albedo_color = Color(0.85, 0.15, 0.15, 1)
@@ -79,9 +77,7 @@ display_name = "Enemy 1"
 weapon = ExtResource("15_rifle")
 ai = ExtResource("16_assault_ai")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_unit")
+[node name="Mesh" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="SquadStarts" type="Node3D" parent="."]

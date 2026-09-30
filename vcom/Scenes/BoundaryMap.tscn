@@ -26,6 +26,7 @@
 [ext_resource type="Script" uid="uid://0idaq4j8ybgl" path="res://Scripts/UI/EndTurnPrompt.gd" id="24_s3e57"]
 [ext_resource type="Script" uid="uid://dhl74vbchi0oa" path="res://Scripts/UI/TurnBanner.gd" id="25_2ldre"]
 [ext_resource type="MeshLibrary" path="res://Blocks/SceneryLibrary.tres" id="26_scenery"]
+[ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -39,9 +40,6 @@ sky = SubResource("Sky_world")
 ambient_light_source = 3
 ambient_light_energy = 0.45
 tonemap_mode = 2
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_unit"]
-radial_segments = 16
 
 [sub_resource type="StandardMaterial3D" id="Mat_enemy1"]
 albedo_color = Color(0.85, 0.15, 0.15, 1)
@@ -100,9 +98,7 @@ display_name = "Enemy 1"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy1" unique_id=1000015]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_unit")
+[node name="Mesh" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="Enemy2" type="Node3D" parent="Units" unique_id=2083987690 groups=["enemies"]]
@@ -112,9 +108,7 @@ display_name = "Enemy 2"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy2" unique_id=1005904212]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_unit")
+[node name="Mesh" parent="Units/Enemy2" unique_id=1005904212 instance=ExtResource("90_base_character")]
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="Enemy3" type="Node3D" parent="Units" unique_id=1426418454 groups=["enemies"]]
@@ -124,9 +118,7 @@ display_name = "Enemy 3"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy3" unique_id=1136463094]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_unit")
+[node name="Mesh" parent="Units/Enemy3" unique_id=1136463094 instance=ExtResource("90_base_character")]
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="Enemy4" type="Node3D" parent="Units" unique_id=1606010239 groups=["enemies"]]
@@ -136,9 +128,7 @@ display_name = "Enemy 4"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Mesh" type="MeshInstance3D" parent="Units/Enemy4" unique_id=1269855328]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_unit")
+[node name="Mesh" parent="Units/Enemy4" unique_id=1269855328 instance=ExtResource("90_base_character")]
 surface_material_override/0 = SubResource("Mat_enemy1")
 
 [node name="SquadStarts" type="Node3D" parent="." unique_id=1985919296]
