@@ -12,6 +12,8 @@ const STATS := [
 	["Defense", &"total_defense"],
 	["Move", &"move_range"],
 	["Aim", &"aim"],
+	["Melee Accuracy", &"melee_accuracy"],
+	["Strength", &"strength"],
 	["Evasion", &"evasion"],
 ]
 

@@ -12,6 +12,9 @@ extends Resource
 const GUN := &"gun"
 ## The tag on every grenade. A unit carrying one is offered Throw Grenade.
 const GRENADE := &"grenade"
+## The tag on every melee weapon, such as the Shortsword. A unit carrying one
+## is offered Strike.
+const MELEE := &"melee"
 
 @export var display_name := ""
 @export_multiline var description := ""

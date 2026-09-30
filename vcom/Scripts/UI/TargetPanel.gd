@@ -80,13 +80,23 @@ func _init() -> void:
 
 ## Shows the target of [param shot] and its odds of being hit.
 func bind(shot: LineOfSight.Shot, estimate: HitChance.Estimate) -> void:
-	_name_label.text = shot.target.display_name
-	_health_bar.max_value = shot.target.max_health
-	_health_bar.value = shot.target.health
-
 	var status := LineOfSight.cover_name(shot.cover, shot.flanked)
 	if shot.stepped_out:
 		status += "  ·  Stepping Out"
+	_show(shot.target, status, estimate)
+
+
+## Shows [param target] as the target of a melee strike, with its odds of
+## being hit. Its cover counts for nothing in melee, so the panel says it is
+## a strike instead.
+func bind_strike(target: Unit, estimate: HitChance.Estimate) -> void:
+	_show(target, "Melee", estimate)
+
+
+func _show(target: Unit, status: String, estimate: HitChance.Estimate) -> void:
+	_name_label.text = target.display_name
+	_health_bar.max_value = target.max_health
+	_health_bar.value = target.health
 	_status_label.text = status
 
 	_chance_label.text = "%d%%" % estimate.chance

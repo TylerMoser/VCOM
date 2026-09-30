@@ -6,6 +6,9 @@
 ##
 ## It is all screen space, redrawn every frame from the world positions it was
 ## handed, so it keeps up with the camera without any 3D nodes to place.
+##
+## A melee strike is lined up the same way ([method show_strike]) and has its
+## result called the same way; it has no round to draw.
 class_name ShotOverlay
 extends Control
 
@@ -112,11 +115,23 @@ func _process(delta: float) -> void:
 func show_shot(
 	from: Vector3, to: Vector3, shot: LineOfSight.Shot, estimate: HitChance.Estimate
 ) -> void:
+	_panel.bind(shot, estimate)
+	_aim(from, to)
+
+
+## Draws a melee strike lined up on [param target], from the striker's eye
+## at [param from] to the target's at [param to], with [param estimate] as its
+## odds: the same line, reticle and panel as a shot.
+func show_strike(from: Vector3, to: Vector3, target: Unit, estimate: HitChance.Estimate) -> void:
+	_panel.bind_strike(target, estimate)
+	_aim(from, to)
+
+
+func _aim(from: Vector3, to: Vector3) -> void:
 	_from = from
 	_to = to
 	_aiming = true
 	_incoming = false
-	_panel.bind(shot, estimate)
 	visible = true
 	set_process(true)
 	queue_redraw()

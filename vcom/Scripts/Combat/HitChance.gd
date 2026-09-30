@@ -9,6 +9,12 @@
 ##
 ## Everything about the shot is measured from where it is actually taken:
 ## a unit leaning out of cover shoots from the tile it leans out to.
+##
+## A melee strike's odds are the same sum with the striker's melee accuracy
+## for its aim, and nothing about the ground counting (see
+## [method for_strike]):
+##
+##   Melee Accuracy - Evasion
 class_name HitChance
 extends RefCounted
 
@@ -67,6 +73,19 @@ static func for_shot(shooter: Unit, shot: LineOfSight.Shot, reaction := false) -
 	# shuffles about within a step.
 	estimate.add("Distance", -floori(shot.distance / DISTANCE_STEP) * shooter.distance_penalty)
 	estimate.add("Reaction", -REACTION_PENALTY if reaction else 0)
+	return estimate
+
+
+## The chance [param striker] lands a melee strike on [param target], standing
+## next to it. The shot's sum, with [member Unit.melee_accuracy] for
+## [member Unit.aim]: the target's evasion counts as it does against a shot,
+## but for now cover, flanking, height and distance are worth nothing in
+## melee, so they are left out as any term worth nothing is. A strike is never
+## a reaction.
+static func for_strike(striker: Unit, target: Unit) -> Estimate:
+	var estimate := Estimate.new()
+	estimate.add("Melee Accuracy", striker.melee_accuracy)
+	estimate.add("Evasion", -target.evasion)
 	return estimate
 
 

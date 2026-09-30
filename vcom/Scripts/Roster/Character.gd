@@ -37,8 +37,14 @@ static var slots := [
 ## The unit's [member Unit.aim]: its chance to hit before anything about the
 ## shot counts.
 @export var aim := 90
+## The unit's [member Unit.melee_accuracy]: what [member aim] is to a shot,
+## this is to a melee strike.
+@export var melee_accuracy := 90
+## The unit's [member Unit.strength]: added to the damage of every melee
+## strike they land.
+@export var strength := 0
 ## The unit's [member Unit.evasion]: taken off the chance of anyone shooting
-## at it.
+## at it, or striking at it.
 @export var evasion := 0
 ## The character's own defense, before their [member armor] adds to it: see
 ## [member total_defense], which is what their unit takes into battle.

@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://bchyfnuhaufwp" path="res://Scripts/Actions/ShootAction.gd" id="15_75mr8"]
 [ext_resource type="Script" uid="uid://dwgqmm6ad6bst" path="res://Scripts/Actions/OverwatchAction.gd" id="16_6dvqh"]
 [ext_resource type="Script" uid="uid://l6v06k3be4sq" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="17_xia20"]
+[ext_resource type="Script" uid="uid://cu0icnp6tlnkk" path="res://Scripts/Actions/StrikeAction.gd" id="18_strike"]
 [ext_resource type="Script" uid="uid://buqpwf57t4422" path="res://Scripts/TurnManager.gd" id="18_ecjdo"]
 [ext_resource type="Script" uid="uid://btjt782q87h3" path="res://Scripts/Reactions.gd" id="19_dtf6t"]
 [ext_resource type="Script" uid="uid://bja5100blo2t5" path="res://Scripts/UI/ShotOverlay.gd" id="20_wtm2v"]
@@ -172,6 +173,9 @@ script = ExtResource("14_8qmf2")
 
 [node name="Shoot" type="Node" parent="ActionController" unique_id=1000027]
 script = ExtResource("15_75mr8")
+
+[node name="Strike" type="Node" parent="ActionController" unique_id=1000033]
+script = ExtResource("18_strike")
 
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("16_6dvqh")

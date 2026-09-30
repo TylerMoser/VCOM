@@ -13,8 +13,8 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, reaction, walking, shoot_at(); name, colour, stats, health from its character;
-                       equipment (its character's, or just its weapon) and carries(tag)
+  Unit.gd              health, actions, reaction, walking, shoot_at(), strike(); name, colour, stats, health from its
+                       character; equipment (its character's, or just its weapon), carries(tag), melee_weapon
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
@@ -29,7 +29,7 @@ vcom/Scripts/
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
-    HitChance.gd       the to-hit sum (Estimate + Term), roll()
+    HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
     ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
@@ -48,7 +48,7 @@ vcom/Scripts/
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
-                       tags / has_tag() (GUN, GRENADE); Weapon, Armor, BattleItem extend it
+                       tags / has_tag() (GUN, GRENADE, MELEE); Weapon, Armor, BattleItem extend it
     Armor.gd           the Armor slot's kind: defense, added to the wearer's
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
@@ -58,7 +58,7 @@ vcom/Scripts/
                        skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
-                       ThrowGrenade (placeholder: offered, does nothing)
+                       Strike (melee, at an adjacent enemy), ThrowGrenade (placeholder: offered, does nothing)
   UI/                  every HUD widget, built in code
     TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
@@ -121,8 +121,8 @@ re-`begin`s it if it is still available, or drops it.
 
 **An action can need an item.** `UnitAction.required_tag`, set in the action's `_init()` beside its
 `display_name`, names an `Item` tag the unit must carry for it to have the action at all
-(`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot and Overwatch need `Item.GUN`, Throw
-Grenade `Item.GRENADE`, and Move, with none, is every unit's. That is a different test from
+(`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot and Overwatch need `Item.GUN`, Strike
+`Item.MELEE`, Throw Grenade `Item.GRENADE`, and Move, with none, is every unit's. That is a different test from
 `is_available`: an action the unit lacks has no button on the bar (the bar shrinks and re-centres),
 where one it cannot take right now is dimmed; `ActionController.activate()` checks both. The first
 child, the default, must need nothing. What a unit carries is `Unit.equipment`, copied from its
@@ -130,6 +130,19 @@ character's slots as it enters the map (see Squad units below), so it cannot cha
 unit with no character (enemies, the harness) carries just its `weapon`, `Rifle.tres` when the scene
 sets none. Enemies are not gated: their AI shoots whatever it carries. Throw Grenade is a
 placeholder: it can be made active, and nothing more.
+
+**Strike is a shot at arm's length.** `StrikeAction` is laid out as `ShootAction`: its targets are the
+living enemies next to the unit, as `Tactics.is_next_to()` has it (the AI's point-blank range, so the
+two cannot drift), nearest first; Tab / Shift+Tab cycle them, Enter / Space strikes, Ctrl opens the
+breakdown, and `ShotOverlay.show_strike()` draws the same line, reticle and target panel (its status
+line reads "Melee" instead of the cover). It costs `StrikeAction.COST` (1, a shot's) and is dimmed
+without an action left or an enemy next to the unit. The odds are `HitChance.for_strike()`, worked out
+once as the target is lined up; `Unit.strike()` rolls them and deals `Unit.melee_weapon`'s damage
+plus the striker's `Unit.strength` through `take_damage()`, so defense comes off that sum as it does
+off a shot's damage. Nothing flies: the blow lands at once,
+touches no terrain, and is shown only by its result called over the target. It still sets
+`controller.busy` for the moment it lands, so a kill that wins the battle finds the action mid-play
+and leaves it to be put away as it completes.
 
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
@@ -229,7 +242,7 @@ other tab may have spent some.
 stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
 inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
 sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres`
-`grenade`. A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
+`grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot). A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
@@ -247,7 +260,8 @@ does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) a
 reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
 square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
 `display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
-`evasion`) from its character in `_ready` (painting its mesh on a copy of the material); its defense
+`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its mesh on a copy
+of the material); its defense
 is `Character.total_defense`, the character's own plus their armor's. They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
 (actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
@@ -292,9 +306,10 @@ figure's torso, so debris passes through its outstretched arms.
 character starts with is set in their `.tres`, not counted in `StartingInventory.tres`. What is
 equipped decides a squad unit's actions by its tags (see "An action can need an item"): with no gun
 it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
-(`Unit.weapon`, null with none); a grenade in any item slot gives it Throw Grenade, which does nothing
-yet. Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`), which the unit
-copies as its own; the Details page shows that total and refreshes as it comes into view, since the
+(`Unit.weapon`, null with none), and strikes with the first melee weapon, the same way
+(`Unit.melee_weapon`), which gives it Strike. A grenade in any item slot gives it Throw Grenade,
+which does nothing yet. Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
+which the unit copies as its own; the Details page shows that total and refreshes as it comes into view, since the
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule.
@@ -465,10 +480,16 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   reaches a new tile (`Reactions._find_offers`); its prompt shows that estimate and firing rolls it.
 - **Defense comes off every hit, down to 0**, in `Unit.take_damage()`, which every hit goes
   through and which returns what was taken; the called result (`Ballistics.Outcome.damage`) is that,
-  not the weapon's damage. Defense never touches the hit chance.
+  not the weapon's damage. Defense never touches the hit chance. Anything added to a hit's damage,
+  such as a strike's `Unit.strength`, is added before the damage reaches `take_damage()`, so defense
+  always comes off last.
 - `Unit.shoot_at(shot, chance, grid, show_rounds)` is the single place a shot is resolved.
   `ShootAction`, the enemy AI and reaction fire all go through it; keep it that way so they cannot
-  diverge.
+  diverge. `Unit.strike(target, chance)` is the same for a melee strike.
+- **A strike's odds are the shot's sum with Melee Accuracy for Aim**: `HitChance.for_strike()`,
+  Melee Accuracy − Evasion. Cover, flanking, height and distance count for nothing in melee for now,
+  and a strike is never a reaction. Like a shot's, they are computed once, when the target is lined
+  up (`StrikeAction._estimate`), and that is what gets rolled.
 - **Where a round goes is decided once, after the roll, when it is fired** (XCOM 2's order), by
   `Ballistics`, and nothing recomputes it: the tracer draws that path and the terrain it ends on is
   what `terrain_struck` reports. One path per shot, as in XCOM 2.
@@ -671,5 +692,6 @@ directly or write a fresh generator.
   in the harness (eight).
 - Nothing spends skill points, and the only experience is for surviving a battle. Items used in battle
   are never spent. Throw Grenade is only a button: throwing (reach, blast, damage, using the grenade
-  up) is still to be written. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with its four
-  enemies.
+  up) is still to be written. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
+  its four enemies.
+- Enemies never strike: their AI only shoots. A strike has no animation, only its result.

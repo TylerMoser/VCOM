@@ -2,10 +2,10 @@
 ## its reaction.
 ##
 ## A squad member is someone on the roster: given a [member character], it
-## takes its name, colour, stats (health, defense, move, aim, evasion) and
-## equipment from them, painting its Mesh child. Without one (enemies, the
-## test harness) the scene's values and the Mesh's material stand, and it
-## carries only its [member weapon].
+## takes its name, colour, stats (health, defense, move, aim, melee accuracy,
+## strength, evasion) and equipment from them, painting its Mesh child.
+## Without one (enemies, the test harness) the scene's values and the Mesh's
+## material stand, and it carries only its [member weapon].
 ## UI reads [member color] until real portraits exist.
 class_name Unit
 extends Node3D
@@ -64,7 +64,13 @@ const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
 @export_group("Marksmanship")
 ## Chance to hit before anything about the shot is taken into account.
 @export var aim := 90
-## Taken off the chance of anyone shooting at this unit.
+## Chance to land a melee strike before the target's evasion is taken off:
+## what [member aim] is to a shot (see [method HitChance.for_strike]).
+@export var melee_accuracy := 90
+## Added to [member melee_weapon]'s damage in every strike that lands, before
+## the target's defense comes off it. Nothing to shots.
+@export var strength := 0
+## Taken off the chance of anyone shooting at this unit, or striking at it.
 @export var evasion := 0
 ## Added per tile this unit stands above what it is shooting at, and taken
 ## off per tile below it.
@@ -104,6 +110,9 @@ var overwatching := false:
 ## has ([method UnitAction.is_granted]): [member character]'s equipment, copied
 ## as it enters the map, or without a character just its [member weapon].
 var equipment: Array[Item] = []
+## The melee weapon the unit strikes with: the first one [member equipment]
+## holds, Weapon 1 before Weapon 2. Null when it has none, and so no Strike.
+var melee_weapon: Weapon
 
 ## The tween walking the unit or dropping it. Null, or finished, while it
 ## stands still.
@@ -131,6 +140,8 @@ func _ready() -> void:
 		if weapon == null:
 			weapon = PLAIN_RIFLE
 		equipment = [weapon]
+		if weapon.has_tag(Item.MELEE):
+			melee_weapon = weapon
 	# A character comes into battle as hurt as they left the last one, but
 	# alive: anyone on the roster is.
 	health = maxi(character.health, 1) if character != null else max_health
@@ -211,6 +222,22 @@ func shoot_at(
 	return outcome
 
 
+## Strikes [param target], standing next to this unit, with
+## [member melee_weapon], with [param chance] in 100 of landing. Returns the
+## damage the target took, or null for a miss: the weapon's damage with this
+## unit's [member strength] added first, then the target's defense taken off
+## as with a shot. The player's [StrikeAction] comes through here, as every
+## shot comes through [method shoot_at], so a strike means the same thing
+## whoever makes one.
+##
+## Nothing flies, so it lands the moment it is made, and a miss touches
+## nothing: no terrain is struck either way.
+func strike(target: Unit, chance: int) -> Variant:
+	if not HitChance.roll(chance):
+		return null
+	return target.take_damage(melee_weapon.damage + strength)
+
+
 ## Removes the unit from play. It leaves its groups at once rather than when
 ## the node is freed, so nothing shoots at it or walks around it in the
 ## meantime.
@@ -276,7 +303,8 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 
 
 ## Takes on [member character]'s name, colour, stats and equipment, shooting
-## with the first gun in it. Copied once, when the unit enters the map: the
+## with the first gun in it and striking with the first melee weapon. Copied
+## once, when the unit enters the map: the
 ## rules read the unit, never the character. Its health starts at the
 ## character's, wounds and all.
 func _take_character() -> void:
@@ -285,9 +313,12 @@ func _take_character() -> void:
 	defense = character.total_defense
 	move_range = character.move_range
 	aim = character.aim
+	melee_accuracy = character.melee_accuracy
+	strength = character.strength
 	evasion = character.evasion
 	equipment.clear()
 	weapon = null
+	melee_weapon = null
 	for slot in Character.slots:
 		var item := character.get(slot[1]) as Item
 		if item == null:
@@ -295,6 +326,8 @@ func _take_character() -> void:
 		equipment.append(item)
 		if weapon == null and item is Weapon and item.has_tag(Item.GUN):
 			weapon = item as Weapon
+		if melee_weapon == null and item is Weapon and item.has_tag(Item.MELEE):
+			melee_weapon = item as Weapon
 	_paint(character.color)
 
 

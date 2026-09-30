@@ -1,10 +1,7 @@
-Melee weapons
-
 --TODO TACTICAL:
 Characters and animations
 Destructible terrain types: A few fallen blocks, Total-shatter-destruction
 Grenades
-Melee
 Toggleable visible grid (like in style example)
 Coin/loot drops: Enemies and crates
 Action cam
@@ -17,7 +14,7 @@ Blood splatter
 Add destruction to more terrain: Skinny trees
 
 --TODO CAMPAIGN:
-Other item
+Other items
 Skill Trees: Species, Classes
 Story/Tutorials/In-game documentation for player/etc.
 Saving/Loading, Main Menu
@@ -29,5 +26,6 @@ Debris can take up full tiles, causing weird behavior. If a tile is substantiall
 
 --OUT OF SCOPE:
 Fog of war? Maybe make it sections of the map, and obvious.
+Better UI for selecting targets, instead of just pressing Spacebar.
 Less "AI" UI. Apply my own style to it.
 Music/Ambiance, Sound Effects

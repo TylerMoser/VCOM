@@ -17,17 +17,19 @@ chance to hit.
 | Select a squad member | `Tab` / `Shift+Tab`, or left-click one |
 | Move | Select **Move**, hold right-click to preview the path, release to walk |
 | Shoot | Select **Shoot**, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to fire |
+| Strike | Select **Strike** next to an enemy, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to strike |
 | Overwatch | Select **Overwatch** to see the ground it covers, `Enter` or `Space` to go on overwatch |
 | React | During a reaction window: `1`–`4` fires that squad member, `0` lets the move carry on |
 | Show the hit breakdown | Hold `Ctrl` while aiming |
 | Cancel the current action | `Esc` |
 | End the turn early | Hold `Shift` |
 
-While Shoot is active, `Tab` cycles targets rather than squad members.
+While Shoot or Strike is active, `Tab` cycles targets rather than squad members.
 
 Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
-**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot, and a squad member without one
-can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot; it can be
+**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot. **Strike** needs a melee weapon
+(the Shortsword) in a weapon slot, and is greyed out until an enemy stands next to the squad member.
+A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot; it can be
 selected but does nothing yet.
 
 ## The campaign
@@ -57,7 +59,7 @@ Skills tab as "Skills (1)"; nothing spends them yet.
 ### Action points
 
 Every unit gets **3 actions** a turn. Moving costs one action per `move_range` (4) tiles of path,
-so a long walk can cost two or three. Shooting costs one. The player's turn ends when every member
+so a long walk can cost two or three. Shooting costs one, and so does striking. The player's turn ends when every member
 has spent their budget, or early by holding `Shift`.
 
 ### Reactions and overwatch
@@ -164,6 +166,24 @@ target's **Defense**, down to nothing: a rifle does 3 to a target with 1 Defense
 with 4. Everyone's own Defense is 0 for now; armor adds to it, Light Armor by 1. There are no
 critical hits yet, and damage does not vary.
 
+### Melee
+
+**Strike** hits an enemy on one of the eight tiles around the striker, up to a level above or below.
+Its chance to hit is the same sum with **Melee Accuracy** (90 by default, shown on the Roster's
+Details page) in place of Aim, and nothing about the ground counting:
+
+```
+Melee Accuracy − Evasion
+```
+
+Cover, flanking, height and distance are all worth nothing in melee for now, and a strike is never a
+reaction. The target panel reads **Melee** where a shot's shows the target's cover, and `Ctrl` shows
+the sum as it does for a shot. A strike that lands deals its weapon's damage (the Shortsword does 4)
+plus the striker's **Strength** (0 by default, also on the Details page), and only then is the
+target's Defense taken off, as it is from a shot: a Shortsword swung with 3 Strength does 7, or 6
+to a target with 1 Defense. Strength adds nothing to shots. A strike lands at once, with its damage
+or **MISS** called over the target, and never touches the terrain.
+
 ### Where shots go
 
 Every shot is drawn as a tracer, and its result, damage included, is called when the round arrives.
@@ -264,7 +284,7 @@ vcom/                     the Godot project
       TileHighlights.gd   coloured squares over tiles
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Terrain/              destructible terrain: what breaks, how, and what it brings down
-    Actions/              the action bar's actions: Move, Shoot, Overwatch
+    Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
     UI/                   HUD, built in code rather than scenes
   Resources/              shared weapon and AI resources units are given
     Destruction/          what breaks and how: one resource per breakable block, and the catalog

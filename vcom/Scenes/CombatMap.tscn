@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://3vbrdug4wc10" path="res://Scripts/Combat/TileHighlights.gd" id="7_highlights"]
 [ext_resource type="Script" uid="uid://dxpofg7eiy3qu" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
 [ext_resource type="Script" uid="uid://l6v06k3be4sq" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="9_grenade"]
+[ext_resource type="Script" uid="uid://cu0icnp6tlnkk" path="res://Scripts/Actions/StrikeAction.gd" id="9_strike"]
 [ext_resource type="Script" uid="uid://dnyie85ub5gul" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
 [ext_resource type="Script" uid="uid://dwgqmm6ad6bst" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
 [ext_resource type="Script" uid="uid://bchyfnuhaufwp" path="res://Scripts/Actions/ShootAction.gd" id="9_shoot"]
@@ -121,6 +122,9 @@ script = ExtResource("9_move")
 
 [node name="Shoot" type="Node" parent="ActionController" unique_id=1000027]
 script = ExtResource("9_shoot")
+
+[node name="Strike" type="Node" parent="ActionController" unique_id=1000033]
+script = ExtResource("9_strike")
 
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("9_overwatch")
