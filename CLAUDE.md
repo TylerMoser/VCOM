@@ -394,6 +394,15 @@ column but units dropping with it. It is 1 cm narrower than its cell on each sid
 either side of it instead of wedging between them. Debris knocked off the map, or wedged inside a
 block, is removed. The rules never look at debris.
 
+**Scenery around a combat map is a second GridMap.** The rules, the camera and the destruction read
+only the node at their `grid_map_path` (`GridMap`): the battlefield and the ring of trees walling it
+in. `BoundaryMap.tscn` paints the forest beyond that ring into a sibling GridMap, `Boundary`, with
+the same MeshLibrary, out to 100 tiles past the battlefield. Nothing in the rules sees it, so it
+adds no tiles, cover or collision, and `CameraRig`'s pan bounds stop at the battlefield. Paint
+scenery into `Boundary`, never `GridMap`. Debris thrown over the ring falls through it (it has no
+collision) and is removed below the map. It costs frame time: every tree in view is drawn, shadow
+pass included.
+
 ## Conventions
 
 - `##` doc comments on every class and non-obvious method, written in plain prose explaining *why*,
