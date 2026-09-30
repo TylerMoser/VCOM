@@ -67,7 +67,7 @@ transform = Transform3D(0.7071068, -0.4540581, 0.5420621, 0, 0.7665916, 0.642135
 script = ExtResource("2_camrig")
 
 [node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=1000004]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
 current = true
 
 [node name="Units" type="Node3D" parent="." unique_id=1000005]

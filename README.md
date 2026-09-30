@@ -12,7 +12,7 @@ chance to hit.
 | | |
 |---|---|
 | Pan camera | `WASD` / arrow keys, or push the cursor to a screen edge |
-| Rotate / tilt | Hold `Q` / `E`, or drag with the middle mouse button |
+| Rotate | Hold `Q` / `E` |
 | Zoom | Mouse wheel |
 | Select a squad member | `Tab` / `Shift+Tab`, or left-click one |
 | Move | Select **Move**, hold right-click to preview the path, release to walk |

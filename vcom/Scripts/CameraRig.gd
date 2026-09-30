@@ -6,15 +6,18 @@
 ## zoom distance.
 ##
 ##   Pan    - WASD / arrow keys, or push the mouse against a screen edge.
-##   Rotate - hold Q / E, or drag with the middle mouse button (drag also tilts).
-##   Zoom   - mouse wheel. Zooming in also lowers the camera toward the action.
+##   Rotate - hold Q / E.
+##   Zoom   - mouse wheel. The camera slides in and out along its line of
+##            sight, looking down at [member view_pitch] at every zoom.
 ##
-## Rotation is free: Q / E sweep continuously and settle on any angle.
+## Rotation is free: Q / E sweep continuously and settle on any angle. The
+## pitch is not the player's to change: tipped up toward the horizon, the view
+## would reach past the scenery around the map to its edge.
 ##
 ## Something that needs a set of units in view, like a reaction window, can
-## [method frame] them. That takes the height and angle away from the zoom
-## until [method release_frame] hands them back; the player can still pan,
-## turn, tilt and zoom in the meantime.
+## [method frame] them. That sets its own distance and angle until
+## [method release_frame] hands them back to the zoom; the player can still
+## pan, turn and zoom in the meantime.
 class_name CameraRig
 extends Node3D
 
@@ -31,27 +34,23 @@ extends Node3D
 ## Distance in pixels from a screen edge that starts an edge pan.
 @export var edge_pan_margin := 16
 ## How far past the edge of the map the pivot may travel, in units.
-@export var pan_margin := 4.0
+@export var pan_margin := 1.0
 
 @export_group("Rotate")
 ## Degrees per second while Q / E are held.
 @export var key_rotate_speed := 110.0
-## Degrees per pixel of middle-mouse drag.
-@export var drag_rotate_speed := 0.3
 @export var rotate_smoothing := 14.0
-## Degrees of manual tilt allowed above and below the zoom-driven pitch.
-@export var free_pitch_range := 15.0
 
 @export_group("Zoom")
 @export var zoom_smoothing := 10.0
 ## Fraction of the full zoom range covered by one wheel notch.
 @export var zoom_step := 0.1
 @export var near_distance := 8.0
-@export var far_distance := 30.0
-## Pitch in degrees below horizontal, zoomed all the way in.
-@export var near_pitch := 25.0
-## Pitch in degrees below horizontal, zoomed all the way out.
-@export var far_pitch := 55.0
+@export var far_distance := 22.0
+## Degrees below horizontal the camera looks down, at every zoom. Keep it
+## well above half the camera's vertical FOV (37.5 at the default 75), or the
+## top of the screen reaches the horizon.
+@export var view_pitch := 55.0
 
 @export_group("Framing")
 ## Nearest and furthest the camera sits when framing. The near limit keeps a
@@ -71,7 +70,6 @@ var _camera: Camera3D
 var _pivot := Vector3.ZERO
 var _yaw := 0.0
 var _zoom := 0.0
-var _pitch_offset := 0.0
 
 # Smoothed values actually written to the transforms.
 var _current_pivot := Vector3.ZERO
@@ -86,7 +84,6 @@ var _frame_distance := 0.0
 ## Where the camera was looking before [method frame], to go back to.
 var _unframed_pivot := Vector3.ZERO
 
-var _drag_rotating := false
 var _mouse_seen := false
 var _pan_bounds := Rect2()
 
@@ -100,17 +97,17 @@ func _ready() -> void:
 
 	_pan_bounds = _compute_pan_bounds()
 
-	# Adopt whatever framing the scene was authored with, so pressing Run does
-	# not snap the camera somewhere else on the first frame.
+	# Adopt the spot, heading and zoom the scene was authored with, so pressing
+	# Run does not swing the camera somewhere else on the first frame. The
+	# pitch is view_pitch however the rig is tilted in the scene.
 	_pivot = position
 	_yaw = rotation_degrees.y
 	_zoom = clampf(inverse_lerp(near_distance, far_distance, _camera.position.z), 0.0, 1.0)
-	_pitch_offset = clampf(-rotation_degrees.x - _zoom_pitch(), -free_pitch_range, free_pitch_range)
 
 	_current_pivot = _pivot
 	_current_yaw = _yaw
 	_current_distance = _zoom_distance()
-	_current_pitch = _zoom_pitch() + _pitch_offset
+	_current_pitch = view_pitch
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -118,25 +115,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		_step_zoom(-1.0)
 	elif event.is_action_pressed(&"camera_zoom_out"):
 		_step_zoom(1.0)
-	elif event.is_action_pressed(&"camera_free_look"):
-		_drag_rotating = true
-	elif event.is_action_released(&"camera_free_look"):
-		_drag_rotating = false
 	elif event is InputEventMouseMotion:
 		_mouse_seen = true
-		if not _drag_rotating:
-			return
-		# screen_relative is raw screen pixels. relative is scaled by the
-		# project's canvas stretch, which would make drag sensitivity depend on
-		# the window size.
-		var motion := (event as InputEventMouseMotion).screen_relative
-		_yaw -= motion.x * drag_rotate_speed
-		# Dragging down orbits the camera up, toward a more top-down view.
-		var tilt := motion.y * drag_rotate_speed
-		if _framing:
-			_frame_pitch = clampf(_frame_pitch + tilt, near_pitch, far_pitch + free_pitch_range)
-		else:
-			_pitch_offset = clampf(_pitch_offset + tilt, -free_pitch_range, free_pitch_range)
 
 
 func _process(delta: float) -> void:
@@ -144,7 +124,7 @@ func _process(delta: float) -> void:
 	_update_pan(delta)
 
 	var distance := _frame_distance if _framing else _zoom_distance()
-	var pitch := _frame_pitch if _framing else _zoom_pitch() + _pitch_offset
+	var pitch := _frame_pitch if _framing else view_pitch
 	_current_distance = lerpf(_current_distance, distance, _weight(delta, zoom_smoothing))
 	_current_pitch = lerpf(_current_pitch, pitch, _weight(delta, zoom_smoothing))
 
@@ -244,7 +224,7 @@ func _update_pan(delta: float) -> void:
 	var input := Input.get_vector(
 		&"camera_pan_left", &"camera_pan_right", &"camera_pan_forward", &"camera_pan_back"
 	)
-	if edge_pan_enabled and _mouse_seen and not _drag_rotating:
+	if edge_pan_enabled and _mouse_seen:
 		input += _edge_pan_input()
 	input = input.limit_length(1.0)
 
@@ -292,10 +272,6 @@ func _edge_pan_direction(mouse: Vector2, size: Vector2) -> Vector2:
 
 func _zoom_distance() -> float:
 	return lerpf(near_distance, far_distance, _zoom)
-
-
-func _zoom_pitch() -> float:
-	return lerpf(near_pitch, far_pitch, _zoom)
 
 
 func _clamp_to_bounds(point: Vector3) -> Vector3:
