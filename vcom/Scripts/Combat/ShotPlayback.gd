@@ -53,7 +53,7 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 	var outcome: Ballistics.Outcome = await shooter.shoot_at(shot, estimate.chance, _grid, show_rounds)
 	if _overlay != null:
 		# Under the target when the odds panel holds the space over it.
-		var text := "%d" % shooter.weapon.damage if outcome.hit else "MISS"
+		var text := "%d" % outcome.damage if outcome.hit else "MISS"
 		_overlay.flash_result(mark, text, outcome.hit, player_fire)
 
 	if shot.stepped_out:

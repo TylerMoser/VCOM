@@ -2,10 +2,10 @@
 ## its reaction.
 ##
 ## A squad member is someone on the roster: given a [member character], it
-## takes its name, colour, stats (health, move, aim, evasion) and equipment
-## from them, painting its Mesh child. Without one (enemies, the test harness)
-## the scene's values and the Mesh's material stand, and it carries only its
-## [member weapon].
+## takes its name, colour, stats (health, defense, move, aim, evasion) and
+## equipment from them, painting its Mesh child. Without one (enemies, the
+## test harness) the scene's values and the Mesh's material stand, and it
+## carries only its [member weapon].
 ## UI reads [member color] until real portraits exist.
 class_name Unit
 extends Node3D
@@ -41,8 +41,12 @@ const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
 ## Who this unit is on the roster: the same resource [member Campaign.roster]
 ## holds, so the two stay linked.
 @export var character: Character
-## Replaced by [member character]'s, as are move range, aim and evasion.
+## Replaced by [member character]'s, as are defense, move range, aim and
+## evasion.
 @export var max_health := 10
+## Taken off the damage of every hit this unit takes, down to none. Replaced
+## by [member character]'s, armor included ([member Character.total_defense]).
+@export var defense := 0
 @export var actions_per_turn := 3
 ## Tiles the unit can walk for each action point spent moving.
 @export var move_range := 4
@@ -168,12 +172,16 @@ func spend_reaction() -> bool:
 	return true
 
 
-## Takes [param amount] off the unit's health, and takes the unit off the map
-## if that finishes it.
-func take_damage(amount: int) -> void:
-	health -= amount
+## Takes [param amount], less the unit's [member defense], off its health, and
+## takes the unit off the map if that finishes it. Returns the damage taken,
+## which is 0 for a hit the defense stops entirely. Every hit comes through
+## here, so defense counts against all of them.
+func take_damage(amount: int) -> int:
+	var taken := maxi(amount - defense, 0)
+	health -= taken
 	if health <= 0:
 		die()
+	return taken
 
 
 ## Takes [param shot] with [param chance] in 100 of landing, and returns how it
@@ -185,8 +193,9 @@ func take_damage(amount: int) -> void:
 ## lands, and [Ballistics] where it goes. [param show_rounds], if given, is
 ## called with the [Ballistics.Outcome] at that moment and awaited, so whoever
 ## is drawing the shot holds the landing until the round is seen to arrive.
-## On landing the target takes the weapon's damage if the shot hit, and any
-## terrain a round struck is reported to [param grid].
+## On landing the target takes the weapon's damage if the shot hit, less its
+## defense ([member Ballistics.Outcome.damage]), and any terrain a round struck
+## is reported to [param grid].
 func shoot_at(
 	shot: LineOfSight.Shot, chance: int, grid: CombatGrid, show_rounds := Callable()
 ) -> Ballistics.Outcome:
@@ -195,7 +204,7 @@ func shoot_at(
 	if show_rounds.is_valid():
 		await show_rounds.call(outcome)
 	if outcome.hit and is_instance_valid(shot.target):
-		shot.target.take_damage(weapon.damage)
+		outcome.damage = shot.target.take_damage(weapon.damage)
 	for path in outcome.paths:
 		if path.struck != null:
 			grid.strike(path.struck, weapon.environment_damage)
@@ -273,6 +282,7 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 func _take_character() -> void:
 	display_name = character.display_name
 	max_health = character.max_health
+	defense = character.total_defense
 	move_range = character.move_range
 	aim = character.aim
 	evasion = character.evasion

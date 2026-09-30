@@ -118,7 +118,7 @@ func _fire() -> void:
 		aimed, estimate.chance, controller.grid, show_rounds
 	)
 	if _overlay != null:
-		_overlay.flash_result(mark, "%d" % unit.weapon.damage if outcome.hit else "MISS", outcome.hit)
+		_overlay.flash_result(mark, "%d" % outcome.damage if outcome.hit else "MISS", outcome.hit)
 
 	if aimed.stepped_out:
 		await unit.walk([cover], step_out_seconds)

@@ -5,9 +5,11 @@ class_name DetailsPage
 extends CharacterPage
 
 ## Each row: the name shown, and the [Character] property it shows. HP shows
-## what is left of it too (see [method _value_text]).
+## what is left of it too (see [method _value_text]); Defense is the armor's
+## included.
 const STATS := [
 	["HP", &"max_health"],
+	["Defense", &"total_defense"],
 	["Move", &"move_range"],
 	["Aim", &"aim"],
 	["Evasion", &"evasion"],
@@ -37,6 +39,11 @@ func _init() -> void:
 		list.add_child(_row(stat[0]))
 	_experience = _experience_tracker()
 	add_child(_experience)
+	# Refreshed as it comes into view too: the Equipment page may have changed
+	# the armor, and so the defense, since the character was last shown.
+	visibility_changed.connect(func() -> void:
+		if is_visible_in_tree():
+			_refresh())
 
 
 func _refresh() -> void:

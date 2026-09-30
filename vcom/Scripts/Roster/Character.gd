@@ -40,6 +40,9 @@ static var slots := [
 ## The unit's [member Unit.evasion]: taken off the chance of anyone shooting
 ## at it.
 @export var evasion := 0
+## The character's own defense, before their [member armor] adds to it: see
+## [member total_defense], which is what their unit takes into battle.
+@export var defense := 0
 ## Earned in play, out of [constant EXPERIENCE_TO_LEVEL], only through
 ## [method gain_experience]; for now surviving a battle is the one way (see
 ## [PlayerSquad]). Not copied onto the unit: it is the character's, not the
@@ -61,6 +64,12 @@ static var slots := [
 var health: int:
 	get:
 		return maxi(max_health - wounds, 0)
+
+## [member defense] with the worn [member armor]'s added: the unit's
+## [member Unit.defense], taken off the damage of every hit it takes.
+var total_defense: int:
+	get:
+		return defense + (armor.defense if armor != null else 0)
 
 @export_group("Hiring")
 ## Gold the party pays to take the character on from a [HiringBoard].

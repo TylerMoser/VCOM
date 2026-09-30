@@ -5,5 +5,6 @@
 [resource]
 script = ExtResource("1_6au6h")
 display_name = "Light Armor"
-description = "Padded plating over the vitals. Keeps a soldier on their feet without slowing them down."
+description = "+1 Defense: every hit the wearer takes does 1 less damage."
 price = 3
+defense = 1

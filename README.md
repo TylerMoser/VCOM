@@ -159,7 +159,9 @@ is free, 4–7 costs one step, and so on.
 
 Hold `Ctrl` while aiming to see the sum itself, one line per term that mattered.
 
-Every shot that lands deals its weapon's damage (a rifle does 4 against 10 health). There are no
+Every shot that lands deals its weapon's damage (a rifle does 4 against 10 health), less the
+target's **Defense**, down to nothing: a rifle does 3 to a target with 1 Defense, and none to one
+with 4. Everyone's own Defense is 0 for now; armor adds to it, Light Armor by 1. There are no
 critical hits yet, and damage does not vary.
 
 ### Where shots go

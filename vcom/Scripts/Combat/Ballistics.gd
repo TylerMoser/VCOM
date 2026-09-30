@@ -92,6 +92,10 @@ class Path:
 class Outcome:
 	## Whether the roll said the shot lands.
 	var hit: bool
+	## What the target took once the round landed: the weapon's damage less
+	## the target's [member Unit.defense]. 0 for a miss, and for a hit its
+	## defense stopped. Filled in by [method Unit.shoot_at] on landing.
+	var damage := 0
 	## Where the shot's rounds went. There is one: as in XCOM 2, a single round
 	## decides what a shot does. It is a list so that a weapon firing several
 	## rounds a shot can have them.

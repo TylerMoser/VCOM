@@ -49,12 +49,12 @@ vcom/Scripts/
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE); Weapon, Armor, BattleItem extend it
-    Armor.gd           the Armor slot's kind: name and description only so far
+    Armor.gd           the Armor slot's kind: defense, added to the wearer's
     BattleItem.gd      grenades, medkits: name and description only so far
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, experience,
+    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, total_defense, experience,
                        skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
@@ -246,8 +246,9 @@ panel, the reaction keys and everything else reading `PlayerSquad.members` follo
 does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
 reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
 square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
-`display_name`, colour and the character's stats (`max_health`, `move_range`, `aim`, `evasion`) from
-its character in `_ready` (painting its mesh on a copy of the material). They are copied once, when
+`display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
+`evasion`) from its character in `_ready` (painting its mesh on a copy of the material); its defense
+is `Character.total_defense`, the character's own plus their armor's. They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
 (actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
 that should differ per character moves to `Character`, gets copied in `Unit._take_character()`, and
@@ -292,7 +293,9 @@ character starts with is set in their `.tres`, not counted in `StartingInventory
 equipped decides a squad unit's actions by its tags (see "An action can need an item"): with no gun
 it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
 (`Unit.weapon`, null with none); a grenade in any item slot gives it Throw Grenade, which does nothing
-yet, and armor does nothing in combat yet. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
+yet. Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`), which the unit
+copies as its own; the Details page shows that total and refreshes as it comes into view, since the
+Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule.
 
@@ -460,6 +463,9 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - **Hit chance is computed once**, when the shot is lined up (`ShootAction._estimate`), and that is
   what gets rolled. Do not recompute at fire time. A reaction's shot is lined up each time the enemy
   reaches a new tile (`Reactions._find_offers`); its prompt shows that estimate and firing rolls it.
+- **Defense comes off every hit, down to 0**, in `Unit.take_damage()`, which every hit goes
+  through and which returns what was taken; the called result (`Ballistics.Outcome.damage`) is that,
+  not the weapon's damage. Defense never touches the hit chance.
 - `Unit.shoot_at(shot, chance, grid, show_rounds)` is the single place a shot is resolved.
   `ShootAction`, the enemy AI and reaction fire all go through it; keep it that way so they cannot
   diverge.
