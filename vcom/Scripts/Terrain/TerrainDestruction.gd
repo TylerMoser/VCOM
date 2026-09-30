@@ -126,7 +126,7 @@ func _break(cell: Vector3i, hit: CombatGrid.RayHit, collapse: Collapse) -> bool:
 	var destruction: Destruction = _destructions.get(_map.get_cell_item(cell))
 	if destruction == null:
 		return false
-	var at := _mesh_transform(cell)
+	var at := mesh_transform(_map, cell)
 	_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
 	destruction.shatter(self, at, hit)
 	_drop_blocks_above(cell, collapse)
@@ -186,14 +186,15 @@ func _left_since(before: int) -> Array[PhysicsBody3D]:
 	return left
 
 
-## Where the grid draws the mesh of the block at [param cell], in world space:
-## the cell, turned the way the block is turned, with the MeshLibrary's offset
-## for the block's mesh. What replaces the block stands here to cover it.
-func _mesh_transform(cell: Vector3i) -> Transform3D:
-	var item := _map.get_cell_item(cell)
-	var turn := _map.get_basis_with_orthogonal_index(_map.get_cell_item_orientation(cell))
-	var place := Transform3D(turn, _map.map_to_local(cell))
-	return _map.global_transform * place * _map.mesh_library.get_item_mesh_transform(item)
+## Where [param map] draws the mesh of the block at [param cell], in world
+## space: the cell, turned the way the block is turned, with the MeshLibrary's
+## offset for the block's mesh. What replaces the block stands here to cover
+## it, and [BlockDecorations] dress it from here.
+static func mesh_transform(map: GridMap, cell: Vector3i) -> Transform3D:
+	var item := map.get_cell_item(cell)
+	var turn := map.get_basis_with_orthogonal_index(map.get_cell_item_orientation(cell))
+	var place := Transform3D(turn, map.map_to_local(cell))
+	return map.global_transform * place * map.mesh_library.get_item_mesh_transform(item)
 
 
 ## Drops every unit left standing on nothing to the ground below it, through

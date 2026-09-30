@@ -46,6 +46,8 @@ vcom/Scripts/
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
+    BlockDecorations.gd    scenery the rules never see, put on blocks by name as the map loads: a tree's leaves
+    LeafSway.gd            on a tree's root: its leaf clumps lean with the gusts and shake, each at its own pace
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE); Weapon, Armor, BattleItem extend it
@@ -394,6 +396,25 @@ column but units dropping with it. It is 1 cm narrower than its cell on each sid
 either side of it instead of wedging between them. Debris knocked off the map, or wedged inside a
 block, is removed. The rules never look at debris.
 
+**A tree is blocks; its leaves are scenery.** The rules read only the grid, so a tree's trunk is
+stacked in the GridMap: `SkinnyTreeTrunk1Bottom` (the roots) at the tile's level, and
+`SkinnyTreeTrunk1Top` on it. Being two cells tall it is full cover on all four sides and blocks
+sight, like any 2-high column; paint the pair to plant a tree. Its leaves, `Scenes/SimpleTree1.tscn`,
+are only for show. `BlockDecorations` (a node in `CombatMap.tscn`) puts an instance of a scene on
+every block named in its `scenes` (`SkinnyTreeTrunk1Top` -> `SimpleTree1.tscn`) in its `_ready`, at
+`TerrainDestruction.mesh_transform()`, where the grid draws the block and turned as it is. So such a
+scene is built in its block's own frame, origin at the middle of the block's base: `SimpleTree1`'s
+ground is at y = -1. A new kind of tree is its trunk blocks in `BlockLibrary.tres` plus one entry in
+`scenes`. The trunk is 4 voxels wide, but to the rules, as to debris, it is its whole cell.
+
+The leaves sway in a breeze: `LeafSway`, on `SimpleTree1`'s root, turns each mesh directly under it
+about its own origin (a clump's origin is where it grows from) every frame, leaning it downwind with
+the gusts and shaking it at its own pace. The wind is the same for every tree (`LeafSway`'s
+constants: direction, calm, how fast a gust travels); how far a tree's leaves lean and shake, and how
+fast, are its exports. It is not a `@tool` script, so the editor shows and saves the leaves at rest;
+with it running there, a save would store wherever they had swayed to. It costs about 12 µs a tree a
+frame; a wood of hundreds would want the sway moved into a vertex shader.
+
 ## Conventions
 
 - `##` doc comments on every class and non-obvious method, written in plain prose explaining *why*,
@@ -594,6 +615,12 @@ is set (0 lifts it).
 **A script error does not end a `--script` run.** Godot sits idle after it until killed, so give
 scripted runs a `timeout`.
 
+**A `.vox` model imports where MagicaVoxel's scene puts it.** The importer centres a model on
+`floor(size / 2)` and then applies its scene translations (`nTRN` `_t`), so a model moved in
+MagicaVoxel, or whose box is taller than its voxels, comes in offset (`BrightCrate1`'s library item
+undoes a 1.3125 shift in its `mesh_transform`). A block is a 16×16×16 box sitting on the ground,
+laid out as `BrightGrass1.vox` is: group translation `0 0 8`, none on the model.
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -609,6 +636,11 @@ directly or write a fresh generator.
 - Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck` but
   nothing reads it yet: any strike breaks a crate.
 - Rounds fly straight through debris: the trace only sees the grid.
+- A tree trunk is a whole cell to the rules and to debris: a stray round stops at the cell's face,
+  up to 6 voxels short of the bark, and debris bounces off the cube `TerrainDestruction` gives
+  every shapeless block. Its top is ground like any block's, so a unit on a 1-high block beside a
+  tree can climb on to it, into the leaves. Trunks never break; scenery is placed once, so a
+  dressed block that left the grid would leave its leaves hanging.
 - A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
   The columns either side hold the struck crate's wreck in place, so the crates above only drop a
   fifth of a cell on to it before breaking, and their pieces take more room loose than as crates.

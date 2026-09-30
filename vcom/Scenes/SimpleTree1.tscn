@@ -1,97 +1,95 @@
 [gd_scene format=3 uid="uid://y6yk1jn4g0ua"]
 
-[ext_resource type="ArrayMesh" uid="uid://dv5ullpru5hm5" path="res://Blocks/SkinnyTreeTrunk1.vox" id="1_yq1gc"]
+[ext_resource type="Script" uid="uid://jxyy5888o3nq" path="res://Scripts/Terrain/LeafSway.gd" id="1_leafsway"]
 [ext_resource type="ArrayMesh" uid="uid://bel7xxdv0dndh" path="res://Vox/LeafCluster1.vox" id="2_vxijk"]
 
 [node name="SimpleTree1" type="Node3D" unique_id=876780967]
-
-[node name="SkinnyTreeTrunk1" type="MeshInstance3D" parent="." unique_id=1799559661]
-mesh = ExtResource("1_yq1gc")
+script = ExtResource("1_leafsway")
 
 [node name="LeafCluster1" type="MeshInstance3D" parent="." unique_id=600970902]
-transform = Transform3D(1, 0, 0, 0, 0.40151125, 0.9158541, 0, -0.9158541, 0.40151125, 0, 0.375, 0.533)
+transform = Transform3D(1, 0, 0, 0, 0.40151125, 0.9158541, 0, -0.9158541, 0.40151125, 0, -0.625, 0.533)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster2" type="MeshInstance3D" parent="." unique_id=1219026257]
-transform = Transform3D(1, 0, 0, 0, -0.43462884, 0.90060973, 0, -0.90060973, -0.43462884, 0, 0.65882576, 0.077326715)
+transform = Transform3D(1, 0, 0, 0, -0.43462884, 0.90060973, 0, -0.90060973, -0.43462884, 0, -0.3411742, 0.077326715)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster3" type="MeshInstance3D" parent="." unique_id=1263905158]
-transform = Transform3D(-0.050062627, -0.9240545, 0.37896875, 0.003654629, 0.37927267, 0.92527807, -0.9987394, 0.047706865, -0.015610337, 0.5775151, 0.37228286, -0.04523647)
+transform = Transform3D(-0.050062627, -0.9240545, 0.37896875, 0.003654629, 0.37927267, 0.92527807, -0.9987394, 0.047706865, -0.015610337, 0.5775151, -0.6277171, -0.04523647)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster4" type="MeshInstance3D" parent="." unique_id=1726422263]
-transform = Transform3D(-0.050062627, -0.88881797, -0.4555182, 0.003654629, -0.45625007, 0.88984454, -0.9987394, 0.04288324, 0.026089374, 0.1157496, 0.64501894, -0.021092076)
+transform = Transform3D(-0.050062627, -0.88881797, -0.4555182, 0.003654629, -0.45625007, 0.88984454, -0.9987394, 0.04288324, 0.026089374, 0.1157496, -0.3549811, -0.021092076)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster5" type="MeshInstance3D" parent="." unique_id=2080131056]
-transform = Transform3D(0.18631026, -0.98249096, 0, 0.98249096, 0.18631026, 0, 0, 0, 1, 0.7453307, 0.75721574, 0.012667149)
+transform = Transform3D(0.18631026, -0.98249096, 0, 0.98249096, 0.18631026, 0, 0, 0, 1, 0.7453307, -0.2427843, 0.012667149)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster6" type="MeshInstance3D" parent="." unique_id=345586655]
-transform = Transform3D(-0.18568912, 0.9792154, 0.08158918, 0.98249096, 0.18631026, 0, -0.015200901, 0.080160625, -0.9966661, -0.70669293, 0.75721574, -0.04093957)
+transform = Transform3D(-0.18568912, 0.9792154, 0.08158918, 0.98249096, 0.18631026, 0, -0.015200901, 0.080160625, -0.9966661, -0.70669293, -0.2427843, -0.04093957)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster11" type="MeshInstance3D" parent="." unique_id=1006841509]
-transform = Transform3D(-0.9155855, 0.39947286, 0.0460934, 0.40183586, 0.9132337, 0.067321554, -0.015200901, 0.080160625, -0.996666, -0.41619176, 0.82520175, -0.04093957)
+transform = Transform3D(-0.9155855, 0.39947286, 0.0460934, 0.40183586, 0.9132337, 0.067321554, -0.015200901, 0.080160625, -0.996666, -0.41619176, -0.1747983, -0.04093957)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster12" type="MeshInstance3D" parent="." unique_id=1575250541]
-transform = Transform3D(0.91155076, -0.40592816, 0.065557316, 0.40183586, 0.9132337, 0.06732156, -0.08719687, -0.035023734, 0.99557513, 0.43742603, 0.8039856, -0.04093957)
+transform = Transform3D(0.91155076, -0.40592816, 0.065557316, 0.40183586, 0.9132337, 0.06732156, -0.08719687, -0.035023734, 0.99557513, 0.43742603, -0.1960144, -0.04093957)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster14" type="MeshInstance3D" parent="." unique_id=1357159754]
-transform = Transform3D(0.69855, -0.2581755, -0.66736305, 0.40183583, 0.9132337, 0.067321554, 0.59207773, -0.31519794, 0.74168336, 0.30845025, 0.8039856, 0.2647748)
+transform = Transform3D(0.69855, -0.2581755, -0.66736305, 0.40183583, 0.9132337, 0.067321554, 0.59207773, -0.31519794, 0.74168336, 0.30845025, -0.1960144, 0.2647748)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster16" type="MeshInstance3D" parent="." unique_id=1984297843]
-transform = Transform3D(0.564393, -0.30489272, 0.7671382, 0.40183583, 0.9132337, 0.067321554, -0.72110236, 0.27026787, 0.6379394, 0.30448735, 0.8039856, -0.3504652)
+transform = Transform3D(0.564393, -0.30489272, 0.7671382, 0.40183583, 0.9132337, 0.067321554, -0.72110236, 0.27026787, 0.6379394, 0.30448735, -0.1960144, -0.3504652)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster15" type="MeshInstance3D" parent="." unique_id=1814452604]
-transform = Transform3D(-0.6414308, 0.33318177, -0.6910545, 0.40183586, 0.9132337, 0.06732156, 0.6535245, -0.2345084, -0.7196605, -0.28325307, 0.82520175, 0.26858607)
+transform = Transform3D(-0.6414308, 0.33318177, -0.6910545, 0.40183586, 0.9132337, 0.06732156, 0.6535245, -0.2345084, -0.7196605, -0.28325307, -0.1747983, 0.26858607)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster13" type="MeshInstance3D" parent="." unique_id=1759063950]
-transform = Transform3D(-0.62802005, 0.22134027, 0.74605584, 0.40183586, 0.9132337, 0.06732156, -0.6664223, 0.34207126, -0.6624715, -0.28721598, 0.82520175, -0.34665394)
+transform = Transform3D(-0.62802005, 0.22134027, 0.74605584, 0.40183586, 0.9132337, 0.06732156, -0.6664223, 0.34207126, -0.6624715, -0.28721598, -0.1747983, -0.34665394)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster7" type="MeshInstance3D" parent="." unique_id=605820047]
-transform = Transform3D(-0.11020166, 0.5811387, 0.8063087, 0.98249096, 0.1863102, -1.9669361e-08, -0.15022355, 0.79219097, -0.5914952, -0.4477535, 0.75721574, -0.57800573)
+transform = Transform3D(-0.11020166, 0.5811387, 0.8063087, 0.98249096, 0.1863102, -1.9669361e-08, -0.15022355, 0.79219097, -0.5914952, -0.4477535, -0.2427843, -0.57800573)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster8" type="MeshInstance3D" parent="." unique_id=844436748]
-transform = Transform3D(0.093455866, -0.49283156, 0.86509156, 0.98249096, 0.18631022, -2.36823e-08, -0.16117541, 0.84994453, 0.5016143, 0.35397944, 0.75721574, -0.59473234)
+transform = Transform3D(0.093455866, -0.49283156, 0.86509156, 0.98249096, 0.18631022, -2.36823e-08, -0.16117541, 0.84994453, 0.5016143, 0.35397944, -0.2427843, -0.59473234)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster10" type="MeshInstance3D" parent="." unique_id=82667971]
-transform = Transform3D(-0.08714339, 0.45954326, -0.8838701, 0.9824908, 0.18631016, -4.5025708e-08, 0.164674, -0.8683942, -0.46773285, -0.3201054, 0.75721574, 0.6691291)
+transform = Transform3D(-0.08714339, 0.45954326, -0.8838701, 0.9824908, 0.18631016, -4.5025708e-08, 0.164674, -0.8683942, -0.46773285, -0.3201054, -0.2427843, 0.6691291)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster9" type="MeshInstance3D" parent="." unique_id=396156639]
-transform = Transform3D(0.115937136, -0.6113843, -0.7827951, 0.9824907, 0.18631017, 5.4349734e-09, 0.14584266, -0.769089, 0.6222799, 0.4803783, 0.75721574, 0.62136376)
+transform = Transform3D(0.115937136, -0.6113843, -0.7827951, 0.9824907, 0.18631017, 5.4349734e-09, 0.14584266, -0.769089, 0.6222799, 0.4803783, -0.2427843, 0.62136376)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster17" type="MeshInstance3D" parent="." unique_id=1147312892]
-transform = Transform3D(1, 0, 0, 0, 0.9823323, -0.1871452, 0, 0.1871452, 0.9823323, 0.001718998, 1.2674332, -0.17965153)
+transform = Transform3D(1, 0, 0, 0, 0.9823323, -0.1871452, 0, 0.1871452, 0.9823323, 0.001718998, 0.2674332, -0.17965153)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster18" type="MeshInstance3D" parent="." unique_id=1108280689]
-transform = Transform3D(-0.9999325, -0.0021744245, -0.011413638, 0, 0.9823323, -0.1871452, 0.011618917, -0.18713258, -0.982266, 0.001718998, 1.2674332, 0.1679439)
+transform = Transform3D(-0.9999325, -0.0021744245, -0.011413638, 0, 0.9823323, -0.1871452, 0.011618917, -0.18713258, -0.982266, 0.001718998, 0.2674332, 0.1679439)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster19" type="MeshInstance3D" parent="." unique_id=320478582]
-transform = Transform3D(1, 0, 0, 0, 0.9823323, -0.1871452, 0, 0.1871452, 0.9823323, 0.001718998, 1.2674332, -0.17965153)
+transform = Transform3D(1, 0, 0, 0, 0.9823323, -0.1871452, 0, 0.1871452, 0.9823323, 0.001718998, 0.2674332, -0.17965153)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster20" type="MeshInstance3D" parent="." unique_id=1099468499]
-transform = Transform3D(0.02452898, 0.18708889, 0.9820367, 0, 0.9823323, -0.1871452, -0.9996991, 0.004590481, 0.02409561, -0.17119688, 1.2674332, -0.015667588)
+transform = Transform3D(0.02452898, 0.18708889, 0.9820367, 0, 0.9823323, -0.1871452, -0.9996991, 0.004590481, 0.02409561, -0.17119688, 0.2674332, -0.015667588)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster21" type="MeshInstance3D" parent="." unique_id=1953485165]
-transform = Transform3D(-0.013592303, -0.18712789, -0.9822416, 3.6112981e-09, 0.9823323, -0.1871452, 0.99990773, -0.0025437325, -0.013352126, 0.13394654, 1.2674332, -0.0070537627)
+transform = Transform3D(-0.013592303, -0.18712789, -0.9822416, 3.6112981e-09, 0.9823323, -0.1871452, 0.99990773, -0.0025437325, -0.013352126, 0.13394654, 0.2674332, -0.0070537627)
 mesh = ExtResource("2_vxijk")
 
 [node name="LeafCluster22" type="MeshInstance3D" parent="." unique_id=1942313113]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5544999, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5544999, 0)
 mesh = ExtResource("2_vxijk")
