@@ -165,7 +165,7 @@ distance it travels in steps of `Party.step_length` map pixels; at the end of ea
 forest's `encounter_chance`, a percentage per step. On a success it emits `encountered(encounter_map)`,
 which opens the map's `SquadMenu` (see below) over the paused map; holding its Start calls
 `Campaign.start_battle(map, chosen)`, which takes the world map's scene out of the tree, without freeing it, and makes a fresh instance of the
-battle scene (`CombatMap.tscn` by default) the current scene; the swap is deferred to the end of the
+battle scene (`BoundaryMap.tscn`, the `encounter_map` every forest gets from `Forest.tscn`) the current scene; the swap is deferred to the end of the
 frame. `TurnManager` listens to every enemy's and squad member's `died`, and once either side is gone
 it sets `outcome` (`WON` / `LOST`), disables the `ActionController`, announces "Victory" or "Defeat"
 and calls `Campaign.end_battle()`, which frees the battle and puts the same world map node back. A
@@ -654,4 +654,5 @@ directly or write a fresh generator.
   in the harness (eight).
 - Nothing spends skill points, and the only experience is for surviving a battle. Items used in battle
   are never spent. Throw Grenade is only a button: throwing (reach, blast, damage, using the grenade
-  up) is still to be written. Every encounter is the same `CombatMap.tscn`, fresh each time, with its one enemy.
+  up) is still to be written. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with its four
+  enemies.

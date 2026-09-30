@@ -267,7 +267,8 @@ vcom/                     the Godot project
   Resources/              shared weapon and AI resources units are given
     Destruction/          what breaks and how: one resource per breakable block, and the catalog
   Scenes/
-    CombatMap.tscn        the playable map
+    BoundaryMap.tscn      the map random encounters are fought on, in a ring of forest
+    CombatMap.tscn        the same battlefield without the forest, and one enemy
     LineOfSightTest.tscn  harness for the sight and shot rules
     Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
