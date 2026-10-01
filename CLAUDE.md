@@ -42,12 +42,12 @@ vcom/Scripts/
     Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
                        the blast: blast_cells(), is_caught(), caught(), blast_tiles()
     ThrownGrenade.gd   a grenade in flight along a Throw's arc, from the thrower's hand, as the grenade's
-                       model tumbling; for show; frees itself as it arrives
+                       model tumbling about its middle; for show; frees itself as it arrives
     Explosion.gd       a grenade going off: fireball, flash, smoke, for show; go_off(), frees itself
     MuzzleFlash.gd     a gun's flash as it fires, under its Muzzle marker, for show; frees itself
     Coins.gd           map node: rolls a breaking block's coin_chance, keeps the coins by tile (stacked), drops a
                        tile's when its ground goes, pays for those on any squad member's tile; count(), sweep()
-    Coin.gd            one coin as it is seen (Items/Coin1.vox, twice size): spins, bobs, pops in, drop_to(),
+    Coin.gd            one coin as it is seen (Items/Coin2.vox, as drawn): spins, bobs, pops in, drop_to(),
                        take(); for show
     ShotPlayback.gd    shots not taken from the action bar: aim, lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
@@ -165,7 +165,8 @@ vcom/Scripts/
 Art beside the scripts: `vcom/Characters/` holds the figure's `.vox` and what `BakeCharacter.gd` makes
 of it (`BaseCharacterBody.res`, the skinned mesh; `BaseCharacterAnimations.res`, the animation
 library), `vcom/Items/` the props' `.vox` (copies of `MagicaVoxel/`'s), and `vcom/Scenes/Props/` a scene
-for each prop: its mesh, with markers where it fires from and where it is held.
+for each prop: its mesh, placed so the grip is on the scene's origin, with markers where it fires from
+and where it is held.
 
 ## Architecture
 
@@ -407,7 +408,7 @@ proportions: a function of time places the feet, the hands and what they hold, a
 and two-bone IK solves the limbs between, so a model with other proportions gets animations that fit
 it by baking again. The rifle is held through `rifle_grip` and the rifle scene's `Foregrip` marker:
 these arms reach only 8 voxels to the palm, which is why the aim holds the rifle under the chin and
-the off hand on the magazine. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
+the off hand just under the receiver, behind the fore-end. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
 (`rifle`, `melee`, `unarmed`) has stand, crouch (on one knee behind low cover), wall (up close to
 high cover), ready_throw, cheer, run and throw; the rifle has aim, overwatch, overwatch_crouch and
 the back / strafe steps a rifleman takes stepping out, still aimed; the sword has ready_melee,
@@ -442,9 +443,13 @@ makes the sockets: `RightHand/RifleGrip` and `SwordGrip`, `LeftHand/GrenadeGrip`
 `SwordSlot`, `Belt/Grenade1`..`3`. The gun is in hand; the sword is in hand without a gun, else slung
 on the back and drawn for a strike, swapping with the gun at `draw_sword`'s `swap`; grenades hang on
 the belt, one in the left hand while a throw is lined up. `Unit._dress()` calls `equip()` as the unit
-enters the map and as it uses something up. A prop's `.vox` puts its grip at the middle of an
-even-sized model box, which is where the importer puts the mesh's origin, and imports at 0.063, as the
-figure does.
+enters the map and as it uses something up. A prop scene's `Mesh` is placed to put the grip on the
+scene's origin: the importer carries where a model sits in MagicaVoxel's world into the mesh (`0 21 2`
+for one left where MagicaVoxel put it), so the `Mesh`'s transform cancels that, and turns a model
+drawn along another axis (`Rifle2.vox` lies along MagicaVoxel's x). Props import at 0.063, as the
+figure does. Belt grenades are tucked in by their handles, the outer two fanned out so the heads stand
+apart. A longer model reaches further than the poses were made for: preview its clips for it going
+into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7).
 
 **The dead are ragdolls, and stay.** `Unit.die()` hands the figure `CharacterModel.fall_dead()` before
 the unit is freed: the figure moves to the unit's parent, its tree stops, its 12 `PhysicalBone3D`s
@@ -568,7 +573,9 @@ fall a frame later on to the bottom one's tile. `sweep()`, on a win, pays for ev
 each over it, and sets `_swept`, after which a block that breaks (one still falling as the battle
 ends) pays at once and leaves no coin. The `Coin` node is only for show: it is spun and bobbed on a
 child, so its own position is where it rests, and the model is centred on its box, since
-`Coin1.vox` is drawn well off its origin.
+`Coin2.vox` is drawn well off its origin. It is nine voxels across at the props' 0.063, a little over
+half a cell, so it is not scaled; `Coins.STACK_STEP` (0.7) must stay more than its height plus its
+bob, or a stack's coins touch.
 
 To make another object break like the crate:
 
@@ -1201,5 +1208,4 @@ physics layer until then, so they never collide while alive.
 - Only crates leave coins, each worth 1 gold; enemies drop nothing. A coin in a cell with no ground
   anywhere below it, or under a block that cannot break, floats there out of reach until a win
   sweeps it up. A collapsed stack's coins can sit half buried in its boards. Combat has no gold
-  readout: the "+N Gold" calls are all it shows. `Coin1.vox` is gold with a pale centre and no dark
-  edge, so it shows least against the move range's pale yellow.
+  readout: the "+N Gold" calls are all it shows.

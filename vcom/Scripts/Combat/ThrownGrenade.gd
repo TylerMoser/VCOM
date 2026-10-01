@@ -26,6 +26,9 @@ const TUMBLE := 2.5
 ## hand on to the arc.
 const EASE_IN := 0.3
 
+## Tumbles the model, which hangs under it with its middle on the spot, so it
+## turns about its own middle rather than about its grip (a stick grenade's is
+## down its handle).
 var _model: Node3D
 
 
@@ -46,12 +49,35 @@ func _init() -> void:
 func show_model(scene: PackedScene) -> void:
 	if scene == null:
 		return
-	_model = scene.instantiate() as Node3D
-	if _model == null:
+	var prop := scene.instantiate() as Node3D
+	if prop == null:
 		return
+	_model = Node3D.new()
 	_model.scale = Vector3.ONE * MODEL_SCALE
+	_model.add_child(prop)
+	prop.position = -_bounds(prop).get_center()
 	add_child(_model)
 	mesh = null
+
+
+## The box round every mesh in [param prop], a scene just instantiated, in its
+## own space.
+static func _bounds(prop: Node3D) -> AABB:
+	var box := AABB()
+	var first := true
+	for node in prop.find_children("*", "MeshInstance3D"):
+		var instance := node as MeshInstance3D
+		if instance.mesh == null:
+			continue
+		var in_prop := instance.transform
+		var parent := instance.get_parent() as Node3D
+		while parent != null and parent != prop:
+			in_prop = parent.transform * in_prop
+			parent = parent.get_parent() as Node3D
+		var part := in_prop * instance.mesh.get_aabb()
+		box = part if first else box.merge(part)
+		first = false
+	return box
 
 
 ## Flies the grenade along [param throw]'s arc and frees it as it arrives.

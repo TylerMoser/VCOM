@@ -39,14 +39,16 @@ const LAYOUTS := {
 ## Where gear is carried when it is not in hand, in rig voxels in the space of
 ## the bone each hangs from: the gun slung across the back, muzzle up over the
 ## left shoulder; the sword across it the other way, its hilt over the right
-## shoulder for the right hand to draw; grenades round the back of the belt.
+## shoulder for the right hand to draw; grenades tucked into the back of the
+## belt by their handles, heads up, the outer two leaning out 25 degrees so
+## the three heads stand apart rather than in one block.
 ## Each is [code][bone, origin, forward (+z of the prop), its left (+x)][/code].
 const SLOTS := {
 	&"Back/RifleSlot": [&"Chest", Vector3(-1.25, -0.6, -2.6), Vector3(0.5, 0.85, 0.0), Vector3(0, 0, 1)],
 	&"Back/SwordSlot": [&"Chest", Vector3(-2.5, 4.0, -2.2), Vector3(0.45, -0.9, 0.0), Vector3(0, 0, 1)],
-	&"Belt/Grenade1": [&"Hips", Vector3(2.6, 1.5, -2.2), Vector3(0, 0, 1), Vector3(1, 0, 0)],
-	&"Belt/Grenade2": [&"Hips", Vector3(-2.6, 1.5, -2.2), Vector3(0, 0, 1), Vector3(1, 0, 0)],
-	&"Belt/Grenade3": [&"Hips", Vector3(0.0, 1.5, -2.8), Vector3(0, 0, 1), Vector3(1, 0, 0)],
+	&"Belt/Grenade1": [&"Hips", Vector3(2.2, 1.5, -2.1), Vector3(0, 0, 1), Vector3(0.906, -0.423, 0)],
+	&"Belt/Grenade2": [&"Hips", Vector3(-2.2, 1.5, -2.1), Vector3(0, 0, 1), Vector3(0.906, 0.423, 0)],
+	&"Belt/Grenade3": [&"Hips", Vector3(0.0, 1.5, -2.7), Vector3(0, 0, 1), Vector3(1, 0, 0)],
 }
 ## Grenades on the belt are shown smaller than one in hand, so three fit.
 const BELT_SCALE := 0.8

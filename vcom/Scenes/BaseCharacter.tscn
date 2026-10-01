@@ -482,10 +482,10 @@ nodes/react/node = SubResource("AnimationNodeOneShot_4v3wy")
 nodes/react/position = Vector2(1900, 200)
 node_connections = [&"output", 0, &"react", &"stance", 0, &"stand_rifle", &"stance", 1, &"crouch_rifle", &"stance", 2, &"wall_rifle", &"stance", 3, &"ready_throw_rifle", &"stance", 4, &"cheer_rifle", &"stance", 5, &"stand_melee", &"stance", 6, &"crouch_melee", &"stance", 7, &"wall_melee", &"stance", 8, &"ready_throw_melee", &"stance", 9, &"cheer_melee", &"stance", 10, &"stand_unarmed", &"stance", 11, &"crouch_unarmed", &"stance", 12, &"wall_unarmed", &"stance", 13, &"ready_throw_unarmed", &"stance", 14, &"cheer_unarmed", &"stance", 15, &"aim_rifle", &"stance", 16, &"overwatch_rifle", &"stance", 17, &"overwatch_crouch_rifle", &"stance", 18, &"ready_melee", &"run", 0, &"run_rifle", &"run", 1, &"run_melee", &"run", 2, &"run_unarmed", &"run_scale", 0, &"run", &"move", 0, &"stance", &"move", 1, &"run_scale", &"hop", 0, &"move", &"hop", 1, &"hop_pose", &"air", 0, &"hop", &"air", 1, &"fall_pose", &"act_pick", 0, &"strike_sword_clip", &"act_pick", 1, &"throw_rifle_clip", &"act_pick", 2, &"throw_melee_clip", &"act_pick", 3, &"throw_unarmed_clip", &"act_pick", 4, &"draw_sword_clip", &"act_pick", 5, &"stow_sword_clip", &"act", 0, &"air", &"act", 1, &"act_pick", &"react_pick", 0, &"fire_rifle_clip", &"react_pick", 1, &"hit_front_clip", &"react_pick", 2, &"hit_back_clip", &"react_pick", 3, &"dodge_clip", &"react_pick", 4, &"land_clip", &"react", 0, &"act", &"react", 1, &"react_pick"]
 
-[node name="BaseCharacter" type="Node3D" unique_id=1179710969]
+[node name="BaseCharacter" type="Node3D" unique_id=1592065051]
 script = ExtResource("1_62gcc")
 
-[node name="Skeleton3D" type="Skeleton3D" parent="." unique_id=1759688622]
+[node name="Skeleton3D" type="Skeleton3D" parent="." unique_id=211512690]
 bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -613,12 +613,12 @@ bones/17/position = Vector3(0, -0.252, 0)
 bones/17/rotation = Quaternion(0, 0, 0, 1)
 bones/17/scale = Vector3(1, 1, 1)
 
-[node name="Body" type="MeshInstance3D" parent="Skeleton3D" unique_id=521480936]
+[node name="Body" type="MeshInstance3D" parent="Skeleton3D" unique_id=668354884]
 mesh = ExtResource("2_j63q7")
 skin = SubResource("Skin_fwb0t")
 skeleton = NodePath("..")
 
-[node name="Aim" type="SkeletonModifier3D" parent="Skeleton3D" unique_id=1836755127]
+[node name="Aim" type="SkeletonModifier3D" parent="Skeleton3D" unique_id=1086071578]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -637,20 +637,20 @@ active = true
 influence = 1.0
 script = ExtResource("3_514d0")
 
-[node name="Ragdoll" type="PhysicalBoneSimulator3D" parent="Skeleton3D" unique_id=1635005989]
+[node name="Ragdoll" type="PhysicalBoneSimulator3D" parent="Skeleton3D" unique_id=1311093013]
 active = false
 
-[node name="Physical Bone Hips" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=80114588]
+[node name="Physical Bone Hips" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1177337468]
 collision_layer = 0
 collision_mask = 0
 body_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.094500005, 0)
 mass = 6.4
 bone_name = "Hips"
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Hips" unique_id=458767302]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Hips" unique_id=376422373]
 shape = SubResource("BoxShape3D_7s2rf")
 
-[node name="Physical Bone Spine" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1449602657]
+[node name="Physical Bone Spine" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=859234078]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -665,10 +665,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Spine" unique_id=1716564603]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Spine" unique_id=2009180016]
 shape = SubResource("BoxShape3D_vb0rh")
 
-[node name="Physical Bone Chest" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1081098814]
+[node name="Physical Bone Chest" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=109232846]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -683,10 +683,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Chest" unique_id=836116746]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Chest" unique_id=1937066491]
 shape = SubResource("BoxShape3D_br8ax")
 
-[node name="Physical Bone Neck" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1132566571]
+[node name="Physical Bone Neck" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1874788887]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -701,10 +701,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Neck" unique_id=1865260977]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone Neck" unique_id=1026111726]
 shape = SubResource("BoxShape3D_3qees")
 
-[node name="Physical Bone LeftUpperArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=2000673178]
+[node name="Physical Bone LeftUpperArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=521033053]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -718,10 +718,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftUpperArm" unique_id=191905997]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftUpperArm" unique_id=503431482]
 shape = SubResource("BoxShape3D_j50bv")
 
-[node name="Physical Bone LeftLowerArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1848055775]
+[node name="Physical Bone LeftLowerArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=63647702]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -735,10 +735,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftLowerArm" unique_id=2119146710]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftLowerArm" unique_id=263057225]
 shape = SubResource("BoxShape3D_sf4go")
 
-[node name="Physical Bone RightUpperArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=872334338]
+[node name="Physical Bone RightUpperArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=558107045]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -753,10 +753,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightUpperArm" unique_id=1957746218]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightUpperArm" unique_id=640343194]
 shape = SubResource("BoxShape3D_an7wt")
 
-[node name="Physical Bone RightLowerArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=220710732]
+[node name="Physical Bone RightLowerArm" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=83270394]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -771,10 +771,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightLowerArm" unique_id=1477971988]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightLowerArm" unique_id=233090757]
 shape = SubResource("BoxShape3D_yfgtn")
 
-[node name="Physical Bone LeftUpperLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1975977970]
+[node name="Physical Bone LeftUpperLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=1589617267]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -789,10 +789,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftUpperLeg" unique_id=1621467360]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftUpperLeg" unique_id=1088953534]
 shape = SubResource("BoxShape3D_pv4gd")
 
-[node name="Physical Bone LeftLowerLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=328087992]
+[node name="Physical Bone LeftLowerLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=834979830]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -807,10 +807,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftLowerLeg" unique_id=728438519]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone LeftLowerLeg" unique_id=21776457]
 shape = SubResource("BoxShape3D_q6xg0")
 
-[node name="Physical Bone RightUpperLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=2036936890]
+[node name="Physical Bone RightUpperLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=2131532844]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -825,10 +825,10 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightUpperLeg" unique_id=33988866]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightUpperLeg" unique_id=372817392]
 shape = SubResource("BoxShape3D_bjk2b")
 
-[node name="Physical Bone RightLowerLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=529820449]
+[node name="Physical Bone RightLowerLeg" type="PhysicalBone3D" parent="Skeleton3D/Ragdoll" unique_id=193345647]
 collision_layer = 0
 collision_mask = 0
 joint_type = 2
@@ -843,49 +843,49 @@ joint_constraints/bias = 0.3
 joint_constraints/softness = 0.8
 joint_constraints/relaxation = 1.0
 
-[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightLowerLeg" unique_id=1394592352]
+[node name="Box" type="CollisionShape3D" parent="Skeleton3D/Ragdoll/Physical Bone RightLowerLeg" unique_id=199468441]
 shape = SubResource("BoxShape3D_qofvi")
 
-[node name="RightHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1996783337]
+[node name="RightHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=116000638]
 bone_name = "RightHand"
 
-[node name="RifleGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=206483194]
+[node name="RifleGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=972907197]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.062999964, 0.031499982, 0)
 
-[node name="SwordGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=478875344]
+[node name="SwordGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=790563515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062999964, 0.031499982, 0)
 
-[node name="LeftHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1324646034]
+[node name="LeftHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1996078512]
 bone_name = "LeftHand"
 
-[node name="GrenadeGrip" type="Node3D" parent="Skeleton3D/LeftHand" unique_id=1580876396]
+[node name="GrenadeGrip" type="Node3D" parent="Skeleton3D/LeftHand" unique_id=226552368]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06299999, 0.031499982, 0)
 
-[node name="Back" type="BoneAttachment3D" parent="Skeleton3D" unique_id=39851389]
+[node name="Back" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1587793825]
 bone_name = "Chest"
 
-[node name="RifleSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=407327211]
+[node name="RifleSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=831995082]
 transform = Transform3D(0, 0.86193424, 0.5070201, 0, -0.5070201, 0.86193424, 1, 0, 0, -0.07875, -0.037800003, -0.1638)
 
-[node name="SwordSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=1897520893]
+[node name="SwordSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=794607756]
 transform = Transform3D(0, -0.89442724, 0.4472136, 0, -0.44721362, -0.8944272, 1, 0, 0, -0.1575, 0.252, -0.1386)
 
-[node name="Belt" type="BoneAttachment3D" parent="Skeleton3D" unique_id=2147323886]
+[node name="Belt" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1414600961]
 bone_name = "Hips"
 
-[node name="Grenade1" type="Node3D" parent="Skeleton3D/Belt" unique_id=1816219857]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.1638, 0.094500005, -0.1386)
+[node name="Grenade1" type="Node3D" parent="Skeleton3D/Belt" unique_id=947819312]
+transform = Transform3D(0.72488517, 0.3384398, 0, -0.3384398, 0.72488517, 0, 0, 0, 0.8, 0.1386, 0.094500005, -0.13229999)
 
-[node name="Grenade2" type="Node3D" parent="Skeleton3D/Belt" unique_id=122070946]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.1638, 0.094500005, -0.1386)
+[node name="Grenade2" type="Node3D" parent="Skeleton3D/Belt" unique_id=955040515]
+transform = Transform3D(0.72488517, -0.3384398, 0, 0.3384398, 0.72488517, 0, 0, 0, 0.8, -0.1386, 0.094500005, -0.13229999)
 
-[node name="Grenade3" type="Node3D" parent="Skeleton3D/Belt" unique_id=1125421058]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.094500005, -0.1764)
+[node name="Grenade3" type="Node3D" parent="Skeleton3D/Belt" unique_id=523426167]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.094500005, -0.1701)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1532489683]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=822730449]
 libraries/ = ExtResource("4_apbvc")
 
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1158799998]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=975673938]
 tree_root = SubResource("AnimationNodeBlendTree_ie8h3")
 anim_player = NodePath("../AnimationPlayer")
 parameters/stance/current_state = ""

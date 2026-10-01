@@ -24,9 +24,9 @@ class_name Coins
 extends Node3D
 
 ## How far apart, in cells, the coins stacked on one tile float: more than a
-## coin's height (half a cell, as it is drawn) and its bob up and down, so
-## they never touch.
-const STACK_STEP := 0.65
+## coin's height (0.567, nine voxels) and its bob up and down, so they never
+## touch.
+const STACK_STEP := 0.7
 
 ## Gold a coin is worth.
 @export var value := 1

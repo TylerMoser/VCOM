@@ -465,13 +465,17 @@ grip goes and how it is turned. Origins below are in voxels in the bone's own sp
 | `LeftHand/GrenadeGrip` | LeftHand | (1, 0.5, 0) | (0, 0, 1) | (0, 1, 0) | 1 | a grenade being thrown |
 | `Back/RifleSlot` | Chest | (-1.25, -0.6, -2.6) | (0.51, 0.86, 0): up to the left shoulder | (0.86, -0.51, 0) | 1 | the gun, slung while the sword is out |
 | `Back/SwordSlot` | Chest | (-2.5, 4.0, -2.2) | (0.45, -0.89, 0): hilt over the right shoulder, blade down to the left | (-0.89, -0.45, 0) | 1 | the sword, slung while the gun is out |
-| `Belt/Grenade1` | Hips | (2.6, 1.5, -2.2) | (0, 0, 1) | (0, 1, 0) | 0.8 | grenades round the back of the belt |
-| `Belt/Grenade2` | Hips | (-2.6, 1.5, -2.2) | (0, 0, 1) | (0, 1, 0) | 0.8 | |
-| `Belt/Grenade3` | Hips | (0, 1.5, -2.8) | (0, 0, 1) | (0, 1, 0) | 0.8 | |
+| `Belt/Grenade1` | Hips | (2.2, 1.5, -2.1) | (0, 0, 1) | (0.42, 0.91, 0): leaning 25° out to the left | 0.8 | stick grenades tucked into the back of the belt by their handles, heads up |
+| `Belt/Grenade2` | Hips | (-2.2, 1.5, -2.1) | (0, 0, 1) | (-0.42, 0.91, 0): leaning 25° out to the right | 0.8 | |
+| `Belt/Grenade3` | Hips | (0, 1.5, -2.7) | (0, 0, 1) | (0, 1, 0) | 0.8 | |
 
 The three grip transforms come from `HumanoidAnimations` (`rifle_grip`, `sword_grip`, `grenade_grip`),
 so the sockets and the poses that put hands on props always agree. The back and belt slots are
-`BakeCharacter.SLOTS`; the belt's 0.8 is `BakeCharacter.BELT_SCALE`, so three grenades fit.
+`BakeCharacter.SLOTS`; the belt's 0.8 is `BakeCharacter.BELT_SCALE`, so three grenades fit. Side by
+side and upright, the stick grenades' heads made one solid band across the back with the handles
+hanging under it like a kilt; fanned out, the three heads stand apart. The grip socket holds a stick
+grenade mid-handle with its head out of the back of the hand, which reads as gripping the handle
+through the whole throw.
 
 ### The unit's bodies
 
@@ -605,8 +609,8 @@ Set in `HumanoidAnimations._init()` from the rig, in voxels in the hand's own sp
   thumb side (+z), its edges up and down the hand.
 - **`grenade_grip`**: `Transform3D(identity, left palm)`.
 - **`rifle_foregrip`**: read from `Scenes/Props/Rifle.tscn`'s `Foregrip` marker (`read_rifle()`),
-  (0.5, -0.5, 3) in the rifle's own voxels: on the magazine. Move the marker, rebake, and the left
-  hand follows.
+  (0, 1, 3) in the rifle's own voxels: under the receiver, just behind the fore-end. Move the
+  marker, rebake, and the left hand follows.
 
 ### 6.5 Time: sine waves and keyframe tables
 
@@ -674,13 +678,13 @@ Change a moment in **both** places, the key table and the `set_meta` line in `ma
 
 ### 6.9 What the proportions forced
 
-These chibi arms reach only 8 voxels from shoulder to palm; the rifle is 15 long. Holding it in both
+These chibi arms reach only 8 voxels from shoulder to palm; the rifle is 18 long. Holding it in both
 hands therefore only works with:
 
 - **The aim** centred **under the chin**: grip at rig (0, 17, 4.3), the stock tucked into the chest
-  (it overlaps the chest by about a voxel and a half), the muzzle 19.5 voxels (1.23 cells) up.
-- **The off hand on the magazine** (the `Foregrip` marker at the rifle's z = 3), not out on the
-  handguard, which neither hand could reach in an aim.
+  (it overlaps the chest by about a voxel), the muzzle 19.5 voxels (1.23 cells) up.
+- **The off hand under the receiver** (the `Foregrip` marker at the rifle's (0, 1, 3)), not out on
+  the fore-end, which neither hand could reach in an aim.
 - **The carried rifle** angled muzzle down and **to the left**, `(0.55, -0.35, 0.75)`, which brings
   its front end toward the left shoulder.
 
@@ -1042,8 +1046,10 @@ Cover shot away stands a figure back up within 0.2 s. With no foe left, a figure
   `Muzzle`, for `SECONDS` (0.07). `LENGTH` 0.22, `WIDTH` 0.1, `LIGHT_ENERGY` 3, `LIGHT_RANGE` 2.5.
   Each shot's is turned a random quarter about the barrel. Frees itself.
 - **`Scripts/Combat/ThrownGrenade.gd`**: flies the grenade's own model (`show_model(scene)`,
-  `MODEL_SCALE` 1.4, tumbling at `TUMBLE` 2.5 turns a second) or the old ball. It leaves from the
-  hand and eases on to the planned arc over the first `EASE_IN` (30%) of the flight.
+  `MODEL_SCALE` 1.4, tumbling at `TUMBLE` 2.5 turns a second about the middle of its meshes, not
+  its grip, so a stick grenade turns end over end on the arc rather than swinging round its
+  handle) or the old ball. It leaves from the hand and eases on to the planned arc over the first
+  `EASE_IN` (30%) of the flight.
 - **`ShotOverlay`** draws a shot's tracers from `Ballistics.Outcome.muzzle` when the shooter's figure
   held a gun, else from the eye. Only the drawing changed: every path is still flown from the eye.
 
@@ -1218,7 +1224,8 @@ bone's own space (section 6.3).
   left-handed thrower's stance.
 - **Left hand:** the grenade up by the shoulder, chest (3.2, 1.5, 3.4).
 - **Right hand (`_carry` with `left_free`):**
-  - rifle one-handed, hanging by the hip muzzle down (hip (-4.6, 2.5, 2), direction (-0.1, -0.75, 0.65));
+  - rifle one-handed, hanging by the hip muzzle down (hip (-4.6, 2.5, 2), direction (-0.1, -0.5, 0.86),
+    30° below level: steeper, the 18-voxel rifle's muzzle went into the floor);
   - sword low at the side;
   - unarmed: hanging.
 
@@ -1396,14 +1403,19 @@ bone's own space (section 6.3).
 
 - **Item space** is Godot's axes in voxels: the grip at the **origin**, the item standing along
   **+z** (barrel, blade), its top toward **+y**, +x to its left.
-- **The grip goes at the middle of an even-sized model box.** The importer puts a mesh's origin at
-  `floor(size / 2)` of the model box, so with even sizes the box's centre is the mesh's origin and
-  the grip lands exactly at the prop's origin, with no offset to keep in step. It is also
-  MagicaVoxel's pivot, so the grip stays put if the prop is edited there, as long as the box size
-  does not change.
-- **Mapping item space to MagicaVoxel:** an item voxel `(X, Y, Z)` (its lowest corner) is the
-  MagicaVoxel voxel `(X + hx, -Z - 1 + hy, Y + hz)` in a box of `(2hx, 2hy, 2hz)`. So MagicaVoxel's -y
-  is the item's forward and its z is up.
+- **The prop scene's `Mesh` puts the grip on the scene's origin.** The importer puts a mesh's origin
+  at `floor(size / 2)` of the model box and then adds where the model sits in MagicaVoxel's world
+  (its `_t`: `0 21 2` and the like for a model left where MagicaVoxel puts a new one, standing on
+  the ground). So a model is drawn however is easiest and the `Mesh` node's transform cancels that
+  offset, and turns a model drawn along another axis, rather than the `.vox` being made to fit.
+  Editing the voxels in place changes nothing; moving the model in MagicaVoxel's world or resizing
+  its box moves the mesh, and the `Mesh` must be placed again.
+- **Placing a `Mesh`:** load the imported mesh and print `get_aabb()` divided by 0.063, which gives
+  its voxels in Godot's axes: MagicaVoxel x is Godot x, MagicaVoxel z is Godot y, MagicaVoxel y is
+  Godot -z. Find the grip there, and give the `Mesh` the basis `turn`, which takes the model's
+  barrel or blade to +z and its top to +y, and the origin `-(turn * grip) * 0.063` (have Godot
+  print the `Transform3D`, as `CLAUDE.md`'s Gotchas say). A model drawn with its forward along
+  MagicaVoxel's -y and its top up its z needs no turn.
 - **Import at Scale 0.063**, like the figure. A new prop's `.vox.import` needs the params:
 
   ```
@@ -1422,26 +1434,34 @@ bone's own space (section 6.3).
 
 ### The three props
 
-They were generated by a throwaway Python script (not in the repo) that wrote the `.vox` files from
-box lists. Edit them in MagicaVoxel from now on.
+Drawn in MagicaVoxel (`Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox`), replacing the first
+placeholders, which a throwaway script had written from box lists. Each was left where MagicaVoxel
+put it, so each imports with an offset its scene's `Mesh` cancels. In item space, as the scenes
+place them:
 
 | Prop | `.vox` box (MagicaVoxel x, y, z) | Voxels | Item-space design |
 |---|---|---|---|
-| `Rifle.vox` | 2 × 20 × 8 | 80 | two voxels wide (x -1..1); stock z -5..-3, y 0..3 (heel rounded off); receiver z -3..4, y 1..3; pistol grip z -1..1, y -1..1 (the origin at its middle); magazine z 2..4, y -2..1; handguard z 4..7, y 1..3; barrel z 7..10, y 2..3; sight z 0..2, y 3..4. Gunmetal, dark steel, brown furniture, black barrel, magazine and sight. |
-| `Shortsword.vox` | 2 × 20 × 4 | 27 | one voxel thick (x -1..0); grip z -2..1, y -1..1; pommel z -3..-2; crossguard z 1..2, y -2..2 (brass); blade z 2..9, steel at y -1..0 and a lighter edge at y 0..1; point z 9..10. |
-| `FragGrenade.vox` | 4 × 8 × 6 | 60 | a 4-cubed body with its corners off (olive), fuse and lever on top (grey), a pin ring (brass). |
+| `Rifle2.vox` | 18 × 1 × 5, barrel along +x | 33 | one voxel thick (x -0.5..0.5); a black grip block under the receiver, z -0.5..0.5 at y -1..1 and z 0.5..1.5 at y 0..1 (the origin at its middle); wooden stock z -4.5..-0.5, dropping to y -2 at the butt; dark receiver bar z -1.5..4.5, y 1..2, under a black top z -2.5..2.5, y 2..3; wooden fore-end z 3.5..12.5, y 2..3; black muzzle cap z 12.5..13.5. 18 long, against the placeholder's 15. |
+| `Shortsword2.vox` | 1 × 14 × 4, blade along -y | 30 | one voxel thick (x -0.5..0.5); pommel z -3..-2, y -1..1, and crossguard z 1..2, y -2..2 (dark teal); wooden grip z -2..1, y -1..1, the origin a voxel short of the guard as on the placeholder; pale blade z 2..11, y -1..1. |
+| `StickGrenade.vox` | 4 × 4 × 8, standing up its z | 56 | standing up +y: cap y -2.5..-1.5 and a 4 × 4 head with its corners off y 2.5..5.5 (blue-grey), wooden handle 2 × 2 y -1.5..2.5; the origin on the handle, a voxel and a half above its foot. |
 
 ### Prop scenes
 
-`vcom/Scenes/Props/<Item>.tscn` (made once by a throwaway script; safe to edit in the editor):
+`vcom/Scenes/Props/<Item>.tscn`, named after the items rather than the models (safe to edit in the
+editor):
 
 | Scene | Children | Markers (item voxels) |
 |---|---|---|
-| `Rifle.tscn` | `Mesh` (`Items/Rifle.vox`), `Muzzle`, `Foregrip` | `Muzzle` (0, 2.5, 10): the barrel's end, where it flashes and tracers start; `Foregrip` (0.5, -0.5, 3): on the magazine, where the left hand holds it (the bake reads this) |
-| `Shortsword.tscn` | `Mesh`, `Tip` | `Tip` (-0.5, 0, 10) (not used yet) |
-| `FragGrenade.tscn` | `Mesh` | — |
+| `Rifle.tscn` | `Mesh` (`Items/Rifle2.vox`, turned -90° about y, so its +x is +z, and moved (-21.5, -2, 4.5)), `Muzzle`, `Foregrip` | `Muzzle` (0, 2.5, 13.5): the barrel's end, where it flashes and tracers start; `Foregrip` (0, 1, 3): on the underside of the receiver bar, just behind the fore-end, where the left palm holds it (the bake reads this) |
+| `Shortsword.tscn` | `Mesh` (`Items/Shortsword2.vox`, moved (-0.5, -2, 25)), `Tip` | `Tip` (0, 0, 11) (not used yet) |
+| `FragGrenade.tscn` | `Mesh` (`Items/StickGrenade.vox`, moved (0, -2.5, 21)) | — |
 
-Markers are in Godot units in the scene (voxels × 0.063). The root `Node3D` is the grip.
+Markers and the `Mesh` offsets are in Godot units in the scene (voxels × 0.063). The root `Node3D`
+is the grip.
+
+The foregrip is as far forward as the arms reach. On the underside of the bar the left palm holds
+it from below and comes within 0.15 voxels of it in every two-handed clip; at (0, 1.5, 3.5), on the
+bar under the fore-end's start, it stopped up to 0.65 short in the aim and on overwatch.
 
 ### Linking an item to its prop
 
@@ -1583,9 +1603,10 @@ Every significant choice, why it was made, and what it costs.
     - *Pros:* shows both weapons; the draw is clear feedback that Strike is lined up.
     - *Cons:* the gun teleports on to the back at the swap; a strike right after selecting waits for
       the draw (0.45 s).
-26. **Grenades round the back of the belt at 0.8 scale.**
-    - *Pros:* clear of the legs and of arms hanging at the sides; three fit.
-    - *Cons:* small, and hidden from the front.
+26. **Grenades tucked into the back of the belt at 0.8 scale**, the outer two fanned out 25°.
+    - *Pros:* clear of the legs and of arms hanging at the sides; three fit, and each head shows.
+    - *Cons:* small, and mostly hidden from the front; the slung sword's blade and the slung
+      rifle's stock cross them.
 27. **Props are scenes with markers** (`Item.model: PackedScene`) rather than bare meshes.
     - *Pros:* the muzzle and foregrip are data, and the animations follow the foregrip.
     - *Cons:* each prop has a scene to keep with its `.vox`.
@@ -1825,19 +1846,21 @@ Example: `pistol`, held one-handed.
 
 ### 13.7 Add a prop or an item model
 
-1. **Model it in MagicaVoxel** in item space (section 11): +z forward is MagicaVoxel's -y, up is its
-   z. Put the grip at the middle of an **even-sized** box. Save it in `MagicaVoxel/` and copy it to
-   `vcom/Items/`.
+1. **Model it in MagicaVoxel**, any way round and anywhere in its world: its scene lines it up
+   (step 3). Save it in `MagicaVoxel/` and copy it to `vcom/Items/`.
 2. **Import at 0.063:** create `vcom/Items/<Name>.vox.import` with the params in section 11, then run
    `--headless --path . --import` (or let the open editor import it, then fix the scale in the Import
    dock).
 3. **Make its scene** `vcom/Scenes/Props/<Name>.tscn`: a `Node3D` root named after it (the grip), a
    `MeshInstance3D` `Mesh` with the `.vox`, and markers: `Muzzle` for a gun (where it fires from),
-   `Foregrip` for a two-handed gun (where the off hand holds it). Make it in the editor, or by script
-   (an untransformed `MeshInstance3D` needs no offset).
+   `Foregrip` for a two-handed gun (where the off hand holds it). Place the `Mesh` so the grip is on
+   the root's origin, its forward +z and its top +y (section 11, "Placing a `Mesh`"), and check it
+   by rendering the scene side-on with a mark on the origin and on each marker.
+   Then preview every clip that holds it, from the side and three-quarters, and look for it going
+   into the floor or the body: a longer model reaches further than the poses were made for.
 4. **Point the item at it:** `model = ExtResource(...)` in its `.tres`, or set **Model** in the
    inspector.
-5. **Same kind, different shape** (another rifle): done; the hands use the kind's grip. If its
+5. **Same kind, different shape** (another rifle): the hands use the kind's grip. If its
    foregrip differs a lot from the rifle's, note that the poses read the foregrip from
    `Scenes/Props/Rifle.tscn` only (`BakeCharacter.RIFLE_SCENE`). Per-gun foregrips would need the
    left hand solved at run time, or one foregrip position shared by every rifle.
@@ -2070,8 +2093,11 @@ that breaks something shows up as a different result or an error.
 - **Feet slide** when a figure turns on the spot (600° a second, no stepping).
 - **Hit flinches and the recoil are subtle** at the default zoom.
 - **Hands drift off the rifle** during the 0.22 s base-pose cross-fades, which blend joint rotations.
-- **The left palm can stop up to a voxel short** of the foregrip where a pose is out of reach.
-- **The stock overlaps the chest** in the aim (about a voxel and a half).
+- **The left palm can stop up to a voxel short** of the foregrip where a pose is out of reach (0.15
+  at most in the rifle's clips now).
+- **The stock overlaps the chest** in the aim (about a voxel).
+- **The slung rifle's muzzle stands above the left shoulder**, level with the top of the head: the
+  rifle is 18 voxels long, and slung lower its stock would sink into the grenades on the belt.
 - **Joints open or overlap visibly when bent hard**, as rigid parts do: elbows, knees and shoulders
   with the arms raised.
 - **The aim modifier bends only the spine and chest.** Steep aims look stiff, and the pitch is
@@ -2178,8 +2204,8 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 | `vcom/Scripts/Combat/MuzzleFlash.gd` | a gun's flash (`class_name MuzzleFlash`) |
 | `vcom/Characters/BaseCharacterBody.res` | **generated**: the skinned mesh |
 | `vcom/Characters/BaseCharacterAnimations.res` | **generated**: the animation library |
-| `vcom/Items/Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox` (+ `.import`) | the props, imported at 0.063 |
-| `MagicaVoxel/Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox` | the props' source copies |
+| `vcom/Items/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` (+ `.import`) | the props, imported at 0.063 (they replaced the placeholders `Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox`) |
+| `MagicaVoxel/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` | the props' source copies |
 | `vcom/Scenes/Props/Rifle.tscn`, `Shortsword.tscn`, `FragGrenade.tscn` | the prop scenes and markers |
 | `ANIMATIONS.md` | this file |
 
@@ -2201,7 +2227,7 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 | `vcom/Scripts/Combat/ShotPlayback.gd` | aims before stepping out; steps keep their facing; stands easy after |
 | `vcom/Scripts/Combat/Ballistics.gd` | `Outcome.muzzle` |
 | `vcom/Scripts/UI/ShotOverlay.gd` | tracers start at the muzzle |
-| `vcom/Scripts/Combat/ThrownGrenade.gd` | `show_model()`, `fly(throw, release)` easing from the hand, tumbling |
+| `vcom/Scripts/Combat/ThrownGrenade.gd` | `show_model()`, `fly(throw, release)` easing from the hand, tumbling about the model's middle |
 | `vcom/Scripts/TurnManager.gd` | the winners celebrate |
 | `vcom/Scripts/Terrain/TerrainDestruction.gd` | blasts throw fallen bodies (`CharacterModel.blast()`); `_blast_box()` |
 | `CLAUDE.md`, `README.md` | documentation |

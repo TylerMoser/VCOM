@@ -1,8 +1,9 @@
 [gd_scene format=3]
 
-[ext_resource type="ArrayMesh" path="res://Items/FragGrenade.vox" id="1_hm7ch"]
+[ext_resource type="ArrayMesh" path="res://Items/StickGrenade.vox" id="1_hm7ch"]
 
 [node name="FragGrenade" type="Node3D" unique_id=1155960600]
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=579006375]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1575, 1.323)
 mesh = ExtResource("1_hm7ch")

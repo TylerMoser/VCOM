@@ -537,7 +537,7 @@ func _carry(pose: Pose, stance: StringName, sway: float, left_free := false) -> 
 			if left_free:
 				# One hand, hanging at the side, muzzle down.
 				var hip := pose.at(&"Hips")
-				var rifle := hip * _item(Vector3(-4.6, 2.5 + sway * 0.2, 2.0), Vector3(-0.1, -0.75, 0.65))
+				var rifle := hip * _item(Vector3(-4.6, 2.5 + sway * 0.2, 2.0), Vector3(-0.1, -0.5, 0.86))
 				_hold(pose, &"Right", rifle, rifle_grip, Vector3(-0.6, 0, -1))
 			else:
 				_rifle(pose, _low_ready().rotated_local(Vector3.RIGHT, deg_to_rad(sway * 2.0)))

@@ -10,10 +10,9 @@
 class_name Coin
 extends Node3D
 
-const MODEL: Mesh = preload("res://Items/Coin1.vox")
-## How much bigger than drawn the coin floats, so it can be picked out at any
-## zoom: half a cell across rather than a quarter.
-const MODEL_SCALE := 2.0
+## Drawn nine voxels across, a little over half a cell, so it can be picked out
+## at any zoom.
+const MODEL: Mesh = preload("res://Items/Coin2.vox")
 ## Seconds a whole turn takes.
 const SPIN_SECONDS := 1.5
 ## How far it rises and sinks from where it rests, in cells, and the seconds
@@ -47,8 +46,7 @@ func _init() -> void:
 	add_child(_spinner)
 	var model := MeshInstance3D.new()
 	model.mesh = MODEL
-	model.scale = Vector3.ONE * MODEL_SCALE
-	model.position = -MODEL.get_aabb().get_center() * MODEL_SCALE
+	model.position = -MODEL.get_aabb().get_center()
 	_spinner.add_child(model)
 	_age = randf() * BOB_SECONDS
 

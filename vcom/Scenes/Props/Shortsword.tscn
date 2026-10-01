@@ -1,12 +1,13 @@
 [gd_scene format=3]
 
-[ext_resource type="ArrayMesh" path="res://Items/Shortsword.vox" id="1_mrqh2"]
+[ext_resource type="ArrayMesh" path="res://Items/Shortsword2.vox" id="1_mrqh2"]
 
 [node name="Shortsword" type="Node3D" unique_id=940312948]
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=2142997298]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0315, -0.126, 1.575)
 mesh = ExtResource("1_mrqh2")
 
 [node name="Tip" type="Marker3D" parent="." unique_id=1864504414]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0315, 0, 0.63)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.693)
 gizmo_extents = 0.05
