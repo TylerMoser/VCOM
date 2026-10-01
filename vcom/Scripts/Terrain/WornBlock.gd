@@ -3,17 +3,18 @@
 ## place of the GridMap's drawing of the whole block.
 ##
 ## It stands where the cell does, unturned voxels and all turned with it, so
-## its voxels are a [VoxelShape]'s array in its own frame. It is only for show
-## and for debris to land on: to the rules the cell holds the block's stand-in,
-## as solid as the block whole (see [VoxelTerrain]).
+## its voxels are laid out as its kind's [VoxelShape], in its own frame. It is
+## only for show and for debris to land on: to the rules the cell holds the
+## block's stand-in, as solid as the block whole (see [VoxelTerrain]).
 class_name WornBlock
 extends Node3D
 
-## The kind of block it is, and what is left of it: the kind's array, less
-## what has been broken off, and its rows ([method VoxelShape.rows_of]).
+## The kind of block it is, and what is left of it: a copy of the kind's
+## array, less what has been broken off, and its rows
+## ([method VoxelShape.rows_of]).
 var shape: VoxelShape
 var voxels: PackedByteArray
-var rows: PackedInt32Array
+var rows: PackedInt64Array
 ## How many voxels are left.
 var count := 0
 
@@ -24,6 +25,7 @@ var _collider: CollisionShape3D
 func _init(kind: VoxelShape) -> void:
 	name = &"WornBlock"
 	shape = kind
+	# Copies: the kind's arrays are every unworn block's of that kind.
 	voxels = kind.voxels.duplicate()
 	rows = kind.rows.duplicate()
 	count = kind.count
@@ -45,15 +47,15 @@ func remove(index: int) -> int:
 	var held := voxels[index]
 	if held != 0:
 		voxels[index] = 0
-		var at := VoxelShape.voxel_at(index)
-		rows[at.y + at.z * VoxelShape.SIZE] &= ~(1 << at.x)
+		var at := shape.voxel_at(index)
+		rows[at.y + at.z * shape.size.y] &= ~(1 << at.x)
 		count -= 1
 	return held
 
 
 ## Draws and collides as what is left now.
 func rebuild() -> void:
-	var arrays: Variant = VoxelMesher.surface(voxels, rows, shape.colors)
+	var arrays: Variant = VoxelMesher.surface(shape, voxels, rows)
 	if arrays == null:
 		_drawn.mesh = null
 		_collider.shape = null

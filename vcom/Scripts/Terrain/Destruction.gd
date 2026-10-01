@@ -49,3 +49,10 @@ class Motion:
 ## on. The base destruction leaves nothing behind.
 func shatter(_site: TerrainDestruction, _at: Transform3D, _hit: CombatGrid.RayHit, _motion: Motion = null) -> void:
 	pass
+
+
+## Gets ready, as a map with the block on it loads, whatever [method shatter]
+## would otherwise take a moment to work out the first time a block breaks,
+## so that one does not catch on it. The base destruction needs nothing.
+func prepare() -> void:
+	pass

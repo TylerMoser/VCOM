@@ -31,7 +31,7 @@ class_name VoxelDebris
 extends Node3D
 
 ## How big a voxel is, in cells.
-const VOXEL := 1.0 / VoxelShape.SIZE
+const VOXEL := VoxelShape.SCALE
 ## How many voxels each MultiMesh draws.
 const CHUNK := 4096
 ## The most bodies the lumps have at once, well inside the physics' limit on

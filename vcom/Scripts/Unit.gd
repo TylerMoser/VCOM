@@ -248,8 +248,9 @@ func damage_from(amount: int) -> int:
 ## called with the [Ballistics.Outcome] at that moment and awaited, so whoever
 ## is drawing the shot holds the landing until the round is seen to arrive.
 ## On landing the target takes the weapon's damage if the shot hit, less its
-## defense ([member Ballistics.Outcome.damage]), and any terrain a round struck
-## is reported to [param grid].
+## defense ([member Ballistics.Outcome.damage]), and each round's flight and
+## any terrain it struck are reported to [param grid]: the flight for the
+## loose debris it tears through on the way ([method CombatGrid.fly]).
 ##
 ## It is fired once the unit's figure has turned to the target and raised its
 ## gun, which it has already if the shot was lined up for it ([method aim_at]).
@@ -271,6 +272,9 @@ func shoot_at(
 		else:
 			shot.target.dodge()
 	for path in outcome.paths:
+		# Along the line its tracer was drawn, for the debris it tears through.
+		var muzzle: Vector3 = outcome.muzzle if outcome.muzzle != null else path.from
+		grid.fly(muzzle, path.to, weapon.environment_damage)
 		if path.struck != null:
 			grid.strike(path.struck, weapon.environment_damage)
 	return outcome

@@ -2,10 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://b5l6273l0702r" path="res://Scenes/Destruct_BrightCrate1.tscn" id="1_8jab2"]
 [ext_resource type="Script" uid="uid://tedabb1fyuj" path="res://Scripts/Terrain/ScriptedDestruction.gd" id="2_7mjoi"]
+[ext_resource type="Resource" path="res://Resources/Destruction/CrateBoards.tres" id="3_boards"]
 
 [resource]
 script = ExtResource("2_7mjoi")
 pieces = ExtResource("1_8jab2")
 blast = true
+wear = ExtResource("3_boards")
 block = "BrightCrate1"
 coin_chance = 0.75

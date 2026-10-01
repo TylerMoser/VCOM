@@ -26,6 +26,12 @@
 ## bursts apart instead, every time it breaks: a [Blast] from the [Marker3D]
 ## named DestructOrigin in the pieces scene, as strong as that marker's
 ## [code]force[/code] metadata says.
+##
+## With [member wear] set, the pieces go on to wear away a few voxels at a
+## time once the block has broken: each is a loose voxel model ([VoxelBody]),
+## which rounds tear through and blasts crater as they do a block that wears
+## away, cut in two or crumbled to lumps in the end. The block still breaks
+## into them as cut; only after that do they break down further.
 class_name ScriptedDestruction
 extends Destruction
 
@@ -48,6 +54,12 @@ const BLAST_FORCE := &"force"
 ## Whether the block bursts apart from its pieces scene's DestructOrigin marker
 ## rather than just collapsing. Off, the marker is ignored.
 @export var blast := false
+## How the pieces wear away once the block has broken, if they do: a
+## [VoxelDestruction], of which all but the block, mass and coin chance count.
+## Their voxels are read from the .vox the pieces scene was imported from, the
+## model each MeshInstance3D was drawn from. Left empty, the pieces only ever
+## tumble.
+@export var wear: VoxelDestruction
 
 @export_group("Physics")
 ## How heavy the pieces are, in kilograms per cubic cell.
@@ -75,6 +87,10 @@ func shatter(site: TerrainDestruction, at: Transform3D, hit: CombatGrid.RayHit, 
 	broken.global_transform = at
 	var bodies := _make_pieces(broken)
 	_pass_overlaps(bodies)
+	if wear != null:
+		var source := VoxelShape.source_of(pieces)
+		for body in bodies:
+			site.voxels.take_on_body(body, wear, source)
 
 	# Held where they are until the next physics step. The grid takes the
 	# block's own collision away at the end of this frame, and until then the
@@ -97,6 +113,20 @@ func shatter(site: TerrainDestruction, at: Transform3D, hit: CombatGrid.RayHit, 
 	# The map may have gone while the pieces were held.
 	if blast and is_instance_valid(broken):
 		_burst(broken, bodies)
+
+
+## Reads the voxels of every piece that wears away out of the .vox ahead of
+## time, which takes a crate's about 10 ms, and would otherwise catch the
+## first crate to break.
+func prepare() -> void:
+	if wear == null or pieces == null:
+		return
+	var source := VoxelShape.source_of(pieces)
+	var broken := pieces.instantiate()
+	for node in broken.find_children("*", "MeshInstance3D", true, false):
+		if node.has_meta(&"magica_voxel_model_id"):
+			VoxelShape.read_model(source, int(node.get_meta(&"magica_voxel_model_id")))
+	broken.free()
 
 
 ## Throws [param bodies] apart with a [Blast] from the DestructOrigin marker
@@ -163,8 +193,11 @@ func _pass_overlaps(bodies: Array[RigidBody3D]) -> void:
 		boxes.append(TerrainDestruction.debris_box(body).grow(-OVERLAP_TOLERANCE))
 	for i in bodies.size():
 		for j in range(i + 1, bodies.size()):
+			# Each told, so each piece's own list says every piece it passes
+			# through, for one that wears away to pass on to its parts.
 			if boxes[i].intersects(boxes[j]):
 				bodies[i].add_collision_exception_with(bodies[j])
+				bodies[j].add_collision_exception_with(bodies[i])
 
 
 ## The speed a piece centred on [param center] flies off with: a knock along

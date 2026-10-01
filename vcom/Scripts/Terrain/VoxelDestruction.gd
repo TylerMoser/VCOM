@@ -26,6 +26,13 @@
 ## [VoxelTerrain], which keeps what is left of each one; [method shatter] is
 ## not used. Like every [Destruction] it is shared by every block of its kind,
 ## so it keeps nothing of its own between calls.
+##
+## It also says how a loose voxel model wears ([VoxelBody]): as a
+## [ScriptedDestruction]'s [member ScriptedDestruction.wear], how its pieces
+## do once the block has broken. Such a model is debris, only for show, so
+## there the share kept is of the model as it came loose, or as it was last
+## cut from another, and below it the model crumbles; and the block named,
+## its mass and its coin chance go unused.
 class_name VoxelDestruction
 extends Destruction
 

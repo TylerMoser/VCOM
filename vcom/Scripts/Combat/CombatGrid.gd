@@ -18,6 +18,11 @@ signal terrain_struck(hit: RayHit, damage: int)
 ## throws debris about, as a [Blast] force. As with a strike, what it does to
 ## the cells is up to the terrain.
 signal terrain_blasted(origin: Vector3, cells: Array[Vector3i], damage: int, force: float)
+## Emitted as every round lands, hit or miss, with the line it flew along and
+## the environmental damage behind it, for what lies along that line that a
+## round tears through and flies on past: never terrain, which only
+## [signal terrain_struck] reports, but loose voxel models ([VoxelBody]).
+signal round_flown(from: Vector3, to: Vector3, damage: int)
 
 const UNIT_HEIGHT := 2
 const MAX_CLIMB := 1
@@ -321,6 +326,12 @@ func strike(hit: RayHit, damage: int) -> void:
 ## throw debris about with, as [signal terrain_blasted].
 func blast(origin: Vector3, cells: Array[Vector3i], damage: int, force: float) -> void:
 	terrain_blasted.emit(origin, cells, damage, force)
+
+
+## Reports a round flying from [param from] to [param to] with [param damage]
+## environmental damage behind it, as [signal round_flown].
+func fly(from: Vector3, to: Vector3, damage: int) -> void:
+	round_flown.emit(from, to, damage)
 
 
 ## The tile reached by stepping from [param from] toward [param direction],

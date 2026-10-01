@@ -34,7 +34,8 @@ vcom/Scripts/
                        roster's wounds)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast() (by_voxel: through the voxels of blocks that wear
-                       away, for rounds), pick_tile(), terrain_struck, blast() -> terrain_blasted; voxels (VoxelTerrain)
+                       away, for rounds), pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() -> round_flown
+                       (every round's line, for the loose models it tears through); voxels (VoxelTerrain)
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
@@ -59,21 +60,29 @@ vcom/Scripts/
   Terrain/
     TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
                            blast's debris about, tidies debris; block_broken(cell, destruction)
-    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); mass; coin_chance; Motion
-    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); prepare() (as a map loads);
+                           mass; coin_chance; Motion
+    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear (then the pieces
+                           wear away as loose models)
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
-    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind);
-                           collapse_below, voxels_per_damage, crater_per_damage / crater_radius(), density, crumble_size
-    VoxelShape.gd          one kind of block's voxels, read from its .vox with the importer's reader: a padded 16^3
-                           array of palette places, rows of bits, colors, the mesh's material
-    VoxelMesher.gd         surface() / faces() / mesh() from a voxel array: faces open to the air, merged greedily,
-                           found sixteen at a time from the rows
+    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind), or how a
+                           ScriptedDestruction's pieces wear; collapse_below, voxels_per_damage, crater_per_damage /
+                           crater_radius(), density, crumble_size
+    VoxelShape.gd          one model's voxels, read from its .vox with the importer's reader: a block's (read(), 16^3),
+                           one model of a .vox imported as a scene (read_model(), source_of()) or a mesh imported from
+                           one (read_mesh()), cropped to its voxels; a padded array of palette places, a row of bits
+                           per (y, z) (so at most WIDEST, 62, along x), colors, the mesh's material
+    VoxelMesher.gd         surface() / faces() / mesh() from a shape and a voxel array: faces open to the air, merged
+                           greedily, found a row at a time from the rows
     VoxelTerrain.gd        made by TerrainDestruction: worn blocks by cell, the stand-in items, trace() (rounds),
                            chip() (a round's bite), crater() (a blast's), crumble(), take(), is_solid_at(); loose
-                           voxels, _holds_up() (cut through), deferred redraws after a blast
+                           voxels, _holds_up() (cut through), deferred redraws after a blast; loose models:
+                           take_on_body(), tear() (rounds through them), _settle() (split off, crumble)
     WornBlock.gd           one block that has lost voxels: what is left, its mesh and trimesh collision
+    VoxelBody.gd           one loose model (a crate's piece), a node under its RigidBody3D: what is left, its mesh,
+                           box collider and mass; passes (the bodies it passes through)
     VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
                            add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
                            (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed
@@ -660,15 +669,69 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
   in (`_by_cell`), so those calls look only at the cells they reach. Clearing 15,000 bodies takes
   about 30 ms, on the frame that reaches the limit.
 - **It is deterministic.** Which voxels go, and so which blocks break, comes from the global random
-  generator, so a seeded fight replays exactly. How the lumps fall is physics, and only for show.
+  generator, one number a round or blast, so a seeded fight replays exactly. How the lumps fly, and
+  which a blast keeps, draws on `VoxelTerrain`'s own generator, and how they fall is physics: only for
+  show.
 
 To make another block wear away, add a `VoxelDestruction` `.tres` naming it in
 `Resources/Destruction/` to `Catalog.tres`, with its `mass` whole (what it weighs falling), its
 voxels' `density`, and `voxels_per_damage` / `crater_per_damage` for how soft it is. Its mesh must be
 imported from a `.vox` at Scale 0.0625, one cell to sixteen voxels.
 
+**A broken crate's pieces wear away as well, as loose models.** The crate still breaks into its
+pieces as cut, and bursts as before; only then do they break down further, as a block does. Any
+voxel model loose in the world can be worn this way: a `RigidBody3D` drawn by a MagicaVoxel model in a
+`MeshInstance3D` among its children, taken on with `VoxelTerrain.take_on_body()`, which puts a
+`VoxelBody` node under it. So far only a `ScriptedDestruction`'s pieces are.
+
+- **The pieces are taken on as the block breaks.** A `ScriptedDestruction` with a `wear` (a
+  `VoxelDestruction`; `BrightCrate1.tres` has `CrateBoards.tres`: 3 voxels a point of damage, lumps of
+  2) takes on each piece as `shatter()` makes it. Its voxels come from the `.vox` the pieces scene
+  inherits (`VoxelShape.source_of()`), the model whose `magica_voxel_model_id` the importer put on its
+  `MeshInstance3D`, cropped to its voxels (`read_model()`): each of the crate's models is a whole
+  crate's frame with only that piece in it, 36 to 64 voxels. `Destruction.prepare()` reads every
+  piece's model as the map loads (about 10 ms for the crate), so the first crate to break does not
+  catch on it. Their bodies go on `TerrainDestruction.MODEL_LAYER` as well as the debris layer, for
+  rounds and blasts to find them by.
+- **A round tears through them and flies on.** `Unit.shoot_at()` reports every round's line, from the
+  muzzle (where its tracer starts) to where it landed, through `CombatGrid.fly()`, whose `round_flown`
+  calls `VoxelTerrain.tear()`. Every loose model the line passes through (ray queries on
+  `MODEL_LAYER`, nearest first, at most `MOST_TORN`, 8) loses the `damage * voxels_per_damage` voxels
+  nearest where the line first meets one of its voxels (`_march()`, the voxel walk `trace()` uses on
+  blocks; 15 for a rifle's 5), which fly out of the face it went in by. `fly()` comes before
+  `strike()`, so a crate a round breaks is not torn by the same round.
+- **A blast craters them.** `crater()` craters every loose model reaching into the blast's box
+  (`_models_in()`, a shape query on `MODEL_LAYER`) as it does blocks: the voxels within its
+  `crater_radius()` and inside the box. The burst a physics step later throws them, as it throws every
+  rigid body under `TerrainDestruction`.
+- **What is left settles** (`_settle()`). A model left with fewer than `SMALLEST_PART` (8) voxels, or
+  under its destruction's `collapse_below` of `VoxelBody.whole`, crumbles into lumps `crumble_size`
+  across, carrying on as it moved, and its body goes. Otherwise every part no longer joined face to
+  face to the biggest (`_parts()`) is cut off: as a model of its own if it has `SMALLEST_PART` voxels
+  (`_split_off()`: a new `RigidBody3D` and `VoxelBody` beside it, in the same frame, moving as that
+  part moved), as lumps if not. What is left is redrawn (`VoxelMesher.surface()`), its box collider
+  fitted to it (shrunk by `ScriptedDestruction.SLACK`), and it weighs its share. After a cut each
+  part's `whole` starts again from what it has, so a board shot in two is two boards, each worn down
+  from its own size.
+- **A part cut off passes through what its model did.** Their boxes overlap wherever the cut ran, so
+  a part passes through the model it came from, everything that model passed through (a crate's
+  pieces cut to overlap), and every part cut from it since; `VoxelBody.passes` keeps the list on both
+  sides (see Gotchas).
+- **It does not touch the rules.** A loose model blocks nothing (sight, cover, rounds, throws), and
+  everything random about wearing one draws on `VoxelTerrain`'s own generator (`_show`), never the
+  global one, so tearing boards never changes what a seeded fight rolls next. Blocks still take one
+  global number per round or blast.
+
+Taking a crate's 48 pieces on adds about 1.5 ms to its break (3.5 ms in all); a round through boards
+costs 1 to 3 ms, and a blast among a crate's boards about 12 ms more than the blast alone. To have
+another `ScriptedDestruction`'s pieces wear, set its `wear`: its pieces scene must inherit a `.vox`
+imported as a Scene at 0.0625. A body made some other way can be taken on directly, its `source` the
+`.vox` its model came from, or none if the mesh was imported straight from a `.vox`.
+
 **Physics is only for debris, and the dead.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3
-debris, 4 unit bodies (`Unit.BODY_LAYER`). A fallen unit's ragdoll is debris among debris: on layer 3,
+debris, 4 unit bodies (`Unit.BODY_LAYER`), 5 loose voxel models (`TerrainDestruction.MODEL_LAYER`: a
+crate's pieces that wear away, which are on 3 as well; nothing collides with 5, it is only searched).
+A fallen unit's ragdoll is debris among debris: on layer 3,
 landing on terrain and other debris and shoved aside by the living; its bones are on no layer at all
 until it falls. Blocks have no collision in the MeshLibrary, so
 `TerrainDestruction` gives the map a copy of it with a cube on every shapeless block (a tree that
@@ -781,6 +844,9 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - **Rounds alone are traced voxel by voxel**, and only through blocks that wear away
   (`CombatGrid.cast(..., by_voxel)`): a miss strikes the voxel it meets, or flies on through the
   empty part of the cell. Sight lines, throw arcs and clicks read whole cells.
+- **Rounds tear through loose models and fly on.** Where a round goes is still decided against the
+  grid alone; `round_flown` reports its line only once it has landed, and the loose models along it
+  lose voxels. No loose model, nor any lump, ever stops a round or shelters anyone.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -840,7 +906,9 @@ can be tested without rendering: break a block by calling `CombatGrid.strike()` 
 `grid.cast(origin, direction, distance, true)` so it lands on a voxel, then `grid.strike(hit, 5)`; a
 blast is `grid.blast(origin, cells, 10, 1.0)`. `TerrainDestruction.voxels.count_at(cell)` says how much
 is left, and `voxel_debris.count()` how many lumps there are. Seed the global generator first and the
-same wear comes out every run.
+same wear comes out every run. To tear loose models, break a crate (`terrain.break_block(cell)`), let
+its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `voxels.loose_count()`
+says how many there are, and `voxels._loose` maps each body to its `VoxelBody`.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
@@ -964,6 +1032,17 @@ battle shares the root viewport's `World3D` with the next one, so `VoxelDebris` 
 of the world on `_exit_tree` and frees them (and its box shapes) on `NOTIFICATION_PREDELETE`.
 Anything else made on the server must do the same.
 
+**A packed array is passed by reference.** A `PackedByteArray` read off an object, out of a
+dictionary or passed to a function is the same array, not a copy, so writing into it writes into the
+original. A `VoxelShape`'s `voxels` and `rows` are shared by every block and model of its kind, which
+is why `WornBlock` and `VoxelBody` `duplicate()` them before wearing anything.
+
+**`get_collision_exceptions()` fails on bodies since freed.** The physics server keeps a freed body in
+the exception list of every body that passed through it, and `PhysicsBody3D.get_collision_exceptions()`
+errors on each (`Parameter "body" is null`) and returns null in its place. That is why a `VoxelBody`
+keeps its own list (`passes`), read once as it is taken on, while every piece is still there, and why
+`ScriptedDestruction._pass_overlaps()` tells both pieces of a pair, so each one's list is whole.
+
 **Jolt has hard limits.** 10,240 bodies by default, and contact and pair buffers that overflow with a
 few thousand lumps settling at once ("contacts were ignored", lumps sinking into each other).
 `project.godot` raises them, and `VoxelDebris.MOST` keeps the lumps' bodies well under the body limit;
@@ -1043,7 +1122,13 @@ physics layer until then, so they never collide while alive.
 - Crates break whole on any strike or blast, however weak: only blocks that wear away read
   `Weapon.environment_damage` and `Grenade.environment_damage`.
 - Rounds fly straight through debris: the trace only sees the grid, and the voxels of blocks that wear
-  away.
+  away. They tear the loose models they pass through, but are never stopped by one.
+- Only a crate's pieces wear away as loose models so far. A loose model must be a `RigidBody3D` drawn by
+  a MagicaVoxel model in a `MeshInstance3D` among its children, and no more than 62 voxels along its x
+  (`VoxelShape.WIDEST`); static props, units' figures and their gear cannot be worn yet, and a
+  `FallingBlock` is not one until it lands.
+- A loose model collides as the box round what is left of it, so a board shot into an L lies as its
+  box, and a part cut off one passes through its whole family of parts for good.
 - A unit stands at the top of its tile however worn the block under it is, so it floats over a crater:
   up to 4 voxels on the bottom layer, deeper on a raised block. Tile highlights float with it.
 - A worn block gives full cover until it breaks, however holed it looks; nothing reads partial wear.

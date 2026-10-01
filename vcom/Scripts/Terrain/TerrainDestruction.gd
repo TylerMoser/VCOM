@@ -39,6 +39,10 @@ signal block_broken(cell: Vector3i, destruction: Destruction)
 ## Physics layers: the blocks, and the pieces broken off them.
 const TERRAIN_LAYER := 1 << 0
 const DEBRIS_LAYER := 1 << 2
+## The layer the bodies of loose voxel models ([VoxelBody]) are on as well as
+## the debris layer, for the rounds and blasts that wear them to find them by.
+## Nothing collides with it.
+const MODEL_LAYER := 1 << 4
 ## What debris lands on and bumps off: the blocks, other debris, and units.
 const DEBRIS_MASK := TERRAIN_LAYER | DEBRIS_LAYER | Unit.BODY_LAYER
 ## How far below the bottom of the map, in cells, debris falls before it is
@@ -90,6 +94,8 @@ func _ready() -> void:
 		push_error("TerrainDestruction: no catalog, so nothing will break.")
 	else:
 		_destructions = catalog.by_item(_map.mesh_library)
+		for destruction: Destruction in _destructions.values():
+			destruction.prepare()
 	voxel_debris = VoxelDebris.new()
 	voxel_debris.focus = _looked_at
 	add_child(voxel_debris)
@@ -106,6 +112,7 @@ func _ready() -> void:
 	_grid.voxels = voxels
 	_grid.terrain_struck.connect(_on_terrain_struck)
 	_grid.terrain_blasted.connect(_on_terrain_blasted)
+	_grid.round_flown.connect(_on_round_flown)
 
 
 func _physics_process(delta: float) -> void:
@@ -153,6 +160,11 @@ static func debris_box(body: PhysicsBody3D) -> AABB:
 		box = shape_box if first else box.merge(shape_box)
 		first = false
 	return box
+
+
+## A round tears through the loose voxel models along its flight, and flies on.
+func _on_round_flown(from: Vector3, to: Vector3, damage: int) -> void:
+	voxels.tear(from, to, damage)
 
 
 ## A strike breaks the block it struck, or, if the block wears away, breaks
@@ -340,7 +352,7 @@ func _drop_worn_block(cell: Vector3i, destruction: VoxelDestruction, collapse: C
 	var frame := voxels.frame_of(cell)
 	var share := float(voxels.count_at(cell)) / maxi(shape.count, 1)
 	var left := voxels.take(cell)
-	var block := FallingBlock.new(VoxelMesher.mesh(left, shape), Transform3D.IDENTITY, [],
+	var block := FallingBlock.new(VoxelMesher.mesh(shape, left), Transform3D.IDENTITY, [],
 		maxf(destruction.mass * share, ScriptedDestruction.MIN_MASS))
 	add_child(block)
 	block.global_transform = frame

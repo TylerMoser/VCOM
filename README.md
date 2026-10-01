@@ -255,6 +255,11 @@ boards a cell or two, and further when a grenade did it.
 - **A soldier on a crate falls.** Anyone left standing on nothing drops to the ground below.
 - **The pieces are only for show.** They are real physics debris that stays for the rest of the
   fight and bumps off soldiers, but they never block sight, give cover or get in anyone's way.
+- **The boards break down further.** Once the crate has come apart, each of its boards wears away
+  as a block does: a round flying through one tears a bite out of it, three voxels for each point of
+  environmental damage, and flies on as if it were not there; a grenade's blast craters the boards
+  within its reach. A board shot in two becomes two boards, a splinter too small to stand on its own
+  falls as lumps, and a board worn below half of itself crumbles.
 
 **Grass and trees wear away, a few voxels at a time.** Every block is 16 voxels to a side, and these
 come apart into them:
@@ -327,7 +332,14 @@ object is a pre-cut MagicaVoxel model plus one of those. A block that wears away
 needs only the resource: its voxels are read from the model it is drawn with. No code changes are
 needed. By default the
 pieces simply collapse; whether they burst apart instead is a tick box on the resource, and where
-the blast goes off and how hard is a marker placed in the model's scene.
+the blast goes off and how hard is a marker placed in the model's scene. Whether the pieces then wear
+away themselves is one more setting on it, how soft they are: their voxels are read from the models
+they are drawn with, as a block's are.
+
+**Any voxel model can wear away, not just blocks.** A crate's boards are the first loose models to:
+pieces of debris that rounds and blasts eat into a few voxels at a time, which split in two when cut
+through and crumble when worn down. Like all debris they are only for show, so a round tears through
+them and flies on, and the rules never see them.
 
 **A blast pushes like a real one.** Its push fades with the square of the distance, and each piece
 catches it in proportion to the area it turns toward the blast. So the boards nearest and facing it
@@ -371,8 +383,9 @@ vcom/                     the Godot project
       Weapon.gd           what a shot does when it lands, to units and to terrain
       TileHighlights.gd   coloured squares over tiles
     AI/                   enemy AI: the base, the assault AI, and the queries they share
-    Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks that
-                          wear away voxel by voxel, and the voxels broken off them
+    Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
+                          loose models (a crate's boards) that wear away voxel by voxel, and the voxels
+                          broken off them
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
     UI/                   HUD, built in code rather than scenes
   Resources/              shared weapon and AI resources units are given
