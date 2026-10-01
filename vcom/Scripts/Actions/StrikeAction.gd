@@ -13,8 +13,10 @@
 ##   Show the sum  - hold Ctrl to open the breakdown behind the hit chance.
 ##
 ## The odds are [method HitChance.for_strike]'s, worked out once when the
-## target is lined up, and the blow is [method Unit.strike]'s. It lands the
-## moment it is made, with its damage or a miss called over the target.
+## target is lined up, and the blow is [method Unit.strike]'s. While a target
+## is lined up the unit squares up to it, its weapon drawn; the blow lands as
+## the swing does, with its damage or a miss called over the target, and the
+## action is done once the swing is through.
 class_name StrikeAction
 extends UnitAction
 
@@ -57,6 +59,8 @@ func begin(unit: Unit) -> void:
 
 
 func end() -> void:
+	if _unit != null:
+		_unit.stand_easy()
 	_unit = null
 	_targets.clear()
 	_index = 0
@@ -88,8 +92,8 @@ func current_target() -> Variant:
 
 
 ## Makes the strike that is lined up, rolling against the odds the player was
-## shown, and calls the result over the target. The action is spent either
-## way.
+## shown, and calls the result over the target as the blow lands. The action
+## is spent either way.
 func _strike() -> void:
 	var lined_up: Variant = current_target()
 	if lined_up == null:
@@ -103,14 +107,15 @@ func _strike() -> void:
 	unit.spend_actions(COST)
 	if _overlay != null:
 		_overlay.clear()
-	# Busy while the blow lands, as a shot is while its round flies: a kill
-	# that wins the battle then leaves the action to be put away as it
+	# Busy while the swing plays out, as a shot is while its round flies: a
+	# kill that wins the battle then leaves the action to be put away as it
 	# completes, rather than taken out from under it.
 	controller.busy = true
-	var damage: Variant = unit.strike(target, _estimate.chance)
+	var damage: Variant = await unit.strike(target, _estimate.chance)
 	if _overlay != null:
 		var hit := damage != null
 		_overlay.flash_result(mark, "%d" % damage if hit else "MISS", hit)
+	await unit.recover()
 	completed.emit()
 
 
@@ -142,6 +147,7 @@ func _show_target() -> void:
 		return
 	var target := lined_up as Unit
 	_estimate = HitChance.for_strike(_unit, target)
+	_unit.ready_strike(target.global_position)
 	if _overlay != null:
 		var grid := controller.grid
 		_overlay.show_strike(

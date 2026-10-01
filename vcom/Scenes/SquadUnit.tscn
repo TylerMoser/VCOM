@@ -8,5 +8,5 @@
 [node name="SquadUnit" type="Node3D" groups=["players"]]
 script = ExtResource("1_unit")
 
-[node name="Mesh" parent="." instance=ExtResource("90_base_character")]
-surface_material_override/0 = SubResource("Mat_unit")
+[node name="Model" parent="." instance=ExtResource("90_base_character")]
+body_material = SubResource("Mat_unit")

@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://d2l5k82w4sccd"]
 
 [ext_resource type="Script" uid="uid://ci47t5y6vgtiw" path="res://Scripts/Combat/Weapon.gd" id="1_weapon"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/Rifle.tscn" id="2_model"]
 
 [resource]
 script = ExtResource("1_weapon")
+model = ExtResource("2_model")
 display_name = "Rifle"
 description = "Standard-issue automatic rifle. Reliable at most ranges, and hits hard enough to break a crate."
 price = 2

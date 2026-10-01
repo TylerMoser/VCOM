@@ -27,6 +27,7 @@
 [ext_resource type="Script" uid="uid://cvjbf5vvw3efo" path="res://Scripts/SquadStart.gd" id="19_squad_start"]
 [ext_resource type="PackedScene" path="res://Scenes/SquadUnit.tscn" id="20_squad_unit"]
 [ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
+[ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -78,8 +79,8 @@ display_name = "Enemy 1"
 weapon = ExtResource("15_rifle")
 ai = ExtResource("16_assault_ai")
 
-[node name="Mesh" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
-surface_material_override/0 = SubResource("Mat_enemy1")
+[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
+body_material = SubResource("Mat_enemy1")
 
 [node name="SquadStarts" type="Node3D" parent="."]
 
@@ -137,6 +138,9 @@ script = ExtResource("11_turns")
 
 [node name="Reactions" type="Node" parent="." unique_id=1000030]
 script = ExtResource("11_reactions")
+
+[node name="Postures" type="Node" parent="."]
+script = ExtResource("30_postures")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 

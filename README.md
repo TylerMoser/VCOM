@@ -33,6 +33,13 @@ Which actions a squad member has depends on what they have equipped. Everyone ca
 A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot. A
 thrown grenade is gone for good: its slot is empty after the battle, and the Market sells more.
 
+What a squad member carries shows on them: the gun in their hands, a sword slung across their back
+(drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
+shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
+half cover and press up to full cover, facing the nearest enemy. The fallen go limp where they drop and
+stay there, and a grenade throws them about. None of it changes the rules: a shot, strike or throw is
+settled exactly as below, the moment the gun fires, the blade lands or the grenade leaves the hand.
+
 ## The campaign
 
 The game opens on the world map. Right-click to send the party somewhere; left-click the village it

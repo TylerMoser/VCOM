@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Grenade" format=3 uid="uid://ben8g8m4b4vgv"]
 
 [ext_resource type="Script" uid="uid://jjtu66ofn8nk" path="res://Scripts/Items/Grenade.gd" id="1_grenade"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/FragGrenade.tscn" id="2_model"]
 
 [resource]
 script = ExtResource("1_grenade")
+model = ExtResource("2_model")
 damage = 5
 blast_size = 3
 display_name = "Frag Grenade"

@@ -3,11 +3,17 @@
 ##
 ## A squad member is someone on the roster: given a [member character], it
 ## takes its name, colour, stats (health, defense, move, aim, melee accuracy,
-## strength, evasion) and equipment from them, painting its Mesh child.
-## Without one (enemies, the test harness) the scene's values and the Mesh's
+## strength, evasion) and equipment from them, painting its Model child.
+## Without one (enemies, the test harness) the scene's values and the Model's
 ## material stand, and it carries only its [member weapon]. What it uses up,
 ## such as a grenade it throws, it loses for good ([signal used_up]).
 ## UI reads [member color] until real portraits exist.
+##
+## It is seen as its [member model], a rigged figure that plays out what it
+## does: it turns and runs as the unit walks, raises its gun to shoot, swings
+## and throws, flinches, and falls when it dies. The rules never wait on it,
+## but where a moment matters: a shot goes off once the gun is up, a blow lands
+## when the swing does, and a grenade leaves the hand at the top of the throw.
 class_name Unit
 extends Node3D
 
@@ -38,6 +44,9 @@ const GROUP := &"units"
 ## How fast a unit gathers speed when the ground under it gives way, in cells
 ## per second per second.
 const FALL_ACCELERATION := 9.8
+## How far out from the middle of its tile a mouse click picks the unit, in
+## cells: its figure, arms down and gun in hand.
+const PICK_RADIUS := 0.3
 ## The gun a unit without a character carries when the scene gives it none.
 const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
 
@@ -109,6 +118,8 @@ var overwatching := false:
 		if overwatching == value:
 			return
 		overwatching = value
+		if model != null:
+			model.overwatching = value
 		overwatch_changed.emit(overwatching)
 
 ## Everything the unit carries into battle, whose tags decide which actions it
@@ -124,25 +135,31 @@ var melee_weapon: Weapon
 ## Throw Grenade.
 var grenade: Grenade
 
+## The figure the unit is seen as, its Model child. Null in a scene that gives
+## it none, and once the unit has died: its body is a ragdoll on the map then,
+## and no longer the unit's.
+var model: CharacterModel
+
 ## The tween walking the unit or dropping it. Null, or finished, while it
 ## stands still.
 var _motion: Tween
-## The body debris bumps off. Null for a unit with no Mesh to shape it by.
+## The body debris bumps off. Null for a unit with no Model to shape it by.
 var _body: AnimatableBody3D
+## Where the last hit came from, and whether it was a blast: how the unit's
+## body is seen to fall if that hit kills it. Unknown (infinite) until hit.
+var _hit_from := Vector3.INF
+var _hit_blasted := false
 
-## Placeholder identity colour, taken from the Mesh child's material.
+## Placeholder identity colour, taken from the Model child's material.
 var color: Color:
 	get:
-		var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
-		if mesh != null:
-			var material := mesh.get_active_material(0) as BaseMaterial3D
-			if material != null:
-				return material.albedo_color
-		return Color.WHITE
+		var body := model if model != null else get_node_or_null(^"Model") as CharacterModel
+		return body.tint() if body != null else Color.WHITE
 
 
 func _ready() -> void:
 	add_to_group(GROUP)
+	model = get_node_or_null(^"Model") as CharacterModel
 	# Before health is filled, which reads the character's max_health.
 	if character != null:
 		_take_character()
@@ -156,6 +173,7 @@ func _ready() -> void:
 	# alive: anyone on the roster is.
 	health = maxi(character.health, 1) if character != null else max_health
 	actions_remaining = actions_per_turn
+	_dress()
 	_add_bodies()
 
 
@@ -197,11 +215,19 @@ func spend_reaction() -> bool:
 ## takes the unit off the map if that finishes it. Returns the damage taken,
 ## which is 0 for a hit the defense stops entirely. Every hit comes through
 ## here, so defense counts against all of them.
-func take_damage(amount: int) -> int:
+##
+## [param from] is where the hit came from, in the world, and [param blasted]
+## says it was a blast. They change only how the unit is seen to take it: its
+## body flinches away from the hit, or falls away from it.
+func take_damage(amount: int, from := Vector3.INF, blasted := false) -> int:
 	var taken := damage_from(amount)
+	_hit_from = from
+	_hit_blasted = blasted
 	health -= taken
 	if health <= 0:
 		die()
+	elif model != null and from.is_finite():
+		model.flinch(from)
 	return taken
 
 
@@ -224,15 +250,26 @@ func damage_from(amount: int) -> int:
 ## On landing the target takes the weapon's damage if the shot hit, less its
 ## defense ([member Ballistics.Outcome.damage]), and any terrain a round struck
 ## is reported to [param grid].
+##
+## It is fired once the unit's figure has turned to the target and raised its
+## gun, which it has already if the shot was lined up for it ([method aim_at]).
+## A miss is ducked.
 func shoot_at(
 	shot: LineOfSight.Shot, chance: int, grid: CombatGrid, show_rounds := Callable()
 ) -> Ballistics.Outcome:
+	if model != null:
+		await model.take_aim(aim_point(shot.target, grid))
 	var hit := HitChance.roll(chance)
 	var outcome := Ballistics.new(grid).fire(self, shot, hit)
+	if model != null:
+		outcome.muzzle = model.fire()
 	if show_rounds.is_valid():
 		await show_rounds.call(outcome)
-	if outcome.hit and is_instance_valid(shot.target):
-		outcome.damage = shot.target.take_damage(weapon.damage)
+	if is_instance_valid(shot.target):
+		if outcome.hit:
+			outcome.damage = shot.target.take_damage(weapon.damage, global_position)
+		else:
+			shot.target.dodge()
 	for path in outcome.paths:
 		if path.struck != null:
 			grid.strike(path.struck, weapon.environment_damage)
@@ -247,12 +284,18 @@ func shoot_at(
 ## shot comes through [method shoot_at], so a strike means the same thing
 ## whoever makes one.
 ##
-## Nothing flies, so it lands the moment it is made, and a miss touches
-## nothing: no terrain is struck either way.
+## Nothing flies, and a miss touches nothing: no terrain is struck either way.
+## It lands as the unit's swing does, so await it; [method recover] waits out
+## the follow-through after. A miss is ducked.
 func strike(target: Unit, chance: int) -> Variant:
-	if not HitChance.roll(chance):
+	if model != null:
+		await model.strike(target.global_position)
+	if not is_instance_valid(target):
 		return null
-	return target.take_damage(melee_weapon.damage + strength)
+	if not HitChance.roll(chance):
+		target.dodge()
+		return null
+	return target.take_damage(melee_weapon.damage + strength, global_position)
 
 
 ## Throws [member grenade] along [param throw] and returns what its blast did,
@@ -262,11 +305,12 @@ func strike(target: Unit, chance: int) -> Variant:
 ## through here, as every shot comes through [method shoot_at], so a throw
 ## means the same thing whoever makes one.
 ##
-## Nothing is rolled: a grenade goes off where it is thrown, as in XCOM 2. It
-## is used up the moment it leaves the hand ([method use_up]).
-## [param show_flight], if given, is called with the throw and the grenade at
-## that moment and awaited, so whoever is drawing the flight holds the blast
-## until the grenade is seen to arrive. Then everyone the blast catches
+## Nothing is rolled: a grenade goes off where it is thrown, as in XCOM 2. The
+## unit's figure winds up and throws, and the grenade is used up the moment it
+## leaves the hand ([method use_up]). [param show_flight], if given, is called
+## then with the throw, the grenade and where the hand let go of it, and
+## awaited, so whoever is drawing the flight holds the blast until the grenade
+## is seen to arrive. Then everyone the blast catches
 ## ([method Throwing.caught]), this unit included, takes the grenade's damage
 ## less their defense, and the blast is reported to [param grid] for the
 ## terrain to break.
@@ -274,14 +318,17 @@ func throw_at(throw: Throwing.Throw, grid: CombatGrid, show_flight := Callable()
 	var thrown := grenade
 	if thrown == null:
 		return []
+	var release := throw.start
+	if model != null:
+		release = await model.throw_toward(throw.end)
 	use_up(thrown)
 	if show_flight.is_valid():
-		await show_flight.call(throw, thrown)
+		await show_flight.call(throw, thrown, release)
 	var landed := []
 	for unit in Throwing.new(grid).caught(throw.target, thrown.blast_size):
 		# Read where to call it now: a unit the blast kills is gone after.
 		var over := grid.cell_center(LineOfSight.eye_cell(grid.tile_at(unit.global_position)))
-		landed.append([over, unit.take_damage(thrown.damage)])
+		landed.append([over, unit.take_damage(thrown.damage, throw.end, true)])
 	grid.blast(
 		throw.end,
 		Throwing.blast_cells(throw.target, thrown.blast_size),
@@ -300,40 +347,51 @@ func use_up(item: Item) -> void:
 		return
 	equipment.remove_at(index)
 	grenade = _first_grenade()
+	_dress()
 	used_up.emit(item)
 
 
 ## Removes the unit from play. It leaves its groups at once rather than when
 ## the node is freed, so nothing shoots at it or walks around it in the
-## meantime.
+## meantime. Its body is left behind on the map, falling the way the hit
+## that killed it came from.
 func die() -> void:
 	died.emit()
 	for group in get_groups():
 		remove_from_group(group)
+	if model != null:
+		var from := _hit_from if _hit_from.is_finite() else global_position + model.global_basis.z
+		model.fall_dead(from, _hit_blasted)
+		model = null
 	queue_free()
 
 
 ## Walks through [param points] in order, taking [param seconds_per_step]
-## for each. Await it to wait until the unit arrives.
-func walk(points: Array[Vector3], seconds_per_step: float) -> void:
-	var tween := start_walk(points, seconds_per_step)
+## for each. Await it to wait until the unit arrives. Its figure faces the
+## way it goes, unless [param keep_facing], as a unit stepping out of cover
+## to shoot keeps facing its target.
+func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> void:
+	var tween := start_walk(points, seconds_per_step, keep_facing)
 	if tween != null:
 		await tween.finished
 
 
 ## Starts the same walk as [method walk] and hands back the tween playing it,
 ## for a caller that needs to slow the walk down or hold it still. Null if
-## there is nowhere to go.
+## there is nowhere to go. The figure runs as fast as the tween moves it, so
+## it slows and stops with it.
 ##
 ## The tween dies with the unit, without ever finishing, so a caller whose
 ## walker might be killed on the way must not wait on [signal Tween.finished].
-func start_walk(points: Array[Vector3], seconds_per_step: float) -> Tween:
+func start_walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> Tween:
 	if points.is_empty():
 		return null
 	var tween := create_tween()
 	for point in points:
 		tween.tween_property(self, ^"global_position", point, seconds_per_step)
 	_motion = tween
+	if model != null:
+		model.begin_walk(points, keep_facing)
 	return tween
 
 
@@ -355,6 +413,8 @@ func drop_to(point: Vector3, rubble: Array[PhysicsBody3D] = []) -> void:
 	var fall := _motion.tween_property(self, ^"global_position", point, sqrt(2.0 * height / FALL_ACCELERATION))
 	fall.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	pass_through(rubble)
+	if model != null:
+		model.fall()
 
 
 ## Lets the unit pass through [param bodies] for good: more of the rubble it is
@@ -365,6 +425,62 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 	for body in bodies:
 		if is_instance_valid(body):
 			_body.add_collision_exception_with(body)
+
+
+## Turns the unit's figure to [param point] in the world, a target's eye, and
+## raises its gun at it, as a shot at it is lined up. Lined up on another, it
+## turns to that one. Only for show, as is everything down to
+## [method recover]: the rules never ask the figure anything.
+func aim_at(point: Vector3) -> void:
+	if model != null:
+		model.aim_at(point)
+
+
+## Where to aim at [param target] on [param grid]: its eye, wherever it stands,
+## between tiles if a reaction catches it walking.
+func aim_point(target: Unit, grid: CombatGrid) -> Vector3:
+	var tile := grid.tile_at(target.global_position)
+	return target.global_position + (grid.cell_center(LineOfSight.eye_cell(tile)) - grid.tile_position(tile))
+
+
+## Squares the unit's figure up to [param point] in the world, its melee
+## weapon drawn, as a strike is lined up.
+func ready_strike(point: Vector3) -> void:
+	if model != null:
+		model.ready_strike(point)
+
+
+## Has the unit's figure take a grenade in hand, turned to [param point] in
+## the world as a throw is lined up there, or facing as it is if null.
+func ready_throw(point: Variant = null) -> void:
+	if model != null:
+		model.ready_throw(point)
+
+
+## Has the unit's figure put away what it had ready for an action: lower its
+## gun, sling its sword, hook its grenade back on.
+func stand_easy() -> void:
+	if model != null:
+		model.stand_easy()
+
+
+## Has the unit's figure cheer, its side having won.
+func celebrate() -> void:
+	if model != null:
+		model.celebrate()
+
+
+## Has the unit's figure duck a shot or blow that missed it.
+func dodge() -> void:
+	if model != null:
+		model.dodge()
+
+
+## Waits until the unit's figure has finished the blow or throw it is playing:
+## the follow-through after the moment that counted.
+func recover() -> void:
+	if model != null:
+		await model.recover()
 
 
 ## Takes on [member character]'s name, colour, stats and equipment, shooting
@@ -405,38 +521,50 @@ func _first_grenade() -> Grenade:
 	return null
 
 
-## Colours the Mesh child [param tint], on a copy of its material so a
+## Colours the Model child [param tint], on a copy of its material so a
 ## material another unit shares is left alone.
 func _paint(tint: Color) -> void:
-	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
-	if mesh == null:
+	if model != null:
+		model.paint(tint)
+
+
+## Shows on the unit's figure what it carries: its gun in hand, its melee
+## weapon, and a grenade on the belt for each it has left.
+func _dress() -> void:
+	if model == null:
 		return
-	var material := mesh.get_active_material(0) as BaseMaterial3D
-	material = material.duplicate() if material != null else StandardMaterial3D.new()
-	material.albedo_color = tint
-	mesh.set_surface_override_material(0, material)
+	var grenades: Array[Item] = []
+	for item in equipment:
+		if item is Grenade:
+			grenades.append(item)
+	model.equip(weapon, melee_weapon, grenades)
 
 
-## Gives the unit a body shaped like its Mesh child for mouse clicks to land
-## on, and a frictionless capsule round it for debris to bump off, clear of the
-## ground by [constant BODY_CLEARANCE]. Both move with the unit however it is
-## moved.
+## Gives the unit an upright cylinder round its figure for mouse clicks to
+## land on, and a frictionless capsule round it for debris to bump off, as
+## thick as the figure's body and clear of the ground by
+## [constant BODY_CLEARANCE]. Both move with the unit however it is moved, and
+## neither turns with the figure.
 func _add_bodies() -> void:
-	var mesh := get_node_or_null(^"Mesh") as MeshInstance3D
-	if mesh == null or mesh.mesh == null:
+	if model == null:
+		return
+	var box := model.transform * model.body_box()
+	if not box.has_volume():
 		return
 
+	var cylinder := CylinderShape3D.new()
+	cylinder.radius = PICK_RADIUS
+	cylinder.height = box.end.y
 	var pick_shape := CollisionShape3D.new()
-	pick_shape.shape = mesh.mesh.create_convex_shape()
+	pick_shape.shape = cylinder
+	pick_shape.position = Vector3(0.0, box.end.y * 0.5, 0.0)
 	var pick := StaticBody3D.new()
 	pick.name = &"PickBody"
 	pick.collision_layer = PICK_LAYER
 	pick.collision_mask = 0
-	pick.transform = mesh.transform
 	pick.add_child(pick_shape)
 	add_child(pick)
 
-	var box := mesh.transform * mesh.mesh.get_aabb()
 	var capsule := CapsuleShape3D.new()
 	capsule.radius = minf(box.size.x, box.size.z) * 0.5
 	capsule.height = maxf(box.end.y - BODY_CLEARANCE, capsule.radius * 2.0)

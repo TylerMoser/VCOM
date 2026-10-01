@@ -13,7 +13,8 @@
 ## A shot that needs a step out plays it: the unit leans out to the tile it
 ## found the shot from, fires, and settles back into its cover. Whether the
 ## shot lands is [HitChance]'s business, and where the round goes is
-## [Ballistics]'s.
+## [Ballistics]'s. While a target is lined up the unit turns to it with its
+## gun raised, and keeps facing it as it steps out and back.
 class_name ShootAction
 extends UnitAction
 
@@ -61,6 +62,8 @@ func begin(unit: Unit) -> void:
 
 
 func end() -> void:
+	if _unit != null:
+		_unit.stand_easy()
 	_unit = null
 	_shots.clear()
 	_index = 0
@@ -111,7 +114,7 @@ func _fire() -> void:
 	controller.busy = true
 
 	if aimed.stepped_out:
-		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds)
+		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds, true)
 
 	var show_rounds := _overlay.show_rounds if _overlay != null else Callable()
 	var outcome: Ballistics.Outcome = await unit.shoot_at(
@@ -121,7 +124,7 @@ func _fire() -> void:
 		_overlay.flash_result(mark, "%d" % outcome.damage if outcome.hit else "MISS", outcome.hit)
 
 	if aimed.stepped_out:
-		await unit.walk([cover], step_out_seconds)
+		await unit.walk([cover], step_out_seconds, true)
 	completed.emit()
 
 
@@ -151,6 +154,7 @@ func _show_shot() -> void:
 	else:
 		controller.highlights.clear_layer(STEP_OUT_LAYER)
 
+	_unit.aim_at(_unit.aim_point(aimed.target, controller.grid))
 	if _overlay != null:
 		var grid := controller.grid
 		_overlay.show_shot(

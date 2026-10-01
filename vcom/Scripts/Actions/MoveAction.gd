@@ -18,7 +18,9 @@ const PATH_LAYER := &"move_path"
 ## Path tiles are filled almost solid so they stand out from the range.
 const PATH_FILL := 0.9
 
-@export var seconds_per_step := 0.12
+## Seconds a step of the walk takes: the pace the run cycle is made for (a
+## stride a tile), the same as an enemy's.
+@export var seconds_per_step := 0.2
 
 var _unit: Unit
 var _reach: CombatGrid.Reach

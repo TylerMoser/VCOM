@@ -107,6 +107,9 @@ var _caught: Array = []
 ## The rounds of the last shot fired, seconds since they were fired, and how
 ## many their tracers take to draw in to where the rounds stopped.
 var _rounds: Array[Ballistics.Path] = []
+## Where the tracers start: the muzzle of the gun that fired them, or null to
+## start at the eye each round was fired from.
+var _muzzle: Variant = null
 var _round_time := 0.0
 var _rounds_seconds := 0.0
 ## Marks where rounds struck terrain, as [code][position, seconds left][/code].
@@ -226,13 +229,15 @@ func show_incoming(from: Vector3, to: Vector3) -> void:
 ## Draws each round of [param outcome] flying from where it was fired to where
 ## it stops, and returns once they have all got there, which is when the shot
 ## lands. A round that struck terrain leaves a mark where it hit. Pass it to
-## [method Unit.shoot_at] to hold the shot's landing until then.
+## [method Unit.shoot_at] to hold the shot's landing until then. The tracers
+## come out of the gun's muzzle where the outcome says where it was.
 func show_rounds(outcome: Ballistics.Outcome) -> void:
 	_rounds = outcome.paths
+	_muzzle = outcome.muzzle
 	_round_time = 0.0
 	var flight := 0.0
 	for path in _rounds:
-		flight = maxf(flight, path.from.distance_to(path.to) / ROUND_SPEED)
+		flight = maxf(flight, _start_of(path).distance_to(path.to) / ROUND_SPEED)
 	_rounds_seconds = flight + TRACER_LENGTH / ROUND_SPEED
 	visible = true
 	set_process(true)
@@ -389,18 +394,25 @@ func _draw_caught(camera: Camera3D, at: Vector3, text: String, friendly: bool) -
 ## [constant TRACER_LENGTH] long behind the round, which draws in to where the
 ## round stopped once it gets there.
 func _draw_round(camera: Camera3D, path: Ballistics.Path) -> void:
-	var length := path.from.distance_to(path.to)
+	var start := _start_of(path)
+	var length := start.distance_to(path.to)
 	var travelled := _round_time * ROUND_SPEED
 	if is_zero_approx(length) or travelled >= length + TRACER_LENGTH:
 		return
-	var head := path.from.lerp(path.to, minf(travelled, length) / length)
-	var tail := path.from.lerp(path.to, clampf(travelled - TRACER_LENGTH, 0.0, length) / length)
+	var head := start.lerp(path.to, minf(travelled, length) / length)
+	var tail := start.lerp(path.to, clampf(travelled - TRACER_LENGTH, 0.0, length) / length)
 	if camera.is_position_behind(head) or camera.is_position_behind(tail):
 		return
 	var from := camera.unproject_position(tail)
 	var to := camera.unproject_position(head)
 	draw_line(from, to, TRACER_GLOW_COLOR, TRACER_GLOW_WIDTH, true)
 	draw_line(from, to, TRACER_COLOR, TRACER_WIDTH, true)
+
+
+## Where [param path]'s tracer starts: the muzzle, if the shot came from a
+## gun someone was seen holding, else the eye the round was fired from.
+func _start_of(path: Ballistics.Path) -> Vector3:
+	return _muzzle if _muzzle != null else path.from
 
 
 ## The mark where a round struck terrain at [param at], with [param left]

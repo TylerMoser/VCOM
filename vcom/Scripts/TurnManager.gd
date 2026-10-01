@@ -17,7 +17,8 @@
 ## goes back to the world map the battle was started from (see
 ## [method Campaign.end_battle]). Whoever of the squad still stands earns
 ## their experience then ([method PlayerSquad.award_survivors]), and a win
-## earns the party [member victory_gold]. A battle opened on its own stays open, over.
+## earns the party [member victory_gold]. The side left standing cheers while
+## the banner is up. A battle opened on its own stays open, over.
 ##
 ##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
 class_name TurnManager
@@ -245,6 +246,10 @@ func _end_if_decided() -> void:
 	_squad.award_survivors()
 	if outcome == Outcome.WON:
 		Campaign.gold += victory_gold
+	for node in get_tree().get_nodes_in_group(&"players" if outcome == Outcome.WON else enemy_group):
+		var winner := node as Unit
+		if winner != null:
+			winner.celebrate()
 	_set_hold(0.0)
 	_controller.enabled = false
 	await _banner.announce("Victory" if outcome == Outcome.WON else "Defeat")

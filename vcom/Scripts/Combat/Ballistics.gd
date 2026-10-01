@@ -100,6 +100,10 @@ class Outcome:
 	## decides what a shot does. It is a list so that a weapon firing several
 	## rounds a shot can have them.
 	var paths: Array[Path] = []
+	## Where the muzzle of the shooter's gun was as it fired, which is where the
+	## tracers are drawn from; null without a figure holding a gun. Only for
+	## show: every path is still flown from the shooter's eye.
+	var muzzle: Variant = null
 
 
 var _grid: CombatGrid

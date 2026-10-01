@@ -1,8 +1,9 @@
 ## Plays out a shot the player is not lining up on the action bar: an enemy's
-## fire, or a squad member's reaction. The shooter leans out of cover if the
-## shot needs it, the sight line hangs long enough to be seen, the round flies
-## to wherever [Ballistics] sends it, the result is called over the target as
-## it lands, and the shooter settles back into cover.
+## fire, or a squad member's reaction. The shooter turns to its target with its
+## gun up, leans out of cover if the shot needs it, still facing the target,
+## the sight line hangs long enough to be seen, the round flies to wherever
+## [Ballistics] sends it, the result is called over the target as it lands,
+## and the shooter settles back into cover and lowers its gun.
 ##
 ## The shot itself is [method Unit.shoot_at], so a shot played out here means
 ## the same as one taken from the action bar.
@@ -36,8 +37,9 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 	# Read where to call the result now: a target that dies is gone by then.
 	var mark := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile))
 
+	shooter.aim_at(shooter.aim_point(shot.target, _grid))
 	if shot.stepped_out:
-		await shooter.walk([_grid.tile_position(shot.from)], step_out_seconds)
+		await shooter.walk([_grid.tile_position(shot.from)], step_out_seconds, true)
 	var show_rounds := Callable()
 	if _overlay != null:
 		var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
@@ -57,5 +59,6 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 		_overlay.flash_result(mark, text, outcome.hit, player_fire)
 
 	if shot.stepped_out:
-		await shooter.walk([cover], step_out_seconds)
+		await shooter.walk([cover], step_out_seconds, true)
+	shooter.stand_easy()
 	return outcome.hit

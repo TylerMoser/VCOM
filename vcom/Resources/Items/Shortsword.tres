@@ -1,9 +1,11 @@
 [gd_resource type="Resource" script_class="Weapon" format=3 uid="uid://cpsrso5q2t1fb"]
 
 [ext_resource type="Script" uid="uid://ci47t5y6vgtiw" path="res://Scripts/Combat/Weapon.gd" id="1_weapon"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/Shortsword.tscn" id="2_model"]
 
 [resource]
 script = ExtResource("1_weapon")
+model = ExtResource("2_model")
 display_name = "Shortsword"
 description = "A simple melee weapon"
 price = 4

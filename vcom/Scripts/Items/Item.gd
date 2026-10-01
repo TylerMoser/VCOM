@@ -20,6 +20,13 @@ const MELEE := &"melee"
 @export_multiline var description := ""
 ## Shown in the inventory's squares; without one the square shows the name.
 @export var icon: Texture2D
+## What the item looks like on a character in battle: in hand, slung across the
+## back or hung on the belt (see [CharacterModel]). A scene whose origin is
+## where the hand grips it, standing along +z with its top toward +y; a gun's
+## [code]Muzzle[/code] marker is where it fires from, and its
+## [code]Foregrip[/code] where the other hand holds it. Without one the item
+## is carried unseen.
+@export var model: PackedScene
 ## Gold a [Market] asks for one. Set here, on the item, so it is the same in
 ## every market.
 @export var price := 0

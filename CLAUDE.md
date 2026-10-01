@@ -9,13 +9,16 @@ code.
 The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where commands are run from.
 `MagicaVoxel/` holds source `.vox` art outside the project. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness) not yet applied; `Styles/APPLYING.md` explains how
-to apply one.
+to apply one. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
+from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
 ```
 vcom/Scripts/
   Unit.gd              health, actions, reaction, walking, shoot_at(), strike(), throw_at(); name, colour, stats, health
                        from its character; equipment (its character's, or just its weapon), carries(tag), melee_weapon,
-                       grenade; use_up(item) -> used_up; damage_from() (defense off a hit, as take_damage() takes it)
+                       grenade; use_up(item) -> used_up; damage_from() (defense off a hit, as take_damage() takes it);
+                       model (its CharacterModel) and the calls that only show things on it: aim_at(), ready_strike(),
+                       ready_throw(), stand_easy(), celebrate(), dodge(), recover(); aim_point() (a target's eye)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds, used-up grenades and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
@@ -36,9 +39,11 @@ vcom/Scripts/
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
     Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
                        the blast: blast_cells(), is_caught(), caught(), blast_tiles()
-    ThrownGrenade.gd   a grenade in flight along a Throw's arc, for show; frees itself as it arrives
+    ThrownGrenade.gd   a grenade in flight along a Throw's arc, from the thrower's hand, as the grenade's
+                       model tumbling; for show; frees itself as it arrives
     Explosion.gd       a grenade going off: fireball, flash, smoke, for show; go_off(), frees itself
-    ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
+    MuzzleFlash.gd     a gun's flash as it fires, under its Muzzle marker, for show; frees itself
+    ShotPlayback.gd    shots not taken from the action bar: aim, lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
   AI/
@@ -56,12 +61,22 @@ vcom/Scripts/
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
-                       tags / has_tag() (GUN, GRENADE, MELEE); Weapon, Armor, BattleItem extend it
+                       tags / has_tag() (GUN, GRENADE, MELEE), model (its prop scene); Weapon, Armor, BattleItem
+                       extend it
     Armor.gd           the Armor slot's kind: defense, added to the wearer's
     BattleItem.gd      grenades, medkits: name and description; a kind's subclass says what it does
     Grenade.gd         BattleItem: damage, blast_size (odd, tiles across), environment_damage, blast_force
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
+  Characters/          the rigged figure every unit wears, and how it is baked
+    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
+                       does, facing, hops, gear in its sockets, the ragdoll it becomes on death; CORPSES group
+    AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
+    Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
+    BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, ragdoll, sockets, animations)
+    VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions), per-bone mesher, ragdoll
+    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
+    PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
   Roster/
     Character.gd       Resource: display_name, color, portrait, stats, wounds / health, total_defense, experience,
                        skill_points, gain_experience(), equipment slots, hire_cost
@@ -117,6 +132,11 @@ vcom/Scripts/
     Market.gd          Location: an Inventory of stock for sale at one village; one .tres per village
 ```
 
+Art beside the scripts: `vcom/Characters/` holds the figure's `.vox` and what `BakeCharacter.gd` makes
+of it (`BaseCharacterBody.res`, the skinned mesh; `BaseCharacterAnimations.res`, the animation
+library), `vcom/Items/` the props' `.vox` (copies of `MagicaVoxel/`'s), and `vcom/Scenes/Props/` a scene
+for each prop: its mesh, with markers where it fires from and where it is held.
+
 ## Architecture
 
 **Actions are nodes.** `ActionController` takes its `UnitAction` children as the actions offered on
@@ -151,10 +171,13 @@ line reads "Melee" instead of the cover). It costs `StrikeAction.COST` (1, a sho
 without an action left or an enemy next to the unit. The odds are `HitChance.for_strike()`, worked out
 once as the target is lined up; `Unit.strike()` rolls them and deals `Unit.melee_weapon`'s damage
 plus the striker's `Unit.strength` through `take_damage()`, so defense comes off that sum as it does
-off a shot's damage. Nothing flies: the blow lands at once,
-touches no terrain, and is shown only by its result called over the target. It still sets
-`controller.busy` for the moment it lands, so a kill that wins the battle finds the action mid-play
-and leaves it to be put away as it completes.
+off a shot's damage. Nothing flies, and the blow touches no terrain. Lining a target up has the
+figure square up to it with its sword out (`Unit.ready_strike()`; a rifleman draws it off his back),
+and `Unit.strike()` is a coroutine: it plays the swing, rolls and deals the damage at the swing's
+`impact` moment (`strike_sword`'s metadata), and returns then, so the result is called as the blade
+lands; `StrikeAction` then awaits `Unit.recover()`, the follow-through, before it completes. It is
+busy throughout, so a kill that wins the battle finds the action mid-play and leaves it to be put
+away as it completes.
 
 **A throw is planned, then flown.** `ThrowGrenadeAction` aims with the mouse, as Move previews: it
 follows the tile under the cursor every frame, and right-click (`execute_action`) or Enter / Space
@@ -169,9 +192,12 @@ line, cut into `TRACE_STEP` pieces each cast through the grid with `CombatGrid.c
 cell any piece meets blocks it, and `points` then ends there. Those constants decide what a throw
 gets over (half cover in front of the target from the full range, the thrower's own full cover; never
 the tile right behind full cover), so check them with a probe if they change. The throw costs
-`ThrowGrenadeAction.COST` (1) and goes through `Unit.throw_at()`: the grenade is used up as it leaves
-the hand, `_fly` shows a `ThrownGrenade` along the arc (timed as a fall under `ThrownGrenade.GRAVITY`)
-and an `Explosion` where it goes off, and the blast lands as the grenade arrives: `take_damage()` on
+`ThrowGrenadeAction.COST` (1) and goes through `Unit.throw_at()`. While the action is up the figure
+holds a grenade ready, turned to the tile under the cursor (`Unit.ready_throw()`). The throw winds up
+and lets go at its `release` moment, where the grenade is used up as it leaves the hand; `_fly` gets
+where the hand was and shows a `ThrownGrenade` from there, easing on to the arc in its first
+`EASE_IN` of the flight (timed as a fall under `ThrownGrenade.GRAVITY`), and an `Explosion` where it
+goes off, and the blast lands as the grenade arrives: `take_damage()` on
 everyone caught, then `CombatGrid.blast()` with the cube's cells. Results are called together
 (`ShotOverlay.flash_results()`, over the heads). The action stays busy `AFTERMATH_SECONDS` and until no
 unit is moving, so anyone the blast dropped has landed before the next throw is worked out. The
@@ -287,14 +313,14 @@ gives it a sub-tab on both sides of every market too.
 `Resources/StartingRoster.tres` whose list is its own but whose characters are the loaded `.tres`. A
 combat map has no squad of its own: it has `SquadStart` markers under a `SquadStarts` node, and
 `PlayerSquad` (its `starts_path`) spawns a `Scenes/SquadUnit.tscn` (a `Unit` in `players` with a
-`Mesh`, the old fixed players' pattern) on the tile under each, for each character
+`Model`, the old fixed players' pattern) on the tile under each, for each character
 `Campaign.squad(markers)` sends: those chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then gathers `players` as before, so the squad
 panel, the reaction keys and everything else reading `PlayerSquad.members` follow roster order. It
 does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
 reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
 square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
 `display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
-`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its mesh on a copy
+`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure on a copy
 of the material); its defense
 is `Character.total_defense`, the character's own plus their armor's. They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
@@ -323,16 +349,81 @@ save/load will need to store it. Enemies and `LineOfSightTest`'s units have no c
 and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
 its eight fixed units are its squad and spawn nothing.
 
-**Every unit wears one voxel model for now.** A unit's `Mesh` child, squad or enemy, is an instance
-of `Scenes/BaseCharacter.tscn`: `Characters/BaseCharacter.vox` imported as a mesh, moved so the
-figure stands centred on its tile with its feet on the floor. The `.vox` places the figure off-centre
-in MagicaVoxel's scene, so that offset is on the model scene's root; if the model is re-exported
-somewhere else, re-centre it there. Each unit sets its own `surface_material_override`, a plain
-`StandardMaterial3D` that ignores the model's vertex colours, so it shows one flat colour: the
-scene's for enemies and the harness, the character's `color` for the squad (`Unit._paint`). The rules
-never read the model: shots take a unit's body from `Ballistics`' constants and its two cells. It
-shapes only the click body and the debris capsule (`Unit._add_bodies()`), which is as thick as the
-figure's torso, so debris passes through its outstretched arms.
+**Every unit wears one rigged voxel figure for now.** A unit's `Model` child, squad or enemy, is an
+instance of `Scenes/BaseCharacter.tscn`, which `Scripts/Characters/BakeCharacter.gd` makes from
+`Characters/BaseCharacter.vox`. After editing the `.vox` (or the rig or the animations' scripts) bake
+again: `--headless --path . --script res://Scripts/Characters/BakeCharacter.gd`. It overwrites the scene
+and the two `.res` beside the model, so never edit those by hand or in the editor. The rules never read
+the figure, as they never read debris: shots take a unit's body from `Ballistics`' constants and its
+two cells. Each unit sets the figure's `body_material`, a plain `StandardMaterial3D` that ignores the
+model's vertex colours, so it shows one flat colour: the scene's for enemies and the harness, the
+character's `color` for the squad (`Unit._paint()` gives `CharacterModel.paint()` a copy). The figure
+shapes the unit's bodies (`Unit._add_bodies()`): an upright cylinder `PICK_RADIUS` round for clicks,
+and the debris capsule as before, as thick as the figure's body; neither turns with it.
+
+**The rig is rigid, one bone per voxel.** `VoxelRig` shares the model's voxels out between 18 bones,
+named as Godot's `SkeletonProfileHumanoid` names them, by the layout's regions (boxes in the model's
+own voxel coordinates, first match wins; a voxel in none goes to the nearest joint, with a warning),
+and weights each wholly to its bone, so limbs move as solid blocks and never stretch. Each bone is
+meshed on its own, keeping the faces where two bones meet, so a bent joint shows block ends, not a
+hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, at the old import's
+0.063 a voxel, centred on its footprint and stood on its lowest voxel. A new model needs a layout
+(joints in rig voxels: x to the figure's left, y up, z forward) in `VoxelRig` and an entry in
+`BakeCharacter.LAYOUTS`, or can share `BASE_CHARACTER` if drawn to its proportions.
+
+**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 38 for the rig's
+proportions: a function of time places the feet, the hands and what they hold, and leans the body,
+and two-bone IK solves the limbs between, so a model with other proportions gets animations that fit
+it by baking again. The rifle is held through `rifle_grip` and the rifle scene's `Foregrip` marker:
+these arms reach only 8 voxels to the palm, which is why the aim holds the rifle under the chin and
+the off hand on the magazine. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
+(`rifle`, `melee`, `unarmed`) has stand, crouch (on one knee behind low cover), wall (up close to
+high cover), ready_throw, cheer, run and throw; the rifle has aim, overwatch, overwatch_crouch and
+the back / strafe steps a rifleman takes stepping out, still aimed; the sword has ready_melee,
+strike_sword, draw_sword and stow_sword; and there are hop, fall, and the reactions fire_rifle,
+hit_front, hit_back, dodge and land, which key only what they move and are added to the pose. Clips
+carry the moments the game waits on as metadata: `speed` on the runs (5 tiles a second, a stride a
+tile), `impact` on the strike, `release` on the throws, `swap` on the draws. The editor's animation
+panel can play them; a change made there is lost at the next bake.
+
+**`CharacterModel` plays them through one `AnimationTree`.** Its `AnimationNodeBlendTree`
+(`HumanoidAnimations.make_tree()`): `stance` picks the base loop; `move` blends it to `run`, scaled by
+`run_scale`, whose `run_rifle` is a 2D blend of the forward, back and strafe runs; `hop` (legs only)
+and `air` (falling) blend over that; `act` is a one-shot played whole (strike, throw, draw, stow) and
+`react` a one-shot added on top. The tree resource is shared by every figure, so the model sets its
+parameters and never its nodes' properties. Most of what it plays it reads off its unit each frame:
+it runs while `Unit.is_moving()`, as fast as the unit really goes, so a reaction's slow motion slows
+its legs and a held walk freezes them mid-stride; it faces the way it goes, unless the walk keeps its
+facing (`Unit.walk(..., keep_facing)`, a step out to shoot); and a step up or down a level lifts it in
+a hop, on the figure's own position, so the unit still moves in a straight line and `tile_at()` never
+sees it. `Unit.drop_to()` sets it falling until it lands. The rest the unit asks for, through
+presentational calls that do nothing without a figure: `aim_at()` (raise the gun to a point, which
+`AimModifier` bends the spine and chest to, above or below), `ready_strike()`, `ready_throw()`,
+`celebrate()` (the winners, as `TurnManager` decides the battle), `stand_easy()` (at the end of the
+frame, called off if something is readied again at once, so a Shoot that begins again never lowers
+the gun), `dodge()`, and `take_damage()`'s flinch. Between actions `Postures`, a node in each combat
+map, moves only figures that are `is_idle()`.
+
+**Gear hangs in the figure's sockets.** `CharacterModel.equip(gun, melee, grenades)` shows each item's
+`Item.model`: a scene whose origin is where the hand grips it, standing along +z with its top up +y;
+a gun's `Muzzle` marker is where it fires from and its `Foregrip` where the off hand holds it. The bake
+makes the sockets: `RightHand/RifleGrip` and `SwordGrip`, `LeftHand/GrenadeGrip`, `Back/RifleSlot` and
+`SwordSlot`, `Belt/Grenade1`..`3`. The gun is in hand; the sword is in hand without a gun, else slung
+on the back and drawn for a strike, swapping with the gun at `draw_sword`'s `swap`; grenades hang on
+the belt, one in the left hand while a throw is lined up. `Unit._dress()` calls `equip()` as the unit
+enters the map and as it uses something up. A prop's `.vox` puts its grip at the middle of an
+even-sized model box, which is where the importer puts the mesh's origin, and imports at 0.063, as the
+figure does.
+
+**The dead are ragdolls, and stay.** `Unit.die()` hands the figure `CharacterModel.fall_dead()` before
+the unit is freed: the figure moves to the unit's parent, its tree stops, its 12 `PhysicalBone3D`s
+(boxes over their bones' voxels; hands, feet and head ride on the forearm, shin and neck) go on the
+debris layer, and the simulation starts from the pose it died in, knocked from where the hit came
+(`take_damage()`'s `from`): the upper body thrown, the shins kicked the other way (`KNOCK_SHARES`), so
+it drops at once rather than standing stiff. Bodies are in `CharacterModel.CORPSES`, and a blast throws
+them as it does debris (`TerrainDestruction` calls `CharacterModel.blast()` with the blast's box). One
+blasted `FALL_LIMIT` below where it fell is freed. The body left its groups with the unit, so nothing
+in the rules finds it.
 
 **Equipment is on the character, the spares in the inventory.** A character has six typed slots
 (`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in
@@ -384,15 +475,22 @@ sits its turn out with a warning.
 the tween, then polls it each frame: on every new tile it works out who on overwatch could fire
 (`_find_offers`), opens or closes the window, slows the tween (`slow_motion_scale`), and holds it at
 speed 0 while a reaction shot plays out. `TurnManager` calls `release_view()` after each enemy's
-turn to hand the camera back. A window only exists during a walk; nothing else opens one.
+turn to hand the camera back. A window only exists during a walk; nothing else opens one. The
+walker's figure runs at whatever speed the tween goes, so it slows with the window and freezes
+mid-stride while held, and nothing here has to tell it.
 
 **A shot is settled when it is fired and lands when it arrives.** `Unit.shoot_at(shot, chance,
-grid, show_rounds)` rolls, then asks `Ballistics` for the round's `Path`: the sight line for a hit;
+grid, show_rounds)` first has the shooter's figure take aim at the target's eye (turned to it, gun up:
+at once if the shot was lined up with `aim_at()`, as `ShootAction` and `ShotPlayback` both do before
+anything else), then rolls, then asks `Ballistics` for the round's `Path`: the sight line for a hit;
 for a miss, XCOM 2's placement, an aim point on a ring around the target's body (or, `COVER_SHARE`
 of the time, on the target's cover) traced with `CombatGrid.cast()` until something stops it or it
-leaves the map. It then awaits `show_rounds` (`ShotOverlay.show_rounds`, which draws the tracer and
-returns as it lands), and only then damages the target and reports any terrain the round struck
-through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; always `await` it.
+leaves the map. The figure kicks and flashes, and `Outcome.muzzle` says where its muzzle was, which
+`ShotOverlay` draws the tracer from: only the drawing, as every path is still flown from the eye. It
+then awaits `show_rounds` (`ShotOverlay.show_rounds`, which draws the tracer and returns as it lands),
+and only then damages the target (or has it duck a miss) and reports any terrain the round struck
+through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; always `await` it. A
+step out walks with `keep_facing`, so the shooter sidesteps out and back with its gun on the target.
 
 **Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
 `terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
@@ -457,8 +555,10 @@ finite at the origin; a board facing the blast is thrown harder than one edge-on
 piece further than a heavy one, and pieces tumble as they fly. `IMPULSE` is what force 1 means, and
 is the only thing to retune if every blast is too strong or too weak.
 
-**Physics is only for debris.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3 debris,
-4 unit bodies (`Unit.BODY_LAYER`). Blocks have no collision in the MeshLibrary, so
+**Physics is only for debris, and the dead.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3
+debris, 4 unit bodies (`Unit.BODY_LAYER`). A fallen unit's ragdoll is debris among debris: on layer 3,
+landing on terrain and other debris and shoved aside by the living; its bones are on no layer at all
+until it falls. Blocks have no collision in the MeshLibrary, so
 `TerrainDestruction` gives the map a copy of it with a cube on every shapeless block. Debris stays
 live for good and sleeps when still. Each unit carries a frictionless `AnimatableBody3D` capsule,
 starting `Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and is never pushed back.
@@ -567,6 +667,12 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   window (not leaning out to shoot). Keys `1`-`4` follow `PlayerSquad.members`, which is the squad
   panel's order; `0` passes on the current move only, and the next move is a new trigger.
 - Units never block line of sight. Only terrain does.
+- **A unit's figure is only for show.** Nothing in the rules reads `Unit.model`, its pose, facing,
+  hop or ragdoll: sight, shots and blasts take a unit as its tile and two cells, and a body that has
+  fallen is in no group. The figure decides only *when* a few things happen, never what: a shot is
+  fired once the gun is up, a strike lands at the swing's impact, a grenade leaves at the throw's
+  release. Every rule above still holds at that moment, and a unit with no figure plays the same,
+  at once.
 
 ## Verification
 
@@ -608,6 +714,27 @@ can be tested without rendering: break a block by calling `CombatGrid.strike()` 
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
+
+The figure is checked the same way, by its frames. Bake it, then look:
+
+```bash
+# Rebuild Scenes/BaseCharacter.tscn, its mesh and its animations from the .vox (a few seconds).
+"$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
+```
+
+To see an animation, render it (in a window; `--headless` cannot):
+
+```bash
+"$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- stand_rifle strike_sword --view side
+```
+
+It plays whole clips through the figure's `AnimationPlayer` and adds reactions to a pose through its
+`AnimationTree`, with the stance's props, and saves each frame and a `sheet.png` (a row per clip) to
+`user://animation_preview` (it prints the folder). Look from the side and from three-quarters. In a
+map, drive the actions themselves (`controller.activate()`, then `ShootAction._fire()`,
+`StrikeAction._strike()`, `ThrowGrenadeAction._aim(tile)` + `_throw_lined_up()`, `MoveAction._move_to()`)
+and capture frames as they play: that tests the timing too. The camera rig's `_pivot`, `_yaw`, `_zoom`
+and `view_pitch` can be set directly to frame a close-up.
 
 ## Gotchas
 
@@ -736,6 +863,33 @@ time (`root.get_node("Campaign")`).
 rebuilds the GridMap and repositions units. That script is not in the repo, so edit the scene
 directly or write a fresh generator.
 
+**`BaseCharacter.tscn` is generated too**, by `BakeCharacter.gd`, with its mesh and animations. Change
+the scripts and bake; anything edited into the scene or its `.res` is lost at the next bake.
+
+**An `AnimationTree`'s `tree_root` is one resource shared by every figure.** Setting a node's property
+on it (a one-shot's fade, a transition's cross-fade) changes it for all of them; per-figure state goes
+through `tree.set("parameters/...")` only.
+
+**`Vector2.UP` is (0, -1).** It is screen up. A blend space's forward, +y in the figure's own space,
+has to be written `Vector2(0, 1)`.
+
+**A rotation key must be on the same side as the one before it.** A quaternion and its negative are
+the same turn, but a track blended between keys of opposite sign swings the long way round;
+`HumanoidAnimations._sample()` flips each key to match the last.
+
+**A figure's sockets exist only once it is ready.** `CharacterModel.equip()` before its `_ready` finds
+no skeleton and hangs nothing; a probe that instantiates the scene has to add it to the tree and wait a
+frame first, as `Unit._ready()` does by running after its child's.
+
+**A typed array parameter refuses a plain array literal from untyped code.** A `--script` probe that
+passes `[]` to `CharacterModel.equip()`'s `Array[Item]`, or a literal list of points to
+`Unit.walk()`, fails at run time; declare the array typed (`var points: Array[Vector3] = [...]`) first.
+
+**A ragdoll starts from the pose its skeleton is in.** `PhysicalBoneSimulator3D` keeps its bodies on
+the animated bones while it is inactive, and `physical_bones_start_simulation()` picks them up from
+there, mid-stride or mid-flinch, so a body falls from whatever the unit was doing. Its bodies are on no
+physics layer until then, so they never collide while alive.
+
 ## Known gaps
 
 - A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
@@ -757,8 +911,16 @@ directly or write a fresh generator.
 - Nothing spends skill points, and the only experience is for surviving a battle. Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
-- Enemies never strike or throw: their AI only shoots. A strike has no animation, only its result,
-  and a throw no thrower's animation, only the grenade.
+- Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies
+  a grenade, though the same figure can.
+- Every unit wears the one figure, and only `BaseCharacter.vox` has a rig layout. Armor does not show
+  on it, and a character's colour is the only thing that tells the squad apart.
+- A figure turns on the spot without stepping, so its feet slide round. Every throw is left-handed,
+  so the right hand keeps its weapon. There is no wounded idle, and no reload since there is no ammo.
+- Props are posed by kind: the rifle's grip and foregrip, the sword's grip. A gun shaped very
+  differently (a pistol) needs its own poses in `HumanoidAnimations`, not just a model.
+- Bodies stay for the rest of the battle. Only a blast moves them (or a walking unit's capsule shoves
+  them), and a living unit can stand where one lies.
 - There is one kind of grenade, and a unit throws the first it carries: with several kinds there is
   no way yet to pick which. Grenades do not bounce or roll, and a blocked arc is simply not thrown;
   walls inside a blast shelter nobody. Only the player sees the throw: no reaction or camera move

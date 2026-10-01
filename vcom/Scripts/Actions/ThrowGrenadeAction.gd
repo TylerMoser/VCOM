@@ -16,7 +16,8 @@
 ##
 ## Nothing is rolled: a grenade goes off where it is thrown. Which way it can
 ## go and whom its blast catches is [Throwing]'s business, and what the blast
-## does is [method Unit.throw_at]'s.
+## does is [method Unit.throw_at]'s. While the action is up the unit holds the
+## grenade ready, turned to the tile under the cursor.
 class_name ThrowGrenadeAction
 extends UnitAction
 
@@ -85,11 +86,14 @@ func begin(unit: Unit) -> void:
 		tiles[tile] = RANGE_COLOR
 	controller.highlights.set_layer(RANGE_LAYER, tiles, RANGE_FILL)
 	_aimed = null
+	unit.ready_throw()
 	set_process(true)
 
 
 func end() -> void:
 	set_process(false)
+	if _unit != null:
+		_unit.stand_easy()
 	_clear_aim()
 	controller.highlights.clear_layer(RANGE_LAYER)
 	_unit = null
@@ -120,6 +124,7 @@ func _aim(tile: Variant) -> void:
 		_clear_aim()
 		return
 	_throw = _throws[tile] if _throws.has(tile) else _throwing.plan(from, tile)
+	_unit.ready_throw(_throw.end)
 	_show_throw()
 
 
@@ -153,15 +158,16 @@ func _throw_lined_up() -> void:
 	completed.emit()
 
 
-## Shows [param throw] in flight and [param grenade] going off at the end of
-## it. Handed to [method Unit.throw_at], which holds the blast until it
-## returns, as the grenade arrives.
-func _fly(throw: Throwing.Throw, grenade: Grenade) -> void:
+## Shows [param throw] in flight from [param release], the thrower's hand, and
+## [param grenade] going off at the end of it. Handed to [method Unit.throw_at],
+## which holds the blast until it returns, as the grenade arrives.
+func _fly(throw: Throwing.Throw, grenade: Grenade, release: Vector3) -> void:
 	if _effects == null:
 		return
 	var flying := ThrownGrenade.new()
+	flying.show_model(grenade.model)
 	_effects.add_child(flying)
-	await flying.fly(throw)
+	await flying.fly(throw, release)
 	Explosion.go_off(_effects, throw.end, grenade.blast_size)
 
 
