@@ -7,6 +7,7 @@ Candidate visual styles for VCOM's combat map, rendered from the real game on 20
 | [VISUAL_VARIANTS.md](VISUAL_VARIANTS.md) | The catalog: every kept style with its screenshot, description, cost and exact settings. |
 | [APPLYING.md](APPLYING.md) | How to make a style permanent, how to verify it, and the decisions to make first. |
 | [REVERT.md](REVERT.md) | The original look, value by value as of 2026-10-01, and how to return to it after a style has been applied. `REVERT-*.png` are its reference renders. |
+| [LEDGES.md](LEDGES.md) | Making grass levels easier to tell apart: the options compared on top of 05 (pictures in `ledges/`), the recommendation (a height tint), and how to apply it. Not applied yet. |
 | [harness/](harness/) | The render harness: previews any style from the live game, holds the values (the source of truth), and contains the two shaders. |
 | [TRANSCRIPT.md](TRANSCRIPT.md) | The conversation in which these were researched, rendered and chosen. |
 | `NN-*.png` | Screenshots. Left panel: the game as it starts. Right panel: a closer view with the HUD and tile highlights hidden. |
