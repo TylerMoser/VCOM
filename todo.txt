@@ -1,25 +1,16 @@
-Claude Max best-attempt at animations (just to see what it can do)
-
 --TODO TACTICAL:
-Characters and animations
 Destructible terrain types: A few fallen blocks, Total-shatter-destruction
-Toggleable visible grid (like in style example)
-Coin/loot drops: Enemies and crates
 Action cam
-Better Ground Blocks
-Improved color palette/vibrancy without being over-saturated. More easily readable terrain. Sharp green blocks are too over-saturated.
+Toggleable visible grid (like in style example)
+Apply style from earlier investigation
 More terrain types: Ladders, fences, water, difficult ground, impassible tiles, etc.
 Height/layers to terrain (Buildings with interiors)
-Enemy AI
 Blood splatter
 Add destruction to more terrain: Skinny trees
 
 --TODO CAMPAIGN:
 Other items
 Skill Trees: Species, Classes
-Story/Tutorials/In-game documentation for player/etc.
-Saving/Loading, Main Menu
-Battle map generation
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.
@@ -28,5 +19,15 @@ Debris can take up full tiles, causing weird behavior. If a tile is substantiall
 --OUT OF SCOPE:
 Fog of war? Maybe make it sections of the map, and obvious.
 Better UI for selecting targets, instead of just pressing Spacebar.
-Less "AI" UI. Apply my own style to it.
+Replace GenAI: Animations, UI, Placeholder objects
 Music/Ambiance, Sound Effects
+Better Ground Blocks
+Enemy AI
+Battle map generation
+Reload action
+Drop weapons/items on death: Player physics, enemy loot drops
+Claude Max code review/cleanup: Subagents? Some review, others fix? 
+Claude is pretty good at playing the game: Get it to play the game and spit out defects/concerns/questions about anything it isn't sure is right.
+Story/Tutorials/In-game documentation for player/etc.
+Saving/Loading, Main Menu
+Double-size coin voxel with black outline for better visibility

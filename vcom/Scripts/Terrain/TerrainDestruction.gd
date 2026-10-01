@@ -19,8 +19,16 @@
 ## Debris that no longer belongs anywhere is tidied away: a piece knocked off
 ## the edge of the map, once it has fallen well below it, and one wedged inside
 ## a block, where it cannot be seen and would jostle for ever.
+##
+## Each block that breaks is announced ([signal block_broken]), for whatever
+## it leaves behind besides its pieces, such as a coin ([Coins]).
 class_name TerrainDestruction
 extends Node3D
+
+## Emitted as a block breaks, [param destruction] saying what kind it was.
+## [param cell] is where it broke: where it stood, or, for one that fell whole,
+## the cell it landed in.
+signal block_broken(cell: Vector3i, destruction: Destruction)
 
 ## Physics layers: the blocks, and the pieces broken off them.
 const TERRAIN_LAYER := 1 << 0
@@ -182,6 +190,7 @@ func _break(cell: Vector3i, hit: CombatGrid.RayHit, collapse: Collapse) -> bool:
 	var at := _mesh_transform(cell)
 	_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
 	destruction.shatter(self, at, hit)
+	block_broken.emit(cell, destruction)
 	_drop_blocks_above(cell, collapse)
 	return true
 
@@ -221,6 +230,7 @@ func _on_landed(at: Transform3D, motion: Destruction.Motion, destruction: Destru
 	var before := get_child_count()
 	destruction.shatter(self, at, null, motion)
 	collapse.add(_left_since(before))
+	block_broken.emit(_map.local_to_map(_map.to_local(motion.center)), destruction)
 
 
 ## Every piece of debris among, or under, the children added since there were

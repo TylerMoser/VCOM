@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/SquadUnit.tscn" id="20_squad_unit"]
 [ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
 [ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
+[ext_resource type="Script" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -141,6 +142,9 @@ script = ExtResource("11_reactions")
 
 [node name="Postures" type="Node" parent="."]
 script = ExtResource("30_postures")
+
+[node name="Coins" type="Node3D" parent="."]
+script = ExtResource("31_coins")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 

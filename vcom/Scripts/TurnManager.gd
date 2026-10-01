@@ -17,8 +17,9 @@
 ## goes back to the world map the battle was started from (see
 ## [method Campaign.end_battle]). Whoever of the squad still stands earns
 ## their experience then ([method PlayerSquad.award_survivors]), and a win
-## earns the party [member victory_gold]. The side left standing cheers while
-## the banner is up. A battle opened on its own stays open, over.
+## earns the party [member victory_gold] and every coin still lying on the map
+## ([method Coins.sweep]). The side left standing cheers while the banner is
+## up. A battle opened on its own stays open, over.
 ##
 ##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
 class_name TurnManager
@@ -52,6 +53,7 @@ signal end_turn_hold_changed(progress: float)
 @export var banner_path: NodePath = ^"../HUD/TurnBanner"
 @export var overlay_path: NodePath = ^"../HUD/ShotOverlay"
 @export var reactions_path: NodePath = ^"../Reactions"
+@export var coins_path: NodePath = ^"../Coins"
 
 var side := Side.PLAYER
 ## How the battle went, once one side is gone. No turn starts or ends after
@@ -64,6 +66,7 @@ var _grid: CombatGrid
 var _camera_rig: CameraRig
 var _banner: TurnBanner
 var _reactions: Reactions
+var _coins: Coins
 var _enemy_fire: ShotPlayback
 
 var _hold := 0.0
@@ -86,6 +89,10 @@ func _ready() -> void:
 	_reactions = get_node_or_null(reactions_path) as Reactions
 	if _reactions == null:
 		push_error("TurnManager: no Reactions at '%s'." % reactions_path)
+	# Without coins, a win pays only the victory's gold.
+	_coins = get_node_or_null(coins_path) as Coins
+	if _coins == null:
+		push_error("TurnManager: no Coins at '%s'." % coins_path)
 	if _squad == null or _controller == null or _grid == null or _camera_rig == null or _banner == null:
 		push_error("TurnManager: missing a node it depends on.")
 		set_process(false)
@@ -246,6 +253,8 @@ func _end_if_decided() -> void:
 	_squad.award_survivors()
 	if outcome == Outcome.WON:
 		Campaign.gold += victory_gold
+		if _coins != null:
+			_coins.sweep()
 	for node in get_tree().get_nodes_in_group(&"players" if outcome == Outcome.WON else enemy_group):
 		var winner := node as Unit
 		if winner != null:

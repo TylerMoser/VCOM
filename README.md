@@ -59,7 +59,7 @@ party was, still on its way. If a defeat took the last character on the roster, 
 lost: **Game Over** comes up on the world map and the game closes.
 
 Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
-gold. Every 100 experience becomes a skill point (the rest carries over), shown on the Roster's
+gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience becomes a skill point (the rest carries over), shown on the Roster's
 Skills tab as "Skills (1)"; nothing spends them yet.
 
 ## Combat rules
@@ -255,6 +255,19 @@ boards a cell or two, and further when a grenade did it.
   fight and bumps off soldiers, but they never block sight, give cover or get in anyone's way.
 
 Grass and the ground do not break.
+
+### Coins
+
+**Three crates in four leave a coin** where they broke, spinning in the air at the height of the
+crate's top, or where a falling crate landed. Coins on the same tile stack up, and a coin whose
+ground is shot away drops to the ground below.
+
+- **Walk through a coin to take it.** A soldier takes every coin on each tile they pass through,
+  ending their move there or not: along a path, stepping out of cover to shoot, or dropping when the
+  crate under them breaks. Each is 1 gold for the party at once, "+1 Gold" over their head, and is
+  kept even if the battle is lost. Enemies ignore coins.
+- **A victory sweeps up the rest.** Every coin still on the field is the party's the moment the
+  last enemy falls.
 
 ## Notable decisions
 

@@ -19,6 +19,10 @@ extends Resource
 ## the block under it breaks, and so how hard it shoves the debris it meets on
 ## the way down. A crate's boards weigh about 300 together.
 @export var mass := 300.0
+## The chance, from 0 to 1, that the block leaves a coin as it breaks,
+## floating where it broke for the squad to pick up (see [Coins]). Rolled
+## every time one breaks, where it stood or where it landed after a fall.
+@export_range(0.0, 1.0) var coin_chance := 0.0
 
 
 ## How a block was moving as it broke, for its pieces to carry on the same way.

@@ -14,6 +14,9 @@
 ## where something blocks it, and a bracket on everyone its blast would catch,
 ## with the damage each would take. A blast can hurt several at once, so its
 ## results are called together ([method flash_results]).
+##
+## Gold the squad picks up is called here too ([method flash_pickup]), each
+## pickup on its own, so it never replaces a result or another pickup.
 class_name ShotOverlay
 extends Control
 
@@ -41,6 +44,8 @@ const HIT_COLOR := Color(1.0, 0.82, 0.3)
 const MISS_COLOR := Color(0.85, 0.88, 0.95)
 const RESULT_OUTLINE_COLOR := Color(0.04, 0.04, 0.07)
 const RESULT_OUTLINE_WIDTH := 5
+## Gold picked up, called in the colour the menus show the party's gold in.
+const GOLD_COLOR := Color(1.0, 0.9, 0.55)
 
 ## How fast a round flies, in cells a second, and the length of the streak its
 ## tracer draws, in cells.
@@ -95,6 +100,9 @@ var _results: Array = []
 var _result_below := true
 ## Seconds of the results left to show. Zero once they have faded out.
 var _result_left := 0.0
+## The pickups being called, as [code][position, text, seconds left][/code],
+## each fading on its own time.
+var _pickups: Array = []
 
 ## The throw being lined up: the points its arc runs through, whether it ends
 ## where something blocks it, and everyone its blast would catch, as
@@ -136,6 +144,9 @@ func _process(delta: float) -> void:
 	for impact: Array in _impacts:
 		impact[1] -= delta
 	_impacts = _impacts.filter(func(impact: Array) -> bool: return impact[1] > 0.0)
+	for pickup: Array in _pickups:
+		pickup[2] -= delta
+	_pickups = _pickups.filter(func(pickup: Array) -> bool: return pickup[2] > 0.0)
 	if _is_idle():
 		visible = false
 		set_process(false)
@@ -213,6 +224,17 @@ func flash_results(results: Array, below := true) -> void:
 	set_process(true)
 
 
+## Calls [param text] over the world position [param at], in gold, for as long
+## as a result: gold picked up, such as "+1 Gold" over a squad member who has
+## taken a coin. Unlike a result it replaces nothing, so a pickup made as a shot
+## lands, or several at once, are all called. Outlives [method clear] as a
+## result does.
+func flash_pickup(at: Vector3, text: String) -> void:
+	_pickups.append([at, text, RESULT_SECONDS])
+	visible = true
+	set_process(true)
+
+
 ## Draws the line of a shot taken at the player, from the eye at [param from]
 ## to the eye at [param to]. No reticle and no panel: those belong to the
 ## player's own aim.
@@ -263,7 +285,7 @@ func clear() -> void:
 
 
 ## Whether there is nothing left to draw: no aim or throw up, no tracer still
-## drawing in, no mark where a round struck, and no result showing.
+## drawing in, no mark where a round struck, and no result or pickup showing.
 func _is_idle() -> bool:
 	return (
 		not _aiming
@@ -271,6 +293,7 @@ func _is_idle() -> bool:
 		and _result_left <= 0.0
 		and _round_time >= _rounds_seconds
 		and _impacts.is_empty()
+		and _pickups.is_empty()
 	)
 
 
@@ -314,7 +337,10 @@ func _draw() -> void:
 	if _result_left > 0.0:
 		for result: Array in _results:
 			if not camera.is_position_behind(result[0]):
-				_draw_result(camera.unproject_position(result[0]), result[1], result[2], _result_below)
+				_draw_result(camera.unproject_position(result[0]), result[1], result[2], _result_below, _result_left)
+	for pickup: Array in _pickups:
+		if not camera.is_position_behind(pickup[0]):
+			_draw_result(camera.unproject_position(pickup[0]), pickup[1], GOLD_COLOR, false, pickup[2])
 
 
 ## Where the target panel goes for a reticle at [param target]: over it, or
@@ -431,10 +457,10 @@ func _draw_impact(camera: Camera3D, at: Vector3, left: float) -> void:
 
 
 ## A result, [param text] in [param color] at [param at], drifting up and
-## fading as its time runs out. It is outlined because it lands over the map,
-## which is as bright as the text is.
-func _draw_result(at: Vector2, text: String, base_color: Color, below: bool) -> void:
-	var gone := 1.0 - _result_left / RESULT_SECONDS
+## fading as its time runs out, with [param left] seconds of it to go. It is
+## outlined because it lands over the map, which is as bright as the text is.
+func _draw_result(at: Vector2, text: String, base_color: Color, below: bool, left: float) -> void:
+	var gone := 1.0 - left / RESULT_SECONDS
 	var font := get_theme_default_font()
 	var width := font.get_string_size(
 		text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, RESULT_FONT_SIZE

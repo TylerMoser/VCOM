@@ -22,7 +22,8 @@ vcom/Scripts/
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds, used-up grenades and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
-  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST
+  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST; a win's
+                       victory_gold and Coins.sweep()
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
@@ -43,6 +44,10 @@ vcom/Scripts/
                        model tumbling; for show; frees itself as it arrives
     Explosion.gd       a grenade going off: fireball, flash, smoke, for show; go_off(), frees itself
     MuzzleFlash.gd     a gun's flash as it fires, under its Muzzle marker, for show; frees itself
+    Coins.gd           map node: rolls a breaking block's coin_chance, keeps the coins by tile (stacked), drops a
+                       tile's when its ground goes, pays for those on any squad member's tile; count(), sweep()
+    Coin.gd            one coin as it is seen (Items/Coin1.vox, twice size): spins, bobs, pops in, drop_to(),
+                       take(); for show
     ShotPlayback.gd    shots not taken from the action bar: aim, lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
@@ -53,8 +58,8 @@ vcom/Scripts/
     Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
   Terrain/
     TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
-                           blast's debris about, tidies debris
-    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); mass; Motion
+                           blast's debris about, tidies debris; block_broken(cell, destruction)
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); mass; coin_chance; Motion
     ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
@@ -332,7 +337,8 @@ is the character's alone and never copied to the unit. It only goes up through
 10 is 7 and a point; a big award gives several); any new way to earn experience calls that. So far the
 one way is surviving a battle: as `TurnManager` decides the battle it calls
 `PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50).
-A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment.
+A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment, and has
+`Coins.sweep()` pay for every coin still lying on the map (see Coins below).
 
 What happens in battle goes the other way, through `PlayerSquad` as it happens, not at the end:
 every change to a member's health is written to `Character.wounds` (health missing, so a character is
@@ -519,6 +525,26 @@ Gotchas). A unit left standing on nothing drops (`Unit.drop_to`) through the rub
 open, blasted apart) the blocks fall nearly a whole cell and smash; in a one-cell slot between two
 columns the columns hold the wreck in place, and the blocks drop on to it.
 
+**Coins are rolled as blocks break and go by tiles.** `TerrainDestruction` emits
+`block_broken(cell, destruction)` for every block that breaks: from `_break` with the cell it stood
+in, and from `_on_landed` with the cell a `FallingBlock` landed in (from `Motion.center`). `Coins`, a
+node in each combat map, rolls that destruction's `coin_chance` (0 unless set; `BrightCrate1.tres`
+has 0.75) and on a success puts a `Coin` on that cell, as a tile: floating with its centre at the top
+of the cell, `Coins.STACK_STEP` over any already there. Every frame it moves the coins of any tile
+whose ground has gone (`is_solid(tile + DOWN)`) to `CombatGrid.tile_under()`, on top of what is
+there, and takes every coin on the `tile_at()` of each living unit in `players`. That is every frame,
+not on a timer, so a tile crossed in a fifth of a second is not missed, and it is by position, so
+walking a path, stepping out to shoot and dropping when the ground goes all pick up. Each coin is
+`Coins.value` (1) gold into `Campaign.gold` the moment it is taken, so it is kept whatever comes of
+the battle, and `ShotOverlay.flash_pickup()` calls "+N Gold" over the taker's eye. That call, unlike
+`flash_results()`, replaces nothing: each pickup fades on its own time, so a shot's damage is never
+lost to it. A blast top-down leaves its coins in the cells the crates stood in, so the upper ones
+fall a frame later on to the bottom one's tile. `sweep()`, on a win, pays for every pile, calling
+each over it, and sets `_swept`, after which a block that breaks (one still falling as the battle
+ends) pays at once and leaves no coin. The `Coin` node is only for show: it is spun and bobbed on a
+child, so its own position is where it rests, and the model is centred on its box, since
+`Coin1.vox` is drawn well off its origin.
+
 To make another object break like the crate:
 
 1. Model the pieces in MagicaVoxel in the same frame as the block's own model, as separate models.
@@ -526,7 +552,8 @@ To make another object break like the crate:
    up with the block they replace. Make an inherited scene of it in `Scenes/` to add to.
 3. Make a `ScriptedDestruction` `.tres` in `Resources/Destruction/` naming the block and that scene,
    and add it to `Catalog.tres`. Set its **Mass** to what the block weighs whole, if it is not
-   about a crate's 300 kg; that is only felt while it falls.
+   about a crate's 300 kg; that is only felt while it falls. Set its **Coin Chance** (0 to 1) if it
+   should leave coins, as a crate does three times in four.
 
 Every bare mesh in the scene becomes a rigid body with a box collider, 3.5% smaller than the mesh
 (`ScriptedDestruction.SLACK`, see Gotchas); a `RigidBody3D` you author is used as it is, and other
@@ -667,6 +694,9 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   window (not leaning out to shoot). Keys `1`-`4` follow `PlayerSquad.members`, which is the squad
   panel's order; `0` passes on the current move only, and the next move is a new trigger.
 - Units never block line of sight. Only terrain does.
+- **A coin is on a tile, and only the squad takes it.** Whether a coin is there, and who takes it,
+  is `Coins`' tiles and units' `tile_at()`, never the `Coin` node; enemies pass coins by. Its gold
+  goes into `Campaign.gold` the moment it is taken, not at the end, and a win pays for the rest.
 - **A unit's figure is only for show.** Nothing in the rules reads `Unit.model`, its pose, facing,
   hop or ragdoll: sight, shots and blasts take a unit as its tile and two cells, and a body that has
   fallen is in no group. The figure decides only *when* a few things happen, never what: a shot is
@@ -850,7 +880,7 @@ scripted runs a `timeout`.
 
 **A `--script` probe cannot name a class that names an autoload.** Its typed references are compiled
 before the autoloads' names exist, so typing a variable as `PlayerSquad` (which calls `Campaign`), or
-anything that reaches it (`ActionController`, every `UnitAction`, `ActionButton`), fails with
+anything that reaches it (`ActionController`, every `UnitAction`, `ActionButton`, `Coins`), fails with
 `Identifier not found: Campaign`. Leave those variables untyped and use string literals for their
 constants; `Unit`, `CombatGrid` and `Throwing` are safe. The autoloads themselves are there at run
 time (`root.get_node("Campaign")`).
@@ -927,3 +957,8 @@ physics layer until then, so they never collide while alive.
   follows it.
 - `Throwing.throws_for()` plans every tile in range each time Throw Grenade begins, about 16 ms on
   BoundaryMap; a bigger range or map may want it spread over frames.
+- Only crates leave coins, each worth 1 gold; enemies drop nothing. A coin in a cell with no ground
+  anywhere below it, or under a block that cannot break, floats there out of reach until a win
+  sweeps it up. A collapsed stack's coins can sit half buried in its boards. Combat has no gold
+  readout: the "+N Gold" calls are all it shows. `Coin1.vox` is gold with a pale centre and no dark
+  edge, so it shows least against the move range's pale yellow.
