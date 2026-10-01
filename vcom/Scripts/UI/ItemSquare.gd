@@ -3,12 +3,12 @@
 ##
 ## A toggle button in the browser's group, so one square is selected at a
 ## time; focusing a square (arrow keys or a click) selects it too, so the
-## description follows the keyboard. Enter or a double-click on it asks for
-## the browser's action ([signal activated]).
+## description follows the keyboard. Enter, Space or a double-click on it asks
+## for the browser's action ([signal activated]).
 class_name ItemSquare
 extends Button
 
-## Enter, or a double-click, on the square.
+## Enter, Space or a double-click on the square.
 signal activated
 
 const SIZE := Vector2(96, 96)

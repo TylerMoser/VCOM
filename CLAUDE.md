@@ -1,8 +1,8 @@
 # CLAUDE.md
 
 Working notes for VCOM, a turn-based tactics prototype (XCOM / Star Wars: Zero Company) in Godot
-4.7 on a voxel grid. `README.md` has the player-facing rules; this file is about working in the
-code.
+4.7 on a voxel grid. `README.md` has the player-facing rules and controls; this file is about
+working in the code.
 
 ## Layout
 
@@ -329,7 +329,7 @@ item or character that comes up. The bar rechecks the party's gold whenever it i
 other tab may have spent some.
 
 **Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
-stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
+stateless `.tres`: the same `Rifle.tres` is what units shoot with and what the
 inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
 sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres` (a
 `Grenade`, the `BattleItem` that carries its blast: 5 damage, 3 tiles across) `grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot). A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
@@ -343,8 +343,9 @@ gives it a sub-tab on both sides of every market too.
 `Resources/StartingRoster.tres` whose list is its own but whose characters are the loaded `.tres`. A
 combat map has no squad of its own: it has `SquadStart` markers under a `SquadStarts` node, and
 `PlayerSquad` (its `starts_path`) spawns a `Scenes/SquadUnit.tscn` (a `Unit` in `players` with a
-`Model`, the old fixed players' pattern) on the tile under each, for each character
-`Campaign.squad(markers)` sends: those chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then gathers `players` as before, so the squad
+`Model`) on the tile under each, for each character `Campaign.squad(markers.size())` sends: those
+chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then
+gathers `players`, so the squad
 panel, the reaction keys and everything else reading `PlayerSquad.members` follow roster order. It
 does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
 reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
@@ -397,8 +398,7 @@ named as Godot's `SkeletonProfileHumanoid` names them, by the layout's regions (
 own voxel coordinates, first match wins; a voxel in none goes to the nearest joint, with a warning),
 and weights each wholly to its bone, so limbs move as solid blocks and never stretch. Each bone is
 meshed on its own, keeping the faces where two bones meet, so a bent joint shows block ends, not a
-hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, at the old import's
-0.063 a voxel, centred on its footprint and stood on its lowest voxel. A new model needs a layout
+hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, at 0.063 a voxel, centred on its footprint and stood on its lowest voxel. A new model needs a layout
 (joints in rig voxels: x to the figure's left, y up, z forward) in `VoxelRig` and an entry in
 `BakeCharacter.LAYOUTS`, or can share `BASE_CHARACTER` if drawn to its proportions.
 
@@ -805,6 +805,9 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - Nullable returns use `Variant` with a `null` check (`find_shot`, `current_shot`, `pick_tile`), so
   callers need an explicit type annotation to unpack them.
 - Units are in group `units` plus `players` or `enemies`.
+- Every key, click and hold the player can use is in `README.md`'s Controls, under World map (its
+  Menus covering every `TabbedMenu`) or Combat. A new input action, a new use of an existing one,
+  or a widget that reads keys or clicks itself gets a row there.
 
 ## Combat rules that must not drift
 

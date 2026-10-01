@@ -6,8 +6,8 @@
 ## Given stacks by [method show_stacks]; it only shows them and never changes
 ## the inventory. A browser given an action ([method set_action], such as the
 ## Equipment page's Equip) shows a button for it under the description, and
-## asks for it on the selected stack with [signal action_requested]; Enter or
-## a double-click on a square asks too.
+## asks for it on the selected stack with [signal action_requested]; Enter,
+## Space or a double-click on a square asks too.
 class_name ItemBrowser
 extends HBoxContainer
 

@@ -9,48 +9,82 @@ chance to hit.
 
 ## Controls
 
+Letter keys go by where they sit on the keyboard, not what is printed on them, so `WASD` is `ZQSD`
+on an AZERTY keyboard. `Enter` and the number keys work on the number pad too.
+
+`Esc` backs out one step at a time, on the world map and in combat alike: a path being previewed,
+then the action that is up, then a village's menu. Only once there is nothing left to back out of
+does it open the pause menu, and pressed again it closes it.
+
+### World map
+
 | | |
 |---|---|
-| Pan camera | `WASD` / arrow keys, or push the cursor to a screen edge |
-| Rotate | Hold `Q` / `E` |
+| Pan the map | `WASD` / arrow keys, push the cursor to a screen edge, or drag with the middle mouse button |
+| Zoom | Mouse wheel, toward the point under the cursor |
+| Send the party | Right-click anywhere on land. Right-click again on the way to send it somewhere else instead |
+| Go to a village | Right-click its icon. The party goes to the village itself, wherever on the icon was clicked |
+| See what is in a village | Hover over its icon |
+| Use a village | Left-click its icon once the party is there, to open its menu |
+| Open the pause menu | `Esc` |
+
+The party is the only thing on the map that moves, so there is nothing to select first. A right-click
+on the sea, or on land the party cannot reach, does nothing. The party has only arrived at a village
+when it was sent there by a right-click on the icon, not somewhere near it.
+
+#### Menus
+
+The pause menu (its Campaign, Roster, Inventory and System tabs), a village's menu (a tab for each
+place in it, such as the Hiring Board and the Market) and the roster that comes up before a battle
+all pause the game behind them, and all work the same way.
+
+| | |
+|---|---|
+| Change tab | Click it, or `←` / `→` while its row of tabs has the keyboard |
+| Move between rows | `↓` / `↑`: from the tabs to any sub-tabs under them, to what is selected under those, and back |
+| Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them |
+| Press a button | Click it, or `Enter` / `Space` |
+| Buy, sell, hire, or start a battle | Hold the button for 2 seconds, with the mouse or `Enter` / `Space`. One per press: let go and hold again for the next |
+| Equip | On the Roster's Equipment page, pick a slot, then double-click an item under it, press `Enter` / `Space` on one, or press **Equip**. **Unequip** puts back what the slot holds |
+| Choose who fights | Before a battle, double-click a character, or press `Enter` / `Space` on one, to tick or untick them (up to four), then hold **Start**. A single click only shows their pages |
+| Close | `Esc`, or **Return to Game** on the pause menu's System tab. The roster before a battle cannot be closed: only **Start** leaves it |
+| Quit the game | **Exit to Desktop** on the pause menu's System tab |
+
+### Combat
+
+| | |
+|---|---|
+| Pan the camera | `WASD` / arrow keys, or push the cursor to a screen edge |
+| Turn the camera | Hold `Q` / `E` |
 | Zoom | Mouse wheel |
-| Select a squad member | `Tab` / `Shift+Tab`, or left-click one |
-| Move | Select **Move**, hold right-click to preview the path, release to walk |
-| Shoot | Select **Shoot**, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to fire |
-| Strike | Select **Strike** next to an enemy, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to strike |
-| Overwatch | Select **Overwatch** to see the ground it covers, `Enter` or `Space` to go on overwatch |
-| Throw Grenade | Select **Throw Grenade**, point at a tile to see the arc and the blast, right-click (or `Enter` / `Space`) to throw |
-| React | During a reaction window: `1`–`4` fires that squad member, `0` lets the move carry on |
-| Show the hit breakdown | Hold `Ctrl` while aiming |
-| Cancel the current action | `Esc` |
-| End the turn early | Hold `Shift` |
+| Select a squad member | `Tab` / `Shift+Tab`, left-click them, or click their card on the squad panel (bottom left) |
+| Choose an action | Click its button on the action bar (bottom middle). Click it again, or press `Esc`, to put it away. **Move** is taken up whenever a squad member is selected |
+| Move | Hold right-click to preview the path to the tile under the cursor, and let go to walk it. Let go off the tinted tiles, or press `Esc` while holding, to call it off |
+| Shoot / Strike | `Tab` / `Shift+Tab` cycle targets, `Enter` / `Space` fires or strikes |
+| Overwatch | `Enter` / `Space` goes on overwatch, for every action the squad member has left |
+| Throw Grenade | Point at a tile to see the arc and the blast. Right-click it, or press `Enter` / `Space`, to throw |
+| Show the hit breakdown | Hold `Ctrl` while a shot or a strike is lined up |
+| React | During a reaction window, `1`–`4` fires the squad member with that number beside them (their place on the squad panel), and `0` lets the move carry on |
+| End the turn early | Hold `Shift` for a second. Letting go, or pressing any other key, calls it off |
+| Open the pause menu | `Esc`, with no action up |
 
-While Shoot or Strike is active, `Tab` cycles targets rather than squad members.
-
-Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
-**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot. **Strike** needs a melee weapon
-(the Shortsword) in a weapon slot, and is greyed out until an enemy stands next to the squad member.
-A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot. A
-thrown grenade is gone for good: its slot is empty after the battle, and the Market sells more.
-
-What a squad member carries shows on them: the gun in their hands, a sword slung across their back
-(drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
-shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
-half cover and press up to full cover, facing the nearest enemy. The fallen go limp where they drop and
-stay there, and a grenade throws them about. None of it changes the rules: a shot, strike or throw is
-settled exactly as below, the moment the gun fires, the blade lands or the grenade leaves the hand.
+While Shoot or Strike is up, `Tab` cycles targets rather than squad members. During the enemies'
+turn only the camera, the reaction keys and the pause menu answer. The pause menu works as on the
+world map, but equipment cannot be changed until the battle is over.
 
 ## The campaign
 
-The game opens on the world map. Right-click to send the party somewhere; left-click the village it
-is standing in to use it. A village's Market sells its stock and, on its Sell tab, buys anything in
-the inventory (not equipped) for half its price, rounded down; hold the button for two seconds to
-buy or sell one. Travelling through a forest (the green areas) risks an ambush: every short
-stretch of the way has a chance to start a battle.
+The game opens on the world map. Send the party anywhere on land, and open the village it is
+standing in to use it (see [Controls](#world-map)). A village's Hiring Board has fighters for hire,
+who join the end of the roster, and its Market sells its stock and, on its Sell tab, buys anything
+in the inventory (not equipped) for half its price, rounded down. Every hire, purchase and sale
+takes holding its button for two seconds, so a stray click never spends anything. Travelling
+through a forest (the green areas) risks an ambush: every short stretch of the way has a chance to
+start a battle.
 
-Before it starts, the roster comes up to choose who fights: double-click a character (or press
-`Enter` on one) to tick or untick them, up to four, then hold **Start** for two seconds. It opens
-with the last battle's squad ticked, less anyone who fell, and it cannot be closed any other way.
+Before it starts, the roster comes up to choose who fights: tick up to four, then hold **Start** for
+two seconds (see [Menus](#menus)). It opens with the last battle's squad ticked, less anyone who
+fell, and it cannot be closed any other way.
 What happens to them in the battle lasts. Wounds carry into the next battle unless they heal first:
 everyone on the roster heals a little (1 HP) for every short stretch the party travels, and a
 character who dies is gone from the roster for good, their gear back in the inventory. The battle
@@ -59,10 +93,27 @@ party was, still on its way. If a defeat took the last character on the roster, 
 lost: **Game Over** comes up on the world map and the game closes.
 
 Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
-gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience becomes a skill point (the rest carries over), shown on the Roster's
-Skills tab as "Skills (1)"; nothing spends them yet.
+gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience
+becomes a skill point (the rest carries over), shown on the Roster's Skills tab as "Skills (1)";
+nothing spends them yet.
 
 ## Combat rules
+
+### Actions and gear
+
+Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
+**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot. **Strike** needs a melee weapon
+(the Shortsword) in a weapon slot, and is greyed out until an enemy stands next to the squad member.
+A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an
+item slot. A thrown grenade is gone for good: its slot is empty after the battle, and the Market
+sells more.
+
+What a squad member carries shows on them: the gun in their hands, a sword slung across their back
+(drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
+shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
+half cover and press up to full cover, facing the nearest enemy. The fallen go limp where they drop and
+stay there, and a grenade throws them about. None of it changes the rules: a shot, strike or throw is
+settled exactly as below, the moment the gun fires, the blade lands or the grenade leaves the hand.
 
 ### Action points
 
@@ -268,7 +319,7 @@ come apart into them:
   environmental damage (60 for a rifle), knocked out of the face it hit in small lumps that fall and
   stay where they land.
 - **A grenade blows a crater**: every voxel in a ball round where it goes off, as big as its
-  environmental damage makes it (nearly two tiles across for the Frag Grenade), but only within its
+  environmental damage makes it (a little over two tiles across for the Frag Grenade), but only within its
   blast. Its earth is thrown up and out round the crater.
 - **Worn is not gone.** However chewed up it looks, a block still counts as the whole block for sight,
   cover and movement until it is **worn below half** of its voxels. Then it collapses: it is gone from
@@ -358,50 +409,46 @@ shoot that — and the turn manager carries it out and charges for it. Walking, 
 and the camera are the same code for every kind of enemy, so a new enemy type is a new decision
 routine and nothing else.
 
-**A wiped squad stops the clock rather than looping.** With no one left to give orders to, nothing
-ends the turn either, so the turn loop simply holds still. A proper defeat state comes later.
-
 ## Layout
 
 ```
 vcom/                     the Godot project
   Scripts/
-    Unit.gd               health, actions, reaction, movement, taking a shot, throwing a grenade
-    PlayerSquad.gd        the squad and which member is selected
-    TurnManager.gd        turn order, and carrying out what enemy AI decides
+    Campaign.gd           what outlives a battle: roster, inventory, gold, villages' stock, starting battles
+    Unit.gd               health, actions, reaction, movement, taking a shot, striking, throwing a grenade
+    PlayerSquad.gd        the squad spawned from the roster, and which member is selected
+    TurnManager.gd        turn order, carrying out what enemy AI decides, victory and defeat
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
-    Combat/
-      CombatGrid.gd       tile queries, pathfinding, the sight-line ray, ray casts, terrain strikes and blasts
-      LineOfSight.gd      cover, stepping out, who can see whom
-      HitChance.gd        the to-hit sum, and the roll
-      Ballistics.gd       where a round goes, hit or miss
-      Throwing.gd         where a grenade can be thrown (the range, the arc), and whom its blast catches
-      ThrownGrenade.gd    a grenade in flight, for show
-      Explosion.gd        a grenade going off, for show
-      ShotPlayback.gd     plays out enemy fire and reaction fire
-      Weapon.gd           what a shot does when it lands, to units and to terrain
-      TileHighlights.gd   coloured squares over tiles
+    Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
                           loose models (a crate's boards) that wear away voxel by voxel, and the voxels
                           broken off them
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
-    UI/                   HUD, built in code rather than scenes
-  Resources/              shared weapon and AI resources units are given
+    Characters/           the rigged voxel figure every unit wears: its rig, animations and how it is baked
+    Items/                items: weapons, armor, grenades, and the inventory
+    Roster/               characters and the roster
+    WorldMap/             the campaign map: its camera, land, party, forests and villages
+    UI/                   HUD and menus, built in code rather than scenes
+  Resources/              shared resources: weapons and items, characters, AI, villages' locations
     Destruction/          what breaks and how: one resource per breakable block, and the catalog
   Scenes/
+    WorldMap.tscn         the campaign map, where the game opens
     BoundaryMap.tscn      the map random encounters are fought on, in a ring of forest
     CombatMap.tscn        the same battlefield without the forest, and one enemy
     LineOfSightTest.tscn  harness for the sight and shot rules
+    BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
+Styles/                   candidate visual styles, not yet applied
+ANIMATIONS.md             the figure's rig and animations, in full
 ```
 
 ## Credits
 
-Map assets  by Penflower Ink, 2025, www.penflower-ink.com
+Map assets by Penflower Ink, 2025, www.penflower-ink.com
 
-Voxel models are imported with [MagicaVoxel Importer with Extensions](vcom/Addons/MagicaVoxel_Importer_with_Extensions).
+Voxel models are imported with [MagicaVoxel Importer with Extensions](vcom/addons/MagicaVoxel_Importer_with_Extensions).
 
 Placeholder icons: nieobie.itch.io/free-icons

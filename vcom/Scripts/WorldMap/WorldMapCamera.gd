@@ -2,8 +2,9 @@
 ## flat map allows.
 ##
 ##   Pan  - WASD / arrow keys, or push the mouse against a screen edge, as in
-##          combat. Middle-mouse drag, which turns the combat camera, grabs the
-##          map and slides it instead, since a flat map has nothing to turn.
+##          combat, or drag with the middle mouse button, which grabs the map
+##          and slides it. That button's action is camera_free_look, named for
+##          when it turned the combat camera, which no longer uses it.
 ##   Zoom - mouse wheel, toward the point under the cursor.
 ##
 ## Zoomed all the way out the whole map fits on screen; all the way in, one
