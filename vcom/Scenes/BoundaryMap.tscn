@@ -33,17 +33,28 @@
 [ext_resource type="Script" uid="uid://bqf7xd705k01t" path="res://Scripts/Terrain/SceneryGround.gd" id="32_scenery_ground"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.28, 0.5, 0.85, 1)
+sky_horizon_color = Color(0.7, 0.8, 0.92, 1)
+ground_bottom_color = Color(0.32, 0.46, 0.66, 1)
+ground_horizon_color = Color(0.62, 0.72, 0.84, 1)
+ground_curve = 0.1
 
 [sub_resource type="Sky" id="Sky_world"]
 sky_material = SubResource("ProceduralSkyMaterial_sky")
 
 [sub_resource type="Environment" id="Environment_world"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.53, 0.8, 0.97, 1)
 sky = SubResource("Sky_world")
 ambient_light_source = 3
-ambient_light_energy = 0.45
+ambient_light_energy = 0.6
 tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 1.2
+ssao_intensity = 1.6
+ssao_power = 1.6
+ssil_enabled = true
+ssil_intensity = 3.0
 
 [sub_resource type="StandardMaterial3D" id="Mat_enemy1"]
 albedo_color = Color(0.85, 0.15, 0.15, 1)
@@ -83,7 +94,9 @@ script = ExtResource("32_scenery_ground")
 environment = SubResource("Environment_world")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1000002]
-transform = Transform3D(0.57346237, -0.65132743, 0.49690402, 0, 0.60654867, 0.79504645, -0.8192319, -0.45592922, 0.34783283, 10, 20, -10)
+transform = Transform3D(0.81915206, 0.43938506, -0.36868784, 0, 0.64278764, 0.76604444, 0.57357645, -0.62750685, 0.5265408, 10, 20, -10)
+light_color = Color(1, 0.95, 0.86, 1)
+light_energy = 1.6
 shadow_enabled = true
 
 [node name="CameraRig" type="Node3D" parent="." unique_id=1000003]

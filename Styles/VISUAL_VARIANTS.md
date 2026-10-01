@@ -49,6 +49,8 @@ The styles are layers, and most of them combine freely: lighting (01, 04, 05, 07
 
 ## Current settings (what `00` shows)
 
+*Since 2026-10-01 the game uses style `05`, so "current" here means the original look the styles were rendered against. [REVERT.md](REVERT.md) has it value by value.*
+
 - **Environment:** `background_mode` Custom Color · `background_color` #141721 (0.08, 0.09, 0.12) · `ambient_light_source` Sky · `ambient_light_energy` 0.45 · `tonemap_mode` Filmic · `tonemap_exposure` 1 · `tonemap_white` 1. SSAO, SSIL, SDFGI, glow, fog and adjustments are all off.
 - **Sky:** ProceduralSkyMaterial defaults: `sky_top_color` (0.385, 0.454, 0.55) · `sky_horizon_color` (0.646, 0.656, 0.671) · `ground_bottom_color` (0.2, 0.169, 0.133) · `ground_horizon_color` (0.646, 0.656, 0.671) · `ground_curve` 0.02. It is not visible, because the background is a flat colour, but it drives the ambient light.
 - **Sun:** 52.7° up, from azimuth 55° (east-south-east, nearly behind the camera) · white · energy 1 · shadows on, `shadow_blur` 1, PSSM 4 splits.

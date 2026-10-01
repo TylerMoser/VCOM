@@ -4,6 +4,16 @@ This file records the game's visual setup as it was on **2026-10-01**, before an
 
 **Baseline commit:** `5f9a0f900be613b1133afd23f6d9ceccc9389bfc` (`5f9a0f9`, "Model changes"). When this was written, the working tree had no uncommitted changes to anything visual, so that commit *is* the original look.
 
+**Applied since:** style `05`, Colour Bounce, on 2026-10-01. It changed only these, and nothing else visual:
+
+- in each of `CombatMap.tscn`, `BoundaryMap.tscn` and `LineOfSightTest.tscn`:
+  - the `ProceduralSkyMaterial_sky` sub-resource: five sky colour lines added;
+  - the `Environment_world` sub-resource: `background_mode` 1 → 2, `ambient_light_energy` 0.45 → 0.6, and the `ssao_*` / `ssil_*` lines added;
+  - the `DirectionalLight3D` node: a new `transform`, plus the `light_color` and `light_energy` lines;
+- in `project.godot`: the `anti_aliasing/quality/msaa_3d=2` line.
+
+Undoing it means putting exactly those back as section 1 and section 2 below give them. No script, shader, material or node was added.
+
 **Reference renders:** [REVERT-CombatMap.png](REVERT-CombatMap.png) and [REVERT-BoundaryMap.png](REVERT-BoundaryMap.png), made with the harness's style 0 on 2026-10-01. BoundaryMap is the map every encounter is fought on. (`00-current-look-reference.png` is older, from 2026-09-26: capsule units and a camera at distance 22. The catalog compares against it, so don't use it to verify a revert.)
 
 ## How to revert

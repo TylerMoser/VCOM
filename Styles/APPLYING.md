@@ -13,6 +13,12 @@ Everything needed to make one of the styles in [VISUAL_VARIANTS.md](VISUAL_VARIA
 
 The sections below cover all of that. To undo an applied style, see [REVERT.md](REVERT.md), which records the original look value by value.
 
+**Style 05 has been applied (2026-10-01).** Every style is a set of changes on top of whatever the scene currently is, so from now on:
+
+- `render.sh 0` shows 05.
+- Any other style is previewed *on top of 05*. Whatever 05 turned on and that style leaves alone carries into its preview, for example SSIL, which no other style sets.
+- To preview or apply another style as the catalog defines it, revert first (REVERT.md), or have the style turn off what it doesn't use.
+
 ## Before starting
 
 1. **Renderer: Forward+.** Every style was rendered with Forward+ on D3D12, and most rely on it (SSAO, SSIL, SDFGI, DOF, and the normal buffer the outline pass reads).

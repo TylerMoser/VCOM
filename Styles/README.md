@@ -1,6 +1,6 @@
 # Styles
 
-Candidate visual styles for VCOM's combat map, rendered from the real game on 2026-09-26. Nothing here has been applied to the project yet; the game still has its original look (style `00`).
+Candidate visual styles for VCOM's combat map, rendered from the real game on 2026-09-26. **Style `05`, Colour Bounce, was applied to the game on 2026-10-01.** [REVERT.md](REVERT.md) restores the original look (style `00`).
 
 | File | What it is |
 |---|---|
