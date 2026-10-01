@@ -54,6 +54,8 @@ vcom/Scripts/
     ShotPlayback.gd    shots not taken from the action bar: aim, lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
+    TileGrid.gd        map node: the optional tile grid (G, or the System tab); gives the ground blocks
+                       TileGrid.gdshader as the map loads; static shown, set_shown(), toggle()
   AI/
     EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
     AssaultAI.gd       close in, point-blank when adjacent, best odds with the last action
@@ -147,7 +149,7 @@ vcom/Scripts/
                        optional action button (Equip), also Enter / double-click on a square
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
-    SystemTab.gd       its last tab: Return to Game, Save / Load (not yet), Exit to Desktop
+    SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
@@ -240,6 +242,21 @@ unit is moving, so anyone the blast dropped has landed before the next throw is 
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
 `shoot_step_out`, `overwatch`, `throw_range`, `throw_blast`. A colour's alpha dims a square's fill and
 border together, which is how `throw_range` stays faint.
+
+**The tile grid is the ground's own material, and off until the player turns it on.** Style 19's
+grid lines alone (Styles/): a faint darkening along every block boundary on the ground blocks, tops
+and walls. `TileGrid`, a node in each combat map, gives the `BrightGrass1` mesh
+`TileGrid.gdshader` as the map loads, on the mesh itself, since the imported mesh is shared. With
+the grid off that shader draws exactly as the importer's `StandardMaterial3D` (its
+`render_mode diffuse_burley` is what makes it so: Godot 4.7's default diffuse differs). The lines
+answer to the global shader uniform `tile_grid` (`project.godot`'s `[shader_globals]`), which only
+`TileGrid.set_shown()` / `toggle()` set; `TileGrid.shown` is static, so the choice holds from battle
+to battle until the game closes, and is never read back from the RenderingServer. `G`
+(`toggle_grid`) toggles it in combat, as does **Tile Grid** on the System tab anywhere, which the
+pause menu relabels as it opens. `TileGrid` must stay before `TerrainDestruction` in each map: that
+copies each wearable block's material as it readies (`VoxelShape.read()`) and draws worn blocks with
+it, so worn grass keeps the grid. A block style that changes the ground's material has to carry the
+grid with it (Styles/APPLYING.md section 3).
 
 **The HUD is written in code, not scenes.** Widgets build their children in `_init()` and style
 themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn` files for UI.
@@ -1211,3 +1228,9 @@ physics layer until then, so they never collide while alive.
   anywhere below it, or under a block that cannot break, floats there out of reach until a win
   sweeps it up. A collapsed stack's coins can sit half buried in its boards. Combat has no gold
   readout: the "+N Gold" calls are all it shows.
+- The tile grid is drawn on grass blocks only, not on crate tops a unit can stand on, and its choice
+  is not saved: every launch starts with it off. It is world-space, so a grass block falling whole
+  shows its horizontal lines slide past as it drops. Giving the grass a material of its own changed
+  7 pixels of BoundaryMap's start frame (out of 1.8 million; one at a crate's corner on a grass
+  block, six by one level). Likely Godot's drawing order, which sorts by material, settling a depth
+  tie the other way; CombatMap and LineOfSightTest came out identical.

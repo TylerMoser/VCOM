@@ -86,12 +86,14 @@ The exact settings used:
 
 The general recipe is [APPLYING.md](APPLYING.md) section 3 (block materials). What this one needs:
 
-1. **The shader.** Copy `Styles/harness/shaders/grass_height.gdshader` into the project, e.g. as `vcom/Scripts/Rendering/GrassHeight.gdshader`.
-2. **The hookup.** Give the `BrightGrass1` item's mesh a `ShaderMaterial` with that shader, `surface_set_material()` on the mesh itself, as `LedgeProbe._tint_grass()` does.
-   - It must run **before `TerrainDestruction`'s `_ready`**: from a script on the `GridMap` node, or a node before `TerrainDestruction` in each map. `VoxelShape.read()` copies the block's material there, and worn blocks are drawn with that copy. Run later, and a grass block turns back to the old look the first time it's hit.
-   - Make it `@tool` so the editor shows the tint too.
+1. **The shader: add the tint to the grass's existing one.** Since 2026-10-01 the grass has its own material: `vcom/Scripts/Combat/TileGrid.gdshader`, the optional tile grid (`G`), which with the grid off draws exactly as the importer's material.
+   - Add `grass_height.gdshader`'s uniforms and its tint (the `level`, `green` and HSV lines) to that shader's `fragment()`, before the grid's lines.
+   - Keep its `render_mode diffuse_burley, specular_schlick_ggx`.
+   - A second material would replace the grid's rather than add to it.
+2. **The hookup already exists.** `TileGrid` puts that shader on the `BrightGrass1` mesh as each map loads, before `TerrainDestruction`'s `_ready`, so worn blocks keep it. It's in BoundaryMap, CombatMap and LineOfSightTest.
+   - The order matters because `VoxelShape.read()` copies the block's material there, and worn blocks are drawn with that copy.
    - The mesh resource is shared, so `SceneryLibrary` (BoundaryMap's forest ring) gets the shader as well. That's harmless: the ring has no grass blocks (its ground is one plane, `Boundary/Ground`), and floor-level grass is level 0, which the tint leaves alone anyway.
-3. **Every map that should show it:** BoundaryMap, CombatMap, and LineOfSightTest if the test lanes should match.
+3. **Every map that has a `TileGrid` node shows it**, so all three get it.
 4. **Decisions to make, and things to check:**
    - **Debris:** `VoxelDebris` draws broken-off voxels with its own vertex-colour material, so lumps blasted off a raised block come out untinted, slightly darker than the block they left. Tint them by height too, or leave them.
    - **A falling block** (a stack whose support broke) changes tint a level at a time as it drops, because the level is read from the world height. It's brief; check whether it shows.

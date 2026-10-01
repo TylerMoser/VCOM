@@ -160,6 +160,14 @@ current = true
   - there's no `vcom/Scripts/Rendering/` folder.
 
   Delete any hookup script or node, and any copied `VoxelBlock.gdshader`. The **only** shader in the project at baseline is `vcom/Scripts/Combat/TileHighlight.gdshader`, the tile highlights, which no style touches.
+
+  **Exception, added after this baseline: the tile grid. Keep it.** On 2026-10-01 the game gained an optional tile grid. It's a gameplay option, not a style, and isn't part of anything to revert. It consists of:
+  - `vcom/Scripts/Combat/TileGrid.gd`, a `TileGrid` node in each combat map before `TerrainDestruction`;
+  - `TileGrid.gdshader`;
+  - the `toggle_grid` input action and the `tile_grid` shader global in `project.godot`;
+  - the **Tile Grid** button on the System tab.
+
+  It does call `surface_set_material()`, putting `TileGrid.gdshader` on the grass mesh, but with the grid off that shader draws as the importer's material does: CombatMap and LineOfSightTest render identically, and BoundaryMap differs in 7 pixels of 1.8 million. So a revert leaves it exactly as it is.
 - **What takes its material from the blocks:**
   - `WornBlock`, `VoxelBody` and `VoxelMesher` use `VoxelShape.material`, which is the imported mesh's own, so they follow the blocks back with no code change.
   - **Broken crates** are swapped for `Scenes/Destruct_BrightCrate1.tscn`, which has no material overrides: its meshes carry the importer's material. `ScriptedDestruction` sets only physics materials on the pieces. APPLYING.md suggests giving the pieces a style's material, for example in `ScriptedDestruction.prepare()`; remove any such code.
@@ -211,6 +219,7 @@ The baseline has none of the following. Delete any that exist:
 **Not part of any style, so leave these alone:**
 
 - the tile highlights (`TileHighlights.gd` and its shader)
+- the optional tile grid (`TileGrid.gd` and its shader; see section 4)
 - `Explosion`, `MuzzleFlash` and `ThrownGrenade`
 - the `SquadStart` editor squares
 - the HUD and every menu (built in code with `StyleBoxFlat`)

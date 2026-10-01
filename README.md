@@ -48,6 +48,7 @@ all pause the game behind them, and all work the same way.
 | Equip | On the Roster's Equipment page, pick a slot, then double-click an item under it, press `Enter` / `Space` on one, or press **Equip**. **Unequip** puts back what the slot holds |
 | Choose who fights | Before a battle, double-click a character, or press `Enter` / `Space` on one, to tick or untick them (up to four), then hold **Start**. A single click only shows their pages |
 | Close | `Esc`, or **Return to Game** on the pause menu's System tab. The roster before a battle cannot be closed: only **Start** leaves it |
+| Show or hide the tile grid | **Tile Grid** on the pause menu's System tab. The lines show in combat, and stay as set until the game closes |
 | Quit the game | **Exit to Desktop** on the pause menu's System tab |
 
 ### Combat
@@ -66,6 +67,7 @@ all pause the game behind them, and all work the same way.
 | Show the hit breakdown | Hold `Ctrl` while a shot or a strike is lined up |
 | React | During a reaction window, `1`–`4` fires the squad member with that number beside them (their place on the squad panel), and `0` lets the move carry on |
 | End the turn early | Hold `Shift` for a second. Letting go, or pressing any other key, calls it off |
+| Show or hide the tile grid | `G`, or **Tile Grid** on the pause menu's System tab: faint lines along the edges of the ground's tiles. Off until turned on |
 | Open the pause menu | `Esc`, with no action up |
 
 While Shoot or Strike is up, `Tab` cycles targets rather than squad members. During the enemies'
@@ -171,7 +173,7 @@ that cannot get any closer shoots rather than waste the action.
 The map is a `GridMap` of 1×1×1 cells. A tile is an empty cell with solid ground beneath it and two
 cells of headroom — a unit fills its tile and the cell above. Units step to any of the eight
 neighbours, climbing at most 1 level and dropping at most 2. Diagonal steps cost the same as
-straight ones but cannot cut a corner.
+straight ones but cannot cut a corner. `G` draws the tiles' edges on the ground, for counting them.
 
 ### Line of sight and cover
 
@@ -420,7 +422,8 @@ vcom/                     the Godot project
     TurnManager.gd        turn order, carrying out what enemy AI decides, victory and defeat
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
-    Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins
+    Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins,
+                          the tile grid's lines
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
                           loose models (a crate's boards) that wear away voxel by voxel, and the voxels
@@ -441,7 +444,7 @@ vcom/                     the Godot project
     BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
-Styles/                   candidate visual styles, not yet applied
+Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

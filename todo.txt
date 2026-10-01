@@ -1,14 +1,14 @@
---TODO TACTICAL:
-Action cam
-Toggleable visible grid (like in style example)
-Apply style from earlier investigation
-More terrain types: Ladders, fences, water, difficult ground, impassible tiles, etc.
-Height/layers to terrain (Buildings with interiors)
-Blood splatter
+README images, gameplay gifs
 
 --TODO CAMPAIGN:
-Other items
 Skill Trees: Species, Classes
+World map trees
+
+--TODO TACTICAL:
+Toggleable visible grid (like in style example)
+Blood splatter
+More terrain types: Ladders, fences, water, difficult ground, impassible tiles, etc.
+Height/layers to terrain (Buildings with interiors)
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.
@@ -16,6 +16,7 @@ Debris can take up full tiles, causing weird behavior. If a tile is substantiall
 Character height: Stand at height of tile, so float over partially destroyed tiles and stand inside piles of rubble. Maybe raise/lower standing height based on actual terrain height.
 
 --OUT OF SCOPE:
+Other items
 Fog of war? Maybe make it sections of the map, and obvious.
 Better UI for selecting targets, instead of just pressing Spacebar.
 Replace GenAI: Animations (Mixamo? Blender?), UI
@@ -42,3 +43,4 @@ Pistols
 Team/faction abilities. Command-point-like structure? 
 Shields
 Triangle optimization everywhere: Hollow tree-tops for extending out to horizon, no internal triangles until broken, reduce unnecessary triangles until broken on voxel models
+Action cam

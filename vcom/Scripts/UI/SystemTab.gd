@@ -1,5 +1,6 @@
-## The pause menu's System tab: back to the game, save, load, or quit.
-## Save and Load are shown but disabled until there is anything to save.
+## The pause menu's System tab: back to the game, the tile grid on or off,
+## save, load, or quit. Save and Load are shown but disabled until there is
+## anything to save.
 class_name SystemTab
 extends VBoxContainer
 
@@ -13,12 +14,19 @@ const HOVER_BG_COLOR := Color(0.18, 0.19, 0.25, 0.95)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
 
+var _grid_button: Button
+
 func _init() -> void:
 	name = "System"
 	add_theme_constant_override(&"separation", 12)
 
 	var return_button := _add_button("Return to Game")
 	return_button.pressed.connect(return_requested.emit)
+
+	_grid_button = _add_button("")
+	_grid_button.tooltip_text = "Lines along the edges of the ground's tiles in combat. G toggles them there too."
+	_grid_button.pressed.connect(_on_grid_pressed)
+	show_grid_state()
 
 	var save_button := _add_button("Save")
 	save_button.disabled = true
@@ -30,6 +38,17 @@ func _init() -> void:
 
 	var exit_button := _add_button("Exit to Desktop")
 	exit_button.pressed.connect(_on_exit_pressed)
+
+
+## Labels the grid's button with whether the grid is on. The menu calls it as
+## it opens, since G may have changed it in the meantime.
+func show_grid_state() -> void:
+	_grid_button.text = "Tile Grid: %s" % ("On" if TileGrid.shown else "Off")
+
+
+func _on_grid_pressed() -> void:
+	TileGrid.toggle()
+	show_grid_state()
 
 
 func _on_exit_pressed() -> void:

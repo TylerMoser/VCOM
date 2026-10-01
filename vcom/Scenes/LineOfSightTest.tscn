@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
 [ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
 [ext_resource type="Script" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
+[ext_resource type="Script" path="res://Scripts/Combat/TileGrid.gd" id="40_tile_grid"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.28, 0.5, 0.85, 1)
@@ -262,6 +263,9 @@ body_material = SubResource("Mat_enemy1")
 
 [node name="CombatGrid" type="Node" parent="." unique_id=1000019]
 script = ExtResource("5_r3fgy")
+
+[node name="TileGrid" type="Node" parent="."]
+script = ExtResource("40_tile_grid")
 
 [node name="TerrainDestruction" type="Node3D" parent="."]
 script = ExtResource("17_destruction")

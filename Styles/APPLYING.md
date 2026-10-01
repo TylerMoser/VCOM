@@ -82,6 +82,14 @@ Two libraries point at those imported meshes, and they are the same mesh resourc
 
 Neither MeshLibrary nor GridMap has a material override, so a new material needs a hookup. The harness used option **a**: once the map was ready, it called `mesh.surface_set_material()` on every MeshLibrary item mesh (`Variants._apply_blocks`).
 
+**The grass already has a hookup: the tile grid (since 2026-10-01).** `TileGrid`, a node in each combat map, puts `vcom/Scripts/Combat/TileGrid.gdshader` on the `BrightGrass1` mesh as the map loads, before `TerrainDestruction`. It's the player's optional grid lines, style 19's grid alone, toggled with `G` or on the System tab, and with the grid off it draws exactly as the importer's material. So a style that changes the grass must keep the grid working:
+
+- For the grass, **build on `TileGrid.gdshader`** (add the style's effect to it), and `TileGrid` stays the hookup.
+- **Or** give the style's own shader the grid's code: the `global uniform float tile_grid` and the line block in its `fragment()`. Then have `TileGrid` assign that shader instead.
+- Keep `render_mode diffuse_burley, specular_schlick_ggx` wherever the standard lighting is meant to stay. Godot 4.7's defaults light a shader differently from `StandardMaterial3D`.
+- `voxel_block.gdshader` has a grid of its own (`edge_darken`), which would double up with the player's. Drop it, or drive it from `tile_grid`.
+- Other blocks (crates, trees) still have no hookup.
+
 Pick one with the user:
 
 - **a. Runtime hookup:** a small script that assigns the materials in `_ready()`. It's the least invasive option and matches the harness. Make it `@tool` so the editor viewport shows the style too.
