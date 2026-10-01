@@ -5,10 +5,12 @@
 ## terrain itself can be judged.
 ##
 ## Run: godot --path . --resolution 1280x720 --fixed-fps 60 res://_probe/VisualProbe.tscn -- --variant=N --out=C:/path/file.png
+## Add --map=res://Scenes/BoundaryMap.tscn to render another map than CombatMap.
 extends Node
 
 const Variants := preload("res://_probe/Variants.gd")
-const MAP_SCENE := "res://Scenes/CombatMap.tscn"
+
+var _map_scene := "res://Scenes/CombatMap.tscn"
 
 const SETTLE_FRAMES_A := 150
 const SETTLE_FRAMES_B := 90
@@ -35,6 +37,8 @@ func _ready() -> void:
 			_out_dir = arg.get_slice("=", 1)
 		elif arg.begins_with("--only="):
 			_only = arg.get_slice("=", 1)
+		elif arg.begins_with("--map="):
+			_map_scene = arg.get_slice("=", 1)
 		elif arg.begins_with("--camb="):
 			var f := arg.get_slice("=", 1).split_floats(",")
 			cam_b_pivot = Vector3(f[0], f[1], f[2])
@@ -50,7 +54,7 @@ func _ready() -> void:
 	if _out_dir != "":
 		_out = "%s/%02d-%s.png" % [_out_dir, _variant_id, Variants.slug(variant.get("name", ""))]
 
-	var map := (load(MAP_SCENE) as PackedScene).instantiate()
+	var map := (load(_map_scene) as PackedScene).instantiate()
 	add_child(map)
 
 	# Keep a stray cursor over the window from edge-panning the camera.

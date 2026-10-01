@@ -4,10 +4,24 @@ Everything needed to make one of the styles in [VISUAL_VARIANTS.md](VISUAL_VARIA
 
 **Source of truth:** [`harness/VariantList.gd`](harness/VariantList.gd) holds each style's values, and [`harness/Variants.gd`](harness/Variants.gd) shows exactly how each value was applied at runtime. The catalog is generated from them. Where this guide and the code disagree, the code is what produced the screenshots.
 
+**Written 2026-09-26, updated 2026-10-01.** The screenshots and the catalog date from 2026-09-26. Since then:
+
+- the units have become rigged voxel figures;
+- the camera's default distance has gone from 22 to 15;
+- `BoundaryMap.tscn` has become the map every encounter is fought on;
+- terrain now breaks and wears away.
+
+The sections below cover all of that. To undo an applied style, see [REVERT.md](REVERT.md), which records the original look value by value.
+
 ## Before starting
 
-1. **Renderer: Forward+.** Every style was rendered with Forward+ on D3D12, and most rely on it (SSAO, SSIL, SDFGI, DOF, and the normal buffer the outline pass reads). The committed `vcom/project.godot` still says `renderer/rendering_method="gl_compatibility"`. On 2026-09-26 the switch to Forward+ existed only as an uncommitted local edit (delete that line, since Forward+ is the default). Confirm the renderer before applying anything.
-2. **Preview the style** with the harness (below) to confirm it still looks like its screenshot on the current code.
+1. **Renderer: Forward+.** Every style was rendered with Forward+ on D3D12, and most rely on it (SSAO, SSIL, SDFGI, DOF, and the normal buffer the outline pass reads).
+   - The switch was committed in `655a976` on 2026-09-26. `vcom/project.godot` has no `renderer/rendering_method` line, so the default, Forward+, is in use.
+   - Its `config/features` still says `"GL Compatibility"`. That's a stale tag; it doesn't affect rendering.
+   - Confirm the renderer hasn't changed before applying anything.
+2. **Preview the style** with the harness (below) on the current code.
+   - The screenshots predate the figures and the current camera, so judge the terrain and the light rather than expecting a match.
+   - The harness no longer previews the toon styles' units (section 4).
 3. **Settle the open decisions with the user** (see the end of this file). The biggest one is how block materials get onto the GridMap.
 
 ## What each style is made of
@@ -32,11 +46,15 @@ Each ingredient's recipe follows. Its values are in the style's section of the c
 
 ## 1. Environment, sky and sun (every style)
 
-- **Where:** `vcom/Scenes/CombatMap.tscn`: sub-resources `Environment_world` and `ProceduralSkyMaterial_sky`, and the `DirectionalLight3D` node.
-- **The test scene too:** `vcom/Scenes/LineOfSightTest.tscn` has its own copies of all three. The harness only rendered `CombatMap`, so ask whether the test scene should match. Recommended: yes.
+- **Where:** every combat map has its own copies of the sub-resources `Environment_world` and `ProceduralSkyMaterial_sky`, and of the `DirectionalLight3D` node:
+  - `vcom/Scenes/BoundaryMap.tscn` is the map every encounter is fought on, so it must get the style. Its backdrop is sky blue (`background_color` (0.53, 0.8, 0.97)) where the other two are dark navy. Preview it with `MAP=res://Scenes/BoundaryMap.tscn Styles/harness/render.sh N`.
+  - `vcom/Scenes/CombatMap.tscn` is what the harness renders by default, and what the screenshots show.
+  - `vcom/Scenes/LineOfSightTest.tscn` is the rules test scene. Ask whether it should match. Recommended: yes.
 - **Values:** the catalog uses Godot's own property names. Enums are shown as `Name (int)`, and the `.tscn` stores the int. Properties a style doesn't list stay as they are.
 - **Sun direction:** the harness sets `rotation_degrees = Vector3(-elevation, azimuth, 0)`, where azimuth is the direction the light comes *from* (0 = +Z/south, 90 = +X/east). Do not hand-write the resulting `Transform3D` (see CLAUDE.md). Have Godot produce it, e.g. `print(var_to_str(Transform3D(Basis.from_euler(Vector3(deg_to_rad(-elevation), deg_to_rad(azimuth), 0.0)), Vector3(10, 20, -10))))` in a headless script. `Basis.from_euler`'s default YXZ order matches `Node3D.rotation`. Keep the origin at (10, 20, −10); it doesn't affect a directional light, but it keeps the editor gizmo where it was.
 - **Sky:** most styles switch `background_mode` to Sky, which makes the ProceduralSkyMaterial visible. The camera looks down, so mostly its *ground* half shows around the map: `ground_bottom_color` is effectively the backdrop colour, and `ground_horizon_color` shows toward the top of the screen.
+  - On BoundaryMap, the forest ring is deep enough that no backdrop shows in play (CLAUDE.md, "Scenery around a combat map"). There, the sky matters only through the ambient light. The harness's close view does show it, because that view looks lower than the game camera can.
+  - Every map already lights from the sky (`ambient_light_source` Sky), even where the backdrop is a flat colour. Recolouring the sky therefore changes the ambient light everywhere.
 
 ## 2. Anti-aliasing (every style)
 
@@ -49,30 +67,66 @@ Set them in the editor, or with `ProjectSettings.set_setting()` + `ProjectSettin
 
 ## 3. Block materials (07, 15, 19, 22, 28)
 
-The blocks are `vcom/Blocks/*.vox`. The MagicaVoxel addon imports them into meshes that carry their own StandardMaterial3D, built in `Addons/MagicaVoxel_Importer_with_Extensions/MeshGenerators/GreedyMeshGenerator.gd`: vertex colour as albedo, sRGB, roughness 1. `BlockLibrary.tres` points at those imported meshes. Neither MeshLibrary nor GridMap has a material override, so a new material needs a hookup. The harness used option **a**: at startup it called `mesh.surface_set_material()` on every MeshLibrary item mesh (`Variants._apply_blocks`).
+The blocks are `vcom/Blocks/*.vox`. The MagicaVoxel addon imports them into meshes that carry their own StandardMaterial3D, built in `vcom/addons/MagicaVoxel_Importer_with_Extensions/MeshGenerators/GreedyMeshGenerator.gd`: vertex colour as albedo, sRGB, roughness 1.
+
+Two libraries point at those imported meshes, and they are the same mesh resources, so a material set on a mesh reaches both:
+
+- `BlockLibrary.tres`, the battlefield;
+- `SceneryLibrary.tres`, BoundaryMap's forest ring: the same blocks with shadows off.
+
+Neither MeshLibrary nor GridMap has a material override, so a new material needs a hookup. The harness used option **a**: once the map was ready, it called `mesh.surface_set_material()` on every MeshLibrary item mesh (`Variants._apply_blocks`).
 
 Pick one with the user:
 
-- **a. Runtime hookup:** a small script (on the GridMap, or a `BlockMaterials` node beside it) that assigns the materials in `_ready()`. It's the least invasive option and matches the harness exactly. Make it `@tool` so the editor viewport shows the style too.
+- **a. Runtime hookup:** a small script that assigns the materials in `_ready()`. It's the least invasive option and matches the harness. Make it `@tool` so the editor viewport shows the style too.
+  - Put it **on the `GridMap` node, or on a node before `TerrainDestruction` in the tree**, so it runs first. A node's children and its earlier siblings are ready before it.
+  - **Why the order matters:** `TerrainDestruction`'s `_ready` has `VoxelShape.read()` copy each wearable block's surface material, and every `WornBlock` is drawn with that copy. A hookup that runs later, as the harness's does, leaves worn blocks in the old look the first time they're hit. The screenshots don't show this, because nothing breaks in them.
 - **b. Importer option:** add a "material" import option to the addon so imported meshes use the material directly. The editor and game match with no runtime code, but it modifies a third-party addon, and every `.vox` must be re-imported (`--headless --path . --import`).
 - Avoid saving baked copies of the meshes with the material swapped in. That breaks the `.vox` → mesh pipeline.
+
+**Breakable terrain draws blocks in more places than the GridMap.** Terrain didn't break when the styles were rendered. Now each of these needs the style as well:
+
+- **Worn blocks** (grass, trees) take their material from the block's mesh, read when the map loads. The hookup's position covers them (option **a** above). With option **b** they're covered anyway.
+- **Falling blocks** draw the library's own mesh, so they follow the hookup with no extra work.
+- **Broken crates.**
+  - When a crate breaks, it's swapped for `Scenes/Destruct_BrightCrate1.tscn`. That scene's meshes come from importing `Blocks/Destruct_BrightCrate1.vox` as a scene, so they're separate meshes carrying the importer's material, and the MeshLibrary hookup doesn't reach them.
+  - Set their material as well. One way is through the pieces scene's mesh resources, once, before any crate breaks (`ScriptedDestruction.prepare()` runs as the map loads).
+  - Set it on the mesh (`surface_set_material`), not as a node's `material_override`. When a piece starts wearing, `VoxelBody` redraws it with its mesh's surface material (`VoxelTerrain._model_of()`), so an override would vanish at the first hit.
+- **Debris.** `VoxelDebris` draws every voxel broken off with a material of its own: vertex colour, sRGB, roughness 1, set where it builds `_cube`. It needs the style too.
+  - For the shader styles, turn grid lines off on it, as `crate_params` does for crates. Its cubes are 6 cm across, not 1 m.
+- **Not blocks:** props (rifle, sword, grenade) and coins keep the importer's material. Ask whether they should match (they're small on screen).
 
 **Shader styles (07, 19, 28):** copy [`harness/shaders/voxel_block.gdshader`](harness/shaders/voxel_block.gdshader) into the project, for example as `vcom/Scripts/Rendering/VoxelBlock.gdshader` (existing shaders sit beside scripts, like `Scripts/Combat/TileHighlight.gdshader`). Set the parameters from the catalog; unset ones default to "off".
 
 - **Crates:** they need their own ShaderMaterial instance when `crate_params` is listed (19 turns grid lines off for them). The crate mesh isn't aligned to the block grid; its MeshLibrary transform is offset 1.3125 in z. The harness matched items whose name contains "crate".
-- **Assumptions to revisit if the terrain changes:** 1 m blocks with faces on integer world coordinates; the walkable floor surface at y = 1 (`floor_y`). Contact AO, skirt darkening and `height_gain` all key off `floor_y`, so multi-storey terrain (on the todo list) needs another look at those three.
+- **Assumptions to revisit:**
+  - The shader assumes 1 m blocks with faces on integer world coordinates, and the walkable floor surface at y = 1 (`floor_y`). Contact AO, skirt darkening and `height_gain` all key off `floor_y`.
+  - The terrain has already moved past the first assumption. Worn blocks and craters have faces every 1/16 m inside a cell, and a crater digs up to 4 voxels into the bottom layer, below `floor_y`.
+  - Before settling the values, look at grid lines, contact AO and skirt darkening on a worn tree and on a grenade crater.
+  - Multi-storey terrain (on the todo list) would need another look at the three `floor_y` effects as well.
 - **Lighting:** the shader defines its own `light()`, which replaces Godot's diffuse for every light type. Future omni or spot lights will go through its banding and wrap settings too.
 
-**Built-in toon (15, 22):** blocks keep a StandardMaterial3D. Duplicate the importer's material, which keeps `vertex_color_use_as_albedo` and `vertex_color_is_srgb`, then set `diffuse_mode` Toon, `specular_mode` Disabled and `roughness` 0.15, using the same hookup.
+**Built-in toon (15, 22):** blocks keep a StandardMaterial3D. Duplicate the importer's material, which keeps `vertex_color_use_as_albedo` and `vertex_color_is_srgb`, then set `diffuse_mode` Toon, `specular_mode` Disabled and `roughness` 0.15, using the same hookup. The same goes for the crate pieces and the debris above.
 
 ## 4. Unit materials (15, 22)
 
-Set these on sub-resources `Mat_player1`–`Mat_player4` and `Mat_enemy1` in `CombatMap.tscn`, plus the copies in `LineOfSightTest.tscn`: `diffuse_mode` 3 (Toon), `specular_mode` 1 (Toon), `roughness` 0.3, `rim_enabled` true, `rim` 0.5, `rim_tint` 0.3. `Unit.color` reads `albedo_color` from these materials, and that doesn't change.
+The units are no longer capsules. Each wears the rigged figure `Scenes/BaseCharacter.tscn`, painted one flat colour through its `CharacterModel.body_material`, a plain StandardMaterial3D.
+
+Set the toon values on these materials:
+
+- **Values:** `diffuse_mode` 3 (Toon), `specular_mode` 1 (Toon), `roughness` 0.3, `rim_enabled` true, `rim` 0.5, `rim_tint` 0.3.
+- **`Mat_unit` in `vcom/Scenes/SquadUnit.tscn`**, which every squad member starts from. `Unit._paint()` hands the character's colour to `CharacterModel.paint()`, which duplicates the material and sets only `albedo_color`, so the toon settings carry to every member.
+- **`Mat_enemy1`** in `BoundaryMap.tscn`, `CombatMap.tscn` and `LineOfSightTest.tscn`.
+- **`Mat_player1`–`Mat_player8`** in `LineOfSightTest.tscn`, if it is to match.
+
+`Unit.color` reads `albedo_color` back through `CharacterModel.tint()`, and that doesn't change. Don't edit `BaseCharacter.tscn` or the figure's own vertex-colour material (`VoxelRig`): every unit covers it with `body_material`, and the scene is regenerated by `BakeCharacter.gd`.
+
+**The harness no longer previews this.** `Variants._apply_units` looks for each unit's `Mesh` child, which the figures don't have, so it changes nothing. Rendering 15 or 22 today shows the figures in their usual shading, and the screenshots for 15 and 22 show the old capsules. To preview the toon units, `_apply_units` would have to set the toon values on each `Units/*/Model`'s `body_material`, a duplicate per unit.
 
 ## 5. Outline pass (21, 22, 23, 28)
 
 - Copy [`harness/shaders/outline.gdshader`](harness/shaders/outline.gdshader) into the project, e.g. as `vcom/Scripts/Rendering/Outline.gdshader`.
-- Add a `MeshInstance3D` to `CombatMap.tscn` (e.g. `OutlinePass`), mirroring `Variants._add_outline`:
+- Add a `MeshInstance3D` (e.g. `OutlinePass`) to each map that gets the style: `BoundaryMap.tscn` above all, `CombatMap.tscn`, and `LineOfSightTest.tscn` if it is to match. Mirror `Variants._add_outline`:
   - `mesh`: a QuadMesh of `size` (2, 2).
   - `material_override`: a ShaderMaterial with the shader and `render_priority` −128.
   - `cast_shadow` Off, `extra_cull_margin` 16384, `ignore_occlusion_culling` true.
@@ -95,24 +149,38 @@ Both styles set `adjustment_enabled` true and assign `adjustment_color_correctio
 
 ## 7. Depth of field (11)
 
-- The values in the catalog were tuned for the default zoom, with the camera 22 m from its pivot. The close view needed its own values (`camera_b`), because fixed distances only suit one zoom level.
+- The values in the catalog were tuned for what was then the default zoom, with the camera 22 m from its pivot. The close view needed its own values (`camera_b`), because fixed distances only suit one zoom level.
+- **Those fixed values no longer fit the default view.** The camera now starts 15 m out, zooming between `near_distance` 8 and `far_distance` 22, so 22 is now the furthest zoom. The ratios below carry over.
 - For real use, `CameraRig.gd` should set the DOF distances from `_current_distance` every frame so the focus follows zoom. Starting ratios from the default view: near = 0.68·d (transition 0.23·d), far = 1.23·d (transition 0.45·d), amount 0.12. Then tune by eye so foreground units stay sharp at close zoom.
 - Put the `CameraAttributesPractical` on the rig's `Camera3D` (`attributes`) so the camera owns it. The harness put it on the WorldEnvironment.
 
 ## 8. Camera field of view (27)
 
 - `CameraRig/Camera3D`: `fov` 40 (currently 75).
-- Scale distance by ×2.11 (tan 37.5° / tan 20°) to keep the framing: CameraRig's `near_distance` 8 → 16.9 and `far_distance` 30 → 63.3, and the Camera3D's authored z position 22 → 46.4. The rig reads its starting zoom from that position.
-- Pan speed scales with `_current_distance / far_distance`, so it doesn't change. Check that the sun's `directional_shadow_max_distance` (100) still covers the map from 63 m.
+- Scale every distance by ×2.11 (tan 37.5° / tan 20°) to keep the framing. These are the current values, as of 2026-10-01:
+
+  | Setting | Now | At FOV 40 |
+  |---|---|---|
+  | CameraRig `near_distance` | 8 | 16.9 |
+  | CameraRig `far_distance` | 22 | 46.4 |
+  | CameraRig `min_frame_distance` (framing a reaction) | 16 | 33.7 |
+  | CameraRig `max_frame_distance` | 28 | 59.0 |
+  | Camera3D's authored z position, BoundaryMap and CombatMap | 15 | 31.6 |
+  | Camera3D's authored z position, LineOfSightTest | 16 | 33.7 |
+
+  The rig reads its starting zoom from the Camera3D's position. The `CameraRig.gd` values are the script's defaults, with no per-scene overrides, so change them in the script.
+- Pan speed scales with `_current_distance / far_distance`, so it doesn't change.
+- Check that the sun's `directional_shadow_max_distance` (100) still covers the map from 59 m, the furthest framing distance.
+- **The scenery ring:** at `view_pitch` 55°, the narrower lens from the scaled distance sees less far past the pivot than the 75° lens does. The top of the screen reaches about 1.3 × the unscaled zoom distance beyond the pivot, against about 2.0 now. So the 75-tile ring should still hide its outer edge. Confirm with renders zoomed all the way out and framed at the limit (CLAUDE.md, "Scenery around a combat map").
 
 ## 9. Global illumination (04, 05)
 
 - **04 (SDFGI):** the `sdfgi_*` properties, a soft PCSS sun (`light_angular_distance` 3) and the studio-grey sky.
   - **Verified:** the GridMap blocks feed SDFGI. In a sun-only render, shadowed faces went pure black with SDFGI off and filled with coloured bounce with it on.
   - The heaviest option here.
-  - **Untested:** how SDFGI copes with blocks being destroyed at runtime (destructible terrain is on the todo list). Test that before relying on it.
+  - **Untested:** how SDFGI copes with the terrain changing. Blocks now break, wear away voxel by voxel, and scatter thousands of debris lumps. Test a grenade crater, a broken crate stack and a felled tree before relying on it.
 - **05 (SSIL):** the `ssil_*` properties. It's screen-space, so it only bounces light from what's on screen. It's also cheaper.
-- **VoxelGI (not tried):** the search summary saved in [GoogleSearch.png](GoogleSearch.png) recommends it, and it would suit a small bounded map. It needs a `VoxelGI` node over the map bounds, baked in the editor or with `VoxelGI.bake()` at runtime. It's static once baked, so destroyed blocks would need a re-bake. Try it as a new harness style next to 04 before committing to it.
+- **VoxelGI (not tried):** the search summary saved in [GoogleSearch.png](GoogleSearch.png) recommends it, and it would suit a small bounded map. It needs a `VoxelGI` node over the map bounds, baked in the editor or with `VoxelGI.bake()` at runtime. It's static once baked, so every broken or worn block would leave stale light behind until a re-bake. Terrain now changes with nearly every shot, so measure the re-bake cost early. Try it as a new harness style next to 04 before committing to it.
 
 ## Previewing and checking with the harness
 
@@ -121,25 +189,34 @@ Both styles set `adjustment_enabled` true and assign `adjustment_color_correctio
 ```bash
 Styles/harness/render.sh 21 28        # from the repo root -> Styles/harness/out/NN-name.png
 Styles/harness/render.sh 0            # style 0 = the scene exactly as it currently is
+MAP=res://Scenes/BoundaryMap.tscn Styles/harness/render.sh 28   # the encounter map instead of CombatMap
 ```
 
-The script copies the harness into `vcom/_probe/`, runs Godot with a window (`--headless` can't render), and deletes `_probe/` again. Set `GODOT=` if the editor isn't at `C:\Program Files\Godot\Godot_v4.7-stable_win64_console.exe`.
+The script copies the harness into `vcom/_probe/`, runs Godot with a window (`--headless` can't render), and deletes `_probe/` again. Set `GODOT=` if the editor isn't at `C:\Program Files\Godot\Godot_v4.7-stable_win64_console.exe`, and `OUT_DIR=` to write somewhere other than `Styles/harness/out/`.
 
-**Verifying an applied style:** render style 0 and compare it with that style's `Styles/NN-*.png`. When this was written, re-rendering unchanged styles produced byte-identical PNGs on the original machine (RTX 3060 Laptop, D3D12, Godot 4.7-stable). A faithful application should therefore match closely; another GPU or driver may differ slightly. Then check that `--headless --path . --quit-after 120` loads with no new errors, and play-test rotating, zooming and panning, since the screenshots cover only two fixed views.
+**Verifying an applied style:** compare like with like.
+
+1. **Before** applying, render the style with the harness on the current code, for both CombatMap and BoundaryMap.
+2. Apply the style, then render style 0 for both maps and compare them with those renders.
+   - Repeat renders are byte-identical on this machine (RTX 3060 Laptop, D3D12, Godot 4.7-stable). That was checked for unchanged styles on 2026-09-26 and for style 0 on both maps on 2026-10-01. A faithful application should therefore match closely; another GPU or driver may differ slightly.
+   - The `Styles/NN-*.png` screenshots can't be matched any more: they show the old capsules and the old camera distance.
+   - For 15 and 22, expect the units to differ, since the harness no longer changes them (section 4).
+3. Check that `--headless --path . --quit-after 120` loads with no new errors.
+4. Play-test rotating, zooming and panning, since the renders cover only two fixed views. Break some terrain while you're at it (section 3).
 
 **Tuning or adding a style:** edit `VariantList.gd` for values and `VariantNotes.gd` for the description, cost and kept list, then re-render. To refresh the catalog's per-style sections, run `dump_notes.gd` (usage in its header) and paste its output into `VISUAL_VARIANTS.md`.
 
 **Capture details:**
 - 1280×720 per panel, `--fixed-fps 60`.
-- Left panel: 150 frames after load.
+- Left panel: 150 frames after load, through the map's authored camera. That's distance 15 now; the screenshots were taken at 22.
 - Right panel: 90 more frames through a separate Camera3D at pivot (9, 1, −8), yaw 38°, pitch 36°, distance 15. The distance is scaled by the FOV ratio for style 27. The HUD and TileHighlights are hidden and a caption is added.
 - The probe turns off the rig's edge-pan and input so a stray cursor can't move the camera.
 
 ## Open decisions (ask when applying)
 
 1. The block-material hookup: a runtime `@tool` script or an importer option (section 3).
-2. Whether `LineOfSightTest.tscn` should get the same look (recommended: yes).
+2. Whether `LineOfSightTest.tscn` should get the same look (recommended: yes). `BoundaryMap.tscn` always should.
 3. For 11: should the focus follow zoom (section 7), and how much blur is acceptable during play?
 4. For 27: is the camera change wanted? It changes how zoom feels, not just the art.
-5. Whether to commit the Forward+ renderer switch, if it is still uncommitted.
+5. For the block and toon styles: should the props and coins match too? Broken crates and debris do need the style, or broken terrain will look out of place (section 3).
 6. Performance budget, for 04 (SDFGI is heavy) and for MSAA at high resolutions.
