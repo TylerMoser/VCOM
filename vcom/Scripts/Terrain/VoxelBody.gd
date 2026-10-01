@@ -1,7 +1,8 @@
 ## A voxel model loose in the world that wears away a few voxels at a time, as
-## a block does ([VoxelDestruction]): one of a crate's pieces once the crate
-## has broken, or any rigid body drawn by a MagicaVoxel model that
-## [method VoxelTerrain.take_on_body] has taken on.
+## a block does ([VoxelDestruction]): one of a crate's pieces, once a round or
+## a blast has reached it since the crate broke
+## ([method VoxelTerrain.take_on_later]), or any rigid body drawn by a
+## MagicaVoxel model that [method VoxelTerrain.take_on_body] has taken on.
 ##
 ## It is a node under its body, and goes when the body goes. The body is a
 ## [RigidBody3D]; the model is drawn by a [MeshInstance3D] among its children,
@@ -36,7 +37,8 @@ var collider: CollisionShape3D
 ## The box round what is left of it, in its frame.
 var bounds := AABB()
 ## The bodies this one passes through: the pieces it was cut to overlap, and
-## the models it was cut from or that were cut off it. Kept here, as the
+## the models it was cut from or that were cut off it. Kept here, handed over
+## by whatever made it ([method ScriptedDestruction._pass_overlaps]), as the
 ## physics server's own list still holds bodies since freed and fails on them;
 ## untyped, as this one may too, so each is checked before it is used.
 var passes: Array = []

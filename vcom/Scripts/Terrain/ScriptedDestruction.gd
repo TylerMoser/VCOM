@@ -28,10 +28,11 @@
 ## [code]force[/code] metadata says.
 ##
 ## With [member wear] set, the pieces go on to wear away a few voxels at a
-## time once the block has broken: each is a loose voxel model ([VoxelBody]),
-## which rounds tear through and blasts crater as they do a block that wears
-## away, cut in two or crumbled to lumps in the end. The block still breaks
-## into them as cut; only after that do they break down further.
+## time once the block has broken: each becomes a loose voxel model
+## ([VoxelBody]) the first time a round or a blast reaches it, which rounds
+## tear through and blasts crater as they do a block that wears away, cut in
+## two or crumbled to lumps in the end. The block still breaks into them as
+## cut; only after that do they break down further.
 class_name ScriptedDestruction
 extends Destruction
 
@@ -57,8 +58,9 @@ const BLAST_FORCE := &"force"
 ## How the pieces wear away once the block has broken, if they do: a
 ## [VoxelDestruction], of which all but the block, mass and coin chance count.
 ## Their voxels are read from the .vox the pieces scene was imported from, the
-## model each MeshInstance3D was drawn from. Left empty, the pieces only ever
-## tumble.
+## model each MeshInstance3D was drawn from, when a round or a blast first
+## reaches each ([method VoxelTerrain.take_on_later]). Left empty, the pieces
+## only ever tumble.
 @export var wear: VoxelDestruction
 
 @export_group("Physics")
@@ -86,11 +88,11 @@ func shatter(site: TerrainDestruction, at: Transform3D, hit: CombatGrid.RayHit, 
 	site.add_child(broken)
 	broken.global_transform = at
 	var bodies := _make_pieces(broken)
-	_pass_overlaps(bodies)
+	var passes := _pass_overlaps(bodies)
 	if wear != null:
 		var source := VoxelShape.source_of(pieces)
-		for body in bodies:
-			site.voxels.take_on_body(body, wear, source)
+		for index in bodies.size():
+			site.voxels.take_on_later(bodies[index], wear, source, passes[index])
 
 	# Held where they are until the next physics step. The grid takes the
 	# block's own collision away at the end of this frame, and until then the
@@ -140,7 +142,8 @@ func _burst(broken: Node3D, bodies: Array[RigidBody3D]) -> void:
 
 
 ## Makes every bare mesh under [param broken] a piece of its own, and returns
-## every piece there, including any the scene built for itself.
+## every piece there, including any the scene built for itself, each made one
+## ([method TerrainDestruction.make_piece]).
 func _make_pieces(broken: Node3D) -> Array[RigidBody3D]:
 	for node in broken.find_children("*", "MeshInstance3D", true, false):
 		var mesh := node as MeshInstance3D
@@ -158,6 +161,7 @@ func _make_pieces(broken: Node3D) -> Array[RigidBody3D]:
 	for body in bodies:
 		body.collision_layer = TerrainDestruction.DEBRIS_LAYER
 		body.collision_mask = TerrainDestruction.DEBRIS_MASK
+		TerrainDestruction.make_piece(body)
 		# Thin pieces fall fast enough to slip through one another in a step.
 		body.continuous_cd = true
 		if body.physics_material_override == null:
@@ -186,18 +190,24 @@ func _give_body(mesh: MeshInstance3D) -> void:
 	body.mass = maxf(box.size.x * box.size.y * box.size.z * density, MIN_MASS)
 
 
-## Lets pieces that start out overlapping pass through each other.
-func _pass_overlaps(bodies: Array[RigidBody3D]) -> void:
+## Lets pieces that start out overlapping pass through each other, and says,
+## for each of [param bodies], which of the others it passes through: what a
+## piece that wears away hands on to the parts it is cut into
+## ([member VoxelBody.passes]), since the physics' own lists cannot be read
+## once a piece has gone.
+func _pass_overlaps(bodies: Array[RigidBody3D]) -> Array:
 	var boxes: Array[AABB] = []
+	var passes := []
 	for body in bodies:
 		boxes.append(TerrainDestruction.debris_box(body).grow(-OVERLAP_TOLERANCE))
+		passes.append([])
 	for i in bodies.size():
 		for j in range(i + 1, bodies.size()):
-			# Each told, so each piece's own list says every piece it passes
-			# through, for one that wears away to pass on to its parts.
 			if boxes[i].intersects(boxes[j]):
 				bodies[i].add_collision_exception_with(bodies[j])
-				bodies[j].add_collision_exception_with(bodies[i])
+				passes[i].append(bodies[j])
+				passes[j].append(bodies[i])
+	return passes
 
 
 ## The speed a piece centred on [param center] flies off with: a knock along

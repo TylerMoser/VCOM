@@ -26,6 +26,11 @@
 ## has fallen well below it, and one wedged inside a block, where it cannot be
 ## seen and would jostle for ever.
 ##
+## The pieces debris is broken into, each a body of its own, are found by
+## asking the physics ([method pieces_in]), never by walking the scene: with a
+## few thousand lying about, walking it took longer than the rest of a blast
+## did together.
+##
 ## Each block that breaks is announced ([signal block_broken]), for whatever
 ## it leaves behind besides its pieces, such as a coin ([Coins]).
 class_name TerrainDestruction
@@ -39,10 +44,15 @@ signal block_broken(cell: Vector3i, destruction: Destruction)
 ## Physics layers: the blocks, and the pieces broken off them.
 const TERRAIN_LAYER := 1 << 0
 const DEBRIS_LAYER := 1 << 2
-## The layer the bodies of loose voxel models ([VoxelBody]) are on as well as
-## the debris layer, for the rounds and blasts that wear them to find them by.
-## Nothing collides with it.
-const MODEL_LAYER := 1 << 4
+## The layer every piece is on as well as the debris layer: debris that is a
+## body with a node of its own, a broken block's pieces and the parts cut from
+## them, as against the voxels' lumps ([VoxelDebris]). Nothing collides with
+## it; it is for finding pieces by ([method pieces_in]).
+const PIECE_LAYER := 1 << 4
+## The group every piece is in, for looking each one over.
+const PIECES := &"pieces"
+## The most pieces one search finds: more than any blast's box holds.
+const MOST_FOUND := 4096
 ## What debris lands on and bumps off: the blocks, other debris, and units.
 const DEBRIS_MASK := TERRAIN_LAYER | DEBRIS_LAYER | Unit.BODY_LAYER
 ## How far below the bottom of the map, in cells, debris falls before it is
@@ -162,6 +172,34 @@ static func debris_box(body: PhysicsBody3D) -> AABB:
 	return box
 
 
+## Makes [param body] a piece: on [constant PIECE_LAYER], besides whatever it
+## is on, and in [constant PIECES].
+static func make_piece(body: PhysicsBody3D) -> void:
+	body.collision_layer |= PIECE_LAYER
+	body.add_to_group(PIECES)
+
+
+## Every piece whose collision reaches into [param box], in the world, as the
+## physics in [param space] has it: far cheaper than looking at every piece, as
+## it only looks where the box is.
+static func pieces_in(space: PhysicsDirectSpaceState3D, box: AABB) -> Array[RigidBody3D]:
+	var shape := BoxShape3D.new()
+	shape.size = box.size
+	var query := PhysicsShapeQueryParameters3D.new()
+	query.shape = shape
+	query.transform = Transform3D(Basis.IDENTITY, box.get_center())
+	query.collision_mask = PIECE_LAYER
+	query.collide_with_areas = false
+	var found: Array[RigidBody3D] = []
+	var seen := {}
+	for met in space.intersect_shape(query, MOST_FOUND):
+		var body := met.collider as RigidBody3D
+		if body != null and not seen.has(body):
+			seen[body] = true
+			found.append(body)
+	return found
+
+
 ## A round tears through the loose voxel models along its flight, and flies on.
 func _on_round_flown(from: Vector3, to: Vector3, damage: int) -> void:
 	voxels.tear(from, to, damage)
@@ -227,17 +265,13 @@ func _blast_box(cells: Array[Vector3i]) -> AABB:
 	return box.grow(0.5)
 
 
-## Every piece of debris lying inside [param cells], free to be thrown about:
-## not held still, and not a block falling whole, which drops only straight
-## down.
+## Every piece lying inside [param cells], free to be thrown about: not held
+## still. A block falling whole is no piece, and drops only straight down.
 func _debris_within(cells: Array[Vector3i]) -> Array[RigidBody3D]:
 	var box := _blast_box(cells)
 	var pieces: Array[RigidBody3D] = []
-	for node in find_children("*", "RigidBody3D", true, false):
-		var body := node as RigidBody3D
-		if body is FallingBlock or body.freeze:
-			continue
-		if box.has_point(debris_box(body).get_center()):
+	for body in pieces_in(get_world_3d().direct_space_state, box):
+		if not body.freeze and box.has_point(debris_box(body).get_center()):
 			pieces.append(body)
 	return pieces
 
@@ -250,10 +284,9 @@ func _wake_debris(wear: VoxelTerrain.Wear) -> void:
 		_wake_pieces(wear.box.grow(VoxelDebris.LYING_ON))
 
 
-## Wakes every crate's piece at rest whose middle is inside [param box].
+## Wakes every piece at rest whose middle is inside [param box].
 func _wake_pieces(box: AABB) -> void:
-	for node in find_children("*", "RigidBody3D", true, false):
-		var body := node as RigidBody3D
+	for body in pieces_in(get_world_3d().direct_space_state, box):
 		if body.sleeping and box.has_point(debris_box(body).get_center()):
 			body.sleeping = false
 
@@ -432,12 +465,13 @@ func _drop_if_stranded(unit: Unit, collapse: Collapse) -> void:
 
 ## Takes away debris that no longer belongs: fallen well below the map, or
 ## wedged inside a block, inside its voxels if it wears away. Only pieces still
-## moving are looked at, since one at rest is neither falling nor jostling.
+## moving are looked at, since one at rest is neither falling nor jostling, and
+## a block falling whole is left to land.
 func _tidy_debris() -> void:
 	var limit := _grid.map_bounds().position.y - FALL_LIMIT
-	for node in find_children("*", "RigidBody3D", true, false):
+	for node in get_tree().get_nodes_in_group(PIECES):
 		var body := node as RigidBody3D
-		if body.sleeping or body.freeze:
+		if body == null or body.sleeping or body.freeze:
 			continue
 		var center := debris_box(body).get_center()
 		if center.y < limit or voxels.is_solid_at(center):
