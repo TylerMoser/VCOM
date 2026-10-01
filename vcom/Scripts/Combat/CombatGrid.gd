@@ -33,6 +33,11 @@ const DIRECTIONS: Array[Vector2i] = [
 
 @export var grid_map_path: NodePath = ^"../GridMap"
 
+## The voxels of the blocks that wear away, which [method cast] can trace a ray
+## through voxel by voxel. Given by the map's [TerrainDestruction] as it is
+## ready; without one every block is traced whole.
+var voxels: VoxelTerrain
+
 var _grid: GridMap
 ## The box, in cells, that every solid cell on the map lies within. Worked
 ## out once: cells only ever go from the map, so it never needs to grow.
@@ -44,11 +49,14 @@ var _bounds_max := Vector3i.ZERO
 class RayHit:
 	## The solid cell the ray ran into.
 	var cell: Vector3i
-	## Where the ray met the cell, on the face it came in through.
+	## Where the ray met the cell, on the face it came in through: for a ray
+	## traced voxel by voxel through a block that wears away, where it met the
+	## first of the block's voxels.
 	var point: Vector3
 	## The face of [member cell] the ray came in through, as the way that face
-	## looks out: [code]Vector3i.UP[/code] for the top. Zero if the ray started
-	## inside the cell.
+	## looks out: [code]Vector3i.UP[/code] for the top. For a ray traced voxel by
+	## voxel, the face of the voxel it met. Zero if the ray started inside the
+	## cell.
 	var face: Vector3i
 	## Which way the ray was travelling, normalised.
 	var direction: Vector3
@@ -242,7 +250,13 @@ func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Va
 ## collision shapes. It enters every cell it touches, so unlike
 ## [method is_line_clear] it never slips between two blocks that meet at a
 ## corner.
-func cast(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant:
+##
+## With [param by_voxel], a block that wears away ([member voxels]) is traced
+## voxel by voxel, and only stops the ray where the ray meets one of its
+## voxels: one that crosses its cell beside them, or through a hole worn in it,
+## goes on. Only a round's flight is traced so ([Ballistics]). To sight, cover
+## and a throw's arc a block is its whole cell, however worn.
+func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel := false) -> Variant:
 	# Work in cell units, where cell c spans [c, c + 1) on each axis.
 	var from := _grid.to_local(origin) / _grid.cell_size
 	var dir := (_grid.global_basis.inverse() * direction) / _grid.cell_size
@@ -266,16 +280,20 @@ func cast(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant
 	var t := 0.0
 	while t <= max_distance:
 		if is_solid(cell):
-			var face := Vector3i.ZERO
-			if entered_axis >= 0:
-				face[entered_axis] = -step[entered_axis]
-			var hit := RayHit.new()
-			hit.cell = cell
-			hit.face = face
-			hit.point = _grid.to_global((from + dir * t) * _grid.cell_size)
-			hit.direction = direction.normalized()
-			hit.distance = origin.distance_to(hit.point)
-			return hit
+			if not (by_voxel and voxels != null and voxels.wears_away(cell)):
+				var face := Vector3i.ZERO
+				if entered_axis >= 0:
+					face[entered_axis] = -step[entered_axis]
+				var hit := RayHit.new()
+				hit.cell = cell
+				hit.face = face
+				hit.point = _grid.to_global((from + dir * t) * _grid.cell_size)
+				hit.direction = direction.normalized()
+				hit.distance = origin.distance_to(hit.point)
+				return hit
+			var met: Variant = voxels.trace(cell, origin, direction, max_distance)
+			if met != null:
+				return met
 		if _is_leaving_map(cell, step):
 			return null
 		entered_axis = t_max.min_axis_index()

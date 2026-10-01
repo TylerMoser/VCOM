@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
 [ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
 [ext_resource type="Script" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
+[ext_resource type="Script" uid="uid://bqf7xd705k01t" path="res://Scripts/Terrain/SceneryGround.gd" id="32_scenery_ground"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 
@@ -76,6 +77,7 @@ data = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.98, -24.5)
 cast_shadow = 0
 mesh = SubResource("PlaneMesh_frw4l")
+script = ExtResource("32_scenery_ground")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1000001]
 environment = SubResource("Environment_world")

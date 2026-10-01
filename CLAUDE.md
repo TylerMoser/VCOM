@@ -33,8 +33,8 @@ vcom/Scripts/
                        use_up(character, item) (a thrown grenade, off them for good), heal(amount) (the whole
                        roster's wounds)
   Combat/
-    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck, blast() ->
-                       terrain_blasted
+    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast() (by_voxel: through the voxels of blocks that wear
+                       away, for rounds), pick_tile(), terrain_struck, blast() -> terrain_blasted; voxels (VoxelTerrain)
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
@@ -64,6 +64,20 @@ vcom/Scripts/
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
     DestructionCatalog.gd  Resource: every breakable block, shared by every map
+    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind);
+                           collapse_below, voxels_per_damage, crater_per_damage / crater_radius(), density, crumble_size
+    VoxelShape.gd          one kind of block's voxels, read from its .vox with the importer's reader: a padded 16^3
+                           array of palette places, rows of bits, colors, the mesh's material
+    VoxelMesher.gd         surface() / faces() / mesh() from a voxel array: faces open to the air, merged greedily,
+                           found sixteen at a time from the rows
+    VoxelTerrain.gd        made by TerrainDestruction: worn blocks by cell, the stand-in items, trace() (rounds),
+                           chip() (a round's bite), crater() (a blast's), crumble(), take(), is_solid_at(); loose
+                           voxels, _holds_up() (cut through), deferred redraws after a blast
+    WornBlock.gd           one block that has lost voxels: what is left, its mesh and trimesh collision
+    VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
+                           add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
+                           (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed
+    SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE, MELEE), model (its prop scene); Weapon, Armor, BattleItem
@@ -582,13 +596,87 @@ finite at the origin; a board facing the blast is thrown harder than one edge-on
 piece further than a heavy one, and pieces tumble as they fly. `IMPULSE` is what force 1 means, and
 is the only thing to retune if every blast is too strong or too weak.
 
+**Some blocks wear away instead, a few voxels at a time.** A block whose catalog entry is a
+`VoxelDestruction` (`BrightGrass1`, both `SkinnyTree1` blocks) is the second kind of breakable block:
+a strike or a blast breaks voxels off it rather than breaking it whole. Every block is 16 voxels a
+side, and its voxels are read on ready from the `.vox` its MeshLibrary mesh was imported from
+(`VoxelShape.read()`, with the importer's own reader, so they sit exactly where the imported mesh
+draws them). `TerrainDestruction` makes a `VoxelTerrain` node, which keeps them, and a `VoxelDebris`
+node, which keeps what is broken off, and hands the grid the terrain (`CombatGrid.voxels`).
+
+- **A worn block draws itself; the rules see its stand-in.** The first time a block loses a voxel,
+  `VoxelTerrain` makes it a `WornBlock` (its own mesh and trimesh collision, rebuilt as it wears) and
+  swaps its GridMap cell to the block's stand-in, an item `take_on()` added to the map's library copy
+  with no mesh and no shapes. `CombatGrid.is_solid()` only asks whether a cell has an item, so sight,
+  cover, paths, throws, coins and units see the whole block, however little is left. Anything that
+  reads a cell's item id must allow for a stand-in (`VoxelTerrain.wears_away()`, `shape_at()`).
+  Unworn, a block that does not fill its cell (a tree) collides as its voxels, a trimesh from
+  `VoxelMesher.faces()`; a full one keeps the cube.
+- **A round takes a bite.** `terrain_struck` on such a block calls `VoxelTerrain.chip()`: the
+  `damage * voxels_per_damage` voxels nearest where it struck (12 a point; 60 for a rifle's 5),
+  roughened with noise, from whichever blocks they are in, out to `BITE_SPREAD` times the bite's own
+  radius. They fly out of the struck face in lumps up to `DEBRIS_CLUMP` (2) voxels across, and the
+  block is redrawn at once.
+- **A blast blows a crater.** `terrain_blasted` calls `VoxelTerrain.crater()` first: every voxel within
+  `crater_radius(damage)` of where it goes off (a ball of `crater_per_damage` cubic cells a point,
+  a radius of about 1.06 cells for a frag grenade's 10), roughened, but only in the blast's
+  cells. Up to `CRATER_DEBRIS` (150) lumps are thrown up and out, the ground throwing back what the
+  blast drives into it; the rest is dust. Its blocks are redrawn over the next frames, no more than
+  `REBUILD_BUDGET` microseconds a frame, under the fireball.
+- **What is cut loose drops.** After any wear, a voxel left joined to nothing that holds it (a voxel
+  or block across a face of its cell, or the ground under the bottom layer) breaks off too
+  (`_loose_voxels()`, searched from the voxels next to those just lost, which the rows find).
+- **Worn past standing, it breaks.** A block left with less than `collapse_below` (half) of its voxels,
+  or one holding something up that nothing joins from its bottom to its top any more (`_holds_up()`:
+  the trees' trunk is one 4x4 layer of voxels at its narrowest, so a couple of rounds through it fell
+  the tree), is in `Wear.broken`, and `TerrainDestruction` breaks it as it breaks a crate: out of the
+  grid at once, `block_broken`, stacks above fall, units drop. What is left crumbles
+  (`VoxelTerrain.crumble()`) into lumps `crumble_size` (3) across; one that fell whole
+  (`_drop_worn_block()`, a `FallingBlock` showing what is left of it) crumbles where it lands.
+- **The bottom layer never breaks,** and is only worn `FLOOR_DEPTH` (4) voxels deep, since a unit
+  stands at the top of its block whatever is left of it. A crater there is a flattened bowl centred
+  under the blast, as wide as the ball is where it meets the ground.
+- **Rounds are traced voxel by voxel.** `CombatGrid.cast(..., by_voxel)`, which only `Ballistics`
+  passes, asks `VoxelTerrain.trace()` in each solid cell that wears away and carries on through the
+  cell if the ray meets none of its voxels; the hit's `point` and `face` are then the voxel's. Sight
+  (`is_line_clear()`), throws (`Throwing.plan()`) and clicks (`pick_tile()`) stop at whole cells.
+- **The debris is lean.** `VoxelDebris` makes each lump a rigid body straight on the `PhysicsServer3D`,
+  with no node, on the debris layer, and draws every voxel as a cube instance of a few MultiMeshes,
+  coloured as it was. A lump's voxels move only from the server's state-sync callback, so a lump at
+  rest costs nothing a frame. Blasts push it (`burst()`), a redrawn block wakes what lay on it
+  (`wake()`), `TerrainDestruction` tidies it with the rest (`tidy()`), and units dropping through a
+  collapse pass through it, which is why `Unit.pass_through()` and `drop_to()` take body RIDs.
+- **Lumps stay for good; their bodies do not.** The moment the lumps' bodies reach
+  `VoxelDebris.MOST` (20,000), `_make_room()` stills the lumps at rest furthest from `focus` (the
+  middle of the tile the camera is looking at, `TerrainDestruction._looked_at()`: where the middle of
+  its view first meets the ground) until fewer than `KEEP` (5,000) have bodies. A stilled lump loses
+  its body but stays drawn where it lies, so nothing leaves the board, and the bodies go to what the
+  player is watching and to everything broken off from then on. A lump that moved in the last
+  `RESTING_STEPS` physics steps is never stilled, so nothing freezes in mid-air. A stilled lump gets
+  its body back, lying as it lay, the moment anything disturbs it: a blast reaching it (`burst()`), a
+  worn block under it being redrawn or a broken one going (`wake()`, `LYING_ON` round the block, the
+  whole column above a broken one), or a unit on the move coming within its cell
+  (`TerrainDestruction._wake_in_the_way()`). Lumps are filed by the world cell their middle was last
+  in (`_by_cell`), so those calls look only at the cells they reach. Clearing 15,000 bodies takes
+  about 30 ms, on the frame that reaches the limit.
+- **It is deterministic.** Which voxels go, and so which blocks break, comes from the global random
+  generator, so a seeded fight replays exactly. How the lumps fall is physics, and only for show.
+
+To make another block wear away, add a `VoxelDestruction` `.tres` naming it in
+`Resources/Destruction/` to `Catalog.tres`, with its `mass` whole (what it weighs falling), its
+voxels' `density`, and `voxels_per_damage` / `crater_per_damage` for how soft it is. Its mesh must be
+imported from a `.vox` at Scale 0.0625, one cell to sixteen voxels.
+
 **Physics is only for debris, and the dead.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3
 debris, 4 unit bodies (`Unit.BODY_LAYER`). A fallen unit's ragdoll is debris among debris: on layer 3,
 landing on terrain and other debris and shoved aside by the living; its bones are on no layer at all
 until it falls. Blocks have no collision in the MeshLibrary, so
-`TerrainDestruction` gives the map a copy of it with a cube on every shapeless block. Debris stays
-live for good and sleeps when still. Each unit carries a frictionless `AnimatableBody3D` capsule,
-starting `Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and is never pushed back.
+`TerrainDestruction` gives the map a copy of it with a cube on every shapeless block (a tree that
+wears away gets its voxels' trimesh instead, and a worn block collides through its `WornBlock`).
+Debris stays live for good and sleeps when still. Jolt's limits on bodies, body pairs, contacts and
+scratch memory are raised in `project.godot` for the voxel debris. Each unit carries a frictionless
+`AnimatableBody3D` capsule, starting `Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and
+is never pushed back.
 A `FallingBlock` is on the debris layer but never collides with units: nobody can stand in its
 column but units dropping with it. It is 1 cm narrower than its cell on each side
 (`FallingBlock.CLEARANCE`), cannot turn, and is frictionless, so it slides down between the blocks
@@ -611,9 +699,10 @@ trees drawn into the sun's shadow map, on and off screen. Now it costs about 3 m
   shadow casting off. The scenery still receives the battlefield's shadows. A block added to
   `BlockLibrary` that scenery should use goes in both, shadows off in this one.
 - It has no ground blocks. `Boundary/Ground` is one plane in the grass block's top colour, 2 cm
-  below the top of the ground blocks and covering the ring's whole outer rectangle; under the
-  battlefield it is hidden inside the battlefield's own ground, so it fills the corners the
-  battlefield leaves out too. Resize it with the ring, or the sky shows between the trees.
+  below the top of the ground blocks and covering the ring's whole outer rectangle; it fills the
+  corners the battlefield leaves out too. Resize it with the ring, or the sky shows between the
+  trees. Its `SceneryGround` script cuts every column of the battlefield's bottom layer out of it on
+  ready, or a crater in the floor would show the plane running through it 2 cm down.
 - Only the 6 rows nearest the battlefield have trunks (`SkinnyTree1Bottom`); past them the tree
   tops hide where the trunks would be.
 
@@ -685,6 +774,13 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   sight, cover and paths never wait on physics, and so does every breakable block stacked on it,
   though it is still to be seen falling. Debris, and a falling block, is for show: nothing in the
   rules reads it.
+- **A block that wears away is a whole block to the rules until it is worn past standing**: below
+  `collapse_below` of its voxels, or cut through under something it holds up, decided as the round
+  or blast lands, when it leaves the grid as any broken block does. How worn it looks never changes
+  sight, cover, paths or throws, and the bottom layer never leaves the grid.
+- **Rounds alone are traced voxel by voxel**, and only through blocks that wear away
+  (`CombatGrid.cast(..., by_voxel)`): a miss strikes the voxel it meets, or flies on through the
+  empty part of the cell. Sight lines, throw arcs and clicks read whole cells.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -740,7 +836,11 @@ a lane there over reasoning about geometry in your head.
 
 Physics runs headless, and with `--fixed-fps 60` every physics step is exactly 1/60 s, so debris
 can be tested without rendering: break a block by calling `CombatGrid.strike()` with a hand-built
-`RayHit`, then wait on `physics_frame`.
+`RayHit`, then wait on `physics_frame`. To wear a block that wears away, get the hit from
+`grid.cast(origin, direction, distance, true)` so it lands on a voxel, then `grid.strike(hit, 5)`; a
+blast is `grid.blast(origin, cells, 10, 1.0)`. `TerrainDestruction.voxels.count_at(cell)` says how much
+is left, and `voxel_debris.count()` how many lumps there are. Seed the global generator first and the
+same wear comes out every run.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
@@ -859,6 +959,22 @@ and Jolt pushes it out of both walls every step, feeding energy into every piece
 is why debris boxes are 3.5% smaller than their meshes (`ScriptedDestruction.SLACK`) and a falling
 block is 1 cm narrower than its cell.
 
+**Bodies made on the `PhysicsServer3D` outlive their node.** The voxel debris has no nodes, and a
+battle shares the root viewport's `World3D` with the next one, so `VoxelDebris` takes its bodies out
+of the world on `_exit_tree` and frees them (and its box shapes) on `NOTIFICATION_PREDELETE`.
+Anything else made on the server must do the same.
+
+**Jolt has hard limits.** 10,240 bodies by default, and contact and pair buffers that overflow with a
+few thousand lumps settling at once ("contacts were ignored", lumps sinking into each other).
+`project.godot` raises them, and `VoxelDebris.MOST` keeps the lumps' bodies well under the body limit;
+lumps rather than single voxels (`DEBRIS_CLUMP`, `crumble_size`) keep the count down. Raising the contact or pair
+limits much further needs a bigger `temporary_memory_buffer_size`.
+
+**A fresh checkout imported headless has no `.vox` meshes.** `--headless --import` in a new git worktree
+imported no MagicaVoxel meshes, so every block was invisible and the map rendered almost nothing.
+Open it in the editor once, or copy `.godot/` from a working copy, before measuring or rendering
+there.
+
 **Probe runs in parallel can log `Jolt Physics job system exceeded the maximum number of jobs`.**
 That is several Godot processes fighting over the CPU, not the scene; it does not appear run alone.
 
@@ -924,10 +1040,25 @@ physics layer until then, so they never collide while alive.
 
 - A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
   per-unit state like rounds remaining.
-- Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck`, and
-  `Grenade.environment_damage` `terrain_blasted`, but nothing reads either yet: any strike or blast
-  breaks a crate.
-- Rounds fly straight through debris: the trace only sees the grid.
+- Crates break whole on any strike or blast, however weak: only blocks that wear away read
+  `Weapon.environment_damage` and `Grenade.environment_damage`.
+- Rounds fly straight through debris: the trace only sees the grid, and the voxels of blocks that wear
+  away.
+- A unit stands at the top of its tile however worn the block under it is, so it floats over a crater:
+  up to 4 voxels on the bottom layer, deeper on a raised block. Tile highlights float with it.
+- A worn block gives full cover until it breaks, however holed it looks; nothing reads partial wear.
+  Each block holds up what is on it by itself: voxels are only joined across a cell face, not traced
+  through several blocks, so a lump held only by a block that is itself cut loose stays put.
+- A strike costs about 5 ms on the frame it lands and a grenade 15-25 ms (gathering, meshing and
+  crumbling in GDScript), more for each block it brings down; the blast's redraws spread over the next
+  few frames.
+- Voxels are read from the `.vox` files at `res://` on ready: an exported build must include `*.vox` as
+  non-resource files, and there are no export presets yet.
+- A lump of debris collides as the box round its voxels, so one that is not a full box rests a little
+  proud of what it lies on.
+- A stilled lump is woken only by a blast, the block under it being worn or broken, or a unit walking
+  into it. A crate's board, a ragdoll or a falling block coming down on one passes through it, and a
+  lump still on the move can come to rest inside it.
 - A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
   The columns either side hold the struck crate's wreck in place, so the crates above only drop a
   fifth of a cell on to it before breaking, and their pieces take more room loose than as crates.

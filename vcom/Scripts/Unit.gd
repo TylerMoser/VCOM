@@ -402,10 +402,10 @@ func is_moving() -> bool:
 
 ## Drops the unit straight down to [param point], gathering speed as it
 ## falls, as it does when the ground under it gives way. [param rubble] is the
-## debris of what it stood on, which falls with it: the unit passes through
-## those pieces for good, since landing on the heap from above it would grind
-## them into the ground.
-func drop_to(point: Vector3, rubble: Array[PhysicsBody3D] = []) -> void:
+## debris of what it stood on, by physics body, which falls with it: the unit
+## passes through those pieces for good, since landing on the heap from above
+## it would grind them into the ground.
+func drop_to(point: Vector3, rubble: Array[RID] = []) -> void:
 	var height := maxf(global_position.y - point.y, 0.0)
 	if _motion != null:
 		_motion.kill()
@@ -417,14 +417,16 @@ func drop_to(point: Vector3, rubble: Array[PhysicsBody3D] = []) -> void:
 		model.fall()
 
 
-## Lets the unit pass through [param bodies] for good: more of the rubble it is
-## dropping through, left by a block that fell with it and broke on the way.
-func pass_through(bodies: Array[PhysicsBody3D]) -> void:
+## Lets the unit pass through [param bodies], physics bodies, for good: more of
+## the rubble it is dropping through, left by a block that fell with it and
+## broke on the way. By body rather than node, since the voxels broken off a
+## block that wears away have none ([VoxelDebris]).
+func pass_through(bodies: Array[RID]) -> void:
 	if _body == null:
 		return
 	for body in bodies:
-		if is_instance_valid(body):
-			_body.add_collision_exception_with(body)
+		if body.is_valid():
+			PhysicsServer3D.body_add_collision_exception(_body.get_rid(), body)
 
 
 ## Turns the unit's figure to [param point] in the world, a target's eye, and

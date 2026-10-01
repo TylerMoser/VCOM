@@ -212,8 +212,9 @@ the squad. Right-click the tile, or press `Enter` / `Space`, to throw.
   floor to head height, so it also catches anyone standing a level up or down. Anyone with any part
   of them inside it takes the grenade's damage (**5** for the Frag Grenade) less their Defense, as
   from a shot. Walls inside the blast shelter nobody.
-- **It breaks every crate in the blast** and throws the debris there about. Crates stacked above the
-  blast fall, and anyone left standing on nothing drops.
+- **It breaks every crate in the blast**, blows a crater in the grass and the trees there (see
+  [Destructible terrain](#destructible-terrain)), and throws the debris there about. Crates stacked
+  above the blast fall, and anyone left standing on nothing drops.
 - **It is gone for good.** A thrown grenade is used up for the rest of the campaign; the Market
   sells more. With none left, the button leaves the action bar.
 
@@ -237,7 +238,8 @@ against a target in cover strike the cover.
 - **A miss never lands well short of the target**, no more than 2 tiles in front of it.
 
 Where a miss strikes terrain it leaves a mark and is reported to the map with the weapon's
-environmental damage (5 for a rifle).
+environmental damage (5 for a rifle). Grass and trees are hit where the round actually meets them,
+voxel by voxel: a miss that passes beside a tree's trunk, or through a hole blown in a wall, flies on.
 
 ### Destructible terrain
 
@@ -254,7 +256,28 @@ boards a cell or two, and further when a grenade did it.
 - **The pieces are only for show.** They are real physics debris that stays for the rest of the
   fight and bumps off soldiers, but they never block sight, give cover or get in anyone's way.
 
-Grass and the ground do not break.
+**Grass and trees wear away, a few voxels at a time.** Every block is 16 voxels to a side, and these
+come apart into them:
+
+- **A round takes a bite** where it strikes: about a dozen voxels for each point of the weapon's
+  environmental damage (60 for a rifle), knocked out of the face it hit in small lumps that fall and
+  stay where they land.
+- **A grenade blows a crater**: every voxel in a ball round where it goes off, as big as its
+  environmental damage makes it (nearly two tiles across for the Frag Grenade), but only within its
+  blast. Its earth is thrown up and out round the crater.
+- **Worn is not gone.** However chewed up it looks, a block still counts as the whole block for sight,
+  cover and movement until it is **worn below half** of its voxels. Then it collapses: it is gone from
+  the fight at once, what is left of it crumbles into lumps, blocks stacked on it fall, and anyone on
+  it drops.
+- **Cut through, it falls.** A block holding something up collapses as soon as nothing joins its bottom
+  to its top: a tree's thin trunk, shot through, brings its crown down with it.
+- **The ground never gives way.** The bottom of the map only craters, and only a quarter of a tile
+  deep. Soldiers still stand at the ground's full height, so they float a little over a crater.
+- **What falls off hanging** - a lump of earth left holding on to nothing - drops with the rest.
+
+As with crates, the debris is only for show and stays for the rest of the fight. After a great deal of
+destruction, the debris furthest from where the camera is looking stops moving, though it stays where
+it lies; a blast, the ground going from under it, or a soldier walking into it sets it moving again.
 
 ### Coins
 
@@ -285,9 +308,14 @@ the shot is lined up, and kept until the trigger goes.
 
 **Where a miss goes is settled when it is fired, XCOM 2's way.** XCOM: Enemy Unknown flew a real
 projectile and damaged whatever it bumped into on the way; XCOM 2 works the whole path out first and
-has the tracer play it back. The path is traced through the same voxel grid as sight, with no
-physics, so it is decided before anything is drawn, can be tested headless, and can never pass
-through a block the grid says is solid.
+has the tracer play it back. The path is traced through the voxel grid, with no physics, so it is
+decided before anything is drawn and can be tested headless. It goes through grass and trees voxel by
+voxel, so a round hits the trunk it is drawn hitting, but sight and cover still read whole blocks.
+
+**Blocks wear away, the rules see whole blocks.** A block losing voxels is drawn as what is left of it,
+but sight, cover and movement still read whole cells, so the fight stays as predictable as XCOM's:
+a wall is cover until it collapses, and it collapses at a clear point (half gone, or cut through),
+decided the moment the round or grenade lands.
 
 **The rules never wait on physics.** A broken block leaves the grid the instant it is struck, and
 so does everything breakable stacked on it, even while those blocks are still to be seen falling;
@@ -295,7 +323,9 @@ its debris is physics for the eye only. The fight stays exactly as predictable a
 the pieces happen to fall.
 
 **Breakable blocks are data.** How a block breaks is a resource naming it, and a new breakable
-object is a pre-cut MagicaVoxel model plus one of those. No code changes are needed. By default the
+object is a pre-cut MagicaVoxel model plus one of those. A block that wears away a voxel at a time
+needs only the resource: its voxels are read from the model it is drawn with. No code changes are
+needed. By default the
 pieces simply collapse; whether they burst apart instead is a tick box on the resource, and where
 the blast goes off and how hard is a marker placed in the model's scene.
 
@@ -341,7 +371,8 @@ vcom/                     the Godot project
       Weapon.gd           what a shot does when it lands, to units and to terrain
       TileHighlights.gd   coloured squares over tiles
     AI/                   enemy AI: the base, the assault AI, and the queries they share
-    Terrain/              destructible terrain: what breaks, how, and what it brings down
+    Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks that
+                          wear away voxel by voxel, and the voxels broken off them
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
     UI/                   HUD, built in code rather than scenes
   Resources/              shared weapon and AI resources units are given

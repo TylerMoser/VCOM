@@ -40,10 +40,21 @@ static func burst(pieces: Array[RigidBody3D], origin: Vector3, force: float) -> 
 ## the area the piece shows it.
 static func impulse_on(body: PhysicsBody3D, origin: Vector3, force: float) -> Vector3:
 	var away := TerrainDestruction.debris_box(body).get_center() - origin
+	var direction := away_from(away)
+	return direction * strength(away.length(), force) * exposed_area(body, direction)
+
+
+## Which way a blast pushes a piece [param away] from where it goes off:
+## straight up for one right on top of it.
+static func away_from(away: Vector3) -> Vector3:
 	var distance := away.length()
-	var direction := away / distance if distance > 1e-4 else Vector3.UP
-	var strength := force * IMPULSE / (distance * distance + CORE * CORE)
-	return direction * strength * exposed_area(body, direction)
+	return away / distance if distance > 1e-4 else Vector3.UP
+
+
+## How hard a blast of [param force] pushes each square cell facing it,
+## [param distance] cells from where it goes off.
+static func strength(distance: float, force: float) -> float:
+	return force * IMPULSE / (distance * distance + CORE * CORE)
 
 
 ## Where on [param body] a blast at [param origin] lands: the point of it
@@ -61,17 +72,19 @@ static func exposed_area(body: PhysicsBody3D, direction: Vector3) -> float:
 		var collider := node as CollisionShape3D
 		if collider.shape == null:
 			continue
-		var size: Vector3
-		var facing: Vector3
 		if collider.shape is BoxShape3D:
-			size = (collider.shape as BoxShape3D).size
-			facing = collider.global_basis.orthonormalized().inverse() * direction
+			area += box_area((collider.shape as BoxShape3D).size, collider.global_basis.orthonormalized(), direction)
 		else:
-			size = (collider.global_transform * collider.shape.get_debug_mesh().get_aabb()).size
-			facing = direction
-		area += (
-			absf(facing.x) * size.y * size.z
-			+ absf(facing.y) * size.x * size.z
-			+ absf(facing.z) * size.x * size.y
-		)
+			area += box_area((collider.global_transform * collider.shape.get_debug_mesh().get_aabb()).size, Basis.IDENTITY, direction)
 	return area
+
+
+## How much of a box [param size] across, turned by [param basis], faces a
+## blast travelling along [param direction], in square cells.
+static func box_area(size: Vector3, basis: Basis, direction: Vector3) -> float:
+	var facing := basis.inverse() * direction
+	return (
+		absf(facing.x) * size.y * size.z
+		+ absf(facing.y) * size.x * size.z
+		+ absf(facing.z) * size.x * size.y
+	)

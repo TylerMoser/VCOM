@@ -3,7 +3,10 @@
 [ext_resource type="Script" path="res://Scripts/Terrain/Destruction.gd" id="1_12ex5"]
 [ext_resource type="Resource" path="res://Resources/Destruction/BrightCrate1.tres" id="2_ieuev"]
 [ext_resource type="Script" path="res://Scripts/Terrain/DestructionCatalog.gd" id="3_o8owx"]
+[ext_resource type="Resource" path="res://Resources/Destruction/BrightGrass1.tres" id="4_grass"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Bottom.tres" id="5_treebottom"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Top.tres" id="6_treetop"]
 
 [resource]
 script = ExtResource("3_o8owx")
-destructions = Array[ExtResource("1_12ex5")]([ExtResource("2_ieuev")])
+destructions = Array[ExtResource("1_12ex5")]([ExtResource("2_ieuev"), ExtResource("4_grass"), ExtResource("5_treebottom"), ExtResource("6_treetop")])

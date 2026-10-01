@@ -14,11 +14,17 @@
 ## passing through it, and through whatever the blocks falling with it break
 ## into.
 ##
+## A block that wears away ([VoxelDestruction]) is the exception: a strike or
+## a blast only breaks voxels off it, through this node's [VoxelTerrain], and
+## it breaks as above only once it is worn past standing. What is left of it
+## then crumbles, and its voxels and pieces are [VoxelDebris].
+##
 ## Blocks have no collision of their own, so on ready each one without any is
-## given a cube, the shape it already is to the rules, for debris to land on.
-## Debris that no longer belongs anywhere is tidied away: a piece knocked off
-## the edge of the map, once it has fallen well below it, and one wedged inside
-## a block, where it cannot be seen and would jostle for ever.
+## given a cube, the shape it already is to the rules, for debris to land on,
+## or, if it wears away, the shape of its voxels. Debris that no longer belongs
+## anywhere is tidied away: a piece knocked off the edge of the map, once it
+## has fallen well below it, and one wedged inside a block, where it cannot be
+## seen and would jostle for ever.
 ##
 ## Each block that breaks is announced ([signal block_broken]), for whatever
 ## it leaves behind besides its pieces, such as a coin ([Coins]).
@@ -47,6 +53,10 @@ const TIDY_SECONDS := 1.0
 @export var grid_path: NodePath = ^"../CombatGrid"
 @export var grid_map_path: NodePath = ^"../GridMap"
 
+## The voxels of the blocks that wear away, and the voxels broken off them.
+var voxels: VoxelTerrain
+var voxel_debris: VoxelDebris
+
 var _grid: CombatGrid
 var _map: GridMap
 ## MeshLibrary item id -> the [Destruction] that breaks that block.
@@ -55,14 +65,15 @@ var _destructions := {}
 var _tidy_in := TIDY_SECONDS
 
 
-## One broken block and everything it brings down: the debris left so far, and
-## the units dropping through it, who pass through whatever more it leaves.
+## One broken block and everything it brings down: the debris left so far, by
+## its physics bodies, and the units dropping through it, who pass through
+## whatever more it leaves.
 class Collapse:
-	var rubble: Array[PhysicsBody3D] = []
+	var rubble: Array[RID] = []
 	var fallers: Array[Unit] = []
 
 	## Adds [param left] to the rubble, for everyone dropping through it.
-	func add(left: Array[PhysicsBody3D]) -> void:
+	func add(left: Array[RID]) -> void:
 		rubble.append_array(left)
 		for unit in fallers:
 			if is_instance_valid(unit):
@@ -79,12 +90,28 @@ func _ready() -> void:
 		push_error("TerrainDestruction: no catalog, so nothing will break.")
 	else:
 		_destructions = catalog.by_item(_map.mesh_library)
-	_give_blocks_collision()
+	voxel_debris = VoxelDebris.new()
+	voxel_debris.focus = _looked_at
+	add_child(voxel_debris)
+	voxels = VoxelTerrain.new(_grid, _map, voxel_debris)
+	add_child(voxels)
+	# The map gets a copy of the MeshLibrary to change, so the library on disk
+	# is left as it is.
+	var library := _map.mesh_library.duplicate() as MeshLibrary
+	_give_blocks_collision(library)
+	voxels.take_on(library, _destructions)
+	_map.mesh_library = library
+	_map.collision_layer = TERRAIN_LAYER
+	_map.collision_mask = 0
+	_grid.voxels = voxels
 	_grid.terrain_struck.connect(_on_terrain_struck)
 	_grid.terrain_blasted.connect(_on_terrain_blasted)
 
 
 func _physics_process(delta: float) -> void:
+	if voxel_debris == null:
+		return
+	_wake_in_the_way()
 	_tidy_in -= delta
 	if _tidy_in > 0.0:
 		return
@@ -95,7 +122,7 @@ func _physics_process(delta: float) -> void:
 ## Breaks the block at [param cell], if it is one that breaks, brings down
 ## every breakable block stacked on it, and drops anyone left standing on
 ## nothing. [param hit] is the round that broke it, or null. Returns whether it
-## broke.
+## broke. A block that wears away breaks whole, however much is left of it.
 func break_block(cell: Vector3i, hit: CombatGrid.RayHit = null) -> bool:
 	var collapse := Collapse.new()
 	var before := get_child_count()
@@ -128,23 +155,37 @@ static func debris_box(body: PhysicsBody3D) -> AABB:
 	return box
 
 
-func _on_terrain_struck(hit: CombatGrid.RayHit, _damage: int) -> void:
-	break_block(hit.cell, hit)
+## A strike breaks the block it struck, or, if the block wears away, breaks
+## voxels off it, and the block only if that leaves it worn past standing.
+func _on_terrain_struck(hit: CombatGrid.RayHit, damage: int) -> void:
+	if not voxels.wears_away(hit.cell):
+		break_block(hit.cell, hit)
+		return
+	var wear := voxels.chip(hit, damage)
+	_wake_debris(wear)
+	for cell in _top_down(wear.broken):
+		break_block(cell, hit)
 
 
-## Breaks every breakable block among [param cells], the cells a blast at
-## [param origin] reaches, then throws the debris inside the blast about with a
-## [Blast] of [param force]: what it has just broken, as its pieces are let
-## go, and whatever was lying there already, the fallen among it (see
+## Blows a crater round [param origin] in every block among [param cells], the
+## cells a blast there reaches, that wears away, then breaks every breakable
+## block among them that does not and every one the crater has worn past
+## standing, then throws the debris inside the blast about with a [Blast] of
+## [param force]: what it has just broken, as its pieces are let go, and
+## whatever was lying there already, the fallen among it (see
 ## [method CharacterModel.blast]), the blast's own dead too.
 ##
 ## The blocks break from the top down, so each one is blasted apart where it
 ## stands rather than first falling on the one below it, the way a block does
 ## when something under it breaks; blocks stacked above the blast still fall.
-func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], _damage: int, force: float) -> void:
-	var ordered := cells.duplicate()
-	ordered.sort_custom(func(a: Vector3i, b: Vector3i) -> bool: return a.y > b.y)
-	for cell in ordered:
+func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], damage: int, force: float) -> void:
+	var wear := voxels.crater(origin, cells, damage)
+	_wake_debris(wear)
+	var breaking := wear.broken.duplicate()
+	for cell in cells:
+		if not voxels.wears_away(cell):
+			breaking.append(cell)
+	for cell in _top_down(breaking):
 		break_block(cell)
 	if force <= 0.0 or cells.is_empty():
 		return
@@ -154,8 +195,16 @@ func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], _damage: int, 
 	await get_tree().physics_frame
 	Blast.burst(_debris_within(cells), origin, force)
 	var box := _blast_box(cells)
+	voxel_debris.burst(origin, box, force)
 	for node in get_tree().get_nodes_in_group(CharacterModel.CORPSES):
 		(node as CharacterModel).blast(origin, box, force)
+
+
+## [param cells], highest first.
+static func _top_down(cells: Array[Vector3i]) -> Array[Vector3i]:
+	var ordered := cells.duplicate()
+	ordered.sort_custom(func(a: Vector3i, b: Vector3i) -> bool: return a.y > b.y)
+	return ordered
 
 
 ## The box, in world space, that [param cells] fill.
@@ -181,32 +230,92 @@ func _debris_within(cells: Array[Vector3i]) -> Array[RigidBody3D]:
 	return pieces
 
 
+## Wakes the debris at rest round what [param wear] wore away, which may have
+## been lying on the voxels it took: the physics would leave it resting on air.
+## The voxels' own lumps are woken as each worn block is redrawn.
+func _wake_debris(wear: VoxelTerrain.Wear) -> void:
+	if wear.worn:
+		_wake_pieces(wear.box.grow(VoxelDebris.LYING_ON))
+
+
+## Wakes every crate's piece at rest whose middle is inside [param box].
+func _wake_pieces(box: AABB) -> void:
+	for node in find_children("*", "RigidBody3D", true, false):
+		var body := node as RigidBody3D
+		if body.sleeping and box.has_point(debris_box(body).get_center()):
+			body.sleeping = false
+
+
+## Gives every lump lying still without a body in the way of a unit on the move
+## its body back, so the unit shoves it aside rather than walking through it.
+func _wake_in_the_way() -> void:
+	if not voxel_debris.has_still():
+		return
+	# The unit's cell, both its cells high, and a lump's height below its feet.
+	var size := Vector3(1.0, CombatGrid.UNIT_HEIGHT + VoxelDebris.LYING_ON, 1.0)
+	var below := Vector3(0.5, VoxelDebris.LYING_ON, 0.5)
+	for node in get_tree().get_nodes_in_group(Unit.GROUP):
+		var unit := node as Unit
+		if unit != null and unit.is_moving():
+			voxel_debris.wake(AABB(unit.global_position - below, size), true)
+
+
+## The middle of the tile the camera is looking at: where the middle of its
+## view first meets the ground. Failing that, where the camera is.
+func _looked_at() -> Vector3:
+	var camera := get_viewport().get_camera_3d()
+	if camera == null:
+		return _grid.map_bounds().get_center()
+	var hit: Variant = _grid.cast(camera.global_position, -camera.global_basis.z)
+	if hit == null:
+		return camera.global_position
+	return _grid.tile_position((hit as CombatGrid.RayHit).cell + Vector3i.UP)
+
+
 ## Breaks the block at [param cell] where it stands, and lets the blocks
 ## stacked on it fall.
 func _break(cell: Vector3i, hit: CombatGrid.RayHit, collapse: Collapse) -> bool:
 	var destruction: Destruction = _destructions.get(_map.get_cell_item(cell))
 	if destruction == null:
 		return false
-	var at := _mesh_transform(cell)
-	_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
-	destruction.shatter(self, at, hit)
+	if destruction is VoxelDestruction:
+		var shape := voxels.shape_at(cell)
+		var frame := voxels.frame_of(cell)
+		var left := voxels.take(cell)
+		_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
+		collapse.add(voxels.crumble(left, shape, frame, destruction as VoxelDestruction, hit))
+	else:
+		var at := _mesh_transform(cell)
+		_map.set_cell_item(cell, GridMap.INVALID_CELL_ITEM)
+		destruction.shatter(self, at, hit)
 	block_broken.emit(cell, destruction)
-	_drop_blocks_above(cell, collapse)
+	var top := _drop_blocks_above(cell, collapse)
+	# Whatever lay on it, or on the blocks falling with it, is woken to fall
+	# too: the physics would leave it lying on air.
+	var column := AABB(_grid.cell_center(cell) - Vector3.ONE * 0.5, Vector3(1.0, top.y - cell.y + 1, 1.0))
+	column = column.grow(VoxelDebris.LYING_ON)
+	_wake_pieces(column)
+	voxel_debris.wake(column)
 	return true
 
 
 ## Lets each breakable block stacked on [param cell], up to the first that
 ## cannot break, fall whole, to break where it lands. They leave the grid now,
 ## with the block they stood on, so the rules never wait for them to come down.
-func _drop_blocks_above(cell: Vector3i, collapse: Collapse) -> void:
+## Returns the cell just above the last one that fell.
+func _drop_blocks_above(cell: Vector3i, collapse: Collapse) -> Vector3i:
 	var above := cell + Vector3i.UP
 	var destruction: Destruction = _destructions.get(_map.get_cell_item(above))
 	while destruction != null:
-		var block := _falling_block(above, destruction)
+		if destruction is VoxelDestruction:
+			_drop_worn_block(above, destruction as VoxelDestruction, collapse)
+		else:
+			var block := _falling_block(above, destruction)
+			block.landed.connect(_on_landed.bind(destruction, collapse))
 		_map.set_cell_item(above, GridMap.INVALID_CELL_ITEM)
-		block.landed.connect(_on_landed.bind(destruction, collapse))
 		above += Vector3i.UP
 		destruction = _destructions.get(_map.get_cell_item(above))
+	return above
 
 
 ## Puts the block at [param cell] under this node as a [FallingBlock], standing
@@ -223,6 +332,21 @@ func _falling_block(cell: Vector3i, destruction: Destruction) -> FallingBlock:
 	return block
 
 
+## Lets the block at [param cell], one that wears away, fall whole as what is
+## left of it, as heavy as its share of [param destruction]'s mass, to crumble
+## where it lands.
+func _drop_worn_block(cell: Vector3i, destruction: VoxelDestruction, collapse: Collapse) -> void:
+	var shape := voxels.shape_at(cell)
+	var frame := voxels.frame_of(cell)
+	var share := float(voxels.count_at(cell)) / maxi(shape.count, 1)
+	var left := voxels.take(cell)
+	var block := FallingBlock.new(VoxelMesher.mesh(left, shape), Transform3D.IDENTITY, [],
+		maxf(destruction.mass * share, ScriptedDestruction.MIN_MASS))
+	add_child(block)
+	block.global_transform = frame
+	block.landed.connect(_on_worn_block_landed.bind(destruction, collapse, left, shape))
+
+
 ## Breaks a block that fell whole where it landed, [param at], its pieces
 ## carrying on its fall, and lets anyone dropping through the collapse pass
 ## through them.
@@ -233,19 +357,30 @@ func _on_landed(at: Transform3D, motion: Destruction.Motion, destruction: Destru
 	block_broken.emit(_map.local_to_map(_map.to_local(motion.center)), destruction)
 
 
-## Every piece of debris among, or under, the children added since there were
-## [param before] of them: whatever a breaking block has just left. Blocks
-## falling whole are not among them; they never meet a unit.
-func _left_since(before: int) -> Array[PhysicsBody3D]:
-	var left: Array[PhysicsBody3D] = []
+## Crumbles [param left], what was left of a block of [param shape]'s kind
+## that fell whole, where it landed, [param at] being its frame there.
+func _on_worn_block_landed(
+	at: Transform3D, motion: Destruction.Motion, destruction: VoxelDestruction, collapse: Collapse,
+	left: PackedByteArray, shape: VoxelShape
+) -> void:
+	collapse.add(voxels.crumble(left, shape, at, destruction, null, motion))
+	block_broken.emit(_map.local_to_map(_map.to_local(motion.center)), destruction)
+
+
+## The physics bodies of every piece of debris among, or under, the children
+## added since there were [param before] of them: whatever a breaking block
+## has just left. Blocks falling whole are not among them; they never meet a
+## unit.
+func _left_since(before: int) -> Array[RID]:
+	var left: Array[RID] = []
 	for index in range(before, get_child_count()):
 		var child := get_child(index)
 		if child is FallingBlock:
 			continue
 		if child is PhysicsBody3D:
-			left.append(child as PhysicsBody3D)
+			left.append((child as PhysicsBody3D).get_rid())
 		for node in child.find_children("*", "PhysicsBody3D", true, false):
-			left.append(node as PhysicsBody3D)
+			left.append((node as PhysicsBody3D).get_rid())
 	return left
 
 
@@ -284,8 +419,8 @@ func _drop_if_stranded(unit: Unit, collapse: Collapse) -> void:
 
 
 ## Takes away debris that no longer belongs: fallen well below the map, or
-## wedged inside a block. Only pieces still moving are looked at, since one
-## at rest is neither falling nor jostling.
+## wedged inside a block, inside its voxels if it wears away. Only pieces still
+## moving are looked at, since one at rest is neither falling nor jostling.
 func _tidy_debris() -> void:
 	var limit := _grid.map_bounds().position.y - FALL_LIMIT
 	for node in find_children("*", "RigidBody3D", true, false):
@@ -293,15 +428,14 @@ func _tidy_debris() -> void:
 		if body.sleeping or body.freeze:
 			continue
 		var center := debris_box(body).get_center()
-		if center.y < limit or _grid.is_solid(_map.local_to_map(_map.to_local(center))):
+		if center.y < limit or voxels.is_solid_at(center):
 			body.queue_free()
+	voxel_debris.tidy(limit, voxels.is_solid_at)
 
 
-## Gives each block with no collision shape a cube that fills its cell. The
-## map gets a copy of the MeshLibrary to hold them, so the library on disk, and
-## any block given a shape of its own there, is left as it is.
-func _give_blocks_collision() -> void:
-	var library := _map.mesh_library.duplicate() as MeshLibrary
+## Gives each block of [param library] with no collision shape a cube that fills
+## its cell. A block given a shape of its own in the library keeps it.
+func _give_blocks_collision(library: MeshLibrary) -> void:
 	var cube := BoxShape3D.new()
 	cube.size = _map.cell_size
 	# A cell's origin is its centre only along the axes the grid centres on.
@@ -313,6 +447,3 @@ func _give_blocks_collision() -> void:
 	for item in library.get_item_list():
 		if library.get_item_shapes(item).is_empty():
 			library.set_item_shapes(item, [cube, Transform3D(Basis.IDENTITY, middle)])
-	_map.mesh_library = library
-	_map.collision_layer = TERRAIN_LAYER
-	_map.collision_mask = 0

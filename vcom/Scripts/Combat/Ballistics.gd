@@ -3,7 +3,10 @@
 ##
 ## A hit flies along the sight line, eye to eye, so it never passes through
 ## anything the sight line did not. A miss is aimed at a point near the target
-## and flies on until something solid stops it or it leaves the map. Most
+## and flies on until something solid stops it or it leaves the map: any other
+## block's cell, or a voxel of a block that wears away ([VoxelTerrain]), which
+## it is traced through voxel by voxel, so it flies on past a thin trunk or
+## through a hole. Most
 ## misses are aimed at a ring around the target's body, square to the line of
 ## fire. When the target has cover facing the shot, a share of them are aimed
 ## at that cover instead, which is how a missed shot chews up the wall an
@@ -200,7 +203,9 @@ func _trace(from: Vector3, aim: Vector3, body: Vector3) -> Path:
 	var direction := from.direction_to(aim)
 	var path := Path.new()
 	path.from = from
-	path.struck = _grid.cast(from, direction, MAX_FLIGHT)
+	# Voxel by voxel, so a round strikes the voxel it meets, not the air round a
+	# trunk, and flies on through a hole.
+	path.struck = _grid.cast(from, direction, MAX_FLIGHT, true)
 	if path.struck != null:
 		path.to = path.struck.point
 	else:
