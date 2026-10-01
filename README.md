@@ -19,6 +19,7 @@ chance to hit.
 | Shoot | Select **Shoot**, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to fire |
 | Strike | Select **Strike** next to an enemy, `Tab` / `Shift+Tab` to cycle targets, `Enter` or `Space` to strike |
 | Overwatch | Select **Overwatch** to see the ground it covers, `Enter` or `Space` to go on overwatch |
+| Throw Grenade | Select **Throw Grenade**, point at a tile to see the arc and the blast, right-click (or `Enter` / `Space`) to throw |
 | React | During a reaction window: `1`–`4` fires that squad member, `0` lets the move carry on |
 | Show the hit breakdown | Hold `Ctrl` while aiming |
 | Cancel the current action | `Esc` |
@@ -29,8 +30,8 @@ While Shoot or Strike is active, `Tab` cycles targets rather than squad members.
 Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
 **Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot. **Strike** needs a melee weapon
 (the Shortsword) in a weapon slot, and is greyed out until an enemy stands next to the squad member.
-A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot; it can be
-selected but does nothing yet.
+A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an item slot. A
+thrown grenade is gone for good: its slot is empty after the battle, and the Market sells more.
 
 ## The campaign
 
@@ -59,7 +60,7 @@ Skills tab as "Skills (1)"; nothing spends them yet.
 ### Action points
 
 Every unit gets **3 actions** a turn. Moving costs one action per `move_range` (4) tiles of path,
-so a long walk can cost two or three. Shooting costs one, and so does striking. The player's turn ends when every member
+so a long walk can cost two or three. Shooting costs one, and so do striking and throwing a grenade. The player's turn ends when every member
 has spent their budget, or early by holding `Shift`.
 
 ### Reactions and overwatch
@@ -184,6 +185,34 @@ target's Defense taken off, as it is from a shot: a Shortsword swung with 3 Stre
 to a target with 1 Defense. Strength adds nothing to shots. A strike lands at once, with its damage
 or **MISS** called over the target, and never touches the terrain.
 
+### Grenades
+
+**Throw Grenade** throws the first grenade a squad member carries (Item 1, then Item 2, then Item 3)
+at a tile up to **10 tiles** away across the ground, for one action. While it is selected, every tile
+it can reach is tinted faintly. Point at one to see the throw: its arc, the ground the blast covers,
+and a bracket on everyone it would catch, with the damage each would take, red on enemies and gold on
+the squad. Right-click the tile, or press `Enter` / `Space`, to throw.
+
+- **The arc must be clear.** The grenade flies in an arc from over the thrower's head to the target,
+  higher the further it goes. If anything solid stands in its way the arc turns red up to where it
+  is stopped, with a cross there, and the throw cannot be made. Units never block it. It clears the
+  thrower's own full cover, and drops behind half cover from the full 10 tiles, but it can never land
+  right behind full cover: throw it a tile past whoever is hiding there and the blast still catches
+  them.
+- **Nothing is rolled.** A grenade always goes off where it is thrown.
+- **The blast catches everyone in it**, friend or foe, the thrower included. It is a cube as tall as
+  it is wide, centred on the target: the Frag Grenade's is **3×3** tiles across and reaches from the
+  floor to head height, so it also catches anyone standing a level up or down. Anyone with any part
+  of them inside it takes the grenade's damage (**5** for the Frag Grenade) less their Defense, as
+  from a shot. Walls inside the blast shelter nobody.
+- **It breaks every crate in the blast** and throws the debris there about. Crates stacked above the
+  blast fall, and anyone left standing on nothing drops.
+- **It is gone for good.** A thrown grenade is used up for the rest of the campaign; the Market
+  sells more. With none left, the button leaves the action bar.
+
+The throw range is the same for every squad member and every grenade (`Throwing.RANGE` in
+`Scripts/Combat/Throwing.gd`); each kind of grenade sets its own blast size and damage.
+
 ### Where shots go
 
 Every shot is drawn as a tracer, and its result, damage included, is called when the round arrives.
@@ -205,9 +234,10 @@ environmental damage (5 for a rifle).
 
 ### Destructible terrain
 
-**Crates break.** A crate struck by a stray round is gone the moment the round arrives: sight,
-cover and paths change at once, so an enemy crouched behind it is in the open for the next shot.
-What is left of it bursts apart, throwing its boards a cell or two.
+**Crates break.** A crate struck by a stray round, or caught in a grenade's blast, is gone the
+moment the round arrives or the grenade goes off: sight, cover and paths change at once, so an enemy
+crouched behind it is in the open for the next shot. What is left of it bursts apart, throwing its
+boards a cell or two, and further when a grenade did it.
 
 - **Stacks fall, then break.** A crate stacked on a broken one drops whole and breaks where it
   lands, bursting apart just the same, and so does everything breakable above it. They are gone
@@ -253,6 +283,11 @@ the blast goes off and how hard is a marker placed in the model's scene.
 catches it in proportion to the area it turns toward the blast. So the boards nearest and facing it
 fly furthest, one edge-on to it far less, and every piece tumbles as it goes.
 
+**A blocked throw is not thrown.** In XCOM 2 a grenade whose arc meets a wall goes off where it hits.
+Here an arc that meets anything before its target cannot be thrown at all, so the blast the preview
+shows is always where the grenade goes. The arc is traced through the same voxel grid as a round, and
+the preview and the blast ask the same question of who is caught, so the two cannot disagree.
+
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime.
 
@@ -269,16 +304,19 @@ ends the turn either, so the turn loop simply holds still. A proper defeat state
 ```
 vcom/                     the Godot project
   Scripts/
-    Unit.gd               health, actions, reaction, movement, taking a shot
+    Unit.gd               health, actions, reaction, movement, taking a shot, throwing a grenade
     PlayerSquad.gd        the squad and which member is selected
     TurnManager.gd        turn order, and carrying out what enemy AI decides
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
     Combat/
-      CombatGrid.gd       tile queries, pathfinding, the sight-line ray, ray casts, terrain strikes
+      CombatGrid.gd       tile queries, pathfinding, the sight-line ray, ray casts, terrain strikes and blasts
       LineOfSight.gd      cover, stepping out, who can see whom
       HitChance.gd        the to-hit sum, and the roll
       Ballistics.gd       where a round goes, hit or miss
+      Throwing.gd         where a grenade can be thrown (the range, the arc), and whom its blast catches
+      ThrownGrenade.gd    a grenade in flight, for show
+      Explosion.gd        a grenade going off, for show
       ShotPlayback.gd     plays out enemy fire and reaction fire
       Weapon.gd           what a shot does when it lands, to units and to terrain
       TileHighlights.gd   coloured squares over tiles

@@ -13,6 +13,11 @@ extends Node
 ## behind it. What a strike does to the cell is up to the terrain: the grid
 ## only reports it.
 signal terrain_struck(hit: RayHit, damage: int)
+## Emitted when a blast goes off at [param origin], with every cell it
+## reaches, solid or not, the environmental damage behind it, and how hard it
+## throws debris about, as a [Blast] force. As with a strike, what it does to
+## the cells is up to the terrain.
+signal terrain_blasted(origin: Vector3, cells: Array[Vector3i], damage: int, force: float)
 
 const UNIT_HEIGHT := 2
 const MAX_CLIMB := 1
@@ -291,6 +296,13 @@ func map_bounds() -> AABB:
 ## [param damage] environmental damage behind it, as [signal terrain_struck].
 func strike(hit: RayHit, damage: int) -> void:
 	terrain_struck.emit(hit, damage)
+
+
+## Reports a blast going off at [param origin] and reaching [param cells],
+## with [param damage] environmental damage behind it and [param force] to
+## throw debris about with, as [signal terrain_blasted].
+func blast(origin: Vector3, cells: Array[Vector3i], damage: int, force: float) -> void:
+	terrain_blasted.emit(origin, cells, damage, force)
 
 
 ## The tile reached by stepping from [param from] toward [param direction],

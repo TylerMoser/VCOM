@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="BattleItem" format=3 uid="uid://ben8g8m4b4vgv"]
+[gd_resource type="Resource" script_class="Grenade" format=3 uid="uid://ben8g8m4b4vgv"]
 
-[ext_resource type="Script" uid="uid://chgbqq07tdvv5" path="res://Scripts/Items/BattleItem.gd" id="1_ymvv3"]
+[ext_resource type="Script" uid="uid://jjtu66ofn8nk" path="res://Scripts/Items/Grenade.gd" id="1_grenade"]
 
 [resource]
-script = ExtResource("1_ymvv3")
+script = ExtResource("1_grenade")
+damage = 5
+blast_size = 3
 display_name = "Frag Grenade"
 description = "Thrown explosive. Damages everyone caught in the blast and tears apart the cover they hide behind."
 price = 1

@@ -27,6 +27,8 @@ var grid: CombatGrid
 var highlights: TileHighlights
 var actions: Array[UnitAction] = []
 var active: UnitAction
+## The unit [member active] was begun for.
+var _acting: Unit
 
 ## True while an action plays out. Actions set it when they start executing,
 ## and it clears when they emit [signal UnitAction.completed]. Selection and
@@ -100,6 +102,7 @@ func activate(action: UnitAction) -> void:
 	if active != null:
 		active.end()
 	active = action
+	_acting = unit
 	active.begin(unit)
 	changed.emit()
 
@@ -134,11 +137,17 @@ func _on_action_completed() -> void:
 	var unit := squad.selected
 	var action := active
 	action.end()
+	active = null
 	# Disabled while it played out (it won the battle), it stays put away.
-	if enabled and action.is_available(unit):
-		action.begin(unit)
-	else:
-		active = null
+	if enabled:
+		if not is_instance_valid(_acting) or unit != _acting:
+			# The unit fell to its own action, as a thrower can to its own
+			# grenade, and the selection moved on while it played out: whoever
+			# has it now starts afresh, as on any change of selection.
+			_activate_default()
+		elif action.is_available(unit):
+			active = action
+			action.begin(unit)
 	changed.emit()
 
 

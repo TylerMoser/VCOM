@@ -13,10 +13,11 @@ to apply one.
 
 ```
 vcom/Scripts/
-  Unit.gd              health, actions, reaction, walking, shoot_at(), strike(); name, colour, stats, health from its
-                       character; equipment (its character's, or just its weapon), carries(tag), melee_weapon
+  Unit.gd              health, actions, reaction, walking, shoot_at(), strike(), throw_at(); name, colour, stats, health
+                       from its character; equipment (its character's, or just its weapon), carries(tag), melee_weapon,
+                       grenade; use_up(item) -> used_up; damage_from() (defense off a hit, as take_damage() takes it)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
-                       writes wounds and deaths back to the characters; award_survivors() (experience)
+                       writes wounds, used-up grenades and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
@@ -25,12 +26,18 @@ vcom/Scripts/
                        for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market), sell(),
                        start_battle(map, chosen) / end_battle() (the world map parked out of the tree meanwhile),
                        squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle),
-                       heal(amount) (the whole roster's wounds)
+                       use_up(character, item) (a thrown grenade, off them for good), heal(amount) (the whole
+                       roster's wounds)
   Combat/
-    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck
+    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast(), pick_tile(), terrain_struck, blast() ->
+                       terrain_blasted
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
+    Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
+                       the blast: blast_cells(), is_caught(), caught(), blast_tiles()
+    ThrownGrenade.gd   a grenade in flight along a Throw's arc, for show; frees itself as it arrives
+    Explosion.gd       a grenade going off: fireball, flash, smoke, for show; go_off(), frees itself
     ShotPlayback.gd    shots not taken from the action bar: lean out, show, shoot_at(), lean back
     Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
@@ -40,7 +47,8 @@ vcom/Scripts/
     AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / END_TURN
     Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
   Terrain/
-    TerrainDestruction.gd  breaks struck blocks, drops what they held, drops stranded units, tidies debris
+    TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
+                           blast's debris about, tidies debris
     Destruction.gd         Resource base: how a kind of block comes apart, shatter(); mass; Motion
     ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart
     FallingBlock.gd        a block whose support broke, falling whole until it lands
@@ -50,7 +58,8 @@ vcom/Scripts/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE, MELEE); Weapon, Armor, BattleItem extend it
     Armor.gd           the Armor slot's kind: defense, added to the wearer's
-    BattleItem.gd      grenades, medkits: name and description only so far
+    BattleItem.gd      grenades, medkits: name and description; a kind's subclass says what it does
+    Grenade.gd         BattleItem: damage, blast_size (odd, tiles across), environment_damage, blast_force
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Roster/
@@ -58,7 +67,7 @@ vcom/Scripts/
                        skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
   Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
-                       Strike (melee, at an adjacent enemy), ThrowGrenade (placeholder: offered, does nothing)
+                       Strike (melee, at an adjacent enemy), ThrowGrenade (at a tile in reach; uses the grenade up)
   UI/                  every HUD widget, built in code
     TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
@@ -117,7 +126,9 @@ no UI code changes needed.
 
 An action gets `begin(unit)` / `end()` / `handle_input(event)` / `is_available(unit)`, sets
 `controller.busy = true` while it plays out, and emits `completed` when done. The controller then
-re-`begin`s it if it is still available, or drops it.
+re-`begin`s it if it is still available, or drops it. If the unit that took it is no longer the one
+selected (it fell to its own grenade and the selection moved on while the action was busy), the new
+selection gets the default action instead.
 
 **An action can need an item.** `UnitAction.required_tag`, set in the action's `_init()` beside its
 `display_name`, names an `Item` tag the unit must carry for it to have the action at all
@@ -126,10 +137,11 @@ re-`begin`s it if it is still available, or drops it.
 `is_available`: an action the unit lacks has no button on the bar (the bar shrinks and re-centres),
 where one it cannot take right now is dimmed; `ActionController.activate()` checks both. The first
 child, the default, must need nothing. What a unit carries is `Unit.equipment`, copied from its
-character's slots as it enters the map (see Squad units below), so it cannot change mid-battle; a
-unit with no character (enemies, the harness) carries just its `weapon`, `Rifle.tres` when the scene
-sets none. Enemies are not gated: their AI shoots whatever it carries. Throw Grenade is a
-placeholder: it can be made active, and nothing more.
+character's slots as it enters the map (see Squad units below), so it changes mid-battle only as the
+unit uses something up (`Unit.use_up()`: a thrown grenade); with the last grenade gone, Throw Grenade
+leaves the bar, since the bar asks `is_granted` on every `changed`. A unit with no character (enemies,
+the harness) carries just its `weapon`, `Rifle.tres` when the scene sets none. Enemies are not gated:
+their AI shoots whatever it carries.
 
 **Strike is a shot at arm's length.** `StrikeAction` is laid out as `ShootAction`: its targets are the
 living enemies next to the unit, as `Tactics.is_next_to()` has it (the AI's point-blank range, so the
@@ -144,9 +156,31 @@ touches no terrain, and is shown only by its result called over the target. It s
 `controller.busy` for the moment it lands, so a kill that wins the battle finds the action mid-play
 and leaves it to be put away as it completes.
 
+**A throw is planned, then flown.** `ThrowGrenadeAction` aims with the mouse, as Move previews: it
+follows the tile under the cursor every frame, and right-click (`execute_action`) or Enter / Space
+throws there; there are no targets to Tab through. `begin()` works out every throw the unit can make
+(`Throwing.throws_for()`: tiles within `Throwing.RANGE` whose arc is clear, about 16 ms on
+BoundaryMap) and tints them (`throw_range`); the tile under the cursor gets the `throw_blast` layer and
+`ShotOverlay.show_throw()`: the arc's points, a cross where a blocked arc stops, and an outlined
+bracket with the damage (`Unit.damage_from()`) on everyone `Throwing.caught()` names, gold on the
+squad. A `Throwing.Throw` is a parabola from `RELEASE_HEIGHT` over the thrower's floor to the centre of
+the target tile's lower cell, rising `ARC_RISE` per tile (at least `ARC_MIN_HEIGHT`) above the straight
+line, cut into `TRACE_STEP` pieces each cast through the grid with `CombatGrid.cast()`; the first solid
+cell any piece meets blocks it, and `points` then ends there. Those constants decide what a throw
+gets over (half cover in front of the target from the full range, the thrower's own full cover; never
+the tile right behind full cover), so check them with a probe if they change. The throw costs
+`ThrowGrenadeAction.COST` (1) and goes through `Unit.throw_at()`: the grenade is used up as it leaves
+the hand, `_fly` shows a `ThrownGrenade` along the arc (timed as a fall under `ThrownGrenade.GRAVITY`)
+and an `Explosion` where it goes off, and the blast lands as the grenade arrives: `take_damage()` on
+everyone caught, then `CombatGrid.blast()` with the cube's cells. Results are called together
+(`ShotOverlay.flash_results()`, over the heads). The action stays busy `AFTERMATH_SECONDS` and until no
+unit is moving, so anyone the blast dropped has landed before the next throw is worked out. The
+3D effects go under `effects_path`, the map root.
+
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
-`shoot_step_out`, `overwatch`.
+`shoot_step_out`, `overwatch`, `throw_range`, `throw_blast`. A colour's alpha dims a square's fill and
+border together, which is how `throw_range` stays faint.
 
 **The HUD is written in code, not scenes.** Widgets build their children in `_init()` and style
 themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn` files for UI.
@@ -241,8 +275,8 @@ other tab may have spent some.
 **Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
 stateless `.tres` like the old `Weapon`: the same `Rifle.tres` is what units shoot with and what the
 inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
-sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres`
-`grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot). A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
+sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres` (a
+`Grenade`, the `BattleItem` that carries its blast: 5 damage, 3 tiles across) `grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot). A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
@@ -277,9 +311,11 @@ A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same 
 What happens in battle goes the other way, through `PlayerSquad` as it happens, not at the end:
 every change to a member's health is written to `Character.wounds` (health missing, so a character is
 whole by default and stays as hurt if `max_health` grows; `Character.health` is what is left), and a
-unit starts at its character's `health`. A member who dies is taken off the roster by
-`Campaign.lose()`, which returns everything they had equipped to the inventory, the one way gear
-leaves a character mid-battle. Wounds mend on the road: every step the party travels
+unit starts at its character's `health`. A grenade a member throws is gone for good: `Unit.use_up()`
+emits `used_up`, and `PlayerSquad` calls `Campaign.use_up()`, which empties the first slot holding it
+and puts nothing back in the inventory. A member who dies is taken off the roster by
+`Campaign.lose()`, which returns everything they still had equipped to the inventory. Those two are
+the only ways gear leaves a character mid-battle. Wounds mend on the road: every step the party travels
 (`Party.step_length`, the same step the encounters are rolled on) calls `Campaign.heal(heal_per_step)`
 (1), which takes that off every roster character's `wounds`, down to none, before that step's roll.
 Unlike an `Item`, a character is state and changes in play; nothing writes it back to disk, and
@@ -308,11 +344,13 @@ equipped decides a squad unit's actions by its tags (see "An action can need an 
 it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
 (`Unit.weapon`, null with none), and strikes with the first melee weapon, the same way
 (`Unit.melee_weapon`), which gives it Strike. A grenade in any item slot gives it Throw Grenade,
-which does nothing yet. Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
+which throws the first one, Item 1 before Item 2 before Item 3 (`Unit.grenade`), and uses it up.
+Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
 which the unit copies as its own; the Details page shows that total and refreshes as it comes into view, since the
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
-its buttons and says why. This is the menu's first read-only-in-combat rule.
+its buttons and says why. This is the menu's first read-only-in-combat rule. `Campaign.use_up()` and
+`lose()` do not refuse: they follow what the battle did.
 
 The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
 in the strip changes, every page (not just the open one) gets `show_character(character)`, so a page
@@ -362,6 +400,13 @@ through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; al
 A block with no entry never breaks. A breaking block leaves the grid at once, then its destruction's
 `shatter(site, at, hit, motion)` plays out what is left under the `TerrainDestruction` node, `at`
 being where the grid drew the block's mesh.
+
+It listens to `terrain_blasted` too (`CombatGrid.blast()`, a grenade going off): every breakable block
+among the blast's cells breaks, from the top down, so each is blasted apart where it stands rather
+than first falling on to the one below it (blocks stacked above the blast still fall, as usual). It
+passes no `hit`, so the pieces get no knock from a round; instead, once they are let go a physics step
+later, `Blast.burst()` throws every loose piece inside the blast (new and old, not a `FallingBlock`)
+from the grenade's centre with its `blast_force`, on top of the crate's own burst.
 
 **Stacks fall, then break.** Every breakable block stacked on a broken one, up to the first that
 cannot break, leaves the grid in the same moment but does not break yet: it becomes a
@@ -485,7 +530,18 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   always comes off last.
 - `Unit.shoot_at(shot, chance, grid, show_rounds)` is the single place a shot is resolved.
   `ShootAction`, the enemy AI and reaction fire all go through it; keep it that way so they cannot
-  diverge. `Unit.strike(target, chance)` is the same for a melee strike.
+  diverge. `Unit.strike(target, chance)` is the same for a melee strike, and
+  `Unit.throw_at(throw, grid, show_flight)` for a grenade.
+- **A throw is never rolled, and a blocked arc is never thrown.** Unlike XCOM 2, where a grenade goes
+  off wherever its arc meets something, an arc that meets anything solid before its target cannot be
+  thrown (`Throwing.Throw.is_clear()`), so the blast always goes off where the preview showed it.
+  Units never block an arc. Its range is `Throwing.RANGE` across the ground, as sight range is
+  measured, the same for every unit and grenade.
+- **The blast is what the preview shows.** `Throwing.caught()` and `blast_cells()` say whom a blast
+  hurts and what it breaks, for the preview and the blast alike: a cube `Grenade.blast_size` cells on a
+  side centred on the target tile's lower cell; anyone with either cell inside is caught, friend, foe
+  and thrower, and nothing inside it shelters them. Its damage goes through `take_damage()`, so
+  defense comes off as from a shot.
 - **A strike's odds are the shot's sum with Melee Accuracy for Aim**: `HitChance.for_strike()`,
   Melee Accuracy − Evasion. Cover, flanking, height and distance count for nothing in melee for now,
   and a strike is never a reaction. Like a shot's, they are computed once, when the target is lined
@@ -665,6 +721,13 @@ is set (0 lifts it).
 **A script error does not end a `--script` run.** Godot sits idle after it until killed, so give
 scripted runs a `timeout`.
 
+**A `--script` probe cannot name a class that names an autoload.** Its typed references are compiled
+before the autoloads' names exist, so typing a variable as `PlayerSquad` (which calls `Campaign`), or
+anything that reaches it (`ActionController`, every `UnitAction`, `ActionButton`), fails with
+`Identifier not found: Campaign`. Leave those variables untyped and use string literals for their
+constants; `Unit`, `CombatGrid` and `Throwing` are safe. The autoloads themselves are there at run
+time (`root.get_node("Campaign")`).
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -677,8 +740,9 @@ directly or write a fresh generator.
 
 - A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
   per-unit state like rounds remaining.
-- Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck` but
-  nothing reads it yet: any strike breaks a crate.
+- Only crates break, and only one way. `Weapon.environment_damage` reaches `terrain_struck`, and
+  `Grenade.environment_damage` `terrain_blasted`, but nothing reads either yet: any strike or blast
+  breaks a crate.
 - Rounds fly straight through debris: the trace only sees the grid.
 - A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
   The columns either side hold the struck crate's wreck in place, so the crates above only drop a
@@ -690,8 +754,14 @@ directly or write a fresh generator.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- Nothing spends skill points, and the only experience is for surviving a battle. Items used in battle
-  are never spent. Throw Grenade is only a button: throwing (reach, blast, damage, using the grenade
-  up) is still to be written. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
+- Nothing spends skill points, and the only experience is for surviving a battle. Grenades are the
+  only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
-- Enemies never strike: their AI only shoots. A strike has no animation, only its result.
+- Enemies never strike or throw: their AI only shoots. A strike has no animation, only its result,
+  and a throw no thrower's animation, only the grenade.
+- There is one kind of grenade, and a unit throws the first it carries: with several kinds there is
+  no way yet to pick which. Grenades do not bounce or roll, and a blocked arc is simply not thrown;
+  walls inside a blast shelter nobody. Only the player sees the throw: no reaction or camera move
+  follows it.
+- `Throwing.throws_for()` plans every tile in range each time Throw Grenade begins, about 16 ms on
+  BoundaryMap; a bigger range or map may want it spread over frames.

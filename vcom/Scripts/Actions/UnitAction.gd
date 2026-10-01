@@ -23,8 +23,9 @@ var controller: ActionController
 ## Whether [param unit] has this action at all: always, unless it needs an
 ## item the unit is not carrying. An action the unit lacks is left off the
 ## action bar, where one it has but cannot take right now
-## ([method is_available]) is only dimmed. It cannot change during a battle,
-## since a unit's equipment does not.
+## ([method is_available]) is only dimmed. During a battle it changes only as
+## the unit uses up what it carries: a unit that throws its last grenade has
+## no Throw Grenade from then on.
 func is_granted(unit: Unit) -> bool:
 	return required_tag.is_empty() or unit.carries(required_tag)
 

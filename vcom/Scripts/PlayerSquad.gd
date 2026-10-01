@@ -5,8 +5,9 @@
 ## [method Campaign.squad] sends, the first at the first marker, and gives it
 ## that character. The characters are the roster's own resources, so what
 ## happens to a unit happens to them: every hit is written on its character's
-## [member Character.wounds], and a member who dies is taken off the roster
-## ([method Campaign.lose]). Units the scene places in [member unit_group]
+## [member Character.wounds], a grenade it throws comes off its character's
+## gear for good ([method Campaign.use_up]), and a member who dies is taken
+## off the roster ([method Campaign.lose]). Units the scene places in [member unit_group]
 ## itself (the test harness's, which have no character) join the squad as
 ## they are, ahead of the spawned ones.
 ##
@@ -50,6 +51,7 @@ func _ready() -> void:
 		unit.died.connect(_on_member_died.bind(unit))
 		if unit.character != null:
 			unit.health_changed.connect(_on_member_hurt.bind(unit))
+			unit.used_up.connect(_on_member_used_up.bind(unit))
 
 	if not members.is_empty():
 		select(members[0])
@@ -146,6 +148,12 @@ func award_survivors() -> void:
 ## Writes what [param unit] has lost on its character, as soon as it is hit.
 func _on_member_hurt(health: int, max_health: int, unit: Unit) -> void:
 	unit.character.wounds = max_health - health
+
+
+## Takes what [param unit] used up, such as a grenade it threw, off its
+## character for good, as soon as it is used.
+func _on_member_used_up(item: Item, unit: Unit) -> void:
+	Campaign.use_up(unit.character, item)
 
 
 ## Moves the selection [param step] places through the squad, wrapping around.

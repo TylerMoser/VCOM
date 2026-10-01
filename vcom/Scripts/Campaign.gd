@@ -10,7 +10,8 @@
 ## Battles are fought by characters from the roster, up to [constant SQUAD_SIZE]
 ## of them, chosen on the world map's [SquadMenu] as each battle starts
 ## ([method squad]), and what happens to them there stays with them: their wounds are written on
-## the character as they are hit, and one who dies is taken off the roster
+## the character as they are hit, a grenade they throw is gone from their gear
+## for good ([method use_up]), and one who dies is taken off the roster
 ## ([method lose]). Wounds mend as the party travels ([method heal]).
 ##
 ## It also holds on to the world map while a battle started from it is
@@ -169,10 +170,26 @@ func heal(amount: int) -> void:
 		character.wounds = maxi(character.wounds - amount, 0)
 
 
+## Takes [param item], used up in battle, off [param character] for good: out
+## of the first of their slots holding it, and not back into the inventory, as
+## a grenade goes once it is thrown. Like [method lose] it works during a
+## battle, which [method unequip] refuses. False, changing nothing, when they
+## have none equipped.
+func use_up(character: Character, item: Item) -> bool:
+	if item == null:
+		return false
+	for slot in Character.slots:
+		if character.get(slot[1]) == item:
+			character.set(slot[1], null)
+			return true
+	return false
+
+
 ## Takes [param character], killed in battle, off the roster for good. What
 ## they had equipped goes back to the inventory, whatever the battle's
-## outcome. This is the one way gear leaves a character during a battle,
-## which [method unequip] refuses: the unit that took it is gone.
+## outcome. Beside [method use_up], this is the one way gear leaves a
+## character during a battle, which [method unequip] refuses: the unit that
+## took it is gone.
 func lose(character: Character) -> void:
 	if not roster.characters.has(character):
 		return

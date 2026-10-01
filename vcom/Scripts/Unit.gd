@@ -5,7 +5,8 @@
 ## takes its name, colour, stats (health, defense, move, aim, melee accuracy,
 ## strength, evasion) and equipment from them, painting its Mesh child.
 ## Without one (enemies, the test harness) the scene's values and the Mesh's
-## material stand, and it carries only its [member weapon].
+## material stand, and it carries only its [member weapon]. What it uses up,
+## such as a grenade it throws, it loses for good ([signal used_up]).
 ## UI reads [member color] until real portraits exist.
 class_name Unit
 extends Node3D
@@ -17,6 +18,10 @@ signal overwatch_changed(watching: bool)
 ## Emitted as the unit leaves the map, while it is still whole enough to be
 ## read from. Whoever was holding on to it should let go.
 signal died
+## Emitted as the unit uses [param item] up for good, as it does a grenade by
+## throwing it, once it is gone from [member equipment]. Whoever keeps the
+## character's gear should take it off them too.
+signal used_up(item: Item)
 
 ## Physics layer holding the bodies that mouse clicks on units are tested
 ## against. Nothing collides with it, so it never affects movement.
@@ -108,11 +113,16 @@ var overwatching := false:
 
 ## Everything the unit carries into battle, whose tags decide which actions it
 ## has ([method UnitAction.is_granted]): [member character]'s equipment, copied
-## as it enters the map, or without a character just its [member weapon].
+## as it enters the map, or without a character just its [member weapon]. It
+## only ever changes as the unit uses something up ([method use_up]).
 var equipment: Array[Item] = []
 ## The melee weapon the unit strikes with: the first one [member equipment]
 ## holds, Weapon 1 before Weapon 2. Null when it has none, and so no Strike.
 var melee_weapon: Weapon
+## The grenade the unit throws next: the first one [member equipment] holds,
+## Item 1 before Item 2 before Item 3. Null once it has none left, and so no
+## Throw Grenade.
+var grenade: Grenade
 
 ## The tween walking the unit or dropping it. Null, or finished, while it
 ## stands still.
@@ -188,11 +198,18 @@ func spend_reaction() -> bool:
 ## which is 0 for a hit the defense stops entirely. Every hit comes through
 ## here, so defense counts against all of them.
 func take_damage(amount: int) -> int:
-	var taken := maxi(amount - defense, 0)
+	var taken := damage_from(amount)
 	health -= taken
 	if health <= 0:
 		die()
 	return taken
+
+
+## What a hit of [param amount] would take off the unit's health: the amount
+## less its [member defense], down to none. What [method take_damage] takes,
+## so a throw can show each unit it would catch what it would do to them.
+func damage_from(amount: int) -> int:
+	return maxi(amount - defense, 0)
 
 
 ## Takes [param shot] with [param chance] in 100 of landing, and returns how it
@@ -236,6 +253,54 @@ func strike(target: Unit, chance: int) -> Variant:
 	if not HitChance.roll(chance):
 		return null
 	return target.take_damage(melee_weapon.damage + strength)
+
+
+## Throws [member grenade] along [param throw] and returns what its blast did,
+## once it has gone off: a [code][over, damage][/code] pair for everyone it
+## caught, [code]over[/code] being the eye of the unit as it stood and
+## [code]damage[/code] what it took. The player's [ThrowGrenadeAction] comes
+## through here, as every shot comes through [method shoot_at], so a throw
+## means the same thing whoever makes one.
+##
+## Nothing is rolled: a grenade goes off where it is thrown, as in XCOM 2. It
+## is used up the moment it leaves the hand ([method use_up]).
+## [param show_flight], if given, is called with the throw and the grenade at
+## that moment and awaited, so whoever is drawing the flight holds the blast
+## until the grenade is seen to arrive. Then everyone the blast catches
+## ([method Throwing.caught]), this unit included, takes the grenade's damage
+## less their defense, and the blast is reported to [param grid] for the
+## terrain to break.
+func throw_at(throw: Throwing.Throw, grid: CombatGrid, show_flight := Callable()) -> Array:
+	var thrown := grenade
+	if thrown == null:
+		return []
+	use_up(thrown)
+	if show_flight.is_valid():
+		await show_flight.call(throw, thrown)
+	var landed := []
+	for unit in Throwing.new(grid).caught(throw.target, thrown.blast_size):
+		# Read where to call it now: a unit the blast kills is gone after.
+		var over := grid.cell_center(LineOfSight.eye_cell(grid.tile_at(unit.global_position)))
+		landed.append([over, unit.take_damage(thrown.damage)])
+	grid.blast(
+		throw.end,
+		Throwing.blast_cells(throw.target, thrown.blast_size),
+		thrown.environment_damage,
+		thrown.blast_force,
+	)
+	return landed
+
+
+## Takes [param item] out of [member equipment] for good, used up, as a
+## grenade is once thrown, and says so ([signal used_up]) for the character's
+## gear to follow. With its last grenade gone, the unit has no Throw Grenade.
+func use_up(item: Item) -> void:
+	var index := equipment.find(item)
+	if index < 0:
+		return
+	equipment.remove_at(index)
+	grenade = _first_grenade()
+	used_up.emit(item)
 
 
 ## Removes the unit from play. It leaves its groups at once rather than when
@@ -303,8 +368,8 @@ func pass_through(bodies: Array[PhysicsBody3D]) -> void:
 
 
 ## Takes on [member character]'s name, colour, stats and equipment, shooting
-## with the first gun in it and striking with the first melee weapon. Copied
-## once, when the unit enters the map: the
+## with the first gun in it, striking with the first melee weapon and throwing
+## the first grenade. Copied once, when the unit enters the map: the
 ## rules read the unit, never the character. Its health starts at the
 ## character's, wounds and all.
 func _take_character() -> void:
@@ -328,7 +393,16 @@ func _take_character() -> void:
 			weapon = item as Weapon
 		if melee_weapon == null and item is Weapon and item.has_tag(Item.MELEE):
 			melee_weapon = item as Weapon
+	grenade = _first_grenade()
 	_paint(character.color)
+
+
+## The first grenade [member equipment] holds, or null.
+func _first_grenade() -> Grenade:
+	for item in equipment:
+		if item is Grenade and item.has_tag(Item.GRENADE):
+			return item as Grenade
+	return null
 
 
 ## Colours the Mesh child [param tint], on a copy of its material so a

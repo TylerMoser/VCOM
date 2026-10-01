@@ -9,6 +9,11 @@
 ##
 ## A melee strike is lined up the same way ([method show_strike]) and has its
 ## result called the same way; it has no round to draw.
+##
+## So is a grenade throw ([method show_throw]): its arc, cut short with a cross
+## where something blocks it, and a bracket on everyone its blast would catch,
+## with the damage each would take. A blast can hurt several at once, so its
+## results are called together ([method flash_results]).
 class_name ShotOverlay
 extends Control
 
@@ -54,6 +59,25 @@ const IMPACT_RADIUS := 16.0
 const IMPACT_WIDTH := 2.0
 const IMPACT_COLOR := Color(1.0, 0.85, 0.55)
 
+## A throw's arc, drawn as dots this far apart on screen over a faint line, in
+## the colour of a clear throw or of a blocked one. A blocked arc ends in a
+## cross where it is stopped.
+const ARC_DOT_SPACING := 11.0
+const ARC_DOT_RADIUS := 2.5
+const ARC_LINE_WIDTH := 1.5
+const ARC_COLOR := Color(1.0, 0.93, 0.8)
+const ARC_BLOCKED_COLOR := Color(1.0, 0.3, 0.25)
+const ARC_CROSS_SIZE := 7.0
+const ARC_CROSS_WIDTH := 3.0
+## The brackets on everyone a throw's blast would catch: the reticle, outlined
+## so it shows against a unit its own colour, red on the enemy and the gold of
+## the reaction pip on the squad, whom the blast hurts just the same. The
+## damage each would take goes under the bracket.
+const CAUGHT_ENEMY_COLOR := Color(1.0, 0.3, 0.25)
+const CAUGHT_SQUAD_COLOR := Color(1.0, 0.78, 0.2)
+const CAUGHT_FONT_SIZE := 16
+const CAUGHT_GAP := 4.0
+
 ## Eye the shot is taken from, and the eye it is aimed at.
 var _from := Vector3.ZERO
 var _to := Vector3.ZERO
@@ -62,15 +86,23 @@ var _aiming := false
 ## player lining a shot up. It gets the line and the result, nothing else.
 var _incoming := false
 
-var _result := ""
-var _result_at := Vector3.ZERO
-var _result_color := Color.WHITE
-## Whether the result sits under the target rather than over it. The target
-## panel owns the space above a shot the player is taking, and nothing owns
-## it when the player is the one being shot at.
+## The results being called, as [code][position, text, colour][/code]: one for
+## a shot or a strike, one for everyone a blast caught.
+var _results: Array = []
+## Whether the results sit under their targets rather than over them. The
+## target panel owns the space above a shot the player is taking, and nothing
+## owns it when the player is the one being shot at.
 var _result_below := true
-## Seconds of the result left to show. Zero once it has faded out.
+## Seconds of the results left to show. Zero once they have faded out.
 var _result_left := 0.0
+
+## The throw being lined up: the points its arc runs through, whether it ends
+## where something blocks it, and everyone its blast would catch, as
+## [code][position, text, friendly][/code].
+var _throwing := false
+var _arc := PackedVector3Array()
+var _arc_blocked := false
+var _caught: Array = []
 
 ## The rounds of the last shot fired, seconds since they were fired, and how
 ## many their tracers take to draw in to where the rounds stopped.
@@ -137,17 +169,41 @@ func _aim(from: Vector3, to: Vector3) -> void:
 	queue_redraw()
 
 
+## Draws a throw being lined up: its arc through [param arc], ending in a
+## cross if it is [param blocked] where it stops, and a bracket on each of
+## [param caught], [code][position, damage, friendly][/code] for everyone its
+## blast would catch, with the damage under it. Replaces any throw drawn
+## before; [method clear] puts it away.
+func show_throw(arc: PackedVector3Array, blocked: bool, caught: Array) -> void:
+	_arc = arc
+	_arc_blocked = blocked
+	_caught = caught
+	_throwing = true
+	visible = true
+	set_process(true)
+	queue_redraw()
+
+
 ## Calls [param text] at the world position [param at], for as long as
 ## [constant RESULT_SECONDS]. Outlives [method clear], so the result of a
-## shot is still readable once the aim has been put away.
+## shot is still readable once the aim has been put away. Replaces whatever
+## was being called before.
 ##
 ## [param below] puts it under the target, which is where it belongs while
 ## the target panel holds the space above. Callers decide once rather than
 ## letting it follow the panel, which would jump as the panel comes and goes.
 func flash_result(at: Vector3, text: String, hit: bool, below := true) -> void:
-	_result = text
-	_result_at = at
-	_result_color = HIT_COLOR if hit else MISS_COLOR
+	flash_results([[at, text, hit]], below)
+
+
+## Calls several results at once, as a blast that caught several units does:
+## each of [param results] is [code][position, text, hit][/code], called as
+## [method flash_result] calls one. Together they replace whatever was being
+## called before.
+func flash_results(results: Array, below := true) -> void:
+	_results.clear()
+	for result: Array in results:
+		_results.append([result[0], result[1], HIT_COLOR if result[2] else MISS_COLOR])
 	_result_below = below
 	_result_left = RESULT_SECONDS
 	visible = true
@@ -191,17 +247,22 @@ func show_rounds(outcome: Ballistics.Outcome) -> void:
 func clear() -> void:
 	_aiming = false
 	_incoming = false
+	_throwing = false
+	_arc = PackedVector3Array()
+	_caught = []
 	_panel.visible = false
 	if _is_idle():
 		visible = false
 		set_process(false)
+	queue_redraw()
 
 
-## Whether there is nothing left to draw: no aim up, no tracer still drawing
-## in, no mark where a round struck, and no result showing.
+## Whether there is nothing left to draw: no aim or throw up, no tracer still
+## drawing in, no mark where a round struck, and no result showing.
 func _is_idle() -> bool:
 	return (
 		not _aiming
+		and not _throwing
 		and _result_left <= 0.0
 		and _round_time >= _rounds_seconds
 		and _impacts.is_empty()
@@ -235,13 +296,20 @@ func _draw() -> void:
 	else:
 		_panel.visible = false
 
+	if _throwing:
+		_draw_arc(camera)
+		for caught: Array in _caught:
+			_draw_caught(camera, caught[0], caught[1], caught[2])
+
 	for path in _rounds:
 		_draw_round(camera, path)
 	for impact: Array in _impacts:
 		_draw_impact(camera, impact[0], impact[1])
 
-	if _result_left > 0.0 and not camera.is_position_behind(_result_at):
-		_draw_result(camera.unproject_position(_result_at), _result_below)
+	if _result_left > 0.0:
+		for result: Array in _results:
+			if not camera.is_position_behind(result[0]):
+				_draw_result(camera.unproject_position(result[0]), result[1], result[2], _result_below)
 
 
 ## Where the target panel goes for a reticle at [param target]: over it, or
@@ -258,13 +326,63 @@ func _panel_position(target: Vector2) -> Vector2:
 
 
 ## Four corner brackets around [param center], leaving the target itself
-## clear to look at.
-func _draw_reticle(center: Vector2) -> void:
-	for corner: Vector2 in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
-		var point := center + corner * RETICLE_SIZE
-		var arm := corner * RETICLE_ARM
-		draw_line(point, point - Vector2(arm.x, 0.0), RETICLE_COLOR, RETICLE_WIDTH, true)
-		draw_line(point, point - Vector2(0.0, arm.y), RETICLE_COLOR, RETICLE_WIDTH, true)
+## clear to look at, in [param color], over a dark outline if
+## [param outlined].
+func _draw_reticle(center: Vector2, color := RETICLE_COLOR, outlined := false) -> void:
+	# Each stroke as [colour, width], the outline first so the colour goes over it.
+	var strokes := [[RESULT_OUTLINE_COLOR, RETICLE_WIDTH + 2.0]] if outlined else []
+	strokes.append([color, RETICLE_WIDTH])
+	for stroke: Array in strokes:
+		for corner: Vector2 in [Vector2(-1, -1), Vector2(1, -1), Vector2(-1, 1), Vector2(1, 1)]:
+			var point := center + corner * RETICLE_SIZE
+			var arm := corner * RETICLE_ARM
+			draw_line(point, point - Vector2(arm.x, 0.0), stroke[0], stroke[1], true)
+			draw_line(point, point - Vector2(0.0, arm.y), stroke[0], stroke[1], true)
+
+
+## The arc of the throw being lined up: a faint line through its points with
+## dots spaced evenly along it on screen, however it is foreshortened, and a
+## cross where it ends if something blocks it there.
+func _draw_arc(camera: Camera3D) -> void:
+	var color := ARC_BLOCKED_COLOR if _arc_blocked else ARC_COLOR
+	var faint := color
+	faint.a *= 0.35
+	# Distance along the screen still to go before the next dot.
+	var to_dot := 0.0
+	for index in _arc.size() - 1:
+		if camera.is_position_behind(_arc[index]) or camera.is_position_behind(_arc[index + 1]):
+			continue
+		var from := camera.unproject_position(_arc[index])
+		var to := camera.unproject_position(_arc[index + 1])
+		draw_line(from, to, faint, ARC_LINE_WIDTH, true)
+		var length := from.distance_to(to)
+		var along := to_dot
+		while along <= length:
+			draw_circle(from.lerp(to, along / length) if length > 0.0 else from, ARC_DOT_RADIUS, color)
+			along += ARC_DOT_SPACING
+		to_dot = along - length
+	if _arc_blocked and not _arc.is_empty() and not camera.is_position_behind(_arc[-1]):
+		var stop := camera.unproject_position(_arc[-1])
+		for arm: Vector2 in [Vector2(1, 1), Vector2(1, -1)]:
+			draw_line(stop - arm * ARC_CROSS_SIZE, stop + arm * ARC_CROSS_SIZE, color, ARC_CROSS_WIDTH, true)
+
+
+## The bracket on someone a throw's blast would catch, whose eye is at
+## [param at]: in red on an enemy and in gold on the squad, [param friendly],
+## with [param text], the damage they would take, under it.
+func _draw_caught(camera: Camera3D, at: Vector3, text: String, friendly: bool) -> void:
+	if camera.is_position_behind(at):
+		return
+	var center := camera.unproject_position(at)
+	var color := CAUGHT_SQUAD_COLOR if friendly else CAUGHT_ENEMY_COLOR
+	_draw_reticle(center, color, true)
+	var font := get_theme_default_font()
+	var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, CAUGHT_FONT_SIZE).x
+	var corner := center + Vector2(-width * 0.5, RETICLE_SIZE + CAUGHT_GAP + font.get_ascent(CAUGHT_FONT_SIZE))
+	draw_string_outline(
+		font, corner, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, CAUGHT_FONT_SIZE, RESULT_OUTLINE_WIDTH, RESULT_OUTLINE_COLOR
+	)
+	draw_string(font, corner, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, CAUGHT_FONT_SIZE, color)
 
 
 ## The tracer of the round that flew [param path]: a streak
@@ -300,15 +418,16 @@ func _draw_impact(camera: Camera3D, at: Vector3, left: float) -> void:
 	)
 
 
-## The result, drifting up and fading as its time runs out. It is outlined
-## because it lands over the map, which is as bright as the text is.
-func _draw_result(at: Vector2, below: bool) -> void:
+## A result, [param text] in [param color] at [param at], drifting up and
+## fading as its time runs out. It is outlined because it lands over the map,
+## which is as bright as the text is.
+func _draw_result(at: Vector2, text: String, base_color: Color, below: bool) -> void:
 	var gone := 1.0 - _result_left / RESULT_SECONDS
 	var font := get_theme_default_font()
 	var width := font.get_string_size(
-		_result, HORIZONTAL_ALIGNMENT_LEFT, -1.0, RESULT_FONT_SIZE
+		text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, RESULT_FONT_SIZE
 	).x
-	var color := _result_color
+	var color := base_color
 	# Hold it, then fade it away over the back half.
 	color.a = minf((1.0 - gone) * 2.0, 1.0)
 
@@ -323,11 +442,11 @@ func _draw_result(at: Vector2, below: bool) -> void:
 	draw_string_outline(
 		font,
 		corner,
-		_result,
+		text,
 		HORIZONTAL_ALIGNMENT_LEFT,
 		-1.0,
 		RESULT_FONT_SIZE,
 		RESULT_OUTLINE_WIDTH,
 		outline,
 	)
-	draw_string(font, corner, _result, HORIZONTAL_ALIGNMENT_LEFT, -1.0, RESULT_FONT_SIZE, color)
+	draw_string(font, corner, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, RESULT_FONT_SIZE, color)

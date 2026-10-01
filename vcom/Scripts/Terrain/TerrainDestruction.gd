@@ -1,7 +1,10 @@
-## Breaks the blocks rounds strike, and whatever they were holding up.
+## Breaks the blocks rounds strike and blasts reach, and whatever they were
+## holding up.
 ##
 ## When the [CombatGrid] reports a strike, the struck block breaks if the
-## [member catalog] has a [Destruction] for it. The block leaves the grid at
+## [member catalog] has a [Destruction] for it; when it reports a blast, so
+## does every block inside it, and the debris inside it is thrown about by
+## the blast (see [method _on_terrain_blasted]). The block leaves the grid at
 ## once, so sight, cover and paths change the moment it goes, and its
 ## destruction plays out what is left of it under this node. Every breakable
 ## block stacked on it leaves the grid with it, but falls whole, as a
@@ -70,6 +73,7 @@ func _ready() -> void:
 		_destructions = catalog.by_item(_map.mesh_library)
 	_give_blocks_collision()
 	_grid.terrain_struck.connect(_on_terrain_struck)
+	_grid.terrain_blasted.connect(_on_terrain_blasted)
 
 
 func _physics_process(delta: float) -> void:
@@ -118,6 +122,45 @@ static func debris_box(body: PhysicsBody3D) -> AABB:
 
 func _on_terrain_struck(hit: CombatGrid.RayHit, _damage: int) -> void:
 	break_block(hit.cell, hit)
+
+
+## Breaks every breakable block among [param cells], the cells a blast at
+## [param origin] reaches, then throws the debris inside the blast about with a
+## [Blast] of [param force]: what it has just broken, as its pieces are let
+## go, and whatever was lying there already.
+##
+## The blocks break from the top down, so each one is blasted apart where it
+## stands rather than first falling on the one below it, the way a block does
+## when something under it breaks; blocks stacked above the blast still fall.
+func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], _damage: int, force: float) -> void:
+	var ordered := cells.duplicate()
+	ordered.sort_custom(func(a: Vector3i, b: Vector3i) -> bool: return a.y > b.y)
+	for cell in ordered:
+		break_block(cell)
+	if force <= 0.0 or cells.is_empty():
+		return
+	# The pieces of what broke are held still until the next physics step
+	# (see ScriptedDestruction), and set moving then, before this resumes.
+	await get_tree().physics_frame
+	Blast.burst(_debris_within(cells), origin, force)
+
+
+## Every piece of debris lying inside [param cells], free to be thrown about:
+## not held still, and not a block falling whole, which drops only straight
+## down.
+func _debris_within(cells: Array[Vector3i]) -> Array[RigidBody3D]:
+	var box := AABB(_grid.cell_center(cells[0]), Vector3.ZERO)
+	for cell in cells:
+		box = box.expand(_grid.cell_center(cell))
+	box = box.grow(0.5)
+	var pieces: Array[RigidBody3D] = []
+	for node in find_children("*", "RigidBody3D", true, false):
+		var body := node as RigidBody3D
+		if body is FallingBlock or body.freeze:
+			continue
+		if box.has_point(debris_box(body).get_center()):
+			pieces.append(body)
+	return pieces
 
 
 ## Breaks the block at [param cell] where it stands, and lets the blocks
