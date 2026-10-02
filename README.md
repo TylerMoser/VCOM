@@ -49,6 +49,7 @@ all pause the game behind them, and all work the same way.
 | Choose who fights | Before a battle, double-click a character, or press `Enter` / `Space` on one, to tick or untick them (up to four), then hold **Start**. A single click only shows their pages |
 | Close | `Esc`, or **Return to Game** on the pause menu's System tab. The roster before a battle cannot be closed: only **Start** leaves it |
 | Show or hide the tile grid | **Tile Grid** on the pause menu's System tab. The lines show in combat, and stay as set until the game closes |
+| Turn blood on or off | **Blood** on the pause menu's System tab, just below **Tile Grid**: off, battles are fought clean. It can only be changed on the world map, and is greyed out during a battle. It stays as set until the game closes |
 | Quit the game | **Exit to Desktop** on the pause menu's System tab |
 
 ### Combat
@@ -89,7 +90,8 @@ two seconds (see [Menus](#menus)). It opens with the last battle's squad ticked,
 fell, and it cannot be closed any other way.
 What happens to them in the battle lasts. Wounds carry into the next battle unless they heal first:
 everyone on the roster heals a little (1 HP) for every short stretch the party travels, and a
-character who dies is gone from the roster for good, their gear back in the inventory. The battle
+character who dies is gone from the roster for good, their gear back in the inventory (what they
+are seen to drop on the battlefield is only for show). The battle
 ends when either side is wiped out: **Victory** or **Defeat**, then back to the world map where the
 party was, still on its way. If a defeat took the last character on the roster, the campaign is
 lost: **Game Over** comes up on the world map and the game closes.
@@ -113,9 +115,12 @@ sells more.
 What a squad member carries shows on them: the gun in their hands, a sword slung across their back
 (drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
 shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
-half cover and press up to full cover, facing the nearest enemy. The fallen go limp where they drop and
-stay there, and a grenade throws them about. None of it changes the rules: a shot, strike or throw is
-settled exactly as below, the moment the gun fires, the blade lands or the grenade leaves the hand.
+half cover and press up to full cover, facing the nearest enemy. Whoever dies, squad member or enemy,
+breaks apart where they stand into a heap of chunks in their colour, knocked the way the killing blow
+went: back from a shot, along a sword's swing, outward from a grenade. What they carried drops whole
+beside them, and later shots and grenades wear it away like a crate's boards. It all stays for the
+rest of the fight, and a grenade throws it about. None of it changes the rules: a shot, strike or throw
+is settled exactly as below, the moment the gun fires, the blade lands or the grenade leaves the hand.
 
 ### Action points
 
@@ -277,7 +282,9 @@ The throw range is the same for every squad member and every grenade (`Throwing.
 ### Where shots go
 
 Every shot is drawn as a tracer, and its result, damage included, is called when the round arrives.
-A hit flies straight along the sight line into the target, so it never touches terrain.
+A hit flies straight along the sight line into the target, so it never touches terrain. It is drawn
+landing somewhere on the side of the target facing the gun, mostly the torso, and the target bleeds
+there (see [Blood](#blood)).
 
 A miss still goes somewhere, as in XCOM 2. Once the roll has said it misses, the round is aimed at a
 point near the target (above or beside its body, never through it) and flies on until it strikes
@@ -350,6 +357,36 @@ ground is shot away drops to the ground below.
 - **A victory sweeps up the rest.** Every coin still on the field is the party's the moment the
   last enemy falls.
 
+### Blood
+
+Every hit that does damage draws blood, as exaggerated as Fat Princess's, and all of it stays for the
+rest of the fight; the next battle starts clean. It is only for show: it never changes a shot, cover
+or a path.
+
+**To play clean**, turn **Blood** off on the pause menu's System tab before a battle, on the world
+map (see [Controls](#menus)): battles are then fought without any of it. It cannot be changed during
+a battle; a battle keeps whatever it began with.
+
+- **Wounds.** A hit lands anywhere on the side of the body facing whoever dealt it, mostly the torso,
+  and the body is stained round there, the stain leaning a little downward. A round goes through and
+  through: most of its blood sprays out of the far side along its flight,
+  a little back toward the gun. A sword's sprays along its swing, a grenade's away from the blast.
+  The more damage, the more blood, and a hit armor stops entirely draws none.
+- **Spray.** Each drop flies as a voxel of blood, and stains whatever it lands on: the ground, walls,
+  crates, debris, other soldiers and the guns they carry, and what the dead broke into.
+- **Coins stay clean.** They are the one exception: blood flies straight through a coin, and never
+  stains it.
+- **Pools.** Blood runs where it lands, a voxel face at a time: it pools on flat ground, runs over an
+  edge and down the wall below, and fills the bottom of a crater. Blood landing in a pool makes it
+  bigger.
+- **The dead bleed out.** A second after someone dies, once their chunks have mostly landed, a pool
+  about two tiles across spreads out over a few seconds where they stood.
+- **Blood goes with what it is on.** A bloody crate breaks into bloody boards, a bloody block falling
+  takes its blood with it, earth shot out of a pool flies off as red lumps, a bloodied soldier breaks
+  into chunks red where they bled, and their dropped gear keeps its blood.
+
+Enemies are slate grey, so their wounds show.
+
 ## Notable decisions
 
 **Cover is read off whole cells, not thin walls.** XCOM puts cover on tile edges; here every
@@ -403,8 +440,16 @@ Here an arc that meets anything before its target cannot be thrown at all, so th
 shows is always where the grenade goes. The arc is traced through the same voxel grid as a round, and
 the preview and the blast ask the same question of who is caught, so the two cannot disagree.
 
+**Blood is painted on voxel faces, not into the voxels.** Each face of each voxel is stained or not,
+and the stains are drawn as red squares just proud of the faces they cover. So blood keeps exactly
+to the voxel grid, landing never rebuilds a block, a board or a body, and the rules never see it.
+Where it lands it runs like a liquid, cheapest way first and downhill cheapest, so a pool fills a
+crater and drips over a ledge with no fluid simulation.
+
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
-node is freed, so nothing shoots at it or paths around it in the meantime.
+node is freed, so nothing shoots at it or paths around it in the meantime. Its figure breaks apart into
+debris in the same moment, the way a crumbling block does, so nothing of it is left standing for the
+rules to see.
 
 **Enemy AI only decides.** An AI looks at the fight and names one action at a time — walk here,
 shoot that — and the turn manager carries it out and charges for it. Walking, shooting, reactions
@@ -427,7 +472,8 @@ vcom/                     the Godot project
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
                           loose models (a crate's boards) that wear away voxel by voxel, and the voxels
-                          broken off them
+                          broken off them; the blood stained on voxel faces
+    Blood/                blood: wounds, the spray, and the pools it runs into
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
     Characters/           the rigged voxel figure every unit wears: its rig, animations and how it is baked
     Items/                items: weapons, armor, grenades, and the inventory

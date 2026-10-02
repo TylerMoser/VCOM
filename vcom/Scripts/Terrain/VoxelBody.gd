@@ -6,7 +6,9 @@
 ##
 ## It is a node under its body, and goes when the body goes. The body is a
 ## [RigidBody3D]; the model is drawn by a [MeshInstance3D] among its children,
-## whose space is the model's frame, laid out as its [VoxelShape]. What is
+## whose space is the model's frame, laid out as its [VoxelShape], grown by
+## [member scale] for a model drawn bigger than a block's voxels (a prop a
+## figure dropped). What is
 ## left of it is a copy of the shape's voxels, less what rounds and blasts have
 ## broken off, drawn by that MeshInstance3D, collided as the box round it by
 ## the body's first [CollisionShape3D], and weighing its share of what the body
@@ -42,6 +44,13 @@ var bounds := AABB()
 ## physics server's own list still holds bodies since freed and fails on them;
 ## untyped, as this one may too, so each is checked before it is used.
 var passes: Array = []
+## The blood on it, drawn over its mesh: null until some lands on it
+## ([method stained]).
+var stains: VoxelStains
+## The model's voxel size over [constant VoxelShape.SCALE]: 1 for a block's
+## pieces, a shade more for a prop, which is imported at 0.063 a voxel. Its
+## mesh's space is the shape's frame grown by this.
+var scale := 1.0
 
 
 ## The model [param kind], wearing away as [param how] says, which
@@ -71,9 +80,10 @@ func _init(kind: VoxelShape, how: VoxelDestruction, rigid: RigidBody3D, mesh: Me
 	bounds = shape.bounds_of(rows)
 
 
-## Where the model is in the world: its frame, the space its mesh is drawn in.
+## Where the model is in the world: its frame, the space its mesh is drawn
+## in, shrunk back to the shape's by [member scale].
 func frame() -> Transform3D:
-	return drawn.global_transform
+	return drawn.global_transform * Transform3D(Basis.from_scale(Vector3.ONE * scale), Vector3.ZERO)
 
 
 ## The box round what is left of it, in the world.
@@ -93,6 +103,32 @@ func remove(index: int) -> int:
 	return held
 
 
+## The blood on it, made the first time it is asked for, and drawn over it.
+func stained() -> VoxelStains:
+	if stains == null:
+		stains = VoxelStains.new(shape, scale)
+		stains.voxels = func() -> PackedByteArray: return voxels
+		stains.attach(drawn)
+	return stains
+
+
+## Takes [param kept] as its blood: the stains its mesh had before it came
+## loose, as a prop a figure carried, already drawn over it.
+func adopt_stains(kept: VoxelStains) -> void:
+	stains = kept
+	stains.voxels = func() -> PackedByteArray: return voxels
+
+
+## Takes on the blood of [param from], the model it was cut from, laid out as
+## its own: a stain shows only where this part has the voxel.
+func carry_stains(from: VoxelStains) -> void:
+	if from == null or from.is_empty():
+		return
+	var mine := stained()
+	for index: int in from.faces:
+		mine.stain(index, from.faces[index])
+
+
 ## Starts counting what it loses afresh from what it has now, as a model cut
 ## from another does: its share of what it weighed whole then is what it weighs
 ## whole now.
@@ -108,19 +144,27 @@ func rebuild() -> void:
 	if arrays == null:
 		drawn.mesh = null
 	else:
+		if scale != 1.0:
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			for vertex in vertices.size():
+				vertices[vertex] *= scale
+			arrays[Mesh.ARRAY_VERTEX] = vertices
 		var built := ArrayMesh.new()
 		built.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
 		built.surface_set_material(0, shape.material)
 		drawn.mesh = built
+	if stains != null:
+		stains.changed()
 	bounds = shape.bounds_of(rows)
 	if collider != null and bounds.has_volume():
 		var box := collider.shape as BoxShape3D
 		if box == null:
 			box = BoxShape3D.new()
 			collider.shape = box
-		box.size = bounds.size * (1.0 - ScriptedDestruction.SLACK)
-		# The box sits in the model's frame, wherever the mesh sits in the body.
-		var in_body := body.global_transform.affine_inverse() * drawn.global_transform
+		# The box sits in the model's frame, wherever the mesh sits in the body
+		# and however it is grown there.
+		var in_body := body.global_transform.affine_inverse() * frame()
+		box.size = bounds.size * in_body.basis.get_scale() * (1.0 - ScriptedDestruction.SLACK)
 		collider.transform = Transform3D(in_body.basis.orthonormalized(), in_body * bounds.get_center())
 	body.mass = maxf(whole_mass * count / maxi(whole, 1), ScriptedDestruction.MIN_MASS)
 	body.sleeping = false

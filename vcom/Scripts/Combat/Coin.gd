@@ -2,7 +2,8 @@
 ## spins about its upright axis and bobs gently, as pickups do in most games;
 ## it pops in as it appears, drops when the ground under it goes, and flies up
 ## and shrinks away as it is taken, freeing itself. Only for show: [Coins]
-## keeps which tile it is on, and nothing waits for it.
+## keeps which tile it is on, and nothing waits for it. It is the one thing
+## [Blood] never stains: drops fly straight through it.
 ##
 ## Built in code, as [Explosion] is, round the coin's voxel model, which it
 ## centres on itself whatever frame the model was drawn in, so it spins on the

@@ -20,7 +20,9 @@ vcom/Scripts/
                        from its character; equipment (its character's, or just its weapon), carries(tag), melee_weapon,
                        grenade; use_up(item) -> used_up; damage_from() (defense off a hit, as take_damage() takes it);
                        model (its CharacterModel) and the calls that only show things on it: aim_at(), ready_strike(),
-                       ready_throw(), stand_easy(), celebrate(), dodge(), recover(); aim_point() (a target's eye)
+                       ready_throw(), stand_easy(), celebrate(), dodge(), recover(); aim_point() (a target's eye);
+                       hurt (every hit that takes health, where it landed and how: for Blood); hit_from,
+                       hit_blasted, hit_at, hit_sweep (the last hit: the way the figure breaks apart if it kills)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds, used-up grenades and deaths back to the characters; award_survivors() (experience)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
@@ -36,11 +38,13 @@ vcom/Scripts/
                        roster's wounds)
   Combat/
     CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast() (by_voxel: through the voxels of blocks that wear
-                       away, for rounds), pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() -> round_flown
-                       (every round's line, for the loose models it tears through); voxels (VoxelTerrain)
+                       away, for rounds; every_block too: of any .vox block, for blood; RayHit.index the voxel met),
+                       pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() -> round_flown (every round's
+                       line, for the loose models it tears through); voxels (VoxelTerrain)
     LineOfSight.gd     cover, step-out, find_shots() -> Shot
     HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
-    Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
+    Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path (wound: where on the
+                       target a hit is drawn landing, for show; drawn_to())
     Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
                        the blast: blast_cells(), is_caught(), caught(), blast_tiles()
     ThrownGrenade.gd   a grenade in flight along a Throw's arc, from the thrower's hand, as the grenade's
@@ -64,7 +68,10 @@ vcom/Scripts/
   Terrain/
     TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
                            blast's debris about, tidies debris; block_broken(cell, destruction); make_piece() /
-                           pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries)
+                           pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries); hands a
+                           breaking block's blood on to what it becomes (_break, _on_landed, _pieces_since());
+                           break_figure() (a dying unit's figure into lumps, knocked by the killing blow:
+                           FIGURE_*, _figure_knock()), _drop_gear() (its props whole, as pieces that wear)
     Destruction.gd         Resource base: how a kind of block comes apart, shatter(); prepare() (as a map loads);
                            mass; coin_chance; Motion
     ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear (then each piece
@@ -85,14 +92,28 @@ vcom/Scripts/
                            chip() (a round's bite), crater() (a blast's), crumble(), take(), is_solid_at(); loose
                            voxels, _holds_up() (cut through), deferred redraws after a blast; loose models:
                            take_on_later() (taken on at the first hit), take_on_body(), tear() (rounds through
-                           them), _settle() (split off, crumble); lumps chosen before they are made (Batch, _scatter())
+                           them), _settle() (split off, crumble); lumps chosen before they are made (Batch, _scatter());
+                           blood on any .vox block: kind_of(), voxels_of(), stain(), take_stains(), carry_stains()
+                           (on to a crate's pieces); march() (a ray through a model's voxels)
     WornBlock.gd           one block that has lost voxels: what is left, its mesh and trimesh collision
     VoxelBody.gd           one loose model (a crate's piece), a node under its RigidBody3D: what is left, its mesh,
-                           box collider and mass; passes (the bodies it passes through)
+                           box collider and mass; passes (the bodies it passes through); stains (stained(),
+                           adopt_stains()); scale (a prop's voxels, a shade bigger than a block's)
     VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
                            add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
-                           (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed
+                           (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed;
+                           stain(body, point) (a drop of blood colours the voxel it met)
+    VoxelStains.gd         the faces of one voxel model blood has stained (6 bits a voxel, by its place), drawn by an
+                           overlay of red squares 2 mm proud of them, rebuilt at the end of the frame; on() (a prop's,
+                           kept on its MeshInstance3D); COLOR, the material blood is drawn with
     SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it
+  Blood/
+    Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops the way the blow went; drops (one
+                       MultiMesh) stain the first voxel face they meet and run; a pool under each body once it rests;
+                       landings settled on a budget a physics step; drops_in_flight(), pools_to_come(); static
+                       enabled (the System tab's Blood on / off, read as each map loads)
+    BloodFlow.gd       blood running over voxel faces, cheapest first (downhill cheap, climbing dear, undersides never):
+                       spread(); the Surface it runs over: TerrainSurface (every block as one grid), ModelSurface
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE, MELEE), model (its prop scene); Weapon, Armor, BattleItem
@@ -104,11 +125,18 @@ vcom/Scripts/
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Characters/          the rigged figure every unit wears, and how it is baked
     CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
-                       does, facing, hops, gear in its sockets, the ragdoll it becomes on death; CORPSES group
+                       does, facing, hops, gear in its sockets; break_apart() (hides it once broken apart on
+                       death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for blood: voxels()
+                       (FigureVoxels), pick_wound(), swing(), gear()
+    FigureVoxels.gd    a figure's voxels for blood and breaking apart, read from its .vox at run time: each bone's a
+                       part posed as the skeleton is; march() (bones and gear), pick_wound(), hit_near(), exit(),
+                       bleed(); crumble() (the lumps it breaks into); its stains drawn by a mesh skinned to the
+                       skeleton (FigureStains)
     AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
     Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
-    BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, ragdoll, sockets, animations)
-    VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions), per-bone mesher, ragdoll
+    BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
+    VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions; LAYOUTS by .vox), per-bone
+                       mesher
     HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
     PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
   Roster/
@@ -149,7 +177,8 @@ vcom/Scripts/
                        optional action button (Equip), also Enter / double-click on a square
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
-    SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Save / Load (not yet), Exit to Desktop
+    SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
+                       note), Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
@@ -393,9 +422,11 @@ unit starts at its character's `health`. A grenade a member throws is gone for g
 emits `used_up`, and `PlayerSquad` calls `Campaign.use_up()`, which empties the first slot holding it
 and puts nothing back in the inventory. A member who dies is taken off the roster by
 `Campaign.lose()`, which returns everything they still had equipped to the inventory. Those two are
-the only ways gear leaves a character mid-battle. Wounds mend on the road: every step the party travels
-(`Party.step_length`, the same step the encounters are rolled on) calls `Campaign.heal(heal_per_step)`
-(1), which takes that off every roster character's `wounds`, down to none, before that step's roll.
+the only ways gear leaves a character mid-battle. The gear a dying member is seen to drop on the map
+(see "The dead break apart" below) is only for show: it is in the inventory already. Wounds mend on
+the road: every step the party travels (`Party.step_length`, the same step the encounters are rolled
+on) calls `Campaign.heal(heal_per_step)` (1), which takes that off every roster character's `wounds`,
+down to none, before that step's roll.
 Unlike an `Item`, a character is state and changes in play; nothing writes it back to disk, and
 save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
 and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
@@ -409,7 +440,9 @@ and the two `.res` beside the model, so never edit those by hand or in the edito
 the figure, as they never read debris: shots take a unit's body from `Ballistics`' constants and its
 two cells. Each unit sets the figure's `body_material`, a plain `StandardMaterial3D` that ignores the
 model's vertex colours, so it shows one flat colour: the scene's for enemies and the harness, the
-character's `color` for the squad (`Unit._paint()` gives `CharacterModel.paint()` a copy). The figure
+character's `color` for the squad (`Unit._paint()` gives `CharacterModel.paint()` a copy). The enemies'
+(`Mat_enemy1` in each combat map) is slate grey, `Color(0.32, 0.35, 0.4)`: they were red until blood,
+which barely showed on them, so keep every unit's colour off red. The figure
 shapes the unit's bodies (`Unit._add_bodies()`): an upright cylinder `PICK_RADIUS` round for clicks,
 and the debris capsule as before, as thick as the figure's body; neither turns with it.
 
@@ -420,7 +453,11 @@ and weights each wholly to its bone, so limbs move as solid blocks and never str
 meshed on its own, keeping the faces where two bones meet, so a bent joint shows block ends, not a
 hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, at 0.063 a voxel, centred on its footprint and stood on its lowest voxel. A new model needs a layout
 (joints in rig voxels: x to the figure's left, y up, z forward) in `VoxelRig` and an entry in
-`BakeCharacter.LAYOUTS`, or can share `BASE_CHARACTER` if drawn to its proportions.
+`VoxelRig.LAYOUTS`, by its `.vox`, or can share `BASE_CHARACTER` if drawn to its proportions. The bake
+reads that table (`BakeCharacter.LAYOUTS` is the same one) and writes the model's path into the figure
+(`CharacterModel.voxel_model`); blood reads the figure's voxels by the two while the game runs
+(`FigureVoxels`), and a model with no entry never bleeds, with an error. Blood relies on the rig being
+rigid too: its stains are weighted wholly to their voxel's bone.
 
 **Animations are poses written in code and baked.** `HumanoidAnimations` authors all 38 for the rig's
 proportions: a function of time places the feet, the hands and what they hold, and leans the body,
@@ -468,17 +505,42 @@ for one left where MagicaVoxel put it), so the `Mesh`'s transform cancels that, 
 drawn along another axis (`Rifle2.vox` lies along MagicaVoxel's x). Props import at 0.063, as the
 figure does. Belt grenades are tucked in by their handles, the outer two fanned out so the heads stand
 apart. A longer model reaches further than the poses were made for: preview its clips for it going
-into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7).
+into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7). Blood stains a prop as a voxel model
+of its own (`CharacterModel.gear()`, `VoxelStains.on()`), drawn over it in its socket; a prop swapped
+for another takes its stains with it, and since `equip()` builds the belt afresh whenever a grenade is
+used up, every grenade left on it comes back clean.
 
-**The dead are ragdolls, and stay.** `Unit.die()` hands the figure `CharacterModel.fall_dead()` before
-the unit is freed: the figure moves to the unit's parent, its tree stops, its 12 `PhysicalBone3D`s
-(boxes over their bones' voxels; hands, feet and head ride on the forearm, shin and neck) go on the
-debris layer, and the simulation starts from the pose it died in, knocked from where the hit came
-(`take_damage()`'s `from`): the upper body thrown, the shins kicked the other way (`KNOCK_SHARES`), so
-it drops at once rather than standing stiff. Bodies are in `CharacterModel.CORPSES`, and a blast throws
-them as it does debris (`TerrainDestruction` calls `CharacterModel.blast()` with the blast's box). One
-blasted `FALL_LIMIT` below where it fell is freed. The body left its groups with the unit, so nothing
-in the rules finds it.
+**The dead break apart, and what they break into stays.** As a unit dies (`Unit.die()` emits `died`),
+`TerrainDestruction`, which watches every unit's `died` (`_watch_units()`, deferred until the squad
+has spawned), breaks its figure apart where it stands (`break_figure()`), as a block that wears away
+crumbles: every voxel of the figure, posed as it was, goes into lumps of `VoxelDebris`
+`crumbles_as.crumble_size` (3) across, cut on a grid set at random within each bone, so a lump is one
+bone's (`FigureVoxels.crumble()`; the base figure's 536 voxels make some 60-90 lumps). A lump is the
+unit's colour (`CharacterModel.tint()`), and a voxel blood stained is blood red. Each is knocked the way
+the killing blow went, which `take_damage()` keeps on the unit (`Unit.hit_from`, `hit_blasted`,
+`hit_at`, `hit_sweep`): along a round's way or a blade's swing (`FIGURE_KNOCK`), or away from a blast
+(`FIGURE_BLAST_KNOCK`; the blast's own push then throws the lumps, held until the next physics step as
+all new debris is, as it throws all debris), lifted a little and shared out by height, so the head
+flies furthest and the feet hardly move, harder near where a round or blade landed
+(`FIGURE_WOUND_PUSH`), and every lump bursts out from the body's upright middle, scatters and tumbles
+(`TerrainDestruction.FIGURE_*`, drawn on its own generator, `_show`). The gear drops whole
+(`_drop_gear()`): each prop shown in its sockets (`CharacterModel.gear()`) becomes a `RigidBody3D` piece
+under `TerrainDestruction`, named `Dropped<prop>`, its mesh moved into it with whatever blood is on it,
+colliding as a box round it and weighing `gear_wears_as.density` (`Gear.tres`, a crate board's) a cubic
+cell of its voxels (a rifle is 4 kg), knocked as the lumps round it are. It passes through the rest of
+the gear and the lumps it started out overlapping (a hand round a grip), as a crate's pieces pass
+through those they were cut to overlap, and wears away as a crate's boards do once a round or a blast
+first reaches it (`VoxelTerrain.take_on_later()`; `VoxelBody.scale` is the prop's 0.063 over a block's
+0.0625). Then the figure hides (`CharacterModel.break_apart()`), to be freed with its unit. Lumps and
+gear come to rest in 2-3 s and stay for the battle, debris like any other: blasts throw them, the
+living shove them aside, the tidy takes any that fall off the map, and the rules never see them. With
+blood off it breaks apart the same, with no red. A death costs about 1.6 ms on its frame, about 3.8 with
+blood, which stains a killing wound at once rather than in its turn, so it is on the figure to break
+apart (see Blood below).
+
+Decided with the user, replacing the ragdolls the dead were before (`ANIMATIONS.md` 9.8): lumps like a
+crumbling block's, not a body falling whole or in a few limbs; the same with blood off; gear dropped
+whole as debris that wears, not broken up with the body; the pool under the dead where the unit stood.
 
 **Equipment is on the character, the spares in the inventory.** A character has six typed slots
 (`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in
@@ -495,8 +557,9 @@ Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
 which the unit copies as its own; the Details page shows that total and refreshes as it comes into view, since the
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
-its buttons and says why. This is the menu's first read-only-in-combat rule. `Campaign.use_up()` and
-`lose()` do not refuse: they follow what the battle did.
+its buttons and says why. This is the menu's first read-only-in-combat rule; the System tab's
+**Blood** button is the second (see Blood). `Campaign.use_up()` and `lose()` do not refuse: they
+follow what the battle did.
 
 The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
 in the strip changes, every page (not just the open one) gets `show_character(character)`, so a page
@@ -541,11 +604,14 @@ anything else), then rolls, then asks `Ballistics` for the round's `Path`: the s
 for a miss, XCOM 2's placement, an aim point on a ring around the target's body (or, `COVER_SHARE`
 of the time, on the target's cover) traced with `CombatGrid.cast()` until something stops it or it
 leaves the map. The figure kicks and flashes, and `Outcome.muzzle` says where its muzzle was, which
-`ShotOverlay` draws the tracer from: only the drawing, as every path is still flown from the eye. It
-then awaits `show_rounds` (`ShotOverlay.show_rounds`, which draws the tracer and returns as it lands),
-and only then damages the target (or has it duck a miss) and reports any terrain the round struck
-through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a coroutine; always `await` it. A
-step out walks with `keep_facing`, so the shooter sidesteps out and back with its gun on the target.
+`ShotOverlay` draws the tracer from: only the drawing, as every path is still flown from the eye. For
+a hit the target's figure then picks where the round is seen to land (`Path.wound`, see Blood), which
+the tracer is drawn to (`Path.drawn_to()`). It then awaits `show_rounds` (`ShotOverlay.show_rounds`,
+which draws the tracer and returns as it lands), and only then damages the target (or has it duck a
+miss), the muzzle as where the hit came from and the wound as where it landed, and reports any
+terrain the round struck through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a
+coroutine; always `await` it. A step out walks with `keep_facing`, so the shooter sidesteps out and
+back with its gun on the target.
 
 **Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
 `terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
@@ -604,7 +670,8 @@ To make another object break like the crate:
 3. Make a `ScriptedDestruction` `.tres` in `Resources/Destruction/` naming the block and that scene,
    and add it to `Catalog.tres`. Set its **Mass** to what the block weighs whole, if it is not
    about a crate's 300 kg; that is only felt while it falls. Set its **Coin Chance** (0 to 1) if it
-   should leave coins, as a crate does three times in four.
+   should leave coins, as a crate does three times in four. Set its **Wear** (see below) if blood on
+   the block should go to its pieces when it breaks: only pieces that wear can carry stains.
 
 Every bare mesh in the scene becomes a rigid body with a box collider, 3.5% smaller than the mesh
 (`ScriptedDestruction.SLACK`, see Gotchas); a `RigidBody3D` you author is used as it is, and other
@@ -646,7 +713,8 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
   swaps its GridMap cell to the block's stand-in, an item `take_on()` added to the map's library copy
   with no mesh and no shapes. `CombatGrid.is_solid()` only asks whether a cell has an item, so sight,
   cover, paths, throws, coins and units see the whole block, however little is left. Anything that
-  reads a cell's item id must allow for a stand-in (`VoxelTerrain.wears_away()`, `shape_at()`).
+  reads a cell's item id must allow for a stand-in (`VoxelTerrain.wears_away()`, `shape_at()`, or
+  `kind_of()` for any block drawn from a `.vox`, worn or not).
   Unworn, a block that does not fill its cell (a tree) collides as its voxels, a trimesh from
   `VoxelMesher.faces()`; a full one keeps the cube.
 - **A round takes a bite.** `terrain_struck` on such a block calls `VoxelTerrain.chip()`: the
@@ -676,10 +744,12 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
 - **The bottom layer never breaks,** and is only worn `FLOOR_DEPTH` (4) voxels deep, since a unit
   stands at the top of its block whatever is left of it. A crater there is a flattened bowl centred
   under the blast, as wide as the ball is where it meets the ground.
-- **Rounds are traced voxel by voxel.** `CombatGrid.cast(..., by_voxel)`, which only `Ballistics`
-  passes, asks `VoxelTerrain.trace()` in each solid cell that wears away and carries on through the
-  cell if the ray meets none of its voxels; the hit's `point` and `face` are then the voxel's. Sight
-  (`is_line_clear()`), throws (`Throwing.plan()`) and clicks (`pick_tile()`) stop at whole cells.
+- **Rounds are traced voxel by voxel.** `CombatGrid.cast(..., by_voxel)`, which of the rules only
+  `Ballistics` passes, asks `VoxelTerrain.trace()` in each solid cell that wears away and carries on
+  through the cell if the ray meets none of its voxels; the hit's `point` and `face` are then the
+  voxel's, and its `index` the voxel's place in its block. Sight (`is_line_clear()`), throws
+  (`Throwing.plan()`) and clicks (`pick_tile()`) stop at whole cells. Blood passes `every_block` as
+  well, which traces every block drawn from a `.vox` so, crates included; rounds never do.
 - **The debris is lean.** `VoxelDebris` makes each lump a rigid body straight on the `PhysicsServer3D`,
   with no node, on the debris layer, and draws every voxel as a cube instance of a few MultiMeshes,
   coloured as it was. A lump's voxels move only from the server's state-sync callback, so a lump at
@@ -730,8 +800,9 @@ voxel model loose in the world can be worn this way: a `RigidBody3D` drawn by a 
   muzzle (where its tracer starts) to where it landed, through `CombatGrid.fly()`, whose `round_flown`
   calls `VoxelTerrain.tear()`. Every loose model the line passes through (ray queries on
   `PIECE_LAYER`, nearest first, at most `MOST_TORN`, 8) loses the `damage * voxels_per_damage` voxels
-  nearest where the line first meets one of its voxels (`_march()`, the voxel walk `trace()` uses on
-  blocks; 15 for a rifle's 5), which fly out of the face it went in by. `fly()` comes before
+  nearest where the line first meets one of its voxels (`VoxelTerrain.march()`, the static voxel walk
+  `trace()` uses on blocks and blood uses on figures and props; 15 for a rifle's 5), which fly out of
+  the face it went in by. `fly()` comes before
   `strike()`, so a crate a round breaks is not torn by the same round.
 - **A blast craters them.** `crater()` craters every loose model reaching into the blast's box
   (`TerrainDestruction.pieces_in()`) as it does blocks: the voxels within its `crater_radius()` and
@@ -761,13 +832,171 @@ another `ScriptedDestruction`'s pieces wear, set its `wear`: its pieces scene mu
 imported as a Scene at 0.0625. A body made some other way can be taken on directly, its `source` the
 `.vox` its model came from, or none if the mesh was imported straight from a `.vox`.
 
-**Physics is only for debris, and the dead.** Layers: 1 terrain, 2 unit clicks (`Unit.PICK_LAYER`), 3
-debris, 4 unit bodies (`Unit.BODY_LAYER`), 5 pieces (`TerrainDestruction.PIECE_LAYER`: debris that is
-a body with a node of its own, a broken block's pieces and the parts cut from them, which are on 3 as
-well; nothing collides with 5, it is only searched).
-A fallen unit's ragdoll is debris among debris: on layer 3,
-landing on terrain and other debris and shoved aside by the living; its bones are on no layer at all
-until it falls. Blocks have no collision in the MeshLibrary, so
+**Blood is painted on voxel faces, and only for show.** `Unit.take_damage()` emits
+`hurt(taken, from, at, blasted, sweep)` for every hit that takes health (none for one defense stops),
+before the unit can die of it. `Blood`, a node in each combat map after `Coins`, connects to every
+unit as it readies and does the rest; it reads each figure's rig as the map loads (about 10 ms for
+the base figure, and its gear's `.vox`), not on the first hit.
+
+**The player can play clean.** **Blood** on the pause menu's System tab, just under **Tile Grid**,
+turns it all off: `Blood.enabled`, a static like `TileGrid.shown`, so it holds from battle to battle
+until the game closes and is never saved. It only changes between battles, on the world map: while
+`Campaign.in_mission` the menu greys the button out and shows a note under it saying so
+(`SystemTab.show_blood_state()`, called as the menu opens, since the menu is made before `Campaign`
+is), and each map's `Blood` reads `enabled` once, in `_ready`, so a battle keeps what it began with
+and nothing has to be cleaned off or added mid-fight. Off, `Blood` still reads every figure's rig as
+the map loads, since a shot still draws its tracer on to the body (`pick_wound()`), then stops: it
+connects to no unit and never processes, so no wound, drop, stain or pool is made, and no lump turns
+red. The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe could name `Blood`
+(see Gotchas).
+
+- **A hit is drawn landing on the body, not at the eye.** The round still flies eye to eye
+  (`Ballistics`), but as it is fired `Unit.shoot_at()` asks the target's figure where it is seen to
+  land: `CharacterModel.pick_wound()` picks a voxel by bone, mostly the torso
+  (`FigureVoxels.WOUND_WEIGHTS`), and traces from the muzzle to it, so the point is the first voxel
+  facing the gun. It goes in `Ballistics.Path.wound`, which `ShotOverlay` draws the tracer to
+  (`Path.drawn_to()`), as the muzzle moved its start, and `take_damage()` passes it on as `at`. A
+  strike picks one from the striker's chest (`Unit.STRIKE_HEIGHT`) and passes its figure's `swing()`
+  as `sweep`; a blast passes neither, and `Blood` picks two to four wounds facing it. On landing
+  `FigureVoxels.hit_near()` finds the spot on the figure as it stands then.
+- **The figure bleeds and sprays.** A wound stains `WOUND_FACES` and 4 more a point of damage (counting
+  at most `MOST_DAMAGE`) round where it landed. It leans a little downward rather than running down:
+  the even splash round a wound (`FigureVoxels.WOUND_SPLAT`, 2 voxels) wraps round a torso only 5
+  voxels wide and 2 deep and takes most of the stain. Over 40 wounds its middle sat 0.8 voxels below
+  the wound and its lowest face 3.6 below, against 0.1 and 2.4 with downhill costing no less. In the
+  standing pose the arms cover the chest, so many wounds land on a forearm, where blood cannot go
+  lower without crossing the arm's underside. Every hit sprays `DROPS` and 8 more a point: a round's
+  mostly out of an exit wound, found by tracing back through the figure along the round's flight
+  (`FigureVoxels.exit()`), which bleeds too, and the rest back toward the gun; a blade's along its
+  swing; a blast's away from it. A drop leaving a figure passes through it for `CLEAR_SECONDS`.
+- **A drop is a voxel under gravity**, a cube one or two voxels across in one MultiMesh, stepped every
+  physics frame and traced along its step: through the terrain voxel by voxel, every `.vox` block,
+  crates' slats and gaps too (`CombatGrid.cast()`'s `every_block`, which only blood uses); against
+  every living unit's figure whose ball it passes near (`FigureVoxels.march()`: each bone's voxels are
+  a part in its bone's posed frame, culled by a sphere, and so is the gear in its sockets); and against
+  debris, by a physics ray on the debris layer (a lump by its RID, a dead figure's among them; a piece
+  that wears away, dropped gear among them, taken on and traced through its voxels; falling blocks
+  passed). It
+  lands on the first it meets, and is forgotten once below the map. **Coins are the one exception:**
+  blood never looks for them, so a drop flies straight through a coin to whatever is behind it, and
+  no coin is ever stained. Keep it so.
+- **Where blood lands, it runs** (`BloodFlow`): it stains up to its volume of faces, always the one
+  cheapest to reach next (Dijkstra over voxel faces: across each edge of a face to the face beside
+  it, up the wall rising there, or round on to the voxel's own side). A flat step costs the same every
+  way, roughened by smooth noise and a speckle, so a pool is a blob with lobes; downhill is cheap, so
+  blood runs over an edge and down before it spreads far on top; sideways along a wall dear, so it
+  streaks down; climbing dearer, so it barely climbs; undersides never. Within `splat` voxels of
+  where it landed it spreads every way alike. Faces already stained cost little and no blood, so a
+  drop landing in a pool runs out to its edge, looking at most `VISITS` + 3 a face. The terrain is one
+  grid of voxels across every block (`TerrainSurface`), so a pool crosses from block to block; a
+  loose model or prop is its own (`ModelSurface`), and so is a figure, standing as drawn with
+  down taken from each voxel's bone (`FigureVoxels.FigureSurface`).
+- **The dead bleed out.** `died` hands `Blood` where the unit stood; `POOL_DELAY` (1 s) later, once
+  the lumps its figure broke into have mostly landed, a flow of `DEATH_FACES` (800, about two tiles
+  across on flat ground) starts on the ground under its feet, or below them if it died falling, and
+  spreads over `DEATH_SECONDS` (3), quickly at first, under the heap.
+- **A killing wound is stained at once.** A hit that kills (`taken` at least the unit's health as
+  `hurt` goes out, before it is taken) stains its wounds there and then (`_wound(..., now)`), not
+  queued with the landings, since the figure breaks apart a moment later in the same call and its
+  lumps take their colour from its stains (about 2 ms).
+- **Landings wait their turn.** Wounds and landed drops are queued and settled oldest first for up to
+  `SPLASH_BUDGET` microseconds a physics step, the rest the next: a stain a frame late is not seen.
+
+A stain is a face, never a voxel's colour: `VoxelStains` keeps each stained voxel's faces as six bits
+(+x, -x, +y, -y, +z, -z), by its place in its model's array, and draws them by an overlay, a
+`MeshInstance3D` of red squares `PROUD` (2 mm) off each face along its normal, rebuilt once at the end
+of the frame (`changed()`), so blood never rebuilds a block or a figure. A face shows only while its
+voxel is there (each rebuild reads the model's voxels as they are now), and is only stained while open
+to the air (voxels are never added, so it stays open).
+
+Overlays rather than recolouring the models, because rebuilding a block's own mesh
+(`VoxelMesher.surface()`) costs 1.5 ms for grass, 2 for a tree and 3.3 for a crate, and a burst of
+drops lands on dozens of blocks at once, where a stained cell's overlay rebuilds in about 0.1-0.3 ms;
+and the GridMap goes on drawing the block, so staining one needs no stand-in.
+
+Nothing moves a stain on its own. It is recorded by which voxel of which model it is on, and its
+overlay is built in that model's own space and hangs from whatever draws the model, so whatever moves
+the model moves its stains: the scene tree for blocks, boards and gear, the skeleton for a figure. Only
+when a model becomes others (a block falling whole, a crate's pieces, a board cut in two, a voxel
+broken off) is a stain handed on, by these rules. Where they live:
+
+- **Blocks:** `VoxelTerrain`, by cell, for every block drawn from a `.vox` (`kind_of()`, crates
+  included, which do not wear), the overlay under `VoxelTerrain` in the cell's frame. Wear hands the
+  cell's stains to its debris, so a stained voxel's lump is blood red (`VoxelTerrain._make()`), and
+  redraws the overlay. A breaking block's stains go with it (`take_stains()`): a worn block crumbling
+  colours its lumps, a block falling whole carries its overlay under the `FallingBlock` and hands the
+  stains on as it lands, and a crate's go to its pieces (`carry_stains()`: each piece holding a
+  stained voxel is taken on as a loose model and stained where the crate was, its faces turned to the
+  piece's frame), only if its `ScriptedDestruction` has a `wear`.
+- **Loose models:** `VoxelBody.stains` (`stained()`), the overlay under its mesh; a part cut off takes
+  a copy (`carry_stains()`).
+- **Figures:** `FigureVoxels.stains`, over the figure as drawn, drawn by a mesh skinned to its skeleton
+  with the body's `Skin`, each square weighted to its voxel's bone (`FigureStains`), so it moves with
+  every pose. The rig is read from the `.vox` the figure was baked from (`CharacterModel.voxel_model`, a
+  layout from `VoxelRig.LAYOUTS`), once a model. As the figure breaks apart, a voxel with any face
+  stained goes into its lump blood red (`FigureVoxels.crumble()`).
+- **Gear:** `VoxelStains.on(mesh_instance)`, kept in its metadata, the overlay under it. Props are
+  imported at 0.063 a voxel, so `scale` grows the shape's frame to the mesh's. Dropped, the mesh takes
+  its overlay into its body, and once it is worn its `VoxelBody` adopts the stains
+  (`adopt_stains()`), reading what is left of it.
+- **Lumps:** a voxel's MultiMesh colour (`VoxelDebris.stain()`), the whole voxel rather than a face.
+
+Decided with the user when blood was made, so not to be "fixed": blood is as exaggerated as Fat
+Princess's, one bright red (`VoxelStains.COLOR`); a stain is per face, not per voxel; only damage
+actually taken bleeds, more with more damage; where blood lands it runs, rather than splatting round;
+a hit's wound is anywhere on the body facing the shooter, mostly the torso, with the tracer drawn to
+it, rather than always at the head, where the round flies; the pool under a body is about two tiles
+across, spreading over three seconds once it rests (since the dead break apart, from a second after
+death, where the unit stood); stains last the battle and nothing carries over to
+the roster; the enemies went from red to slate grey (bone and khaki were too near the white and yellow
+squad members, and charcoal read navy, with blood dark in its shade). Two came later: a wound on a
+figure leans a little downward rather than running, and is kept so (a smaller splash with drip trails
+that creep down and drip off the body was offered and turned down); and coins never take blood.
+
+To tune it: how much a hit bleeds, how its blood flies, and the pool under a body are the constants at
+the top of `Blood.gd`; how blood spreads (the cost of each step, the noise, how far a drop looks
+through a pool) at the top of `BloodFlow.gd`; the colour and gloss in `VoxelStains.gd` (`COLOR`; the
+material's roughness 0.55 and specular 0.35, softened from 0.35 and 0.5 so the sun's glint on a pool no
+longer washed it white); where wounds land and how wide they splash in `FigureVoxels.gd`
+(`WOUND_WEIGHTS`, `WOUND_SPLAT`).
+
+Adding things blood should stain:
+
+- **A block** needs nothing more than destruction asks: drawn from a `.vox` at 0.0625, one block a
+  cell. Every such block is read as the map loads, breakable or not, so drops meet its voxels and
+  pools run across it on to its neighbours. One that wears away colours its lumps and falls with its
+  blood. One that breaks into cut pieces hands its blood to them only if its `ScriptedDestruction` has
+  a `wear`; without one, its blood goes as it breaks, and drops pass its pieces.
+- **A new kind of destruction** (a `Destruction` subclass) has to hand a breaking block's stains on
+  itself: `TerrainDestruction._break()` and `_on_landed()` only know a block that wears away (crumbled
+  with its stains) or one that breaks at once into rigid pieces that wear (`carry_stains()`). Passing
+  the stains into `shatter()`, so each kind decides where its blood goes as it does its pieces, would
+  be the clean way.
+- **A destructible thing that is not a grid cell** (a prop placed as a scene) needs `Blood` to find
+  it: `_first_met()` and `_splash()` know blocks, figures and their gear, pieces that wear, and lumps,
+  a branch each. A common interface for anything stainable (trace a ray against its voxels, give a
+  surface to run over), found by a group, would let new kinds plug in; it would come with destruction
+  outside the grid, which does not exist yet either.
+- **A material that should take blood differently** (water, glass, sand) has nowhere to say so: every
+  surface takes it alike, and only breakable blocks have a resource to put a setting on.
+- **A turned block** (a GridMap orientation) should work, `TerrainSurface` and `carry_stains()`
+  turning voxels and faces, but no map has one yet, so probe the first.
+
+Headless on BoundaryMap a hit costs 0.2-0.4 ms; a shot's 50-odd drops about 1-2 ms a physics step in
+flight; landing them is held to the 2 ms budget; overlays redraw in up to about 1 ms a frame, 2 ms
+while a pool under a body spreads. Before the rig was read at load and the gear cached a frame, the
+first hit took 10 ms and a frame of drops near a figure up to 9.
+
+**Physics is only for debris, the dead's included.** Layers: 1 terrain, 2 unit clicks
+(`Unit.PICK_LAYER`), 3 debris, 4 unit bodies (`Unit.BODY_LAYER`), 5 pieces
+(`TerrainDestruction.PIECE_LAYER`: debris that is a body with a node of its own, a broken block's
+pieces and the parts cut from them, and dropped gear, which are on 3 as well; nothing collides with 5,
+it is only searched). Blood's drops are no bodies: they find debris
+with a ray on 3 (a lump by its RID, a piece through `VoxelTerrain.model_of()`, falling blocks
+passed), and meet figures by their voxels, never by a unit's bodies.
+What a dead unit breaks into is debris among debris: its lumps on layer 3, its dropped gear on 3 and
+5, landing on terrain and other debris and shoved aside by the living. Blocks have no collision in the
+MeshLibrary, so
 `TerrainDestruction` gives the map a copy of it with a cube on every shapeless block (a tree that
 wears away gets its voxels' trimesh instead, and a worn block collides through its `WornBlock`).
 Debris stays live for good and sleeps when still. Jolt's limits on bodies, body pairs, contacts and
@@ -905,9 +1134,14 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - **A coin is on a tile, and only the squad takes it.** Whether a coin is there, and who takes it,
   is `Coins`' tiles and units' `tile_at()`, never the `Coin` node; enemies pass coins by. Its gold
   goes into `Campaign.gold` the moment it is taken, not at the end, and a win pays for the rest.
+- **Blood is only for show.** Nothing in the rules reads it: wounds, drops, stains and pools change no
+  sight, cover, path or roll, and everything random in them draws on `Blood`'s or the figure's own
+  generator, never the global one, so a seeded fight replays the same with it. Where a hit is drawn
+  landing (`Path.wound`) is presentational, as the muzzle is: the round still flies eye to eye.
 - **A unit's figure is only for show.** Nothing in the rules reads `Unit.model`, its pose, facing,
-  hop or ragdoll: sight, shots and blasts take a unit as its tile and two cells, and a body that has
-  fallen is in no group. The figure decides only *when* a few things happen, never what: a shot is
+  hop or what it breaks into: sight, shots and blasts take a unit as its tile and two cells, and a dead
+  one's lumps and gear are debris, in no group, scattered on `TerrainDestruction`'s own generator,
+  never the global one. The figure decides only *when* a few things happen, never what: a shot is
   fired once the gun is up, a strike lands at the swing's impact, a grenade leaves at the throw's
   release. Every rule above still holds at that moment, and a unit with no figure plays the same,
   at once.
@@ -956,6 +1190,39 @@ same wear comes out every run. To tear loose models, break a crate (`terrain.bre
 its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `voxels.loose_count()`
 says how many have been taken on, `voxels._loose` maps each body to its `VoxelBody`, and
 `voxels._wearable` holds the pieces still waiting to be (`_model_of(body)` takes one on).
+
+Blood is probed the same way. `unit.take_damage(5, from, false, unit.model.pick_wound(from))` stands
+in for a round's hit, with `from` the muzzle; `blood.drops_in_flight()` counts drops still flying or
+landed but not yet settled, and `blood.pools_to_come()` the dead yet to bleed out. Count stained faces
+over `VoxelStains.faces` (`voxels.stains_at(cell)`, a model's `stains`, a figure's
+`model.voxels().stains`), and drop blood anywhere with `BloodFlow.new(blood._terrain,
+blood._terrain.voxel_of(hit.cell, hit.index), VoxelStains.FACES.find(hit.face), faces, rng).spread(faces)`
+on a hit from `grid.cast(origin, direction, distance, true, true)`. Lumps' colours can only be checked
+in a window (see Gotchas). Hide `HUD` and `TileHighlights` to look at blood: the move range's squares
+draw over it. To look at a figure's wounds, turn it to the camera (`model.face()`) and paint it a
+colour blood shows on; the shot itself is best driven through `Unit.shoot_at()` with a shot from
+`LineOfSight.new(grid).find_shot()`, which plays the tracer to the wound.
+
+Three checks blood was made with, worth repeating after changing it:
+
+- **It draws nothing from the global generator.** Seed, fire the same volley through
+  `Unit.shoot_at()` on a map with its `Blood` node and on one with it freed before the map enters the
+  tree, and compare the outcomes and the next `randi()`: they matched.
+- **How much a wound leans.** Flow the same wounds with `figure.bleed()` and with
+  `BloodFlow.new(FigureVoxels.FigureSurface.new(figure), hit.voxel, hit.face, faces, rng, 1000.0)`,
+  whose splash covers the whole figure, so every step costs the same; compare how far below the wound
+  each stain's faces sit (the numbers under Blood above).
+- **Coins stay clean.** `blood._spray()` drops straight at a coin: they should land beyond it, and
+  its `MeshInstance3D` should get no `stains` metadata and no `Stains` child.
+
+A death is probed the same way: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
+with a round (a blast passes `blasted` and no `at`, a blade a `sweep` too), and
+`TerrainDestruction.break_figure()` breaks any figure without its unit dying. Its lumps are the
+`VoxelDebris` entries from `_state.size()` before it to after (`_centers[piece]` where each is now,
+`_moved_at[piece]` the last step it moved, its body asleep once at rest); its gear the `Dropped<prop>`
+bodies under `TerrainDestruction`. Seed the global generator and compare the next `randi()` with a
+fresh seed's: a death draws nothing from it. Whether the lumps are red can only be seen in a window
+(see Gotchas); they come to rest in 2-3 s, a blast's a little later.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
@@ -1127,6 +1394,17 @@ anything that reaches it (`ActionController`, every `UnitAction`, `ActionButton`
 constants; `Unit`, `CombatGrid` and `Throwing` are safe. The autoloads themselves are there at run
 time (`root.get_node("Campaign")`).
 
+**`get_meta(name, null)` errors when there is no such metadata.** A null default counts as none, so
+the call fails rather than returning null. Ask `has_meta()` first, as `VoxelStains.on()` does.
+
+**The headless renderer keeps no MultiMesh instance data.** `get_instance_color()` reads black there
+whatever was set, so whether a lump is blood red can only be checked in a window.
+
+**A typed loop variable fails on a freed object before any check.** `for unit: Unit in units` stops
+with `Trying to assign invalid previously freed instance` the moment it reaches one that has died, so
+the `is_instance_valid()` inside the loop never runs. Loop untyped and check first, as
+`CharacterModel.gear()` does; a probe that keeps a list of units across a fight needs the same.
+
 **Map coordinates:** floor blocks sit at `y=0` and walkable tiles at `y=1` in both current maps.
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
@@ -1157,10 +1435,12 @@ frame first, as `Unit._ready()` does by running after its child's.
 passes `[]` to `CharacterModel.equip()`'s `Array[Item]`, or a literal list of points to
 `Unit.walk()`, fails at run time; declare the array typed (`var points: Array[Vector3] = [...]`) first.
 
-**A ragdoll starts from the pose its skeleton is in.** `PhysicalBoneSimulator3D` keeps its bodies on
-the animated bones while it is inactive, and `physical_bones_start_simulation()` picks them up from
-there, mid-stride or mid-flinch, so a body falls from whatever the unit was doing. Its bodies are on no
-physics layer until then, so they never collide while alive.
+**A `preload()` in a member's default compiles what it loads there and then.** `CharacterModel`
+preloading `Figure.tres` compiled `VoxelDestruction`, whose base `Destruction` names
+`TerrainDestruction`, which reads `CharacterModel`'s members, still mid-compile: "Could not resolve
+external class member", and every script after it failed to load. The figure loads its two
+destructions as it readies instead (`FIGURE_DESTRUCTION`, `GEAR_DESTRUCTION`). Nothing that chain
+reaches may preload a destruction.
 
 ## Known gaps
 
@@ -1193,7 +1473,7 @@ physics layer until then, so they never collide while alive.
 - A lump of debris collides as the box round its voxels, so one that is not a full box rests a little
   proud of what it lies on.
 - A stilled lump is woken only by a blast, the block under it being worn or broken, or a unit walking
-  into it. A crate's board, a ragdoll or a falling block coming down on one passes through it, and a
+  into it. A crate's board, dropped gear or a falling block coming down on one passes through it, and a
   lump still on the move can come to rest inside it.
 - A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
   The columns either side hold the struck crate's wreck in place, so the crates above only drop a
@@ -1216,12 +1496,43 @@ physics layer until then, so they never collide while alive.
   so the right hand keeps its weapon. There is no wounded idle, and no reload since there is no ammo.
 - Props are posed by kind: the rifle's grip and foregrip, the sword's grip. A gun shaped very
   differently (a pistol) needs its own poses in `HumanoidAnimations`, not just a model.
-- Bodies stay for the rest of the battle. Only a blast moves them (or a walking unit's capsule shoves
-  them), and a living unit can stand where one lies.
+- What the dead break into stays for the rest of the battle, and a living unit can stand in it.
+  Dropped gear is only for show: it cannot be picked up, and a squad member's is back in the inventory
+  already. Armor does not show, so it does not drop.
+- A figure breaks apart from the pose it is in, where a bent joint's two bones share a little room, so
+  their lumps can start overlapping and push apart as they are let go. Dropped gear passes for good
+  through the lumps it started inside. A lump is turned as its bone was but drawn a block's voxels
+  across, 0.0625 against the figure's 0.063, so a heap is a shade smaller than the figure was.
 - There is one kind of grenade, and a unit throws the first it carries: with several kinds there is
   no way yet to pick which. Grenades do not bounce or roll, and a blocked arc is simply not thrown;
   walls inside a blast shelter nobody. Only the player sees the throw: no reaction or camera move
   follows it.
+- Blood never dries, fades or soaks in: every stain stays bright red for the battle, and every battle
+  starts clean; nothing is kept on the character. Figures do not leave trails or drip, and blood on a
+  figure stays on it rather than dripping on to the ground.
+- The Blood on / off choice is not saved: every launch starts with blood on, as every launch starts
+  with the tile grid off. It cannot be changed in a battle, so a battle opened on its own (F6, the
+  harness) always has blood unless a probe sets `Blood.enabled` before the map loads.
+- Drops pass through what has no voxels to them or no body: stilled lumps, pieces that do not wear,
+  blocks falling whole, and the scenery beyond the battlefield (lost below the map). A lump is stained
+  a whole voxel at a time.
+- A crate whose `ScriptedDestruction` has no `wear` loses its blood as it breaks: only pieces taken on
+  as loose models can carry stains.
+- Blood runs over one surface at a time: from a figure's wound it never runs on to its gear or the
+  ground, and a small drop stains so few faces that it is mostly a cross or a bar.
+- The move range's tile highlights draw over blood, which shows pink through their fill, and blood in
+  shade takes the sky's blue light, so it looks a dark purple-red there.
+- A blast's worn blocks are redrawn over the next frames, but their stains' overlays at the end of the
+  blast's own, so for a frame or two, under the fireball, a voxel about to go shows without its stain.
+- Blood on the grenades on a belt goes when any grenade is used up: `equip()` builds them all afresh.
+- Every block in the map's library drawn from a `.vox` is read as the map loads, used on the map or
+  not, and every stained cell is an overlay and a draw call of its own. Fine for four kinds and a few
+  hundred stained cells; with dozens of kinds, read only those the map uses, and with thousands of
+  stained cells, gather the overlays by area. See "Adding things blood should stain" for what a new
+  kind of breakable, a destructible outside the grid, or a material that sheds blood would need.
+- `TurnManager._take_enemy_turn()` reads its enemy again after each pause, so anything that kills an
+  enemy during its own turn other than a reaction (which it checks for) leaves it reading a freed unit.
+  Only a probe does so far.
 - `Throwing.throws_for()` plans every tile in range each time Throw Grenade begins, about 16 ms on
   BoundaryMap; a bigger range or map may want it spread over frames.
 - Only crates leave coins, each worth 1 gold; enemies drop nothing. A coin in a cell with no ground

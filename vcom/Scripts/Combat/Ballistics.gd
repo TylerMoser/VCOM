@@ -22,7 +22,9 @@
 ##
 ## The path is worked out once, as the shot is fired, and nothing afterwards
 ## second-guesses it: the tracer draws it, and the terrain it ends on is the
-## terrain that is struck.
+## terrain that is struck. A hit's tracer is drawn to where the round is seen
+## to land on the target's figure ([member Path.wound]) rather than to its
+## eye: only the drawing moves, as it does to start at the muzzle.
 class_name Ballistics
 extends RefCounted
 
@@ -89,6 +91,17 @@ class Path:
 	## The terrain the round struck, or null if it stopped in the target or
 	## flew off the map.
 	var struck: CombatGrid.RayHit
+	## For a hit, where on the target's figure the round is seen to land: a
+	## point on the side facing the gun, chosen as it is fired
+	## ([method CharacterModel.pick_wound]); null without one. Only for show,
+	## as the muzzle is: the round still flies to the eye, and the tracer is
+	## drawn here instead.
+	var wound: Variant = null
+
+	## Where the round's tracer ends: the wound, for a hit that has one, else
+	## where the round stopped.
+	func drawn_to() -> Vector3:
+		return wound if wound != null else to
 
 
 ## A shot once it is fired: whether it lands, and where its rounds went.

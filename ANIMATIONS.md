@@ -143,7 +143,7 @@ numbers and then corrected by looking at rendered frames.
   - they step out of cover to shoot and back in;
   - overwatch has its own stance;
   - a Ranger draws a sword when Slash is chosen;
-  - the dead fall as ragdolls and stay.
+  - the dead fall as ragdolls and stay (as they did here at first; they now break apart, section 9.8).
 
   The game's rules were already modelled on XCOM 2, so the animations follow the same playbook.
 - **Classic animation principles:**
@@ -158,7 +158,8 @@ numbers and then corrected by looking at rendered frames.
   - procedural gait (a foot planted on the ground while in contact, swung through an arc otherwise);
   - additive animation layering;
   - one-bone rigid skinning for segmented models;
-  - ragdolls through Godot's `PhysicalBoneSimulator3D` and `PhysicalBone3D` on Jolt.
+  - ragdolls through Godot's `PhysicalBoneSimulator3D` and `PhysicalBone3D` on Jolt (since replaced by
+    breaking the figure apart, section 9.8).
 
 ### How the list of animations was chosen
 
@@ -174,7 +175,7 @@ what it needs to be seen doing:
 | `StrikeAction` / `Unit.strike()` | a guard, a swing whose impact the blow lands on, drawing and stowing a sword a rifleman carries | `ready_melee`, `strike_sword`, `draw_sword`, `stow_sword` |
 | `ThrowGrenadeAction` / `Unit.throw_at()` | holding a grenade ready, a throw whose release the grenade leaves at | `ready_throw_*`, `throw_*` |
 | `Unit.take_damage()` | a flinch on a hit, a duck on a miss | `hit_front`, `hit_back`, `dodge` |
-| `Unit.die()` | a death | ragdoll physics, not an animation |
+| `Unit.die()` | a death | breaking apart into voxel debris, not an animation (section 9.8; a ragdoll at first) |
 | `Unit.drop_to()` (the floor broke) | a fall and a landing | `fall` (pose), `land` |
 | `TurnManager` deciding the battle | the winners cheering | `cheer_*` |
 | `LineOfSight.cover_at()` (cover beside the tile) | kneeling behind low cover, bracing at high | `crouch_*`, `wall_*` |
@@ -192,7 +193,7 @@ Before any code was written, four decisions were put to the user:
 |---|---|---|
 | Props: the items had no 3D models. Should the rig hold and wear the gear? | Placeholder props (recommended) / Empty hands / Sockets only | **Placeholder props**: simple `.vox` models for the Rifle, Shortsword and Frag Grenade, repaintable in MagicaVoxel; the gun held two-handed, the sword drawn for a Strike and slung otherwise, grenades on the belt until thrown. |
 | Run speed: the squad moved at 0.12 s a tile (about 8 tiles a second) and enemies at 0.2. | 0.2 s for both (recommended) / Keep 0.12 and 0.2 / 0.25 s for both | **0.2 s for both**: about 5 strides a second, a brisk run that reads. `MoveAction.seconds_per_step` went from 0.12 to 0.2. |
-| What happens to a unit that dies? | Fall and stay (recommended) / Fall, then fade / Ragdoll | **Ragdoll**: physics takes over at death; blasts fling bodies; they tumble off ledges. Bodies stay for the battle. |
+| What happens to a unit that dies? | Fall and stay (recommended) / Fall, then fade / Ragdoll | **Ragdoll**: physics takes over at death; blasts fling bodies; they tumble off ledges. Bodies stay for the battle. Later replaced: the dead break apart into chunks (section 9.8). |
 | Should units take cover visually, as in XCOM? | Cover stances (recommended) / Stand, face enemy / Stand, keep facing | **Cover stances**: an idle unit turns to the cover that faces its nearest enemy, kneeling behind half cover, bracing at full cover; in the open it faces that enemy. |
 
 Everything else was decided along the way. Those decisions are in section 12.
@@ -208,7 +209,8 @@ own camera, laid out as contact sheets. Several first attempts were wrong and fi
 - **The cheer's fists were inside the head.** The head is wider than the shoulders, so the fists
   moved out to ±6.5 voxels.
 - **The dead stood stiffly for a third of a second.** A balanced ragdoll on flat feet resists a light
-  push. The knock went up and the shins are now kicked the other way (`KNOCK_SHARES`).
+  push. The knock went up and the shins were kicked the other way (`KNOCK_SHARES`). The ragdoll has
+  since gone: the dead break apart (section 9.8).
 - **The two-handed rifle hold was out of reach.** These arms reach only 8 voxels to the palm, which
   decided where the rifle sits: under the chin with the off hand on the magazine (section 6.9).
 - **The hit flinch was too faint** at the game's zoom, so it was made about 1.6 times stronger. It is
@@ -230,8 +232,8 @@ Section 14 has how to repeat that.
  BaseCharacter.vox ──► VoxelRig.gd ──► Skeleton3D (18 bones, unrotated T-pose)
    536 voxels,           layout:       Body: one skinned ArrayMesh (552 vertices,               Unit (rules) ──► CharacterModel.gd
    one colour            joints +        every vertex wholly one bone) ──► <model>Body.res        tells it what      drives the tree,
-                         regions       Ragdoll: 12 PhysicalBone3Ds (inactive)                      happens            faces, hops, props,
-                                         │                                                                            ragdoll on death
+                         regions                                                                   happens            faces, hops, props,
+                                         │                                                                            breaks apart on death
  Scenes/Props/Rifle.tscn ─(Foregrip)─► HumanoidAnimations.gd                                    Postures.gd ──────► settle(cover, yaw)
                                          poses as functions of time, IK ──► AnimationLibrary      (map node)
                                          (38 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
@@ -243,14 +245,14 @@ Section 14 has how to repeat that.
 ```
 
 - **VoxelRig** (`Scripts/Characters/VoxelRig.gd`) knows the humanoid skeleton and each model's
-  layout. It shares the model's voxels out between bones, meshes them, and builds the skeleton and
-  the ragdoll.
+  layout. It shares the model's voxels out between bones, meshes them, and builds the skeleton.
 - **HumanoidAnimations** (`Scripts/Characters/HumanoidAnimations.gd`) authors every animation for a
   rig, and the blend tree that plays them.
 - **BakeCharacter** (`Scripts/Characters/BakeCharacter.gd`) runs both and writes the scene and the
   two resources.
 - **CharacterModel** (`Scripts/Characters/CharacterModel.gd`), the scene's root script, plays it all
-  at run time. It watches its unit, takes requests from it, carries props, and becomes a ragdoll.
+  at run time. It watches its unit, takes requests from it, carries props, and breaks apart when its
+  unit dies.
 - **AimModifier** (`Scripts/Characters/AimModifier.gd`) is a `SkeletonModifier3D` that bends the
   upper body to aim up or down and turns the head.
 - **Postures** (`Scripts/Characters/Postures.gd`) is a node in each combat map that settles idle
@@ -419,38 +421,14 @@ where the legs, torso, arms and head are.
 The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.
 
-### The ragdoll
+### No ragdoll
 
-`VoxelRig.make_ragdoll()` puts a `PhysicalBoneSimulator3D` named `Ragdoll` under the skeleton, with
-a `PhysicalBone3D` for each row of `VoxelRig.RAGDOLL` and a `BoxShape3D` (child `Box`) fitted to its
-voxels and those of the bones it carries. The total mass is `VoxelRig.RAGDOLL_MASS` = **40 kg**.
-
-| Body | Carries | Joint (twist axis) | Swing | Twist | Share | Mass | Box (voxels) |
-|---|---|---|---|---|---|---|---|
-| `Hips` | — | none: what the rest hang from | — | — | 0.16 | 6.4 kg | 5 × 3 × 2 |
-| `Spine` | — | cone, +y | 20° | 15° | 0.12 | 4.8 kg | 5 × 3 × 2 |
-| `Chest` | — | cone, +y | 20° | 15° | 0.14 | 5.6 kg | 5 × 4 × 2 |
-| `Neck` | `Head` | cone, +y | 35° | 30° | 0.18 | 7.2 kg | 7 × 8 × 6 |
-| `LeftUpperArm` | — | cone, +x | 75° | 30° | 0.05 | 2.0 kg | 5 × 2 × 2 |
-| `LeftLowerArm` | `LeftHand` | cone, +x | 70° | 20° | 0.04 | 1.6 kg | 5 × 2 × 2 |
-| `RightUpperArm` | — | cone, -x | 75° | 30° | 0.05 | 2.0 kg | 5 × 2 × 2 |
-| `RightLowerArm` | `RightHand` | cone, -x | 70° | 20° | 0.04 | 1.6 kg | 5 × 2 × 2 |
-| `LeftUpperLeg` | — | cone, -y | 55° | 20° | 0.055 | 2.2 kg | 2 × 4 × 2 |
-| `LeftLowerLeg` | `LeftFoot` | cone, -y | 65° | 10° | 0.045 | 1.8 kg | 2 × 5 × 3 |
-| `RightUpperLeg` | — | cone, -y | 55° | 20° | 0.055 | 2.2 kg | 2 × 4 × 2 |
-| `RightLowerLeg` | `RightFoot` | cone, -y | 65° | 10° | 0.045 | 1.8 kg | 2 × 5 × 3 |
-
-- A body's `body_offset` puts it at its box's centre. Its `joint_offset` puts the joint at the bone's
-  origin, turned so the joint's own x axis, which a cone twist joint twists about, runs along the
-  limb.
-- Hands, feet and the head get no body of their own. They ride on the forearm, shin and neck, which
-  keeps the chain short enough for the solver to hold together. The bone a body carries keeps its
-  last animated local pose relative to its parent, so a hand stays as it was relative to the
-  forearm.
-- The head is heavy (18% of the weight), as befits a chibi figure, but not its voxel share (over
-  half): a mass ratio that steep makes joint chains jitter.
-- While the unit lives, every body is on **no physics layer** and the simulator is inactive, so they
-  never collide. Section 9 has what happens at death.
+Until 2026-10-02 the bake gave every figure a ragdoll: a `PhysicalBoneSimulator3D` named `Ragdoll`
+under the skeleton, 12 `PhysicalBone3D` boxes (hands, feet and head riding on the forearm, shin and
+neck) with cone joints, 40 kg in all, inactive and on no physics layer until death. The dead now
+break apart into voxel debris instead (section 9.8), which needs nothing baked, so
+`VoxelRig.make_ragdoll()`, `RAGDOLL` and `RAGDOLL_MASS` went with it. Git history has them, with the
+table of bodies, joints and masses, should a ragdoll be wanted again.
 
 ### The sockets
 
@@ -715,21 +693,21 @@ holds the rifle should be checked from the side and the front for this.
 
 1. Reads the arguments: `[vox] [scene]`, defaulting to `res://Characters/BaseCharacter.vox` and
    `res://Scenes/BaseCharacter.tscn`.
-2. Looks the model's layout up in `LAYOUTS` (fails if there is none).
+2. Looks the model's layout up in `LAYOUTS`, which is `VoxelRig.LAYOUTS` (fails if there is none).
 3. `VoxelRig.load_vox()` reads the voxels with the MagicaVoxel importer addon's own reader
    (`vox-importer-common.gd`) and shares them out by the layout.
-4. Makes the root `Node3D`, named after the model, with `CharacterModel.gd` as its script.
+4. Makes the root `Node3D`, named after the model, with `CharacterModel.gd` as its script and its
+   `voxel_model` set to the model's path, which blood reads the figure's voxels by (section 9.12).
 5. `make_skeleton()`, then the `Body` `MeshInstance3D` with `make_mesh()`, saved as
    **`<model>Body.res`** beside the model, with its skin.
 6. Adds `Aim`, a `SkeletonModifier3D` with `AimModifier.gd`.
-7. Adds `Ragdoll`, `make_ragdoll(skeleton, RAGDOLL_MASS)`.
-8. Builds `HumanoidAnimations` for the rig, reads the rifle's foregrip from `RIFLE_SCENE`
+7. Builds `HumanoidAnimations` for the rig, reads the rifle's foregrip from `RIFLE_SCENE`
    (`res://Scenes/Props/Rifle.tscn`), and adds the sockets (section 5).
-9. `make_library()`, saved as **`<model>Animations.res`** beside the model, put on an
+8. `make_library()`, saved as **`<model>Animations.res`** beside the model, put on an
    `AnimationPlayer` as its default library (`""`).
-10. An `AnimationTree` with `make_tree()` as its root, `anim_player` = `../AnimationPlayer`, active.
-11. Sets every node's `owner` to the root and packs and saves the scene.
-12. Prints the summary line.
+9. An `AnimationTree` with `make_tree()` as its root, `anim_player` = `../AnimationPlayer`, active.
+10. Sets every node's `owner` to the root and packs and saves the scene.
+11. Prints the summary line.
 
 The resulting scene:
 
@@ -738,8 +716,6 @@ BaseCharacter (Node3D)                         CharacterModel.gd
   Skeleton3D (Skeleton3D)                      18 bones, rest = T-pose
     Body (MeshInstance3D)                      BaseCharacterBody.res, skin from the rest
     Aim (SkeletonModifier3D)                   AimModifier.gd
-    Ragdoll (PhysicalBoneSimulator3D)          inactive until death
-      Physical Bone <bone> × 12 (PhysicalBone3D, each with a Box CollisionShape3D)
     RightHand (BoneAttachment3D → RightHand)
       RifleGrip, SwordGrip (Node3D)
     LeftHand (BoneAttachment3D → LeftHand)
@@ -857,9 +833,10 @@ Each clip node also exposes `current_length` and `backward`; nothing sets them.
 `Scripts/Characters/CharacterModel.gd`, `class_name CharacterModel`, the root of every figure. A
 unit's `Model` child, so `Unit.model`. It is presentational: the rules never read it.
 
-On `_ready()` it finds its `Skeleton3D`, `Body`, `AnimationTree`, `Aim` and `Ragdoll` (errors and
-stops if the first three are missing: rebake). It puts `body_material` on the body, reads the run's
-`speed` meta, and sends the tree its first state.
+On `_ready()` it finds its `Skeleton3D`, `Body`, `AnimationTree` and `Aim` (errors and stops if the
+first three are missing: rebake), and loads `crumbles_as` and `gear_wears_as` if the scene sets none
+(section 9.8). It puts `body_material` on the body, reads the run's `speed` meta, and sends the tree
+its first state.
 
 ### 9.2 What it reads from its unit every frame
 
@@ -928,8 +905,7 @@ without one.
 | `flinch(from)` | inside `Unit.take_damage()` (non-lethal hits) | every hit that does not kill | `hit_front` if `from` is in front of it, else `hit_back` |
 | `dodge()` | `Unit.dodge()` | `Unit.shoot_at()` and `Unit.strike()` on a miss | plays `dodge` on the target |
 | `equip(gun, melee, grenades)` | `Unit._dress()` | `Unit._ready()`, `Unit.use_up()` | shows the gear (9.6) |
-| `fall_dead(from, blasted)` | inside `Unit.die()` | every death | the ragdoll (9.8) |
-| `blast(origin, box, force)` | — | `TerrainDestruction._on_terrain_blasted()` | throws a fallen body about |
+| `break_apart()` | `TerrainDestruction.break_figure()`, and `Unit.die()` | every death, once its voxels and gear are taken | marks it `dead`, hides it, stops its tree and aim (9.8) |
 | `paint(color)` / `tint()` | `Unit._paint()` / `Unit.color` | `Unit._take_character()` / UI | the flat body colour |
 | `body_box()` | — | `Unit._add_bodies()` | the rest box |
 
@@ -991,38 +967,51 @@ the animations each frame (it changes the pose they leave and never builds up):
   while anything is readied, 0.6 toward the nearest foe (from `Postures`) otherwise, eased at 3 a
   second.
 
-### 9.8 Death and the ragdoll
+### 9.8 Death: breaking apart
 
-`Unit.take_damage(amount, from, blasted)` remembers where the hit came from; on a death `Unit.die()`
-calls `fall_dead(from, blasted)` before freeing the unit. Then the figure:
+As a unit dies, its figure breaks apart where it stands, as a block that wears away crumbles: into
+lumps of voxel debris in the unit's colour, knocked the way the killing blow went, with its gear
+dropping whole beside them. Nothing is animated: the pose it died in is what breaks.
 
-1. Moves to the unit's parent (`reparent(..., true)`), so it outlives the unit, and joins the group
-   `CharacterModel.CORPSES`.
-2. Stops its tree and its aim modifier: the pose it died in is frozen.
-3. Puts every ragdoll body on `FALLEN_LAYER` (the debris layer, bit 3), colliding with `FALLEN_MASK`
-   (terrain, debris, unit bodies).
-4. Activates the simulator and starts the simulation **from the pose it was in** (mid-stride,
-   mid-flinch).
-5. A physics frame later, knocks each body away from `from` (level, plus 0.25 up, 0.6 for a blast) at
-   `KNOCK` (3.6 cells a second; `BLAST_KNOCK` 1.2 for a blast) times its share in `KNOCK_SHARES`:
+1. `Unit.take_damage(amount, from, blasted, at, sweep)` keeps each hit on the unit (`hit_from`,
+   `hit_blasted`, `hit_at`, `hit_sweep`). On a death `Unit.die()` emits `died`.
+2. `TerrainDestruction` watches every unit's `died` (`_watch_units()`, deferred until the squad has
+   spawned) and calls `break_figure(model, from, blasted, at, sweep)`:
+   - `FigureVoxels.crumble()` cuts each bone's voxels, posed as they are, into lumps
+     `crumbles_as.crumble_size` (3, `Resources/Destruction/Figure.tres`) across, on a grid shifted at
+     random for each bone, so a lump is one bone's, turned as its bone is. A voxel is the unit's
+     `tint()`, or blood red if blood stained any of its faces. The base figure's 536 voxels make some
+     60 to 90 lumps, about 39 kg in all (`density` 300).
+   - `_figure_knock()` sets each lump moving: along a round's way or a blade's swing at
+     `FIGURE_KNOCK` (2 cells a second), or away from a blast at `FIGURE_BLAST_KNOCK` (1), lifted by
+     `FIGURE_LIFT` of that and shared out by height, from `FIGURE_FEET_SHARE` of it at the feet to all
+     of it at the head; up to `FIGURE_WOUND_PUSH` more within `FIGURE_WOUND_REACH` of where a round or
+     blade landed; out from the body's upright middle at `FIGURE_SPREAD`; scattered by up to
+     `FIGURE_SCATTER` and tumbling at up to `FIGURE_SPIN` radians a second. What is random in it draws
+     on `TerrainDestruction._show`, never the global generator.
+   - `VoxelDebris.add()` makes the lumps, held until the next physics step as all new debris is; a
+     blast that killed the unit pushes them then (`VoxelDebris.burst()`), as it pushes all its debris.
+   - `_drop_gear()` drops each prop shown in its sockets (`gear()`) whole: a `RigidBody3D` named
+     `Dropped<prop>` under `TerrainDestruction`, the prop's mesh moved into it with any blood on it, a
+     box round it 3.5% small, weighing `gear_wears_as.density` (`Gear.tres`, a crate board's) a cubic
+     cell of its voxels (the rifle 4 kg), knocked as the lumps round it are. It passes through the rest
+     of the gear and the lumps it starts inside (a hand round a grip), and wears away as a crate's
+     boards do once a round or a blast first reaches it (`VoxelTerrain.take_on_later()`;
+     `VoxelBody.scale` is 1.008, the props' 0.063 over the blocks' 0.0625).
+   - `CharacterModel.break_apart()` marks it `dead`, hides it and stops its tree and aim modifier.
+3. `Unit.die()` leaves its groups and frees itself, the hidden figure with it.
 
-   | Body | Share |
-   |---|---|
-   | Spine, Chest, Neck | 1.0 |
-   | Upper arms | 0.8 |
-   | Lower arms | 0.6 |
-   | Hips | 0.5 |
-   | Thighs | 0.0 |
-   | Shins | **-0.7**: kicked toward the shooter, so the legs go out from under it |
+The lumps and gear come to rest in 2 to 3 seconds and stay for the battle: debris among debris,
+thrown by blasts, shoved by the living, tidied once off the map. Blood's pool spreads where the unit
+stood a second after the death (`Blood.POOL_DELAY`); a killing wound is stained at once, so its blood
+is in the lumps. With blood off the figure breaks apart the same, with no red.
 
-6. Adds a 1-second `Timer` that frees the body once it is `FALL_LIMIT` (30) cells below where it went
-   down (blasted off the map).
-
-A grenade then throws every fallen body inside its blast about, the new dead included:
-`TerrainDestruction` calls `CharacterModel.blast(origin, box, force)` for each body in `CORPSES`, which
-applies `Blast.impulse_on()` and `Blast.contact()` to each of its bodies inside the box, the same
-physics a crate's boards get. Bodies stay for the battle; the living shove them with their debris
-capsules; nothing in the rules finds them (they left every group with the unit).
+**Before: the ragdoll.** Until 2026-10-02 the dead were ragdolls (the user's first answer, section 2):
+`fall_dead(from, blasted)` moved the figure out from under its unit, froze its pose and handed it to
+a `PhysicalBoneSimulator3D` of 12 boxes with cone joints, knocked from where the hit came at `KNOCK`
+(3.6) with the shins kicked the other way (`KNOCK_SHARES`) so it dropped at once, and a blast threw
+the bodies in the `CORPSES` group about (`CharacterModel.blast()`). It went when the user asked for
+the dead to break apart as the blocks do (section 12, decision 31). Git history has it.
 
 ### 9.9 Postures
 
@@ -1059,7 +1048,6 @@ Cover shot away stands a figure back up within 0.2 s. With no foe left, a figure
 
 | Constant | Value | Meaning |
 |---|---|---|
-| `CORPSES` | `&"corpses"` | group of fallen bodies |
 | `TURN_SPEED` | 600 | degrees a second, turning on the spot |
 | `TURN_PER_TILE` | 600 | degrees a tile walked, turning while walking |
 | `FACING_TOLERANCE` | 12 | degrees within which it counts as facing |
@@ -1068,14 +1056,43 @@ Cover shot away stands a figure back up within 0.2 s. With no foe left, a figure
 | `HOP_UP` / `HOP_DOWN` | 0.35 / 0.15 | hop heights over the straight climb or drop, cells |
 | `MOVING_SPEED` | 0.05 | cells a second that count as moving |
 | `BLEND_RATE` | 12 | how fast `move` and `air` follow, a second |
-| `KNOCK` / `BLAST_KNOCK` | 3.6 / 1.2 | cells a second a killing blow knocks a body |
-| `KNOCK_SHARES` | table above | per body |
-| `FALLEN_LAYER` / `FALLEN_MASK` | `1 << 2` / layers 1, 3, 4 | a body's physics layers once fallen |
-| `FALL_LIMIT` | 30 | cells below where it fell before a body is freed |
+| `FIGURE_DESTRUCTION` / `GEAR_DESTRUCTION` | `Figure.tres` / `Gear.tres` | what `crumbles_as` and `gear_wears_as` are unless set, loaded as it readies (a preload would compile a cycle: section 16) |
 | `BELT` | 3 | grenades shown on the belt |
+
+`TerrainDestruction`, how a figure breaks apart (9.8): `FIGURE_KNOCK` 2, `FIGURE_BLAST_KNOCK` 1,
+`FIGURE_LIFT` 0.3, `FIGURE_FEET_SHARE` 0.15, `FIGURE_WOUND_PUSH` 2, `FIGURE_WOUND_REACH` 0.4,
+`FIGURE_SPREAD` 0.7, `FIGURE_SCATTER` 0.5, `FIGURE_SPIN` 8.
 
 `Unit`: `PICK_RADIUS` 0.3. `MoveAction.seconds_per_step` 0.2 (was 0.12).
 `TurnManager.seconds_per_enemy_step` 0.2. Step-outs: `ShootAction` and `Reactions` 0.15 s, enemies 0.2.
+
+### 9.12 Blood on the figure
+
+Blood (`Scripts/Blood/`, described in full in `CLAUDE.md`) is the one thing besides the animations that
+reads the figure's voxels while the game runs. It does so through **`FigureVoxels`**
+(`Scripts/Characters/FigureVoxels.gd`), which `CharacterModel.voxels()` makes the first time it is
+asked (the combat map's `Blood` node asks for every figure as the map loads):
+
+- **The rig, read again at run time.** `FigureVoxels` reads the `.vox` the figure was baked from
+  (`CharacterModel.voxel_model`, which the bake sets) with the layout in `VoxelRig.LAYOUTS`, once per
+  model (about 10 ms for the base figure), and keeps each bone's voxels as a part of its own.
+- **Posed as the skeleton is.** A bone's voxels stand where `skeleton.get_bone_global_pose()` puts
+  the bone, less its joint (bones rest unrotated at their joints, section 5), grown from 0.0625 to
+  0.063 a voxel. That is what drops of blood and wounds are traced against (`FigureVoxels.march()`),
+  so they meet the figure as it is drawn this frame: aiming, crouched or mid-stride.
+- **Stains are skinned like the body.** The blood on a figure is drawn by a second skinned mesh,
+  `Skeleton3D/Stains`, with the body's own `Skin`, each red square weighted wholly to the bone its
+  voxel follows, so it moves with every pose. This is one more thing that relies on the rig being
+  rigid, one bone a voxel (section 12, decision 1). As the figure breaks apart (9.8), every voxel
+  with a stained face goes into its lump blood red.
+- **The calls blood makes:** `pick_wound(from)` (a point on the side facing `from`, mostly the
+  torso; a shot's tracer is drawn to it), `swing()` (the way the blade moves as `strike_sword`
+  lands) and `gear()` (the props it carries, which blood stains as models of their own, and which
+  drop whole when it dies). None of them change what the figure does.
+
+`swing()` is written for `strike_sword` as it is: at the `impact` key the blade sweeps down across the
+figure's front, from its right to its left (`Vector3(0.75, -0.45, 0.3)` in its own space). Re-author
+the swing and that vector wants changing with it (section 13.11).
 
 ---
 
@@ -1639,13 +1656,32 @@ Every significant choice, why it was made, and what it costs.
     - bodies pile up for the battle and cost physics while awake;
     - outcomes are less controllable than authored falls;
     - Jolt contact quirks apply (section 16).
-31. **The click body is a cylinder** rather than the T-posed hull.
+
+    Replaced on 2026-10-02 by 31.
+31. **Breaking apart** (the user's choice, replacing 30): the dead break into lumps of voxel debris
+    as a worn-out block crumbles (section 9.8). Asked with it, and answered:
+    - chunks like a block's, a few voxels each, rather than whole limbs or single voxels;
+    - the same with blood off, only without red;
+    - gear dropped whole, as debris that later shots and blasts wear down like a crate's boards,
+      rather than broken up with the body or left out;
+    - the pool of blood where the unit stood, starting about a second after the death.
+
+    *Pros:* of a piece with the destructible world; the killing blow reads in how the pieces fly;
+    blood carries into the lumps; nothing to bake, so the ragdoll's joint tuning and its quirks are
+    gone.
+
+    *Cons:*
+    - no fall is played: the figure bursts where it stands and its pieces drop;
+    - some 60 to 90 more bodies for the physics a death, until they sleep;
+    - a bent joint's two bones share a little room, so their lumps can start overlapping;
+    - lumps are drawn a block's voxels across, a shade smaller than the figure's.
+32. **The click body is a cylinder** rather than the T-posed hull.
     - *Pros:* matches the figure with its arms down, whatever it does.
     - *Cons:* clicks between a unit's legs or just beside it count.
 
 ### Tooling
 
-32. **A repo preview tool** (`PreviewAnimations.gd`), playing whole clips straight from the player
+33. **A repo preview tool** (`PreviewAnimations.gd`), playing whole clips straight from the player
     and reactions through the tree.
     - *Pros:* anyone can look at a clip with the right props, without the game.
     - *Cons:* needs a window; the figure is shown untinted.
@@ -1881,7 +1917,9 @@ Example: `pistol`, held one-handed.
      the bottom of the head.
    - **`"regions"`**, in model voxels, most specific first, so the head and arms come before the
      torso's full-width boxes.
-4. **Add it to `BakeCharacter.LAYOUTS`**: `"res://Characters/<Name>.vox": VoxelRig.<NAME>`.
+4. **Add it to `VoxelRig.LAYOUTS`**: `"res://Characters/<Name>.vox": <NAME>`. The bake reads that
+   table (`BakeCharacter.LAYOUTS` is the same one), and so does blood while the game runs: a model
+   with no entry bakes nowhere and never bleeds.
 5. **Bake it to its own scene:**
    `... BakeCharacter.gd -- res://Characters/<Name>.vox res://Scenes/<Name>.tscn`. Check for the
    "in no region" warning.
@@ -1936,6 +1974,8 @@ The pattern every existing animation follows:
 ### 13.11 Change a moment the rules wait on
 
 - **Strike impact:** the `0.27` keys in `_strike`'s two tables and `strike.set_meta(&"impact", 0.27)`.
+  If the blade's sweep at that moment changes, change `CharacterModel.swing()` too: blood sprays along
+  it (section 9.12).
 - **Throw release:** the `0.36` key in `_throw` and `throw.set_meta(&"release", 0.36)`.
 - **Draw and stow swap:** the `0.38` in `_draw` (the hand's arc) and the `swap` metas.
 - **Gun up before a shot:** `CharacterModel.RAISE_SECONDS` and the `stance` Transition's `xfade_time`
@@ -2015,7 +2055,7 @@ func _initialize() -> void:
 	_look(rig, (shooter.global_position + target.global_position) * 0.5)
 	await create_timer(0.7, false).timeout
 	await _shot("aim")
-	target.health = 1                             # this shot kills: see the ragdoll
+	target.health = 1                             # this shot kills: see it break apart
 	shooting._estimate.chance = 100
 	shooting._fire()                              # not awaited: capture while it plays
 	var t := 0.0
@@ -2117,12 +2157,14 @@ that breaks something shows up as a different result or an error.
     soldiers do;
   - overwatch in high cover looks like no overwatch;
   - a figure readied for an action ignores cover until it stands easy.
-- **Ragdolls:**
-  - cone joints let elbows and knees bend backwards;
-  - the neck and head are one body;
-  - bodies can come to rest against or partly in debris;
-  - they stay for the battle and a living unit can stand where one lies;
-  - many awake bodies cost physics (they sleep when still).
+- **Breaking apart:**
+  - no fall is played: the figure bursts where it stands and its pieces drop;
+  - a bent joint's two bones share a little room, so their lumps can start overlapping and push apart
+    as they are let go;
+  - lumps are drawn a block's voxels across (0.0625), a shade smaller than the figure's (0.063);
+  - the lumps and gear stay for the battle and a living unit can stand in them; gear cannot be picked
+    up, and armor, which does not show, does not drop;
+  - some 60 to 90 lumps a death cost physics until they sleep, in 2 to 3 seconds.
 - **The cheer** only plays for the winners while the banner is up, then the battle closes.
 - **The editor** shows units in the tree's first base pose (`stand_rifle`) and without props, since
   the tree is active in the scene and props are added at run time.
@@ -2157,8 +2199,9 @@ that breaks something shows up as a different result or an error.
 | `does not have the same element type as the expected typed array` in a probe | a plain `[]` or literal passed to an `Array[Item]` or `Array[Vector3]` parameter | declare the array typed first |
 | A `--script` run hangs | a script error inside `_initialize()` | always use `timeout`, read the error, fix |
 | `Identifier not found: Campaign` in a probe | typing a variable as a class that uses an autoload | leave such variables untyped |
-| The ragdoll stands stiffly before falling | a light knock on a balanced body | `KNOCK`, `KNOCK_SHARES` (the shins' negative share) |
-| A body explodes or jitters at death | it started overlapping terrain or debris, or a mass ratio too steep | check the pose at death; keep masses within about 5:1 |
+| A dying figure's lumps fly too far, or barely move | the knock | the `FIGURE_*` constants on `TerrainDestruction` (9.8); a blast's push is `Blast.IMPULSE` over the lumps' `density` in `Figure.tres` |
+| A dead unit's figure just vanishes | no `TerrainDestruction` in the map, or its voxels cannot be read (no layout in `VoxelRig.LAYOUTS`) | add the node; add the layout |
+| `Could not resolve external class member` as the game loads, and every script after it fails | a `preload()` of a destruction `.tres` in a script that chain reaches (`CharacterModel`) | load it at run time, as `FIGURE_DESTRUCTION` is |
 | Headless runs log `Parameter "material" is null` | the dummy renderer and material overrides | spurious; ignore |
 | The preview renders nothing or black | run with `--headless` | the preview needs a window |
 | Process-time numbers swing 7-18 ms | windowed runs with the editor open: GPU pacing | measure headless (section 17) |
@@ -2181,6 +2224,7 @@ animated figures:
 | The skinned mesh | 552 vertices a figure |
 | The library | 38 clips, 384 KB (binary) |
 | A bake | a few seconds (the library itself about 80 ms) |
+| A death, breaking apart (`BoundaryMap.tscn`) | about 1.6 ms on its frame: the lumps cut 0.7, made 0.6, the gear 0.1; about 3.8 with blood, which stains the killing wound at once |
 
 Windowed process times are dominated by GPU frame pacing (they swung between 7 and 18 ms even at the
 commit before the rig, with the editor open), so measure CPU costs headless, and time a single
@@ -2194,13 +2238,15 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 
 | File | What it is |
 |---|---|
-| `vcom/Scripts/Characters/VoxelRig.gd` | skeleton, layouts, voxel assignment, mesher, ragdoll builder |
+| `vcom/Scripts/Characters/VoxelRig.gd` | skeleton, layouts, voxel assignment, mesher (and the ragdoll builder, until the dead broke apart) |
 | `vcom/Scripts/Characters/HumanoidAnimations.gd` | every animation, the IK, the sampler, the blend tree |
 | `vcom/Scripts/Characters/BakeCharacter.gd` | the bake (section 7) |
 | `vcom/Scripts/Characters/CharacterModel.gd` | the figure's runtime (`class_name CharacterModel`) |
 | `vcom/Scripts/Characters/AimModifier.gd` | aim pitch and head look (`SkeletonModifier3D`) |
 | `vcom/Scripts/Characters/Postures.gd` | the cover and facing map node (`class_name Postures`) |
 | `vcom/Scripts/Characters/PreviewAnimations.gd` | the preview tool |
+| `vcom/Scripts/Characters/FigureVoxels.gd` | the figure's voxels at run time, for blood and breaking apart (sections 9.12, 9.8) |
+| `vcom/Resources/Destruction/Figure.tres`, `Gear.tres` | how a figure breaks apart, and how the gear it drops wears (9.8) |
 | `vcom/Scripts/Combat/MuzzleFlash.gd` | a gun's flash (`class_name MuzzleFlash`) |
 | `vcom/Characters/BaseCharacterBody.res` | **generated**: the skinned mesh |
 | `vcom/Characters/BaseCharacterAnimations.res` | **generated**: the animation library |
@@ -2217,7 +2263,7 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 |---|---|
 | `vcom/Scenes/BaseCharacter.tscn` | **generated** now: was a plain `MeshInstance3D` of the imported `.vox`; is the rig |
 | `vcom/Scenes/SquadUnit.tscn`, `CombatMap.tscn`, `BoundaryMap.tscn`, `LineOfSightTest.tscn` | each unit's `Mesh` child is now `Model`, its `surface_material_override/0` now `body_material`; the three maps gained a `Postures` node |
-| `vcom/Scripts/Unit.gd` | `model`; `PICK_RADIUS`; presentational calls (`aim_at`, `aim_point`, `ready_strike`, `ready_throw`, `stand_easy`, `celebrate`, `dodge`, `recover`); `take_damage(amount, from, blasted)`; `shoot_at` takes aim, fires the figure, ducks misses; `strike` is a coroutine landing at the swing's impact; `throw_at` winds up and releases from the hand (`show_flight` gets the release point); `die` leaves the body as a ragdoll; `walk`/`start_walk` take `keep_facing`; `drop_to` sets the figure falling; `use_up` re-dresses; `_dress`, `_paint`, `_add_bodies` and `color` work through the figure |
+| `vcom/Scripts/Unit.gd` | `model`; `PICK_RADIUS`; presentational calls (`aim_at`, `aim_point`, `ready_strike`, `ready_throw`, `stand_easy`, `celebrate`, `dodge`, `recover`); `take_damage(amount, from, blasted)`; `shoot_at` takes aim, fires the figure, ducks misses; `strike` is a coroutine landing at the swing's impact; `throw_at` winds up and releases from the hand (`show_flight` gets the release point); `die` leaves the body as a ragdoll (since: the figure breaks apart, 9.8); `walk`/`start_walk` take `keep_facing`; `drop_to` sets the figure falling; `use_up` re-dresses; `_dress`, `_paint`, `_add_bodies` and `color` work through the figure |
 | `vcom/Scripts/Items/Item.gd` | `model: PackedScene` |
 | `vcom/Resources/Rifle.tres`, `Resources/Items/Shortsword.tres`, `Resources/Items/FragGrenade.tres` | `model` points at the prop scenes |
 | `vcom/Scripts/Actions/MoveAction.gd` | `seconds_per_step` 0.12 → 0.2 |
@@ -2229,7 +2275,7 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 | `vcom/Scripts/UI/ShotOverlay.gd` | tracers start at the muzzle |
 | `vcom/Scripts/Combat/ThrownGrenade.gd` | `show_model()`, `fly(throw, release)` easing from the hand, tumbling about the model's middle |
 | `vcom/Scripts/TurnManager.gd` | the winners celebrate |
-| `vcom/Scripts/Terrain/TerrainDestruction.gd` | blasts throw fallen bodies (`CharacterModel.blast()`); `_blast_box()` |
+| `vcom/Scripts/Terrain/TerrainDestruction.gd` | blasts threw fallen bodies (`CharacterModel.blast()`); `_blast_box()`; since, breaks a dying unit's figure apart (`break_figure()`, 9.8) |
 | `CLAUDE.md`, `README.md` | documentation |
 
 ### Unchanged but related
@@ -2237,7 +2283,7 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 - `vcom/Characters/BaseCharacter.vox`: the model, unchanged.
 - `vcom/Characters/BaseCharacter.vox.import`: the plain import, now unused.
 - `vcom/addons/MagicaVoxel_Importer_with_Extensions/`: its reader is reused by `VoxelRig`.
-- `vcom/Scripts/Terrain/Blast.gd`: its `impulse_on` and `contact` are reused for bodies.
+- `vcom/Scripts/Terrain/Blast.gd`: its `impulse_on` and `contact` were reused for ragdoll bodies.
 
 ---
 
@@ -2365,6 +2411,31 @@ any relevant questions."* The project's todo listed "Characters and animations",
 > - **Rules unchanged:** everything is visual; the figure only decides when a shot fires, a blow lands
 >   or a grenade leaves the hand, never the outcome.
 
+### Later: the dead break apart (2026-10-02)
+
+With blood in place, the user asked: *"Characters should break apart on death. When a character dies,
+whether it is a player character or an enemy, instead of ragdolling the character's voxel model,
+break that model apart similarly to how blocks are broken apart dynamically."* Four questions were
+put, and the recommended answer taken for each (section 12, decision 31): chunks like a block's; the
+same with blood off; gear dropped whole, wearing away later; the pool where the unit stood. Taken as
+read too: it breaks the moment it dies, from the pose it is in, with no ragdoll first; the pieces fly
+the way the blow went (back from a shot, out from a grenade, along a blade's swing); they are debris
+for show only and stay; stained voxels stay red; no global random numbers.
+
+1. **The figure into lumps.** `FigureVoxels.crumble()` cuts the posed figure as `VoxelTerrain`
+   crumbles a block, a bone at a time; `TerrainDestruction.break_figure()` knocks the lumps and makes
+   them `VoxelDebris`. The killing hit is kept on the unit for it.
+2. **The gear dropped whole**, as rigid bodies that wear like a crate's boards. `VoxelBody` learnt the
+   props' scale (0.063 against a block's 0.0625) so a worn prop is redrawn, collided and stained where
+   its mesh was, and to take over the blood the prop carried.
+3. **The ragdoll removed** from the bake, the figure and the blast; the figure rebaked (only the
+   `Ragdoll` nodes left the scene).
+4. **Blood**: the pool moved to where the unit stood, a second after the death; a killing wound
+   stained at once, so the lumps come out red.
+5. **Checked** by probes (the lumps, gear and pool for a round, a blade and a blast; the global
+   generator untouched; dropped gear shot through and blasted; blood off) and renders of each.
+   `crumble()` was cut from 1.6 to 0.7 ms by keeping each bone's cells in the rig.
+
 ---
 
 ## 20. Glossary
@@ -2378,7 +2449,7 @@ any relevant questions."* The project's todo listed "Characters and animations",
 | **Body material** | the flat-colour material a unit puts over its figure (`CharacterModel.body_material`) |
 | **Cell / tile** | one Godot unit: a tile is a cell a unit can stand in; about 15.87 voxels |
 | **Chest space** | the `Chest` bone's own frame, turning with the torso; where rifle and sword poses are placed |
-| **Corpse / body** | a dead unit's figure, a ragdoll in the `corpses` group |
+| **Lumps** | what a dead unit's figure breaks into, voxel debris (9.8); the dead were ragdolls before |
 | **Effector** | the point on the end bone that IK puts on the target (a palm, an ankle) |
 | **Figure** | a unit's rigged model, `CharacterModel` (a unit's `Model` child) |
 | **Foregrip** | where the off hand holds the rifle (a marker in `Rifle.tscn`) |

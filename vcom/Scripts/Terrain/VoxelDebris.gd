@@ -27,6 +27,10 @@
 ## moving is never stilled. A stilled lump gets its body back the moment
 ## anything disturbs it: a blast reaching it ([method burst]), the ground going
 ## from under it, or a unit walking into it ([method wake]).
+##
+## A voxel broken off a stained face is blood red from the start, and a drop
+## of blood landing on a lump colours the voxel it met ([method stain]): a
+## whole voxel, as a lump draws each voxel as one cube of one colour.
 class_name VoxelDebris
 extends Node3D
 
@@ -127,6 +131,8 @@ var _living := 0
 var _bodied := 0
 ## A box shape for every size of lump, by size.
 var _boxes := {}
+## Each lump with a body, by its body.
+var _by_body := {}
 
 
 func _init() -> void:
@@ -240,12 +246,33 @@ func add(pieces: Array[Piece], destruction: VoxelDestruction) -> Array[RID]:
 		_place_voxels(index, piece)
 		var body := _make_body(index)
 		_bodies[index] = body
+		_by_body[body] = index
 		_living += 1
 		_bodied += 1
 		_waiting.append(index)
 		_waiting_since.append(frame)
 		made.append(body)
 	return made
+
+
+## Colours the voxel nearest [param point], in the world, of the lump whose
+## body is [param body] the colour of blood, as a drop of it lands there.
+## Returns whether [param body] is a lump's.
+func stain(body: RID, point: Vector3) -> bool:
+	var piece: int = _by_body.get(body, -1)
+	if piece < 0:
+		return false
+	var placed: Transform3D = PhysicsServer3D.body_get_state(body, PhysicsServer3D.BODY_STATE_TRANSFORM)
+	var start := _offset_start[piece]
+	var nearest := 0
+	var nearest_distance := INF
+	for voxel in _voxel_count[piece]:
+		var distance := (placed * _offsets[start + voxel]).distance_squared_to(point)
+		if distance < nearest_distance:
+			nearest = voxel
+			nearest_distance = distance
+	_chunks[_chunk_of[piece]].set_instance_color(_first[piece] + nearest, VoxelStains.COLOR)
+	return true
 
 
 ## Throws every lump whose middle is inside [param box] away from
@@ -339,6 +366,7 @@ func _make_room() -> void:
 func _still(piece: int) -> void:
 	var body := _bodies[piece]
 	_poses[piece] = PhysicsServer3D.body_get_state(body, PhysicsServer3D.BODY_STATE_TRANSFORM)
+	_by_body.erase(body)
 	PhysicsServer3D.free_rid(body)
 	_bodies[piece] = RID()
 	_state[piece] = State.STILL
@@ -355,6 +383,7 @@ func _rebody(piece: int) -> void:
 	var body := _make_body(piece)
 	PhysicsServer3D.body_set_space(body, _space)
 	_bodies[piece] = body
+	_by_body[body] = piece
 	_state[piece] = State.LIVE
 	_bodied += 1
 	_moved_at[piece] = Engine.get_physics_frames()
@@ -388,6 +417,7 @@ func _let_go(piece: int) -> void:
 
 
 func _remove(piece: int) -> void:
+	_by_body.erase(_bodies[piece])
 	PhysicsServer3D.free_rid(_bodies[piece])
 	_bodies[piece] = RID()
 	_state[piece] = State.GONE

@@ -194,7 +194,8 @@ Every unit wears `Scenes/BaseCharacter.tscn` (baked; never edit it by hand), pai
 - **Squad:** `vcom/Scenes/SquadUnit.tscn` has `[sub_resource type="StandardMaterial3D" id="Mat_unit"]` with **no properties**, set as the Model's `body_material`.
   - `Unit._paint()` hands it to `CharacterModel.paint()`, which duplicates it and sets only `albedo_color` to the character's `color`. So anything a style put on `Mat_unit` (toon diffuse, rim and so on) reached every squad member. Empty it again.
   - If a style changed `CharacterModel.paint()` or `Unit._paint()` instead, restore those to the baseline commit.
-- **Enemies:** `Mat_enemy1` is `albedo_color = Color(0.85, 0.15, 0.15, 1)` and nothing else, in CombatMap, BoundaryMap and LineOfSightTest.
+- **Enemies:** `Mat_enemy1` is `albedo_color = Color(0.32, 0.35, 0.4, 1)` and nothing else, in CombatMap, BoundaryMap and LineOfSightTest. That slate grey is not part of any style: the enemies were red, `Color(0.85, 0.15, 0.15, 1)`, until blood was added, and were made grey so their wounds show. Reverting a style leaves them grey.
+- **Blood:** stains and drops are drawn with one material of their own, `VoxelStains.material` (`Scripts/Terrain/VoxelStains.gd`: albedo `COLOR`, roughness 0.55, `metallic_specular` 0.35), which no style has touched. If one did, put those values back.
 - **LineOfSightTest's eight squad units:** `Mat_player1`–`Mat_player8`, albedo only, alpha 1:
   - 1: (0.2, 0.45, 0.9)
   - 2: (0.25, 0.75, 0.3)

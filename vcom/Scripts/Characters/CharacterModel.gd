@@ -18,18 +18,23 @@
 ## in its hands, a sword it carries as well slung across its back until it is
 ## drawn, and up to three grenades on its belt.
 ##
-## When the unit dies its body goes limp, out from under the unit, which is
-## gone, and stays where it falls: a [PhysicalBoneSimulator3D] takes over from
-## the animations, knocked the way the killing blow came, and a blast throws
-## it about as it does debris.
+## When the unit dies the figure breaks apart, as a block crumbles: its voxels
+## become lumps of debris in its colour, knocked the way the killing blow went,
+## and its gear falls as loose props ([method TerrainDestruction.break_figure],
+## [member crumbles_as]). Then it hides, and goes with its unit
+## ([method break_apart]).
+##
+## It bleeds: [Blood] reads its voxels as they are posed ([method voxels]),
+## asks it where a blow lands ([method pick_wound]) and which way its own
+## blade sweeps ([method swing]), and stains its body and its gear; stained
+## voxels stay red in the lumps it breaks into. None of that changes what the
+## figure does.
 class_name CharacterModel
 extends Node3D
 
 ## What the figure has made ready, which decides the pose it holds.
 enum Readiness { NONE, AIM, MELEE, THROW, CHEER }
 
-## Every fallen body, for a blast to throw about.
-const CORPSES := &"corpses"
 ## How fast it turns on the spot, in degrees a second, and while it walks, in
 ## degrees a tile walked, so a slowed walk turns slowly too.
 const TURN_SPEED := 600.0
@@ -50,29 +55,28 @@ const HOP_DOWN := 0.15
 const MOVING_SPEED := 0.05
 ## How fast the blends between standing, running and falling follow, a second.
 const BLEND_RATE := 12.0
-## The speed a killing shot or blow knocks the body with, in cells a second,
-## mostly to the upper body, and a blast's (a blast's own push comes on top:
-## see [method blast]).
-const KNOCK := 3.6
-const BLAST_KNOCK := 1.2
-## How each part of the body takes a killing blow, as a share of the knock:
-## the upper body is thrown, the hips follow, and the shins are kicked the
-## other way, so the legs go out from under it rather than leaving it stood
-## stiffly on its feet.
-const KNOCK_SHARES := {
-	&"Hips": 0.5, &"Spine": 1.0, &"Chest": 1.0, &"Neck": 1.0,
-	&"LeftUpperArm": 0.8, &"RightUpperArm": 0.8, &"LeftLowerArm": 0.6, &"RightLowerArm": 0.6,
-	&"LeftUpperLeg": 0.0, &"RightUpperLeg": 0.0, &"LeftLowerLeg": -0.7, &"RightLowerLeg": -0.7,
-}
-## The physics layers a fallen body is on and collides with: it is debris
-## among debris, landing on terrain and shoved aside by the living.
-const FALLEN_LAYER := 1 << 2
-const FALLEN_MASK := (1 << 0) | (1 << 2) | (1 << 3)
-## How far a body may fall below where it went down before it is taken away,
-## in cells: off the edge of the map.
-const FALL_LIMIT := 30.0
+## What [member crumbles_as] and [member gear_wears_as] are unless set: loaded
+## as it readies, not preloaded, as what breaks it apart
+## ([TerrainDestruction]) reads them, and a preload here would compile that
+## first.
+const FIGURE_DESTRUCTION := "res://Resources/Destruction/Figure.tres"
+const GEAR_DESTRUCTION := "res://Resources/Destruction/Gear.tres"
 ## Grenades shown on the belt at most.
 const BELT := 3
+
+## The .vox the figure was baked from, which its voxels are read from while
+## the game runs, for blood to land on them and for it to break apart
+## ([method voxels]).
+@export var voxel_model := "res://Characters/BaseCharacter.vox"
+## How it breaks apart as its unit dies: how big its lumps are
+## ([member VoxelDestruction.crumble_size]), and how heavy, rough and bouncy.
+## [constant FIGURE_DESTRUCTION] unless set.
+@export var crumbles_as: VoxelDestruction
+## How the gear it drops then wears away, once a round or a blast reaches it,
+## as a crate's boards do: how heavy and rough it is, how much a point of
+## damage breaks off, and how small what is left gets before it crumbles.
+## [constant GEAR_DESTRUCTION] unless set.
+@export var gear_wears_as: VoxelDestruction
 
 ## The body's material: a flat colour for now (see [member Unit.color]).
 @export var body_material: Material:
@@ -89,14 +93,13 @@ var readiness := Readiness.NONE
 var cover := LineOfSight.Cover.NONE
 ## Whether its unit is on overwatch, which raises its gun.
 var overwatching := false
-## Whether it has fallen, and is a ragdoll now.
+## Whether its unit has died, and it has broken apart ([method break_apart]).
 var dead := false
 
 var _skeleton: Skeleton3D
 var _body: MeshInstance3D
 var _tree: AnimationTree
 var _aim: Node
-var _ragdoll: PhysicalBoneSimulator3D
 
 ## The stance its hands are in: [code]rifle[/code] with a gun, else
 ## [code]melee[/code] with a sword, else [code]unarmed[/code].
@@ -144,14 +147,23 @@ var _acting := 0.0
 ## The speed the run cycles were made for, in cells a second, from their
 ## metadata: what a speed of 1 plays them at.
 var _run_speed := 5.0
+## Its voxels, for blood: read the first time they are asked for.
+var _voxels: FigureVoxels
+## What picks where a blow lands on it: only for show, so never the global
+## generator, which the rules draw on.
+var _show := RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	_show.randomize()
 	_skeleton = get_node_or_null(^"Skeleton3D") as Skeleton3D
 	_body = get_node_or_null(^"Skeleton3D/Body") as MeshInstance3D
 	_tree = get_node_or_null(^"AnimationTree") as AnimationTree
 	_aim = get_node_or_null(^"Skeleton3D/Aim")
-	_ragdoll = get_node_or_null(^"Skeleton3D/Ragdoll") as PhysicalBoneSimulator3D
+	if crumbles_as == null:
+		crumbles_as = load(FIGURE_DESTRUCTION)
+	if gear_wears_as == null:
+		gear_wears_as = load(GEAR_DESTRUCTION)
 	if _skeleton == null or _body == null or _tree == null:
 		push_error("CharacterModel: '%s' is missing its Skeleton3D, Body or AnimationTree; rebake it." % name)
 		set_process(false)
@@ -243,7 +255,8 @@ func settle(held: LineOfSight.Cover, yaw: float, watch: Variant, at_once := fals
 
 
 ## Whether it is standing about with nothing to do: not moving, falling or
-## fallen, nothing ready and nothing playing. [Postures] only moves it then.
+## broken apart, nothing ready and nothing playing. [Postures] only moves it
+## then.
 func is_idle() -> bool:
 	return not dead and readiness == Readiness.NONE and _walk.is_empty() and not _falling and _acting <= 0.0
 
@@ -435,71 +448,57 @@ func paint(color: Color) -> void:
 	body_material = material
 
 
-## Goes limp, knocked from [param from] in the world: thrown back by a shot or
-## blow, or by a blast if [param blasted]. The body leaves its unit, which is
-## about to be freed, for the unit's parent, and lies where it falls from then
-## on.
-func fall_dead(from: Vector3, blasted: bool) -> void:
-	if dead:
-		return
+## Its voxels as blood and breaking apart need them: where each is now, and
+## the stains on them. Null if they cannot be read.
+func voxels() -> FigureVoxels:
+	if _voxels == null:
+		_voxels = FigureVoxels.new(self, voxel_model)
+	return _voxels if _voxels.rig != null else null
+
+
+## Where a round or a blow coming from [param from] is seen to land on the
+## figure: a point on the side facing it, mostly on the torso. Infinite if
+## there is none to be found.
+func pick_wound(from: Vector3) -> Vector3:
+	var figure := voxels()
+	var hit: FigureVoxels.Hit = figure.pick_wound(from, _show) if figure != null else null
+	return hit.point if hit != null else Vector3.INF
+
+
+## The way its blade sweeps as a strike lands, in the world: down across the
+## front of it from its right to its left, as [code]strike_sword[/code] swings.
+func swing() -> Vector3:
+	return (global_basis * Vector3(0.75, -0.45, 0.3)).normalized()
+
+
+## What draws each thing it carries that blood can land on: each prop's voxel
+## model, those shown.
+func gear() -> Array[MeshInstance3D]:
+	var drawn: Array[MeshInstance3D] = []
+	var props: Array = [_gun, _sword]
+	props.append_array(_grenades)
+	for held in props:
+		if held == null or not is_instance_valid(held) or not (held as Node3D).is_visible_in_tree():
+			continue
+		for node in (held as Node3D).find_children("*", "MeshInstance3D", true, false):
+			var mesh := node as MeshInstance3D
+			# Only the models themselves: not the stains drawn over them.
+			if mesh.mesh != null and mesh.mesh.resource_path.get_extension().to_lower() == "vox":
+				drawn.append(mesh)
+	return drawn
+
+
+## Goes to pieces as its unit dies, once whatever breaks it apart has taken
+## its voxels and its gear ([method TerrainDestruction.break_figure]): it stops
+## and hides, and goes when its unit does. Nothing of it is left standing.
+func break_apart() -> void:
 	dead = true
-	var map := get_parent().get_parent() if get_parent() != null else null
-	if map != null:
-		reparent(map, true)
-	add_to_group(CORPSES)
-	_tree.active = false
+	visible = false
+	set_process(false)
+	if _tree != null:
+		_tree.active = false
 	if _aim != null:
 		_aim.set(&"active", false)
-	if _ragdoll == null:
-		return
-	for node in _ragdoll.get_children():
-		var bone := node as PhysicalBone3D
-		if bone != null:
-			bone.collision_layer = FALLEN_LAYER
-			bone.collision_mask = FALLEN_MASK
-	_ragdoll.active = true
-	_ragdoll.physical_bones_start_simulation()
-	var fell_from := global_position.y
-	await get_tree().physics_frame
-	var away := global_position - from
-	away.y = 0.0
-	away = away.normalized() if away.length() > 0.01 else -global_basis.z
-	var knock := (away + Vector3.UP * (0.6 if blasted else 0.25)).normalized()
-	for node in _ragdoll.get_children():
-		var bone := node as PhysicalBone3D
-		if bone == null:
-			continue
-		var share: float = KNOCK_SHARES.get(bone.bone_name, 0.5)
-		bone.apply_central_impulse(knock * (BLAST_KNOCK if blasted else KNOCK) * share * bone.mass)
-	# A body blasted off the edge of the map falls for good: a timer that goes
-	# with it looks now and then, and takes it away once it is well below.
-	var lookout := Timer.new()
-	lookout.wait_time = 1.0
-	lookout.autostart = true
-	lookout.timeout.connect(_check_on_map.bind(fell_from))
-	add_child(lookout)
-
-
-## Throws this fallen body about with a [Blast] of [param force] from
-## [param origin], as a blast throws debris, if any of it lies within
-## [param box].
-func blast(origin: Vector3, box: AABB, force: float) -> void:
-	if not dead or _ragdoll == null:
-		return
-	for node in _ragdoll.get_children():
-		var bone := node as PhysicalBone3D
-		if bone == null or not box.has_point(bone.global_position):
-			continue
-		bone.apply_impulse(Blast.impulse_on(bone, origin, force), Blast.contact(bone, origin) - bone.global_position)
-
-
-## Takes the body away once it has fallen [constant FALL_LIMIT] cells below
-## [param fell_from], the height it went down at: blasted off the edge of the
-## map.
-func _check_on_map(fell_from: float) -> void:
-	var hips := _ragdoll.get_child(0) as Node3D
-	if hips != null and hips.global_position.y < fell_from - FALL_LIMIT:
-		queue_free()
 
 
 func _set_readiness(value: Readiness) -> void:

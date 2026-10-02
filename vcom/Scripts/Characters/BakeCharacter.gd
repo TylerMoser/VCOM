@@ -1,7 +1,7 @@
 ## Bakes a voxel character model into the rigged figure every unit wears: a
 ## [Skeleton3D] the model's voxels are skinned to, its animations, the tree
-## that plays them, a ragdoll for when it falls, and the sockets its gear hangs
-## from, all under a [CharacterModel]. Run from vcom/:
+## that plays them, and the sockets its gear hangs from, all under a
+## [CharacterModel]. Run from vcom/:
 ##
 ##   godot --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 ##   godot --headless --path . --script res://Scripts/Characters/BakeCharacter.gd -- <vox> <scene>
@@ -14,9 +14,11 @@
 ## animations ([code]<model>Animations.res[/code]), so changes made to those in
 ## the editor are lost: change the scripts instead.
 ##
-## A model needs a layout in [constant LAYOUTS]: where its joints are and which
-## voxels each bone takes (see [code]VoxelRig.gd[/code]). One drawn to the base
-## character's proportions can share its layout.
+## A model needs a layout in [constant VoxelRig.LAYOUTS]: where its joints are
+## and which voxels each bone takes (see [code]VoxelRig.gd[/code]). One drawn
+## to the base character's proportions can share its layout. The figure keeps
+## the model's path ([member CharacterModel.voxel_model]), to read its voxels by
+## while the game runs.
 ##
 ## A script error does not end a --script run: Godot sits idle after it, so
 ## give the run a timeout when scripting it.
@@ -32,9 +34,7 @@ const RIFLE_SCENE := "res://Scenes/Props/Rifle.tscn"
 const DEFAULT_VOX := "res://Characters/BaseCharacter.vox"
 const DEFAULT_SCENE := "res://Scenes/BaseCharacter.tscn"
 ## Model -> its layout.
-const LAYOUTS := {
-	"res://Characters/BaseCharacter.vox": VoxelRig.BASE_CHARACTER,
-}
+const LAYOUTS := VoxelRig.LAYOUTS
 
 ## Where gear is carried when it is not in hand, in rig voxels in the space of
 ## the bone each hangs from: the gun slung across the back, muzzle up over the
@@ -73,6 +73,7 @@ func _bake(vox_path: String, scene_path: String) -> int:
 	var root := Node3D.new()
 	root.name = vox_path.get_file().get_basename()
 	root.set_script(MODEL_SCRIPT)
+	root.set(&"voxel_model", vox_path)
 
 	var skeleton := rig.make_skeleton()
 	_add(root, skeleton, root)
@@ -91,9 +92,6 @@ func _bake(vox_path: String, scene_path: String) -> int:
 	aim.name = &"Aim"
 	aim.set_script(AIM_SCRIPT)
 	_add(skeleton, aim, root)
-
-	var ragdoll := rig.make_ragdoll(skeleton, VoxelRig.RAGDOLL_MASS)
-	_add(skeleton, ragdoll, root)
 
 	var animations := HumanoidAnimations.new(rig)
 	animations.read_rifle(load(RIFLE_SCENE))

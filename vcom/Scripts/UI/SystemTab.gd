@@ -1,6 +1,10 @@
 ## The pause menu's System tab: back to the game, the tile grid on or off,
-## save, load, or quit. Save and Load are shown but disabled until there is
-## anything to save.
+## blood on or off, save, load, or quit. Save and Load are shown but disabled
+## until there is anything to save.
+##
+## Blood can only be turned on or off between battles, on the world map: a
+## battle keeps the blood it began with ([member Blood.enabled]), so during
+## one its button is greyed out, with a note saying where it can be changed.
 class_name SystemTab
 extends VBoxContainer
 
@@ -13,8 +17,11 @@ const BG_COLOR := Color(0.14, 0.15, 0.2, 0.95)
 const HOVER_BG_COLOR := Color(0.18, 0.19, 0.25, 0.95)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
+const MUTED_COLOR := Color(0.55, 0.56, 0.62)
 
 var _grid_button: Button
+var _blood_button: Button
+var _blood_note: Label
 
 func _init() -> void:
 	name = "System"
@@ -27,6 +34,20 @@ func _init() -> void:
 	_grid_button.tooltip_text = "Lines along the edges of the ground's tiles in combat. G toggles them there too."
 	_grid_button.pressed.connect(_on_grid_pressed)
 	show_grid_state()
+
+	_blood_button = _add_button("")
+	_blood_button.tooltip_text = "Wounds, blood spray and pools in combat. Off, battles are fought clean. Only changes on the world map."
+	_blood_button.pressed.connect(_on_blood_pressed)
+	_blood_note = Label.new()
+	_blood_note.text = "Blood can only be changed on the world map."
+	_blood_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_blood_note.add_theme_font_size_override(&"font_size", 15)
+	_blood_note.add_theme_color_override(&"font_color", MUTED_COLOR)
+	add_child(_blood_note)
+	# Not whether a battle is on: the menu is made before Campaign is. It asks
+	# as it opens (show_blood_state()).
+	_label_blood()
+	_blood_note.visible = false
 
 	var save_button := _add_button("Save")
 	save_button.disabled = true
@@ -46,9 +67,30 @@ func show_grid_state() -> void:
 	_grid_button.text = "Tile Grid: %s" % ("On" if TileGrid.shown else "Off")
 
 
+## Labels the blood's button with whether there is blood, and greys it out,
+## with its note showing, while a battle is on. The menu calls it as it opens.
+func show_blood_state() -> void:
+	var locked := Campaign.in_mission
+	_label_blood()
+	_blood_button.disabled = locked
+	_blood_note.visible = locked
+
+
+func _label_blood() -> void:
+	_blood_button.text = "Blood: %s" % ("On" if Blood.enabled else "Off")
+
+
 func _on_grid_pressed() -> void:
 	TileGrid.toggle()
 	show_grid_state()
+
+
+func _on_blood_pressed() -> void:
+	# The button is greyed out in battle; this is only belt and braces.
+	if Campaign.in_mission:
+		return
+	Blood.enabled = not Blood.enabled
+	show_blood_state()
 
 
 func _on_exit_pressed() -> void:

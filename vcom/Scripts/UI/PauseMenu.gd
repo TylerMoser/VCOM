@@ -7,8 +7,9 @@
 ## or a village's menu, and only opens this menu once nothing is left to cancel.
 ##
 ## Its tabs are Campaign, Roster, Inventory and System, refilled from
-## [code]Campaign[/code] (and the System tab from [code]TileGrid[/code]) each
-## time it opens.
+## [code]Campaign[/code] (and the System tab from [code]TileGrid[/code] and
+## [code]Blood[/code], whose button is greyed out in battle) each time it
+## opens.
 extends TabbedMenu
 
 var _campaign: CampaignTab
@@ -47,3 +48,4 @@ func _refresh() -> void:
 	_roster.show_roster(Campaign.roster)
 	_inventory.show_inventory(Campaign.inventory)
 	_system.show_grid_state()
+	_system.show_blood_state()

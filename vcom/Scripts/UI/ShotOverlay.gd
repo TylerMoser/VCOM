@@ -252,14 +252,16 @@ func show_incoming(from: Vector3, to: Vector3) -> void:
 ## it stops, and returns once they have all got there, which is when the shot
 ## lands. A round that struck terrain leaves a mark where it hit. Pass it to
 ## [method Unit.shoot_at] to hold the shot's landing until then. The tracers
-## come out of the gun's muzzle where the outcome says where it was.
+## come out of the gun's muzzle where the outcome says where it was, and a
+## hit's goes in where it is seen to land on the target
+## ([method Ballistics.Path.drawn_to]), not at the eye it flies to.
 func show_rounds(outcome: Ballistics.Outcome) -> void:
 	_rounds = outcome.paths
 	_muzzle = outcome.muzzle
 	_round_time = 0.0
 	var flight := 0.0
 	for path in _rounds:
-		flight = maxf(flight, _start_of(path).distance_to(path.to) / ROUND_SPEED)
+		flight = maxf(flight, _start_of(path).distance_to(path.drawn_to()) / ROUND_SPEED)
 	_rounds_seconds = flight + TRACER_LENGTH / ROUND_SPEED
 	visible = true
 	set_process(true)
@@ -417,16 +419,17 @@ func _draw_caught(camera: Camera3D, at: Vector3, text: String, friendly: bool) -
 
 
 ## The tracer of the round that flew [param path]: a streak
-## [constant TRACER_LENGTH] long behind the round, which draws in to where the
-## round stopped once it gets there.
+## [constant TRACER_LENGTH] long behind the round, which draws in to where it
+## is drawn landing ([method Ballistics.Path.drawn_to]) once it gets there.
 func _draw_round(camera: Camera3D, path: Ballistics.Path) -> void:
 	var start := _start_of(path)
-	var length := start.distance_to(path.to)
+	var end := path.drawn_to()
+	var length := start.distance_to(end)
 	var travelled := _round_time * ROUND_SPEED
 	if is_zero_approx(length) or travelled >= length + TRACER_LENGTH:
 		return
-	var head := start.lerp(path.to, minf(travelled, length) / length)
-	var tail := start.lerp(path.to, clampf(travelled - TRACER_LENGTH, 0.0, length) / length)
+	var head := start.lerp(end, minf(travelled, length) / length)
+	var tail := start.lerp(end, clampf(travelled - TRACER_LENGTH, 0.0, length) / length)
 	if camera.is_position_behind(head) or camera.is_position_behind(tail):
 		return
 	var from := camera.unproject_position(tail)

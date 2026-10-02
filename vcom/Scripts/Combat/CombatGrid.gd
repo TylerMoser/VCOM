@@ -67,6 +67,9 @@ class RayHit:
 	var direction: Vector3
 	## How far the ray travelled to get there.
 	var distance: float
+	## For a ray traced voxel by voxel, the voxel it met, by its place in its
+	## block's array ([VoxelShape]); -1 for a whole cell.
+	var index := -1
 
 
 ## Result of [method find_reachable]: every reachable tile, how many steps it
@@ -260,8 +263,11 @@ func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Va
 ## voxel by voxel, and only stops the ray where the ray meets one of its
 ## voxels: one that crosses its cell beside them, or through a hole worn in it,
 ## goes on. Only a round's flight is traced so ([Ballistics]). To sight, cover
-## and a throw's arc a block is its whole cell, however worn.
-func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel := false) -> Variant:
+## and a throw's arc a block is its whole cell, however worn. With
+## [param every_block] as well, every block drawn from a .vox is traced so, a
+## crate's slats and gaps included: only for blood ([Blood]), which stains the
+## voxel it meets and touches no rule.
+func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel := false, every_block := false) -> Variant:
 	# Work in cell units, where cell c spans [c, c + 1) on each axis.
 	var from := _grid.to_local(origin) / _grid.cell_size
 	var dir := (_grid.global_basis.inverse() * direction) / _grid.cell_size
@@ -285,7 +291,8 @@ func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel :
 	var t := 0.0
 	while t <= max_distance:
 		if is_solid(cell):
-			if not (by_voxel and voxels != null and voxels.wears_away(cell)):
+			var traced := by_voxel and voxels != null and (voxels.kind_of(cell) != null if every_block else voxels.wears_away(cell))
+			if not traced:
 				var face := Vector3i.ZERO
 				if entered_axis >= 0:
 					face[entered_axis] = -step[entered_axis]

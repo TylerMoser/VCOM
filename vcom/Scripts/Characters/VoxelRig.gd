@@ -96,31 +96,12 @@ const BASE_CHARACTER := {
 	],
 }
 
-## The bones that get a body of their own when the character goes limp, as
-## [code][bone, carried, twist axis, swing, twist, share][/code]: the bones
-## riding along with it whose voxels its box takes in too, the way along the
-## limb its joint twists about (in the bone's own space at rest), how far the
-## joint swings off that axis and twists about it, in degrees, and its share of
-## the weight. The first has no joint: it is what the rest hang from. Hands,
-## feet and the head ride on the bones above them, which keeps the chain short
-## enough for the solver to hold together.
-const RAGDOLL := [
-	[&"Hips", [], Vector3.UP, 0.0, 0.0, 0.16],
-	[&"Spine", [], Vector3.UP, 20.0, 15.0, 0.12],
-	[&"Chest", [], Vector3.UP, 20.0, 15.0, 0.14],
-	[&"Neck", [&"Head"], Vector3.UP, 35.0, 30.0, 0.18],
-	[&"LeftUpperArm", [], Vector3.RIGHT, 75.0, 30.0, 0.05],
-	[&"LeftLowerArm", [&"LeftHand"], Vector3.RIGHT, 70.0, 20.0, 0.04],
-	[&"RightUpperArm", [], Vector3.LEFT, 75.0, 30.0, 0.05],
-	[&"RightLowerArm", [&"RightHand"], Vector3.LEFT, 70.0, 20.0, 0.04],
-	[&"LeftUpperLeg", [], Vector3.DOWN, 55.0, 20.0, 0.055],
-	[&"LeftLowerLeg", [&"LeftFoot"], Vector3.DOWN, 65.0, 10.0, 0.045],
-	[&"RightUpperLeg", [], Vector3.DOWN, 55.0, 20.0, 0.055],
-	[&"RightLowerLeg", [&"RightFoot"], Vector3.DOWN, 65.0, 10.0, 0.045],
-]
-
-## What a fallen body weighs, in kilograms, shared out by [constant RAGDOLL].
-const RAGDOLL_MASS := 40.0
+## The layout of every model that has one, by the model's path: what
+## [code]BakeCharacter.gd[/code] bakes it with, and what a figure reads its
+## voxels by while the game runs ([FigureVoxels]).
+const LAYOUTS := {
+	"res://Characters/BaseCharacter.vox": BASE_CHARACTER,
+}
 
 ## The six faces of a cell, as the way each looks out.
 const FACES: Array[Vector3i] = [
@@ -171,6 +152,12 @@ func load_vox(vox_path: String, rig_layout: Dictionary) -> bool:
 ## Where [param bone]'s joint is, in Godot units in the model's space.
 func joint(bone: StringName) -> Vector3:
 	return joints[bone] * scale
+
+
+## Where the least corner of the rig cell [param cell] is, in Godot units in
+## the model's space: where its voxel is drawn from.
+func voxel_corner(cell: Vector3i) -> Vector3:
+	return (Vector3(cell) + _corner) * scale
 
 
 ## A [Skeleton3D] with every bone of [constant BONES], each resting unrotated
@@ -251,48 +238,6 @@ func bone_box(bone: StringName) -> AABB:
 ## How many voxels move with [param bone].
 func voxel_count(bone: StringName) -> int:
 	return cells.get(bone, {}).size()
-
-
-## A [PhysicalBoneSimulator3D] for [param skeleton] with a [PhysicalBone3D] for
-## each bone of [constant RAGDOLL], a box over its voxels and those of the bones
-## it carries, weighing its share of [param mass] kilograms. It is left
-## inactive, and the bodies on no physics layer, until the character falls.
-func make_ragdoll(skeleton: Skeleton3D, mass: float) -> PhysicalBoneSimulator3D:
-	var simulator := PhysicalBoneSimulator3D.new()
-	simulator.name = &"Ragdoll"
-	simulator.active = false
-	for entry: Array in RAGDOLL:
-		var bone: StringName = entry[0]
-		var box := bone_box(bone)
-		for carried: StringName in entry[1]:
-			var offset := joint(carried) - joint(bone)
-			var carried_box := bone_box(carried)
-			carried_box.position += offset
-			box = box.merge(carried_box)
-		var body := PhysicalBone3D.new()
-		body.name = "Physical Bone " + bone
-		body.bone_name = bone
-		body.mass = mass * entry[5]
-		body.collision_layer = 0
-		body.collision_mask = 0
-		body.body_offset = Transform3D(Basis.IDENTITY, box.get_center())
-		var shape := CollisionShape3D.new()
-		shape.name = &"Box"
-		var cube := BoxShape3D.new()
-		cube.size = box.size
-		shape.shape = cube
-		body.add_child(shape)
-		if entry[3] > 0.0:
-			# A cone twist joint turns about its own x axis: point that along
-			# the limb, from the joint, which is at the bone's origin.
-			body.joint_type = PhysicalBone3D.JOINT_TYPE_CONE
-			var along: Vector3 = entry[2]
-			var turn := Basis(Quaternion(Vector3.RIGHT, along))
-			body.joint_offset = Transform3D(turn, -box.get_center())
-			body.set(&"joint_constraints/swing_span", entry[3])
-			body.set(&"joint_constraints/twist_span", entry[4])
-		simulator.add_child(body)
-	return simulator
 
 
 ## Gives every voxel to its bone, and works out where the rig's cells sit.

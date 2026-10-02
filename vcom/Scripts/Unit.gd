@@ -11,9 +11,12 @@
 ##
 ## It is seen as its [member model], a rigged figure that plays out what it
 ## does: it turns and runs as the unit walks, raises its gun to shoot, swings
-## and throws, flinches, and falls when it dies. The rules never wait on it,
+## and throws, flinches, and breaks apart when it dies
+## ([method TerrainDestruction.break_figure]). The rules never wait on it,
 ## but where a moment matters: a shot goes off once the gun is up, a blow lands
 ## when the swing does, and a grenade leaves the hand at the top of the throw.
+## A hit that takes health is announced ([signal hurt]) with where it landed on
+## the figure, for [Blood] to wound it there; that too is only for show.
 class_name Unit
 extends Node3D
 
@@ -28,6 +31,11 @@ signal died
 ## throwing it, once it is gone from [member equipment]. Whoever keeps the
 ## character's gear should take it off them too.
 signal used_up(item: Item)
+## Emitted as a hit takes [param taken] health off the unit, more than none,
+## before it can die of it: for [Blood] to wound its figure and spray. Where the
+## hit came from, where on the body it landed and the way a slash swept across
+## it are as [method take_damage] was given them.
+signal hurt(taken: int, from: Vector3, at: Vector3, blasted: bool, sweep: Vector3)
 
 ## Physics layer holding the bodies that mouse clicks on units are tested
 ## against. Nothing collides with it, so it never affects movement.
@@ -49,6 +57,8 @@ const FALL_ACCELERATION := 9.8
 const PICK_RADIUS := 0.3
 ## The gun a unit without a character carries when the scene gives it none.
 const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
+## How high off its feet a unit's blow comes from, in cells: about its chest.
+const STRIKE_HEIGHT := 1.1
 
 ## Replaced by [member character]'s name when the unit has one.
 @export var display_name := "Unit"
@@ -136,8 +146,7 @@ var melee_weapon: Weapon
 var grenade: Grenade
 
 ## The figure the unit is seen as, its Model child. Null in a scene that gives
-## it none, and once the unit has died: its body is a ragdoll on the map then,
-## and no longer the unit's.
+## it none, and once the unit has died: it has broken apart then.
 var model: CharacterModel
 
 ## The tween walking the unit or dropping it. Null, or finished, while it
@@ -145,10 +154,15 @@ var model: CharacterModel
 var _motion: Tween
 ## The body debris bumps off. Null for a unit with no Model to shape it by.
 var _body: AnimatableBody3D
-## Where the last hit came from, and whether it was a blast: how the unit's
-## body is seen to fall if that hit kills it. Unknown (infinite) until hit.
-var _hit_from := Vector3.INF
-var _hit_blasted := false
+## The last hit, as [method take_damage] was given it: where it came from
+## (unknown, infinite, until the unit is first hit), whether it was a blast,
+## where on the body it landed (infinite if no one chose) and the way a blade
+## swept across it. Only for show: if it kills the unit, its figure breaks
+## apart the way it went ([method TerrainDestruction.break_figure]).
+var hit_from := Vector3.INF
+var hit_blasted := false
+var hit_at := Vector3.INF
+var hit_sweep := Vector3.ZERO
 
 ## Placeholder identity colour, taken from the Model child's material.
 var color: Color:
@@ -217,12 +231,19 @@ func spend_reaction() -> bool:
 ## here, so defense counts against all of them.
 ##
 ## [param from] is where the hit came from, in the world, and [param blasted]
-## says it was a blast. They change only how the unit is seen to take it: its
-## body flinches away from the hit, or falls away from it.
-func take_damage(amount: int, from := Vector3.INF, blasted := false) -> int:
+## says it was a blast. [param at] is where on the body it landed, if the one
+## dealing it chose ([method CharacterModel.pick_wound]), and [param sweep] the
+## way a slash was moving across the body as it landed. They change only how
+## the unit is seen to take it: its body flinches away from the hit, or breaks
+## apart the way it went, and bleeds where it was hit ([signal hurt]).
+func take_damage(amount: int, from := Vector3.INF, blasted := false, at := Vector3.INF, sweep := Vector3.ZERO) -> int:
 	var taken := damage_from(amount)
-	_hit_from = from
-	_hit_blasted = blasted
+	hit_from = from
+	hit_blasted = blasted
+	hit_at = at
+	hit_sweep = sweep
+	if taken > 0:
+		hurt.emit(taken, from, at, blasted, sweep)
 	health -= taken
 	if health <= 0:
 		die()
@@ -254,7 +275,10 @@ func damage_from(amount: int) -> int:
 ##
 ## It is fired once the unit's figure has turned to the target and raised its
 ## gun, which it has already if the shot was lined up for it ([method aim_at]).
-## A miss is ducked.
+## A miss is ducked. A hit is seen to land somewhere on the side of the
+## target's figure facing the gun, chosen as it is fired
+## ([member Ballistics.Path.wound]): the tracer is drawn there, and the target
+## bleeds there.
 func shoot_at(
 	shot: LineOfSight.Shot, chance: int, grid: CombatGrid, show_rounds := Callable()
 ) -> Ballistics.Outcome:
@@ -264,17 +288,25 @@ func shoot_at(
 	var outcome := Ballistics.new(grid).fire(self, shot, hit)
 	if model != null:
 		outcome.muzzle = model.fire()
+	# A hit is seen to land on the body somewhere facing the gun, not always
+	# at the eye the round flies to; the tracer is drawn there.
+	var fired_from: Vector3 = outcome.muzzle if outcome.muzzle != null else outcome.paths[0].from
+	if outcome.hit and is_instance_valid(shot.target) and shot.target.model != null:
+		for path in outcome.paths:
+			var wound := shot.target.model.pick_wound(fired_from)
+			if wound.is_finite():
+				path.wound = wound
 	if show_rounds.is_valid():
 		await show_rounds.call(outcome)
 	if is_instance_valid(shot.target):
 		if outcome.hit:
-			outcome.damage = shot.target.take_damage(weapon.damage, global_position)
+			var wound: Variant = outcome.paths[0].wound
+			outcome.damage = shot.target.take_damage(weapon.damage, fired_from, false, wound if wound != null else Vector3.INF)
 		else:
 			shot.target.dodge()
 	for path in outcome.paths:
 		# Along the line its tracer was drawn, for the debris it tears through.
-		var muzzle: Vector3 = outcome.muzzle if outcome.muzzle != null else path.from
-		grid.fly(muzzle, path.to, weapon.environment_damage)
+		grid.fly(fired_from, path.drawn_to(), weapon.environment_damage)
 		if path.struck != null:
 			grid.strike(path.struck, weapon.environment_damage)
 	return outcome
@@ -299,7 +331,16 @@ func strike(target: Unit, chance: int) -> Variant:
 	if not HitChance.roll(chance):
 		target.dodge()
 		return null
-	return target.take_damage(melee_weapon.damage + strength, global_position)
+	# Where the blade lands, and the way it sweeps across the body, for the
+	# wound and its spray. Only for show.
+	var at := Vector3.INF
+	var sweep := Vector3.ZERO
+	var from := global_position + Vector3.UP * STRIKE_HEIGHT
+	if model != null:
+		sweep = model.swing()
+	if target.model != null:
+		at = target.model.pick_wound(from)
+	return target.take_damage(melee_weapon.damage + strength, from, false, at, sweep)
 
 
 ## Throws [member grenade] along [param throw] and returns what its blast did,
@@ -357,15 +398,16 @@ func use_up(item: Item) -> void:
 
 ## Removes the unit from play. It leaves its groups at once rather than when
 ## the node is freed, so nothing shoots at it or walks around it in the
-## meantime. Its body is left behind on the map, falling the way the hit
-## that killed it came from.
+## meantime. Its figure breaks apart as [signal died] goes out, the way the hit
+## that killed it went ([method TerrainDestruction.break_figure]), leaving
+## its lumps and its gear on the map; with nothing on the map to break it, it
+## just goes.
 func die() -> void:
 	died.emit()
 	for group in get_groups():
 		remove_from_group(group)
 	if model != null:
-		var from := _hit_from if _hit_from.is_finite() else global_position + model.global_basis.z
-		model.fall_dead(from, _hit_blasted)
+		model.break_apart()
 		model = null
 	queue_free()
 
