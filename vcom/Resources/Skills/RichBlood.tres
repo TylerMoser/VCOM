@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Skill" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_7yyg4"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_j3t6j"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="3_djuau"]
+
+[sub_resource type="Resource" id="Resource_4ch5d"]
+script = ExtResource("1_7yyg4")
+description = "Unlocks rare goods at markets when a character with this skill is in the party, but those items cost twice their usual price"
+
+[resource]
+script = ExtResource("3_djuau")
+display_name = "Rich Blood"
+flavor = "Shopkeepers see nobles coming, and are willing to sell them rare goods. Of course, they also expect top-dollar."
+levels = Array[ExtResource("1_7yyg4")]([SubResource("Resource_4ch5d")])

@@ -166,18 +166,18 @@ Both styles set `adjustment_enabled` true and assign `adjustment_color_correctio
 ## 7. Depth of field (11)
 
 - The values in the catalog were tuned for what was then the default zoom, with the camera 22 m from its pivot. The close view needed its own values (`camera_b`), because fixed distances only suit one zoom level.
-- **Those fixed values no longer fit the default view.** The camera now starts 15 m out, zooming between `near_distance` 8 and `far_distance` 22, so 22 is now the furthest zoom. The ratios below carry over.
+- **Those fixed values no longer fit the default view.** The camera now starts 15 m out, zooming between `near_distance` 6 and `far_distance` 22, so 22 is now the furthest zoom. The ratios below carry over.
 - For real use, `CameraRig.gd` should set the DOF distances from `_current_distance` every frame so the focus follows zoom. Starting ratios from the default view: near = 0.68·d (transition 0.23·d), far = 1.23·d (transition 0.45·d), amount 0.12. Then tune by eye so foreground units stay sharp at close zoom.
 - Put the `CameraAttributesPractical` on the rig's `Camera3D` (`attributes`) so the camera owns it. The harness put it on the WorldEnvironment.
 
 ## 8. Camera field of view (27)
 
 - `CameraRig/Camera3D`: `fov` 40 (currently 75).
-- Scale every distance by ×2.11 (tan 37.5° / tan 20°) to keep the framing. These are the current values, as of 2026-10-01:
+- Scale every distance by ×2.11 (tan 37.5° / tan 20°) to keep the framing. These are the current values, as of 2026-10-02:
 
   | Setting | Now | At FOV 40 |
   |---|---|---|
-  | CameraRig `near_distance` | 8 | 16.9 |
+  | CameraRig `near_distance` | 6 | 12.7 |
   | CameraRig `far_distance` | 22 | 46.4 |
   | CameraRig `min_frame_distance` (framing a reaction) | 16 | 33.7 |
   | CameraRig `max_frame_distance` | 28 | 59.0 |

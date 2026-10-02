@@ -131,7 +131,7 @@ current = true
 
 - In CombatMap and BoundaryMap the rig's pivot is (10, 1, −10) at yaw 45°. Its authored tilt is ignored at runtime, since the rig always looks down at `view_pitch`. The camera starts at zoom distance 15. In LineOfSightTest the pivot is (7.5, 1, −14.5) at yaw 0°, distance 16.
 - The `Camera3D` sets no `fov`, so it's at the default **75°**, and no `attributes` (no depth of field).
-- `vcom/Scripts/CameraRig.gd` exports, at their script defaults with no per-scene overrides: `near_distance = 8.0`, `far_distance = 22.0`, `view_pitch = 55.0`, `min_frame_distance = 16.0`, `max_frame_distance = 28.0`.
+- `vcom/Scripts/CameraRig.gd` exports, at their script defaults with no per-scene overrides: `near_distance = 6.0`, `far_distance = 22.0`, `view_pitch = 55.0`, `min_frame_distance = 16.0`, `max_frame_distance = 28.0`.
   - The 75-tile scenery ring is sized for exactly these values, so restoring them also restores that guarantee (CLAUDE.md, "Scenery around a combat map").
 - `CameraRig.gd` has no depth-of-field code. Style 11 suggests adding per-frame DOF distances there; remove that if it was added.
 

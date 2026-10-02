@@ -20,7 +20,7 @@ does it open the pause menu, and pressed again it closes it.
 
 | | |
 |---|---|
-| Pan the map | `WASD` / arrow keys, push the cursor to a screen edge, or drag with the middle mouse button |
+| Pan the map | `WASD`, push the cursor to a screen edge, or drag with the middle mouse button |
 | Zoom | Mouse wheel, toward the point under the cursor |
 | Send the party | Right-click anywhere on land. Right-click again on the way to send it somewhere else instead |
 | Go to a village | Right-click its icon. The party goes to the village itself, wherever on the icon was clicked |
@@ -58,7 +58,7 @@ all pause the game behind them, and all work the same way.
 
 | | |
 |---|---|
-| Pan the camera | `WASD` / arrow keys, or push the cursor to a screen edge |
+| Pan the camera | `WASD`, push the cursor to a screen edge, or drag with the middle mouse button: the ground under the cursor comes with it |
 | Turn the camera | Hold `Q` / `E` |
 | Zoom | Mouse wheel |
 | Select a squad member | `Tab` / `Shift+Tab`, left-click them, or click their card on the squad panel (bottom left) |
@@ -122,8 +122,13 @@ spend on anything open to them.
 The Minor Noble tree starts with **Money Grubbing**: +1 Gold for the party after a combat the
 character fights in, and taken again +1, +3, +5 and +5 more, +15 Gold in all. Only for a battle they
 were chosen for, and only if they are still standing at the end of it: one left on the roster finds
-nothing, and neither does one who falls. The rest of that tree is still placeholders, which do
-nothing.
+nothing, and neither does one who falls. Under it is **Ballistics Skill**: +10 Aim, taken once, on
+every shot the character takes, reactions included (not on a melee strike, which goes by Melee
+Accuracy). Then **Weapon Skill**: +10 Melee Accuracy, on every strike, and taken again +1 Strength as
+well, a point more damage on every strike that lands. Last is **Rich Blood**, which is to unlock
+rare goods at markets, at twice their usual price, while a character with it is in the party. It can
+be learned, for a skill point like any other, but does nothing yet: the markets have no rare goods
+to sell.
 
 ## Combat rules
 

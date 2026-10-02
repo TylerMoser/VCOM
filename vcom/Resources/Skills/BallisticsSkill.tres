@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Skill" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_wwxh2"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_wpgp0"]
+[ext_resource type="Script" path="res://Scripts/Skills/StatBonus.gd" id="3_137hl"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="4_u6rii"]
+
+[sub_resource type="Resource" id="Resource_mhqrf"]
+script = ExtResource("3_137hl")
+stat = "aim"
+amount = 10
+
+[sub_resource type="Resource" id="Resource_la0ll"]
+script = ExtResource("1_wwxh2")
+description = "+10 Aim"
+effects = Array[ExtResource("2_wpgp0")]([SubResource("Resource_mhqrf")])
+
+[resource]
+script = ExtResource("4_u6rii")
+display_name = "Ballistics Skill"
+flavor = "Noble birth affords the best education. Long years have been spent training with firearms."
+levels = Array[ExtResource("1_wwxh2")]([SubResource("Resource_la0ll")])

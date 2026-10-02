@@ -616,9 +616,8 @@ from 0 at the top left) and `requires`, the ids of nodes in the same tree that m
 before it can be (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
 they require: a column of nodes each requiring the one above is a path, two requiring one node a
 fork, one requiring two a join. A skill is kept apart from where it sits so one can sit in several
-trees (decided with the user): `Placeholder.tres` sits in seven of the eight nodes of the Human and
-Minor Noble trees. A node's `id` is what a character's progress keys on, and saves will, so never rename
-one once in play.
+trees (decided with the user), though no skill sits in two yet. A node's `id` is what a character's
+progress keys on, and saves will, so never rename one once in play.
 
 A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`), `SubSpecies`
 (`Resources/SubSpecies/`) and `CharacterClass`, each with its tree as a sub-resource in its `.tres`.
@@ -657,10 +656,17 @@ is the Human tree's first node, `ambition`, and `Hardiness.tres` (one level, so 
 effects, +1 `move_range` and +5 `evasion`) its third, `dexterity`, which requires that, and
 `Adaptability.tres` (one level, a `SkillPointGrant` of 5) its last, `adaptability`. That is the whole
 Human tree. The Minor Noble tree starts with `MoneyGrubbing.tres` (five levels, each a `CombatGold`:
-1, 1, 3, 5 and 5, 15 in all), `money_grubbing`; its other three nodes are still `Placeholder.tres`
-(one level, no effects).
-Hardiness and Dexterity took no code: a skill of a kind of effect that exists is its `.tres` and its
-node in the tree.
+1, 1, 3, 5 and 5, 15 in all), `money_grubbing`, then `BallisticsSkill.tres` (one level, +10 `aim`),
+`ballistics_skill`, which requires it, then `WeaponSkill.tres` (two levels, so one ring: +10
+`melee_accuracy`, then +1 `strength`, a level giving a different stat from the one before it),
+`weapon_skill`, and last `RichBlood.tres`, `rich_blood`: one level with its words and no effects,
+so it shows, and can be learned for a skill point, but does nothing. Its logic was left out at the
+user's request until there are more items: it is to unlock rare goods at markets, at twice their
+usual price, while a character with it is in the party, which will want a new question on
+`SkillEffect` for `Campaign.stock_of()` / `buy()` and the Market tab to ask, and a way to mark an item
+rare. Hardiness, Dexterity, Ballistics Skill and Weapon Skill took no code: a skill of a kind of
+effect that exists is its `.tres` and its node in the tree. With every node a real skill, the
+`Placeholder.tres` they started as is gone.
 
 **What a skill gives is its levels' effects, and a character has those of every level taken.** An
 effect is a `SkillEffect` resource in a level's `effects`, and a kind of effect is a subclass, as a
@@ -1691,16 +1697,18 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The only experience is for surviving a battle. The Human tree's four skills and Money Grubbing are
-  the only ones that do anything, and a stat bonus, gold after a combat and a grant of skill points
-  the only kinds of effect; every take costs one skill point, and nothing unlearns one. The Minor
-  Noble tree's other three nodes are one `Placeholder` skill, and there are no
+- The only experience is for surviving a battle. The Human tree's four skills and the Minor Noble
+  tree's first three are the only ones that do anything, and a stat bonus, gold after a combat and a
+  grant of skill points the only kinds of effect; every take costs one skill point, and nothing
+  unlearns one. Rich Blood, the Minor Noble tree's last, can be learned but does nothing: no market
+  has rare goods, no item is marked rare, and no price is doubled. There are no
   classes. Nothing shows where a stat's total comes from: the Details page gives the total alone. A
   level's words and its effects are written separately, so nothing keeps them agreeing. A pie's
   straight edges are not antialiased. A skill's tooltip lies over whatever is beside its node, the
   next tree's nodes among them, for as long as the keyboard is on the node. The Skills page does not
-  scroll: its trees have about 296 px of height, which four rows with one ringed row fit (270) but a
-  fifth row, or rings on three rows of four, run out of the panel's bottom. Grenades are the
+  scroll: its trees have about 296 px of height, which the two trees as they are fit (280: a row of
+  four rings, a row of one and two plain rows) but a fifth row, or rings on three rows of four, run
+  out of the panel's bottom. Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
 - Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies

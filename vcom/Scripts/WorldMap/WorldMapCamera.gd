@@ -1,10 +1,10 @@
 ## Camera for the world map, driven like the combat map's [CameraRig] where a
 ## flat map allows.
 ##
-##   Pan  - WASD / arrow keys, or push the mouse against a screen edge, as in
+##   Pan  - WASD, or push the mouse against a screen edge, as in
 ##          combat, or drag with the middle mouse button, which grabs the map
 ##          and slides it. That button's action is camera_free_look, named for
-##          when it turned the combat camera, which no longer uses it.
+##          when it turned the combat camera, which it now slides as well.
 ##   Zoom - mouse wheel, toward the point under the cursor.
 ##
 ## Zoomed all the way out the whole map fits on screen; all the way in, one

@@ -5,7 +5,9 @@
 ## the rig orbits the camera around that point, and the child's local Z is the
 ## zoom distance.
 ##
-##   Pan    - WASD / arrow keys, or push the mouse against a screen edge.
+##   Pan    - WASD, push the mouse against a screen edge, or drag
+##            with the middle mouse button, which takes hold of the ground
+##            under the cursor and slides it, as it does the world map.
 ##   Rotate - hold Q / E.
 ##   Zoom   - mouse wheel. The camera slides in and out along its line of
 ##            sight, looking down at [member view_pitch] at every zoom.
@@ -35,6 +37,10 @@ extends Node3D
 @export var edge_pan_margin := 16
 ## How far past the edge of the map the pivot may travel, in units.
 @export var pan_margin := 1.0
+## What a drag can take hold of: the terrain's physics layer. A drag begun
+## over anything else, or over nothing, slides the ground at the pivot's
+## height.
+@export_flags_3d_physics var drag_layers := 1
 
 @export_group("Rotate")
 ## Degrees per second while Q / E are held.
@@ -44,8 +50,8 @@ extends Node3D
 @export_group("Zoom")
 @export var zoom_smoothing := 10.0
 ## Fraction of the full zoom range covered by one wheel notch.
-@export var zoom_step := 0.1
-@export var near_distance := 8.0
+@export var zoom_step := 1.0 / 12.0
+@export var near_distance := 6.0
 @export var far_distance := 22.0
 ## Degrees below horizontal the camera looks down, at every zoom. Keep it
 ## well above half the camera's vertical FOV (37.5 at the default 75), or the
@@ -86,6 +92,12 @@ var _frame_distance := 0.0
 ## Where the camera was looking before [method frame], to go back to.
 var _unframed_pivot := Vector3.ZERO
 
+# Set while the middle mouse button drags the view: where the cursor was when
+# the drag last moved it, and how high the ground it took hold of is.
+var _dragging := false
+var _drag_mouse := Vector2.ZERO
+var _drag_height := 0.0
+
 var _mouse_seen := false
 var _pan_bounds := Rect2()
 
@@ -112,11 +124,32 @@ func _ready() -> void:
 	_current_pitch = view_pitch
 
 
+func _notification(what: int) -> void:
+	# The button let go behind the pause menu never reaches the rig.
+	if what == NOTIFICATION_PAUSED:
+		_dragging = false
+
+
+## A drag in progress follows the mouse from here, ahead of the HUD, which
+## would keep the motion over its panels to itself and stall the drag there.
+func _input(event: InputEvent) -> void:
+	if not _dragging:
+		return
+	if event.is_action_released(&"camera_free_look"):
+		_dragging = false
+	elif event is InputEventMouseMotion:
+		_drag_to((event as InputEventMouseMotion).position)
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(&"camera_zoom_in"):
 		_step_zoom(-1.0)
 	elif event.is_action_pressed(&"camera_zoom_out"):
 		_step_zoom(1.0)
+	elif event.is_action_pressed(&"camera_free_look") and event is InputEventMouseButton:
+		# Only a press nothing on the HUD took starts a drag. The action is named
+		# for when this button turned the camera.
+		_start_drag((event as InputEventMouseButton).position)
 	elif event is InputEventMouseMotion:
 		_mouse_seen = true
 
@@ -226,7 +259,8 @@ func _update_pan(delta: float) -> void:
 	var input := Input.get_vector(
 		&"camera_pan_left", &"camera_pan_right", &"camera_pan_forward", &"camera_pan_back"
 	)
-	if edge_pan_enabled and _mouse_seen:
+	# A drag can carry the cursor to an edge, which must not push back at it.
+	if edge_pan_enabled and _mouse_seen and not _dragging:
 		input += _edge_pan_input()
 	input = input.limit_length(1.0)
 
@@ -240,6 +274,54 @@ func _update_pan(delta: float) -> void:
 		_pivot = _clamp_to_bounds(_pivot + (right * input.x + forward * -input.y) * speed * delta)
 
 	_current_pivot = _current_pivot.lerp(_pivot, _weight(delta, pan_smoothing))
+
+
+## Takes hold of the ground under [param mouse]. The drag slides a level
+## plane at the height of whatever terrain is there, so a raised block taken
+## hold of stays under the cursor as surely as the floor does.
+func _start_drag(mouse: Vector2) -> void:
+	if _camera == null:
+		return
+	_dragging = true
+	_drag_mouse = mouse
+	_drag_height = _pivot.y
+	var from := _camera.project_ray_origin(mouse)
+	var to := from + _camera.project_ray_normal(mouse) * _camera.far
+	var query := PhysicsRayQueryParameters3D.create(from, to, drag_layers)
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if not hit.is_empty():
+		_drag_height = (hit.position as Vector3).y
+
+
+## Slides the view so the ground that was under the cursor is under it again
+## at [param mouse]. The smoothed pivot moves by as much at once: easing after
+## the cursor would let the ground slip out from under it.
+func _drag_to(mouse: Vector2) -> void:
+	# A release the rig never saw (the window lost focus) ends the drag here.
+	if not Input.is_action_pressed(&"camera_free_look"):
+		_dragging = false
+		return
+	var held: Variant = _ground_under(_drag_mouse)
+	var reached: Variant = _ground_under(mouse)
+	_drag_mouse = mouse
+	if held == null or reached == null:
+		return
+	# Moving the camera moves the point under the cursor by as much, so going
+	# from where the cursor reaches now to what it held puts that back under it.
+	var slide := _clamp_to_bounds(_pivot + (held as Vector3) - (reached as Vector3)) - _pivot
+	# Both points are on a level plane: any height between them is rounding.
+	slide.y = 0.0
+	_pivot += slide
+	_current_pivot += slide
+
+
+## Where the camera's ray through [param mouse] meets the level plane being
+## dragged, or null if it never does: the plane is level with the camera or
+## above it.
+func _ground_under(mouse: Vector2) -> Variant:
+	return Plane(Vector3.UP, _drag_height).intersects_ray(
+		_camera.project_ray_origin(mouse), _camera.project_ray_normal(mouse)
+	)
 
 
 func _edge_pan_input() -> Vector2:

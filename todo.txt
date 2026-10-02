@@ -1,8 +1,5 @@
 README images, gameplay gifs
 
---TODO CAMPAIGN:
-Skill Trees: Species, Classes
-
 --TODO TACTICAL:
 Height/layers to terrain (Buildings with interiors)
 More terrain types: Ladders, fences, stairs, water, difficult ground, impassible tiles, etc.
@@ -41,3 +38,5 @@ Shields
 Triangle optimization everywhere: Hollow tree-tops for extending out to horizon, no internal triangles until broken, reduce unnecessary triangles until broken on voxel models
 Action cam
 Blood splatter staining mechanism: Actually re-color voxels red when hit by blood. Currently, the generated code only applies a red overlay 2mm from the voxel to "re-color" it. I had originally wanted to re-color whole voxels at the voxel level, but this would require re-meshing blocks at runtime. Rebuilding a block takes 1.5 to 3 milliseconds, so Claude did not want to do this because stains would require constantly rebuilding blocks. Maybe do this in C++? It might be worth re-working the "dense voxel" logic, replacing the gridmap layout with individual voxels, in C++ for efficiency. Or just take the performance hit? 
+Noble: Rich Blood skill (new tier of market goods)
+Classes/Skills
