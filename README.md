@@ -42,7 +42,8 @@ all pause the game behind them, and all work the same way.
 |---|---|
 | Change tab | Click it, or `←` / `→` while its row of tabs has the keyboard |
 | Move between rows | `↓` / `↑`: from the tabs to any sub-tabs under them, to what is selected under those, and back |
-| Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them |
+| Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them. On the Skills page, `↑` / `↓` follow a skill tree and `←` / `→` cross to the trees beside it |
+| See what a skill is | Hover over it on the Roster's Skills page |
 | Press a button | Click it, or `Enter` / `Space` |
 | Buy, sell, hire, or start a battle | Hold the button for 2 seconds, with the mouse or `Enter` / `Space`. One per press: let go and hold again for the next |
 | Equip | On the Roster's Equipment page, pick a slot, then double-click an item under it, press `Enter` / `Space` on one, or press **Equip**. **Unequip** puts back what the slot holds |
@@ -99,7 +100,9 @@ lost: **Game Over** comes up on the world map and the game closes.
 Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
 gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience
 becomes a skill point (the rest carries over), shown on the Roster's Skills tab as "Skills (1)";
-nothing spends them yet.
+nothing spends them yet. That tab lays out a skill tree for each of the character's Species,
+Sub-Species, Main Class and Multi-Class, headed by its name. Everyone is a Human Minor Noble for now,
+whose two trees are still placeholders, and nobody has a class yet.
 
 ## Combat rules
 

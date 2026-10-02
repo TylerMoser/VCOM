@@ -140,9 +140,18 @@ vcom/Scripts/
     HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
     PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
   Roster/
-    Character.gd       Resource: display_name, color, portrait, stats, wounds / health, total_defense, experience,
-                       skill_points, gain_experience(), equipment slots, hire_cost
+    Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class,
+                       stats, wounds / health, total_defense, experience, skill_points, gain_experience(),
+                       equipment slots, hire_cost
     Roster.gd          characters in display order
+    Species.gd         SkillSource: what someone is born (Human)
+    SubSpecies.gd      SkillSource: a kind of one Species (Minor Noble), its species
+    CharacterClass.gd  SkillSource: what someone trained as; one tree, as Main Class or Multi-Class
+  Skills/
+    Skill.gd           Resource: one ability, display_name, description, icon; shared by every tree placing it
+    SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree)
+    SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned)
+    SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
   Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
                        Strike (melee, at an adjacent enemy), ThrowGrenade (at a tile in reach; uses the grenade up)
   UI/                  every HUD widget, built in code
@@ -165,9 +174,12 @@ vcom/Scripts/
                        bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
     SlotButton.gd      a slot's name and what is in it
-    SkillsPage.gd      skill trees in columns 1:1:3:3: Species, Sub-Species (4-node paths), Main / Multi-Class (empty);
-                       titles its sub-tab "Skills (N)" with the character's skill points
-    SkillNode.gd       a node styled locked / available / learned; selection ring
+    SkillsPage.gd      a column per tree (COLUMNS: Species, Sub-Species, Main Class, Multi-Class; widths 1:1:3:3),
+                       headed by the character's SkillSource or the plain title, rebuilt per character; arrow
+                       keys to the nearest node; titles its sub-tab "Skills (N)" with the character's skill points
+    SkillTreeView.gd   one SkillTree: a SkillButton on each node's cell, elbow links to the nodes each requires
+    SkillButton.gd     a node styled locked / available / learned; its skill's icon or its rank; name and
+                       description on hover; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -568,13 +580,46 @@ is never left showing someone else; a page with content overrides `_refresh()`, 
 the open page; opening the menu goes back to Details. A page that can change the character hides
 the means when `read_only` is set, as it is for characters not on the roster.
 
-The Skills page titles its own sub-tab in `_refresh()`, "Skills (2)" from `Character.skill_points`, so
-the count follows the selection; nothing spends the points yet. The trees are placeholder UI with no
-data behind them: `SkillsPage.SECTIONS` sets each column's
-title, width share and node count, and every character shows the same `PLACEHOLDER_STATES` (first
-node available, the rest locked). Selecting a node only highlights it, and changing character
-clears the selection. Skills, trees and a character's progress through them are still to be
-designed as resources.
+**Skill trees are data, and any shape.** A `Skill` (`Resources/Skills/`) is a stateless `.tres` like
+an `Item`: a name, a description and an icon, and it does nothing yet. A `SkillTree` places skills as
+`SkillTreeNode`s, each with an `id` unique in its tree, a `cell` on the tree's grid (column, row,
+from 0 at the top left) and `requires`, the ids of nodes in the same tree that must all be learned
+before it (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
+they require: a column of nodes each requiring the one above is a path, two requiring one node a
+fork, one requiring two a join. A skill is kept apart from where it sits so one can sit in several
+trees (decided with the user): `Placeholder.tres` sits in all eight nodes of the Human and Minor
+Noble trees. A node's `id` is what a character's progress, and saves, will key on, so never rename
+one once in play.
+
+A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`), `SubSpecies`
+(`Resources/SubSpecies/`) and `CharacterClass`, each with its tree as a sub-resource in its `.tres`.
+A sub-species is a kind of exactly one species (`SubSpecies.species`; decided with the user); a class
+has one tree, shown the same whether it is the Main Class or the Multi-Class (also decided). A
+`Character` holds one of each, `species`, `sub_species`, `main_class` and `multi_class`, any of them
+unset. Every character is a Human Minor Noble, and no class exists yet. Nothing checks that a
+character's sub-species is one of their species' kinds: keep them agreeing.
+
+The Skills page is built from `SkillsPage.COLUMNS`, a row per tree: the title it falls back to, the
+`Character` property holding the source, and its share of the width. It is rebuilt for every
+character, a column headed by its source's `display_name` ("Human"), or by its plain title
+("Species") with no tree under it while the character has none. A new kind of tree is a
+`SkillSource` subclass, a `Character` property and a row there. Each tree is a `SkillTreeView`,
+which places its `SkillButton`s itself by their cells (`GAP` apart) rather than in containers, and
+draws every link as an elbow: down from the node required, across just above the row of the node
+requiring it, and down into it, so a path is a straight line; lit once the node required is learned.
+A link to a node on the same row or higher, which a tree should not need, is a straight line between
+them. It warns of two nodes with one id, and of a requirement the tree lacks; nothing stops two
+nodes sharing a cell. A button shows its skill's icon, dimmed while locked, or its rank (its row,
+from 1), and the skill's name and description on hover. The arrow keys are pointed from a button as
+it takes focus, once the trees are laid out, at the nearest button that way (`_nearest()`): up and
+down within its own tree, left and right on across the trees; with none that way it stays put,
+except up, left to Godot to take back to the sub-tabs.
+
+Nothing is learned yet: the page hands each tree an empty list of learned ids, so every node that
+requires none is open (available) and the rest are locked. The page titles its own sub-tab in
+`_refresh()`, "Skills (2)" from `Character.skill_points`, so the count follows the selection; nothing
+spends the points yet. Selecting a node only highlights it, and changing character clears the
+selection (a new `ButtonGroup`).
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -1485,7 +1530,9 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- Nothing spends skill points, and the only experience is for surviving a battle. Grenades are the
+- Nothing spends skill points, and the only experience is for surviving a battle. Nothing is learned
+  and no skill does anything; the Human and Minor Noble trees are four placeholder nodes each, all one
+  `Placeholder` skill, and there are no classes. Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
 - Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies

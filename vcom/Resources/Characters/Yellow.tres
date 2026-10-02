@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://cigk7ncdnmhvo" path="res://Scripts/Roster/Character.gd" id="1_c6los"]
 [ext_resource type="Resource" uid="uid://d2l5k82w4sccd" path="res://Resources/Rifle.tres" id="2_vro0u"]
+[ext_resource type="Resource" path="res://Resources/Species/Human.tres" id="human"]
+[ext_resource type="Resource" path="res://Resources/SubSpecies/MinorNoble.tres" id="minor_noble"]
 
 [resource]
 script = ExtResource("1_c6los")
 display_name = "Yellow"
 color = Color(0.95, 0.8, 0.15, 1)
+species = ExtResource("human")
+sub_species = ExtResource("minor_noble")
 weapon_1 = ExtResource("2_vro0u")

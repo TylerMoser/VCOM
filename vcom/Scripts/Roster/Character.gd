@@ -29,6 +29,17 @@ static var slots := [
 @export var color := Color.WHITE
 @export var portrait: Texture2D
 
+@export_group("Species and Classes")
+## Each gives the character a skill tree, a column of their Skills page headed
+## by its name. While one is unset, its column keeps its plain title
+## ("Species", "Main Class") and shows no tree.
+@export var species: Species
+## One of [member species]'s kinds: see [member SubSpecies.species].
+@export var sub_species: SubSpecies
+@export var main_class: CharacterClass
+## A second class, its tree the same as it would be as a Main Class.
+@export var multi_class: CharacterClass
+
 @export_group("Stats")
 ## The unit's [member Unit.max_health]: what it can take before it falls.
 @export var max_health := 10

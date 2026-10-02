@@ -1,9 +1,13 @@
 [gd_resource type="Resource" script_class="Character" format=3]
 
 [ext_resource type="Script" path="res://Scripts/Roster/Character.gd" id="1_character"]
+[ext_resource type="Resource" path="res://Resources/Species/Human.tres" id="human"]
+[ext_resource type="Resource" path="res://Resources/SubSpecies/MinorNoble.tres" id="minor_noble"]
 
 [resource]
 script = ExtResource("1_character")
 display_name = "White"
 color = Color(1, 1, 1, 1)
+species = ExtResource("human")
+sub_species = ExtResource("minor_noble")
 hire_cost = 20

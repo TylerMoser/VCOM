@@ -1,62 +1,63 @@
-## The Roster's Skills page: the character's skill trees, one column each,
-## Species and Sub-Species narrow and the two class trees three times as wide.
+## The Roster's Skills page: a column for each of the character's skill trees,
+## the trees of their Species, Sub-Species, Main Class and Multi-Class, each
+## headed by its name ("Human"), or by its plain title ("Species") and empty
+## while the character has none. The species' columns are narrow and the
+## classes' three times as wide.
 ##
 ## Its sub-tab is titled with the character's unspent skill points, as
 ## "Skills (2)".
 ##
-## Placeholder so far: the Species trees are a single path of numbered
-## [SkillNode]s, top to bottom, in the same fixed states for everyone, and the
-## class trees are still empty. Skills, and a character's progress through
-## them, come as data later.
+## Rebuilt for each character, since their trees may be shaped nothing like
+## the last one's: each is drawn from its [SkillTree] by a [SkillTreeView].
+## Nothing can be learned yet, so every node that requires none is open and
+## the rest are locked.
 class_name SkillsPage
 extends CharacterPage
 
-## Each column: its title, its share of the width, and how many nodes its
-## path has (none yet for the class trees).
 const TITLE := "Skills"
-const SECTIONS := [
-	["Species", 1, 4],
-	["Sub-Species", 1, 4],
-	["Main Class", 3, 0],
-	["Multi-Class", 3, 0],
-]
-## Where every character stands on a path until there is real progress.
-const PLACEHOLDER_STATES := [
-	SkillNode.State.AVAILABLE,
-	SkillNode.State.LOCKED,
-	SkillNode.State.LOCKED,
-	SkillNode.State.LOCKED,
+## Each column: the title it falls back to, the [Character] property holding
+## the [SkillSource] whose tree it shows, and its share of the width. A new
+## kind of tree is a row here.
+const COLUMNS := [
+	["Species", &"species", 1],
+	["Sub-Species", &"sub_species", 1],
+	["Main Class", &"main_class", 3],
+	["Multi-Class", &"multi_class", 3],
 ]
 
-const LINK_SIZE := Vector2(2, 18)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TITLE_COLOR := Color(0.7, 0.72, 0.78)
-const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
 
-var _group := ButtonGroup.new()
-## Every tree's nodes, a column at a time, top to bottom.
-var _paths: Array[Array] = []
+var _columns: HBoxContainer
+var _group: ButtonGroup
+## The trees shown, left to right; a column with no tree has none here.
+var _trees: Array[SkillTreeView] = []
 
 
 func _init() -> void:
 	super(TITLE)
-	var columns := HBoxContainer.new()
-	columns.set_anchors_preset(PRESET_FULL_RECT)
-	columns.add_theme_constant_override(&"separation", 0)
-	add_child(columns)
-	for i in SECTIONS.size():
-		if i > 0:
-			columns.add_child(_divider())
-		columns.add_child(_section(SECTIONS[i][0], SECTIONS[i][1], SECTIONS[i][2]))
-	_link_across()
+	_columns = HBoxContainer.new()
+	_columns.set_anchors_preset(PRESET_FULL_RECT)
+	_columns.add_theme_constant_override(&"separation", 0)
+	add_child(_columns)
+	_refresh()
 
 
-## Clears the selection, which was on the last character's tree, and puts the
-## new character's skill points in the sub-tab's title.
+## Builds the character's columns afresh, with a new group, which drops the
+## selection on the last character's tree, and puts their skill points in the
+## sub-tab's title.
 func _refresh() -> void:
-	var selected := _group.get_pressed_button()
-	if selected != null:
-		selected.button_pressed = false
+	for column in _columns.get_children():
+		_columns.remove_child(column)
+		column.queue_free()
+	_trees.clear()
+	_group = ButtonGroup.new()
+	for i in COLUMNS.size():
+		if i > 0:
+			_columns.add_child(_divider())
+		var source: SkillSource = character.get(COLUMNS[i][1]) if character != null else null
+		_columns.add_child(_column(COLUMNS[i][0], source, COLUMNS[i][2]))
+
 	var tabs := get_parent() as TabContainer
 	if tabs != null:
 		var title := TITLE if character == null else "%s (%d)" % [TITLE, character.skill_points]
@@ -65,68 +66,75 @@ func _refresh() -> void:
 
 func focus_selection() -> bool:
 	var target := _group.get_pressed_button()
-	if target == null and not _paths.is_empty():
-		target = _paths[0][0]
+	if target == null and not _trees.is_empty():
+		target = _trees[0].first()
 	if target == null:
 		return false
 	target.grab_focus()
 	return true
 
 
-## A column: its title at the top and, under it, its path of nodes joined by
-## links, centred.
-func _section(title: String, share: int, nodes: int) -> VBoxContainer:
-	var section := VBoxContainer.new()
-	section.size_flags_horizontal = SIZE_EXPAND_FILL
-	section.size_flags_stretch_ratio = share
-	section.add_theme_constant_override(&"separation", 16)
+## A column: its heading at the top and, under it, the tree of
+## [param source], centred. Just the heading, [param title], without one.
+func _column(title: String, source: SkillSource, share: int) -> VBoxContainer:
+	var column := VBoxContainer.new()
+	column.size_flags_horizontal = SIZE_EXPAND_FILL
+	column.size_flags_stretch_ratio = share
+	column.add_theme_constant_override(&"separation", 16)
 
 	var heading := Label.new()
-	heading.text = title
+	heading.text = source.display_name if source != null and not source.display_name.is_empty() else title
 	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	heading.add_theme_font_size_override(&"font_size", 16)
 	heading.add_theme_color_override(&"font_color", TITLE_COLOR)
-	section.add_child(heading)
+	column.add_child(heading)
 
-	if nodes == 0:
-		return section
-	var path := VBoxContainer.new()
-	path.add_theme_constant_override(&"separation", 0)
-	section.add_child(path)
-	var column: Array[SkillNode] = []
-	for n in nodes:
-		var state: SkillNode.State = PLACEHOLDER_STATES[n] if n < PLACEHOLDER_STATES.size() else SkillNode.State.LOCKED
-		if n > 0:
-			# Lit once the path has been walked past the node above it.
-			path.add_child(_link(column[n - 1].state == SkillNode.State.LEARNED))
-		var node := SkillNode.new(n + 1, state, _group)
-		path.add_child(node)
-		column.append(node)
-	# Down from the last node goes nowhere rather than off the page.
-	column[-1].focus_neighbor_bottom = column[-1].get_path_to(column[-1])
-	_paths.append(column)
-	return section
+	if source == null or source.tree == null or source.tree.nodes.is_empty():
+		return column
+	# Nothing is learned until skill points can be spent.
+	var learned: Array[StringName] = []
+	var view := SkillTreeView.new(source.tree, learned, _group)
+	view.size_flags_horizontal = SIZE_SHRINK_CENTER
+	for button: SkillButton in view.buttons.values():
+		button.focus_entered.connect(_aim_arrows.bind(button, view))
+	column.add_child(view)
+	_trees.append(view)
+	return column
 
 
-## Left and right move between the trees at the same depth, and stop at the
-## outer ones rather than wandering into an empty column or the tabs.
-func _link_across() -> void:
-	for i in _paths.size():
-		for n in _paths[i].size():
-			var node: SkillNode = _paths[i][n]
-			var left: SkillNode = _paths[i - 1][mini(n, _paths[i - 1].size() - 1)] if i > 0 else node
-			var right: SkillNode = _paths[i + 1][mini(n, _paths[i + 1].size() - 1)] if i + 1 < _paths.size() else node
-			node.focus_neighbor_left = node.get_path_to(left)
-			node.focus_neighbor_right = node.get_path_to(right)
+## Points the arrow keys from [param button], in [param view], at the nearest
+## node each way, now that it has the keyboard and the trees are laid out
+## however they are shaped: up and down within its own tree, left and right on
+## into the trees beside it. With none that way it stays put, but for up, which
+## is left to leave the trees for the sub-tabs.
+func _aim_arrows(button: SkillButton, view: SkillTreeView) -> void:
+	var everyone: Array = []
+	for tree in _trees:
+		everyone.append_array(tree.buttons.values())
+	var own := view.buttons.values()
+	var up := _nearest(button, Vector2.UP, own)
+	button.focus_neighbor_top = button.get_path_to(up) if up != null else NodePath()
+	for side in [[SIDE_BOTTOM, Vector2.DOWN, own], [SIDE_LEFT, Vector2.LEFT, everyone], [SIDE_RIGHT, Vector2.RIGHT, everyone]]:
+		var next := _nearest(button, side[1], side[2])
+		button.set_focus_neighbor(side[0], button.get_path_to(next if next != null else button))
 
 
-func _link(lit: bool) -> ColorRect:
-	var link := ColorRect.new()
-	link.color = ACCENT_COLOR if lit else BORDER_COLOR
-	link.custom_minimum_size = LINK_SIZE
-	link.size_flags_horizontal = SIZE_SHRINK_CENTER
-	link.mouse_filter = MOUSE_FILTER_IGNORE
-	return link
+## Of [param buttons], the nearest to [param from] in [param direction],
+## straight that way before off to one side; null with none that way at all.
+static func _nearest(from: SkillButton, direction: Vector2, buttons: Array) -> SkillButton:
+	var origin := from.get_global_rect().get_center()
+	var best: SkillButton = null
+	var best_score := INF
+	for button: SkillButton in buttons:
+		var offset := button.get_global_rect().get_center() - origin
+		var along := offset.dot(direction)
+		if button == from or along <= 0.0:
+			continue
+		var score := along + absf(offset.cross(direction)) * 2.0
+		if score < best_score:
+			best = button
+			best_score = score
+	return best
 
 
 func _divider() -> VSeparator:

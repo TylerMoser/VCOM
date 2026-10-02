@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="Species" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Roster/Species.gd" id="1_yya5g"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
+[ext_resource type="Resource" path="res://Resources/Skills/Placeholder.tres" id="3_4m634"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
+
+[sub_resource type="Resource" id="Resource_gp4wy"]
+script = ExtResource("2_cvdgw")
+id = &"placeholder_1"
+skill = ExtResource("3_4m634")
+
+[sub_resource type="Resource" id="Resource_dftb0"]
+script = ExtResource("2_cvdgw")
+id = &"placeholder_2"
+skill = ExtResource("3_4m634")
+cell = Vector2i(0, 1)
+requires = Array[StringName]([&"placeholder_1"])
+
+[sub_resource type="Resource" id="Resource_if3bl"]
+script = ExtResource("2_cvdgw")
+id = &"placeholder_3"
+skill = ExtResource("3_4m634")
+cell = Vector2i(0, 2)
+requires = Array[StringName]([&"placeholder_2"])
+
+[sub_resource type="Resource" id="Resource_gtanq"]
+script = ExtResource("2_cvdgw")
+id = &"placeholder_4"
+skill = ExtResource("3_4m634")
+cell = Vector2i(0, 3)
+requires = Array[StringName]([&"placeholder_3"])
+
+[sub_resource type="Resource" id="Resource_53kuh"]
+script = ExtResource("4_traf1")
+nodes = Array[ExtResource("2_cvdgw")]([SubResource("Resource_gp4wy"), SubResource("Resource_dftb0"), SubResource("Resource_if3bl"), SubResource("Resource_gtanq")])
+
+[resource]
+script = ExtResource("1_yya5g")
+display_name = "Human"
+tree = SubResource("Resource_53kuh")
