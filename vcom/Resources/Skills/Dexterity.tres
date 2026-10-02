@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="Skill" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_af3v2"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_e2giq"]
+[ext_resource type="Script" path="res://Scripts/Skills/StatBonus.gd" id="3_e4cy4"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="4_4mjxn"]
+
+[sub_resource type="Resource" id="Resource_42ni7"]
+script = ExtResource("3_e4cy4")
+stat = "move_range"
+
+[sub_resource type="Resource" id="Resource_4pgei"]
+script = ExtResource("3_e4cy4")
+stat = "evasion"
+amount = 5
+
+[sub_resource type="Resource" id="Resource_5i7mx"]
+script = ExtResource("1_af3v2")
+description = "+1 Move and +5 Evasion"
+effects = Array[ExtResource("2_e2giq")]([SubResource("Resource_42ni7"), SubResource("Resource_4pgei")])
+
+[resource]
+script = ExtResource("4_4mjxn")
+display_name = "Dexterity"
+flavor = "While there are many nimble species, through training humans can become surprisingly quick."
+levels = Array[ExtResource("1_af3v2")]([SubResource("Resource_5i7mx")])

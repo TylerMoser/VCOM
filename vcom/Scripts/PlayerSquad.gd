@@ -16,6 +16,9 @@ class_name PlayerSquad
 extends Node
 
 signal selection_changed(unit: Unit)
+## [param unit], still standing as the battle ended, found the party
+## [param gold] gold by its character's skills. Already paid.
+signal found_gold(unit: Unit, gold: int)
 
 ## Group whose units make up the squad, in scene-tree order.
 @export var unit_group := &"players"
@@ -137,12 +140,21 @@ func _spawn() -> void:
 
 
 ## Gives every member still standing [member survival_experience], on their
-## character. The [TurnManager] calls it as the battle is decided; after a
-## defeat there is nobody left to earn it.
+## character, and pays the party the gold each one's skills find after a
+## combat ([method Character.combat_gold]), saying so with
+## [signal found_gold]. The [TurnManager] calls it as the battle is decided;
+## after a defeat there is nobody left to earn either. Only the squad's
+## members are asked, so a character left on the roster finds nothing, and the
+## fallen have left the squad, so neither do they.
 func award_survivors() -> void:
 	for unit in members:
-		if unit.character != null:
-			unit.character.gain_experience(survival_experience)
+		if unit.character == null:
+			continue
+		unit.character.gain_experience(survival_experience)
+		var gold := unit.character.combat_gold()
+		if gold > 0:
+			Campaign.gold += gold
+			found_gold.emit(unit, gold)
 
 
 ## Writes what [param unit] has lost on its character, as soon as it is hit.

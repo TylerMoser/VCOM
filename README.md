@@ -99,7 +99,8 @@ party was, still on its way. If a defeat took the last character on the roster, 
 lost: **Game Over** comes up on the world map and the game closes.
 
 Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
-gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience
+gold, plus a gold for every coin still lying on the field (see Coins, below), plus whatever gold the
+survivors' skills find, called over each one's head as "+5 Gold". Every 100 experience
 becomes a skill point (the rest carries over), shown on the Roster's Skills tab as "Skills (1)".
 That tab lays out a skill tree for each of the character's Species, Sub-Species, Main Class and
 Multi-Class, headed by its name. A skill point learns any skill once every skill linked above it is
@@ -111,8 +112,18 @@ into the next battle.
 
 Everyone is a Human Minor Noble for now, and nobody has a class yet. The Human tree starts with
 **Ambition**: +1 HP, and taken again +1, +1, +2 and +5 more, +10 HP in all. It raises the most health
-the character can have, so one who is wounded stays as wounded as they were. The rest of the two
-trees are still placeholders, which do nothing.
+the character can have, so one who is wounded stays as wounded as they were. Under it is
+**Hardiness**: +1 Defense, taken once, which comes off every hit as armor's does and adds to it. Then
+**Dexterity**: +1 Move, a tile further for every action spent moving, and +5 Evasion, off the chance of
+every shot and strike at the character; taken once. Last is **Adaptability**: 5 skill points, there
+and then, once. It costs the one it takes to learn, so it leaves a character four better off, to
+spend on anything open to them.
+
+The Minor Noble tree starts with **Money Grubbing**: +1 Gold for the party after a combat the
+character fights in, and taken again +1, +3, +5 and +5 more, +15 Gold in all. Only for a battle they
+were chosen for, and only if they are still standing at the end of it: one left on the roster finds
+nothing, and neither does one who falls. The rest of that tree is still placeholders, which do
+nothing.
 
 ## Combat rules
 

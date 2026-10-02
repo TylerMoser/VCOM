@@ -24,10 +24,11 @@ vcom/Scripts/
                        hurt (every hit that takes health, where it landed and how: for Blood); hit_from,
                        hit_blasted, hit_at, hit_sweep (the last hit: the way the figure breaks apart if it kills)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
-                       writes wounds, used-up grenades and deaths back to the characters; award_survivors() (experience)
+                       writes wounds, used-up grenades and deaths back to the characters; award_survivors()
+                       (experience, and the gold their skills find -> found_gold)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST; a win's
-                       victory_gold and Coins.sweep()
+                       victory_gold and Coins.sweep(); calls the survivors' skill gold over their heads
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), learn()
@@ -144,7 +145,8 @@ vcom/Scripts/
     Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
                        (TREES), learned (node ids by SkillSource, one for each time taken), learned_of() /
                        times_learned() / can_learn() / learn(), skill_effects(), its own stats and total(stat)
-                       (with its skills' bonuses, and armor for defense), wounds / health, total_defense,
+                       (with its skills' bonuses, and armor for defense), combat_gold() (what its skills find
+                       after a battle), wounds / health, total_defense,
                        experience, skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
     Species.gd         SkillSource: what someone is born (Human)
@@ -155,8 +157,12 @@ vcom/Scripts/
                        it can be taken, at most MOST_LEVELS, 5), takes(), level(), describe(); shared by every
                        tree placing it
     SkillLevel.gd      Resource: one level of a skill: description (its words), effects (what it adds)
-    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat), nothing unless a kind says
+    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat) and gold_after_combat() (asked
+                       while the level is had), when_taken(character) (done once, as it is learned); nothing
+                       unless a kind says
     StatBonus.gd       SkillEffect: amount added to one stat (max_health, defense, move_range, aim, ...)
+    CombatGold.gd      SkillEffect: amount of gold for the party after a combat fought in and survived
+    SkillPointGrant.gd SkillEffect: amount of skill points handed over as the level is taken
     SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
     SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
     SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
@@ -441,7 +447,11 @@ is the character's alone and never copied to the unit. It only goes up through
 `Character.gain_experience()`, where every 100 becomes a `skill_points` and the rest carries over (97 +
 10 is 7 and a point; a big award gives several); any new way to earn experience calls that. So far the
 one way is surviving a battle: as `TurnManager` decides the battle it calls
-`PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50).
+`PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50),
+and adds to `Campaign.gold` whatever gold each one's skills find after a combat
+(`Character.combat_gold()`, see "What a skill gives" below), emitting `found_gold(unit, gold)`, on
+which `TurnManager` calls "+N Gold" over that unit's head as a coin it picked up would be
+(`ShotOverlay.flash_pickup()`).
 A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment, and has
 `Coins.sweep()` pay for every coin still lying on the map (see Coins below).
 
@@ -642,30 +652,58 @@ same in every tree that places it, and `SkillTreeNode.takes()` is its node's cou
 still the order things were learned in. A requirement is met by taking the node once, however often
 it can be taken (`is_open()` only asks whether the id is there): assumed, not asked of the user, as
 is a press of the button taking it once at most, as every hold does. `Ambition.tres` (five levels)
-is the Human tree's first node, `ambition`; the other seven are still `Placeholder.tres` (one level,
-no effects).
+is the Human tree's first node, `ambition`, and `Hardiness.tres` (one level, so no rings: +1
+`defense`) its second, `hardiness`, which requires it, and `Dexterity.tres` (one level with two
+effects, +1 `move_range` and +5 `evasion`) its third, `dexterity`, which requires that, and
+`Adaptability.tres` (one level, a `SkillPointGrant` of 5) its last, `adaptability`. That is the whole
+Human tree. The Minor Noble tree starts with `MoneyGrubbing.tres` (five levels, each a `CombatGold`:
+1, 1, 3, 5 and 5, 15 in all), `money_grubbing`; its other three nodes are still `Placeholder.tres`
+(one level, no effects).
+Hardiness and Dexterity took no code: a skill of a kind of effect that exists is its `.tres` and its
+node in the tree.
 
 **What a skill gives is its levels' effects, and a character has those of every level taken.** An
 effect is a `SkillEffect` resource in a level's `effects`, and a kind of effect is a subclass, as a
-kind of enemy is an `EnemyAI` subclass: `StatBonus` (a `stat` from its list, an `amount`) is the only
-one so far. Levels add up: a character has the effects of each level they have taken, the earlier
+kind of enemy is an `EnemyAI` subclass: `StatBonus` (a `stat` from its list, an `amount`),
+`CombatGold` and `SkillPointGrant` (an `amount` each) so far. Levels add up: a character has the
+effects of each level they have taken, the earlier
 with the later, so a level holds only what it adds (Ambition's five are +1, +1, +1, +2 and +5
 `max_health`, +10 in all, as their words say: "An additional +2 HP (for a total of +5 HP)").
 `Character.skill_effects()` gathers them, from every node of the character's own trees (`TREES`) by
 how often `learned` has it; what was learned of a tree no longer theirs gives nothing.
 
-Nothing is applied when a skill is learned, and nothing stored but `learned`: the rules ask the
-effects when they need an answer, which `SkillEffect`'s methods are, each answering nothing unless
-a kind overrides it. So far the one question is `bonus_to(stat)`, asked by `Character.total(stat)`:
+An effect is one of two sorts, and `SkillEffect` has a method for each, doing nothing unless a kind
+overrides it. One sort lasts for as long as the level is had. For it nothing is applied when the
+skill is learned, and nothing stored but `learned`: the rules ask the effects when they need an
+answer. So far the one question is `bonus_to(stat)`, asked by `Character.total(stat)`:
 the character's own stat (the exported property, never changed by a skill or by gear) plus every
 effect's bonus to it, plus the armor's for defense. Everything that wants a character's stat reads
 `total()`: `Unit._take_character()` for all seven, so a bonus goes into battle with the unit;
 `Character.health` (`total(&"max_health")` less `wounds`), so a level of Ambition raises the most
 health and what is left alike, and a wounded character stays as wounded; and the Details page, which
 refreshes as it comes into view. A unit copies its stats as the map loads, which is why learning is
-refused during a mission. A new skill of a kind that exists is only a `.tres`. A new kind of effect
-(an action granted, a rule bent) is a `SkillEffect` subclass, a method on the base class asking what
-the rules need to know of it, and a call where they need it, over `skill_effects()`.
+refused during a mission.
+
+The second question is `gold_after_combat()`, which `CombatGold` answers with its `amount` and
+`Character.combat_gold()` adds up. `PlayerSquad.award_survivors()` asks it of each member's character
+as the battle is decided, beside their experience, and pays it into `Campaign.gold` at once. Who it
+asks is the whole rule, decided with the user: only the squad's members, so a character left on the
+roster finds nothing however many levels they have, and only those still in `members`, which the
+fallen have left, so the character must come through the battle. A defeat leaves nobody standing, so
+it only ever pays on a win, and it is on top of `victory_gold` and the coins. It reads the character
+as the battle ends rather than a copy on the unit: nothing can be learned in between.
+
+The other sort happens once, as the level is taken: `Character.learn()`, having spent the point and
+recorded the take, calls `when_taken(character)` on each effect of that level, and what it does is
+the character's from then on, with nothing to ask later. `SkillPointGrant` is it: Adaptability's
+`skill_points += 5`, so learning it with one point left leaves five (the page's sub-tab count follows,
+since it shows progress again after every skill learned). It is not done for a level a character
+starts out with in their `.tres`, which goes through no `learn()`: set what it would have given there
+too. Nothing undoes it, as nothing unlearns a skill.
+
+A new skill of a kind that exists is only a `.tres`. A new kind of effect (an action granted, a rule
+bent) is a `SkillEffect` subclass and, if neither method fits it, a new method on the base class
+asking what the rules need to know of it, and a call where they need it, over `skill_effects()`.
 
 The Skills page has a column per `Character.TREES` entry, its share of the width from
 `SkillsPage.SHARES`, and is rebuilt for every character, a column headed by its source's
@@ -1653,9 +1691,10 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The only experience is for surviving a battle. Ambition is the one skill that does anything, and a
-  stat bonus the one kind of effect; every take costs one skill point, and nothing unlearns one. The
-  other seven nodes of the Human and Minor Noble trees are one `Placeholder` skill, and there are no
+- The only experience is for surviving a battle. The Human tree's four skills and Money Grubbing are
+  the only ones that do anything, and a stat bonus, gold after a combat and a grant of skill points
+  the only kinds of effect; every take costs one skill point, and nothing unlearns one. The Minor
+  Noble tree's other three nodes are one `Placeholder` skill, and there are no
   classes. Nothing shows where a stat's total comes from: the Details page gives the total alone. A
   level's words and its effects are written separately, so nothing keeps them agreeing. A pie's
   straight edges are not antialiased. A skill's tooltip lies over whatever is beside its node, the

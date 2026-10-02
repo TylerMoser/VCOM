@@ -88,7 +88,8 @@ const TREES := [
 @export var experience := 0
 ## Points to spend on the skill trees, one for every
 ## [constant EXPERIENCE_TO_LEVEL] experience earned, and one spent on every
-## skill learned ([method learn]). They stack while unspent.
+## skill learned ([method learn]); a skill can hand some out too
+## ([SkillPointGrant]). They stack while unspent.
 @export var skill_points := 0
 ## Health lost in battle and not yet healed. Kept as what is missing rather
 ## than what is left, so a character is whole by default and stays as hurt if
@@ -162,6 +163,17 @@ func total(stat: StringName) -> int:
 	return value
 
 
+## Gold the party finds after a combat the character fought in and came
+## through, from their skills ([method SkillEffect.gold_after_combat]). Paid by
+## the squad as the battle ends ([method PlayerSquad.award_survivors]), to
+## those of it still standing.
+func combat_gold() -> int:
+	var gold := 0
+	for effect in skill_effects():
+		gold += effect.gold_after_combat()
+	return gold
+
+
 ## Every effect the character's skills give them: those of each level they
 ## have taken ([member SkillLevel.effects]), of every node in their own trees
 ## ([constant TREES]). What they learned of a tree that is no longer theirs
@@ -221,7 +233,10 @@ func can_learn(source: SkillSource, node: SkillTreeNode) -> bool:
 
 ## Learns [param node] of [param source]'s tree for a skill point, or takes
 ## it once more. False, changing nothing, when [method can_learn] says it
-## cannot be. Every way of
+## cannot be. Whatever the level taken does there and then is done
+## ([method SkillEffect.when_taken]), once the point is spent; what it gives
+## for as long as it is had needs nothing done ([method skill_effects]).
+## Every way of
 ## learning a skill comes through here, so the rule is kept in one place;
 ## during a battle [code]Campaign.learn()[/code] refuses first.
 func learn(source: SkillSource, node: SkillTreeNode) -> bool:
@@ -231,6 +246,11 @@ func learn(source: SkillSource, node: SkillTreeNode) -> bool:
 	if not learned.has(source):
 		learned[source] = []
 	learned[source].append(node.id)
+	var level := node.skill.level(times_learned(source, node)) if node.skill != null else null
+	if level != null:
+		for effect in level.effects:
+			if effect != null:
+				effect.when_taken(self)
 	return true
 
 

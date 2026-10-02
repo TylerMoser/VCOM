@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Roster/Species.gd" id="1_yya5g"]
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
-[ext_resource type="Resource" path="res://Resources/Skills/Placeholder.tres" id="3_4m634"]
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
 [ext_resource type="Resource" path="res://Resources/Skills/Ambition.tres" id="5_ambition"]
+[ext_resource type="Resource" path="res://Resources/Skills/Hardiness.tres" id="6_hardiness"]
+[ext_resource type="Resource" path="res://Resources/Skills/Dexterity.tres" id="7_dexterity"]
+[ext_resource type="Resource" path="res://Resources/Skills/Adaptability.tres" id="8_adaptability"]
 
 [sub_resource type="Resource" id="Resource_gp4wy"]
 script = ExtResource("2_cvdgw")
@@ -13,24 +15,24 @@ skill = ExtResource("5_ambition")
 
 [sub_resource type="Resource" id="Resource_dftb0"]
 script = ExtResource("2_cvdgw")
-id = &"placeholder_2"
-skill = ExtResource("3_4m634")
+id = &"hardiness"
+skill = ExtResource("6_hardiness")
 cell = Vector2i(0, 1)
 requires = Array[StringName]([&"ambition"])
 
 [sub_resource type="Resource" id="Resource_if3bl"]
 script = ExtResource("2_cvdgw")
-id = &"placeholder_3"
-skill = ExtResource("3_4m634")
+id = &"dexterity"
+skill = ExtResource("7_dexterity")
 cell = Vector2i(0, 2)
-requires = Array[StringName]([&"placeholder_2"])
+requires = Array[StringName]([&"hardiness"])
 
 [sub_resource type="Resource" id="Resource_gtanq"]
 script = ExtResource("2_cvdgw")
-id = &"placeholder_4"
-skill = ExtResource("3_4m634")
+id = &"adaptability"
+skill = ExtResource("8_adaptability")
 cell = Vector2i(0, 3)
-requires = Array[StringName]([&"placeholder_3"])
+requires = Array[StringName]([&"dexterity"])
 
 [sub_resource type="Resource" id="Resource_53kuh"]
 script = ExtResource("4_traf1")

@@ -16,7 +16,8 @@
 ## turns stop, "Victory" or "Defeat" is announced, and either way the game
 ## goes back to the world map the battle was started from (see
 ## [method Campaign.end_battle]). Whoever of the squad still stands earns
-## their experience then ([method PlayerSquad.award_survivors]), and a win
+## their experience then, and whatever gold their skills find, called over
+## their heads ([method PlayerSquad.award_survivors]), and a win
 ## earns the party [member victory_gold] and every coin still lying on the map
 ## ([method Coins.sweep]). The side left standing cheers while the banner is
 ## up. A battle opened on its own stays open, over.
@@ -68,6 +69,7 @@ var _banner: TurnBanner
 var _reactions: Reactions
 var _coins: Coins
 var _enemy_fire: ShotPlayback
+var _overlay: ShotOverlay
 
 var _hold := 0.0
 ## Set when another key is pressed during a hold, so Shift+Tab and the like
@@ -81,9 +83,10 @@ func _ready() -> void:
 	_grid = get_node_or_null(grid_path) as CombatGrid
 	_camera_rig = get_node_or_null(camera_rig_path) as CameraRig
 	_banner = get_node_or_null(banner_path) as TurnBanner
-	# The overlay only draws enemy fire, so a scene without one still plays.
-	var overlay := get_node_or_null(overlay_path) as ShotOverlay
-	if overlay == null:
+	# The overlay only draws enemy fire and calls gold found, so a scene
+	# without one still plays.
+	_overlay = get_node_or_null(overlay_path) as ShotOverlay
+	if _overlay == null:
 		push_error("TurnManager: no ShotOverlay at '%s'." % overlay_path)
 	# Without reactions, enemies simply walk and the squad cannot answer.
 	_reactions = get_node_or_null(reactions_path) as Reactions
@@ -98,11 +101,12 @@ func _ready() -> void:
 		set_process(false)
 		return
 
-	_enemy_fire = ShotPlayback.new(_grid, overlay)
+	_enemy_fire = ShotPlayback.new(_grid, _overlay)
 	_enemy_fire.step_out_seconds = seconds_per_enemy_step
 	_enemy_fire.aim_seconds = enemy_aim_seconds
 
 	_controller.changed.connect(_on_controller_changed)
+	_squad.found_gold.connect(_on_gold_found)
 	for node in get_tree().get_nodes_in_group(enemy_group):
 		var enemy := node as Unit
 		if enemy != null:
@@ -263,6 +267,13 @@ func _end_if_decided() -> void:
 	_controller.enabled = false
 	await _banner.announce("Victory" if outcome == Outcome.WON else "Defeat")
 	Campaign.end_battle()
+
+
+## Calls the gold a survivor's skills found over its head, as a coin it had
+## picked up would be.
+func _on_gold_found(unit: Unit, gold: int) -> void:
+	if _overlay != null:
+		_overlay.flash_pickup(_grid.cell_center(LineOfSight.eye_cell(_grid.tile_at(unit.global_position))), "+%d Gold" % gold)
 
 
 func _on_controller_changed() -> void:

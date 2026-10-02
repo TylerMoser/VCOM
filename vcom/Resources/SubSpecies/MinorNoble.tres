@@ -5,18 +5,19 @@
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="3_frb3b"]
 [ext_resource type="Resource" path="res://Resources/Skills/Placeholder.tres" id="4_pwn06"]
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="5_5acnm"]
+[ext_resource type="Resource" path="res://Resources/Skills/MoneyGrubbing.tres" id="6_money_grubbing"]
 
 [sub_resource type="Resource" id="Resource_3t08i"]
 script = ExtResource("3_frb3b")
-id = &"placeholder_1"
-skill = ExtResource("4_pwn06")
+id = &"money_grubbing"
+skill = ExtResource("6_money_grubbing")
 
 [sub_resource type="Resource" id="Resource_jbuwd"]
 script = ExtResource("3_frb3b")
 id = &"placeholder_2"
 skill = ExtResource("4_pwn06")
 cell = Vector2i(0, 1)
-requires = Array[StringName]([&"placeholder_1"])
+requires = Array[StringName]([&"money_grubbing"])
 
 [sub_resource type="Resource" id="Resource_mxqhi"]
 script = ExtResource("3_frb3b")
