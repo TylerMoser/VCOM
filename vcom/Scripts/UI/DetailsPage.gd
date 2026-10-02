@@ -4,12 +4,13 @@
 class_name DetailsPage
 extends CharacterPage
 
-## Each row: the name shown, and the [Character] property it shows. HP shows
-## what is left of it too (see [method _value_text]); Defense is the armor's
-## included.
+## Each row: the name shown, and the [Character] stat it shows, as the
+## character has it now ([method Character.total]: their skills' added, and
+## for Defense their armor's). HP shows what is left of it too (see
+## [method _value_text]).
 const STATS := [
 	["HP", &"max_health"],
-	["Defense", &"total_defense"],
+	["Defense", &"defense"],
 	["Move", &"move_range"],
 	["Aim", &"aim"],
 	["Melee Accuracy", &"melee_accuracy"],
@@ -42,7 +43,8 @@ func _init() -> void:
 	_experience = _experience_tracker()
 	add_child(_experience)
 	# Refreshed as it comes into view too: the Equipment page may have changed
-	# the armor, and so the defense, since the character was last shown.
+	# the armor, and so the defense, since the character was last shown, and
+	# the Skills page what they have learned.
 	visibility_changed.connect(func() -> void:
 		if is_visible_in_tree():
 			_refresh())
@@ -64,8 +66,8 @@ func _value_text(property: StringName) -> String:
 	if character == null:
 		return "-"
 	if property == &"max_health":
-		return "%d / %d" % [character.health, character.max_health]
-	return str(character.get(property))
+		return "%d / %d" % [character.health, character.total(property)]
+	return str(character.total(property))
 
 
 ## A caption over a thin bar, pinned to the page's bottom-right corner. The

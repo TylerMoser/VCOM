@@ -57,6 +57,11 @@ const TREES := [
 @export var learned: Dictionary[SkillSource, Array] = {}
 
 @export_group("Stats")
+## The character's own stats, before anything adds to them. What their unit
+## takes into battle, and what the Details page shows, is each one's
+## [method total]: read that, not these, wherever the character's skills and
+## gear should count.
+##
 ## The unit's [member Unit.max_health]: what it can take before it falls.
 @export var max_health := 10
 ## The unit's [member Unit.move_range]: tiles walked per action spent moving.
@@ -92,17 +97,17 @@ const TREES := [
 ## ([method Campaign.heal]).
 @export var wounds := 0
 
-## What is left of [member max_health]: the health the character's unit
-## starts a battle with.
+## What is left of the most health they can have ([member max_health] in
+## [method total]): the health the character's unit starts a battle with.
 var health: int:
 	get:
-		return maxi(max_health - wounds, 0)
+		return maxi(total(&"max_health") - wounds, 0)
 
-## [member defense] with the worn [member armor]'s added: the unit's
-## [member Unit.defense], taken off the damage of every hit it takes.
+## [member defense] in [method total], the worn [member armor]'s added: the
+## unit's [member Unit.defense], taken off the damage of every hit it takes.
 var total_defense: int:
 	get:
-		return defense + (armor.defense if armor != null else 0)
+		return total(&"defense")
 
 @export_group("Hiring")
 ## Gold the party pays to take the character on from a [HiringBoard].
@@ -136,6 +141,52 @@ func gain_experience(amount: int) -> void:
 	while experience >= EXPERIENCE_TO_LEVEL:
 		experience -= EXPERIENCE_TO_LEVEL
 		skill_points += 1
+
+
+## [param stat] (one of the stats above, by its property's name, such as
+## [code]&"max_health"[/code]) as the character has it now: their own, with
+## what every skill level they have taken adds to it
+## ([method SkillEffect.bonus_to]) and, for defense, their [member armor]'s.
+## Worked out each time it is asked, so it follows what is learned and worn,
+## and the character's own stat is never changed by either.
+func total(stat: StringName) -> int:
+	var own: Variant = get(stat)
+	if not (own is int):
+		push_error("Character has no stat '%s'." % stat)
+		return 0
+	var value: int = own
+	for effect in skill_effects():
+		value += effect.bonus_to(stat)
+	if stat == &"defense" and armor != null:
+		value += armor.defense
+	return value
+
+
+## Every effect the character's skills give them: those of each level they
+## have taken ([member SkillLevel.effects]), of every node in their own trees
+## ([constant TREES]). What they learned of a tree that is no longer theirs
+## gives nothing.
+func skill_effects() -> Array[SkillEffect]:
+	var effects: Array[SkillEffect] = []
+	var sources: Array[SkillSource] = []
+	for entry in TREES:
+		var source: SkillSource = get(entry[1])
+		# Once each, should two of the four ever be the same.
+		if source == null or source.tree == null or sources.has(source):
+			continue
+		sources.append(source)
+		var ids := learned_of(source)
+		for node in source.tree.nodes:
+			if node.skill == null:
+				continue
+			for number in range(1, mini(ids.count(node.id), node.takes()) + 1):
+				var level := node.skill.level(number)
+				if level == null:
+					continue
+				for effect in level.effects:
+					if effect != null:
+						effects.append(effect)
+	return effects
 
 
 ## The ids of the nodes of [param source]'s tree the character has learned, in

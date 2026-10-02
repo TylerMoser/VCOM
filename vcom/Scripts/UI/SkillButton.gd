@@ -1,10 +1,10 @@
 ## One node of a skill tree on the Roster's Skills page ([SkillTreeView]): a
 ## circle styled by whether the character has learned it, can learn it next,
 ## or has yet to reach it. It shows its skill's icon, or without one its rank
-## (its row, counted from 1), and the skill's name and description on hover.
-## A skill that can be taken again has a ring round the circle for each time
-## ([member Skill.repeats]), lit once that one is taken, from the innermost
-## out.
+## (its row, counted from 1); what the skill is, the page says in a
+## [SkillTooltip] beside it. A skill that can be taken again has a ring round
+## the circle for each level after its first ([member Skill.levels]), lit once
+## that one is taken, from the innermost out.
 ##
 ## Held down while [member learnable], with the mouse or with Enter or Space,
 ## it fills for [constant HOLD_TIME], as a [HoldButton] fills from the left,
@@ -16,8 +16,8 @@
 ## skill once at most.
 ##
 ## Focusing it (arrow keys or a click) selects it; the page keeps one
-## selected at a time. Nothing is drawn for the selection yet: it is to have a
-## look of its own. The button draws itself, every one of its
+## selected at a time, and its circle is filled a shade lighter, which is all
+## that shows where the keyboard is. The button draws itself, every one of its
 ## theme's boxes left empty, so the fill can go under its rank or icon.
 class_name SkillButton
 extends Button
@@ -52,6 +52,12 @@ const DARK_TEXT_COLOR := Color(0.1, 0.11, 0.15)
 const FILL_COLOR := Color(1.0, 0.9, 0.55, 0.4)
 ## An icon on a node not yet reached is dimmed to this.
 const LOCKED_ICON_COLOR := Color(1, 1, 1, 0.35)
+## What the selected node's circle is filled toward, and how far: a little on
+## a dark circle, more on a learned one's gold, where as little would not
+## show. Not the accent, which is for what is learned and being learned.
+const SELECTED_COLOR := Color(0.95, 0.95, 0.97)
+const SELECTED_BLEND := 0.2
+const SELECTED_LEARNED_BLEND := 0.5
 
 ## The place in its tree the button shows.
 var tree_node: SkillTreeNode
@@ -68,8 +74,7 @@ var taken := 0:
 ## Whether holding it learns it now, or takes it again. Set by the page;
 ## without it the button can be selected but never fills.
 var learnable := false
-## Whether the page has it selected. Redraws as it changes, though nothing
-## is drawn for it yet.
+## Whether the page has it selected: its circle is filled a shade lighter.
 var selected := false:
 	set(value):
 		selected = value
@@ -90,9 +95,6 @@ func _init(shown: SkillTreeNode, node_state: State) -> void:
 	add_theme_font_size_override(&"font_size", 17)
 	for slot in [&"normal", &"hover", &"pressed", &"hover_pressed", &"disabled", &"focus"]:
 		add_theme_stylebox_override(slot, StyleBoxEmpty.new())
-	var skill := tree_node.skill
-	if skill != null:
-		tooltip_text = skill.display_name if skill.description.is_empty() else "%s\n%s" % [skill.display_name, skill.description]
 
 
 ## Across the button showing [param node]: its circle and the rings round
@@ -130,6 +132,8 @@ func _draw() -> void:
 	var center := size / 2.0
 	var radius := SIZE.x / 2.0
 	var background: Color = {State.LOCKED: LOCKED_BG_COLOR, State.AVAILABLE: BG_COLOR, State.LEARNED: ACCENT_COLOR}[state]
+	if selected:
+		background = background.lerp(SELECTED_COLOR, SELECTED_LEARNED_BLEND if state == State.LEARNED else SELECTED_BLEND)
 	if is_hovered():
 		background = background.lightened(0.08)
 	var edge: Color = {State.LOCKED: BORDER_COLOR, State.AVAILABLE: ACCENT_COLOR, State.LEARNED: ACCENT_COLOR}[state]

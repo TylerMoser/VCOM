@@ -538,13 +538,14 @@ func recover() -> void:
 ## character's, wounds and all.
 func _take_character() -> void:
 	display_name = character.display_name
-	max_health = character.max_health
-	defense = character.total_defense
-	move_range = character.move_range
-	aim = character.aim
-	melee_accuracy = character.melee_accuracy
-	strength = character.strength
-	evasion = character.evasion
+	# Each as the character has it now, their skills' and armor's added.
+	max_health = character.total(&"max_health")
+	defense = character.total(&"defense")
+	move_range = character.total(&"move_range")
+	aim = character.total(&"aim")
+	melee_accuracy = character.total(&"melee_accuracy")
+	strength = character.total(&"strength")
+	evasion = character.total(&"evasion")
 	equipment.clear()
 	weapon = null
 	melee_weapon = null

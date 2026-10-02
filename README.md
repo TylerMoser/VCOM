@@ -42,8 +42,8 @@ all pause the game behind them, and all work the same way.
 |---|---|
 | Change tab | Click it, or `←` / `→` while its row of tabs has the keyboard |
 | Move between rows | `↓` / `↑`: from the tabs to any sub-tabs under them, to what is selected under those, and back |
-| Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them. On the Skills page, `↑` / `↓` follow a skill tree and `←` / `→` cross to the trees beside it |
-| See what a skill is | Hover over it on the Roster's Skills page |
+| Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them. On the Skills page, `↑` / `↓` follow a skill tree and `←` / `→` cross to the trees beside it; the selected skill's circle is filled a shade lighter. `↓` past a tree's last skill goes on to the button under the page, where there is one (**Start**, **Hire**) |
+| See what a skill is | On the Roster's Skills page, hover over it, or move the keyboard on to it: a panel beside it gives its name, a line about it, what the level the character has gives (**Current**) and what the next would (**Next**). It follows whichever of the mouse and the keyboard was used last |
 | Press a button | Click it, or `Enter` / `Space` |
 | Buy, sell, hire, or start a battle | Hold the button for 2 seconds, with the mouse or `Enter` / `Space`. One per press: let go and hold again for the next |
 | Learn a skill | On the Roster's Skills page, hold an available skill (its edge lit) for 2 seconds, with the mouse or `Enter` / `Space`: it fills round like a clock face, from the top. It costs a skill point, and cannot be done during a battle. One per press. A skill with rings round it can be taken again, once for each ring: hold it again and the next ring out fills round the same way, for another skill point |
@@ -105,9 +105,14 @@ That tab lays out a skill tree for each of the character's Species, Sub-Species,
 Multi-Class, headed by its name. A skill point learns any skill once every skill linked above it is
 learned (see [Menus](#menus)). Some skills can be taken more than once, up to four more times, a
 skill point each: such a skill has a ring round it for every further time, lit from the innermost
-out as it is taken, and taking it once is enough to open the skills below it. Everyone is a Human
-Minor Noble for now, whose two trees are still placeholders (the Human's first skill one that can be
-taken four more times), and nobody has a class yet; no skill does anything yet.
+out as it is taken, and taking it once is enough to open the skills below it. What a skill gives, it
+gives from the moment it is learned: a bonus to a stat shows on the Details page at once, and goes
+into the next battle.
+
+Everyone is a Human Minor Noble for now, and nobody has a class yet. The Human tree starts with
+**Ambition**: +1 HP, and taken again +1, +1, +2 and +5 more, +10 HP in all. It raises the most health
+the character can have, so one who is wounded stays as wounded as they were. The rest of the two
+trees are still placeholders, which do nothing.
 
 ## Combat rules
 

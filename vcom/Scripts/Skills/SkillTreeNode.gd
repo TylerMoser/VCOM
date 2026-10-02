@@ -21,7 +21,7 @@ extends Resource
 @export var requires: Array[StringName] = []
 
 
-## How many times in all the node can be taken: once, and again for each of
-## its skill's [member Skill.repeats].
+## How many times in all the node can be taken: once for each of its skill's
+## levels ([method Skill.takes]), and once with no skill.
 func takes() -> int:
-	return 1 + (skill.repeats if skill != null else 0)
+	return skill.takes() if skill != null else 1

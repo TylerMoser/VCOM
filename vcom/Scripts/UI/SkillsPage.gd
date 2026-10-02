@@ -12,6 +12,10 @@
 ## not during a mission, and never for someone not on the roster (read only).
 ## One that can be taken again is held again, once for each ring round it.
 ##
+## A [SkillTooltip] beside a node says what its skill is: the node the mouse
+## is over, or the one the keyboard is on, whichever of the mouse and the
+## keyboard was used last.
+##
 ## Rebuilt for each character, since their trees may be shaped nothing like
 ## the last one's: each is drawn from its [SkillTree] by a [SkillTreeView].
 ## Learning only restyles the trees, so the selection and the keyboard stay
@@ -26,12 +30,21 @@ const SHARES := {&"species": 1, &"sub_species": 1, &"main_class": 3, &"multi_cla
 
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TITLE_COLOR := Color(0.7, 0.72, 0.78)
+## Between a node and the tooltip beside it.
+const TOOLTIP_GAP := 10.0
 
 var _columns: HBoxContainer
+var _tooltip: SkillTooltip
 ## The trees shown, left to right; a column with no tree has none here.
 var _trees: Array[SkillTreeView] = []
 ## The node last given the keyboard, selected; null once the character changes.
 var _selected: SkillButton
+## The node the mouse is over, and the one with the keyboard now, if any.
+var _hovered: SkillButton
+var _focused: SkillButton
+## Whether a key was pressed since the mouse last did anything: the tooltip
+## is then the keyboard's node's, not the one the mouse was left over.
+var _by_keyboard := false
 
 
 func _init() -> void:
@@ -40,7 +53,26 @@ func _init() -> void:
 	_columns.set_anchors_preset(PRESET_FULL_RECT)
 	_columns.add_theme_constant_override(&"separation", 0)
 	add_child(_columns)
+	# After the columns, so it is drawn over the trees.
+	_tooltip = SkillTooltip.new()
+	_tooltip.visible = false
+	add_child(_tooltip)
 	_refresh()
+
+
+## Notes which of the mouse and the keyboard was used last, before either
+## moves anything, and hands the tooltip to its node.
+func _input(event: InputEvent) -> void:
+	if not is_visible_in_tree():
+		return
+	var by_keyboard := _by_keyboard
+	if event is InputEventKey and event.is_pressed():
+		by_keyboard = true
+	elif event is InputEventMouse:
+		by_keyboard = false
+	if by_keyboard != _by_keyboard:
+		_by_keyboard = by_keyboard
+		_show_tooltip()
 
 
 ## Builds the character's columns afresh, with nothing selected. Every tree
@@ -52,6 +84,8 @@ func _refresh() -> void:
 		column.queue_free()
 	_trees.clear()
 	_selected = null
+	_hovered = null
+	_focused = null
 	var sources: Array[SkillSource] = []
 	var trees: Array[SkillTree] = []
 	for entry in Character.TREES:
@@ -88,6 +122,7 @@ func _show_progress() -> void:
 	# Built with no one to show before [code]Campaign[/code] exists: the pause
 	# menu is made first.
 	if character == null:
+		_show_tooltip()
 		return
 
 	var locked := read_only or Campaign.in_mission
@@ -95,6 +130,28 @@ func _show_progress() -> void:
 		view.show_learned(character.learned_of(view.source))
 		for button: SkillButton in view.buttons.values():
 			button.learnable = not locked and character.can_learn(view.source, button.tree_node)
+	# A level just taken changes what its tooltip says.
+	_show_tooltip()
+
+
+## Shows the tooltip beside the node it is for, or hides it with none: the
+## node with the keyboard when a key was pressed last, else the one under the
+## mouse.
+func _show_tooltip() -> void:
+	var target := _focused if _by_keyboard and _focused != null else _hovered
+	if target == null or target.tree_node.skill == null:
+		_tooltip.visible = false
+		return
+	_tooltip.show_skill(target.tree_node.skill, target.taken)
+	_tooltip.visible = true
+	# To the node's right, or its left where that would run off the page, and
+	# no lower than the page's bottom.
+	var node := Rect2(target.global_position - global_position, target.size)
+	var at := Vector2(node.end.x + TOOLTIP_GAP, node.position.y)
+	if at.x + _tooltip.size.x > size.x:
+		at.x = node.position.x - TOOLTIP_GAP - _tooltip.size.x
+	at.y = clampf(at.y, 0.0, maxf(size.y - _tooltip.size.y, 0.0))
+	_tooltip.position = at
 
 
 ## A column: its heading at the top and, under it, the tree of
@@ -119,6 +176,9 @@ func _column(title: String, source: SkillSource, share: int, heights: PackedFloa
 	view.size_flags_horizontal = SIZE_SHRINK_CENTER
 	for button: SkillButton in view.buttons.values():
 		button.focus_entered.connect(_on_focused.bind(button, view))
+		button.focus_exited.connect(_on_unfocused.bind(button))
+		button.mouse_entered.connect(_on_hovered.bind(button, true))
+		button.mouse_exited.connect(_on_hovered.bind(button, false))
 		button.held.connect(_on_held.bind(button, view))
 	column.add_child(view)
 	_trees.append(view)
@@ -132,7 +192,25 @@ func _on_focused(button: SkillButton, view: SkillTreeView) -> void:
 		_selected.selected = false
 	_selected = button
 	button.selected = true
+	_focused = button
 	_aim_arrows(button, view)
+	_show_tooltip()
+
+
+## The keyboard has left [param button]: for another node, which has said so
+## already, or for somewhere off the trees.
+func _on_unfocused(button: SkillButton) -> void:
+	if _focused == button:
+		_focused = null
+		_show_tooltip()
+
+
+func _on_hovered(button: SkillButton, over: bool) -> void:
+	if over:
+		_hovered = button
+	elif _hovered == button:
+		_hovered = null
+	_show_tooltip()
 
 
 func _on_held(button: SkillButton, view: SkillTreeView) -> void:
@@ -143,17 +221,20 @@ func _on_held(button: SkillButton, view: SkillTreeView) -> void:
 ## Points the arrow keys from [param button], in [param view], at the nearest
 ## node each way, now that it has the keyboard and the trees are laid out
 ## however they are shaped: up and down within its own tree, left and right on
-## into the trees beside it. With none that way it stays put, but for up, which
-## is left to leave the trees for the sub-tabs.
+## into the trees beside it. With none to the left or right it stays put. With
+## none above or below it, the key is left to leave the trees: up for the
+## sub-tabs, down for whatever lies under the page (the squad menu's Start, a
+## hiring board's Hire), and nowhere when nothing does.
 func _aim_arrows(button: SkillButton, view: SkillTreeView) -> void:
 	var everyone: Array = []
 	for tree in _trees:
 		everyone.append_array(tree.buttons.values())
 	var own := view.buttons.values()
-	var up := _nearest(button, Vector2.UP, own)
-	button.focus_neighbor_top = button.get_path_to(up) if up != null else NodePath()
-	for side in [[SIDE_BOTTOM, Vector2.DOWN, own], [SIDE_LEFT, Vector2.LEFT, everyone], [SIDE_RIGHT, Vector2.RIGHT, everyone]]:
-		var next := _nearest(button, side[1], side[2])
+	for side in [[SIDE_TOP, Vector2.UP], [SIDE_BOTTOM, Vector2.DOWN]]:
+		var next := _nearest(button, side[1], own)
+		button.set_focus_neighbor(side[0], button.get_path_to(next) if next != null else NodePath())
+	for side in [[SIDE_LEFT, Vector2.LEFT], [SIDE_RIGHT, Vector2.RIGHT]]:
+		var next := _nearest(button, side[1], everyone)
 		button.set_focus_neighbor(side[0], button.get_path_to(next if next != null else button))
 
 

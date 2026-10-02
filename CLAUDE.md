@@ -143,15 +143,20 @@ vcom/Scripts/
   Roster/
     Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
                        (TREES), learned (node ids by SkillSource, one for each time taken), learned_of() /
-                       times_learned() / can_learn() / learn(), stats, wounds / health, total_defense,
+                       times_learned() / can_learn() / learn(), skill_effects(), its own stats and total(stat)
+                       (with its skills' bonuses, and armor for defense), wounds / health, total_defense,
                        experience, skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
     Species.gd         SkillSource: what someone is born (Human)
     SubSpecies.gd      SkillSource: a kind of one Species (Minor Noble), its species
     CharacterClass.gd  SkillSource: what someone trained as; one tree, as Main Class or Multi-Class
   Skills/
-    Skill.gd           Resource: one ability, display_name, description, icon, repeats (times it can be taken
-                       again, at most MOST_REPEATS, 4); shared by every tree placing it
+    Skill.gd           Resource: one ability, display_name, flavor, icon, levels (a SkillLevel for each time
+                       it can be taken, at most MOST_LEVELS, 5), takes(), level(), describe(); shared by every
+                       tree placing it
+    SkillLevel.gd      Resource: one level of a skill: description (its words), effects (what it adds)
+    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat), nothing unless a kind says
+    StatBonus.gd       SkillEffect: amount added to one stat (max_health, defense, move_range, aim, ...)
     SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
     SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
     SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
@@ -179,15 +184,18 @@ vcom/Scripts/
     SlotButton.gd      a slot's name and what is in it
     SkillsPage.gd      a column per Character.TREES entry (SHARES: widths 1:1:3:3), headed by the character's
                        SkillSource or the plain title, rebuilt per character; learns a node once it is held;
-                       the selection; arrow keys to the nearest node; titles its sub-tab
-                       "Skills (N)" with the character's skill points
+                       the selection; arrow keys to the nearest node; the SkillTooltip beside the node under
+                       the mouse or the keyboard, whichever was used last; titles its sub-tab "Skills (N)"
+                       with the character's skill points
     SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell (columns as wide as their
                        widest, rows as tall as row_heights() says), elbow links to the nodes each requires;
                        show_learned() restyles both
     SkillButton.gd     a circle styled locked / available / learned, a ring round it for each time its skill
-                       can be taken again (size_of()); its skill's icon or its rank; name and description on
-                       hover; held for HOLD_TIME while learnable, the circle fills like a clock, or once
-                       taken the next ring out, and it emits held; selected (nothing drawn for it yet)
+                       can be taken again (size_of()); its skill's icon or its rank; held for HOLD_TIME while
+                       learnable, the circle fills like a clock, or once taken the next ring out, and it emits
+                       held; selected (its circle filled a shade lighter)
+    SkillTooltip.gd    the panel beside a node: the skill's name, its flavor, "Current:" the level taken,
+                       "Next:" the level to come; show_skill(skill, taken)
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -421,12 +429,14 @@ reads the members. A marker's order among its siblings is its number; in the edi
 square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
 `display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
 `melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure on a copy
-of the material); its defense
-is `Character.total_defense`, the character's own plus their armor's. They are copied once, when
+of the material). Each is `Character.total(stat)`, not the character's own property: their own with
+what their learned skills add (see "What a skill gives" below) and, for defense, their armor's
+(`Character.total_defense` is `total(&"defense")`). They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
 (actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
-that should differ per character moves to `Character`, gets copied in `Unit._take_character()`, and
-gets a row in `DetailsPage.STATS`. `Character.experience` (out of `Character.EXPERIENCE_TO_LEVEL`, 100)
+that should differ per character moves to `Character`, gets copied in `Unit._take_character()` through
+`total()`, gets a row in `DetailsPage.STATS`, and a name in `StatBonus`'s list, so a skill can add to
+it. `Character.experience` (out of `Character.EXPERIENCE_TO_LEVEL`, 100)
 is the character's alone and never copied to the unit. It only goes up through
 `Character.gain_experience()`, where every 100 becomes a `skill_points` and the rest carries over (97 +
 10 is 7 and a point; a big award gives several); any new way to earn experience calls that. So far the
@@ -589,7 +599,8 @@ the open page; opening the menu goes back to Details. A page that can change the
 the means when `read_only` is set, as it is for characters not on the roster.
 
 **Skill trees are data, and any shape.** A `Skill` (`Resources/Skills/`) is a stateless `.tres` like
-an `Item`: a name, a description and an icon, and it does nothing yet. A `SkillTree` places skills as
+an `Item`: a name, a line of flavour text, an icon and its levels, each with its words and what it
+gives. A `SkillTree` places skills as
 `SkillTreeNode`s, each with an `id` unique in its tree, a `cell` on the tree's grid (column, row,
 from 0 at the top left) and `requires`, the ids of nodes in the same tree that must all be learned
 before it can be (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
@@ -616,17 +627,45 @@ same, and refuses, changing nothing, unless `can_learn()`: the tree is one of th
 (`TREES`), the node is in it and not yet taken as often as it can be, everything it requires is
 learned, and there is a point to spend. The page learns through `Campaign.learn()`, which refuses
 first during a mission, as `equip()` does: a unit will take what its character has learned when the
-map loads. Skills do nothing yet, in battle or out, so nothing reads `learned` but the page.
+map loads.
 
-**A skill can be taken more than once.** `Skill.repeats` is how many more times after the first, at
-most `Skill.MOST_REPEATS` (4), for more or different benefits each time once skills do anything; it
-is the skill's, so it is the same in every tree that places it, and `SkillTreeNode.takes()` is the
-node's count in all (1 + `repeats`). Every take is a `learn()` of its own, a skill point each, and
+**A skill has a level for each time it can be taken.** `Skill.levels` is a list of `SkillLevel`s
+(sub-resources of the skill's `.tres`) in the order they are taken: the first is what learning the
+skill gives, each after it what taking it again adds, for more or different benefits each time. A
+level has its `description`, the words its tooltip shows, and its `effects`. How often a skill can
+be taken is how many levels it has (`Skill.takes()`: at least once, with none, and at most
+`Skill.MOST_LEVELS`, 5, the first and four more), so there is no separate count to disagree with
+them: a level is added by adding one. They are the skill's, so the
+same in every tree that places it, and `SkillTreeNode.takes()` is its node's count. Every take is a
+`learn()` of its own, a skill point each, and
 `Character.learned` lists the node's id once for each (`times_learned()` counts them), so the list is
 still the order things were learned in. A requirement is met by taking the node once, however often
 it can be taken (`is_open()` only asks whether the id is there): assumed, not asked of the user, as
-is a press of the button taking it once at most, as every hold does. `RepeatablePlaceholder.tres`
-(4 repeats) is the Human tree's first node; the other seven are still `Placeholder.tres`.
+is a press of the button taking it once at most, as every hold does. `Ambition.tres` (five levels)
+is the Human tree's first node, `ambition`; the other seven are still `Placeholder.tres` (one level,
+no effects).
+
+**What a skill gives is its levels' effects, and a character has those of every level taken.** An
+effect is a `SkillEffect` resource in a level's `effects`, and a kind of effect is a subclass, as a
+kind of enemy is an `EnemyAI` subclass: `StatBonus` (a `stat` from its list, an `amount`) is the only
+one so far. Levels add up: a character has the effects of each level they have taken, the earlier
+with the later, so a level holds only what it adds (Ambition's five are +1, +1, +1, +2 and +5
+`max_health`, +10 in all, as their words say: "An additional +2 HP (for a total of +5 HP)").
+`Character.skill_effects()` gathers them, from every node of the character's own trees (`TREES`) by
+how often `learned` has it; what was learned of a tree no longer theirs gives nothing.
+
+Nothing is applied when a skill is learned, and nothing stored but `learned`: the rules ask the
+effects when they need an answer, which `SkillEffect`'s methods are, each answering nothing unless
+a kind overrides it. So far the one question is `bonus_to(stat)`, asked by `Character.total(stat)`:
+the character's own stat (the exported property, never changed by a skill or by gear) plus every
+effect's bonus to it, plus the armor's for defense. Everything that wants a character's stat reads
+`total()`: `Unit._take_character()` for all seven, so a bonus goes into battle with the unit;
+`Character.health` (`total(&"max_health")` less `wounds`), so a level of Ambition raises the most
+health and what is left alike, and a wounded character stays as wounded; and the Details page, which
+refreshes as it comes into view. A unit copies its stats as the map loads, which is why learning is
+refused during a mission. A new skill of a kind that exists is only a `.tres`. A new kind of effect
+(an action granted, a rule bent) is a `SkillEffect` subclass, a method on the base class asking what
+the rules need to know of it, and a call where they need it, over `skill_effects()`.
 
 The Skills page has a column per `Character.TREES` entry, its share of the width from
 `SkillsPage.SHARES`, and is rebuilt for every character, a column headed by its source's
@@ -647,11 +686,13 @@ A link to a node on the same row or higher, which a tree should not need, is a s
 them. It warns of two nodes with one id, and of a requirement the tree lacks; nothing stops two
 nodes sharing a cell. A button is a circle (it takes the mouse only inside it, `_has_point()`) that
 draws itself, its theme's boxes all empty, so the fill can go under its face: its skill's icon,
-dimmed while locked, or its rank (its row, from 1). It shows the skill's name and description on
-hover. The arrow keys are pointed from a button as
+dimmed while locked, or its rank (its row, from 1). The arrow keys are pointed from a button as
 it takes focus, once the trees are laid out, at the nearest button that way (`_nearest()`): up and
-down within its own tree, left and right on across the trees; with none that way it stays put,
-except up, left to Godot to take back to the sub-tabs.
+down within its own tree, left and right on across the trees. With none to the left or right it stays
+put; with none above or below, the key is left to Godot, which takes up back to the sub-tabs and down
+to whatever lies under the page: the squad menu's Start, a hiring board's Hire (as Down from the
+sub-tabs of the Details page reaches them), and nowhere in the pause menu, which has nothing there.
+Up from those buttons goes to the sub-tabs, and Down from the sub-tabs back to the selected node.
 
 A node is learned by holding it down, with the mouse or Enter / Space, as a `HoldButton` is held
 (its `HOLD_TIME`, 2 s, its `DRAIN_SPEED` and its fill colour, decided with the user): it fills like a
@@ -673,11 +714,35 @@ was taken out at the user's request, for now.
 A button is not a toggle: holding a toggle button reads as pressed whether it is held or not
 (`get_draw_mode()`), which the fill depends on. So the page keeps the selection itself, `_selected`,
 moved as a button takes focus (a click or the arrow keys), and sets the button's `selected`, which
-draws nothing yet: the white ring it drew was taken out at the user's request, who will design the
-selection's look, so for now a skill shows no sign of having the keyboard. Changing character clears
+fills its circle a shade lighter: blended toward `SELECTED_COLOR`, a near white, by `SELECTED_BLEND`
+on a dark circle and by `SELECTED_LEARNED_BLEND` on a learned one's gold, where as little would not
+show. That fill is all that shows where the keyboard is (asked for by the user in place of a white
+ring round the node, which they had taken out), and it is not the accent, which is kept for what is
+learned and being learned. It stays on the selected node while the keyboard is up on the tabs, as a
+selected character's frame does, since Down comes back to it. Changing character clears
 it. The page also titles its own sub-tab, "Skills (2)" from
 `Character.skill_points`, again after every skill learned. It reads `Campaign` only once a character
 is shown: the pause menu builds its pages before that autoload exists.
+
+**A skill's tooltip is the page's own panel, not Godot's.** A built-in tooltip only follows the mouse,
+and a skill's has to show for the keyboard too, so `SkillsPage` owns one `SkillTooltip`, a child added
+after the columns so it draws over the trees, and a `SkillButton` has no `tooltip_text`. Its parts,
+from the top, are the user's: the skill's name; its `flavor`; "Current:" and `Skill.describe(taken)`,
+once the character has taken it; "Next:" and `Skill.describe(taken + 1)`, while a level is left to take,
+whether or not it can be taken now (locked, or no points). A part with nothing to say is left out.
+It is `WIDTH` (300) wide and as tall as its text: every label has its wrap width as its minimum
+width, so it knows its height the moment its text is set and `reset_size()` fits the panel there and
+then, with no frame's wait for a container. It never takes the mouse, so a node under it can still
+be hovered and held.
+
+Whose it is: the node with the keyboard (`_focused`, kept from the buttons' `focus_entered` /
+`focus_exited`) when a key was pressed more recently than the mouse did anything, else the node under
+the mouse (`_hovered`), else nobody and it hides. The page's `_input()` notes which was used last
+(`_by_keyboard`), before either moves anything, so arrowing about with the mouse left lying on a node
+shows the keyboard's node, and a nudge of the mouse hands it back. It hides once the keyboard goes up
+to the tabs, though the node stays selected. `_show_tooltip()` places it to the node's right, top to
+top, `TOOLTIP_GAP` off, or to its left where that would run off the page, and never below the page's
+bottom; `_show_progress()` calls it again, since a level just taken changes what it says.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -1588,13 +1653,15 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The only experience is for surviving a battle. No skill does anything yet, however often it is
-  taken, and every take costs one skill point; nothing unlearns one. The Human and Minor Noble trees
-  are four placeholder nodes each, all one `Placeholder` skill but the Human's first, and there are no
-  classes. A pie's straight edges are not antialiased. The Skills page does not scroll: its trees have
-  about 296 px of height, which four rows with one ringed row fit (270) but a fifth row, or rings on
-  three rows of four, run out of the panel's bottom.
-  Grenades are the
+- The only experience is for surviving a battle. Ambition is the one skill that does anything, and a
+  stat bonus the one kind of effect; every take costs one skill point, and nothing unlearns one. The
+  other seven nodes of the Human and Minor Noble trees are one `Placeholder` skill, and there are no
+  classes. Nothing shows where a stat's total comes from: the Details page gives the total alone. A
+  level's words and its effects are written separately, so nothing keeps them agreeing. A pie's
+  straight edges are not antialiased. A skill's tooltip lies over whatever is beside its node, the
+  next tree's nodes among them, for as long as the keyboard is on the node. The Skills page does not
+  scroll: its trees have about 296 px of height, which four rows with one ringed row fit (270) but a
+  fifth row, or rings on three rows of four, run out of the panel's bottom. Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
 - Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies

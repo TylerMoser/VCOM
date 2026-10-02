@@ -4,19 +4,19 @@
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
 [ext_resource type="Resource" path="res://Resources/Skills/Placeholder.tres" id="3_4m634"]
 [ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
-[ext_resource type="Resource" path="res://Resources/Skills/RepeatablePlaceholder.tres" id="5_repeat"]
+[ext_resource type="Resource" path="res://Resources/Skills/Ambition.tres" id="5_ambition"]
 
 [sub_resource type="Resource" id="Resource_gp4wy"]
 script = ExtResource("2_cvdgw")
-id = &"placeholder_1"
-skill = ExtResource("5_repeat")
+id = &"ambition"
+skill = ExtResource("5_ambition")
 
 [sub_resource type="Resource" id="Resource_dftb0"]
 script = ExtResource("2_cvdgw")
 id = &"placeholder_2"
 skill = ExtResource("3_4m634")
 cell = Vector2i(0, 1)
-requires = Array[StringName]([&"placeholder_1"])
+requires = Array[StringName]([&"ambition"])
 
 [sub_resource type="Resource" id="Resource_if3bl"]
 script = ExtResource("2_cvdgw")

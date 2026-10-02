@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="Skill" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_7kxld"]
+[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_rt1i4"]
+[ext_resource type="Script" path="res://Scripts/Skills/StatBonus.gd" id="3_ig3si"]
+[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="4_6u3hj"]
+
+[sub_resource type="Resource" id="Resource_2qt07"]
+script = ExtResource("3_ig3si")
+
+[sub_resource type="Resource" id="Resource_cjael"]
+script = ExtResource("1_7kxld")
+description = "+1 HP"
+effects = Array[ExtResource("2_rt1i4")]([SubResource("Resource_2qt07")])
+
+[sub_resource type="Resource" id="Resource_2fdgu"]
+script = ExtResource("3_ig3si")
+
+[sub_resource type="Resource" id="Resource_ai5rd"]
+script = ExtResource("1_7kxld")
+description = "An additional +1 HP (for a total of +2 HP)"
+effects = Array[ExtResource("2_rt1i4")]([SubResource("Resource_2fdgu")])
+
+[sub_resource type="Resource" id="Resource_7452j"]
+script = ExtResource("3_ig3si")
+
+[sub_resource type="Resource" id="Resource_0qws7"]
+script = ExtResource("1_7kxld")
+description = "An additional +1 HP (for a total of +3 HP)"
+effects = Array[ExtResource("2_rt1i4")]([SubResource("Resource_7452j")])
+
+[sub_resource type="Resource" id="Resource_4ytvk"]
+script = ExtResource("3_ig3si")
+amount = 2
+
+[sub_resource type="Resource" id="Resource_guny6"]
+script = ExtResource("1_7kxld")
+description = "An additional +2 HP (for a total of +5 HP)"
+effects = Array[ExtResource("2_rt1i4")]([SubResource("Resource_4ytvk")])
+
+[sub_resource type="Resource" id="Resource_82ye6"]
+script = ExtResource("3_ig3si")
+amount = 5
+
+[sub_resource type="Resource" id="Resource_qhowa"]
+script = ExtResource("1_7kxld")
+description = "An additional +5 HP (for a total of +10 HP)"
+effects = Array[ExtResource("2_rt1i4")]([SubResource("Resource_82ye6")])
+
+[resource]
+script = ExtResource("4_6u3hj")
+display_name = "Ambition"
+flavor = "Humans are almost uniquely driven to fulfill their need for 'more', often pushing themselves past healthy limits in an attempt to achieve their goals."
+levels = Array[ExtResource("1_7kxld")]([SubResource("Resource_cjael"), SubResource("Resource_ai5rd"), SubResource("Resource_0qws7"), SubResource("Resource_guny6"), SubResource("Resource_qhowa")])
