@@ -29,7 +29,7 @@ func extent() -> Vector2i:
 
 
 ## Whether [param node] is open to someone who has learned [param learned] of
-## this tree: every node it requires is among them.
+## this tree: every node it requires is among them, taken at least once.
 func is_open(node: SkillTreeNode, learned: Array[StringName]) -> bool:
 	for id in node.requires:
 		if not learned.has(id):

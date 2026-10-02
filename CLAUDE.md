@@ -142,17 +142,18 @@ vcom/Scripts/
     PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
   Roster/
     Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
-                       (TREES), learned (node ids by SkillSource), learned_of() / can_learn() / learn(), stats,
-                       wounds / health, total_defense, experience, skill_points, gain_experience(), equipment
-                       slots, hire_cost
+                       (TREES), learned (node ids by SkillSource, one for each time taken), learned_of() /
+                       times_learned() / can_learn() / learn(), stats, wounds / health, total_defense,
+                       experience, skill_points, gain_experience(), equipment slots, hire_cost
     Roster.gd          characters in display order
     Species.gd         SkillSource: what someone is born (Human)
     SubSpecies.gd      SkillSource: a kind of one Species (Minor Noble), its species
     CharacterClass.gd  SkillSource: what someone trained as; one tree, as Main Class or Multi-Class
   Skills/
-    Skill.gd           Resource: one ability, display_name, description, icon; shared by every tree placing it
-    SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree)
-    SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned)
+    Skill.gd           Resource: one ability, display_name, description, icon, repeats (times it can be taken
+                       again, at most MOST_REPEATS, 4); shared by every tree placing it
+    SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
+    SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
     SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
   Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
                        Strike (melee, at an adjacent enemy), ThrowGrenade (at a tile in reach; uses the grenade up)
@@ -180,11 +181,13 @@ vcom/Scripts/
                        SkillSource or the plain title, rebuilt per character; learns a node once it is held;
                        the selection; arrow keys to the nearest node; titles its sub-tab
                        "Skills (N)" with the character's skill points
-    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell, elbow links to the nodes each
-                       requires; show_learned() restyles both
-    SkillButton.gd     a circle styled locked / available / learned; its skill's icon or its rank; name and
-                       description on hover; held for HOLD_TIME while learnable, it fills like a clock and
-                       emits held; selected (nothing drawn for it yet)
+    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell (columns as wide as their
+                       widest, rows as tall as row_heights() says), elbow links to the nodes each requires;
+                       show_learned() restyles both
+    SkillButton.gd     a circle styled locked / available / learned, a ring round it for each time its skill
+                       can be taken again (size_of()); its skill's icon or its rank; name and description on
+                       hover; held for HOLD_TIME while learnable, the circle fills like a clock, or once
+                       taken the next ring out, and it emits held; selected (nothing drawn for it yet)
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -592,8 +595,8 @@ from 0 at the top left) and `requires`, the ids of nodes in the same tree that m
 before it can be (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
 they require: a column of nodes each requiring the one above is a path, two requiring one node a
 fork, one requiring two a join. A skill is kept apart from where it sits so one can sit in several
-trees (decided with the user): `Placeholder.tres` sits in all eight nodes of the Human and Minor
-Noble trees. A node's `id` is what a character's progress keys on, and saves will, so never rename
+trees (decided with the user): `Placeholder.tres` sits in seven of the eight nodes of the Human and
+Minor Noble trees. A node's `id` is what a character's progress keys on, and saves will, so never rename
 one once in play.
 
 A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`), `SubSpecies`
@@ -610,10 +613,20 @@ them agreeing.
 resource (not by the column, so a tree's progress follows the species or class, wherever it shows).
 It only changes through `Character.learn()`, which spends one skill point a node, every node the
 same, and refuses, changing nothing, unless `can_learn()`: the tree is one of the character's own
-(`TREES`), the node is in it and not learned, everything it requires is learned, and there is a point
-to spend. The page learns through `Campaign.learn()`, which refuses first during a mission, as
-`equip()` does: a unit will take what its character has learned when the map loads. Skills do
-nothing yet, in battle or out, so nothing reads `learned` but the page.
+(`TREES`), the node is in it and not yet taken as often as it can be, everything it requires is
+learned, and there is a point to spend. The page learns through `Campaign.learn()`, which refuses
+first during a mission, as `equip()` does: a unit will take what its character has learned when the
+map loads. Skills do nothing yet, in battle or out, so nothing reads `learned` but the page.
+
+**A skill can be taken more than once.** `Skill.repeats` is how many more times after the first, at
+most `Skill.MOST_REPEATS` (4), for more or different benefits each time once skills do anything; it
+is the skill's, so it is the same in every tree that places it, and `SkillTreeNode.takes()` is the
+node's count in all (1 + `repeats`). Every take is a `learn()` of its own, a skill point each, and
+`Character.learned` lists the node's id once for each (`times_learned()` counts them), so the list is
+still the order things were learned in. A requirement is met by taking the node once, however often
+it can be taken (`is_open()` only asks whether the id is there): assumed, not asked of the user, as
+is a press of the button taking it once at most, as every hold does. `RepeatablePlaceholder.tres`
+(4 repeats) is the Human tree's first node; the other seven are still `Placeholder.tres`.
 
 The Skills page has a column per `Character.TREES` entry, its share of the width from
 `SkillsPage.SHARES`, and is rebuilt for every character, a column headed by its source's
@@ -623,6 +636,13 @@ row in `TREES` (and in `SHARES`, unless 1 will do). Each tree is a `SkillTreeVie
 which places its `SkillButton`s itself by their cells (`GAP` apart) rather than in containers, and
 draws every link as an elbow: down from the node required, across just above the row of the node
 requiring it, and down into it, so a path is a straight line; lit once the node required is learned.
+A button with rings is bigger (`SkillButton.size_of()`: `RING_GAP` + `RING_WIDTH` more each side a
+ring, 84 across with four against 44), so cells are not all one size: a column is as wide as its
+widest button, and a row as tall as its tallest button in any tree on the page
+(`SkillTreeView.row_heights()`, which the page works out over every tree it is about to show and
+hands to each view), so the trees' rows stay level across the columns. Each button sits in the
+middle of its cell, and a link runs from the bottom of one button to the top of the other, outside
+their rings.
 A link to a node on the same row or higher, which a tree should not need, is a straight line between
 them. It warns of two nodes with one id, and of a requirement the tree lacks; nothing stops two
 nodes sharing a cell. A button is a circle (it takes the mouse only inside it, `_has_point()`) that
@@ -635,7 +655,12 @@ except up, left to Godot to take back to the sub-tabs.
 
 A node is learned by holding it down, with the mouse or Enter / Space, as a `HoldButton` is held
 (its `HOLD_TIME`, 2 s, its `DRAIN_SPEED` and its fill colour, decided with the user): it fills like a
-clock's face, from the top round clockwise, a sector drawn under its face. Let go early it drains;
+clock's face, from the top round clockwise, a sector drawn under its face. That is the first time it
+is taken. A skill that can be taken again has a ring round the circle for each further time, drawn
+dim from the start, and once it is taken a hold draws the innermost ring not yet lit round instead,
+the same way, from the top clockwise (decided with the user: the circle first, then the rings from
+the inside out); `SkillButton.taken`, which `show_learned()` sets, says which. The rings are part of
+the button, so a press on them counts. Let go early it drains;
 full, it emits `held`, empties and stays empty until let go, so a press learns one skill at most. It
 fills only while the page has set it `learnable`, which `_show_progress()` sets for every node from
 `can_learn()`, and never in a mission or read only; any other node can still be pressed and selected,
@@ -1563,9 +1588,12 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The only experience is for surviving a battle. No skill does anything yet, and every node costs one
-  skill point; nothing unlearns one. The Human and Minor Noble trees are four placeholder nodes each,
-  all one `Placeholder` skill, and there are no classes. A pie's straight edges are not antialiased.
+- The only experience is for surviving a battle. No skill does anything yet, however often it is
+  taken, and every take costs one skill point; nothing unlearns one. The Human and Minor Noble trees
+  are four placeholder nodes each, all one `Placeholder` skill but the Human's first, and there are no
+  classes. A pie's straight edges are not antialiased. The Skills page does not scroll: its trees have
+  about 296 px of height, which four rows with one ringed row fit (270) but a fifth row, or rings on
+  three rows of four, run out of the panel's bottom.
   Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.

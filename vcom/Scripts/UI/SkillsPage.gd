@@ -10,6 +10,7 @@
 ## A node open to be learned is learned by holding it down (see
 ## [SkillButton]), for a skill point, through [code]Campaign.learn()[/code]:
 ## not during a mission, and never for someone not on the roster (read only).
+## One that can be taken again is held again, once for each ring round it.
 ##
 ## Rebuilt for each character, since their trees may be shaped nothing like
 ## the last one's: each is drawn from its [SkillTree] by a [SkillTreeView].
@@ -42,19 +43,28 @@ func _init() -> void:
 	_refresh()
 
 
-## Builds the character's columns afresh, with nothing selected.
+## Builds the character's columns afresh, with nothing selected. Every tree
+## is given the same row heights, each row as tall as its tallest node in any
+## of them, so the trees' rows stay level across the page.
 func _refresh() -> void:
 	for column in _columns.get_children():
 		_columns.remove_child(column)
 		column.queue_free()
 	_trees.clear()
 	_selected = null
+	var sources: Array[SkillSource] = []
+	var trees: Array[SkillTree] = []
+	for entry in Character.TREES:
+		var source: SkillSource = character.get(entry[1]) if character != null else null
+		sources.append(source)
+		if source != null and source.tree != null:
+			trees.append(source.tree)
+	var heights := SkillTreeView.row_heights(trees)
 	for i in Character.TREES.size():
 		if i > 0:
 			_columns.add_child(_divider())
 		var entry: Array = Character.TREES[i]
-		var source: SkillSource = character.get(entry[1]) if character != null else null
-		_columns.add_child(_column(entry[0], source, SHARES.get(entry[1], 1)))
+		_columns.add_child(_column(entry[0], sources[i], SHARES.get(entry[1], 1), heights))
 	_show_progress()
 
 
@@ -88,8 +98,9 @@ func _show_progress() -> void:
 
 
 ## A column: its heading at the top and, under it, the tree of
-## [param source], centred. Just the heading, [param title], without one.
-func _column(title: String, source: SkillSource, share: int) -> VBoxContainer:
+## [param source], centred, its rows [param heights] tall. Just the heading,
+## [param title], without one.
+func _column(title: String, source: SkillSource, share: int, heights: PackedFloat32Array) -> VBoxContainer:
 	var column := VBoxContainer.new()
 	column.size_flags_horizontal = SIZE_EXPAND_FILL
 	column.size_flags_stretch_ratio = share
@@ -104,7 +115,7 @@ func _column(title: String, source: SkillSource, share: int) -> VBoxContainer:
 
 	if source == null or source.tree == null or source.tree.nodes.is_empty():
 		return column
-	var view := SkillTreeView.new(source)
+	var view := SkillTreeView.new(source, heights)
 	view.size_flags_horizontal = SIZE_SHRINK_CENTER
 	for button: SkillButton in view.buttons.values():
 		button.focus_entered.connect(_on_focused.bind(button, view))

@@ -16,5 +16,12 @@ extends Resource
 ## from 0 at the top. The tree is as wide and as tall as its nodes reach.
 @export var cell := Vector2i.ZERO
 ## The [member id]s of the nodes in the same tree that must all be learned
-## before this one can be. A node requiring none is where the tree starts.
+## before this one can be: taken once, however often they can be. A node
+## requiring none is where the tree starts.
 @export var requires: Array[StringName] = []
+
+
+## How many times in all the node can be taken: once, and again for each of
+## its skill's [member Skill.repeats].
+func takes() -> int:
+	return 1 + (skill.repeats if skill != null else 0)

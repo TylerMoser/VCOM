@@ -50,7 +50,8 @@ const TREES := [
 ## A second class, its tree the same as it would be as a Main Class.
 @export var multi_class: CharacterClass
 ## What the character has learned of each tree, by the [SkillSource] that
-## gives it: the [member SkillTreeNode.id]s, in the order learned. Changed only
+## gives it: the [member SkillTreeNode.id]s, in the order learned, a node's
+## once for every time it has been taken. Changed only
 ## through [method learn] once the game is running; what a character starts
 ## with is set here.
 @export var learned: Dictionary[SkillSource, Array] = {}
@@ -138,7 +139,8 @@ func gain_experience(amount: int) -> void:
 
 
 ## The ids of the nodes of [param source]'s tree the character has learned, in
-## the order learned. A copy: learning goes through [method learn].
+## the order learned, a node's once for every time it has been taken. A copy:
+## learning goes through [method learn].
 func learned_of(source: SkillSource) -> Array[StringName]:
 	var ids: Array[StringName] = []
 	if learned.has(source):
@@ -146,21 +148,29 @@ func learned_of(source: SkillSource) -> Array[StringName]:
 	return ids
 
 
-## Whether the character can learn [param node] of [param source]'s tree now:
-## the tree is one of their own ([constant TREES]), the node is in it and not
-## yet learned, everything it requires is learned, and they have a skill point
-## to spend.
+## How many times the character has taken [param node] of [param source]'s
+## tree.
+func times_learned(source: SkillSource, node: SkillTreeNode) -> int:
+	return learned_of(source).count(node.id)
+
+
+## Whether the character can learn [param node] of [param source]'s tree now,
+## for the first time or again: the tree is one of their own
+## ([constant TREES]), the node is in it and not yet taken as often as it can
+## be ([method SkillTreeNode.takes]), everything it requires is learned, and
+## they have a skill point to spend.
 func can_learn(source: SkillSource, node: SkillTreeNode) -> bool:
 	if skill_points < 1 or source == null or source.tree == null or not source.tree.nodes.has(node):
 		return false
 	if not TREES.any(func(entry: Array) -> bool: return get(entry[1]) == source):
 		return false
 	var ids := learned_of(source)
-	return not ids.has(node.id) and source.tree.is_open(node, ids)
+	return ids.count(node.id) < node.takes() and source.tree.is_open(node, ids)
 
 
-## Learns [param node] of [param source]'s tree for a skill point. False,
-## changing nothing, when [method can_learn] says it cannot be. Every way of
+## Learns [param node] of [param source]'s tree for a skill point, or takes
+## it once more. False, changing nothing, when [method can_learn] says it
+## cannot be. Every way of
 ## learning a skill comes through here, so the rule is kept in one place;
 ## during a battle [code]Campaign.learn()[/code] refuses first.
 func learn(source: SkillSource, node: SkillTreeNode) -> bool:
