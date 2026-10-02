@@ -29,7 +29,7 @@ const TITLE_COLOR := Color(0.7, 0.72, 0.78)
 var _columns: HBoxContainer
 ## The trees shown, left to right; a column with no tree has none here.
 var _trees: Array[SkillTreeView] = []
-## The node last given the keyboard, ringed; null once the character changes.
+## The node last given the keyboard, selected; null once the character changes.
 var _selected: SkillButton
 
 
@@ -114,7 +114,7 @@ func _column(title: String, source: SkillSource, share: int) -> VBoxContainer:
 	return column
 
 
-## Selects [param button], the ring moving to it, and points the arrow keys
+## Selects [param button], in place of the last one, and points the arrow keys
 ## from it.
 func _on_focused(button: SkillButton, view: SkillTreeView) -> void:
 	if _selected != null:

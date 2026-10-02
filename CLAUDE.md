@@ -184,7 +184,7 @@ vcom/Scripts/
                        requires; show_learned() restyles both
     SkillButton.gd     a circle styled locked / available / learned; its skill's icon or its rank; name and
                        description on hover; held for HOLD_TIME while learnable, it fills like a clock and
-                       emits held; selection ring
+                       emits held; selected (nothing drawn for it yet)
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -647,8 +647,10 @@ was taken out at the user's request, for now.
 
 A button is not a toggle: holding a toggle button reads as pressed whether it is held or not
 (`get_draw_mode()`), which the fill depends on. So the page keeps the selection itself, `_selected`,
-moved as a button takes focus (a click or the arrow keys), and a button draws its ring while
-`selected`. Changing character clears it. The page also titles its own sub-tab, "Skills (2)" from
+moved as a button takes focus (a click or the arrow keys), and sets the button's `selected`, which
+draws nothing yet: the white ring it drew was taken out at the user's request, who will design the
+selection's look, so for now a skill shows no sign of having the keyboard. Changing character clears
+it. The page also titles its own sub-tab, "Skills (2)" from
 `Character.skill_points`, again after every skill learned. It reads `Campaign` only once a character
 is shown: the pause menu builds its pages before that autoload exists.
 

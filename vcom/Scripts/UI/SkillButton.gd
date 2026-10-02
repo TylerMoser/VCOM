@@ -10,8 +10,9 @@
 ## fill drains back. Full, it empties at once and stays empty until let go and
 ## pressed again, so a press learns one skill at most.
 ##
-## Focusing it (arrow keys or a click) selects it, marked by a ring round it;
-## the page keeps one selected at a time. It draws itself, every one of its
+## Focusing it (arrow keys or a click) selects it; the page keeps one
+## selected at a time. Nothing is drawn for the selection yet: it is to have a
+## look of its own. The button draws itself, every one of its
 ## theme's boxes left empty, so the fill can go under its rank or icon.
 class_name SkillButton
 extends Button
@@ -23,13 +24,11 @@ enum State { LOCKED, AVAILABLE, LEARNED }
 
 const SIZE := Vector2(44, 44)
 const BORDER_WIDTH := 2.0
-## How far outside the circle the selection ring is drawn.
-const RING_GAP := 4.0
 ## Seconds it must be held down to learn: a [HoldButton]'s.
 const HOLD_TIME := 2.0
 ## How much faster the fill drains than it fills: a [HoldButton]'s.
 const DRAIN_SPEED := 4.0
-## Points round a whole circle, for the border, the ring and the fill's edge.
+## Points round a whole circle, for the border and the fill's edge.
 const SEGMENTS := 64
 ## Across the square an icon is drawn in, inside the border.
 const ICON_SIZE := 26.0
@@ -40,7 +39,6 @@ const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
 const MUTED_COLOR := Color(0.45, 0.46, 0.5)
 const DARK_TEXT_COLOR := Color(0.1, 0.11, 0.15)
-const RING_COLOR := Color(0.95, 0.95, 0.97)
 ## The fill as it is held: a [HoldButton]'s.
 const FILL_COLOR := Color(1.0, 0.9, 0.55, 0.4)
 ## An icon on a node not yet reached is dimmed to this.
@@ -55,7 +53,8 @@ var state := State.LOCKED:
 ## Whether holding it learns it now. Set by the page; without it the button
 ## can be selected but never fills.
 var learnable := false
-## Drawn with a ring round it.
+## Whether the page has it selected. Redraws as it changes, though nothing
+## is drawn for it yet.
 var selected := false:
 	set(value):
 		selected = value
@@ -117,8 +116,6 @@ func _draw() -> void:
 		draw_colored_polygon(_sector(center, radius - BORDER_WIDTH, progress), FILL_COLOR)
 	draw_arc(center, radius - BORDER_WIDTH / 2.0, 0.0, TAU, SEGMENTS, edge, BORDER_WIDTH, true)
 	_draw_face(center)
-	if selected:
-		draw_arc(center, radius + RING_GAP, 0.0, TAU, SEGMENTS, RING_COLOR, 2.0, true)
 
 
 ## The skill's icon, dimmed while locked, or the node's rank.
