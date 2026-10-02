@@ -1,37 +1,36 @@
-## The Roster's Skills page: a column for each of the character's skill trees,
-## the trees of their Species, Sub-Species, Main Class and Multi-Class, each
-## headed by its name ("Human"), or by its plain title ("Species") and empty
-## while the character has none. The species' columns are narrow and the
-## classes' three times as wide.
+## The Roster's Skills page: a column for each of the character's skill trees
+## ([constant Character.TREES]), the trees of their Species, Sub-Species, Main
+## Class and Multi-Class, each headed by its name ("Human"), or by its plain
+## title ("Species") and empty while the character has none. The species'
+## columns are narrow and the classes' three times as wide.
 ##
 ## Its sub-tab is titled with the character's unspent skill points, as
 ## "Skills (2)".
 ##
+## A node open to be learned is learned by holding it down (see
+## [SkillButton]), for a skill point, through [code]Campaign.learn()[/code]:
+## not during a mission, and never for someone not on the roster (read only).
+##
 ## Rebuilt for each character, since their trees may be shaped nothing like
 ## the last one's: each is drawn from its [SkillTree] by a [SkillTreeView].
-## Nothing can be learned yet, so every node that requires none is open and
-## the rest are locked.
+## Learning only restyles the trees, so the selection and the keyboard stay
+## where they were.
 class_name SkillsPage
 extends CharacterPage
 
 const TITLE := "Skills"
-## Each column: the title it falls back to, the [Character] property holding
-## the [SkillSource] whose tree it shows, and its share of the width. A new
-## kind of tree is a row here.
-const COLUMNS := [
-	["Species", &"species", 1],
-	["Sub-Species", &"sub_species", 1],
-	["Main Class", &"main_class", 3],
-	["Multi-Class", &"multi_class", 3],
-]
+## Each column's share of the page's width, by the [Character] property it
+## shows (see [constant Character.TREES]); 1 for any not listed.
+const SHARES := {&"species": 1, &"sub_species": 1, &"main_class": 3, &"multi_class": 3}
 
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TITLE_COLOR := Color(0.7, 0.72, 0.78)
 
 var _columns: HBoxContainer
-var _group: ButtonGroup
 ## The trees shown, left to right; a column with no tree has none here.
 var _trees: Array[SkillTreeView] = []
+## The node last given the keyboard, ringed; null once the character changes.
+var _selected: SkillButton
 
 
 func _init() -> void:
@@ -43,35 +42,49 @@ func _init() -> void:
 	_refresh()
 
 
-## Builds the character's columns afresh, with a new group, which drops the
-## selection on the last character's tree, and puts their skill points in the
-## sub-tab's title.
+## Builds the character's columns afresh, with nothing selected.
 func _refresh() -> void:
 	for column in _columns.get_children():
 		_columns.remove_child(column)
 		column.queue_free()
 	_trees.clear()
-	_group = ButtonGroup.new()
-	for i in COLUMNS.size():
+	_selected = null
+	for i in Character.TREES.size():
 		if i > 0:
 			_columns.add_child(_divider())
-		var source: SkillSource = character.get(COLUMNS[i][1]) if character != null else null
-		_columns.add_child(_column(COLUMNS[i][0], source, COLUMNS[i][2]))
-
-	var tabs := get_parent() as TabContainer
-	if tabs != null:
-		var title := TITLE if character == null else "%s (%d)" % [TITLE, character.skill_points]
-		tabs.set_tab_title(tabs.get_tab_idx_from_control(self), title)
+		var entry: Array = Character.TREES[i]
+		var source: SkillSource = character.get(entry[1]) if character != null else null
+		_columns.add_child(_column(entry[0], source, SHARES.get(entry[1], 1)))
+	_show_progress()
 
 
 func focus_selection() -> bool:
-	var target := _group.get_pressed_button()
+	var target := _selected
 	if target == null and not _trees.is_empty():
 		target = _trees[0].first()
 	if target == null:
 		return false
 	target.grab_focus()
 	return true
+
+
+## Shows what the character has learned of each tree, which nodes holding
+## would learn now, and their unspent points in the sub-tab's title.
+func _show_progress() -> void:
+	var tabs := get_parent() as TabContainer
+	if tabs != null:
+		var title := TITLE if character == null else "%s (%d)" % [TITLE, character.skill_points]
+		tabs.set_tab_title(tabs.get_tab_idx_from_control(self), title)
+	# Built with no one to show before [code]Campaign[/code] exists: the pause
+	# menu is made first.
+	if character == null:
+		return
+
+	var locked := read_only or Campaign.in_mission
+	for view in _trees:
+		view.show_learned(character.learned_of(view.source))
+		for button: SkillButton in view.buttons.values():
+			button.learnable = not locked and character.can_learn(view.source, button.tree_node)
 
 
 ## A column: its heading at the top and, under it, the tree of
@@ -91,15 +104,29 @@ func _column(title: String, source: SkillSource, share: int) -> VBoxContainer:
 
 	if source == null or source.tree == null or source.tree.nodes.is_empty():
 		return column
-	# Nothing is learned until skill points can be spent.
-	var learned: Array[StringName] = []
-	var view := SkillTreeView.new(source.tree, learned, _group)
+	var view := SkillTreeView.new(source)
 	view.size_flags_horizontal = SIZE_SHRINK_CENTER
 	for button: SkillButton in view.buttons.values():
-		button.focus_entered.connect(_aim_arrows.bind(button, view))
+		button.focus_entered.connect(_on_focused.bind(button, view))
+		button.held.connect(_on_held.bind(button, view))
 	column.add_child(view)
 	_trees.append(view)
 	return column
+
+
+## Selects [param button], the ring moving to it, and points the arrow keys
+## from it.
+func _on_focused(button: SkillButton, view: SkillTreeView) -> void:
+	if _selected != null:
+		_selected.selected = false
+	_selected = button
+	button.selected = true
+	_aim_arrows(button, view)
+
+
+func _on_held(button: SkillButton, view: SkillTreeView) -> void:
+	if character != null and Campaign.learn(character, view.source, button.tree_node):
+		_show_progress()
 
 
 ## Points the arrow keys from [param button], in [param view], at the nearest

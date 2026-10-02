@@ -7,9 +7,9 @@
 class_name SkillTreeNode
 extends Resource
 
-## Names the node within its tree, for [member requires] and, once skills can
-## be learned, for what a character has learned of the tree. Unique in its
-## tree, and never renamed once in play, since saves will keep it.
+## Names the node within its tree, for [member requires] and for what a
+## character has learned of the tree ([member Character.learned]). Unique in
+## its tree, and never renamed once in play, since saves will keep it.
 @export var id: StringName
 @export var skill: Skill
 ## Where the node sits: its column, counted from 0 at the left, and its row,

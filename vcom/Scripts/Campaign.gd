@@ -5,7 +5,8 @@
 ## thing, and so saving has one place to look.
 ##
 ## Equipment moves only through [method equip] and [method unequip], which
-## keep every item either in the inventory or on a character, never both.
+## keep every item either in the inventory or on a character, never both, and
+## skills are learned through [method learn].
 ##
 ## Battles are fought by characters from the roster, up to [constant SQUAD_SIZE]
 ## of them, chosen on the world map's [SquadMenu] as each battle starts
@@ -37,8 +38,8 @@ var inventory: Inventory = STARTING_INVENTORY.duplicate_deep()
 ## spend it.
 var gold := STARTING_GOLD
 ## Whether a battle is being fought. Set by the combat scene's [TurnManager]
-## while it is in the tree. Equipment cannot change during one: a unit took
-## its gear when the map loaded, and would not see the change.
+## while it is in the tree. Equipment and skills cannot change during one: a
+## unit took its gear when the map loaded, and would not see the change.
 var in_mission := false
 ## Who is still for hire at each [HiringBoard], by board: a copy of the board's
 ## own list made the first time it is asked about, so the board's resource is
@@ -91,6 +92,16 @@ func unequip(character: Character, slot: StringName) -> bool:
 	inventory.add(old)
 	character.set(slot, null)
 	return true
+
+
+## Has [param character] learn [param node] of [param source]'s skill tree for
+## a skill point ([method Character.learn]). False, changing nothing, during a
+## mission, as equipping is: a unit takes what its character is when the map
+## loads. Also false when the character cannot learn it yet.
+func learn(character: Character, source: SkillSource, node: SkillTreeNode) -> bool:
+	if in_mission or character == null:
+		return false
+	return character.learn(source, node)
 
 
 ## Who is still for hire at [param board], in the order it lists them.

@@ -30,7 +30,8 @@ vcom/Scripts/
                        victory_gold and Coins.sweep()
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire
   CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
-  Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), in_mission,
+  Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), learn()
+                       (a skill, as Character.learn() but refused in battle), in_mission,
                        for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market), sell(),
                        start_battle(map, chosen) / end_battle() (the world map parked out of the tree meanwhile),
                        squad(count) (who fights: the chosen still alive), SQUAD_SIZE, lose() (killed in battle),
@@ -140,9 +141,10 @@ vcom/Scripts/
     HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
     PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
   Roster/
-    Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class,
-                       stats, wounds / health, total_defense, experience, skill_points, gain_experience(),
-                       equipment slots, hire_cost
+    Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
+                       (TREES), learned (node ids by SkillSource), learned_of() / can_learn() / learn(), stats,
+                       wounds / health, total_defense, experience, skill_points, gain_experience(), equipment
+                       slots, hire_cost
     Roster.gd          characters in display order
     Species.gd         SkillSource: what someone is born (Human)
     SubSpecies.gd      SkillSource: a kind of one Species (Minor Noble), its species
@@ -174,12 +176,15 @@ vcom/Scripts/
                        bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
     SlotButton.gd      a slot's name and what is in it
-    SkillsPage.gd      a column per tree (COLUMNS: Species, Sub-Species, Main Class, Multi-Class; widths 1:1:3:3),
-                       headed by the character's SkillSource or the plain title, rebuilt per character; arrow
-                       keys to the nearest node; titles its sub-tab "Skills (N)" with the character's skill points
-    SkillTreeView.gd   one SkillTree: a SkillButton on each node's cell, elbow links to the nodes each requires
-    SkillButton.gd     a node styled locked / available / learned; its skill's icon or its rank; name and
-                       description on hover; selection ring
+    SkillsPage.gd      a column per Character.TREES entry (SHARES: widths 1:1:3:3), headed by the character's
+                       SkillSource or the plain title, rebuilt per character; learns a node once it is held;
+                       the selection; arrow keys to the nearest node; titles its sub-tab
+                       "Skills (N)" with the character's skill points
+    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell, elbow links to the nodes each
+                       requires; show_learned() restyles both
+    SkillButton.gd     a circle styled locked / available / learned; its skill's icon or its rank; name and
+                       description on hover; held for HOLD_TIME while learnable, it fills like a clock and
+                       emits held; selection ring
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -570,8 +575,8 @@ which the unit copies as its own; the Details page shows that total and refreshe
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule; the System tab's
-**Blood** button is the second (see Blood). `Campaign.use_up()` and `lose()` do not refuse: they
-follow what the battle did.
+**Blood** button is the second (see Blood), and learning a skill the third (see Skill trees).
+`Campaign.use_up()` and `lose()` do not refuse: they follow what the battle did.
 
 The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
 in the strip changes, every page (not just the open one) gets `show_character(character)`, so a page
@@ -584,11 +589,11 @@ the means when `read_only` is set, as it is for characters not on the roster.
 an `Item`: a name, a description and an icon, and it does nothing yet. A `SkillTree` places skills as
 `SkillTreeNode`s, each with an `id` unique in its tree, a `cell` on the tree's grid (column, row,
 from 0 at the top left) and `requires`, the ids of nodes in the same tree that must all be learned
-before it (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
+before it can be (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
 they require: a column of nodes each requiring the one above is a path, two requiring one node a
 fork, one requiring two a join. A skill is kept apart from where it sits so one can sit in several
 trees (decided with the user): `Placeholder.tres` sits in all eight nodes of the Human and Minor
-Noble trees. A node's `id` is what a character's progress, and saves, will key on, so never rename
+Noble trees. A node's `id` is what a character's progress keys on, and saves will, so never rename
 one once in play.
 
 A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`), `SubSpecies`
@@ -596,30 +601,56 @@ A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`),
 A sub-species is a kind of exactly one species (`SubSpecies.species`; decided with the user); a class
 has one tree, shown the same whether it is the Main Class or the Multi-Class (also decided). A
 `Character` holds one of each, `species`, `sub_species`, `main_class` and `multi_class`, any of them
-unset. Every character is a Human Minor Noble, and no class exists yet. Nothing checks that a
-character's sub-species is one of their species' kinds: keep them agreeing.
+unset, listed with their titles in `Character.TREES`. Every character is a Human Minor Noble, and no
+class exists yet. Nothing checks that a character's sub-species is one of their species' kinds: keep
+them agreeing.
 
-The Skills page is built from `SkillsPage.COLUMNS`, a row per tree: the title it falls back to, the
-`Character` property holding the source, and its share of the width. It is rebuilt for every
-character, a column headed by its source's `display_name` ("Human"), or by its plain title
-("Species") with no tree under it while the character has none. A new kind of tree is a
-`SkillSource` subclass, a `Character` property and a row there. Each tree is a `SkillTreeView`,
+**Skills are learned by holding a node.** What a character has learned is theirs, like their wounds:
+`Character.learned`, the node ids of each tree in the order learned, keyed by the `SkillSource`
+resource (not by the column, so a tree's progress follows the species or class, wherever it shows).
+It only changes through `Character.learn()`, which spends one skill point a node, every node the
+same, and refuses, changing nothing, unless `can_learn()`: the tree is one of the character's own
+(`TREES`), the node is in it and not learned, everything it requires is learned, and there is a point
+to spend. The page learns through `Campaign.learn()`, which refuses first during a mission, as
+`equip()` does: a unit will take what its character has learned when the map loads. Skills do
+nothing yet, in battle or out, so nothing reads `learned` but the page.
+
+The Skills page has a column per `Character.TREES` entry, its share of the width from
+`SkillsPage.SHARES`, and is rebuilt for every character, a column headed by its source's
+`display_name` ("Human"), or by its plain title ("Species") with no tree under it while the
+character has none. A new kind of tree is a `SkillSource` subclass, a `Character` property and a
+row in `TREES` (and in `SHARES`, unless 1 will do). Each tree is a `SkillTreeView`,
 which places its `SkillButton`s itself by their cells (`GAP` apart) rather than in containers, and
 draws every link as an elbow: down from the node required, across just above the row of the node
 requiring it, and down into it, so a path is a straight line; lit once the node required is learned.
 A link to a node on the same row or higher, which a tree should not need, is a straight line between
 them. It warns of two nodes with one id, and of a requirement the tree lacks; nothing stops two
-nodes sharing a cell. A button shows its skill's icon, dimmed while locked, or its rank (its row,
-from 1), and the skill's name and description on hover. The arrow keys are pointed from a button as
+nodes sharing a cell. A button is a circle (it takes the mouse only inside it, `_has_point()`) that
+draws itself, its theme's boxes all empty, so the fill can go under its face: its skill's icon,
+dimmed while locked, or its rank (its row, from 1). It shows the skill's name and description on
+hover. The arrow keys are pointed from a button as
 it takes focus, once the trees are laid out, at the nearest button that way (`_nearest()`): up and
 down within its own tree, left and right on across the trees; with none that way it stays put,
 except up, left to Godot to take back to the sub-tabs.
 
-Nothing is learned yet: the page hands each tree an empty list of learned ids, so every node that
-requires none is open (available) and the rest are locked. The page titles its own sub-tab in
-`_refresh()`, "Skills (2)" from `Character.skill_points`, so the count follows the selection; nothing
-spends the points yet. Selecting a node only highlights it, and changing character clears the
-selection (a new `ButtonGroup`).
+A node is learned by holding it down, with the mouse or Enter / Space, as a `HoldButton` is held
+(its `HOLD_TIME`, 2 s, its `DRAIN_SPEED` and its fill colour, decided with the user): it fills like a
+clock's face, from the top round clockwise, a sector drawn under its face. Let go early it drains;
+full, it emits `held`, empties and stays empty until let go, so a press learns one skill at most. It
+fills only while the page has set it `learnable`, which `_show_progress()` sets for every node from
+`can_learn()`, and never in a mission or read only; any other node can still be pressed and selected,
+and nothing happens. On `held` the page calls `Campaign.learn()` and `_show_progress()` again, which
+restyles every tree (`SkillTreeView.show_learned()`: learned, open or locked, links lit) in place,
+rather than rebuilding, so the selection and the keyboard stay where they were. Nothing on the page
+says how to learn, or why a node will not fill (a mission, no points): a help line under the trees
+was taken out at the user's request, for now.
+
+A button is not a toggle: holding a toggle button reads as pressed whether it is held or not
+(`get_draw_mode()`), which the fill depends on. So the page keeps the selection itself, `_selected`,
+moved as a button takes focus (a click or the arrow keys), and a button draws its ring while
+`selected`. Changing character clears it. The page also titles its own sub-tab, "Skills (2)" from
+`Character.skill_points`, again after every skill learned. It reads `Campaign` only once a character
+is shown: the pause menu builds its pages before that autoload exists.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -1530,9 +1561,10 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- Nothing spends skill points, and the only experience is for surviving a battle. Nothing is learned
-  and no skill does anything; the Human and Minor Noble trees are four placeholder nodes each, all one
-  `Placeholder` skill, and there are no classes. Grenades are the
+- The only experience is for surviving a battle. No skill does anything yet, and every node costs one
+  skill point; nothing unlearns one. The Human and Minor Noble trees are four placeholder nodes each,
+  all one `Placeholder` skill, and there are no classes. A pie's straight edges are not antialiased.
+  Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
 - Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies

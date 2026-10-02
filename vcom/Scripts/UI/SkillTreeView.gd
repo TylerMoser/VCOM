@@ -1,6 +1,6 @@
-## One [SkillTree] on the Roster's Skills page: a [SkillButton] on each of its
-## nodes' cells, and a link from every node up to each node it requires, lit
-## once that one is learned.
+## One [SkillSource]'s [SkillTree] on the Roster's Skills page: a
+## [SkillButton] on each of its nodes' cells, and a link from every node up to
+## each node it requires, lit once that one is learned.
 ##
 ## It places its buttons itself, by [member SkillTreeNode.cell], rather than in
 ## containers, since a tree can branch and join any way. A link leaves the
@@ -17,17 +17,19 @@ const LINK_WIDTH := 2.0
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
 
+## What gives the tree, which is what the character learns it from.
+var source: SkillSource
 var tree: SkillTree
 ## Every node's button, by the node's id.
 var buttons := {}
 
 ## The ids of the nodes the character has learned.
-var _learned: Array[StringName]
+var _learned: Array[StringName] = []
 
 
-func _init(shown: SkillTree, learned: Array[StringName], group: ButtonGroup) -> void:
-	tree = shown
-	_learned = learned
+func _init(shown: SkillSource) -> void:
+	source = shown
+	tree = source.tree
 	mouse_filter = MOUSE_FILTER_IGNORE
 	custom_minimum_size = (Vector2(tree.extent()) * (SkillButton.SIZE + GAP) - GAP).max(Vector2.ZERO)
 	for node in tree.nodes:
@@ -37,10 +39,19 @@ func _init(shown: SkillTree, learned: Array[StringName], group: ButtonGroup) -> 
 		for id in node.requires:
 			if tree.find(id) == null:
 				push_warning("Skill tree node '%s' requires '%s', which the tree does not have." % [node.id, id])
-		var button := SkillButton.new(node, _state(node), group)
+		var button := SkillButton.new(node, _state(node))
 		button.position = _corner(node.cell)
 		add_child(button)
 		buttons[node.id] = button
+
+
+## Restyles the nodes and links for [param learned], the ids of the nodes the
+## character has learned of the tree.
+func show_learned(learned: Array[StringName]) -> void:
+	_learned = learned
+	for button: SkillButton in buttons.values():
+		button.state = _state(button.tree_node)
+	queue_redraw()
 
 
 ## The button the keyboard comes down to from the sub-tabs: the top row's

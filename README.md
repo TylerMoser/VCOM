@@ -46,6 +46,7 @@ all pause the game behind them, and all work the same way.
 | See what a skill is | Hover over it on the Roster's Skills page |
 | Press a button | Click it, or `Enter` / `Space` |
 | Buy, sell, hire, or start a battle | Hold the button for 2 seconds, with the mouse or `Enter` / `Space`. One per press: let go and hold again for the next |
+| Learn a skill | On the Roster's Skills page, hold an available skill (its edge lit) for 2 seconds, with the mouse or `Enter` / `Space`: it fills round like a clock face, from the top. It costs a skill point, and cannot be done during a battle. One per press |
 | Equip | On the Roster's Equipment page, pick a slot, then double-click an item under it, press `Enter` / `Space` on one, or press **Equip**. **Unequip** puts back what the slot holds |
 | Choose who fights | Before a battle, double-click a character, or press `Enter` / `Space` on one, to tick or untick them (up to four), then hold **Start**. A single click only shows their pages |
 | Close | `Esc`, or **Return to Game** on the pause menu's System tab. The roster before a battle cannot be closed: only **Start** leaves it |
@@ -74,7 +75,7 @@ all pause the game behind them, and all work the same way.
 
 While Shoot or Strike is up, `Tab` cycles targets rather than squad members. During the enemies'
 turn only the camera, the reaction keys and the pause menu answer. The pause menu works as on the
-world map, but equipment cannot be changed until the battle is over.
+world map, but equipment cannot be changed, nor skills learned, until the battle is over.
 
 ## The campaign
 
@@ -99,10 +100,11 @@ lost: **Game Over** comes up on the world map and the game closes.
 
 Everyone still standing at the end of a battle earns 50 experience, and a victory earns the party 10
 gold, plus a gold for every coin still lying on the field (see Coins, below). Every 100 experience
-becomes a skill point (the rest carries over), shown on the Roster's Skills tab as "Skills (1)";
-nothing spends them yet. That tab lays out a skill tree for each of the character's Species,
-Sub-Species, Main Class and Multi-Class, headed by its name. Everyone is a Human Minor Noble for now,
-whose two trees are still placeholders, and nobody has a class yet.
+becomes a skill point (the rest carries over), shown on the Roster's Skills tab as "Skills (1)".
+That tab lays out a skill tree for each of the character's Species, Sub-Species, Main Class and
+Multi-Class, headed by its name. A skill point learns any skill once every skill linked above it is
+learned (see [Menus](#menus)). Everyone is a Human Minor Noble for now, whose two trees
+are still placeholders, and nobody has a class yet; no skill does anything yet.
 
 ## Combat rules
 

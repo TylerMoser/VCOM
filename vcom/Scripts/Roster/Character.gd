@@ -22,6 +22,16 @@ static var slots := [
 	["Item 2", &"item_2", BattleItem],
 	["Item 3", &"item_3", BattleItem],
 ]
+## Every skill tree a character has, in the order the Skills page shows them:
+## its title, which heads its column while the character has none, and the
+## property holding the [SkillSource] that gives it. A new kind of tree is a
+## row here and a property.
+const TREES := [
+	["Species", &"species"],
+	["Sub-Species", &"sub_species"],
+	["Main Class", &"main_class"],
+	["Multi-Class", &"multi_class"],
+]
 
 @export var display_name := ""
 ## Placeholder identity colour: the unit's body in combat, and the portrait
@@ -39,6 +49,11 @@ static var slots := [
 @export var main_class: CharacterClass
 ## A second class, its tree the same as it would be as a Main Class.
 @export var multi_class: CharacterClass
+## What the character has learned of each tree, by the [SkillSource] that
+## gives it: the [member SkillTreeNode.id]s, in the order learned. Changed only
+## through [method learn] once the game is running; what a character starts
+## with is set here.
+@export var learned: Dictionary[SkillSource, Array] = {}
 
 @export_group("Stats")
 ## The unit's [member Unit.max_health]: what it can take before it falls.
@@ -66,8 +81,8 @@ static var slots := [
 ## battle's.
 @export var experience := 0
 ## Points to spend on the skill trees, one for every
-## [constant EXPERIENCE_TO_LEVEL] experience earned. They stack while unspent;
-## nothing spends them yet.
+## [constant EXPERIENCE_TO_LEVEL] experience earned, and one spent on every
+## skill learned ([method learn]). They stack while unspent.
 @export var skill_points := 0
 ## Health lost in battle and not yet healed. Kept as what is missing rather
 ## than what is left, so a character is whole by default and stays as hurt if
@@ -120,6 +135,42 @@ func gain_experience(amount: int) -> void:
 	while experience >= EXPERIENCE_TO_LEVEL:
 		experience -= EXPERIENCE_TO_LEVEL
 		skill_points += 1
+
+
+## The ids of the nodes of [param source]'s tree the character has learned, in
+## the order learned. A copy: learning goes through [method learn].
+func learned_of(source: SkillSource) -> Array[StringName]:
+	var ids: Array[StringName] = []
+	if learned.has(source):
+		ids.assign(learned[source])
+	return ids
+
+
+## Whether the character can learn [param node] of [param source]'s tree now:
+## the tree is one of their own ([constant TREES]), the node is in it and not
+## yet learned, everything it requires is learned, and they have a skill point
+## to spend.
+func can_learn(source: SkillSource, node: SkillTreeNode) -> bool:
+	if skill_points < 1 or source == null or source.tree == null or not source.tree.nodes.has(node):
+		return false
+	if not TREES.any(func(entry: Array) -> bool: return get(entry[1]) == source):
+		return false
+	var ids := learned_of(source)
+	return not ids.has(node.id) and source.tree.is_open(node, ids)
+
+
+## Learns [param node] of [param source]'s tree for a skill point. False,
+## changing nothing, when [method can_learn] says it cannot be. Every way of
+## learning a skill comes through here, so the rule is kept in one place;
+## during a battle [code]Campaign.learn()[/code] refuses first.
+func learn(source: SkillSource, node: SkillTreeNode) -> bool:
+	if not can_learn(source, node):
+		return false
+	skill_points -= 1
+	if not learned.has(source):
+		learned[source] = []
+	learned[source].append(node.id)
+	return true
 
 
 ## The kind of item [param slot] takes, from [member slots]. Null for a name

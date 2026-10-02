@@ -4,7 +4,8 @@
 ## its nodes sit and what they require.
 ##
 ## Data, like [Item]: shared by everyone with that species or class, and never
-## changed in play. What a character has learned of it will be theirs.
+## changed in play. What a character has learned of it is theirs
+## ([member Character.learned]).
 class_name SkillTree
 extends Resource
 
