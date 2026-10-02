@@ -1,42 +1,41 @@
-README images, gameplay gifs
+--TODO CAMPAIGN:
+More Items, Weapon Types, Armors, Shields, Medicines, Stat Buff Equipment, etc
+Noble: Rich Blood skill (new tier of market goods)
+Classes/Skills
+Story/Tutorials/In-game documentation for player/etc.
+Saving/Loading, Main Menu
 
 --TODO TACTICAL:
+Hunker down action
+Reload action
+Better UI for selecting targets, instead of just pressing Spacebar.
 Height/layers to terrain (Buildings with interiors)
 More terrain types: Ladders, fences, stairs, water, difficult ground, impassible tiles, etc.
+Action cam
+Action economy fleshing-out: second shot costs 2 actions? Lower hit chance on subsequent attacks?
 
 --DEFECTS:
 Line of sight from peeking around corners (while in high cover). Currently too restrictive.
 Debris can take up full tiles, causing weird behavior. If a tile is substantially full of debris, it should count as a full tile for cover and other systems. Could also crush to individual voxels when stepped on.
 Character height: Stand at height of tile, so float over partially destroyed tiles and stand inside piles of rubble. Maybe raise/lower standing height based on actual terrain height.
 
---OUT OF SCOPE:
-Other items
+--LOW PRIORITY:
+Controller controls/Steam Deck controls
 Fog of war? Maybe make it sections of the map, and obvious.
-Better UI for selecting targets, instead of just pressing Spacebar.
 Replace GenAI: Animations (Mixamo? Blender?), UI
 Music/Ambiance, Sound Effects
 Better Ground Blocks
 Enemy AI
 Battle map generation
-Reload action
 Status conditions
 Drop weapons/items on death: Player physics, enemy loot drops
+Add pre-scripted destruction to more terrain: Skinny trees
+Damage types: Resistances/Weaknesses
+Team/faction abilities. Command-point-like structure? 
+
+--ARCHITECTURAL IMPROVEMENT:
+Performance: 30fps on Steam Deck
 Claude Max code review/cleanup: Subagents? Some review, others fix? 
 Claude is pretty good at playing the game: Get it to play the game and spit out defects/concerns/questions about anything it isn't sure is right.
-Story/Tutorials/In-game documentation for player/etc.
-Saving/Loading, Main Menu
-Add pre-scripted destruction to more terrain: Skinny trees
-Refine terrain destruction (all kinds)
-Damage types: Resistances/Weaknesses
-Performance: 30fps on Steam Deck
-Controller controls/Steam Deck controls
-Action economy fleshing-out: second shot costs 2 actions?
-Hunker down action
-Pistols
-Team/faction abilities. Command-point-like structure? 
-Shields
 Triangle optimization everywhere: Hollow tree-tops for extending out to horizon, no internal triangles until broken, reduce unnecessary triangles until broken on voxel models
-Action cam
-Blood splatter staining mechanism: Actually re-color voxels red when hit by blood. Currently, the generated code only applies a red overlay 2mm from the voxel to "re-color" it. I had originally wanted to re-color whole voxels at the voxel level, but this would require re-meshing blocks at runtime. Rebuilding a block takes 1.5 to 3 milliseconds, so Claude did not want to do this because stains would require constantly rebuilding blocks. Maybe do this in C++? It might be worth re-working the "dense voxel" logic, replacing the gridmap layout with individual voxels, in C++ for efficiency. Or just take the performance hit? 
-Noble: Rich Blood skill (new tier of market goods)
-Classes/Skills
+Blood splatter staining mechanism: Actually re-color voxels red when hit by blood. Currently, the generated code only applies a red overlay 2mm from the voxel to "re-color" it. I had originally wanted to re-color whole voxels at the voxel level, but this would require re-meshing blocks at runtime. Rebuilding a block takes 1.5 to 3 milliseconds, so Claude did not want to do this because stains would require constantly rebuilding blocks. Maybe do this in C++? It might be worth re-working the "dense voxel" logic, replacing the gridmap layout with individual voxels, in C++ for efficiency. Or just take the performance hit?

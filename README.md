@@ -7,6 +7,12 @@ Squad members take on a map of enemies, a tile at a time: spend action points to
 cover behind terrain, lean out around it to find a firing angle, and roll against a percentage
 chance to hit.
 
+![A squad member lines up a shot at an enemy across ground torn up by a long fight](Images/combat-clean-06-long-fight-shot.png)
+
+*A shot lined up late in a long fight, with blood turned off: grenade craters, broken crates and the
+coins they left, and the heaps the fallen broke into. More screenshots are in [`Images/`](Images):
+the world map, the menus, and battles just begun and long fought, clean and with blood.*
+
 ## Controls
 
 Letter keys go by where they sit on the keyboard, not what is printed on them, so `WASD` is `ZQSD`
@@ -86,6 +92,11 @@ in the inventory (not equipped) for half its price, rounded down. Every hire, pu
 takes holding its button for two seconds, so a stray click never spends anything. Travelling
 through a forest (the green areas) risks an ambush: every short stretch of the way has a chance to
 start a battle.
+
+![The world map: the party on its way through a forest, with a village to the south-east](Images/worldmap-03-travelling.png)
+
+*The world map: the party, the red dot, on its way through a forest to the cross it was sent to, and a
+village to the south-east.*
 
 Before it starts, the roster comes up to choose who fights: tick up to four, then hold **Start** for
 two seconds (see [Menus](#menus)). It opens with the last battle's squad ticked, less anyone who
@@ -519,6 +530,8 @@ vcom/                     the Godot project
     BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
+Images/                   screenshots: the world map, the menus, and battles just begun and long fought,
+                          clean and with blood
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
 ANIMATIONS.md             the figure's rig and animations, in full
 ```

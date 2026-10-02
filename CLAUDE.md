@@ -7,7 +7,9 @@ working in the code.
 ## Layout
 
 The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where commands are run from.
-`MagicaVoxel/` holds source `.vox` art outside the project. `Styles/` holds candidate visual styles
+`MagicaVoxel/` holds source `.vox` art outside the project. `Images/` holds screenshots of the game
+(the world map, the menus, battles just begun and long fought, clean and with blood), two of them
+shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
 camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
