@@ -12,7 +12,9 @@
 ## asks for: aiming while a shot is lined up, the kick of a shot, a sword
 ## drawn and swung, a grenade wound back and thrown, a flinch, a duck, a
 ## cheer. Between actions [Postures] says which way it faces and whether it
-## kneels behind low cover or braces against high.
+## kneels behind low cover or braces against high. While someone has a shot
+## lined up that sees it only where it leans out round that cover, it leans
+## out there, and draws back once the shot is over ([method lean_out]).
 ##
 ## Its gear is its unit's, each item shown as its [member Item.model]: the gun
 ## in its hands, a sword it carries as well slung across its back until it is
@@ -63,6 +65,10 @@ const FIGURE_DESTRUCTION := "res://Resources/Destruction/Figure.tres"
 const GEAR_DESTRUCTION := "res://Resources/Destruction/Gear.tres"
 ## Grenades shown on the belt at most.
 const BELT := 3
+## How far out of the middle of its tile a lean out of cover takes its head,
+## in cells, unless the lean's clip says ([code]reach[/code] in its metadata,
+## which the bake measures off the pose).
+const LEAN_REACH := 0.7
 
 ## The .vox the figure was baked from, which its voxels are read from while
 ## the game runs, for blood to land on them and for it to break apart
@@ -93,6 +99,10 @@ var readiness := Readiness.NONE
 var cover := LineOfSight.Cover.NONE
 ## Whether its unit is on overwatch, which raises its gun.
 var overwatching := false
+## Which way it is leaning out of its cover: 1 to its left, -1 to its right,
+## 0 while it is behind it. Set through [method lean_out] and
+## [method lean_back].
+var leaning := 0
 ## Whether its unit has died, and it has broken apart ([method break_apart]).
 var dead := false
 
@@ -125,6 +135,14 @@ var _readied_for := 0.0
 ## action that ends and begins again at once, as a shot does between shots,
 ## readies them again before then and calls it off, so the gun never drops.
 var _easing := false
+## The cover it is leaning out from, which says whether it leans out standing
+## or on one knee; the seconds since it began to; and whether it has been told
+## to draw back, which it does once it is done flinching ([method lean_back]).
+var _lean_cover := LineOfSight.Cover.HIGH
+var _leaned_for := 0.0
+var _drawing_back := false
+## Seconds left of the reaction (a flinch, a duck) playing on top of its pose.
+var _reacting := 0.0
 
 ## Watching the unit move: where it was last frame, and how fast and which
 ## way it went across the ground since, in cells a second.
@@ -182,7 +200,11 @@ func _process(delta: float) -> void:
 	if dead:
 		return
 	_readied_for += delta
+	_leaned_for += delta
 	_acting = maxf(_acting - delta, 0.0)
+	_reacting = maxf(_reacting - delta, 0.0)
+	if _drawing_back and _reacting <= 0.0:
+		_stop_leaning()
 	var unit := get_parent() as Unit
 	var walking := unit != null and unit.is_moving()
 
@@ -223,6 +245,7 @@ func _process(delta: float) -> void:
 ## unless [param keep_facing], as a unit stepping out to shoot keeps facing its
 ## target.
 func begin_walk(points: Array[Vector3], keep_facing := false) -> void:
+	_stop_leaning()
 	_walk = points.duplicate()
 	_walk_from = _ground()
 	_walk_index = 0
@@ -232,6 +255,7 @@ func begin_walk(points: Array[Vector3], keep_facing := false) -> void:
 ## The floor under it is gone: it falls until its unit lands, and lands with
 ## its knees giving.
 func fall() -> void:
+	_stop_leaning()
 	_falling = true
 
 
@@ -254,11 +278,59 @@ func settle(held: LineOfSight.Cover, yaw: float, watch: Variant, at_once := fals
 		rotation.y = yaw
 
 
-## Whether it is standing about with nothing to do: not moving, falling or
-## broken apart, nothing ready and nothing playing. [Postures] only moves it
-## then.
+## Whether it is standing about with nothing to do: not moving, falling,
+## leaning out or broken apart, nothing ready and nothing playing. [Postures]
+## only moves it then.
 func is_idle() -> bool:
-	return not dead and readiness == Readiness.NONE and _walk.is_empty() and not _falling and _acting <= 0.0
+	return not dead and readiness == Readiness.NONE and leaning == 0 and _walk.is_empty() and not _falling and _acting <= 0.0
+
+
+## Leans out round the end of the cover it is behind, to its left
+## ([param side] 1) or its right (-1), as a unit does for as long as a shot is
+## lined up at it that sees it only there ([member LineOfSight.Shot.leaning]).
+## It turns to face that cover, [param yaw], which is [param held] high, leaning
+## out from low cover on one knee, and looks round it at [param watch] in the
+## world: whoever has it in their sights. Asked again while it leans, it changes
+## sides or what it watches. It leans only while it has nothing else to do: not
+## with anything ready, nor walking or falling.
+func lean_out(side: int, held: LineOfSight.Cover, yaw: float, watch: Vector3) -> void:
+	if dead or side == 0 or readiness != Readiness.NONE or not _walk.is_empty() or _falling:
+		return
+	_drawing_back = false
+	side = signi(side)
+	if leaning != side or _lean_cover != held:
+		_leaned_for = 0.0
+	leaning = side
+	_lean_cover = held
+	_yaw_target = yaw
+	_watch_point = watch
+
+
+## Draws back behind its cover: on its next frame, or once the flinch or duck
+## it is playing is over, so that a shot which catches it leaning out is seen
+## to land on it out there. Asked to lean out again before then, as it is when
+## the shot it leans out for is lined up again the moment it is over, it stays
+## out, and never bobs back between two shots.
+func lean_back() -> void:
+	if leaning != 0:
+		_drawing_back = true
+
+
+## Whether it has leaned out as far as it is going to: the lean faded in, which
+## takes [constant RAISE_SECONDS] as any base pose does, and turned to its
+## cover, or given [constant TURN_TIMEOUT] to. True while it is not leaning.
+func has_leaned_out() -> bool:
+	if leaning == 0 or dead:
+		return true
+	return _leaned_for >= TURN_TIMEOUT or (_leaned_for >= RAISE_SECONDS and _is_facing())
+
+
+## How far out of the middle of its tile leaning out to [param side] of
+## [param held] cover takes the middle of its head, in cells: what the lean was
+## made to reach, which its clip carries.
+func lean_reach(side: int, held: LineOfSight.Cover) -> float:
+	var animation := _tree.get_animation(_lean_pose(side, held)) if _tree != null else null
+	return animation.get_meta(&"reach", LEAN_REACH) if animation != null else LEAN_REACH
 
 
 ## Raises its gun at [param point], turning to it. Lined up on a new point,
@@ -507,6 +579,8 @@ func _set_readiness(value: Readiness) -> void:
 	var was := readiness
 	readiness = value
 	_readied_for = 0.0
+	if value != Readiness.NONE:
+		_stop_leaning()
 	if _stance == &"rifle" and _sword != null:
 		if value == Readiness.MELEE and not _drawn:
 			_draw_or_stow(true)
@@ -601,6 +675,8 @@ func _base_pose() -> StringName:
 			return &"ready_melee"
 		Readiness.THROW:
 			return StringName("ready_throw_%s" % hands)
+	if leaning != 0:
+		return _lean_pose(leaning, _lean_cover)
 	if overwatching and hands == &"rifle":
 		match cover:
 			LineOfSight.Cover.LOW:
@@ -615,6 +691,21 @@ func _base_pose() -> StringName:
 		LineOfSight.Cover.HIGH:
 			return StringName("wall_%s" % hands)
 	return StringName("stand_%s" % hands)
+
+
+## The pose of a lean out to [param side] of [param held] cover, for the hands
+## as they are: standing at the end of high cover, on one knee at the end of
+## low.
+func _lean_pose(side: int, held: LineOfSight.Cover) -> StringName:
+	return StringName("%s_lean_%s_%s" % [
+		"crouch" if held == LineOfSight.Cover.LOW else "wall", "left" if side > 0 else "right", _hands(),
+	])
+
+
+## Stands it back behind its cover, there and then.
+func _stop_leaning() -> void:
+	leaning = 0
+	_drawing_back = false
 
 
 func _update_tree(delta: float) -> void:
@@ -645,7 +736,8 @@ func _update_tree(delta: float) -> void:
 			var toward: Vector3 = (_aim_point as Vector3) - (global_position + Vector3.UP * 1.25)
 			_aim.set(&"aim_pitch", atan2(toward.y, Vector2(toward.x, toward.z).length()))
 		var look: Variant = _aim_point if aiming else _watch_point
-		var look_weight := 0.0 if look == null else (1.0 if aiming else 0.6)
+		# Leaning out, it has its eyes on whoever it leans out to look at.
+		var look_weight := 0.0 if look == null else (1.0 if aiming or leaning != 0 else 0.6)
 		if look != null:
 			_aim.set(&"look_point", look)
 		_aim.set(&"look_weight", move_toward(float(_aim.get(&"look_weight")), look_weight, delta * 3.0))
@@ -697,6 +789,8 @@ func _act(clip: StringName) -> void:
 func _react(clip: StringName) -> void:
 	if dead:
 		return
+	var animation := _tree.get_animation(clip)
+	_reacting = animation.length if animation != null else 0.0
 	_tree.set(&"parameters/react_pick/transition_request", String(clip))
 	_tree.set(&"parameters/react/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 

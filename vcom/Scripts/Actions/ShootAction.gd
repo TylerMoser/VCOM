@@ -4,7 +4,9 @@
 ## The targets on offer are whatever [LineOfSight] says the unit can see, so a
 ## unit behind high cover leans out around it to find its shot. The tile it
 ## leans out to is marked on the map, and the sight line, reticle and target
-## panel all follow the target.
+## panel all follow the target. A target it can only see where that target
+## leans out of its own cover is seen leaning out there for as long as it is
+## lined up, and through the shot.
 ##
 ##   Cycle targets - Tab, or Shift+Tab to go back.
 ##   Fire          - Enter or Space.
@@ -37,6 +39,9 @@ var _index := 0
 ## number the player is shown is the number that gets rolled.
 var _estimate: HitChance.Estimate
 var _overlay: ShotOverlay
+## The target lined up, while the shot sees it only where it leans out of its
+## cover, and so has its figure leaning out; null for one seen where it stands.
+var _leaning: Unit
 
 
 func _init() -> void:
@@ -64,6 +69,7 @@ func begin(unit: Unit) -> void:
 func end() -> void:
 	if _unit != null:
 		_unit.stand_easy()
+	_lean_back()
 	_unit = null
 	_shots.clear()
 	_index = 0
@@ -105,7 +111,7 @@ func _fire() -> void:
 	var unit := _unit
 	var cover := unit.global_position
 	# Read where to call the result now: a target that dies is gone by then.
-	var mark := controller.grid.cell_center(LineOfSight.eye_cell(aimed.target_tile))
+	var mark := _eye_of(aimed)
 
 	unit.spend_actions(COST)
 	# Drop the aim before anything moves: the target may be about to leave
@@ -154,15 +160,32 @@ func _show_shot() -> void:
 	else:
 		controller.highlights.clear_layer(STEP_OUT_LAYER)
 
+	var eye := controller.grid.cell_center(LineOfSight.eye_cell(aimed.from))
+	# Whoever was lined up before draws back, and this one leans out if that is
+	# where the shot sees it: before the aim, which is taken at where it leans.
+	if _leaning != aimed.target or not aimed.leaning:
+		_lean_back()
+	if aimed.leaning:
+		_leaning = aimed.target
+		aimed.target.lean_out(aimed.seen_at, eye, controller.grid)
 	_unit.aim_at(_unit.aim_point(aimed.target, controller.grid))
 	if _overlay != null:
-		var grid := controller.grid
-		_overlay.show_shot(
-			grid.cell_center(LineOfSight.eye_cell(aimed.from)),
-			grid.cell_center(LineOfSight.eye_cell(aimed.target_tile)),
-			aimed,
-			_estimate,
-		)
+		_overlay.show_shot(eye, _eye_of(aimed), aimed, _estimate)
+
+
+## Where [param shot]'s target's eye is for the sight line, the reticle and the
+## result called over it: over its tile, or as far out of it as its figure leans
+## while the shot has it leaning out.
+func _eye_of(shot: LineOfSight.Shot) -> Vector3:
+	return controller.grid.cell_center(LineOfSight.eye_cell(shot.target_tile)) + shot.target.lean()
+
+
+## Has the target that was leaning out for the shot lined up draw back behind
+## its cover, if it is still there to.
+func _lean_back() -> void:
+	if is_instance_valid(_leaning):
+		_leaning.lean_back()
+	_leaning = null
 
 
 func _clear_aim() -> void:

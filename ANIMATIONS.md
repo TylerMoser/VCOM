@@ -61,7 +61,7 @@ cd /c/Users/tandm/Documents/Projects/VoxelXCOM/vcom
 A good bake prints one line:
 
 ```
-BakeCharacter: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn: 536 voxels on 18 bones, 552 vertices, 38 animations.
+BakeCharacter: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn: 536 voxels on 18 bones, 552 vertices, 50 animations.
 ```
 
 Bake again after **any** change to `Characters/BaseCharacter.vox`, `Scripts/Characters/VoxelRig.gd`,
@@ -143,6 +143,8 @@ numbers and then corrected by looking at rendered frames.
   - they step out of cover to shoot and back in;
   - overwatch has its own stance;
   - a Ranger draws a sword when Slash is chosen;
+  - a unit in cover that is being targeted leans out of it for a look at the shooter, and holds
+    that until the shooter is back in cover (section 9.13);
   - the dead fall as ragdolls and stay (as they did here at first; they now break apart, section 9.8).
 
   The game's rules were already modelled on XCOM 2, so the animations follow the same playbook.
@@ -179,6 +181,7 @@ what it needs to be seen doing:
 | `Unit.drop_to()` (the floor broke) | a fall and a landing | `fall` (pose), `land` |
 | `TurnManager` deciding the battle | the winners cheering | `cheer_*` |
 | `LineOfSight.cover_at()` (cover beside the tile) | kneeling behind low cover, bracing at high | `crouch_*`, `wall_*` |
+| `LineOfSight.Shot.leaning` (a shot that sees its target only where it leans out of its cover; added later, section 19) | the target leaning out round the end of its cover, held while it is in the shooter's sights | `wall_lean_left_*`, `wall_lean_right_*`, `crouch_lean_left_*`, `crouch_lean_right_*` |
 | Standing about | an idle | `stand_*` |
 
 Items decide the three versions of most of these: a unit with a gun is in the **rifle** stance, one
@@ -236,7 +239,7 @@ Section 14 has how to repeat that.
                                          │                                                                            breaks apart on death
  Scenes/Props/Rifle.tscn ─(Foregrip)─► HumanoidAnimations.gd                                    Postures.gd ──────► settle(cover, yaw)
                                          poses as functions of time, IK ──► AnimationLibrary      (map node)
-                                         (38 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
+                                         (50 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
                                          AnimationNodeBlendTree (the tree)                        (on the skeleton)    turns the head
                                          │
                                        BakeCharacter.gd ──► Scenes/BaseCharacter.tscn
@@ -651,8 +654,11 @@ Moments the game waits on are stored on the clips (`Animation.set_meta`) and rea
 | `throw_rifle`, `throw_melee`, `throw_unarmed` | `release` | 0.36 s | the grenade leaves the hand then |
 | `draw_sword` | `swap` | 0.17 s | the sword comes into the hand, the gun goes on the back |
 | `stow_sword` | `swap` | 0.2 s | the reverse |
+| `wall_lean_*`, `crouch_lean_*` | `reach` | 0.759 (wall), 0.728 / 0.731 (crouch, left / right), in cells | how far out of the middle of its tile the lean puts the middle of the head: `CharacterModel.lean_reach()`, and through it where a shooter aims at a leaning target (`Unit.lean()`) |
 
-Change a moment in **both** places, the key table and the `set_meta` line in `make_library()`.
+Change a moment in **both** places, the key table and the `set_meta` line in `make_library()`. The
+`reach` is the exception: `_lean()` measures it off the pose it has just sampled, at time 0, so it
+follows any change to the lean by itself.
 
 ### 6.9 What the proportions forced
 
@@ -684,7 +690,7 @@ holds the rifle should be checked from the side and the front for this.
 - **The plain importer cannot do it.** It makes a single mesh with greedy faces that span bones, so
   a face cannot be split by bone. Rigid skinning needs each bone meshed on its own (section 5).
 - **Hand-writing a rigged scene is error-prone** (CLAUDE.md: do not hand-write `Transform3D`s), and
-  so is keying 38 animations by hand.
+  so is keying 50 animations by hand.
 - **Animations depend on the model's proportions** (IK targets, hip heights), so they have to be
   generated *for* the rig. One command regenerates all of it consistently whenever the model, the
   rig or the animation code changes.
@@ -753,7 +759,7 @@ Every figure plays its animations through one `AnimationTree`, whose root is the
 `AnimationNodeBlendTree` from `HumanoidAnimations.make_tree()`.
 
 ```
- [19 base-pose clips] ─► stance (Transition, xfade 0.22) ─────────────────────────┐
+ [31 base-pose clips] ─► stance (Transition, xfade 0.22) ─────────────────────────┐
                                                                                    ├─► move (Blend2) ─► hop (Blend2, legs only) ─► air (Blend2) ─► act (OneShot, BLEND) ─► react (OneShot, ADD) ─► output
  run_rifle (BlendSpace2D: forward/back/left/right) ┐                               │        ▲                    ▲                    ▲                    ▲
  run_melee ────────────────────────────────────────┼─► run (Transition, 0.15) ─► run_scale ─┘    hop_pose (hop)       fall_pose (fall)     act_pick (Transition,     react_pick (Transition,
@@ -768,8 +774,8 @@ Every figure plays its animations through one `AnimationTree`, whose root is the
 
 | Node | Type | Settings | Role |
 |---|---|---|---|
-| (19 clips named after their animations) | `AnimationNodeAnimation` | — | the base loops |
-| `stance` | `AnimationNodeTransition` | 19 inputs, one per base pose, named as the clip; `xfade_time` 0.22; reset off | which base pose is held; the cross-fade is how long raising a gun takes |
+| (31 clips named after their animations) | `AnimationNodeAnimation` | — | the base loops |
+| `stance` | `AnimationNodeTransition` | 31 inputs, one per base pose, named as the clip; `xfade_time` 0.22; reset off | which base pose is held; the cross-fade is how long raising a gun takes, and leaning out of cover |
 | `run_rifle` | `AnimationNodeBlendSpace2D` | points `forward` (0, 1) `run_rifle`, `back` (0, -1) `back_rifle`, `left` (1, 0) `strafe_left_rifle`, `right` (-1, 0) `strafe_right_rifle`; `sync` on | the rifleman's run, any way across the ground in his own space |
 | `run_melee`, `run_unarmed` | `AnimationNodeAnimation` | — | the other runs |
 | `run` | `AnimationNodeTransition` | inputs `run_rifle`, `run_melee`, `run_unarmed`; xfade 0.15 | which run |
@@ -816,7 +822,9 @@ Each clip node also exposes `current_length` and `backward`; nothing sets them.
   scene). Set *parameters* per figure; never change a node's *properties* (fade times, cross-fade,
   filters) at run time, or every figure changes.
 - The base Transition cross-fades poses in **joint space**, so for its 0.22 s a held rifle can drift
-  in the hands. Nothing keeps the hands on the gun mid-blend.
+  in the hands. Nothing keeps the hands on the gun mid-blend. Two poses that stand in different
+  places, as a lean does from the stance it leans out of, cross-fade as a slide between them: the
+  feet do not step.
 - `act` replaces everything below it while it plays (with its fades), so an act must be a whole pose
   and should start and end close to the base pose it is played over.
 - `react` adds; its clips must be changes from the rest, keyed only where they change something.
@@ -861,7 +869,9 @@ late (`HOP_DOWN` 0.15).
 ### 9.3 Readiness, cover and the base pose
 
 `readiness` is one of `NONE`, `AIM`, `MELEE`, `THROW`, `CHEER`, set by the calls in 9.4. `cover`
-(`LineOfSight.Cover`) comes from `Postures`. `overwatching` comes from the unit's setter. The **hands**
+(`LineOfSight.Cover`) comes from `Postures`. `overwatching` comes from the unit's setter. `leaning`
+(1 to its left, -1 to its right, 0 not) and the cover it leans out from come from `lean_out()`
+(9.13). The **hands**
 are `melee` while a gun carrier has drawn its sword, else the stance. `_base_pose()` picks:
 
 | readiness | other conditions | base pose |
@@ -870,6 +880,8 @@ are `melee` while a gun carrier has drawn its sword, else the stance. `_base_pos
 | `AIM` | has a gun | `aim_rifle` (without a gun, AIM falls through to the rows below) |
 | `MELEE` | — | `ready_melee` |
 | `THROW` | — | `ready_throw_<hands>` |
+| `NONE` | leaning out from high cover | `wall_lean_left_<hands>` or `wall_lean_right_<hands>` |
+| `NONE` | leaning out from low cover | `crouch_lean_left_<hands>` or `crouch_lean_right_<hands>` |
 | `NONE` | overwatching, hands `rifle`, low cover | `overwatch_crouch_rifle` |
 | `NONE` | overwatching, hands `rifle`, high cover | `wall_rifle` (no visible overwatch in high cover) |
 | `NONE` | overwatching, hands `rifle`, no cover | `overwatch_rifle` |
@@ -890,7 +902,11 @@ without one.
 | `fall()` | inside `Unit.drop_to()` | `TerrainDestruction` dropping a stranded unit | falls until the unit stops, then lands |
 | `face(point)` | — | the readiness calls | turns to a point |
 | `settle(cover, yaw, watch, at_once)` | — | `Postures` | cover, facing, what to keep an eye on; `at_once` snaps (first look of a battle) |
-| `is_idle()` | — | `Postures` | not moving, falling or dead, nothing ready, no act playing |
+| `is_idle()` | — | `Postures` | not moving, falling, leaning out or dead, nothing ready, no act playing |
+| `lean_out(side, held, yaw, watch)` | `Unit.lean_out(tile, watch, grid)`, which works out the cover, the side and the yaw | `ShootAction._show_shot()`, `ShotPlayback.play()`, and `Unit.shoot_at()` (again, which changes nothing if it was already leaning for this shot), all only for a shot whose `Shot.leaning` is true | leans out round the end of its cover, facing it, looking at the shooter (9.13) |
+| `lean_back()` | `Unit.lean_back()` | `ShootAction` (another target lined up, or `end()`), `ShotPlayback.play()` after the shot, `Unit.shoot_at()` if nobody had lined the shot up | draws back behind its cover, once any flinch or duck is over |
+| `has_leaned_out()` | `Unit.has_leaned_out()` | inside `Unit.shoot_at()`, polled | whether it has turned to its cover and the lean has faded in (`RAISE_SECONDS`), or has been given `TURN_TIMEOUT` to; true of a figure that is not leaning |
+| `lean_reach(side, held)` | inside `Unit.lean_out()`, kept as `Unit.lean()` | `Unit.aim_point()`, `ShootAction`, `ShotPlayback`, `Blood` | how far out the lean puts its head, from the clip's `reach` |
 | `aim_at(point)` | `Unit.aim_at(point)` | `ShootAction._show_shot()`, `ShotPlayback.play()` | readiness `AIM`, faces the point, the aim modifier pitches to it |
 | `ready_strike(point)` | `Unit.ready_strike(point)` | `StrikeAction._show_target()` | readiness `MELEE`, draws a slung sword, faces the target |
 | `ready_throw(point = null)` | `Unit.ready_throw(point)` | `ThrowGrenadeAction.begin()` (no point) and `_aim()` (the throw's end) | readiness `THROW`, a grenade from the belt into the left hand, faces the point |
@@ -920,7 +936,11 @@ Where the rules wait for the figure:
 - **A shot**: `Unit.shoot_at()` awaits `take_aim()`. That returns at once if the figure has been
   aiming at least `RAISE_SECONDS` (0.22) and faces within `FACING_TOLERANCE` (12°). Otherwise it waits
   at least 0.22 s and until it faces the target, giving up after `TURN_TIMEOUT` (0.5 s; paused time
-  does not count). Then the roll, the path, the kick and flash, the tracer, the landing.
+  does not count). If the shot sees its target leaning out, it then waits until the target
+  `has_leaned_out()`: at once if the target has been leaning 0.22 s and faces its cover, as it has
+  when the shot was lined up, and never longer than 0.5 s. It asks every frame rather than awaiting
+  the target's figure, which could be freed meanwhile and never come back. Then the roll, the path,
+  the kick and flash, the tracer, the landing.
 - **A strike**: `Unit.strike()` awaits `CharacterModel.strike()`, which squares up (up to 0.5 s),
   waits for any act still playing (the draw, 0.45 s), plays `strike_sword` and returns at its impact
   (0.27 s in). Then the roll and the damage. `StrikeAction` calls the result and waits
@@ -964,8 +984,9 @@ the animations each frame (it changes the pose they leave and never builds up):
 - **Look**: `look_weight` turns the head toward `look_point`. The turn is measured from the chest's
   front so the head never winds past `LOOK_YAW_LIMIT` (70°) side to side or `LOOK_PITCH_LIMIT` (35°)
   up and down, from `EYE_RISE` (0.2) above the head's joint. The weight is 1 toward the aim point
-  while anything is readied, 0.6 toward the nearest foe (from `Postures`) otherwise, eased at 3 a
-  second.
+  while anything is readied, 1 toward the shooter while it leans out of cover, and 0.6 toward the
+  nearest foe (from `Postures`) otherwise, eased at 3 a second. The head is turned from the chest's
+  own frame, so it keeps whatever tilt the chest has: in a lean it tips with the body.
 
 ### 9.8 Death: breaking apart
 
@@ -1058,6 +1079,11 @@ Cover shot away stands a figure back up within 0.2 s. With no foe left, a figure
 | `BLEND_RATE` | 12 | how fast `move` and `air` follow, a second |
 | `FIGURE_DESTRUCTION` / `GEAR_DESTRUCTION` | `Figure.tres` / `Gear.tres` | what `crumbles_as` and `gear_wears_as` are unless set, loaded as it readies (a preload would compile a cycle: section 16) |
 | `BELT` | 3 | grenades shown on the belt |
+| `LEAN_REACH` | 0.7 | cells a lean puts the head out of the middle of its tile, for a lean whose clip carries no `reach` (every baked one does) |
+
+`HumanoidAnimations.LEAN_STEP` 6.5 (voxels a figure steps along its cover to lean out, 9.13).
+`Unit.LEAN_WOUND_TRIES` 8 and `LEAN_WOUND_CLEARANCE` 0.05 (picking where a hit lands on a leaning
+target, 9.13).
 
 `TerrainDestruction`, how a figure breaks apart (9.8): `FIGURE_KNOCK` 2, `FIGURE_BLAST_KNOCK` 1,
 `FIGURE_LIFT` 0.3, `FIGURE_FEET_SHARE` 0.15, `FIGURE_WOUND_PUSH` 2, `FIGURE_WOUND_REACH` 0.4,
@@ -1094,11 +1120,62 @@ asked (the combat map's `Blood` node asks for every figure as the map loads):
 figure's front, from its right to its left (`Vector3(0.75, -0.45, 0.3)` in its own space). Re-author
 the swing and that vector wants changing with it (section 13.11).
 
+### 9.13 Leaning out of cover
+
+The rules let a shot see its target on a tile the target could lean out to, when it cannot see it
+where it stands (`LineOfSight.Shot.leaning`, with `Shot.seen_at` the tile; `CLAUDE.md`, "A target is
+seen where it leans out, too"). The figure shows it, as XCOM 2 does: there a unit in cover that is
+being targeted holds a peek out of its cover (`bTargeting` on its idle state machine, set by the
+targeting method) until the shooter has gone back into cover (`X2Action_EnterCover` clears it).
+
+- **When.** `Unit.lean_out(tile, watch, grid)` as the shot is lined up:
+  - `ShootAction._show_shot()` for the target the player has in their sights, which leans for as
+    long as it is lined up; cycling to another target, or putting the action away, has it lean back;
+  - `ShotPlayback.play()` for an enemy's shot, as the shooter turns to it, until the shooter is back
+    in cover;
+  - `Unit.shoot_at()` itself, for every such shot: it asks again, waits until the target has leaned
+    out, and, if nobody had lined the shot up (the target was not leaning yet), has it lean back
+    once the round has landed.
+
+  Reaction fire never asks: a reaction's shot is found with the target's leans left out.
+- **Which cover, which side.** The unit stands on its own tile and the tile it leans out to is
+  beside it, so the cover it leans out from stands square to that: in front or behind, as it faces
+  down the line of its lean. `Unit.lean_out()` takes whichever of the two is there, and of both the
+  one more toward `watch`, the shooter's eye. The figure turns to face that cover (the yaw
+  `Postures` would give it for that side), and leans to its left or its right. High cover is leaned
+  out from standing (`wall_lean_*`), low cover on one knee (`crouch_lean_*`).
+- **The pose.** `_wall()` and `_crouch()` take a `side`: 0 is the pose as it was, 1 a lean to the
+  figure's left, -1 to its right (section 10). The whole figure moves `LEAN_STEP` (6.5 voxels)
+  along the cover, by its hips' offset and the places its feet are put, not by its `Root`; its
+  hips go 1.2 to 1.8 further over the outside foot and roll 5°; its torso tips 18° and turns 8°
+  that way. That puts the middle of the head some 12 voxels out, three quarters of a tile, with
+  the edge of the cover half a tile out: enough for the 7-voxel head to clear the edge as seen
+  from straight in front of the cover.
+- **Looking.** The head is turned to `watch` by the aim modifier at full weight (9.7), up to 70°
+  from the chest's front.
+- **Leaning back.** `lean_back()` only marks it; the figure stands back on its next frame, or once
+  the reaction it is playing is over (`_reacting`, set by `_react()` to the clip's length), so a hit
+  or a miss is seen to land on it out there: about 0.4 s after the round lands. `lean_out()` again
+  before then calls it off, which is how a target lined up again the moment a shot is over (Shoot
+  re-begins) never bobs back between two shots. Walking, falling and readying anything stand it
+  back at once (`_stop_leaning()`), and `lean_out()` is refused while any of those is so.
+- **Where it is, to everything else.** Only the figure moves; the unit never leaves its tile.
+  `Unit.lean()` is the offset of its head across the ground (the direction of the tile it leans to,
+  times the clip's `reach`), zero while it is behind its cover. `Unit.aim_point()` adds it, so the
+  shooter's gun, the sight line, the reticle and the called result all go to the leaning figure;
+  `Blood` looks for the figure there. `Postures` leaves it alone (`is_idle()` is false).
+- **Where a hit lands.** `Unit._wound_on()` picks the wound as any hit does (`pick_wound()`), then,
+  for a leaning target, casts from the muzzle to it through the grid and picks again, up to
+  `LEAN_WOUND_TRIES` (8) times, while the cover is in the way: the tracer is drawn to the part of
+  the figure that is out. Measured behind the harness's pillar from 11 tiles: 161 of 400 wounds
+  picked plainly were hidden, none of 400 picked this way. It draws only on the figure's own
+  generator.
+
 ---
 
 ## 10. Catalogue of every animation
 
-38 clips. "Rot tracks" is how many bones are keyed (18 means all); "pos" the position tracks; "keys"
+50 clips. "Rot tracks" is how many bones are keyed (18 means all); "pos" the position tracks; "keys"
 the total after `optimize()`. Coordinates are rig voxels. "Chest" and "hip" positions are in that
 bone's own space (section 6.3).
 
@@ -1115,6 +1192,18 @@ bone's own space (section 6.3).
 | `wall_rifle` | base | 2.60 | loop | all + Root, Hips | 382 | |
 | `wall_melee` | base | 2.60 | loop | all + Root, Hips | 380 | |
 | `wall_unarmed` | base | 2.60 | loop | all + Root, Hips | 474 | |
+| `wall_lean_left_rifle` | base | 2.60 | loop | all + Root, Hips | 338 | `reach` 0.759 |
+| `wall_lean_left_melee` | base | 2.60 | loop | all + Root, Hips | 336 | `reach` 0.759 |
+| `wall_lean_left_unarmed` | base | 2.60 | loop | all + Root, Hips | 430 | `reach` 0.759 |
+| `wall_lean_right_rifle` | base | 2.60 | loop | all + Root, Hips | 343 | `reach` 0.759 |
+| `wall_lean_right_melee` | base | 2.60 | loop | all + Root, Hips | 342 | `reach` 0.759 |
+| `wall_lean_right_unarmed` | base | 2.60 | loop | all + Root, Hips | 433 | `reach` 0.759 |
+| `crouch_lean_left_rifle` | base | 2.80 | loop | all + Root, Hips | 291 | `reach` 0.728 |
+| `crouch_lean_left_melee` | base | 2.80 | loop | all + Root, Hips | 274 | `reach` 0.728 |
+| `crouch_lean_left_unarmed` | base | 2.80 | loop | all + Root, Hips | 231 | `reach` 0.728 |
+| `crouch_lean_right_rifle` | base | 2.80 | loop | all + Root, Hips | 290 | `reach` 0.731 |
+| `crouch_lean_right_melee` | base | 2.80 | loop | all + Root, Hips | 286 | `reach` 0.731 |
+| `crouch_lean_right_unarmed` | base | 2.80 | loop | all + Root, Hips | 229 | `reach` 0.731 |
 | `ready_throw_rifle` | base | 2.00 | loop | all + Root, Hips | 521 | |
 | `ready_throw_melee` | base | 2.00 | loop | all + Root, Hips | 399 | |
 | `ready_throw_unarmed` | base | 2.00 | loop | all + Root, Hips | 474 | |
@@ -1193,6 +1282,41 @@ bone's own space (section 6.3).
     direction (0.15, 1, 0.25));
   - sword upright in front, left hand by it;
   - unarmed: both hands raised in front of the chest (chest (±1.4, 1.8, 3.6)), bracing.
+
+### Base poses: leaning out of high cover (`wall_lean_left_*`, `wall_lean_right_*`)
+
+- **Function:** `_wall(time, stance, side)`, 2.6 s loop; `side` 1 for the figure's left, -1 for its
+  right. Meta `reach` 0.759 (cells; section 6.8).
+- **When:** while a shot is lined up, or being played, that sees the unit only on the tile beside
+  its high cover that it could lean out to (section 9.13). The figure faces the cover.
+- **Body:** everything `wall_*` does, moved `side` × `LEAN_STEP` (6.5) along the wall, and then:
+  - hips (side × 8.3, -1.6 + 0.12 breath, 0.6): 1.8 further over the outside foot and 0.6 lower,
+    turned -4° + side × 8°, rolled side × -5° (toward the lean);
+  - torso lean 9° + breath, turn 4° + side × 8°, tilt side × -18° (toward the lean), steadied 0.6;
+  - head (-6°, side × 16°, side × 4°): turned out round the edge, a little back toward upright.
+    In play the aim modifier turns it to the shooter.
+- **Feet:** left (side × 6.5 + 2.2 + side × 0.6, 0, 0.6); right (side × 6.5 - 2.2 + side × 0.6, 0,
+  -1.4); the outside foot turned out 12° more.
+- **Hands:** as `wall_*`, riding the chest: the rifle (or sword) upright, tipped out with the body.
+- **Result:** the middle of the head 12 voxels out from where the figure stood, the hips 8.3, the
+  feet 4.9 and 9.3: the edge of the cover is 7.9 out, so the head and the outside shoulder are
+  past it and the inside leg is behind it.
+
+### Base poses: leaning out of low cover (`crouch_lean_left_*`, `crouch_lean_right_*`)
+
+- **Function:** `_crouch(time, stance, false, side)`, 2.8 s loop. Meta `reach` 0.728 (left) and
+  0.731 (right).
+- **When:** as the lean above, when the cover leaned out from is low: the unit stays on one knee.
+- **Body:** the kneel, moved side × 6.5 along the cover, and then:
+  - hips (side × 7.7, -4 + 0.12 breath, -1.2): 1.2 over the side leaned to (the kneel's 0.4 toward
+    the knee goes), turned -6° + side × 6°, rolled side × -5°;
+  - torso lean 10° + breath, turn 6° + side × 8°, tilt side × -18°, steadied 0.5;
+  - head (-4°, side × 16°, side × 4°).
+- **Legs:** as the kneel: the right knee down, the left foot planted ahead, both moved with it.
+- **Hands:** as `crouch_*`; the sword stance's left hand and both unarmed hands rest on and by the
+  front knee, which has moved with the rest.
+- **Note:** the same legs lean both ways, so a lean to the right goes over the kneeling knee and a
+  lean to the left over the planted foot.
 
 ### Base pose: aiming (`aim_rifle`)
 
@@ -1561,15 +1685,15 @@ Every significant choice, why it was made, and what it costs.
     - *Cons:* not diffable, so the diff to review is the script's.
 12. **Three stances (rifle, melee, unarmed) as variants of shared pose functions.**
     - *Pros:* one body motion per action; the hands differ by `_carry`.
-    - *Cons:* the clip count grows with every stance (a new stance adds about seven clips); the run
-      Transition and some `match` blocks must be extended by hand.
+    - *Cons:* the clip count grows with every stance (a new stance adds eleven clips: nine base
+      poses, a run and a throw); the run Transition and some `match` blocks must be extended by hand.
 
 ### The tree and the runtime
 
 13. **A BlendTree with a Transition of base poses**, rather than a state machine or plain
     `AnimationPlayer` cross-fades.
     - *Pros:* every layer in one place; base poses are chosen by name; one-shots layer over anything.
-    - *Cons:* the Transition holds every base pose (19 inputs, growing); the tree is generated, so
+    - *Cons:* the Transition holds every base pose (31 inputs, growing); the tree is generated, so
       it is edited in code.
 14. **Reactions are additive** (`MIX_MODE_ADD`, deltas from the rest on the upper body).
     - *Pros:* one flinch, duck, recoil and landing for every pose: standing, kneeling, aiming,
@@ -1686,6 +1810,34 @@ Every significant choice, why it was made, and what it costs.
     - *Pros:* anyone can look at a clip with the right props, without the game.
     - *Cons:* needs a window; the figure is shown untinted.
 
+### Leaning out of cover
+
+34. **A target seen leaning out is shown leaning, as base poses** (added with the rule, section 19):
+    four more loops a stance, the wall and the kneel each with a side, rather than a one-shot act
+    or something added on top.
+    - *Why a base pose:* it is held for as long as the shot is lined up, which may be a long while;
+      the reactions (a flinch, a duck) have to play over it; and an act cannot be held.
+    - *Why not additive:* the legs are solved by IK for where the feet stand, and a lean added to
+      the kneel or the wall pose would carry the feet off the floor or leave them behind.
+    - *Why the figure moves itself:* the unit must not leave its tile (coins, reactions and every
+      rule read `tile_at()`), so the clip puts the figure out by its hips' offset and its feet, as a
+      hop lifts it on its own position. `Root` is left alone: a foot's IK target is in the model's
+      space, so a moved root would have to be allowed for in every target.
+    - *How far:* three quarters of a tile at the head. XCOM 2's peek is a lean of the head and
+      shoulders, but its soldiers stand at the edge of their cover in tiles half as wide again;
+      here the figure stands in the middle of a one-metre tile with a head 0.44 wide, so anything
+      less left the head half behind the edge to someone straight in front of the cover.
+    - *Why its `reach` is measured, not written down:* the shooter aims, and the reticle sits, where
+      the head is, so the number has to follow the pose; the bake reads it off the pose.
+    - *Why it waits to lean back:* drawn back the moment the round landed, the figure was behind
+      its cover again before its flinch showed.
+    - *Cons:* twelve more clips and twelve more inputs on the base Transition; the cross-fade in is
+      a slide along the cover, not a step; the same kneeling legs lean both ways; the head keeps
+      the chest's tilt; from straight in front at long range only the head, a shoulder and half the
+      chest show past the edge.
+    - *Not done:* XCOM 2's idle peeks (a look out of cover every one to five seconds while enemies
+      are in sight), and holding a peek when targeted but seen where it stands.
+
 ---
 
 ## 13. Recipes: adding and changing animations
@@ -1710,6 +1862,9 @@ Common tweaks:
 - **A bigger flinch:** `_hit`'s degrees.
 - **A slower strike:** stretch the times in both key tables and the clip length (0.75), and move
   `impact`.
+- **Lean further out of cover, or less:** `LEAN_STEP` (how far the feet go along the cover), and in
+  `_wall` and `_crouch` the hips' `side * 1.8` / `side * 1.2` and the torso's `side * -18.0`. The
+  clips' `reach` follows by itself; check from the front that the head clears the half-tile line.
 
 ### 13.2 Add a base pose
 
@@ -2094,6 +2249,9 @@ Other drivers used:
 | an enemy turn with reactions | overwatch the squad (`OverwatchAction.handle_input()` with a pressed `confirm_action` `InputEventAction`), `TurnManager.end_player_turn()`, and when `Reactions.is_open()` call `Reactions._fire(member)` for a member in `Reactions._offers` |
 | the cheer | `take_damage(100, ...)` on every enemy |
 | cover stances | look at each unit in `LineOfSightTest.tscn` (its lanes put units in the open, behind half cover and at walls), printing `unit.model.cover` and `unit.model._base` |
+| a target leaning out of high cover | in `LineOfSightTest.tscn` swap `Player3` and `Enemy3` (`global_position`), select `Player3`, `controller.activate(shooting)`, `shooting._cycle(1)` until `current_shot().target` is `Enemy3`: it leans (`model._base` is `wall_lean_right_rifle`); `shooting._fire()` for the shot. Look from the shooter's side (rig yaw about 75) and from behind the target |
+| a target leaning out of low cover | select `Player5` there and line up `Enemy2` (`crouch_lean_right_rifle`) |
+| a squad member leaning out as it is shot at | `ShotPlayback.new(grid, map.get_node("HUD/ShotOverlay")).play(enemy3, LineOfSight.new(grid).find_shot(enemy3, player3), estimate)` with nothing swapped |
 
 Rendering a whole battle is slow; for logic, run the same probe `--headless --fixed-fps 60`, which is
 deterministic and faster than real time.
@@ -2105,6 +2263,11 @@ overwatches, else advances; the turn ends; reactions are fired as windows open; 
 With seeds 7, 21 and 99 on `BoundaryMap.tscn` every battle was won in 3-4 turns with no script errors
 (4, 5 and 4 bodies on the ground). Seeding the global generator replays a battle exactly, so a change
 that breaks something shows up as a different result or an error.
+
+Played again when targets could first be seen leaning out (section 19), with the squad only
+shooting, going on overwatch or advancing: seeds 7, 21 and 99 were won in 3, 3 and 4 turns with no
+script errors, three of the squad's 14 to 20 shots in each catching Enemy1 leaning out of its half
+cover, and nobody left leaning as a turn began.
 
 ---
 
@@ -2118,6 +2281,10 @@ that breaks something shows up as a different result or an error.
   character's colour is the only thing that tells the squad apart.
 - **No wounded idle, no reload** (there is no ammo), no idle fidgets beyond breathing and drift, no
   turn-in-place steps, no start or stop transitions on the run, no walk gait.
+- **No idle peeks.** XCOM 2's units in cover lean out for a look every one to five seconds while
+  they have enemies in sight, and hold a peek whenever they are targeted. Here a figure leans out
+  only for a shot that sees it leaning (section 9.13); one seen where it stands stays as it is.
+- **No step into or out of a lean:** the lean cross-fades in and out with the base pose.
 - **No death animations:** deaths are physics only, and the knock is the same for every weapon and
   ignores where the hit landed.
 - **Only one way to throw** (left-handed, overhand) and **one strike** (a diagonal slash).
@@ -2157,6 +2324,17 @@ that breaks something shows up as a different result or an error.
     soldiers do;
   - overwatch in high cover looks like no overwatch;
   - a figure readied for an action ignores cover until it stands easy.
+- **Leaning out of cover** (9.13):
+  - the figure slides along its cover to the edge in the 0.22 s cross-fade rather than stepping, and
+    turns to face the cover as it goes if it was facing a foe elsewhere;
+  - its head keeps the tilt of its chest, since the look is turned from the chest's frame;
+  - the kneeling lean uses the same legs to either side;
+  - from straight in front of its cover at long range it shows its head, a shoulder and about half
+    its chest past the edge; hits are drawn landing on what shows;
+  - its click body and debris capsule stay on its tile, so a click on the leaning figure can miss
+    it, and debris it leans into does not move;
+  - nothing on the HUD says a target is leaning but the figure itself, and the sight line going to
+    it.
 - **Breaking apart:**
   - no fall is played: the figure bursts where it stands and its pieces drop;
   - a bent joint's two bones share a little room, so their lumps can start overlapping and push apart
@@ -2222,7 +2400,7 @@ animated figures:
 | All 15 `CharacterModel._process`es | about 0.25 ms |
 | One `Postures` run (every 0.2 s) | 0.13 ms |
 | The skinned mesh | 552 vertices a figure |
-| The library | 38 clips, 384 KB (binary) |
+| The library | 50 clips, 501 KB (binary); 38 clips and 384 KB before the leans |
 | A bake | a few seconds (the library itself about 80 ms) |
 | A death, breaking apart (`BoundaryMap.tscn`) | about 1.6 ms on its frame: the lumps cut 0.7, made 0.6, the gear 0.1; about 3.8 with blood, which stains the killing wound at once |
 
@@ -2436,6 +2614,50 @@ for show only and stay; stained voxels stay red; no global random numbers.
    generator untouched; dropped gear shot through and blasted; blood off) and renders of each.
    `crumble()` was cut from 1.6 to 0.7 ms by keeping each bone's cells in the rig.
 
+### Later: leaning out of cover (2026-10-02)
+
+The user had been told that XCOM 2's line of sight counts the tiles a *target* could lean out to as
+well as the shooter's, asked whether that was really so, and on hearing it was (its source says
+"5 source locations (default + 4 peeks) to 5 target locations (default + 4 peeks)") asked: *"Apply
+this change, allowing an attacker to target based on the target's lean-out tiles as well. Then,
+update any animations accordingly, similar to how these animations appear in XCOM 2."* No questions
+were put. What XCOM 2 shows was read off its script source: a unit in cover that is targeted holds
+a peek out of it (`X2TargetingMethod_OverTheShoulder.NotifyTargetTargeted` sets `bTargeting` on the
+target's idle state machine) until the shooter is back in cover (`X2Action_EnterCover` clears it),
+and its overwatch shots leave the target's peeks out (`bDisablePeeksOnMovement`).
+
+1. **The rule** (`LineOfSight`, `Ballistics`, `Reactions`; `CLAUDE.md` has it in full): a target is
+   seen on its own tile, or failing that on a tile it could lean out to; a round is flown to where
+   it leans; a reaction never sees a lean.
+2. **The poses.** `_wall()` and `_crouch()` gained a `side`, and each stance four more base loops
+   (section 10). The first try leaned 0.69 of a tile at the head, which in the map left the head
+   half behind the pillar from the shooter's side; `LEAN_STEP` went from 4.5 to 6.5 and the torso's
+   tilt from 24° to 18°, for 0.76. The kneeling lean's hips were centred so both sides reach alike.
+3. **The runtime.** `CharacterModel.lean_out()` / `lean_back()` / `has_leaned_out()` /
+   `lean_reach()`, their `Unit` wrappers and `Unit.lean()`; `ShootAction`, `ShotPlayback` and
+   `Unit.shoot_at()` ask for the lean; `aim_point()` follows it. Leaning back at once hid the
+   flinch behind the cover, so it now waits for the reaction to play out. A hit's wound is picked
+   on the part of the figure that is out (`Unit._wound_on()`).
+4. **Checked:**
+   - the 38 clips there were came out of the bake unchanged, key for key;
+   - on every map, two units stood on thousands of random pairs of tiles: sight ran both ways every
+     time, every shot that saw a target leaning was one the old rule did not have, and every other
+     shot was the old rule's;
+   - a seeded volley of shots at targets seen where they stand gave the same hits, paths and next
+     random number on the commit before and after;
+   - 12,800 misses at leaning targets: none through the target where it stands or where it leans,
+     none stopped short;
+   - renders of the lean from the shooter's side, from behind the target and from the game's
+     height, at a pillar and at a crate, hit and miss, for a squad member's shot and an enemy's;
+   - three seeded battles played to the end (section 14.4).
+   The battles turned up a landing of blood settled on a crate that had since broken, which was an
+   error waiting in `Blood._splash()`: it is guarded now.
+
+Files: `Scripts/Combat/LineOfSight.gd`, `Ballistics.gd`, `ShotPlayback.gd`, `Scripts/Reactions.gd`,
+`Scripts/Unit.gd`, `Scripts/Actions/ShootAction.gd`, `Scripts/Characters/CharacterModel.gd`,
+`HumanoidAnimations.gd`, `Scripts/Blood/Blood.gd`; the generated `Scenes/BaseCharacter.tscn` and
+`Characters/BaseCharacterAnimations.res`; `CLAUDE.md`, `README.md` and this file.
+
 ---
 
 ## 20. Glossary
@@ -2445,7 +2667,7 @@ for show only and stay; stained voxels stay red; no global random numbers.
 | **Act** | a one-shot clip played whole over the base pose (`act` in the tree): strike, throw, draw, stow |
 | **Additive** | a clip that is a change from the rest, added on top of other animation (`react`) |
 | **Bake** | running `BakeCharacter.gd`: `.vox` → rigged, animated scene |
-| **Base pose** | a looping clip held between actions, picked by `stance` (19 of them) |
+| **Base pose** | a looping clip held between actions, picked by `stance` (31 of them) |
 | **Body material** | the flat-colour material a unit puts over its figure (`CharacterModel.body_material`) |
 | **Cell / tile** | one Godot unit: a tile is a cell a unit can stand in; about 15.87 voxels |
 | **Chest space** | the `Chest` bone's own frame, turning with the torso; where rifle and sword poses are placed |
@@ -2456,6 +2678,8 @@ for show only and stay; stained voxels stay red; no global random numbers.
 | **Grip** | where a hand holds a prop: the prop's origin; also the hand-to-prop transforms (`rifle_grip`…) |
 | **Hands (stance)** | the stance the hands are in now: `melee` while a gun carrier's sword is drawn, else its stance |
 | **Layout** | a model's joints and voxel regions (`VoxelRig.BASE_CHARACTER`) |
+| **Lean** | a figure out round the end of its cover, held while a shot sees its unit only there (9.13); also the forward `lean` of a torso in the pose helpers, which is another thing |
+| **Reach** | how far out of the middle of its tile a lean puts the head, in cells: a lean clip's metadata |
 | **Model voxels** | MagicaVoxel's own voxel coordinates (z up, face toward -y) |
 | **Pole** | the direction an elbow or knee points, for IK |
 | **Pose** | every bone's rotation plus root and hip offsets at one moment (`HumanoidAnimations.Pose`) |

@@ -13,6 +13,12 @@
 ## enemy is hiding behind. Either way it is the trace, not the aim point, that
 ## decides where the round stops.
 ##
+## A target a shot catches leaning out of its cover
+## ([member LineOfSight.Shot.leaning]) is shot at where it leans out to, the
+## tile the sight line runs to: a hit flies to its eye there, and a miss is
+## aimed round its body there. The cover a miss can be aimed at is still the
+## cover beside the tile it stands on, which it is leaning out from.
+##
 ## A miss must not read as something else, so every one keeps two rules. It
 ## never passes through a unit, friend or foe, and a stray round wounds nobody.
 ## The one exception is a unit standing in the line of fire itself, which any
@@ -150,22 +156,24 @@ func fire(shooter: Unit, shot: LineOfSight.Shot, hit: bool) -> Outcome:
 ## it along the sight line if the shot [param hit], somewhere near it if not.
 func path_for(shooter: Unit, shot: LineOfSight.Shot, hit: bool) -> Path:
 	var from := _grid.cell_center(LineOfSight.eye_cell(shot.from))
-	# The target's eye wherever it actually stands: a reaction shot can catch
-	# it between tiles.
-	var offset := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile)) - _grid.tile_position(shot.target_tile)
-	var eye := shot.target.global_position + offset
+	# Where the target is shot at: wherever it actually stands, since a reaction
+	# shot can catch it between tiles, or as far out of its tile as the one it
+	# is caught leaning out to.
+	var feet := shot.target.global_position + (_grid.tile_position(shot.seen_at) - _grid.tile_position(shot.target_tile))
+	var eye := feet + (_grid.cell_center(LineOfSight.eye_cell(shot.target_tile)) - _grid.tile_position(shot.target_tile))
 	if not hit:
-		return _miss(shooter, shot, from, eye)
+		return _miss(shooter, shot, from, eye, feet)
 	var path := Path.new()
 	path.from = from
 	path.to = eye
 	return path
 
 
-## A miss by [param shooter], fired from [param from] at a target whose eye is
-## at [param eye]. See the class description for the rules it keeps.
-func _miss(shooter: Unit, shot: LineOfSight.Shot, from: Vector3, eye: Vector3) -> Path:
-	var body := shot.target.global_position + Vector3.UP * BODY_CENTER
+## A miss by [param shooter], fired from [param from] at a target shot at with
+## its feet at [param feet] and its eye at [param eye]. See the class
+## description for the rules it keeps.
+func _miss(shooter: Unit, shot: LineOfSight.Shot, from: Vector3, eye: Vector3, feet: Vector3) -> Path:
+	var body := feet + Vector3.UP * BODY_CENTER
 	var others := _bystanders(shooter, shot.target, from, eye)
 	# The ring's axes, square to the line of fire: up, as near as the line
 	# allows, and across.
@@ -191,7 +199,7 @@ func _miss(shooter: Unit, shot: LineOfSight.Shot, from: Vector3, eye: Vector3) -
 		# Aimed at the cover, it has to be the cover that stops it.
 		if at_cover and (path.struck == null or not cover_cells.has(path.struck.cell)):
 			continue
-		if _is_fair(path, body, others):
+		if _is_fair(path, feet, others):
 			return path
 
 	# Nothing drawn would do, so the target must be hemmed in. Work round it
@@ -203,7 +211,7 @@ func _miss(shooter: Unit, shot: LineOfSight.Shot, from: Vector3, eye: Vector3) -
 		for mark in FALLBACK_ANGLES:
 			var angle := mark + _rng.randf_range(-FALLBACK_JITTER, FALLBACK_JITTER)
 			var path := _trace(from, _around(body, up, across, angle, farthest), body)
-			if _is_fair(path, body, others):
+			if _is_fair(path, feet, others):
 				return path
 	var over := _rng.randf_range(-FALLBACK_JITTER, FALLBACK_JITTER)
 	return _trace(from, _around(body, up, across, over, farthest), body)
@@ -226,11 +234,15 @@ func _trace(from: Vector3, aim: Vector3, body: Vector3) -> Path:
 	return path
 
 
-## Whether [param path] is a fair miss at a target whose body is centred on
-## [param body]: clear of everyone in [param others], the target included, and
-## not stopped on terrain well short of it.
-func _is_fair(path: Path, body: Vector3, others: Array[Unit]) -> bool:
+## Whether [param path] is a fair miss at a target shot at with its feet at
+## [param feet]: clear of everyone in [param others], the target included, where
+## they stand, clear of the target where it is shot at, which is further out
+## when it is caught leaning, and not stopped on terrain well short of it.
+func _is_fair(path: Path, feet: Vector3, others: Array[Unit]) -> bool:
+	var body := feet + Vector3.UP * BODY_CENTER
 	if path.struck != null and path.struck.distance < path.from.distance_to(body) - SHORT_OF_TARGET:
+		return false
+	if passes_through_body(feet, path.from, path.to):
 		return false
 	for unit in others:
 		if passes_through(unit, path.from, path.to):
@@ -241,7 +253,13 @@ func _is_fair(path: Path, body: Vector3, others: Array[Unit]) -> bool:
 ## Whether the line from [param from] to [param to] passes through
 ## [param unit]'s body, taken as a capsule filling its two cells.
 static func passes_through(unit: Unit, from: Vector3, to: Vector3) -> bool:
-	var feet := unit.global_position
+	return passes_through_body(unit.global_position, from, to)
+
+
+## Whether the line from [param from] to [param to] passes through a unit's
+## body standing with its feet at [param feet], taken as a capsule filling its
+## two cells.
+static func passes_through_body(feet: Vector3, from: Vector3, to: Vector3) -> bool:
 	var closest := Geometry3D.get_closest_points_between_segments(
 		from,
 		to,

@@ -3,7 +3,9 @@
 ## gun up, leans out of cover if the shot needs it, still facing the target,
 ## the sight line hangs long enough to be seen, the round flies to wherever
 ## [Ballistics] sends it, the result is called over the target as it lands,
-## and the shooter settles back into cover and lowers its gun.
+## and the shooter settles back into cover and lowers its gun. A target the
+## shot only sees where it leans out of its own cover is seen leaning out there
+## from the moment the shooter turns to it until the shooter is back in cover.
 ##
 ## The shot itself is [method Unit.shoot_at], so a shot played out here means
 ## the same as one taken from the action bar.
@@ -34,15 +36,18 @@ func _init(grid: CombatGrid, overlay: ShotOverlay) -> void:
 ## shot hit.
 func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -> bool:
 	var cover := shooter.global_position
+	var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
+	# Before the aim, which is taken at where the target leans out to.
+	if shot.leaning:
+		shot.target.lean_out(shot.seen_at, eye, _grid)
 	# Read where to call the result now: a target that dies is gone by then.
-	var mark := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile))
+	var mark := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile)) + shot.target.lean()
 
 	shooter.aim_at(shooter.aim_point(shot.target, _grid))
 	if shot.stepped_out:
 		await shooter.walk([_grid.tile_position(shot.from)], step_out_seconds, true)
 	var show_rounds := Callable()
 	if _overlay != null:
-		var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
 		if player_fire:
 			_overlay.show_shot(eye, mark, shot, estimate)
 		else:
@@ -61,4 +66,6 @@ func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -
 	if shot.stepped_out:
 		await shooter.walk([cover], step_out_seconds, true)
 	shooter.stand_easy()
+	if shot.leaning and is_instance_valid(shot.target):
+		shot.target.lean_back()
 	return outcome.hit

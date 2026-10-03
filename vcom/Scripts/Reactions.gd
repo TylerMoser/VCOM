@@ -189,7 +189,8 @@ func _refresh() -> void:
 
 
 ## Everyone who could fire at the mover from where they are, holding their
-## reaction for it.
+## reaction for it. They have to see it where it stands: it is on the move,
+## not leaning out of anything.
 func _find_offers() -> Dictionary:
 	var offers := {}
 	var line_of_sight := LineOfSight.new(_grid)
@@ -197,7 +198,7 @@ func _find_offers() -> Dictionary:
 		var member := _squad.members[index]
 		if not member.overwatching or not member.reaction_available:
 			continue
-		var shot: Variant = line_of_sight.find_shot(member, _mover)
+		var shot: Variant = line_of_sight.find_shot(member, _mover, false)
 		if shot != null:
 			var aimed := shot as LineOfSight.Shot
 			offers[member] = Offer.new(aimed, HitChance.for_shot(member, aimed, true))

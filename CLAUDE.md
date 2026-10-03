@@ -22,7 +22,9 @@ vcom/Scripts/
                        from its character; equipment (its character's, or just its weapon), carries(tag), melee_weapon,
                        grenade; use_up(item) -> used_up; damage_from() (defense off a hit, as take_damage() takes it);
                        model (its CharacterModel) and the calls that only show things on it: aim_at(), ready_strike(),
-                       ready_throw(), stand_easy(), celebrate(), dodge(), recover(); aim_point() (a target's eye);
+                       ready_throw(), stand_easy(), celebrate(), dodge(), recover(), lean_out() / lean_back() (out
+                       of its cover, while a shot sees it there); aim_point() (a target's eye, lean() further out
+                       while it leans);
                        hurt (every hit that takes health, where it landed and how: for Blood); hit_from,
                        hit_blasted, hit_at, hit_sweep (the last hit: the way the figure breaks apart if it kills)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
@@ -45,10 +47,13 @@ vcom/Scripts/
                        away, for rounds; every_block too: of any .vox block, for blood; RayHit.index the voxel met),
                        pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() -> round_flown (every round's
                        line, for the loose models it tears through); voxels (VoxelTerrain)
-    LineOfSight.gd     cover, step-out, find_shots() -> Shot
+    LineOfSight.gd     cover, step-out (firing_positions(), lean_tiles()), find_shots() -> Shot (from / stepped_out:
+                       where the shooter fires from; seen_at / leaning: where the target is seen, its own tile or
+                       one it leans out to); find_shot(..., leans false) for a reaction; watched_tiles()
     HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path (wound: where on the
-                       target a hit is drawn landing, for show; drawn_to())
+                       target a hit is drawn landing, for show; drawn_to()); a target seen leaning out is shot at
+                       where it leans to
     Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
                        the blast: blast_cells(), is_caught(), caught(), blast_tiles()
     ThrownGrenade.gd   a grenade in flight along a Throw's arc, from the thrower's hand, as the grenade's
@@ -59,7 +64,8 @@ vcom/Scripts/
                        tile's when its ground goes, pays for those on any squad member's tile; count(), sweep()
     Coin.gd            one coin as it is seen (Items/Coin2.vox, as drawn): spins, bobs, pops in, drop_to(),
                        take(); for show
-    ShotPlayback.gd    shots not taken from the action bar: aim, lean out, show, shoot_at(), lean back
+    ShotPlayback.gd    shots not taken from the action bar: aim, step out, show, shoot_at(), step back; the target
+                       leaning out meanwhile if that is where the shot sees it
     Weapon.gd          Item: damage, environment_damage
     TileHighlights.gd  named layers of coloured squares
     TileGrid.gd        map node: the optional tile grid (G, or the System tab); gives the ground blocks
@@ -129,9 +135,10 @@ vcom/Scripts/
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Characters/          the rigged figure every unit wears, and how it is baked
     CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
-                       does, facing, hops, gear in its sockets; break_apart() (hides it once broken apart on
-                       death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for blood: voxels()
-                       (FigureVoxels), pick_wound(), swing(), gear()
+                       does, facing, hops, gear in its sockets; lean_out() / lean_back() / leaning / lean_reach()
+                       (out round the end of its cover, standing or on one knee); break_apart() (hides it once
+                       broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for blood:
+                       voxels() (FigureVoxels), pick_wound(), swing(), gear()
     FigureVoxels.gd    a figure's voxels for blood and breaking apart, read from its .vox at run time: each bone's a
                        part posed as the skeleton is; march() (bones and gear), pick_wound(), hit_near(), exit(),
                        bleed(); crumble() (the lumps it breaks into); its stains drawn by a mesh skinned to the
@@ -501,19 +508,23 @@ reads that table (`BakeCharacter.LAYOUTS` is the same one) and writes the model'
 (`FigureVoxels`), and a model with no entry never bleeds, with an error. Blood relies on the rig being
 rigid too: its stains are weighted wholly to their voxel's bone.
 
-**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 38 for the rig's
+**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 50 for the rig's
 proportions: a function of time places the feet, the hands and what they hold, and leans the body,
 and two-bone IK solves the limbs between, so a model with other proportions gets animations that fit
 it by baking again. The rifle is held through `rifle_grip` and the rifle scene's `Foregrip` marker:
 these arms reach only 8 voxels to the palm, which is why the aim holds the rifle under the chin and
 the off hand just under the receiver, behind the fore-end. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
 (`rifle`, `melee`, `unarmed`) has stand, crouch (on one knee behind low cover), wall (up close to
-high cover), ready_throw, cheer, run and throw; the rifle has aim, overwatch, overwatch_crouch and
+high cover), a lean out round either end of each of those two (`wall_lean_left` / `_right`,
+`crouch_lean_left` / `_right`: `_wall()` and `_crouch()` with a side), ready_throw, cheer, run and
+throw; the rifle has aim, overwatch, overwatch_crouch and
 the back / strafe steps a rifleman takes stepping out, still aimed; the sword has ready_melee,
 strike_sword, draw_sword and stow_sword; and there are hop, fall, and the reactions fire_rifle,
 hit_front, hit_back, dodge and land, which key only what they move and are added to the pose. Clips
 carry the moments the game waits on as metadata: `speed` on the runs (5 tiles a second, a stride a
-tile), `impact` on the strike, `release` on the throws, `swap` on the draws. The editor's animation
+tile), `impact` on the strike, `release` on the throws, `swap` on the draws; and each lean its
+`reach`, how far out of the middle of its tile it puts the head (about 0.7 to 0.76 cells), measured
+off the pose as it is baked. The editor's animation
 panel can play them; a change made there is lost at the next bake.
 
 **`CharacterModel` plays them through one `AnimationTree`.** Its `AnimationNodeBlendTree`
@@ -531,7 +542,8 @@ presentational calls that do nothing without a figure: `aim_at()` (raise the gun
 `AimModifier` bends the spine and chest to, above or below), `ready_strike()`, `ready_throw()`,
 `celebrate()` (the winners, as `TurnManager` decides the battle), `stand_easy()` (at the end of the
 frame, called off if something is readied again at once, so a Shoot that begins again never lowers
-the gun), `dodge()`, and `take_damage()`'s flinch. Between actions `Postures`, a node in each combat
+the gun), `dodge()`, `take_damage()`'s flinch, and `lean_out()` / `lean_back()` (see "A target is
+seen where it leans out" below). Between actions `Postures`, a node in each combat
 map, moves only figures that are `is_idle()`.
 
 **Gear hangs in the figure's sockets.** `CharacterModel.equip(gun, melee, grenades)` shows each item's
@@ -827,6 +839,40 @@ terrain the round struck through `CombatGrid.strike()` as `terrain_struck`. `sho
 coroutine; always `await` it. A step out walks with `keep_facing`, so the shooter sidesteps out and
 back with its gun on the target.
 
+**A target is seen where it leans out, too.** XCOM 2's rule (its visibility record traces "5 source
+locations (default + 4 peeks) to 5 target locations (default + 4 peeks)"): the tiles a unit behind
+cover can lean out to shoot from (`LineOfSight.lean_tiles()`, which `firing_positions()` adds to its
+own tile) are also tiles it can be seen on. `find_shot()` first looks for a firing position that
+sees the target's own tile, as it always did, so every shot there was before is unchanged. Only
+when none does, it takes the first firing position (the shooter's own tile first) that sees one of
+the target's lean tiles, and of those the nearest to it. Such a shot has `Shot.seen_at` on that
+tile and `Shot.leaning` true; its cover, flanking, distance and height are still the target's own
+tile's against `Shot.from`, so a unit behind a pillar is shot at through Full Cover. Sight
+therefore runs both ways: whoever can lean out and shoot can be shot back at. A reaction passes
+`leans` false (`Reactions._find_offers`), since a target on the move leans nowhere (XCOM 2's
+`bDisablePeeksOnMovement`), and `watched_tiles()` is as it was for the same reason. XCOM 2's other
+exceptions (unalerted enemies, units that cannot take cover) have nothing to apply to here.
+
+`Ballistics` shoots at a leaning target where it leans to: a hit flies to the eye over
+`Shot.seen_at`, which is the sight line, and a miss is aimed round the body there and kept clear of
+the target both where it stands and where it leans; the cover a miss can be aimed at is still the
+cover beside its own tile. The rest is for show. The target's figure leans out for as long as the
+shot is lined up, and through the shot, as XCOM 2's targeted units hold their peek until the shooter
+is back in cover: `Unit.lean_out(tile, watch, grid)`, called by `ShootAction` as the target is lined
+up, by `ShotPlayback` as the shooter turns to it, and by `Unit.shoot_at()` itself, which waits until
+the target `has_leaned_out()` before it rolls and, for a shot nobody lined up, has it lean back once
+the round has landed. It leans from the cover standing square to the way it
+leans (of two, the one more toward the shooter), turned to face that cover: `wall_lean_*` at high
+cover, `crouch_lean_*` on one knee at low, its head turned to the shooter. `lean_back()` waits for
+any flinch or duck to play out, so the hit is seen landing on it out there, and is called off if it
+is leaned out again first, so it never bobs back between two shots; walking, falling or readying
+anything stands it back at once. `Unit.lean()` is how far out its head is (the lean's `reach` toward
+the tile), which `aim_point()` adds, so the shooter's aim, the sight line, the reticle and the
+called result all follow the leaning figure, and `Blood` looks for the figure there. A hit on it is
+drawn landing on the part of it that is out (`Unit._wound_on()`: a wound its cover hides from the
+muzzle is picked again, on the figure's own generator). Only the figure moves: the unit never leaves
+its tile, so coins, reactions and everything else that reads `tile_at()` see nothing.
+
 **Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
 `terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
 `DestructionCatalog` of `Destruction` resources each naming a block by its MeshLibrary item name.
@@ -1115,6 +1161,8 @@ red. The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe
   lumps take their colour from its stains (about 2 ms).
 - **Landings wait their turn.** Wounds and landed drops are queued and settled oldest first for up to
   `SPLASH_BUDGET` microseconds a physics step, the rest the next: a stain a frame late is not seen.
+  A landing whose block has broken or fallen while it waited is dropped (`_splash()` asks
+  `kind_of()` first): the cover of someone hit leaning out of it often goes to the very next round.
 
 A stain is a face, never a voxel's colour: `VoxelStains` keeps each stained voxel's faces as six bits
 (+x, -x, +y, -y, +z, -z), by its place in its model's array, and draws them by an overlay, a
@@ -1284,10 +1332,20 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   (`LineOfSight.EYE_HEIGHT`). This is what makes 1-cell blocks half cover (never blocks sight) and
   2-cell blocks full cover (blocks it).
 - **Step-out requires cover.** A unit in the open fires from its own tile only.
+- **A target is seen on its own tile, or on a tile it could lean out to** (`LineOfSight.lean_tiles()`,
+  the same tiles it could step out to shoot from), as in XCOM 2, so sight runs both ways: with the
+  same sight range, `find_shot(a, b)` finds a shot exactly when `find_shot(b, a)` does. Its lean
+  tiles are only tried when no firing position sees its own tile, so they add shots and never
+  change one. A target in the open has none.
+- **A reaction never sees its target leaning.** `Reactions` finds its shots with `leans` false, and
+  `watched_tiles()` counts a tile only if someone standing on it would be seen there: the target is
+  on the move.
 - **Flanked ≠ uncovered.** `Shot.flanked` is true only when the target has cover that does not face
   the shot. A target in the open is "In the Open" and gets no flanking bonus.
 - Everything about a shot — cover, height, distance — is measured from `Shot.from`, the tile the
-  shot is *taken* from, which may be a step-out tile.
+  shot is *taken* from, which may be a step-out tile, to `Shot.target_tile`, the tile the target
+  stands on, wherever it is seen: a target caught leaning out keeps its cover. Only the sight line,
+  and so the round's path, runs to `Shot.seen_at`.
 - **Hit chance is computed once**, when the shot is lined up (`ShootAction._estimate`), and that is
   what gets rolled. Do not recompute at fire time. A reaction's shot is lined up each time the enemy
   reaches a new tile (`Reactions._find_offers`); its prompt shows that estimate and firing rolls it.
@@ -1318,9 +1376,12 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   `Ballistics`, and nothing recomputes it: the tracer draws that path and the terrain it ends on is
   what `terrain_struck` reports. One path per shot, as in XCOM 2.
 - **A hit flies the sight line**, eye to eye, so it never touches terrain. Only misses strike it.
+  The far eye is the one over `Shot.seen_at`: a target caught leaning out is hit, and missed, where
+  it leans to.
 - **Stray rounds never wound anyone and never pass through a unit**, the target included, except a
   unit standing in the line of fire itself, which every round passes through since units never block
   sight. A miss never stops on terrain more than `Ballistics.SHORT_OF_TARGET` short of the target.
+  A leaning target is kept clear of both where it stands and where it leans.
 - **Damage and terrain strikes land when the round does**, inside `shoot_at`, not when it is fired.
 - **A broken block leaves the grid the moment the round strikes it**, before any debris moves, so
   sight, cover and paths never wait on physics, and so does every breakable block stacked on it,
@@ -1356,9 +1417,11 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   hop or what it breaks into: sight, shots and blasts take a unit as its tile and two cells, and a dead
   one's lumps and gear are debris, in no group, scattered on `TerrainDestruction`'s own generator,
   never the global one. The figure decides only *when* a few things happen, never what: a shot is
-  fired once the gun is up, a strike lands at the swing's impact, a grenade leaves at the throw's
-  release. Every rule above still holds at that moment, and a unit with no figure plays the same,
-  at once.
+  fired once the gun is up and its target, if the shot sees it leaning out, has leaned out, a strike
+  lands at the swing's impact, a grenade leaves at the throw's release. Every rule above still holds
+  at that moment, and a unit with no figure plays the same, at once. A figure leaning out of its
+  cover is one of those things: the unit is on its own tile throughout, and whether it is seen
+  leaning was `LineOfSight`'s to say, from the tiles alone.
 
 ## Verification
 
@@ -1393,6 +1456,17 @@ Three shot lanes: a target in the open with a crate backstop behind it, a low cr
 under the line of fire into the target's half cover, and a squad member standing right behind the
 target. Its crates break, so a probe that shoots there changes the lanes as it goes. Prefer adding
 a lane there over reasoning about geometry in your head.
+
+The pillar and wall lanes show a target seen leaning out, from the other side: Enemy1 to Enemy5 see
+Player3, and Enemy2 to Enemy4 see Player4, only where they lean out, through Full Cover (35 to
+40%), and Player5 sees Enemy2 only leaning out of its half cover, past the wall lane. To
+watch a squad member take such a shot, swap Player3 and Enemy3's positions in a probe
+(`global_position`), select Player3, activate Shoot and cycle to Enemy3 (`ShootAction._cycle()`):
+`current_shot()` has `leaning` and `seen_at`, `Enemy3.is_leaning()` and `model._base` say what its
+figure is doing (`wall_lean_right_rifle`), and `ShotPlayback.new(grid, overlay).play(enemy, shot,
+estimate)` plays one the other way. The rule itself is cheap to check exhaustively: teleport two
+units to random pairs of tiles and compare `find_shot(a, b)` with `find_shot(b, a)` and with
+`find_shot(a, b, false)`, which is the rule as it was before a target could be seen leaning.
 
 Physics runs headless, and with `--fixed-fps 60` every physics step is exactly 1/60 s, so debris
 can be tested without rendering: break a block by calling `CombatGrid.strike()` with a hand-built
@@ -1719,6 +1793,18 @@ reaches may preload a destruction.
   on it, and a character's colour is the only thing that tells the squad apart.
 - A figure turns on the spot without stepping, so its feet slide round. Every throw is left-handed,
   so the right hand keeps its weapon. There is no wounded idle, and no reload since there is no ammo.
+- A target leans out of its cover only for a shot that sees it leaning, while that shot is lined up
+  or played. XCOM 2 has more: a unit in cover leans out for a look every few seconds while it has
+  enemies in sight, and one that is targeted holds its peek even when it is seen where it stands.
+  Neither is here. Nothing but the figure says a target is leaning: the target panel reads its
+  cover alone, and the tile it leans out to is not marked as the shooter's step-out tile is.
+- The lean is the base pose cross-fading (0.22 s), so the figure slides along its cover to the edge
+  rather than stepping there, and its head keeps the tilt of its chest. It leans out about three
+  quarters of a tile, which from straight in front of its cover at long range shows its head, a
+  shoulder and half its chest past the edge and no more; a hit is drawn landing on what shows.
+  The click body and the debris capsule stay on its tile.
+- The enemy AI gains the shots the rule gives it and nothing else: `Tactics.advance()` still walks
+  toward the nearest foe, and nothing weighs where a move would leave it seen leaning out.
 - Props are posed by kind: the rifle's grip and foregrip, the sword's grip. A gun shaped very
   differently (a pistol) needs its own poses in `HumanoidAnimations`, not just a model.
 - What the dead break into stays for the rest of the battle, and a living unit can stand in it.

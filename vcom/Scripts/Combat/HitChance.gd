@@ -8,7 +8,9 @@
 ## number the player has to take on faith.
 ##
 ## Everything about the shot is measured from where it is actually taken:
-## a unit leaning out of cover shoots from the tile it leans out to.
+## a unit leaning out of cover shoots from the tile it leans out to. It is
+## measured to the tile the target stands on, even for a shot that only sees
+## the target where it leans out of its own cover: that cover still counts.
 ##
 ## A melee strike's odds are the same sum with the striker's melee accuracy
 ## for its aim, and nothing about the ground counting (see

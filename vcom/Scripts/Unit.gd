@@ -11,7 +11,8 @@
 ##
 ## It is seen as its [member model], a rigged figure that plays out what it
 ## does: it turns and runs as the unit walks, raises its gun to shoot, swings
-## and throws, flinches, and breaks apart when it dies
+## and throws, flinches, leans out of its cover while a shot has caught it
+## doing so ([method lean_out]), and breaks apart when it dies
 ## ([method TerrainDestruction.break_figure]). The rules never wait on it,
 ## but where a moment matters: a shot goes off once the gun is up, a blow lands
 ## when the swing does, and a grenade leaves the hand at the top of the throw.
@@ -59,6 +60,11 @@ const PICK_RADIUS := 0.3
 const PLAIN_RIFLE: Weapon = preload("res://Resources/Rifle.tres")
 ## How high off its feet a unit's blow comes from, in cells: about its chest.
 const STRIKE_HEIGHT := 1.1
+## How many more times a hit on a target caught leaning out of its cover picks
+## where it is seen to land, while the cover hides the place picked from the
+## gun; and how far short of that place, in cells, the cover is looked for.
+const LEAN_WOUND_TRIES := 8
+const LEAN_WOUND_CLEARANCE := 0.05
 
 ## Replaced by [member character]'s name when the unit has one.
 @export var display_name := "Unit"
@@ -154,6 +160,9 @@ var model: CharacterModel
 var _motion: Tween
 ## The body debris bumps off. Null for a unit with no Model to shape it by.
 var _body: AnimatableBody3D
+## How far out of its tile the unit's figure leans while it leans out of its
+## cover, across the ground in the world ([method lean]). Only for show.
+var _lean := Vector3.ZERO
 ## The last hit, as [method take_damage] was given it: where it came from
 ## (unknown, infinite, until the unit is first hit), whether it was a blast,
 ## where on the body it landed (infinite if no one chose) and the way a blade
@@ -275,6 +284,11 @@ func damage_from(amount: int) -> int:
 ##
 ## It is fired once the unit's figure has turned to the target and raised its
 ## gun, which it has already if the shot was lined up for it ([method aim_at]).
+## A target the shot catches leaning out of its cover
+## ([member LineOfSight.Shot.leaning]) is seen to: its figure leans out before
+## the shot is fired, as it has already if whoever lined the shot up had it
+## lean ([method lean_out]), and unless they did, it draws back once the round
+## has landed.
 ## A miss is ducked. A hit is seen to land somewhere on the side of the
 ## target's figure facing the gun, chosen as it is fired
 ## ([member Ballistics.Path.wound]): the tracer is drawn there, and the target
@@ -282,8 +296,16 @@ func damage_from(amount: int) -> int:
 func shoot_at(
 	shot: LineOfSight.Shot, chance: int, grid: CombatGrid, show_rounds := Callable()
 ) -> Ballistics.Outcome:
+	# Nobody had it lean out for this shot, so it is this shot's to lean back.
+	var leaned := shot.leaning and not shot.target.is_leaning()
+	if shot.leaning:
+		shot.target.lean_out(shot.seen_at, grid.cell_center(LineOfSight.eye_cell(shot.from)), grid)
 	if model != null:
 		await model.take_aim(aim_point(shot.target, grid))
+	# Polled rather than awaited on the target: a figure freed mid-wait would
+	# never come back.
+	while shot.leaning and is_instance_valid(shot.target) and not shot.target.has_leaned_out():
+		await get_tree().process_frame
 	var hit := HitChance.roll(chance)
 	var outcome := Ballistics.new(grid).fire(self, shot, hit)
 	if model != null:
@@ -293,7 +315,7 @@ func shoot_at(
 	var fired_from: Vector3 = outcome.muzzle if outcome.muzzle != null else outcome.paths[0].from
 	if outcome.hit and is_instance_valid(shot.target) and shot.target.model != null:
 		for path in outcome.paths:
-			var wound := shot.target.model.pick_wound(fired_from)
+			var wound := _wound_on(shot, fired_from, grid)
 			if wound.is_finite():
 				path.wound = wound
 	if show_rounds.is_valid():
@@ -309,7 +331,32 @@ func shoot_at(
 		grid.fly(fired_from, path.drawn_to(), weapon.environment_damage)
 		if path.struck != null:
 			grid.strike(path.struck, weapon.environment_damage)
+	if leaned and is_instance_valid(shot.target):
+		shot.target.lean_back()
 	return outcome
+
+
+## Where a hit by [param shot], fired from [param from], is seen to land on its
+## target's figure: somewhere on the side facing the gun
+## ([method CharacterModel.pick_wound]). On a target caught leaning out of its
+## cover that is the part of it that is out: a wound the cover hides from the
+## gun is picked again, up to [constant LEAN_WOUND_TRIES] times, so the tracer
+## is not drawn through the cover to it. Only for show, and nothing drawn from
+## the global generator. Infinite if the figure has nowhere to wound.
+func _wound_on(shot: LineOfSight.Shot, from: Vector3, grid: CombatGrid) -> Vector3:
+	var figure := shot.target.model
+	var wound := figure.pick_wound(from)
+	if not shot.leaning:
+		return wound
+	for attempt in LEAN_WOUND_TRIES:
+		if not wound.is_finite():
+			break
+		var toward := wound - from
+		# Voxel by voxel, as a round is traced, and stopping just short of the body.
+		if grid.cast(from, toward.normalized(), toward.length() - LEAN_WOUND_CLEARANCE, true) == null:
+			break
+		wound = figure.pick_wound(from)
+	return wound
 
 
 ## Strikes [param target], standing next to this unit, with
@@ -485,10 +532,65 @@ func aim_at(point: Vector3) -> void:
 
 
 ## Where to aim at [param target] on [param grid]: its eye, wherever it stands,
-## between tiles if a reaction catches it walking.
+## between tiles if a reaction catches it walking, and as far out of its tile
+## as its figure leans while it leans out of its cover ([method lean]).
 func aim_point(target: Unit, grid: CombatGrid) -> Vector3:
 	var tile := grid.tile_at(target.global_position)
-	return target.global_position + (grid.cell_center(LineOfSight.eye_cell(tile)) - grid.tile_position(tile))
+	return target.global_position + (grid.cell_center(LineOfSight.eye_cell(tile)) - grid.tile_position(tile)) + target.lean()
+
+
+## Has the unit's figure lean out of its cover to [param tile], the tile beside
+## its own that a shot has caught it leaning out to
+## ([member LineOfSight.Shot.seen_at]), looking round the cover at
+## [param watch] in the world, the eye of whoever is aiming at it. It leans out
+## from the cover that stands square to the way it leans, high or low; of two,
+## one in front and one behind, the one more toward [param watch]. It stays out
+## until [method lean_back]. Only the figure moves: the unit is on its own tile
+## throughout, and everything about the shot is still reckoned from there.
+func lean_out(tile: Vector3i, watch: Vector3, grid: CombatGrid) -> void:
+	if model == null:
+		return
+	var own := grid.tile_at(global_position)
+	var side := Vector2i(tile.x - own.x, tile.z - own.z)
+	var sides := LineOfSight.new(grid).cover_at(own)
+	var toward := Vector2(watch.x - global_position.x, watch.z - global_position.z)
+	var behind := Vector2i.ZERO
+	for direction: Vector2i in [Vector2i(-side.y, side.x), Vector2i(side.y, -side.x)]:
+		if sides.has(direction) and (behind == Vector2i.ZERO or Vector2(direction).dot(toward) > Vector2(behind).dot(toward)):
+			behind = direction
+	# Its cover has gone since the shot was lined up: nothing to lean round.
+	if behind == Vector2i.ZERO:
+		return
+	var held: LineOfSight.Cover = sides[behind]
+	# Facing the cover, its left is the cover's direction turned a quarter.
+	var way := 1 if side == Vector2i(behind.y, -behind.x) else -1
+	model.lean_out(way, held, atan2(float(behind.x), float(behind.y)), watch)
+	_lean = (grid.tile_position(tile) - grid.tile_position(own)) * model.lean_reach(way, held)
+
+
+## Has the unit's figure draw back behind its cover, the shot that caught it
+## leaning out being over, or no longer lined up.
+func lean_back() -> void:
+	if model != null:
+		model.lean_back()
+
+
+## Whether the unit's figure is leaning out of its cover ([method lean_out]).
+func is_leaning() -> bool:
+	return model != null and model.leaning != 0
+
+
+## How far out of its tile the unit's figure is leaning, across the ground in
+## the world: toward the tile it leans out to, as far as its head gets. Nothing
+## while it is behind its cover.
+func lean() -> Vector3:
+	return _lean if is_leaning() else Vector3.ZERO
+
+
+## Whether the unit's figure has leaned out as far as it is going to, which a
+## shot at it there waits for; true of one that is not leaning out at all.
+func has_leaned_out() -> bool:
+	return model == null or model.has_leaned_out()
 
 
 ## Squares the unit's figure up to [param point] in the world, its melee

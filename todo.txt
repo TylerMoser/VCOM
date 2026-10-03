@@ -3,6 +3,7 @@ More Items, Weapon Types, Armors, Shields, Medicines, Stat Buff Equipment, etc
 Noble: Rich Blood skill (new tier of market goods)
 Classes/Skills
 Story/Tutorials/In-game documentation for player/etc.
+Refine/Improve map, travel speed, time limits, etc. More locations.
 Saving/Loading, Main Menu
 
 --TODO TACTICAL:
@@ -15,9 +16,6 @@ Action cam
 Action economy fleshing-out: second shot costs 2 actions? Lower hit chance on subsequent attacks?
 
 --DEFECTS:
-Line of sight from peeking around corners (while in high cover). Currently too restrictive.
-Debris can take up full tiles, causing weird behavior. If a tile is substantially full of debris, it should count as a full tile for cover and other systems. Could also crush to individual voxels when stepped on.
-Character height: Stand at height of tile, so float over partially destroyed tiles and stand inside piles of rubble. Maybe raise/lower standing height based on actual terrain height.
 
 --LOW PRIORITY:
 Controller controls/Steam Deck controls
@@ -34,7 +32,7 @@ Damage types: Resistances/Weaknesses
 Team/faction abilities. Command-point-like structure? 
 
 --ARCHITECTURAL IMPROVEMENT:
-Performance: 30fps on Steam Deck
+Performance: 30fps on Steam Deck (Right now, I'm not even getting a stable 30fps on my laptop)
 Claude Max code review/cleanup: Subagents? Some review, others fix? 
 Claude is pretty good at playing the game: Get it to play the game and spit out defects/concerns/questions about anything it isn't sure is right.
 Triangle optimization everywhere: Hollow tree-tops for extending out to horizon, no internal triangles until broken, reduce unnecessary triangles until broken on voxel models

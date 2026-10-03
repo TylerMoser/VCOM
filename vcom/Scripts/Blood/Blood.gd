@@ -278,7 +278,7 @@ func _on_hurt(taken: int, from: Vector3, at: Vector3, blasted: bool, sweep: Vect
 	taken = mini(taken, MOST_DAMAGE)
 	var faces := WOUND_FACES + taken * WOUND_FACES_PER_DAMAGE
 	var drops := DROPS + taken * DROPS_PER_DAMAGE
-	var middle := unit.global_position + Vector3.UP * FIGURE_MIDDLE
+	var middle := _middle_of(unit)
 	if not from.is_finite():
 		from = middle + Vector3.FORWARD
 	var figure: FigureVoxels = unit.model.voxels() if unit.model != null else null
@@ -448,6 +448,10 @@ func _splash(landing: Landing) -> void:
 		var hit := landing.block
 		if hit.index < 0 or hit.face == Vector3i.ZERO:
 			return
+		# The block may have broken or fallen while the landing waited its turn,
+		# as the cover of someone hit leaning out of it does to the next round.
+		if _destruction.voxels.kind_of(hit.cell) == null:
+			return
 		var start := _terrain.voxel_of(hit.cell, hit.index)
 		BloodFlow.new(_terrain, start, FACES.find(hit.face), volume, _rng, LANDING_SPLAT).spread(volume)
 	elif landing.figure != null:
@@ -515,8 +519,14 @@ func _figures() -> Array:
 			continue
 		var figure := unit.model.voxels()
 		if figure != null:
-			found.append([figure, unit.global_position + Vector3.UP * FIGURE_MIDDLE, FIGURE_REACH])
+			found.append([figure, _middle_of(unit), FIGURE_REACH])
 	return found
+
+
+## The middle of [param unit]'s figure: over its feet, or as far out of its
+## tile as it is leaning while it leans out of its cover.
+func _middle_of(unit: Unit) -> Vector3:
+	return unit.global_position + unit.lean() + Vector3.UP * FIGURE_MIDDLE
 
 
 ## Whether a line from [param from] along [param heading], [param length]

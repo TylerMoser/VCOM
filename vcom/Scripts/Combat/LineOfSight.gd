@@ -12,6 +12,12 @@
 ## A unit caught in the open has nothing to lean out from and fires from
 ## where it stands.
 ##
+## The same leaning gives a unit away, as it does in XCOM 2: a target is seen
+## on its own tile or on any tile it could lean out to, so whoever can shoot
+## round their cover can be shot back at round it. That is what makes sight
+## run both ways. A target on the move leans nowhere, so a reaction has to see
+## it where it stands.
+##
 ## Other units are ignored throughout: soldiers do not block line of sight,
 ## only terrain does.
 class_name LineOfSight
@@ -37,13 +43,20 @@ class Shot:
 	var from: Vector3i
 	## True when [member from] is not the tile the shooter stands on.
 	var stepped_out: bool
-	## The cover the target has against this shot.
+	## The tile the target is seen on: its own, or, when the shooter cannot see
+	## that, one it leans out to round its own cover. The sight line runs here.
+	var seen_at: Vector3i
+	## True when [member seen_at] is not the tile the target stands on: the
+	## shot catches it leaning out.
+	var leaning: bool
+	## The cover the target has against this shot: its own tile's, wherever it
+	## is seen.
 	var cover: Cover
 	## True when the target is in cover, but none of it faces this shot.
 	## Catching a target in the open is not flanking it: there was nothing to
 	## get around.
 	var flanked: bool
-	## Distance from [member from] to the target, in tiles.
+	## Distance from [member from] to the tile the target stands on, in tiles.
 	var distance: float
 
 
@@ -100,11 +113,20 @@ func cover_against(tile: Vector3i, from: Vector3i) -> Cover:
 
 
 ## The tiles [param unit] can shoot from: the one it stands on first, then
-## the tiles beside its cover it can lean out to. Cover is what makes the
-## lean possible, so a unit in the open only ever shoots from where it is.
+## the tiles beside its cover it can lean out to ([method lean_tiles]), so a
+## unit in the open only ever shoots from where it is.
 func firing_positions(unit: Unit) -> Array[Vector3i]:
+	var positions: Array[Vector3i] = [_grid.tile_at(unit.global_position)]
+	positions.append_array(lean_tiles(unit))
+	return positions
+
+
+## The tiles beside its cover that [param unit] can lean out to: where it
+## shoots round its cover from, and where it can be seen and shot at in turn.
+## Cover is what makes the lean possible, so a unit in the open has none.
+func lean_tiles(unit: Unit) -> Array[Vector3i]:
 	var tile := _grid.tile_at(unit.global_position)
-	var positions: Array[Vector3i] = [tile]
+	var leans: Array[Vector3i] = []
 	var occupied := _grid.occupied_tiles(unit)
 	for direction: Vector2i in cover_at(tile):
 		# Lean out along the cover, to one side of it and then the other.
@@ -112,20 +134,37 @@ func firing_positions(unit: Unit) -> Array[Vector3i]:
 			Vector2i(-direction.y, direction.x), Vector2i(direction.y, -direction.x)
 		]:
 			var peek := tile + Vector3i(side.x, 0, side.y)
-			if peek in positions or occupied.has(peek) or not _grid.is_tile(peek):
+			if peek in leans or occupied.has(peek) or not _grid.is_tile(peek):
 				continue
-			positions.append(peek)
-	return positions
+			leans.append(peek)
+	return leans
 
 
 ## The shot [param shooter] has at [param target], or null if it cannot see
 ## it. Firing from where it stands beats leaning out, so a unit only steps
 ## out when it has to.
-func find_shot(shooter: Unit, target: Unit) -> Variant:
+##
+## The target is seen on its own tile wherever any of the shooter's positions
+## sees that. Only when none does is it seen leaning out
+## ([member Shot.leaning]): on the nearest of its own [method lean_tiles] to
+## the first of the shooter's positions that sees one. Its cover, and the
+## shot's distance and height, are still its own tile's. [param leans] false
+## leaves its leans out, for a target on the move, which leans nowhere: a
+## reaction has to see it where it stands.
+func find_shot(shooter: Unit, target: Unit, leans := true) -> Variant:
 	var shooter_tile := _grid.tile_at(shooter.global_position)
 	var target_tile := _grid.tile_at(target.global_position)
 	var positions := firing_positions(shooter)
+	var seen_at := target_tile
 	var sighted: Variant = _sight_tile(shooter_tile, positions, target_tile, shooter.sight_range)
+	if sighted == null and leans and _tile_distance(shooter_tile, target_tile) <= shooter.sight_range:
+		var leans_out := lean_tiles(target)
+		for position in positions:
+			var lean: Variant = _nearest_in_sight(position, leans_out)
+			if lean != null:
+				sighted = position
+				seen_at = lean
+				break
 	if sighted == null:
 		return null
 
@@ -135,6 +174,8 @@ func find_shot(shooter: Unit, target: Unit) -> Variant:
 	shot.target_tile = target_tile
 	shot.from = from
 	shot.stepped_out = from != shooter_tile
+	shot.seen_at = seen_at
+	shot.leaning = seen_at != target_tile
 	shot.cover = cover_against(target_tile, from)
 	shot.flanked = shot.cover == Cover.NONE and not cover_at(target_tile).is_empty()
 	shot.distance = _tile_distance(from, target_tile)
@@ -142,7 +183,8 @@ func find_shot(shooter: Unit, target: Unit) -> Variant:
 
 
 ## Every tile [param unit] could shoot someone standing on, as a set. This is
-## the ground a unit on overwatch covers.
+## the ground a unit on overwatch covers: a reaction's target is on the move,
+## so where it could lean out to from there counts for nothing.
 func watched_tiles(unit: Unit) -> Dictionary:
 	var tile := _grid.tile_at(unit.global_position)
 	var positions := firing_positions(unit)
@@ -182,6 +224,18 @@ func _sight_tile(
 		if _grid.is_line_clear(eye_cell(from), eye_cell(target_tile)):
 			return from
 	return null
+
+
+## The nearest of [param tiles] to [param from] that it has a clear sight line
+## to, or null if it has one to none of them.
+func _nearest_in_sight(from: Vector3i, tiles: Array[Vector3i]) -> Variant:
+	var nearest: Variant = null
+	for tile in tiles:
+		if not _grid.is_line_clear(eye_cell(from), eye_cell(tile)):
+			continue
+		if nearest == null or _tile_distance(from, tile) < _tile_distance(from, nearest as Vector3i):
+			nearest = tile
+	return nearest
 
 
 ## How far apart two tiles are across the ground, in tiles. Height is left

@@ -37,10 +37,24 @@ const RUN_SPEED := 5.0
 ## tiles.
 const STRIDE_TILES := 1.0
 
+## How far along its cover a character steps to lean out round the end of it,
+## in voxels: most of the way to the edge of its tile, which is half a tile
+## (about 7.9) from where it stood. Shifting its weight and tipping its body
+## take its head the rest of the way and past: some 12 voxels out, three
+## quarters of a tile, which a head 7 voxels wide needs to show past the edge
+## to someone straight in front of the cover.
+const LEAN_STEP := 6.5
+
 ## The stances, and the base poses (loops) every one of them has. A base pose
 ## is what a character holds between actions; see [method make_tree].
 const STANCES: Array[StringName] = [&"rifle", &"melee", &"unarmed"]
-const STANCE_POSES: Array[StringName] = [&"stand", &"crouch", &"wall", &"ready_throw", &"cheer"]
+const STANCE_POSES: Array[StringName] = [
+	&"stand", &"crouch", &"wall", &"ready_throw", &"cheer",
+	&"wall_lean_left", &"wall_lean_right", &"crouch_lean_left", &"crouch_lean_right",
+]
+## The leans out of cover among them, as [code][name, side][/code]: the side is
+## 1 for the character's left and -1 for its right.
+const LEANS := [[&"left", 1.0], [&"right", -1.0]]
 ## Base poses only some stances have.
 const RIFLE_POSES: Array[StringName] = [&"aim_rifle", &"overwatch_rifle", &"overwatch_crouch_rifle"]
 const MELEE_POSES: Array[StringName] = [&"ready_melee"]
@@ -73,6 +87,8 @@ var _parent := {}
 var _rest := {}
 ## Each hand's palm: the middle of its voxels, in its own space.
 var _palm := {}
+## The middle of the head's voxels, in its own space.
+var _head := Vector3.ZERO
 
 
 func _init(voxel_rig: VoxelRig) -> void:
@@ -84,6 +100,7 @@ func _init(voxel_rig: VoxelRig) -> void:
 	for side: StringName in [&"Left", &"Right"]:
 		var hand := StringName(side + "Hand")
 		_palm[side] = rig.bone_box(hand).get_center() / scale
+	_head = rig.bone_box(&"Head").get_center() / scale
 	# The rifle's barrel runs on from the forearm, as a pistol's does: along the
 	# right hand's length (-x), its top up the back of the hand.
 	rifle_grip = Transform3D(Basis(Vector3.UP, -PI / 2.0), _palm[&"Right"])
@@ -110,6 +127,9 @@ func make_library() -> AnimationLibrary:
 		library.add_animation(StringName("stand_%s" % stance), _loop(2.4, _stand.bind(stance)))
 		library.add_animation(StringName("crouch_%s" % stance), _loop(2.8, _crouch.bind(stance, false)))
 		library.add_animation(StringName("wall_%s" % stance), _loop(2.6, _wall.bind(stance)))
+		for lean: Array in LEANS:
+			library.add_animation(StringName("wall_lean_%s_%s" % [lean[0], stance]), _lean(2.6, _wall.bind(stance, lean[1])))
+			library.add_animation(StringName("crouch_lean_%s_%s" % [lean[0], stance]), _lean(2.8, _crouch.bind(stance, false, lean[1])))
 		library.add_animation(StringName("ready_throw_%s" % stance), _loop(2.0, _throw.bind(stance, -1.0)))
 		library.add_animation(StringName("cheer_%s" % stance), _loop(1.0, _cheer.bind(stance)))
 		var run := _loop(_cycle(), _run.bind(stance))
@@ -281,6 +301,17 @@ func _picker(tree: AnimationNodeBlendTree, name: StringName, names: Array[String
 func _loop(length: float, pose_at: Callable) -> Animation:
 	var animation := _sample(length, pose_at, [])
 	animation.loop_mode = Animation.LOOP_LINEAR
+	return animation
+
+
+## A looping lean out of cover, [param length] seconds long, sampled from
+## [param pose_at]. How far out of the middle of its tile the lean puts the
+## middle of the head, in Godot units, goes on it as [code]reach[/code]: where
+## whoever has the character in their sights is seen to aim.
+func _lean(length: float, pose_at: Callable) -> Animation:
+	var animation := _loop(length, pose_at)
+	var head: Transform3D = (pose_at.call(0.0) as Pose).at(&"Head")
+	animation.set_meta(&"reach", absf((head * _head).x) * scale)
 	return animation
 
 
@@ -571,22 +602,34 @@ func _stand(time: float, stance: StringName) -> Pose:
 
 ## Down on one knee behind low cover: the right knee on the floor, the left foot
 ## planted ahead. On overwatch, [param aiming], the rifle is shouldered over it.
-func _crouch(time: float, stance: StringName, aiming: bool) -> Pose:
+##
+## With [param side] it is leaning out round the end of that cover instead, to
+## its left (1) or its right (-1), as a character does for as long as someone
+## has a shot lined up at it that sees it there: shuffled [constant LEAN_STEP]
+## along the cover on its knee, its weight over that side and its head and
+## shoulders tipped out past the edge, looking round it.
+func _crouch(time: float, stance: StringName, aiming: bool, side := 0.0) -> Pose:
 	var pose := _pose()
 	var breath := sin(TAU * time / 2.8)
 	var hips_y: float = 5.0 - rig.joints[&"Hips"].y
-	pose.move(Vector3.ZERO, Vector3(-0.4, hips_y + 0.12 * breath, -1.2))
-	pose.turn(&"Hips", Vector3(0, -6.0, 0))
+	# How far along the cover the knee and the planted foot have shuffled. The
+	# hips sit a little toward the kneeling knee, or over the side leaned to.
+	var out := side * LEAN_STEP
+	pose.move(Vector3.ZERO, Vector3(out + side * 1.2 - 0.4 * (1.0 - absf(side)), hips_y + 0.12 * breath, -1.2))
+	pose.turn(&"Hips", Vector3(0, -6.0 + side * 6.0, side * -5.0))
 	# The kneeling shin lies along the floor, the foot behind it toes down.
-	_foot(pose, &"Right", _ankle(Vector3(-2.2, 0.4, -6.2)), -4.0, 55.0, Vector3(0, -1, 0.7))
-	_foot(pose, &"Left", _ankle(Vector3(2.0, 0, 2.6)), 6.0)
+	_foot(pose, &"Right", _ankle(Vector3(out - 2.2, 0.4, -6.2)), -4.0, 55.0, Vector3(0, -1, 0.7))
+	_foot(pose, &"Left", _ankle(Vector3(out + 2.0, 0, 2.6)), 6.0)
 	if aiming:
 		var scan := sin(TAU * time / 4.0)
 		_torso(pose, 8.0, scan * 10.0, 0.0, 0.2)
 		_rifle(pose, _shouldered().rotated_local(Vector3.RIGHT, deg_to_rad(5.0)))
 		pose.turn(&"Head", Vector3(-6.0, scan * 6.0, 0))
 	else:
-		_torso(pose, 10.0 + breath, 6.0, 0.0, 0.5)
+		_torso(pose, 10.0 + breath, 6.0 + side * 8.0, side * -18.0, 0.5)
+		if side != 0.0:
+			# Round the edge, not at the cover in front.
+			pose.turn(&"Head", Vector3(-4.0, side * 16.0, side * 4.0))
 		match stance:
 			&"rifle":
 				_rifle(pose, _item(Vector3(-1.0, -0.5, 3.0), Vector3(0.45, 0.35, 0.8)).rotated_local(Vector3.RIGHT, deg_to_rad(breath)))
@@ -594,24 +637,34 @@ func _crouch(time: float, stance: StringName, aiming: bool) -> Pose:
 				var hip := pose.at(&"Hips")
 				var sword := hip * _item(Vector3(-3.5, 3.0, 4.0), Vector3(0.1, 0.9, 0.35), Vector3(0, 0, 1))
 				_hold(pose, &"Right", sword, sword_grip, Vector3(-1, -0.5, -0.5))
-				_hand(pose, &"Left", _ankle(Vector3(2.0, 4.6, 3.2)) + Vector3(0, 0.4 * breath, 0), Vector3(1, 0, -0.2))
+				_hand(pose, &"Left", _ankle(Vector3(out + 2.0, 4.6, 3.2)) + Vector3(0, 0.4 * breath, 0), Vector3(1, 0, -0.2))
 			_:
-				_hand(pose, &"Right", _ankle(Vector3(0.0, 4.4, 3.6)), Vector3(-1, 0, -0.5))
-				_hand(pose, &"Left", _ankle(Vector3(2.2, 4.6, 3.0)), Vector3(1, 0, -0.5))
+				_hand(pose, &"Right", _ankle(Vector3(out + 0.0, 4.4, 3.6)), Vector3(-1, 0, -0.5))
+				_hand(pose, &"Left", _ankle(Vector3(out + 2.2, 4.6, 3.0)), Vector3(1, 0, -0.5))
 	return pose
 
 
 ## Up close behind high cover, leaning into it, the weapon held upright ready to
 ## lean out with.
-func _wall(time: float, stance: StringName) -> Pose:
+##
+## With [param side] it has leaned out with it, round the end of the cover to
+## its left (1) or its right (-1), as a character does for as long as someone
+## has a shot lined up at it that sees it there: a step of
+## [constant LEAN_STEP] along the wall to its edge, the weight over the outside
+## foot, and the head and shoulders tipped out past the edge, looking round it.
+func _wall(time: float, stance: StringName, side := 0.0) -> Pose:
 	var pose := _pose()
 	var breath := sin(TAU * time / 2.6)
-	pose.move(Vector3.ZERO, Vector3(0.0, -1.0 + 0.12 * breath, 0.6))
-	pose.turn(&"Hips", Vector3(0, -4.0, 0))
-	_torso(pose, 9.0 + breath, 4.0, 0.0, 0.6)
-	pose.turn(&"Head", Vector3(-6.0, 0.0, 0))
-	_foot(pose, &"Left", _ankle(Vector3(2.2, 0, 0.6)), 6.0)
-	_foot(pose, &"Right", _ankle(Vector3(-2.2, 0, -1.4)), -10.0)
+	# How far along the wall the feet have gone, and how far down the lean
+	# takes the hips.
+	var out := side * LEAN_STEP
+	var sink := absf(side) * 0.6
+	pose.move(Vector3.ZERO, Vector3(out + side * 1.8, -1.0 - sink + 0.12 * breath, 0.6))
+	pose.turn(&"Hips", Vector3(0, -4.0 + side * 8.0, side * -5.0))
+	_torso(pose, 9.0 + breath, 4.0 + side * 8.0, side * -18.0, 0.6)
+	pose.turn(&"Head", Vector3(-6.0, side * 16.0, side * 4.0))
+	_foot(pose, &"Left", _ankle(Vector3(out + 2.2 + side * 0.6, 0, 0.6)), 6.0 + maxf(side, 0.0) * 12.0)
+	_foot(pose, &"Right", _ankle(Vector3(out - 2.2 + side * 0.6, 0, -1.4)), -10.0 + minf(side, 0.0) * 12.0)
 	match stance:
 		&"rifle":
 			_rifle(pose, _item(Vector3(-1.2, 0.2, 3.2), Vector3(0.15, 1.0, 0.25), Vector3(0, 0, 1)), Vector3(-1, -1, 0), Vector3(1, -1, 0))

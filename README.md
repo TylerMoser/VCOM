@@ -155,7 +155,10 @@ sells more.
 What a squad member carries shows on them: the gun in their hands, a sword slung across their back
 (drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
 shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
-half cover and press up to full cover, facing the nearest enemy. Whoever dies, squad member or enemy,
+half cover and press up to full cover, facing the nearest enemy. A unit that a shot can only see
+where it leans out of its cover (see [Line of sight and cover](#line-of-sight-and-cover)) is seen
+doing it: it steps to the end of its cover and leans out round it, looking at whoever is aiming,
+from the moment it is targeted until the shot is over. Whoever dies, squad member or enemy,
 breaks apart where they stand into a heap of chunks in their colour, knocked the way the killing blow
 went: back from a shot, along a sword's swing, outward from a grenade. What they carried drops whole
 beside them, and later shots and grenades wear it away like a crate's boards. It all stays for the
@@ -195,7 +198,10 @@ trigger with the prompts back up, so the player can let an enemy come closer, or
 before choosing to fire. The camera goes back to its normal view when that enemy's turn is over.
 
 A reaction shot costs **15 aim** (the **Reaction** term below), for being snapped off at a moving
-target. Only walking sets off a window; leaning out of cover to shoot does not.
+target. Only walking sets off a window; leaning out of cover to shoot does not. A reaction has to
+see the enemy on the tile it is crossing: a moving enemy is not leaning out of anything, so the
+tiles it could lean out to (see [Leaning out gives you away](#line-of-sight-and-cover)) count for
+nothing, in the window and on the ground overwatch marks.
 
 ### Enemies
 
@@ -234,6 +240,17 @@ in XCOM, and the tile it leans to is marked on the map while you aim. The lean i
 unit walks out, fires, and settles back into cover. Cover is what makes the lean possible — a unit
 caught in the open has nothing to lean out from and fires from where it stands.
 
+**Leaning out gives you away.** As in XCOM 2, a unit can be seen on its own tile *or on any tile it
+could lean out to*: the same tiles beside its cover that it would shoot from. So nobody is safe
+behind a pillar from someone who can see the ground beside it, and whoever can lean out and shoot
+you can be shot back at round the same corner: sight always runs both ways. It only matters when
+you cannot be seen where you stand, and it takes nothing off your cover: a unit caught leaning out
+from behind full cover is still shot at through full cover, −40. A unit in the open has nowhere to
+lean out to and is seen where it stands or not at all. The game shows it: a target your shot only
+sees leaning out is drawn leaning out round the end of its cover, standing at full cover and on one
+knee at half, while it is in your sights and until the shot is over, and the sight line and reticle
+go to it there. Your own squad does the same when an enemy takes such a shot at them.
+
 **Flanking** means the target is in cover but none of it faces your shot. A target standing in the
 open is *not* flanked: there was nothing to get around.
 
@@ -249,7 +266,8 @@ Aim − Evasion − Cover + Flanking + Height − Distance − Reaction
 
 clamped to 0–100. Every term is whole percentage points, and all of it is measured from **where the
 shot is actually taken** — a unit leaning out of cover has its height and distance reckoned from the
-tile it leans to.
+tile it leans to — to **the tile the target stands on**, even when the target is only seen where it
+leans out: its cover, height and distance are its own tile's.
 
 | Term | Source | Default |
 |---|---|---|
@@ -324,7 +342,9 @@ The throw range is the same for every squad member and every grenade (`Throwing.
 Every shot is drawn as a tracer, and its result, damage included, is called when the round arrives.
 A hit flies straight along the sight line into the target, so it never touches terrain. It is drawn
 landing somewhere on the side of the target facing the gun, mostly the torso, and the target bleeds
-there (see [Blood](#blood)).
+there (see [Blood](#blood)). A target caught leaning out of its cover is hit where it leans, on the
+part of it that is out, and a miss is aimed round it there; the cover it leans out from is the
+cover those misses chew.
 
 A miss still goes somewhere, as in XCOM 2. Once the roll has said it misses, the round is aimed at a
 point near the target (above or beside its body, never through it) and flies on until it strikes
@@ -437,6 +457,15 @@ build terrain and the cover falls out of it.
 **Sight lines are symmetric by construction.** Where a shot crosses two cell boundaries at once — a
 diagonal — it cuts the corner rather than clipping the cells to either side. This is verified across
 every pair of tiles on the test map: if A can see B, B can see A, with no exceptions.
+
+**So are shots, XCOM 2's way.** A sight line being symmetric is not enough when one end can step out
+of cover and the other cannot: the unit behind the pillar could shoot and not be shot. XCOM 2 checks
+every position the shooter can fire from against every position the target could lean out to, and so
+does this: a target is seen on its own tile or on a tile it could lean out to, which makes having a
+shot run both ways too. A target's lean tiles are only tried when it cannot be seen where it stands,
+so the rule adds shots and never changes one; reactions leave them out, as XCOM 2's overwatch does,
+since a unit on the move is not leaning anywhere. Checked by standing two units on thousands of
+random pairs of tiles on every map: whenever one has a shot, so has the other.
 
 **The number you are shown is the number that is rolled.** The hit chance is worked out once, when
 the shot is lined up, and kept until the trigger goes.
