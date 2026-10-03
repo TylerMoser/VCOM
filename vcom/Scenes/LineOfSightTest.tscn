@@ -14,6 +14,10 @@
 [ext_resource type="Script" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
 [ext_resource type="Script" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="9_grenade"]
 [ext_resource type="Script" path="res://Scripts/Actions/StrikeAction.gd" id="9_strike"]
+[ext_resource type="Script" path="res://Scripts/Actions/HunkerDownAction.gd" id="9_hunker"]
+[ext_resource type="Script" path="res://Scripts/Actions/ReloadAction.gd" id="9_reload"]
+[ext_resource type="Script" path="res://Scripts/Actions/UseMedkitAction.gd" id="9_medkit"]
+[ext_resource type="Script" path="res://Scripts/UI/AmmoIndicator.gd" id="9_ammo"]
 [ext_resource type="Script" path="res://Scripts/TurnManager.gd" id="11_yna0a"]
 [ext_resource type="Script" path="res://Scripts/Reactions.gd" id="11_reactions"]
 [ext_resource type="Script" path="res://Scripts/UI/ReactionPrompts.gd" id="14_prompts"]
@@ -295,8 +299,17 @@ script = ExtResource("9_strike")
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("9_overwatch")
 
+[node name="Reload" type="Node" parent="ActionController" unique_id=1000035]
+script = ExtResource("9_reload")
+
+[node name="HunkerDown" type="Node" parent="ActionController" unique_id=1000034]
+script = ExtResource("9_hunker")
+
 [node name="ThrowGrenade" type="Node" parent="ActionController" unique_id=1000032]
 script = ExtResource("9_grenade")
+
+[node name="UseMedkit" type="Node" parent="ActionController" unique_id=1000037]
+script = ExtResource("9_medkit")
 
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_yna0a")
@@ -361,6 +374,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 script = ExtResource("14_o3xbv")
+
+[node name="AmmoIndicator" type="Control" parent="HUD" unique_id=1000036]
+script = ExtResource("9_ammo")
 
 [node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
 anchors_preset = 7

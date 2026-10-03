@@ -15,6 +15,7 @@
 [ext_resource type="Script" uid="uid://ddo51p56uv676" path="res://Scripts/UI/SquadMenu.gd" id="13_squad_menu"]
 [ext_resource type="Texture2D" uid="uid://b0p5dfwpwgbeq" path="res://WorldMap/Forest 1.png" id="14_5d56a"]
 [ext_resource type="Texture2D" uid="uid://dm6jb08mx4kdp" path="res://WorldMap/Trees 1.png" id="15_6pwv1"]
+[ext_resource type="Script" path="res://Scripts/WorldMap/MapReticle.gd" id="16_reticle"]
 
 [node name="WorldMap" type="Node2D" unique_id=1261504120]
 
@@ -275,6 +276,9 @@ script = ExtResource("3_party")
 [node name="Camera" type="Camera2D" parent="." unique_id=978397840]
 zoom = Vector2(0.07, 0.07)
 script = ExtResource("2_camera")
+
+[node name="MapReticle" type="CanvasLayer" parent="." unique_id=1407715503]
+script = ExtResource("16_reticle")
 
 [node name="VillageMenu" type="CanvasLayer" parent="." unique_id=297875677]
 script = ExtResource("10_village_menu")

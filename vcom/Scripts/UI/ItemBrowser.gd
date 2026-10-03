@@ -7,11 +7,14 @@
 ## the inventory. A browser given an action ([method set_action], such as the
 ## Equipment page's Equip) shows a button for it under the description, and
 ## asks for it on the selected stack with [signal action_requested]; Enter,
-## Space or a double-click on a square asks too.
+## Space, A or a double-click on a square asks too, and is passed on as
+## [signal item_activated] whether there is an action or not.
 class_name ItemBrowser
 extends HBoxContainer
 
 signal action_requested(stack: ItemStack)
+## Enter, Space, A or a double-click on [param stack]'s square.
+signal item_activated(stack: ItemStack)
 ## Another stack was selected, or [param stack] is null with none left to.
 signal selection_changed(stack: ItemStack)
 
@@ -94,6 +97,7 @@ func show_stacks(stacks: Array[ItemStack]) -> void:
 			if on:
 				_show(stack))
 		square.activated.connect(func() -> void:
+			item_activated.emit(stack)
 			if _action.visible and not _action.disabled:
 				action_requested.emit(stack))
 		_grid.add_child(square)
@@ -122,6 +126,14 @@ func set_action(text: String) -> void:
 func set_action_enabled(enabled: bool) -> void:
 	_action.set_meta(&"enabled", enabled)
 	_action.disabled = not enabled or selected == null
+
+
+## What A does on a square, for the gamepad's prompts ([TabbedMenu]): the
+## action, while there is one to take.
+func gamepad_hint(focused: Control) -> Array:
+	if focused is ItemSquare and _action.visible and not _action.disabled:
+		return [[&"A"], _action.text]
+	return []
 
 
 ## Moves the keyboard to the selected square. False when there is none.

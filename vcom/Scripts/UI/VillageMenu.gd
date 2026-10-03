@@ -3,11 +3,12 @@
 ## menu.
 ##
 ## A left click (select_unit, as a unit is picked in combat) on the icon of
-## the village the party is standing in opens it; a village with nothing in it
-## does not open. The tabs are made afresh each time, since every village has
-## its own mix. Esc closes it. Being in the scene, after the pause menu's
-## autoload in the tree, it sees Esc first and takes it, so the pause menu does
-## not open on the same press.
+## the village the party is standing in opens it, as does the gamepad's A with
+## the map's reticle on it; a village with nothing in it does not open. The
+## tabs are made afresh each time, since every village has its own mix. Esc
+## closes it, as do the gamepad's B and Menu. Being in the scene, after the
+## pause menu's autoload in the tree, it sees them first and takes them, so the
+## pause menu does not open on the same press.
 class_name VillageMenu
 extends TabbedMenu
 
@@ -24,15 +25,30 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	super(event)
+	if get_viewport().is_input_handled():
+		return
 	if is_open():
-		if event.is_action_pressed(&"cancel_action"):
+		if event.is_action_pressed(&"cancel_action") or event.is_action_pressed(&"pause_menu"):
 			close()
 			get_viewport().set_input_as_handled()
 		return
-	if event.is_action_pressed(&"select_unit") and event is InputEventMouseButton and _party != null:
-		var village := Destination.find_under_mouse(get_tree())
-		if village != null and _party.is_at(village) and open_village(village):
+	# It runs through the pause, like every menu: none opens over another.
+	if get_tree().paused:
+		return
+	var clicked := event.is_action_pressed(&"select_unit") and event is InputEventMouseButton
+	var pressed := InputDevice.gamepad and event.is_action_pressed(&"confirm_action")
+	if (clicked or pressed) and _party != null:
+		var village := enterable()
+		if village != null and open_village(village):
 			get_viewport().set_input_as_handled()
+
+
+## The village under the pointer (the mouse, or the gamepad's reticle) if the
+## party is in it, which is what a click or A there opens; else null.
+func enterable() -> Destination:
+	var village := Destination.find_under_pointer(get_tree())
+	return village if village != null and _party != null and _party.is_at(village) else null
 
 
 ## Opens on the first of [param village]'s locations, with a tab for each.

@@ -2,7 +2,8 @@
 ##
 ## Callers own named layers, so the move range and the selected-unit marker
 ## can each be replaced without touching the other. The layer set most
-## recently draws on top.
+## recently draws on top, except that a layer set [code]on_top[/code] (the
+## gamepad's tile cursor) draws over every other whenever they were set.
 class_name TileHighlights
 extends MultiMeshInstance3D
 
@@ -20,6 +21,8 @@ var _grid: CombatGrid
 var _layers := {}
 ## Layer name -> fill opacity.
 var _fills := {}
+## Layers that draw over the rest, as a set.
+var _on_top := {}
 
 
 func _ready() -> void:
@@ -43,17 +46,23 @@ func _ready() -> void:
 
 
 ## Replaces the squares in [param layer] with [param tiles], a dictionary
-## of tile (Vector3i) -> Color, filled at [param fill] opacity.
-func set_layer(layer: StringName, tiles: Dictionary, fill := DEFAULT_FILL) -> void:
+## of tile (Vector3i) -> Color, filled at [param fill] opacity. With
+## [param on_top] it stays over every layer set later too.
+func set_layer(layer: StringName, tiles: Dictionary, fill := DEFAULT_FILL, on_top := false) -> void:
 	# Re-adding the key moves the layer to the end, so it draws on top.
 	_layers.erase(layer)
 	_layers[layer] = tiles
 	_fills[layer] = fill
+	if on_top:
+		_on_top[layer] = true
+	else:
+		_on_top.erase(layer)
 	_rebuild()
 
 
 func clear_layer(layer: StringName) -> void:
 	_fills.erase(layer)
+	_on_top.erase(layer)
 	if _layers.erase(layer):
 		_rebuild()
 
@@ -65,7 +74,9 @@ func _rebuild() -> void:
 	multimesh.instance_count = count
 
 	var index := 0
-	for layer: StringName in _layers:
+	var order: Array = _layers.keys().filter(func(layer: StringName) -> bool: return not _on_top.has(layer))
+	order.append_array(_layers.keys().filter(func(layer: StringName) -> bool: return _on_top.has(layer)))
+	for layer: StringName in order:
 		var tiles: Dictionary = _layers[layer]
 		var custom := Color(_fills[layer], 0.0, 0.0, 0.0)
 		for tile: Vector3i in tiles:

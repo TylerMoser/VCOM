@@ -11,8 +11,11 @@
 ## included. An arc that runs into something is drawn red up to where it is
 ## stopped, with a cross there, and cannot be thrown.
 ##
-##   Throw - right-click a tile, or Enter / Space to throw at the tile under
-##           the cursor.
+##   Throw - click a tile, with either mouse button, or Enter / Space to throw
+##           at the tile under the cursor. A left click on a squad member
+##           still selects them, as it does whatever action is up. With the
+##           gamepad it aims at the tile cursor, which the left stick moves,
+##           and A throws there.
 ##
 ## Nothing is rolled: a grenade goes off where it is thrown. Which way it can
 ## go and whom its blast catches is [Throwing]'s business, and what the blast
@@ -70,7 +73,11 @@ func _ready() -> void:
 # Follow the cursor every frame, not only when the mouse moves, so the throw
 # stays right while the camera pans or turns under a still cursor.
 func _process(_delta: float) -> void:
-	_aim(controller.tile_under_cursor(get_viewport().get_mouse_position()))
+	_aim(controller.pointed_tile())
+
+
+func confirm_hint() -> String:
+	return "Throw here"
 
 
 func is_available(unit: Unit) -> bool:
@@ -103,7 +110,7 @@ func end() -> void:
 
 
 func handle_input(event: InputEvent) -> bool:
-	if event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
+	if is_click(event):
 		_aim(controller.tile_under_cursor((event as InputEventMouseButton).position))
 		_throw_lined_up()
 		return true

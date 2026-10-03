@@ -15,6 +15,8 @@ const GRENADE := &"grenade"
 ## The tag on every melee weapon, such as the Shortsword. A unit carrying one
 ## is offered Strike.
 const MELEE := &"melee"
+## The tag on every medkit. A unit carrying one is offered Use Medkit.
+const MEDKIT := &"medkit"
 
 @export var display_name := ""
 @export_multiline var description := ""

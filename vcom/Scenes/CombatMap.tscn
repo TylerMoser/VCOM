@@ -10,6 +10,10 @@
 [ext_resource type="Script" uid="uid://dxpofg7eiy3qu" path="res://Scripts/Actions/ActionController.gd" id="8_actions"]
 [ext_resource type="Script" uid="uid://l6v06k3be4sq" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="9_grenade"]
 [ext_resource type="Script" uid="uid://cu0icnp6tlnkk" path="res://Scripts/Actions/StrikeAction.gd" id="9_strike"]
+[ext_resource type="Script" uid="uid://c8amwo7gf0vgk" path="res://Scripts/Actions/HunkerDownAction.gd" id="9_hunker"]
+[ext_resource type="Script" path="res://Scripts/Actions/ReloadAction.gd" id="9_reload"]
+[ext_resource type="Script" path="res://Scripts/Actions/UseMedkitAction.gd" id="9_medkit"]
+[ext_resource type="Script" path="res://Scripts/UI/AmmoIndicator.gd" id="9_ammo"]
 [ext_resource type="Script" uid="uid://dnyie85ub5gul" path="res://Scripts/Actions/MoveAction.gd" id="9_move"]
 [ext_resource type="Script" uid="uid://dwgqmm6ad6bst" path="res://Scripts/Actions/OverwatchAction.gd" id="9_overwatch"]
 [ext_resource type="Script" uid="uid://bchyfnuhaufwp" path="res://Scripts/Actions/ShootAction.gd" id="9_shoot"]
@@ -149,8 +153,17 @@ script = ExtResource("9_strike")
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("9_overwatch")
 
+[node name="Reload" type="Node" parent="ActionController" unique_id=1000035]
+script = ExtResource("9_reload")
+
+[node name="HunkerDown" type="Node" parent="ActionController" unique_id=1000034]
+script = ExtResource("9_hunker")
+
 [node name="ThrowGrenade" type="Node" parent="ActionController" unique_id=1000032]
 script = ExtResource("9_grenade")
+
+[node name="UseMedkit" type="Node" parent="ActionController" unique_id=1000037]
+script = ExtResource("9_medkit")
 
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("11_turns")
@@ -213,6 +226,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 script = ExtResource("10_actionbar")
+
+[node name="AmmoIndicator" type="Control" parent="HUD" unique_id=1000036]
+script = ExtResource("9_ammo")
 
 [node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
 anchors_preset = 7

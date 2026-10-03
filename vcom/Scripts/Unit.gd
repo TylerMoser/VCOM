@@ -6,7 +6,8 @@
 ## strength, evasion) and equipment from them, painting its Model child.
 ## Without one (enemies, the test harness) the scene's values and the Model's
 ## material stand, and it carries only its [member weapon]. What it uses up,
-## such as a grenade it throws, it loses for good ([signal used_up]).
+## such as a grenade it throws, it loses for good ([signal used_up]); a medkit
+## it keeps, and can use once a battle ([member medkits]).
 ## UI reads [member color] until real portraits exist.
 ##
 ## It is seen as its [member model], a rigged figure that plays out what it
@@ -25,6 +26,9 @@ signal health_changed(health: int, max_health: int)
 signal actions_changed(remaining: int, per_turn: int)
 signal reaction_changed(available: bool)
 signal overwatch_changed(watching: bool)
+signal hunker_changed(hunkered: bool)
+## The rounds left in its gun's magazine changed: one fired, or a reload.
+signal rounds_changed(rounds: int, magazine: int)
 ## Emitted as the unit leaves the map, while it is still whole enough to be
 ## read from. Whoever was holding on to it should let go.
 signal died
@@ -138,6 +142,29 @@ var overwatching := false:
 			model.overwatching = value
 		overwatch_changed.emit(overwatching)
 
+## Whether the unit has hunkered down ([HunkerDownAction]): every shot at it
+## that its cover counts against loses [constant HitChance.HUNKER] more aim
+## ([method HitChance.hunker_penalty]). Moving stands it up ([method start_walk],
+## [method drop_to]), as does its next turn coming round.
+var hunkered := false:
+	set(value):
+		if hunkered == value:
+			return
+		hunkered = value
+		if model != null:
+			model.hunkered = value
+		hunker_changed.emit(hunkered)
+
+## The rounds left in [member weapon]'s magazine: full as the unit enters the
+## map, so every battle starts with a full one, one fewer for every shot it
+## fires ([method shoot_at]), reactions included, and full again after a
+## reload ([method reload]). Always 0 for a weapon with no magazine
+## ([method Weapon.has_magazine]), which [method can_fire] lets fire anyway.
+var rounds := 0:
+	set(value):
+		rounds = clampi(value, 0, magazine_size())
+		rounds_changed.emit(rounds, magazine_size())
+
 ## Everything the unit carries into battle, whose tags decide which actions it
 ## has ([method UnitAction.is_granted]): [member character]'s equipment, copied
 ## as it enters the map, or without a character just its [member weapon]. It
@@ -150,6 +177,13 @@ var melee_weapon: Weapon
 ## Item 1 before Item 2 before Item 3. Null once it has none left, and so no
 ## Throw Grenade.
 var grenade: Grenade
+## The medkits the unit can still use this battle: one for every [Medkit] in
+## [member equipment] as it enters the map, so every battle starts with them
+## all, and one fewer for each use of them ([method use_medkit]), by the unit or
+## by a squad member next to it who drew on them. A medkit is never used up: it
+## stays in [member equipment], on the figure's belt and on the character, ready
+## again for the next battle.
+var medkits: Array[Medkit] = []
 
 ## The figure the unit is seen as, its Model child. Null in a scene that gives
 ## it none, and once the unit has died: it has broken apart then.
@@ -160,6 +194,8 @@ var model: CharacterModel
 var _motion: Tween
 ## The body debris bumps off. Null for a unit with no Model to shape it by.
 var _body: AnimatableBody3D
+## The body mouse clicks land on. Null for a unit with no Model to shape it by.
+var _pick: StaticBody3D
 ## How far out of its tile the unit's figure leans while it leans out of its
 ## cover, across the ground in the world ([method lean]). Only for show.
 var _lean := Vector3.ZERO
@@ -192,20 +228,32 @@ func _ready() -> void:
 		equipment = [weapon]
 		if weapon.has_tag(Item.MELEE):
 			melee_weapon = weapon
+	medkits = _carried_medkits()
 	# A character comes into battle as hurt as they left the last one, but
 	# alive: anyone on the roster is.
 	health = maxi(character.health, 1) if character != null else max_health
 	actions_remaining = actions_per_turn
+	rounds = magazine_size()
 	_dress()
 	_add_bodies()
 
 
+func _process(_delta: float) -> void:
+	# A click finds the figure where it is seen: out of its tile while it leans
+	# out of its cover, as a shot at it is aimed there.
+	if _pick != null and not _pick.position.is_equal_approx(lean()):
+		_pick.position = lean()
+
+
 ## Refills the action budget and the reaction at the start of this unit's
-## turn, and stands down any overwatch left over from the last one.
+## turn, and stands down any overwatch or hunkering left over from the last
+## one. A squad member's turn starts with the player's, so hunkering down lasts
+## until the start of the player's next turn.
 func start_turn() -> void:
 	actions_remaining = actions_per_turn
 	reaction_available = true
 	overwatching = false
+	hunkered = false
 
 
 ## Whether anything the unit carries is tagged [param tag], such as
@@ -215,6 +263,91 @@ func carries(tag: StringName) -> bool:
 		if item != null and item.has_tag(tag):
 			return true
 	return false
+
+
+## How many rounds [member weapon]'s magazine holds: 0 without a gun that has
+## one.
+func magazine_size() -> int:
+	return weapon.magazine if weapon != null and weapon.has_magazine() else 0
+
+
+## Whether [member weapon] has a magazine, whose rounds the unit counts.
+func has_magazine() -> bool:
+	return magazine_size() > 0
+
+
+## Whether the unit has a round to fire: one left in its magazine, or a gun
+## with none to run out of. Every shot asks first, the player's, the enemies'
+## and reactions alike.
+func can_fire() -> bool:
+	return weapon != null and (rounds > 0 or not has_magazine())
+
+
+## Whether there are rounds missing from the magazine, so a reload would do
+## something.
+func can_reload() -> bool:
+	return has_magazine() and rounds < magazine_size()
+
+
+## Actions a reload costs: [member Weapon.reload].
+func reload_cost() -> int:
+	return weapon.reload if weapon != null else 1
+
+
+## Loads a fresh magazine: the figure plays its reload, and the magazine is
+## full from the moment the new one is seated ([method CharacterModel.reload]),
+## when this returns; [method recover] waits out the rest of the clip. At once
+## for a unit with no figure. Spending the actions it costs
+## ([method reload_cost]) is the caller's, as a shot's is.
+func reload() -> void:
+	if not has_magazine():
+		return
+	if model != null:
+		await model.reload()
+	rounds = magazine_size()
+
+
+## Whether the unit has lost health and still stands, so a medkit would do
+## something for it.
+func is_wounded() -> bool:
+	return health > 0 and health < max_health
+
+
+## Gives the unit back [param amount] health, never above its
+## [member max_health], and returns what it gained. A squad member's
+## character mends with it: [PlayerSquad] writes every change in health on
+## their wounds.
+func heal(amount: int) -> int:
+	var before := health
+	health += maxi(amount, 0)
+	return health - before
+
+
+## Uses a medkit on [param target], an ally next to this unit or the unit
+## itself, and returns the health the target gained: the medkit's
+## [member Medkit.heal], never above its most. The medkit is the first of
+## [param from]'s [member medkits]: this unit's own, or, drawn on by this unit,
+## those of a squad member next to it (the caller's to choose, as
+## [UseMedkitAction] does). The player's [UseMedkitAction] comes through here,
+## as every shot comes through [method shoot_at].
+##
+## The medkit is spent for the battle at once, from whoever's it is, but kept.
+## The unit's figure turns to the target, takes the medkit off its belt (a
+## borrowed one into its hand) and holds it out, or on itself presses it to its
+## own middle, and the target mends as it does
+## ([method CharacterModel.use_medkit]), when this returns; [method recover]
+## waits out the rest. At once for a unit with no figure. Spending the actions
+## it costs is the caller's, as a shot's is.
+func use_medkit(target: Unit, from: Unit = null) -> int:
+	var owner_of: Unit = self if from == null else from
+	if owner_of.medkits.is_empty():
+		return 0
+	var kit: Medkit = owner_of.medkits.pop_front()
+	if model != null:
+		await model.use_medkit(_chest_of(target), null if owner_of == self else kit)
+	if not is_instance_valid(target):
+		return 0
+	return target.heal(kit.heal)
 
 
 ## Spends [param cost] actions. Returns false, spending nothing, if there are
@@ -271,7 +404,7 @@ func damage_from(amount: int) -> int:
 ## Takes [param shot] with [param chance] in 100 of landing, and returns how it
 ## went once the round has landed. The player's [ShootAction], the enemy turn
 ## and overwatch fire all come through here, so a shot means the same thing
-## whoever takes it.
+## whoever takes it, and each spends one of the unit's [member rounds].
 ##
 ## Everything is settled as the round is fired: the roll decides whether it
 ## lands, and [Ballistics] where it goes. [param show_rounds], if given, is
@@ -306,6 +439,10 @@ func shoot_at(
 	# never come back.
 	while shot.leaning and is_instance_valid(shot.target) and not shot.target.has_leaned_out():
 		await get_tree().process_frame
+	# The round goes as the trigger is pulled. Whoever lines a shot up asks
+	# can_fire() first; a magazine never goes below empty.
+	if has_magazine():
+		rounds -= 1
 	var hit := HitChance.roll(chance)
 	var outcome := Ballistics.new(grid).fire(self, shot, hit)
 	if model != null:
@@ -462,7 +599,9 @@ func die() -> void:
 ## Walks through [param points] in order, taking [param seconds_per_step]
 ## for each. Await it to wait until the unit arrives. Its figure faces the
 ## way it goes, unless [param keep_facing], as a unit stepping out of cover
-## to shoot keeps facing its target.
+## to shoot keeps facing its target. Any other walk is a move, and stands a
+## hunkered unit up ([member hunkered]); a step out and back to shoot does
+## not.
 func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> void:
 	var tween := start_walk(points, seconds_per_step, keep_facing)
 	if tween != null:
@@ -479,6 +618,10 @@ func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false)
 func start_walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> Tween:
 	if points.is_empty():
 		return null
+	# Only a step out of cover to shoot keeps its facing, and it comes back to
+	# where it was; any other walk leaves the cover it was hunkered behind.
+	if not keep_facing:
+		hunkered = false
 	var tween := create_tween()
 	for point in points:
 		tween.tween_property(self, ^"global_position", point, seconds_per_step)
@@ -497,8 +640,10 @@ func is_moving() -> bool:
 ## falls, as it does when the ground under it gives way. [param rubble] is the
 ## debris of what it stood on, by physics body, which falls with it: the unit
 ## passes through those pieces for good, since landing on the heap from above
-## it would grind them into the ground.
+## it would grind them into the ground. Falling is moving, so it stands a
+## hunkered unit up.
 func drop_to(point: Vector3, rubble: Array[RID] = []) -> void:
+	hunkered = false
 	var height := maxf(global_position.y - point.y, 0.0)
 	if _motion != null:
 		_motion.kill()
@@ -600,6 +745,20 @@ func ready_strike(point: Vector3) -> void:
 		model.ready_strike(point)
 
 
+## Has the unit's figure turn to [param target] and look at it, nothing in
+## hand, as a medkit is lined up on it, until it stands easy. Lined up on the
+## unit itself, the figure looks down at its own middle.
+func attend(target: Unit) -> void:
+	if model != null:
+		model.attend(_chest_of(target))
+
+
+## Where the figure turns to treat [param target]: the middle of its chest, or
+## null for the unit itself, which [CharacterModel] takes as its own.
+func _chest_of(target: Unit) -> Variant:
+	return null if target == self else target.global_position + Vector3.UP * STRIKE_HEIGHT
+
+
 ## Has the unit's figure take a grenade in hand, turned to [param point] in
 ## the world as a throw is lined up there, or facing as it is if null.
 func ready_throw(point: Variant = null) -> void:
@@ -664,6 +823,15 @@ func _take_character() -> void:
 	_paint(character.color)
 
 
+## Every [Medkit] [member equipment] holds, in the order carried.
+func _carried_medkits() -> Array[Medkit]:
+	var carried: Array[Medkit] = []
+	for item in equipment:
+		if item is Medkit and item.has_tag(Item.MEDKIT):
+			carried.append(item as Medkit)
+	return carried
+
+
 ## The first grenade [member equipment] holds, or null.
 func _first_grenade() -> Grenade:
 	for item in equipment:
@@ -680,22 +848,28 @@ func _paint(tint: Color) -> void:
 
 
 ## Shows on the unit's figure what it carries: its gun in hand, its melee
-## weapon, and a grenade on the belt for each it has left.
+## weapon, and on the belt a grenade for each it has left and every medkit,
+## used or not.
 func _dress() -> void:
 	if model == null:
 		return
 	var grenades: Array[Item] = []
+	var kits: Array[Item] = []
 	for item in equipment:
 		if item is Grenade:
 			grenades.append(item)
-	model.equip(weapon, melee_weapon, grenades)
+		elif item is Medkit:
+			kits.append(item)
+	model.equip(weapon, melee_weapon, grenades, kits)
 
 
 ## Gives the unit an upright cylinder round its figure for mouse clicks to
 ## land on, and a frictionless capsule round it for debris to bump off, as
 ## thick as the figure's body and clear of the ground by
 ## [constant BODY_CLEARANCE]. Both move with the unit however it is moved, and
-## neither turns with the figure.
+## neither turns with the figure. The click body also goes where the figure
+## leans out to ([method lean]), so the target of a shot that sees it there is
+## clicked where it is seen.
 func _add_bodies() -> void:
 	if model == null:
 		return
@@ -709,12 +883,12 @@ func _add_bodies() -> void:
 	var pick_shape := CollisionShape3D.new()
 	pick_shape.shape = cylinder
 	pick_shape.position = Vector3(0.0, box.end.y * 0.5, 0.0)
-	var pick := StaticBody3D.new()
-	pick.name = &"PickBody"
-	pick.collision_layer = PICK_LAYER
-	pick.collision_mask = 0
-	pick.add_child(pick_shape)
-	add_child(pick)
+	_pick = StaticBody3D.new()
+	_pick.name = &"PickBody"
+	_pick.collision_layer = PICK_LAYER
+	_pick.collision_mask = 0
+	_pick.add_child(pick_shape)
+	add_child(_pick)
 
 	var capsule := CapsuleShape3D.new()
 	capsule.radius = minf(box.size.x, box.size.z) * 0.5

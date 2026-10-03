@@ -1,7 +1,7 @@
 ## The odds a shot lands, worked out from the shooter, the target and the
 ## ground between them:
 ##
-##   Aim - Evasion - Cover + Flanking + Height - Distance - Reaction
+##   Aim - Evasion - Cover - Hunkered + Flanking + Height - Distance - Reaction
 ##
 ## Every term is whole percentage points, and the total is held between 0 and
 ## 100. The terms are kept so the HUD can show its working rather than a bare
@@ -23,6 +23,10 @@ extends RefCounted
 ## Aim the target's cover takes off the shot.
 const HALF_COVER := 20
 const FULL_COVER := 40
+## Aim a target that has hunkered down ([member Unit.hunkered]) takes off a
+## shot on top of its cover's, for as long as its cover counts against the
+## shot: flanked, or with its cover shot away, it has nothing to hunker behind.
+const HUNKER := 20
 ## Aim gained for catching a target whose cover faces the wrong way.
 const FLANKING := 20
 ## Tiles between each step of the distance penalty.
@@ -67,6 +71,7 @@ static func for_shot(shooter: Unit, shot: LineOfSight.Shot, reaction := false) -
 	estimate.add("Aim", shooter.aim)
 	estimate.add("Evasion", -shot.target.evasion)
 	estimate.add("Cover", -cover_penalty(shot.cover))
+	estimate.add("Hunkered", -hunker_penalty(shot.target, shot.cover))
 	estimate.add("Flanking", FLANKING if shot.flanked else 0)
 	# Height tells both ways: shooting uphill costs as much as shooting down
 	# gains.
@@ -82,8 +87,9 @@ static func for_shot(shooter: Unit, shot: LineOfSight.Shot, reaction := false) -
 ## next to it. The shot's sum, with [member Unit.melee_accuracy] for
 ## [member Unit.aim]: the target's evasion counts as it does against a shot,
 ## but for now cover, flanking, height and distance are worth nothing in
-## melee, so they are left out as any term worth nothing is. A strike is never
-## a reaction.
+## melee, so they are left out as any term worth nothing is, and so is a
+## hunkered target's cover ([method hunker_penalty]). A strike is never a
+## reaction.
 static func for_strike(striker: Unit, target: Unit) -> Estimate:
 	var estimate := Estimate.new()
 	estimate.add("Melee Accuracy", striker.melee_accuracy)
@@ -100,6 +106,14 @@ static func cover_penalty(cover: LineOfSight.Cover) -> int:
 			return HALF_COVER
 		_:
 			return 0
+
+
+## The aim [param target] takes off a shot for having hunkered down, when
+## [param cover] is what it has against the shot: [constant HUNKER] behind
+## cover of either height, nothing in the open. Melee counts no cover, so
+## [method for_strike] counts no hunkering either.
+static func hunker_penalty(target: Unit, cover: LineOfSight.Cover) -> int:
+	return HUNKER if target.hunkered and cover != LineOfSight.Cover.NONE else 0
 
 
 ## Whether a shot with [param chance] of landing does.

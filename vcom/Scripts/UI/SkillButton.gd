@@ -97,6 +97,12 @@ func _init(shown: SkillTreeNode, node_state: State) -> void:
 		add_theme_stylebox_override(slot, StyleBoxEmpty.new())
 
 
+## What A does on it, for the gamepad's prompts ([TabbedMenu]): learns it,
+## held, while it can be learned; nothing otherwise.
+func gamepad_hint(_focused: Control) -> Array:
+	return [[&"A"], "Hold: Learn"] if learnable else []
+
+
 ## Across the button showing [param node]: its circle and the rings round
 ## it, one for each time its skill can be taken again.
 static func size_of(node: SkillTreeNode) -> Vector2:

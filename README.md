@@ -15,8 +15,9 @@ the world map, the menus, and battles just begun and long fought, clean and with
 
 ## Controls
 
-Letter keys go by where they sit on the keyboard, not what is printed on them, so `WASD` is `ZQSD`
-on an AZERTY keyboard. `Enter` and the number keys work on the number pad too.
+The game plays with the keyboard and mouse or with a gamepad, whichever was touched last (see
+[Gamepad](#gamepad)). Letter keys go by where they sit on the keyboard, not what is printed on them,
+so `WASD` is `ZQSD` on an AZERTY keyboard. `Enter` and the number keys work on the number pad too.
 
 `Esc` backs out one step at a time, on the world map and in combat alike: a path being previewed,
 then the action that is up, then a village's menu. Only once there is nothing left to back out of
@@ -70,18 +71,74 @@ all pause the game behind them, and all work the same way.
 | Select a squad member | `Tab` / `Shift+Tab`, left-click them, or click their card on the squad panel (bottom left) |
 | Choose an action | Click its button on the action bar (bottom middle). Click it again, or press `Esc`, to put it away. **Move** is taken up whenever a squad member is selected |
 | Move | Hold right-click to preview the path to the tile under the cursor, and let go to walk it. Let go off the tinted tiles, or press `Esc` while holding, to call it off |
-| Shoot / Strike | `Tab` / `Shift+Tab` cycle targets, `Enter` / `Space` fires or strikes |
+| Shoot / Strike | `Tab` / `Shift+Tab` cycle targets, or click another target (left or right button) to line it up. Fire or strike with `Enter` / `Space`, by clicking the target lined up, or by clicking the tick beside its odds. The cursor turns to a hand over a target |
 | Overwatch | `Enter` / `Space` goes on overwatch, for every action the squad member has left |
-| Throw Grenade | Point at a tile to see the arc and the blast. Right-click it, or press `Enter` / `Space`, to throw |
+| Hunker Down | `Enter` / `Space` hunkers down behind cover, for one action. Only in cover; moving afterwards ends it |
+| Reload | `Enter` / `Space` loads a fresh magazine, for one action (the gun's Reload). Greyed out while the magazine is full. The rounds left show in the bottom-right corner |
+| Throw Grenade | Point at a tile to see the arc and the blast. Click it (left or right button), or press `Enter` / `Space`, to throw. A left click on a squad member still selects them |
+| Use Medkit | `Tab` / `Shift+Tab` cycle the wounded allies next to the squad member, then the squad member themselves if wounded, or click another (left or right button) to line them up. Heal with `Enter` / `Space`, by clicking the one lined up, or by clicking the tick beside what they would gain. A left click on one of them heals or lines them up rather than selecting them. The cursor turns to a hand over them. The button's corner counts the uses the squad member can draw on where they stand: their own, and those of the squad members beside them with a Medkit |
 | Show the hit breakdown | Hold `Ctrl` while a shot or a strike is lined up |
 | React | During a reaction window, `1`–`4` fires the squad member with that number beside them (their place on the squad panel), and `0` lets the move carry on |
 | End the turn early | Hold `Shift` for a second. Letting go, or pressing any other key, calls it off |
 | Show or hide the tile grid | `G`, or **Tile Grid** on the pause menu's System tab: faint lines along the edges of the ground's tiles. Off until turned on |
 | Open the pause menu | `Esc`, with no action up |
 
-While Shoot or Strike is up, `Tab` cycles targets rather than squad members. During the enemies'
+While Shoot, Strike or Use Medkit is up, `Tab` cycles targets rather than squad members. During the enemies'
 turn only the camera, the reaction keys and the pause menu answer. The pause menu works as on the
 world map, but equipment cannot be changed, nor skills learned, until the battle is over.
+
+### Gamepad
+
+Everything plays with a gamepad laid out as an Xbox controller's; a Steam Deck's buttons are the
+same. Pressing a button or pushing a stick switches to it: the mouse pointer hides, and prompts show
+what each button does right now, drawn as the buttons on the pad, in a column down the right of the
+screen (on the world map and in combat) or a row along the bottom (in a menu). A key, a click or a
+move of the mouse switches back.
+
+`B` backs out as `Esc` does, a step at a time, but never opens the pause menu: `Menu` does that, and
+closes it again.
+
+**World map**
+
+| | |
+|---|---|
+| Move the map | Left stick: the map slides under the reticle in the middle of the screen |
+| Zoom | Right stick up / down, or the d-pad's up / down a step at a time, toward the reticle |
+| Send the party | `A` with the reticle on land, or on a village's icon to go to the village. The prompt says which, and there is none over the sea |
+| See what is in a village | Put the reticle on its icon |
+| Use a village | `A` with the reticle on the village the party is in |
+| Find the party | `L3` (press the left stick) brings it back to the middle of the screen |
+| Open the pause menu | `Menu` |
+
+**Menus**
+
+| | |
+|---|---|
+| Move | D-pad or left stick, as the arrow keys |
+| Change tab | `LB` / `RB` |
+| Change sub-tab | `LT` / `RT`: the sub-tabs the selection is in (a character's pages, the kinds of item), or the first under the tabs |
+| Press a button | `A` |
+| Buy, sell, hire, learn a skill | Hold `A` on the button or the skill for 2 seconds. In a shop, `A` on an item or a character goes to the button that buys or hires it, to be held there |
+| Choose who fights | `A` on a character ticks or unticks them. `Menu` goes to **Start**; hold `A` on it |
+| Close | `B` or `Menu`. The roster before a battle cannot be closed |
+
+**Combat**
+
+| | |
+|---|---|
+| Point at a tile | Left stick: the tile cursor, a bright square with a marker bobbing over it, steps a tile at a time the way the stick is pushed on screen, and the camera follows it. `L3` puts it back on the selected squad member |
+| Turn and zoom the camera | Right stick: left / right turns it, up / down zooms. The d-pad's up / down zoom a step at a time |
+| Select a squad member | `LB` / `RB`, or the cursor on them and `A` while **Move** is up |
+| Choose an action | D-pad left / right, through the actions the squad member can take now. `B` puts it away |
+| Move | The path to the cursor is shown as it moves; `A` walks it |
+| Shoot / Strike | `LB` / `RB` cycle targets, the cursor going with them, or put the cursor on one. `A` fires or strikes, as the `A` beside the odds says. Hold `LT` for the hit breakdown |
+| Overwatch / Hunker Down / Reload | `A` |
+| Throw Grenade | The arc and the blast follow the cursor; `A` throws |
+| Use Medkit | `LB` / `RB` cycle the wounded allies next to the squad member, and the squad member themselves if wounded, the cursor going with them, or put the cursor on one. `A` heals |
+| React | In a reaction window, one squad member's odds have an `A` beside them: `LB` / `RB` pick another, `A` fires, `B` lets the move carry on |
+| End the turn early | Hold `View` for a second. Letting go, or pressing any other button, calls it off |
+| Show or hide the tile grid | `R3` (press the right stick) |
+| Open the pause menu | `Menu` |
 
 ## The campaign
 
@@ -145,15 +202,19 @@ to sell.
 
 ### Actions and gear
 
-Which actions a squad member has depends on what they have equipped. Everyone can **Move**.
-**Shoot** and **Overwatch** need a gun (the Rifle) in a weapon slot. **Strike** needs a melee weapon
-(the Shortsword) in a weapon slot, and is greyed out until an enemy stands next to the squad member.
-A squad member with neither can only move. **Throw Grenade** needs a grenade (the Frag Grenade) in an
-item slot. A thrown grenade is gone for good: its slot is empty after the battle, and the Market
-sells more.
+Which actions a squad member has depends on what they have equipped. Everyone can **Move** and
+**Hunker Down**. **Shoot**, **Overwatch** and **Reload** need a gun (the Rifle) in a weapon slot. **Strike**
+needs a melee weapon (the Shortsword) in a weapon slot, and is greyed out until an enemy stands next
+to the squad member. A squad member with neither can only move and hunker down. **Throw Grenade**
+needs a grenade (the Frag Grenade) in an item slot. A thrown grenade is gone for good: its slot is
+empty after the battle, and the Market sells more. **Use Medkit** needs a Medkit in an item slot, or
+a squad member with a Medkit use left standing next to them (it comes and goes as they move). It is
+greyed out until the squad member is wounded or a wounded ally stands next to them, and once there is
+no Medkit use left to draw on, theirs or a neighbour's (see [Medkits](#medkits)).
 
 What a squad member carries shows on them: the gun in their hands, a sword slung across their back
-(drawn when they line up a Strike), and their grenades on their belt until thrown. While you line up a
+(drawn when they line up a Strike), and their grenades on their belt until thrown, with any medkits
+beside them. While you line up a
 shot they turn to the target with their gun raised, and they run, hop up and down ledges, kneel behind
 half cover and press up to full cover, facing the nearest enemy. A unit that a shot can only see
 where it leans out of its cover (see [Line of sight and cover](#line-of-sight-and-cover)) is seen
@@ -168,8 +229,9 @@ is settled exactly as below, the moment the gun fires, the blade lands or the gr
 ### Action points
 
 Every unit gets **3 actions** a turn. Moving costs one action per `move_range` (4) tiles of path,
-so a long walk can cost two or three. Shooting costs one, and so do striking and throwing a grenade. The player's turn ends when every member
-has spent their budget, or early by holding `Shift`.
+so a long walk can cost two or three. Shooting costs one, and so do striking, throwing a grenade,
+using a medkit and hunkering down. Reloading costs what the gun's **Reload** says: one for the Rifle. The player's turn ends when every member has spent their budget, or early by
+holding `Shift`.
 
 ### Reactions and overwatch
 
@@ -203,21 +265,65 @@ see the enemy on the tile it is crossing: a moving enemy is not leaning out of a
 tiles it could lean out to (see [Leaning out gives you away](#line-of-sight-and-cover)) count for
 nothing, in the window and on the ground overwatch marks.
 
+### Hunkering down
+
+**Hunker Down** can only be taken in cover, half or full, on any side of the squad member's tile;
+out of cover its button is greyed out. It costs **one action**, and the rest of the turn is theirs:
+they can shoot, strike, throw or go on overwatch from where they are, before or after, and stay
+hunkered. Until the start of the player's next turn every shot at them loses **20 more aim** on
+top of their cover's (the **Hunkered** term below), as long as their cover counts against that
+shot: a shot that flanks them, or one taken after their cover has been shot away, loses nothing for
+it. Melee counts no cover, so hunkering does nothing against a strike.
+
+**Moving ends it.** The moment a hunkered squad member sets off on a **Move**, or falls when the
+ground under them is broken, they are no longer hunkered; in cover again, they can hunker down
+again for another action. Stepping out of cover to take a shot and back does not count as moving.
+Nor does hunkering hide them: a shot that can only see them where they could lean out of their
+cover (see [Leaning out gives you away](#line-of-sight-and-cover)) still sees them there, and they
+lean out for it, as anyone does, and duck back down once it is over.
+
+A hunkered squad member ducks low behind their cover, their weapon hugged close, and their card on
+the squad panel shows a blue shield until it ends.
+
+The enemies' odds count it as yours do, so an enemy with a choice of targets is likely to pick one
+who has not hunkered down.
+
+### Ammo and reloading
+
+Every gun has a **Magazine**, the shots it holds, and a **Reload**, the actions it takes to load a
+fresh one. The Rifle's are **5** and **1**. Every shot fired spends a round, a reaction shot as much
+as one on the squad's own turn, hit or miss. With the magazine empty, **Shoot** and **Overwatch** are
+greyed out and a squad member on overwatch is offered no reaction shot, until they **Reload**, which
+is greyed out while the magazine is full and when they have too few actions left for it. Reloading
+fills the magazine: there are no spare magazines to count, as in XCOM. Every battle starts with
+everyone's magazine full; what is left at the end is not kept.
+
+The rounds the selected squad member has left show in the bottom-right corner: a bar for each round
+the magazine holds, gold while loaded and hollow once fired, the panel edged in red when it is empty.
+
+A reload plays over whatever the squad member is doing with their legs, so they stay kneeling or
+hunkered behind cover: the rifle comes up across the chest, the spent magazine is dropped, and a
+fresh one is taken from the belt and slapped home. Nothing is called over their head: the reload
+itself is the sign.
+
 ### Enemies
 
-Enemies play by the squad's rules: an action per 4 tiles walked, one per shot, and they walk into
-overwatch the same way. What each one does with its actions is its AI's call. Every enemy so far
-uses the **assault** AI, which takes, for each action, the first of these it can do:
+Enemies play by the squad's rules: an action per 4 tiles walked, one per shot, a round per shot and
+an action to reload, and they walk into overwatch the same way. What each one does with its actions
+is its AI's call. Every enemy so far uses the **assault** AI, which takes, for each action, the first
+of these it can do:
 
-1. **Next to a squad member it can shoot:** shoots them. Once it gets there, every action it has
+1. **Its magazine empty:** reloads.
+2. **Next to a squad member it can shoot:** shoots them. Once it gets there, every action it has
    left goes on them.
-2. **Any action but its last:** moves as close as it can get to the nearest squad member, up to 4
+3. **Any action but its last:** moves as close as it can get to the nearest squad member, up to 4
    tiles. Nearest counts steps walked, not distance as the crow flies.
-3. **Its last action:** shoots whoever it has the best odds on, or moves closer if it cannot see
+4. **Its last action:** shoots whoever it has the best odds on, or moves closer if it cannot see
    anyone.
 
 "Next to" means one tile away in any of the eight directions, at most a level up or down. An enemy
-that cannot get any closer shoots rather than waste the action.
+that cannot get any closer shoots rather than waste the action, and with nothing to shoot either it
+tops up a part-spent magazine. Its reload plays as the squad's does.
 
 ### The grid
 
@@ -261,7 +367,7 @@ cannot walk through.
 ### Chance to hit
 
 ```
-Aim − Evasion − Cover + Flanking + Height − Distance − Reaction
+Aim − Evasion − Cover − Hunkered + Flanking + Height − Distance − Reaction
 ```
 
 clamped to 0–100. Every term is whole percentage points, and all of it is measured from **where the
@@ -274,6 +380,7 @@ leans out: its cover, height and distance are its own tile's.
 | **Aim** | shooter's stat | 90 |
 | **Evasion** | target's stat | 0 |
 | **Cover** | half cover / full cover | −20 / −40 |
+| **Hunkered** | the target has hunkered down, and its cover counts against the shot | −20 |
 | **Flanking** | target in cover that does not face the shot | +20 |
 | **Height** | shooter's stat, per tile of elevation difference | ±5 per tile |
 | **Distance** | shooter's stat, per *full* 4 tiles to the target | −5 per step |
@@ -314,7 +421,9 @@ or **MISS** called over the target, and never touches the terrain.
 at a tile up to **10 tiles** away across the ground, for one action. While it is selected, every tile
 it can reach is tinted faintly. Point at one to see the throw: its arc, the ground the blast covers,
 and a bracket on everyone it would catch, with the damage each would take, red on enemies and gold on
-the squad. Right-click the tile, or press `Enter` / `Space`, to throw.
+the squad. Click the tile, with either mouse button, or press `Enter` / `Space`, to throw. A left
+click on a squad member's figure selects them instead, as it does whatever action is up, so to
+throw at a tile one of them stands on, right-click it or use the keys.
 
 - **The arc must be clear.** The grenade flies in an arc from over the thrower's head to the target,
   higher the further it goes. If anything solid stands in its way the arc turns red up to where it
@@ -336,6 +445,34 @@ the squad. Right-click the tile, or press `Enter` / `Space`, to throw.
 
 The throw range is the same for every squad member and every grenade (`Throwing.RANGE` in
 `Scripts/Combat/Throwing.gd`); each kind of grenade sets its own blast size and damage.
+
+### Medkits
+
+A **Medkit** costs 10 gold; the village's Market has one. Equipped in an item slot, it gives the
+squad member **Use Medkit**: for one action, heal themselves, or a wounded ally standing on one of the
+eight tiles around them, up to a level above or below (a strike's reach), by **4 HP**, never above
+the most. Lined up as a strike is, it draws a green line and reticle to the ally, and the panel over
+them shows their health now and after, and the HP they would gain where a strike's odds would be.
+Nothing is rolled: it always works. The squad member takes the medkit off their belt and holds it
+out, and **+4 HP** (or less, for an ally nearly whole) is called over the ally in green as they mend.
+Healing mends the character too, so it lasts after the battle as any wound does.
+
+- **Themselves too.** A wounded squad member is on offer to their own medkit, after the allies
+  beside them: the reticle and panel sit over them, with no line, and they press the medkit to their
+  own middle rather than turn to anyone. Clicking themselves (either button) lines them up or heals
+  them, as clicking an ally does. Never an enemy.
+- **Once a battle for each Medkit.** Using one spends it for the rest of the battle, but it is never
+  used up: it stays equipped and is ready again in the next battle. Two Medkits are two uses a
+  battle, three are three.
+- **Shared with those beside them.** A squad member standing next to someone whose Medkits have a
+  use left gets **Use Medkit** too, even with no Medkit of their own, for as long as they stand there.
+  They heal as the carrier would (themselves, or a wounded ally next to *them*), for one of their own
+  actions, but the use is the carrier's: once a neighbour has spent a carrier's last use, the carrier
+  has none left either. A squad member with Medkits of their own uses theirs first, and only then a
+  neighbour's. With several neighbours to draw on, the first in the squad panel's order lends. The
+  panel over the one lined up says whose it is ("Blue's Medkit"), and the borrower holds one in hand
+  as they use it. The number in the corner of the action's button is every use the squad member can
+  draw on where they stand: their own and their neighbours'.
 
 ### Where shots go
 
@@ -536,19 +673,22 @@ vcom/                     the Godot project
     TurnManager.gd        turn order, carrying out what enemy AI decides, victory and defeat
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
+    InputDevice.gd        which the player is using, the gamepad or the keyboard and mouse
     Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins,
-                          the tile grid's lines
+                          the tile grid's lines, the gamepad's tile cursor
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
                           loose models (a crate's boards) that wear away voxel by voxel, and the voxels
                           broken off them; the blood stained on voxel faces
     Blood/                blood: wounds, the spray, and the pools it runs into
-    Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Throw Grenade
+    Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Reload, Hunker
+                          Down, Throw Grenade, Use Medkit
     Characters/           the rigged voxel figure every unit wears: its rig, animations and how it is baked
     Items/                items: weapons, armor, grenades, and the inventory
     Roster/               characters and the roster
-    WorldMap/             the campaign map: its camera, land, party, forests and villages
-    UI/                   HUD and menus, built in code rather than scenes
+    WorldMap/             the campaign map: its camera, land, party, forests and villages, the
+                          gamepad's reticle
+    UI/                   HUD and menus, built in code rather than scenes, and the gamepad's prompts
   Resources/              shared resources: weapons and items, characters, AI, villages' locations
     Destruction/          what breaks and how: one resource per breakable block, and the catalog
   Scenes/
@@ -559,6 +699,8 @@ vcom/                     the Godot project
     BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
 MagicaVoxel/              source .vox art
+  Shapes/                 basic 16x16x16 models (terrain, walls, props, plants) not yet in the game,
+                          the script that makes them, and a preview of them all
 Images/                   screenshots: the world map, the menus, and battles just begun and long fought,
                           clean and with blood
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one

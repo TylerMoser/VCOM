@@ -5,16 +5,23 @@
 ##
 ##   godot --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- <clip> [<clip> ...]
 ##       [--frames 6] [--view three_quarter|side|front|back|top] [--out <folder>] [--scene <figure scene>]
+##       [--over <base pose>]
 ##
 ## A clip that is a whole pose (a base pose, a run, an act, the hop and the
 ## fall) is shown exactly as baked, through the figure's [AnimationPlayer]. A
 ## reaction, which is a change added on to whatever the body is doing, is
 ## shown as the game plays it, through the figure's [AnimationTree], added on
-## to a pose: the aim for [code]fire_rifle[/code], standing for the rest. The
-## figure holds what the clip's stance holds: the rifle for a clip whose name
-## has [code]rifle[/code] in it (and for the hop, the fall and the reactions),
-## the sword for [code]melee[/code] and [code]sword[/code] ones, and a grenade
-## in the left hand for throws.
+## to a pose: the aim for [code]fire_rifle[/code], standing for the rest. A
+## clip played over the arms and head alone (the reload), or over the left arm
+## alone (using a medkit), is shown through the tree too, over the base pose
+## [code]--over[/code] names ([code]stand_rifle[/code] unless told:
+## [code]crouch_rifle[/code] or [code]hunker_rifle[/code] show it behind
+## cover). The figure holds what the clip's stance holds: the rifle for a clip
+## whose name has [code]rifle[/code] in it (and for the hop, the fall and the
+## reactions), the sword for [code]melee[/code] and [code]sword[/code] ones, a
+## grenade in the left hand for throws, and for a medkit what the base pose's
+## stance holds, with the medkit on the belt, in the left hand between the
+## clip's [code]take[/code] and [code]stow[/code].
 ##
 ## A clip's frames are spread evenly over it, the last on its end for a clip
 ## played once. They are saved as [code]<clip>_NN.png[/code] in the out folder
@@ -31,6 +38,7 @@ const HumanoidAnimations := preload("res://Scripts/Characters/HumanoidAnimations
 const RIFLE := preload("res://Resources/Rifle.tres")
 const SWORD := preload("res://Resources/Items/Shortsword.tres")
 const GRENADE := preload("res://Resources/Items/FragGrenade.tres")
+const MEDKIT := preload("res://Resources/Items/Medkit.tres")
 
 const DEFAULT_SCENE := "res://Scenes/BaseCharacter.tscn"
 const DEFAULT_OUT := "user://animation_preview"
@@ -49,6 +57,10 @@ const LOOK_AT := Vector3(0.0, 0.8, 0.0)
 
 var _model: Node3D
 var _tree: AnimationTree
+## The base pose an arms-and-head or left-arm clip is shown over.
+var _over := "stand_rifle"
+## How far into the arms-and-head or left-arm clip the tree has been run.
+var _upper_time := 0.0
 
 
 func _initialize() -> void:
@@ -73,6 +85,9 @@ func _initialize() -> void:
 			"--scene":
 				index += 1
 				scene_path = args[index]
+			"--over":
+				index += 1
+				_over = args[index]
 			_:
 				clips.append(args[index])
 		index += 1
@@ -144,6 +159,31 @@ func _show(clip: String, time: float) -> void:
 		_tree.set(&"parameters/react/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		_tree.advance(0.0)
 		_tree.advance(time)
+	elif clip in HumanoidAnimations.UPPER_ACTS or clip in HumanoidAnimations.LEFT_ACTS:
+		var shot := "upper" if clip in HumanoidAnimations.UPPER_ACTS else "left"
+		player.stop()
+		_tree.active = true
+		for blend: StringName in [&"move", &"hop", &"air"]:
+			_tree.set(StringName("parameters/%s/blend_amount" % blend), 0.0)
+		# Fired once, at its first frame, and run on from frame to frame: an
+		# abort then a fresh fire, as the reactions are shown, left this
+		# filtered one-shot showing nothing of the clip, and a fire near its
+		# end did not start it again.
+		if time <= 0.0:
+			_tree.set(&"parameters/stance/transition_request", _over)
+			_tree.advance(SETTLE)
+			_tree.set(StringName("parameters/%s_pick/transition_request" % shot), clip)
+			_tree.set(StringName("parameters/%s/request" % shot), AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+			_tree.advance(0.0)
+			_upper_time = 0.0
+		_tree.advance(time - _upper_time)
+		_upper_time = time
+		if clip.begins_with("use_medkit"):
+			# What the game moves at the clip's moments: the medkit in hand.
+			var animation := _tree.get_animation(StringName(clip))
+			var held := time >= float(animation.get_meta(&"take")) and time < float(animation.get_meta(&"stow"))
+			_model.set(&"_holding_medkit", held)
+			_model.call(&"_place_gear")
 	else:
 		_tree.active = false
 		player.play(clip)
@@ -163,8 +203,14 @@ func _dress(clip: String) -> void:
 	var grenades: Array[Item] = []
 	if clip.contains("throw"):
 		grenades.append(GRENADE)
+	var kits: Array[Item] = []
+	if clip.begins_with("use_medkit"):
+		# Whatever the pose it is shown over holds, and the medkit.
+		gun = RIFLE if _over.contains("rifle") else null
+		melee = SWORD if _over.contains("melee") else null
+		kits.append(MEDKIT)
 	_model.call(&"stand_easy")
-	_model.call(&"equip", gun, melee, grenades)
+	_model.call(&"equip", gun, melee, grenades, kits)
 	if clip.contains("throw"):
 		_model.call(&"ready_throw")
 

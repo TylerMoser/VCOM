@@ -8,7 +8,13 @@
 ## handed, so it keeps up with the camera without any 3D nodes to place.
 ##
 ## A melee strike is lined up the same way ([method show_strike]) and has its
-## result called the same way; it has no round to draw.
+## result called the same way; it has no round to draw. So is a medkit on an
+## ally ([method show_heal]), in green, with the health it gives back called
+## over them ([method flash_heal]).
+##
+## While the player lines a shot or strike up, the panel has a tick box beside
+## the odds, and clicking it emits [signal confirmed] for the action lining it
+## up to take it.
 ##
 ## So is a grenade throw ([method show_throw]): its arc, cut short with a cross
 ## where something blocks it, and a bracket on everyone its blast would catch,
@@ -19,6 +25,10 @@
 ## pickup on its own, so it never replaces a result or another pickup.
 class_name ShotOverlay
 extends Control
+
+## The player clicked the tick on the target panel, to take the shot or strike
+## lined up ([method show_shot], [method show_strike] with confirmable).
+signal confirmed
 
 ## Half-width of the reticle, and the length of each of its corner arms.
 const RETICLE_SIZE := 22.0
@@ -33,6 +43,10 @@ const LINE_DASH := 9.0
 const RETICLE_COLOR := Color(1.0, 0.3, 0.25)
 ## Fire coming the other way, drawn paler so it does not read as your own aim.
 const INCOMING_COLOR := Color(1.0, 0.88, 0.85, 0.9)
+## A medkit lined up on an ally: its line, reticle and the health it gives back,
+## green rather than an attack's red.
+const HEAL_COLOR := TargetPanel.HEAL_COLOR
+const HEAL_LINE_COLOR := Color(0.45, 0.9, 0.5, 0.85)
 
 ## How long a hit or a miss stays up, how far it drifts while it fades, and
 ## how far it clears the target by.
@@ -90,6 +104,8 @@ var _aiming := false
 ## True while the line is someone shooting at the player rather than the
 ## player lining a shot up. It gets the line and the result, nothing else.
 var _incoming := false
+## True while the line is a medkit lined up on an ally, drawn in green.
+var _healing := false
 
 ## The results being called, as [code][position, text, colour][/code]: one for
 ## a shot or a strike, one for everyone a blast caught.
@@ -132,6 +148,7 @@ func _init() -> void:
 	set_process(false)
 
 	_panel = TargetPanel.new()
+	_panel.confirmed.connect(confirmed.emit)
 	add_child(_panel)
 
 
@@ -157,20 +174,40 @@ func _process(delta: float) -> void:
 
 
 ## Draws [param shot], fired from the eye at [param from] toward the eye at
-## [param to], with [param estimate] as its odds.
+## [param to], with [param estimate] as its odds. [param confirmable] puts the
+## tick box on the panel, for a shot the player is lining up; a shot already
+## called, such as reaction fire playing out, has none.
 func show_shot(
-	from: Vector3, to: Vector3, shot: LineOfSight.Shot, estimate: HitChance.Estimate
+	from: Vector3, to: Vector3, shot: LineOfSight.Shot, estimate: HitChance.Estimate,
+	confirmable := false,
 ) -> void:
-	_panel.bind(shot, estimate)
+	_panel.bind(shot, estimate, confirmable)
 	_aim(from, to)
 
 
 ## Draws a melee strike lined up on [param target], from the striker's eye
 ## at [param from] to the target's at [param to], with [param estimate] as its
-## odds: the same line, reticle and panel as a shot.
-func show_strike(from: Vector3, to: Vector3, target: Unit, estimate: HitChance.Estimate) -> void:
-	_panel.bind_strike(target, estimate)
+## odds: the same line, reticle and panel as a shot, and the tick box if
+## [param confirmable].
+func show_strike(
+	from: Vector3, to: Vector3, target: Unit, estimate: HitChance.Estimate, confirmable := false
+) -> void:
+	_panel.bind_strike(target, estimate, confirmable)
 	_aim(from, to)
+
+
+## Draws a medkit lined up on [param target], an ally, from the user's eye at
+## [param from] to the ally's at [param to], with the [param amount] of health
+## it would give back: the line, reticle and panel of a strike, in green, and
+## the tick box if [param confirmable]. Lined up on the user itself, the two
+## are one point, and there is no line, only the reticle and panel.
+## [param kit] is what the panel calls the medkit: whose it is, if borrowed.
+func show_heal(
+	from: Vector3, to: Vector3, target: Unit, amount: int, confirmable := false, kit := "Medkit"
+) -> void:
+	_panel.bind_heal(target, amount, confirmable, kit)
+	_aim(from, to)
+	_healing = true
 
 
 func _aim(from: Vector3, to: Vector3) -> void:
@@ -178,6 +215,7 @@ func _aim(from: Vector3, to: Vector3) -> void:
 	_to = to
 	_aiming = true
 	_incoming = false
+	_healing = false
 	visible = true
 	set_process(true)
 	queue_redraw()
@@ -212,16 +250,23 @@ func flash_result(at: Vector3, text: String, hit: bool, below := true) -> void:
 
 ## Calls several results at once, as a blast that caught several units does:
 ## each of [param results] is [code][position, text, hit][/code], called as
-## [method flash_result] calls one. Together they replace whatever was being
-## called before.
+## [method flash_result] calls one, or with a colour of its own after
+## [code]hit[/code]. Together they replace whatever was being called before.
 func flash_results(results: Array, below := true) -> void:
 	_results.clear()
 	for result: Array in results:
-		_results.append([result[0], result[1], HIT_COLOR if result[2] else MISS_COLOR])
+		var color: Color = result[3] if result.size() > 3 else (HIT_COLOR if result[2] else MISS_COLOR)
+		_results.append([result[0], result[1], color])
 	_result_below = below
 	_result_left = RESULT_SECONDS
 	visible = true
 	set_process(true)
+
+
+## Calls [param text], the health a medkit gave back such as "+4 HP", at the
+## world position [param at] in green, as [method flash_result] calls a hit.
+func flash_heal(at: Vector3, text: String, below := true) -> void:
+	flash_results([[at, text, true, HEAL_COLOR]], below)
 
 
 ## Calls [param text] over the world position [param at], in gold, for as long
@@ -276,6 +321,7 @@ func show_rounds(outcome: Ballistics.Outcome) -> void:
 func clear() -> void:
 	_aiming = false
 	_incoming = false
+	_healing = false
 	_throwing = false
 	_arc = PackedVector3Array()
 	_caught = []
@@ -307,11 +353,11 @@ func _draw() -> void:
 	# Nothing to aim at once the target is behind the camera.
 	if _aiming and not camera.is_position_behind(_to):
 		var target := camera.unproject_position(_to)
-		if not camera.is_position_behind(_from):
+		if not camera.is_position_behind(_from) and not _from.is_equal_approx(_to):
 			draw_dashed_line(
 				camera.unproject_position(_from),
 				target,
-				INCOMING_COLOR if _incoming else LINE_COLOR,
+				INCOMING_COLOR if _incoming else (HEAL_LINE_COLOR if _healing else LINE_COLOR),
 				LINE_WIDTH,
 				LINE_DASH,
 				true,
@@ -320,7 +366,7 @@ func _draw() -> void:
 		if _incoming:
 			_panel.visible = false
 		else:
-			_draw_reticle(target)
+			_draw_reticle(target, HEAL_COLOR if _healing else RETICLE_COLOR)
 			_panel.visible = true
 			_panel.position = _panel_position(target)
 	else:

@@ -4,11 +4,13 @@
 ## fought the last battle and still stands already ticked
 ## ([method Campaign.squad]).
 ##
-## It cannot be closed. Esc does nothing here, and is taken so that the pause
-## menu, which sees it after the scene does, does not open over it either. The
-## only way on is holding Start, which starts the battle with whoever is ticked
-## ([method Campaign.start_battle]); the world map is left as it stands, the
-## party stopped where it was set upon.
+## It cannot be closed. Esc (and the gamepad's B) does nothing here, and is
+## taken so that the pause menu, which sees it after the scene does, does not
+## open over it either. The only way on is holding Start, which starts the
+## battle with whoever is ticked ([method Campaign.start_battle]); the world
+## map is left as it stands, the party stopped where it was set upon. The
+## gamepad's Menu button, which would open the pause menu, takes the keyboard
+## to Start instead.
 class_name SquadMenu
 extends TabbedMenu
 
@@ -36,10 +38,19 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not is_open():
+	super(event)
+	if not is_open() or get_viewport().is_input_handled():
 		return
-	if event.is_action_pressed(&"cancel_action") or event.is_action_pressed(&"pause_menu"):
+	if event.is_action_pressed(&"pause_menu") and event is InputEventJoypadButton:
+		_tab.focus_start()
 		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"cancel_action") or event.is_action_pressed(&"pause_menu"):
+		get_viewport().set_input_as_handled()
+
+
+## It cannot be closed; Menu takes the keyboard to Start, unless it is there.
+func _close_hints() -> Array:
+	return [] if _tab.is_start_focused() else [[[&"Menu"], "Go to Start"]]
 
 
 ## Opens to choose who fights a battle on [param map], and starts it once they

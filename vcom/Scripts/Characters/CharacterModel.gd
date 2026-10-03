@@ -12,13 +12,15 @@
 ## asks for: aiming while a shot is lined up, the kick of a shot, a sword
 ## drawn and swung, a grenade wound back and thrown, a flinch, a duck, a
 ## cheer. Between actions [Postures] says which way it faces and whether it
-## kneels behind low cover or braces against high. While someone has a shot
-## lined up that sees it only where it leans out round that cover, it leans
-## out there, and draws back once the shot is over ([method lean_out]).
+## kneels behind low cover or braces against high; hunkered down, it ducks
+## low behind either ([member hunkered]). While someone has a shot lined up
+## that sees it only where it leans out round that cover, it leans out there,
+## hunkered or not, and draws back once the shot is over ([method lean_out]).
 ##
 ## Its gear is its unit's, each item shown as its [member Item.model]: the gun
 ## in its hands, a sword it carries as well slung across its back until it is
-## drawn, and up to three grenades on its belt.
+## drawn, and its grenades and medkits on its belt, three at most. It takes a
+## medkit in its left hand to use it on an ally or itself ([method use_medkit]).
 ##
 ## When the unit dies the figure breaks apart, as a block crumbles: its voxels
 ## become lumps of debris in its colour, knocked the way the killing blow went,
@@ -63,12 +65,19 @@ const BLEND_RATE := 12.0
 ## first.
 const FIGURE_DESTRUCTION := "res://Resources/Destruction/Figure.tres"
 const GEAR_DESTRUCTION := "res://Resources/Destruction/Gear.tres"
-## Grenades shown on the belt at most.
+## Grenades and medkits shown on the belt at most: one to each of its slots.
 const BELT := 3
 ## How far out of the middle of its tile a lean out of cover takes its head,
 ## in cells, unless the lean's clip says ([code]reach[/code] in its metadata,
 ## which the bake measures off the pose).
 const LEAN_REACH := 0.7
+## A medkit in the left hand, turned in the grenade's grip so it is held up
+## with its cross to the front, toward whoever it is held out to.
+const MEDKIT_IN_HAND := Basis(Vector3.UP, -PI / 2.0)
+## Where it looks attending to itself ([method attend]): how far ahead of its
+## feet (x) and how high (y), in metres, about where a medkit pressed to its
+## middle is held.
+const SELF_LOOK := Vector2(0.6, 0.7)
 
 ## The .vox the figure was baked from, which its voxels are read from while
 ## the game runs, for blood to land on them and for it to break apart
@@ -99,6 +108,10 @@ var readiness := Readiness.NONE
 var cover := LineOfSight.Cover.NONE
 ## Whether its unit is on overwatch, which raises its gun.
 var overwatching := false
+## Whether its unit has hunkered down, which has it duck low behind its cover,
+## whichever height it is, its weapon hugged close: but for a lean out of it
+## ([member leaning]), which shows where a shot sees it.
+var hunkered := false
 ## Which way it is leaning out of its cover: 1 to its left, -1 to its right,
 ## 0 while it is behind it. Set through [method lean_out] and
 ## [method lean_back].
@@ -122,6 +135,13 @@ var _sword: Node3D
 ## [constant BELT] shown), and whether the first is in the left hand.
 var _grenades: Array[Node3D] = []
 var _holding_grenade := false
+## Medkit props, one for each medkit the unit carries, on the belt after the
+## grenades, and whether the first is in the left hand.
+var _medkits: Array[Node3D] = []
+var _holding_medkit := false
+## A medkit borrowed from a squad member beside it, in its hand while it uses
+## it, one of [member _medkits] until then ([method use_medkit]).
+var _borrowed: Node3D
 
 ## The way it is turning to face, as a yaw about the vertical (0 faces +z).
 var _yaw_target := 0.0
@@ -279,10 +299,13 @@ func settle(held: LineOfSight.Cover, yaw: float, watch: Variant, at_once := fals
 
 
 ## Whether it is standing about with nothing to do: not moving, falling,
-## leaning out or broken apart, nothing ready and nothing playing. [Postures]
-## only moves it then.
+## leaning out or broken apart, nothing ready, nothing it attends to
+## ([method attend]) and nothing playing. [Postures] only moves it then.
 func is_idle() -> bool:
-	return not dead and readiness == Readiness.NONE and leaning == 0 and _walk.is_empty() and not _falling and _acting <= 0.0
+	return (
+		not dead and readiness == Readiness.NONE and _aim_point == null and leaning == 0
+		and _walk.is_empty() and not _falling and _acting <= 0.0
+	)
 
 
 ## Leans out round the end of the cover it is behind, to its left
@@ -363,6 +386,27 @@ func ready_throw(point: Variant = null) -> void:
 	if not _holding_grenade and not _grenades.is_empty():
 		_holding_grenade = true
 		_place_gear()
+	face(point)
+
+
+## Turns to [param point] in the world and looks at it, with nothing readied,
+## and keeps facing it until it stands easy ([method stand_easy]), whatever
+## [Postures] would have it face meanwhile: an ally a medkit is lined up on, the
+## chest of the unit at [param point]. Given null, it attends to itself: it
+## keeps the way it faces and looks down in front of its own middle, where a
+## medkit used on itself is held ([constant SELF_LOOK]).
+func attend(point: Variant = null) -> void:
+	_easing = false
+	_set_readiness(Readiness.NONE)
+	if point == null:
+		# Ahead the way it is turning to, not the way it happens to face, so a
+		# turn under way finishes.
+		var ahead := Vector3(sin(_yaw_target), 0.0, cos(_yaw_target))
+		_aim_point = global_position + ahead * SELF_LOOK.x + Vector3.UP * SELF_LOOK.y
+		_watch_point = _aim_point
+		return
+	_aim_point = point
+	_watch_point = point
 	face(point)
 
 
@@ -456,7 +500,78 @@ func throw_toward(point: Vector3) -> Vector3:
 	return release
 
 
-## Waits for the blow or throw it is playing to finish.
+## Loads a fresh magazine into its gun, played over its arms and head so it
+## stays as it stands, kneels or hunkers, and returns the moment the new one is
+## seated (the clip's [code]seat[/code]). The rest plays on after;
+## [method recover] waits for it. Puts away anything it had ready first. At once
+## without a rifle in its hands.
+func reload() -> void:
+	_easing = false
+	_aim_point = null
+	_set_readiness(Readiness.NONE)
+	while _acting > 0.0 and not dead:
+		await get_tree().process_frame
+	if dead or _stance != &"rifle" or _drawn:
+		return
+	_act_upper(&"reload_rifle")
+	await _after(_moment(&"reload_rifle", &"seat"))
+
+
+## Takes a medkit off its belt in its left hand and holds it out to the ally
+## whose chest is at [param point] in the world, next to it, turning to face
+## them first, and returns the moment the ally is seen to be treated (the
+## clip's [code]apply[/code]). The medkit goes back on the belt as the clip
+## ends; [method recover] waits for that. Played over the left arm alone, so it
+## stays as it stands, kneels or hunkers, the right hand keeping its weapon,
+## and it looks at the ally throughout. Puts away anything it had ready
+## first. Given null, it treats itself: it presses the medkit to its own
+## middle instead ([code]use_medkit_self[/code]), looking down at it, at the
+## same moments. [param borrowed] is a medkit it uses from a squad member beside
+## it: with none of its own on its belt it appears in the hand at the clip's
+## [code]take[/code] and goes at its [code]stow[/code]; with one, its own is
+## shown, a medkit being a medkit.
+func use_medkit(point: Variant = null, borrowed: Item = null) -> void:
+	attend(point)
+	await _turned(0.0)
+	while _acting > 0.0 and not dead:
+		await get_tree().process_frame
+	if dead:
+		return
+	var clip := &"use_medkit" if point != null else &"use_medkit_self"
+	_act_left(clip)
+	_carry_medkit(clip, borrowed)
+	await _after(_moment(clip, &"apply"))
+
+
+## Moves the first medkit from the belt to the left hand at [param clip]'s
+## [code]take[/code] and back at its [code]stow[/code]; with none on the belt,
+## [param borrowed] is made to show in the hand meanwhile, then let go.
+func _carry_medkit(clip: StringName, borrowed: Item) -> void:
+	var take := _moment(clip, &"take")
+	var stow := _moment(clip, &"stow")
+	await _after(take)
+	if dead:
+		return
+	if _medkits.is_empty() and borrowed != null:
+		_borrowed = _make_prop(borrowed)
+		if _borrowed != null:
+			_medkits.append(_borrowed)
+	_holding_medkit = true
+	_place_gear()
+	await _after(stow - take)
+	if dead:
+		return
+	_holding_medkit = false
+	if _borrowed != null:
+		_medkits.erase(_borrowed)
+		# Freed already if the belt was rebuilt meanwhile ([method equip]).
+		if is_instance_valid(_borrowed):
+			_borrowed.queue_free()
+		_borrowed = null
+	_place_gear()
+
+
+## Waits for the blow, throw, reload or medkit it is playing to finish.
 func recover() -> void:
 	while _acting > 0.0 and not dead:
 		await get_tree().process_frame
@@ -476,9 +591,9 @@ func dodge() -> void:
 
 ## Shows what its unit carries: [param gun] in its hands, or [param melee]
 ## if it has no gun (slung on its back if it has both), and a grenade for each
-## of [param grenades] on its belt. Called again as the unit uses something
-## up.
-func equip(gun: Item, melee: Item, grenades: Array[Item]) -> void:
+## of [param grenades] and a medkit for each of [param kits] on its belt.
+## Called again as the unit uses something up.
+func equip(gun: Item, melee: Item, grenades: Array[Item], kits: Array[Item] = []) -> void:
 	_stance = &"rifle" if gun != null else (&"melee" if melee != null else &"unarmed")
 	if gun == null or melee == null:
 		_drawn = false
@@ -493,6 +608,15 @@ func equip(gun: Item, melee: Item, grenades: Array[Item]) -> void:
 			_grenades.append(prop)
 	if _holding_grenade and _grenades.is_empty():
 		_holding_grenade = false
+	for prop in _medkits:
+		prop.queue_free()
+	_medkits.clear()
+	for item in kits:
+		var prop := _make_prop(item)
+		if prop != null:
+			_medkits.append(prop)
+	if _holding_medkit and _medkits.is_empty():
+		_holding_medkit = false
 	_place_gear()
 
 
@@ -549,6 +673,7 @@ func gear() -> Array[MeshInstance3D]:
 	var drawn: Array[MeshInstance3D] = []
 	var props: Array = [_gun, _sword]
 	props.append_array(_grenades)
+	props.append_array(_medkits)
 	for held in props:
 		if held == null or not is_instance_valid(held) or not (held as Node3D).is_visible_in_tree():
 			continue
@@ -603,7 +728,8 @@ func _draw_or_stow(drawing: bool) -> void:
 	_place_gear()
 
 
-## Puts every prop in its socket for how the figure stands now.
+## Puts every prop in its socket for how the figure stands now. The belt's
+## slots go to the grenades first, then the medkits.
 func _place_gear() -> void:
 	if _gun != null:
 		_put(_gun, ^"Back/RifleSlot" if _drawn else ^"RightHand/RifleGrip")
@@ -614,6 +740,17 @@ func _place_gear() -> void:
 		var prop := _grenades[index]
 		if index == 0 and _holding_grenade:
 			_put(prop, ^"LeftHand/GrenadeGrip")
+			prop.visible = true
+			continue
+		prop.visible = on_belt < BELT
+		if on_belt < BELT:
+			_put(prop, NodePath("Belt/Grenade%d" % (on_belt + 1)))
+		on_belt += 1
+	for index in _medkits.size():
+		var prop := _medkits[index]
+		if index == 0 and _holding_medkit:
+			_put(prop, ^"LeftHand/GrenadeGrip")
+			prop.basis = MEDKIT_IN_HAND
 			prop.visible = true
 			continue
 		prop.visible = on_belt < BELT
@@ -675,8 +812,12 @@ func _base_pose() -> StringName:
 			return &"ready_melee"
 		Readiness.THROW:
 			return StringName("ready_throw_%s" % hands)
+	# Leaning out comes before hunkering down: it shows where a shot that sees
+	# it only there is aimed, which the cover would hide it from ducked down.
 	if leaning != 0:
 		return _lean_pose(leaning, _lean_cover)
+	if hunkered:
+		return StringName("hunker_%s" % hands)
 	if overwatching and hands == &"rifle":
 		match cover:
 			LineOfSight.Cover.LOW:
@@ -784,6 +925,24 @@ func _act(clip: StringName) -> void:
 	_acting = animation.length if animation != null else 0.0
 	_tree.set(&"parameters/act_pick/transition_request", String(clip))
 	_tree.set(&"parameters/act/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
+## Plays [param clip] over the arms and head alone ([code]upper[/code] in the
+## tree), counting as acting until it ends, as [method _act] does.
+func _act_upper(clip: StringName) -> void:
+	var animation := _tree.get_animation(clip)
+	_acting = animation.length if animation != null else 0.0
+	_tree.set(&"parameters/upper_pick/transition_request", String(clip))
+	_tree.set(&"parameters/upper/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
+
+## Plays [param clip] over the left arm alone ([code]left[/code] in the
+## tree), counting as acting until it ends, as [method _act] does.
+func _act_left(clip: StringName) -> void:
+	var animation := _tree.get_animation(clip)
+	_acting = animation.length if animation != null else 0.0
+	_tree.set(&"parameters/left_pick/transition_request", String(clip))
+	_tree.set(&"parameters/left/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 func _react(clip: StringName) -> void:

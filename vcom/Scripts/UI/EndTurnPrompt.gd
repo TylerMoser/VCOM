@@ -1,4 +1,5 @@
-## "End Turn" bar that fills while Shift is held, above the action bar.
+## "End Turn" bar that fills while Shift (View on the gamepad) is held, above the
+## action bar.
 extends VBoxContainer
 
 @export var turn_manager_path: NodePath = ^"../../TurnManager"

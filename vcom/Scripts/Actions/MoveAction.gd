@@ -4,6 +4,10 @@
 ## Holding right-click previews the path to the tile under the cursor;
 ## releasing walks it. Releasing off the highlighted tiles, or pressing Esc
 ## while holding, cancels.
+##
+## With the gamepad the path to the tile cursor ([TileCursor]) is always
+## previewed, following it as the left stick moves it, and A walks it. A with
+## the cursor on another squad member selects them instead.
 class_name MoveAction
 extends UnitAction
 
@@ -37,7 +41,12 @@ func _ready() -> void:
 # Follow the cursor every frame, not only when the mouse moves, so the path
 # stays right while the camera pans or rotates under a still cursor.
 func _process(_delta: float) -> void:
-	_update_preview(get_viewport().get_mouse_position())
+	if InputDevice.gamepad:
+		_update_preview(controller.pointed_tile())
+	elif _previewing:
+		_update_preview(controller.tile_under_cursor(get_viewport().get_mouse_position()))
+	elif _preview_tile != null:
+		_update_preview(null)
 
 
 func _init() -> void:
@@ -62,9 +71,11 @@ func begin(unit: Unit) -> void:
 		if _reach.steps[tile] > 0:
 			tiles[tile] = _cost_color(_reach.steps[tile])
 	controller.highlights.set_layer(HIGHLIGHT_LAYER, tiles)
+	set_process(true)
 
 
 func end() -> void:
+	set_process(false)
 	_stop_preview()
 	controller.highlights.clear_layer(HIGHLIGHT_LAYER)
 	_unit = null
@@ -72,10 +83,18 @@ func end() -> void:
 
 
 func handle_input(event: InputEvent) -> bool:
+	if InputDevice.gamepad and event.is_action_pressed(&"confirm_action"):
+		var tile: Variant = controller.pointed_tile()
+		var member := _member_on(tile)
+		if member != null:
+			controller.squad.select(member)
+		elif tile != null and _reach.steps.get(tile, 0) > 0:
+			_stop_preview()
+			_move_to(tile)
+		return true
 	if event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
 		_previewing = true
-		set_process(true)
-		_update_preview((event as InputEventMouseButton).position)
+		_update_preview(controller.tile_under_cursor((event as InputEventMouseButton).position))
 		return true
 	if not _previewing:
 		return false
@@ -92,8 +111,23 @@ func handle_input(event: InputEvent) -> bool:
 	return false
 
 
-func _update_preview(screen_position: Vector2) -> void:
-	var tile: Variant = controller.tile_under_cursor(screen_position)
+func confirm_hint() -> String:
+	return "Select" if _member_on(controller.pointed_tile()) != null else "Move here"
+
+
+## The squad member other than the one moving who stands on [param tile], or
+## null.
+func _member_on(tile: Variant) -> Unit:
+	if tile == null:
+		return null
+	for member in controller.squad.members:
+		if member != _unit and controller.grid.tile_at(member.global_position) == tile:
+			return member
+	return null
+
+
+## Shows the path to [param tile], or none when it is null or out of reach.
+func _update_preview(tile: Variant) -> void:
 	if tile != null and _reach.steps.get(tile, 0) == 0:
 		tile = null
 	if tile == _preview_tile:
@@ -112,7 +146,6 @@ func _update_preview(screen_position: Vector2) -> void:
 func _stop_preview() -> void:
 	_previewing = false
 	_preview_tile = null
-	set_process(false)
 	controller.highlights.clear_layer(PATH_LAYER)
 
 

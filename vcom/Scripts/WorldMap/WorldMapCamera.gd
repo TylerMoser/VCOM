@@ -7,6 +7,12 @@
 ##          when it turned the combat camera, which it now slides as well.
 ##   Zoom - mouse wheel, toward the point under the cursor.
 ##
+## With the gamepad the left stick pans (cursor_*, the actions that move the
+## combat map's tile cursor) and the right stick, pushed up or down, zooms, as
+## the d-pad's up and down do a step at a time, toward the middle of the
+## screen, where the [MapReticle] points. Edge panning is off meanwhile, since
+## the mouse is hidden.
+##
 ## Zoomed all the way out the whole map fits on screen; all the way in, one
 ## pixel of the map image is one pixel of the view. The centre of the view
 ## never leaves the map.
@@ -30,6 +36,9 @@ extends Camera2D
 @export var zoom_smoothing := 10.0
 ## How much one wheel notch magnifies or shrinks the view.
 @export var zoom_step := 1.25
+## How many times over the right stick, pushed all the way, magnifies or
+## shrinks the view in a second.
+@export var stick_zoom_speed := 3.0
 ## Closest zoom: 1 shows the map image at its own resolution.
 @export var max_zoom := 1.0
 ## Share of the screen the whole map fills when zoomed all the way out.
@@ -89,6 +98,9 @@ func _process(delta: float) -> void:
 	# view zoomed out past the whole map.
 	_target_zoom = clampf(_target_zoom, _min_zoom(), max_zoom)
 	_update_pan(delta)
+	var push := Input.get_axis(&"camera_zoom_stick_out", &"camera_zoom_stick_in")
+	if not is_zero_approx(push):
+		_step_zoom(pow(stick_zoom_speed, push * delta))
 
 	# Smooth the zoom in log space so each notch takes as long in as out.
 	var log_zoom := lerpf(log(_current_zoom), log(_target_zoom), _weight(delta, zoom_smoothing))
@@ -103,13 +115,14 @@ func focus_on(map_position: Vector2) -> void:
 
 
 ## One wheel notch, multiplying the zoom by [param factor]. The point under the
-## cursor stays under it, so the wheel zooms toward what the player points at.
+## pointer stays under it, so the wheel zooms toward what the player points
+## at: the mouse, or with the gamepad the middle of the screen.
 func _step_zoom(factor: float) -> void:
 	var zoom_to := clampf(_target_zoom * factor, _min_zoom(), max_zoom)
 	if is_equal_approx(zoom_to, _target_zoom):
 		return
 	var viewport := get_viewport()
-	var offset := viewport.get_mouse_position() - viewport.get_visible_rect().size * 0.5
+	var offset := InputDevice.pointer_position(viewport) - viewport.get_visible_rect().size * 0.5
 	var anchor := _target_position + offset / _target_zoom
 	_target_zoom = zoom_to
 	_target_position = _clamp_to_map(anchor - offset / _target_zoom)
@@ -119,7 +132,8 @@ func _update_pan(delta: float) -> void:
 	var input := Input.get_vector(
 		&"camera_pan_left", &"camera_pan_right", &"camera_pan_forward", &"camera_pan_back"
 	)
-	if edge_pan_enabled and _mouse_seen and not _dragging:
+	input += Input.get_vector(&"cursor_left", &"cursor_right", &"cursor_up", &"cursor_down")
+	if edge_pan_enabled and _mouse_seen and not _dragging and not InputDevice.gamepad:
 		input += _edge_pan_input()
 	input = input.limit_length(1.0)
 	if not input.is_zero_approx():

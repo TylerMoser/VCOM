@@ -1,5 +1,6 @@
 ## HUD card for one unit: portrait, health bar, a pip per action and one for
-## the reaction, which lights up while the unit is on overwatch.
+## the reaction, which lights up while the unit is on overwatch. A shield over
+## the portrait's corner shows while the unit is hunkered down.
 ## Clicking it emits [signal pressed]; [member selected] highlights it.
 class_name UnitCard
 extends PanelContainer
@@ -10,6 +11,8 @@ const PORTRAIT_SIZE := Vector2(72, 72)
 ## Gap between pips. With 14px pips, three actions and the reaction come to
 ## 71px, inside the portrait's width, so the pips never widen the card.
 const PIP_GAP := 5
+## How far in from the portrait's bottom-right corner the hunker shield sits.
+const BADGE_INSET := 3.0
 
 const BG_COLOR := Color(0.1, 0.11, 0.15, 0.85)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
@@ -28,6 +31,7 @@ var _portrait: ColorRect
 var _health_bar: ProgressBar
 var _pips: HBoxContainer
 var _reaction_pip: ReactionPip
+var _hunker_badge: HunkerBadge
 
 
 func _init() -> void:
@@ -52,6 +56,13 @@ func _init() -> void:
 	_portrait.size_flags_horizontal = SIZE_SHRINK_CENTER
 	_portrait.mouse_filter = MOUSE_FILTER_IGNORE
 	column.add_child(_portrait)
+
+	# Over the portrait rather than beside the pips, so it never widens the
+	# card.
+	_hunker_badge = HunkerBadge.new()
+	_hunker_badge.position = PORTRAIT_SIZE - _hunker_badge.size - Vector2(BADGE_INSET, BADGE_INSET)
+	_hunker_badge.visible = false
+	_portrait.add_child(_hunker_badge)
 
 	_health_bar = ProgressBar.new()
 	_health_bar.custom_minimum_size = Vector2(PORTRAIT_SIZE.x, 8)
@@ -95,11 +106,13 @@ func bind(target: Unit) -> void:
 	unit.actions_changed.connect(_on_actions_changed)
 	unit.reaction_changed.connect(_on_reaction_changed)
 	unit.overwatch_changed.connect(_on_overwatch_changed)
+	unit.hunker_changed.connect(_on_hunker_changed)
 	unit.died.connect(_on_died)
 	_on_health_changed(unit.health, unit.max_health)
 	_on_actions_changed(unit.actions_remaining, unit.actions_per_turn)
 	_on_reaction_changed(unit.reaction_available)
 	_on_overwatch_changed(unit.overwatching)
+	_on_hunker_changed(unit.hunkered)
 
 
 ## The card goes with the unit. It leaves the row at once rather than at the
@@ -142,6 +155,10 @@ func _on_reaction_changed(available: bool) -> void:
 
 func _on_overwatch_changed(watching: bool) -> void:
 	_reaction_pip.readied = watching
+
+
+func _on_hunker_changed(hunkered: bool) -> void:
+	_hunker_badge.visible = hunkered
 
 
 static func _bar_style(color: Color) -> StyleBoxFlat:

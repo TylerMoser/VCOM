@@ -11,6 +11,9 @@ extends SubTabs
 ## What [method selected_stack] gives may have changed: another square was
 ## picked, another sub-tab opened, or the inventory changed under it.
 signal selection_changed
+## Enter, Space, A or a double-click on [param stack]'s square, in any
+## sub-tab.
+signal item_activated(stack: ItemStack)
 
 var _weapons: ItemBrowser
 var _armor: ItemBrowser
@@ -34,6 +37,7 @@ func _init() -> void:
 
 	for browser: ItemBrowser in [_weapons, _armor, _battle_items]:
 		browser.selection_changed.connect(selection_changed.emit.unbind(1))
+		browser.item_activated.connect(item_activated.emit)
 	tab_changed.connect(selection_changed.emit.unbind(1))
 	get_tab_bar().gui_input.connect(_on_tab_bar_input)
 

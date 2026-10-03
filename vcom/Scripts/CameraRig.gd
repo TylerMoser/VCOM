@@ -8,9 +8,13 @@
 ##   Pan    - WASD, push the mouse against a screen edge, or drag
 ##            with the middle mouse button, which takes hold of the ground
 ##            under the cursor and slides it, as it does the world map.
-##   Rotate - hold Q / E.
-##   Zoom   - mouse wheel. The camera slides in and out along its line of
-##            sight, looking down at [member view_pitch] at every zoom.
+##   Rotate - hold Q / E, or the right stick left and right.
+##   Zoom   - mouse wheel, the d-pad up and down a notch at a time, or the
+##            right stick up and down. The camera slides in and out along its
+##            line of sight, looking down at [member view_pitch] at every zoom.
+##
+## With the gamepad it pans by following the tile cursor ([TileCursor]), which
+## the left stick moves, and the mouse's edge of the screen pans nothing.
 ##
 ## Rotation is free: Q / E sweep continuously and settle on any angle. The
 ## pitch is not the player's to change: tipped up toward the horizon, the view
@@ -51,6 +55,8 @@ extends Node3D
 @export var zoom_smoothing := 10.0
 ## Fraction of the full zoom range covered by one wheel notch.
 @export var zoom_step := 1.0 / 12.0
+## Notches of zoom a second with the right stick pushed all the way.
+@export var stick_zoom_speed := 10.0
 @export var near_distance := 6.0
 @export var far_distance := 22.0
 ## Degrees below horizontal the camera looks down, at every zoom. Keep it
@@ -157,6 +163,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _process(delta: float) -> void:
 	_update_rotation(delta)
 	_update_pan(delta)
+	_update_stick_zoom(delta)
 
 	var distance := _frame_distance if _framing else _zoom_distance()
 	var pitch := _frame_pitch if _framing else view_pitch
@@ -242,6 +249,14 @@ func _step_zoom(direction: float) -> void:
 		_zoom = clampf(_zoom + direction * zoom_step, 0.0, 1.0)
 
 
+## The right stick zooms smoothly, as far in a second as
+## [member stick_zoom_speed] notches of the wheel.
+func _update_stick_zoom(delta: float) -> void:
+	var push := Input.get_axis(&"camera_zoom_stick_in", &"camera_zoom_stick_out")
+	if not is_zero_approx(push):
+		_step_zoom(push * stick_zoom_speed * delta)
+
+
 func _update_rotation(delta: float) -> void:
 	var turn := Input.get_axis(&"camera_rotate_left", &"camera_rotate_right")
 	_yaw += turn * key_rotate_speed * delta
@@ -259,8 +274,9 @@ func _update_pan(delta: float) -> void:
 	var input := Input.get_vector(
 		&"camera_pan_left", &"camera_pan_right", &"camera_pan_forward", &"camera_pan_back"
 	)
-	# A drag can carry the cursor to an edge, which must not push back at it.
-	if edge_pan_enabled and _mouse_seen and not _dragging:
+	# A drag can carry the cursor to an edge, which must not push back at it,
+	# and a mouse left lying at one while the gamepad is in use pushes nothing.
+	if edge_pan_enabled and _mouse_seen and not _dragging and not InputDevice.gamepad:
 		input += _edge_pan_input()
 	input = input.limit_length(1.0)
 

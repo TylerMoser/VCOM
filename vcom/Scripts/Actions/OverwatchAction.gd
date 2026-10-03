@@ -7,9 +7,10 @@
 ## [Reactions] slows the action down and the player chooses whether, and
 ## when, to take the shot. It is a reaction, so it costs
 ## [constant HitChance.REACTION_PENALTY] aim and cannot be taken if the unit
-## has already used its reaction.
+## has already used its reaction, or has no round left to fire
+## ([method Unit.can_fire]).
 ##
-##   Go on overwatch - Enter or Space.
+##   Go on overwatch - Enter or Space, or A on the gamepad.
 class_name OverwatchAction
 extends UnitAction
 
@@ -28,8 +29,12 @@ func _init() -> void:
 	required_tag = Item.GUN
 
 
+func confirm_hint() -> String:
+	return "Go on overwatch"
+
+
 func is_available(unit: Unit) -> bool:
-	return unit.actions_remaining > 0 and unit.reaction_available and not unit.overwatching
+	return unit.actions_remaining > 0 and unit.reaction_available and not unit.overwatching and unit.can_fire()
 
 
 func begin(unit: Unit) -> void:

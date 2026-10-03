@@ -8,9 +8,14 @@
 ## unit, nearest first (straight across before diagonal), and the sight line,
 ## reticle and target panel follow the one lined up.
 ##
-##   Cycle targets - Tab, or Shift+Tab to go back.
-##   Strike        - Enter or Space.
+##   Cycle targets - Tab, or Shift+Tab to go back; or click another target.
+##   Strike        - Enter or Space, click the target lined up (either
+##                   button), or click the tick beside its odds.
 ##   Show the sum  - hold Ctrl to open the breakdown behind the hit chance.
+##
+## As with a shot, a click on another target lines it up rather than striking
+## it, and the cursor turns to a hand over any target. With the gamepad, as a
+## shot is lined up: LB / RB, A, LT, and the tile cursor on the target.
 ##
 ## The odds are [method HitChance.for_strike]'s, worked out once when the
 ## target is lined up, and the blow is [method Unit.strike]'s. While a target
@@ -42,9 +47,17 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	set_process(false)
 	_overlay = get_node_or_null(overlay_path) as ShotOverlay
 	if _overlay == null:
 		push_error("StrikeAction: no ShotOverlay at '%s'." % overlay_path)
+	else:
+		_overlay.confirmed.connect(_on_confirmed)
+
+
+# Every frame, as the camera moves under a still cursor (see ShootAction).
+func _process(_delta: float) -> void:
+	point_at_target(not controller.busy and _targets.has(hovered_unit()))
 
 
 func is_available(unit: Unit) -> bool:
@@ -56,9 +69,12 @@ func begin(unit: Unit) -> void:
 	_targets = _adjacent_enemies(unit)
 	_index = 0
 	_show_target()
+	set_process(true)
 
 
 func end() -> void:
+	set_process(false)
+	point_at_target(false)
 	if _unit != null:
 		_unit.stand_easy()
 	_unit = null
@@ -82,7 +98,7 @@ func handle_input(event: InputEvent) -> bool:
 	elif event.is_action_pressed(&"confirm_action"):
 		_strike()
 	else:
-		return false
+		return _click(clicked_unit(event))
 	return true
 
 
@@ -124,6 +140,44 @@ func _cycle(step: int) -> void:
 	_show_target()
 
 
+## Strikes [param clicked] if it is the target lined up, lines it up if it is
+## another target, and leaves anything else alone, returning false.
+func _click(clicked: Unit) -> bool:
+	var at := _targets.find(clicked) if clicked != null else -1
+	if at < 0:
+		return false
+	if at == _index:
+		_strike()
+	else:
+		_index = at
+		_show_target()
+	return true
+
+
+func confirm_hint() -> String:
+	return "Strike"
+
+
+func cycles_targets() -> bool:
+	return true
+
+
+## The cursor moved on to [param tile]: an enemy beside the unit there is lined
+## up.
+func cursor_moved(tile: Vector3i) -> void:
+	for at in _targets.size():
+		if at != _index and controller.grid.tile_at(_targets[at].global_position) == tile:
+			_index = at
+			_show_target()
+			return
+
+
+## The tick on the target panel: strike, if this is what is lined up.
+func _on_confirmed() -> void:
+	if controller.active == self and not controller.busy and current_target() != null:
+		_strike()
+
+
 ## The living enemies standing next to [param unit], nearest first.
 func _adjacent_enemies(unit: Unit) -> Array[Unit]:
 	var grid := controller.grid
@@ -148,6 +202,8 @@ func _show_target() -> void:
 	var target := lined_up as Unit
 	_estimate = HitChance.for_strike(_unit, target)
 	_unit.ready_strike(target.global_position)
+	if InputDevice.gamepad and controller.cursor != null:
+		controller.cursor.snap_to(controller.grid.tile_at(target.global_position))
 	if _overlay != null:
 		var grid := controller.grid
 		_overlay.show_strike(
@@ -155,4 +211,5 @@ func _show_target() -> void:
 			grid.cell_center(LineOfSight.eye_cell(grid.tile_at(target.global_position))),
 			target,
 			_estimate,
+			true,
 		)

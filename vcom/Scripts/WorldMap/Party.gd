@@ -11,6 +11,10 @@
 ## the new point instead. The left button is left free for other things, such
 ## as a left click on the village the party is in opening its [VillageMenu].
 ##
+## With the gamepad, A does what the right click does, at the [MapReticle] in
+## the middle of the screen, and L3 (recenter) brings the party back into the
+## middle of the view.
+##
 ## It travels in steps of [member step_length]. Every step heals everyone on
 ## the roster by [member heal_per_step] ([method Campaign.heal]), wherever it
 ## is taken, so wounds mend on the road. Each step that ends in a
@@ -74,10 +78,28 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"execute_action") and event is InputEventMouseButton:
-		var destination := Destination.find_under_mouse(get_tree())
-		_send_to(destination.global_position if destination != null else get_global_mouse_position())
+	var clicked := event.is_action_pressed(&"execute_action") and event is InputEventMouseButton
+	if clicked or (InputDevice.gamepad and event.is_action_pressed(&"confirm_action")):
+		var destination := Destination.find_under_pointer(get_tree())
+		_send_to(destination.global_position if destination != null else pointed_at())
 		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed(&"recenter"):
+		var camera := get_viewport().get_camera_2d() as WorldMapCamera
+		if camera != null:
+			camera.focus_on(global_position)
+		get_viewport().set_input_as_handled()
+
+
+## The spot of the map the player points at: under the mouse, or with the
+## gamepad under the reticle.
+func pointed_at() -> Vector2:
+	return InputDevice.pointer_on_canvas(self)
+
+
+## Whether [param point] is somewhere the party could be sent: on land, with
+## land to go by. It may still be cut off from it by the sea.
+func can_go_to(point: Vector2) -> bool:
+	return _terrain == null or _terrain.is_land(point)
 
 
 func _process(delta: float) -> void:

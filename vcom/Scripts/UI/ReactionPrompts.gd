@@ -1,6 +1,8 @@
 ## The prompts for a reaction window: beside each squad member who could fire,
 ## the key that fires them and the odds of their shot, and along the bottom a
-## reminder that 0 lets the enemy carry on.
+## reminder that 0 lets the enemy carry on. With the gamepad only the prompt
+## picked out has a button, A, and the reminder is B to carry on and LB / RB to
+## pick another.
 ##
 ## Screen space and redrawn every frame from the units' positions, like
 ## [ShotOverlay], so the prompts keep up with the units and the camera.
@@ -12,6 +14,8 @@ class Prompt:
 	var unit: Unit
 	var key: String
 	var chance: int
+	## Picked out for the gamepad's A.
+	var focused := false
 
 	func _init(prompt_unit: Unit, prompt_key: String, prompt_chance: int) -> void:
 		unit = prompt_unit
@@ -32,6 +36,10 @@ const GAP := 6.0
 const HINT_BOTTOM := 112.0
 const HINT_KEY := "0"
 const HINT_TEXT := "Continue"
+## The gamepad's second reminder, for LB / RB.
+const PICK_TEXT := "Choose who fires"
+## Between the gamepad's reminders.
+const HINT_SPACING := 24.0
 
 const KEY_BG_COLOR := Color(0.1, 0.11, 0.15, 0.92)
 const KEY_BORDER_COLOR := Color(1.0, 0.9, 0.55)
@@ -94,15 +102,63 @@ func _draw() -> void:
 			continue
 		var at := camera.unproject_position(anchor) + Vector2(OFFSET_X, -KEY_SIZE.y * 0.5)
 		var odds := "%d%%" % prompt.chance
-		_draw_labelled_key(at, prompt.key, odds, TargetPanel.chance_color(prompt.chance))
+		var color := TargetPanel.chance_color(prompt.chance)
+		if not InputDevice.gamepad:
+			_draw_labelled_key(at, prompt.key, odds, color)
+		elif prompt.focused:
+			_draw_labelled_glyphs(at, [&"A"], odds, color)
+		else:
+			# Lined up with the one picked out, with no button of its own.
+			_draw_labelled_glyphs(at, [], odds, color)
 
+	if not InputDevice.gamepad:
+		var font := get_theme_default_font()
+		var width := KEY_SIZE.x + GAP + font.get_string_size(
+			HINT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1.0, FONT_SIZE
+		).x
+		_draw_labelled_key(
+			Vector2((size.x - width) * 0.5, size.y - HINT_BOTTOM), HINT_KEY, HINT_TEXT, TEXT_COLOR
+		)
+		return
+	var hints := [[[&"B"], HINT_TEXT], [[&"LB", &"RB"], PICK_TEXT]]
+	var total := 0.0
+	for hint: Array in hints:
+		total += _glyphs_width(hint[0]) + GAP + _text_width(hint[1]) + HINT_SPACING
+	var x := (size.x - total + HINT_SPACING) * 0.5
+	for hint: Array in hints:
+		x += _draw_labelled_glyphs(Vector2(x, size.y - HINT_BOTTOM), hint[0], hint[1], TEXT_COLOR) + HINT_SPACING
+
+
+## The gamepad's [param glyphs] ([ButtonGlyph]) side by side, their top-left
+## corner at [param corner], level with a key cap, and [param text] in
+## [param color] after them. With none, the text goes where it would after A.
+## Returns how wide it all was.
+func _draw_labelled_glyphs(corner: Vector2, glyphs: Array, text: String, color: Color) -> float:
+	var x := corner.x
+	var top := corner.y + (KEY_SIZE.y - ButtonGlyph.HEIGHT) * 0.5
+	if glyphs.is_empty():
+		x += ButtonGlyph.width_of(&"A")
+	for glyph: StringName in glyphs:
+		x += ButtonGlyph.draw_glyph(self, glyph, Vector2(x, top)) + 2.0
 	var font := get_theme_default_font()
-	var width := KEY_SIZE.x + GAP + font.get_string_size(
-		HINT_TEXT, HORIZONTAL_ALIGNMENT_LEFT, -1.0, FONT_SIZE
-	).x
-	_draw_labelled_key(
-		Vector2((size.x - width) * 0.5, size.y - HINT_BOTTOM), HINT_KEY, HINT_TEXT, TEXT_COLOR
+	var baseline := corner.y + (KEY_SIZE.y + font.get_ascent(FONT_SIZE) - font.get_descent(FONT_SIZE)) * 0.5
+	var text_at := Vector2(x + GAP, baseline)
+	draw_string_outline(
+		font, text_at, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, FONT_SIZE, OUTLINE_WIDTH, OUTLINE_COLOR
 	)
+	draw_string(font, text_at, text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, FONT_SIZE, color)
+	return text_at.x + _text_width(text) - corner.x
+
+
+func _glyphs_width(glyphs: Array) -> float:
+	var width := 0.0
+	for glyph: StringName in glyphs:
+		width += ButtonGlyph.width_of(glyph) + 2.0
+	return width
+
+
+func _text_width(text: String) -> float:
+	return get_theme_default_font().get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, FONT_SIZE).x
 
 
 ## A key cap with its top-left corner at [param corner], showing

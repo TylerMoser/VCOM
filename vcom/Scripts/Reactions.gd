@@ -10,6 +10,13 @@
 ##   Fire     - 1 to 4: the squad member in that place on the squad panel.
 ##   Continue - 0: the walk carries on at normal speed, no one fires.
 ##
+## With the gamepad one of the prompts is picked out, the first in squad panel
+## order to start with:
+##
+##   Fire     - A: the one picked out.
+##   Choose   - LB / RB: pick out the one before or after it.
+##   Continue - B.
+##
 ## Firing spends that member's reaction. The enemy is held where it stands
 ## while the shot plays out, then the walk carries on. Prompts come and go as
 ## the enemy moves in and out of sight, and the window closes when no one has
@@ -82,6 +89,8 @@ var _passed := {}
 var _firing := false
 ## Whether the camera is on the reaction view, and so needs handing back.
 var _viewing := false
+## The squad member whose prompt the gamepad has picked out: A fires them.
+var _focus: Unit
 
 
 func _ready() -> void:
@@ -115,6 +124,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		_passed.merge(_offers)
 		_set_open(false)
+		return
+	if event.is_action_pressed(&"reaction_next") or event.is_action_pressed(&"reaction_previous"):
+		get_viewport().set_input_as_handled()
+		_move_focus(1 if event.is_action_pressed(&"reaction_next") else -1)
+		return
+	if event.is_action_pressed(&"reaction_fire"):
+		get_viewport().set_input_as_handled()
+		if _offers.has(_focus):
+			_fire(_focus)
 		return
 	for index in FIRE_ACTIONS.size():
 		if event.is_action_pressed(FIRE_ACTIONS[index]):
@@ -196,7 +214,7 @@ func _find_offers() -> Dictionary:
 	var line_of_sight := LineOfSight.new(_grid)
 	for index in mini(_squad.members.size(), FIRE_ACTIONS.size()):
 		var member := _squad.members[index]
-		if not member.overwatching or not member.reaction_available:
+		if not member.overwatching or not member.reaction_available or not member.can_fire():
 			continue
 		var shot: Variant = line_of_sight.find_shot(member, _mover, false)
 		if shot != null:
@@ -209,10 +227,16 @@ func _find_offers() -> Dictionary:
 func _show_offers() -> void:
 	var prompts: Array[ReactionPrompts.Prompt] = []
 	var framed: Array[Vector3] = []
+	var offered := _offered()
+	# The one picked out may have died since: a typed array will not take it.
+	if not is_instance_valid(_focus) or not offered.has(_focus):
+		_focus = offered[0] if not offered.is_empty() else null
 	for member: Unit in _offers:
 		var key := str(_squad.members.find(member) + 1)
 		var offer: Offer = _offers[member]
-		prompts.append(ReactionPrompts.Prompt.new(member, key, offer.estimate.chance))
+		var prompt := ReactionPrompts.Prompt.new(member, key, offer.estimate.chance)
+		prompt.focused = member == _focus
+		prompts.append(prompt)
 		framed.append_array(_body_points(member))
 	framed.append_array(_body_points(_mover))
 
@@ -221,6 +245,27 @@ func _show_offers() -> void:
 	if _camera_rig != null:
 		_camera_rig.frame(framed, camera_pitch)
 		_viewing = true
+
+
+## Everyone with a shot on offer, in squad panel order: the order the gamepad
+## moves its pick through.
+func _offered() -> Array[Unit]:
+	var offered: Array[Unit] = []
+	for member in _squad.members:
+		if _offers.has(member):
+			offered.append(member)
+	return offered
+
+
+## Picks out the prompt [param step] along from the one picked out, wrapping
+## round.
+func _move_focus(step: int) -> void:
+	var offered := _offered()
+	if offered.is_empty():
+		return
+	var at := offered.find(_focus) if is_instance_valid(_focus) else -1
+	_focus = offered[posmod(at + step, offered.size())] if at >= 0 else offered[0]
+	_show_offers()
 
 
 ## Opens or closes the window: the walk's speed and the prompts.
@@ -262,8 +307,14 @@ func _fire(member: Unit) -> void:
 	await _shots.play(member, offer.shot, offer.estimate)
 
 	_firing = false
-	# Everything is worked out again from scratch: the mover may be down, and
-	# whoever fired has only just settled back into cover.
+	# A mover the shot felled is gone: the window closes now, not when the walk
+	# next looks, so nothing is fired at it in between.
+	if not is_instance_valid(_mover) or _mover.health <= 0:
+		_set_open(false)
+		_offers.clear()
+		return
+	# Everything is worked out again from scratch: whoever fired has only just
+	# settled back into cover.
 	_offers_tile = null
 	_apply_speed()
 

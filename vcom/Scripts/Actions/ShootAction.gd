@@ -1,5 +1,6 @@
 ## Pick an enemy to fire at, for one action point. Only a unit carrying a gun
-## has it, and it fires [member Unit.weapon].
+## has it, and it fires [member Unit.weapon], spending one of its rounds: with
+## the magazine empty it is dimmed until a reload ([ReloadAction]).
 ##
 ## The targets on offer are whatever [LineOfSight] says the unit can see, so a
 ## unit behind high cover leans out around it to find its shot. The tile it
@@ -8,9 +9,19 @@
 ## leans out of its own cover is seen leaning out there for as long as it is
 ## lined up, and through the shot.
 ##
-##   Cycle targets - Tab, or Shift+Tab to go back.
-##   Fire          - Enter or Space.
+##   Cycle targets - Tab, or Shift+Tab to go back; or click another target.
+##   Fire          - Enter or Space, click the target lined up (either
+##                   button), or click the tick beside its odds.
 ##   Show the sum  - hold Ctrl to open the breakdown behind the hit chance.
+##
+## A click on a target other than the one lined up lines it up rather than
+## firing at it, so a shot is never taken at odds the player has not seen. The
+## cursor turns to a hand over any target.
+##
+## With the gamepad LB / RB cycle the targets, A fires, and holding LT opens
+## the breakdown. The tile cursor goes to the target lined up, taking the
+## camera with it, and moving the cursor on to another target lines that one
+## up.
 ##
 ## A shot that needs a step out plays it: the unit leans out to the tile it
 ## found the shot from, fires, and settles back into its cover. Whether the
@@ -50,13 +61,22 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	set_process(false)
 	_overlay = get_node_or_null(overlay_path) as ShotOverlay
 	if _overlay == null:
 		push_error("ShootAction: no ShotOverlay at '%s'." % overlay_path)
+	else:
+		_overlay.confirmed.connect(_on_confirmed)
+
+
+# Follow the mouse every frame, not only when it moves, as the camera pans and
+# turns under a still cursor.
+func _process(_delta: float) -> void:
+	point_at_target(not controller.busy and _index_of(hovered_unit()) >= 0)
 
 
 func is_available(unit: Unit) -> bool:
-	return unit.actions_remaining >= COST and not _find_shots(unit).is_empty()
+	return unit.actions_remaining >= COST and unit.can_fire() and not _find_shots(unit).is_empty()
 
 
 func begin(unit: Unit) -> void:
@@ -64,9 +84,12 @@ func begin(unit: Unit) -> void:
 	_shots = _find_shots(unit)
 	_index = 0
 	_show_shot()
+	set_process(true)
 
 
 func end() -> void:
+	set_process(false)
+	point_at_target(false)
 	if _unit != null:
 		_unit.stand_easy()
 	_lean_back()
@@ -90,7 +113,7 @@ func handle_input(event: InputEvent) -> bool:
 	elif event.is_action_pressed(&"confirm_action"):
 		_fire()
 	else:
-		return false
+		return _click(clicked_unit(event))
 	return true
 
 
@@ -139,6 +162,53 @@ func _cycle(step: int) -> void:
 	_show_shot()
 
 
+## Fires on [param clicked] if it is the target lined up, lines it up if it is
+## another target, and leaves anything else alone, returning false.
+func _click(clicked: Unit) -> bool:
+	var at := _index_of(clicked)
+	if at < 0:
+		return false
+	if at == _index:
+		_fire()
+	else:
+		_index = at
+		_show_shot()
+	return true
+
+
+func confirm_hint() -> String:
+	return "Fire"
+
+
+func cycles_targets() -> bool:
+	return true
+
+
+## The cursor moved on to [param tile]: a target standing there is lined up.
+func cursor_moved(tile: Vector3i) -> void:
+	for at in _shots.size():
+		if at != _index and controller.grid.tile_at(_shots[at].target.global_position) == tile:
+			_index = at
+			_show_shot()
+			return
+
+
+## Where [param target] is among the targets on offer, or -1.
+func _index_of(target: Unit) -> int:
+	if target == null:
+		return -1
+	for at in _shots.size():
+		if _shots[at].target == target:
+			return at
+	return -1
+
+
+## The tick on the target panel: fire, if this is what is lined up.
+func _on_confirmed() -> void:
+	if controller.active == self and not controller.busy and current_shot() != null:
+		_fire()
+
+
 func _find_shots(unit: Unit) -> Array[LineOfSight.Shot]:
 	var enemies: Array[Unit] = []
 	for node in get_tree().get_nodes_in_group(enemy_group):
@@ -169,8 +239,10 @@ func _show_shot() -> void:
 		_leaning = aimed.target
 		aimed.target.lean_out(aimed.seen_at, eye, controller.grid)
 	_unit.aim_at(_unit.aim_point(aimed.target, controller.grid))
+	if InputDevice.gamepad and controller.cursor != null:
+		controller.cursor.snap_to(aimed.target_tile)
 	if _overlay != null:
-		_overlay.show_shot(eye, _eye_of(aimed), aimed, _estimate)
+		_overlay.show_shot(eye, _eye_of(aimed), aimed, _estimate, true)
 
 
 ## Where [param shot]'s target's eye is for the sight line, the reticle and the

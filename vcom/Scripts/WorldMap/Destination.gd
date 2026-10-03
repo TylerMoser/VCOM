@@ -1,9 +1,11 @@
 ## A place on the world map the party can be sent to, such as a village.
 ##
-## It is only a target: a right click on its icon sends the party to the
-## destination's own position rather than to the pixel clicked, so every trip
-## there ends in the same spot. Hovering over the icon shows [member display_name] in a tooltip
-## above it, with a bulleted list of its [member locations] under the name.
+## It is only a target: a right click on its icon (or the gamepad's A with
+## the map's reticle on it) sends the party to the destination's own position
+## rather than to the pixel clicked, so every trip there ends in the same spot.
+## Hovering over the icon, with the mouse or the reticle, shows
+## [member display_name] in a tooltip above it, with a bulleted list of its
+## [member locations] under the name.
 ##
 ## Like the party dot, the icon and tooltip are drawn at a fixed size on
 ## screen, whatever the camera's zoom, and the icon is centred on the node.
@@ -69,12 +71,15 @@ func _enter_tree() -> void:
 
 
 func _ready() -> void:
+	# Runs through the pause to drop its tooltip under a menu, where the
+	# gamepad's reticle would otherwise leave it showing.
+	process_mode = PROCESS_MODE_ALWAYS
 	if icon == null:
 		push_warning("Destination '%s': no icon, so it cannot be seen or clicked." % name)
 
 
 func _process(_delta: float) -> void:
-	hovered = is_under_mouse()
+	hovered = is_under_pointer() and not get_tree().paused
 	if not is_equal_approx(_screen_scale(), _drawn_scale):
 		queue_redraw()
 
@@ -136,25 +141,26 @@ func _text_width(font: Font, text: String) -> float:
 	return font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, tooltip_font_size).x
 
 
-## Whether the mouse is over the icon.
-func is_under_mouse() -> bool:
+## Whether the player points at the icon: the mouse, or the gamepad's
+## reticle in the middle of the screen ([method InputDevice.pointer_on_canvas]).
+func is_under_pointer() -> bool:
 	if icon == null or not is_visible_in_tree():
 		return false
-	var offset := get_global_mouse_position() - global_position
+	var offset := InputDevice.pointer_on_canvas(self) - global_position
 	return _icon_rect().has_point(offset * _screen_scale())
 
 
-## The destination whose icon is under the mouse, or null when there is none.
-## Where icons overlap, the one whose centre is nearest the mouse.
-static func find_under_mouse(tree: SceneTree) -> Destination:
+## The destination whose icon the player points at, or null when there is
+## none. Where icons overlap, the one whose centre is nearest the pointer.
+static func find_under_pointer(tree: SceneTree) -> Destination:
 	var found: Destination = null
 	var best := INF
 	for node in tree.get_nodes_in_group(GROUP):
 		var destination := node as Destination
-		if destination == null or not destination.is_under_mouse():
+		if destination == null or not destination.is_under_pointer():
 			continue
 		var distance := destination.global_position.distance_squared_to(
-			destination.get_global_mouse_position()
+			InputDevice.pointer_on_canvas(destination)
 		)
 		if distance < best:
 			found = destination

@@ -88,6 +88,21 @@ func show_offer(verb: String, what: String, price: int, sale := false) -> void:
 	_refresh()
 
 
+## Gives the button the keyboard, if there is an offer the party can take:
+## where A (or Enter) on what is offered goes, so it is held next. False
+## otherwise, leaving the keyboard where it was.
+func focus_offer() -> bool:
+	if not can_take():
+		return false
+	_button.grab_focus()
+	return true
+
+
+## Whether there is an offer, and the party can afford it.
+func can_take() -> bool:
+	return _button.visible and not _button.disabled
+
+
 ## Nothing selected to buy: the button hides, and the gold and news stay.
 func show_no_offer() -> void:
 	_what = ""

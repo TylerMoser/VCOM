@@ -18,6 +18,10 @@
 [ext_resource type="Script" uid="uid://dwgqmm6ad6bst" path="res://Scripts/Actions/OverwatchAction.gd" id="16_6dvqh"]
 [ext_resource type="Script" uid="uid://l6v06k3be4sq" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="17_xia20"]
 [ext_resource type="Script" uid="uid://cu0icnp6tlnkk" path="res://Scripts/Actions/StrikeAction.gd" id="18_strike"]
+[ext_resource type="Script" uid="uid://c8amwo7gf0vgk" path="res://Scripts/Actions/HunkerDownAction.gd" id="9_hunker"]
+[ext_resource type="Script" path="res://Scripts/Actions/ReloadAction.gd" id="9_reload"]
+[ext_resource type="Script" path="res://Scripts/Actions/UseMedkitAction.gd" id="9_medkit"]
+[ext_resource type="Script" path="res://Scripts/UI/AmmoIndicator.gd" id="9_ammo"]
 [ext_resource type="Script" uid="uid://buqpwf57t4422" path="res://Scripts/TurnManager.gd" id="18_ecjdo"]
 [ext_resource type="Script" uid="uid://btjt782q87h3" path="res://Scripts/Reactions.gd" id="19_dtf6t"]
 [ext_resource type="Script" uid="uid://bja5100blo2t5" path="res://Scripts/UI/ShotOverlay.gd" id="20_wtm2v"]
@@ -202,8 +206,17 @@ script = ExtResource("18_strike")
 [node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
 script = ExtResource("16_6dvqh")
 
+[node name="Reload" type="Node" parent="ActionController" unique_id=1000035]
+script = ExtResource("9_reload")
+
+[node name="HunkerDown" type="Node" parent="ActionController" unique_id=1000034]
+script = ExtResource("9_hunker")
+
 [node name="ThrowGrenade" type="Node" parent="ActionController" unique_id=1000032]
 script = ExtResource("17_xia20")
+
+[node name="UseMedkit" type="Node" parent="ActionController" unique_id=1000037]
+script = ExtResource("9_medkit")
 
 [node name="TurnManager" type="Node" parent="." unique_id=1000024]
 script = ExtResource("18_ecjdo")
@@ -266,6 +279,9 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
 script = ExtResource("23_joe4o")
+
+[node name="AmmoIndicator" type="Control" parent="HUD" unique_id=1000036]
+script = ExtResource("9_ammo")
 
 [node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
 anchors_preset = 7

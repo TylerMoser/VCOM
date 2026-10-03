@@ -49,7 +49,7 @@ const LEAN_STEP := 6.5
 ## is what a character holds between actions; see [method make_tree].
 const STANCES: Array[StringName] = [&"rifle", &"melee", &"unarmed"]
 const STANCE_POSES: Array[StringName] = [
-	&"stand", &"crouch", &"wall", &"ready_throw", &"cheer",
+	&"stand", &"crouch", &"wall", &"hunker", &"ready_throw", &"cheer",
 	&"wall_lean_left", &"wall_lean_right", &"crouch_lean_left", &"crouch_lean_right",
 ]
 ## The leans out of cover among them, as [code][name, side][/code]: the side is
@@ -62,11 +62,33 @@ const MELEE_POSES: Array[StringName] = [&"ready_melee"]
 const ACTS: Array[StringName] = [
 	&"strike_sword", &"throw_rifle", &"throw_melee", &"throw_unarmed", &"draw_sword", &"stow_sword",
 ]
+## Played over the arms and head alone, so the legs and body keep whatever
+## pose they hold (standing, kneeling behind cover, hunkered):
+## [code]upper[/code] in the tree. These key only [constant ARMS_AND_HEAD].
+const UPPER_ACTS: Array[StringName] = [&"reload_rifle"]
+## Played over the left arm alone, so everything else keeps whatever it was
+## doing, the right hand holding on to its weapon: [code]left[/code] in the
+## tree. These key only [constant LEFT_ARM].
+const LEFT_ACTS: Array[StringName] = [&"use_medkit", &"use_medkit_self"]
 ## Added to whatever the base pose is doing, as a change to it:
 ## [code]react[/code] in the tree. These key only the bones they move.
 const REACTS: Array[StringName] = [&"fire_rifle", &"hit_front", &"hit_back", &"dodge", &"land"]
 ## The bones the additive reactions move, and the bones a hop moves.
 const UPPER_BODY: Array[StringName] = [&"Spine", &"Chest", &"Neck", &"Head"]
+## The bones an [constant UPPER_ACTS] clip moves: both arms, the neck and the
+## head, every one turned from the chest, so the clip rides the body however
+## it leans.
+const ARMS_AND_HEAD: Array[StringName] = [
+	&"LeftUpperArm", &"LeftLowerArm", &"LeftHand", &"RightUpperArm", &"RightLowerArm", &"RightHand",
+	&"Neck", &"Head",
+]
+## The bones a [constant LEFT_ACTS] clip moves: the left arm, turned from the
+## chest, so it rides the body however it stands. The head is left to look
+## where the figure is told to ([code]CharacterModel[/code]).
+const LEFT_ARM: Array[StringName] = [&"LeftUpperArm", &"LeftLowerArm", &"LeftHand"]
+## Where the left hand holds a medkit to the figure's own middle, in rig voxels
+## from the chest joint: the [code]use_medkit_self[/code] clip.
+const SELF_MEDKIT := Vector3(0.4, -2.6, 3.2)
 const LEGS: Array[StringName] = [
 	&"Hips", &"LeftUpperLeg", &"LeftLowerLeg", &"LeftFoot", &"RightUpperLeg", &"RightLowerLeg", &"RightFoot",
 ]
@@ -127,6 +149,7 @@ func make_library() -> AnimationLibrary:
 		library.add_animation(StringName("stand_%s" % stance), _loop(2.4, _stand.bind(stance)))
 		library.add_animation(StringName("crouch_%s" % stance), _loop(2.8, _crouch.bind(stance, false)))
 		library.add_animation(StringName("wall_%s" % stance), _loop(2.6, _wall.bind(stance)))
+		library.add_animation(StringName("hunker_%s" % stance), _loop(3.2, _hunker.bind(stance)))
 		for lean: Array in LEANS:
 			library.add_animation(StringName("wall_lean_%s_%s" % [lean[0], stance]), _lean(2.6, _wall.bind(stance, lean[1])))
 			library.add_animation(StringName("crouch_lean_%s_%s" % [lean[0], stance]), _lean(2.8, _crouch.bind(stance, false, lean[1])))
@@ -156,6 +179,15 @@ func make_library() -> AnimationLibrary:
 	var stow := _once(0.45, _draw.bind(false))
 	stow.set_meta(&"swap", 0.2)
 	library.add_animation(&"stow_sword", stow)
+	var reload := _once(1.2, _reload, ARMS_AND_HEAD)
+	reload.set_meta(&"seat", 0.78)
+	library.add_animation(&"reload_rifle", reload)
+	for on_self in [false, true]:
+		var medkit := _once(1.4, _medkit.bind(on_self), LEFT_ARM)
+		medkit.set_meta(&"take", 0.24)
+		medkit.set_meta(&"apply", 0.58)
+		medkit.set_meta(&"stow", 1.18)
+		library.add_animation(&"use_medkit_self" if on_self else &"use_medkit", medkit)
 	library.add_animation(&"fire_rifle", _once(0.3, _fire, UPPER_BODY))
 	library.add_animation(&"hit_front", _once(0.42, _hit.bind(-1.0), UPPER_BODY))
 	library.add_animation(&"hit_back", _once(0.42, _hit.bind(1.0), UPPER_BODY))
@@ -178,6 +210,10 @@ func make_library() -> AnimationLibrary:
 ## - [code]air[/code]: falling.
 ## - [code]act[/code]: a one-shot played whole over all that, picked by
 ##   [code]act_pick[/code]: a strike, a throw, drawing or stowing the sword.
+## - [code]upper[/code]: a one-shot over the arms and head alone (filtered to
+##   [constant ARMS_AND_HEAD]), picked by [code]upper_pick[/code]: a reload.
+## - [code]left[/code]: a one-shot over the left arm alone (filtered to
+##   [constant LEFT_ARM]), picked by [code]left_pick[/code]: using a medkit.
 ## - [code]react[/code]: a one-shot added to everything else, picked by
 ##   [code]react_pick[/code]: firing, a flinch, landing.
 func make_tree() -> AnimationNodeBlendTree:
@@ -244,17 +280,43 @@ func make_tree() -> AnimationNodeBlendTree:
 	tree.connect_node(&"act", 0, &"air")
 	tree.connect_node(&"act", 1, &"act_pick")
 
+	# Filtered, so the bones it leaves alone come straight from what is under
+	# it: the tree blends deterministically, and a clip missing a bone's track
+	# would otherwise pull that bone toward its rest.
+	_picker(tree, &"upper_pick", UPPER_ACTS, Vector2(1500.0, 650.0))
+	var upper := AnimationNodeOneShot.new()
+	upper.fadein_time = 0.15
+	upper.fadeout_time = 0.25
+	upper.filter_enabled = true
+	for bone in ARMS_AND_HEAD:
+		upper.set_filter_path(NodePath("Skeleton3D:" + bone), true)
+	tree.add_node(&"upper", upper, Vector2(1700.0, 200.0))
+	tree.connect_node(&"upper", 0, &"act")
+	tree.connect_node(&"upper", 1, &"upper_pick")
+
+	# Filtered as the upper one is, to the left arm alone.
+	_picker(tree, &"left_pick", LEFT_ACTS, Vector2(1700.0, 850.0))
+	var left := AnimationNodeOneShot.new()
+	left.fadein_time = 0.15
+	left.fadeout_time = 0.25
+	left.filter_enabled = true
+	for bone in LEFT_ARM:
+		left.set_filter_path(NodePath("Skeleton3D:" + bone), true)
+	tree.add_node(&"left", left, Vector2(1900.0, 200.0))
+	tree.connect_node(&"left", 0, &"upper")
+	tree.connect_node(&"left", 1, &"left_pick")
+
 	_picker(tree, &"react_pick", REACTS, Vector2(1500.0, 450.0))
 	var react := AnimationNodeOneShot.new()
 	react.mix_mode = AnimationNodeOneShot.MIX_MODE_ADD
 	react.fadein_time = 0.03
 	react.fadeout_time = 0.12
-	tree.add_node(&"react", react, Vector2(1900.0, 200.0))
-	tree.connect_node(&"react", 0, &"act")
+	tree.add_node(&"react", react, Vector2(2100.0, 200.0))
+	tree.connect_node(&"react", 0, &"left")
 	tree.connect_node(&"react", 1, &"react_pick")
 
 	tree.connect_node(&"output", 0, &"react")
-	tree.set_node_position(&"output", Vector2(2100.0, 200.0))
+	tree.set_node_position(&"output", Vector2(2300.0, 200.0))
 	return tree
 
 
@@ -679,6 +741,37 @@ func _wall(time: float, stance: StringName, side := 0.0) -> Pose:
 	return pose
 
 
+## Hunkered down behind cover of either height: on one knee as behind low
+## cover, but lower, bent well over the knee with the head bowed, and the weapon
+## hugged upright to the chest; with nothing in hand, the hands clasped over the
+## back of the head.
+func _hunker(time: float, stance: StringName) -> Pose:
+	var pose := _pose()
+	var breath := sin(TAU * time / 3.2)
+	var hips_y: float = 3.6 - rig.joints[&"Hips"].y
+	pose.move(Vector3.ZERO, Vector3(-0.4, hips_y + 0.1 * breath, -1.8))
+	pose.turn(&"Hips", Vector3(0, -6.0, 0))
+	# The crouch's legs, the knee on the floor drawn in under the body.
+	_foot(pose, &"Right", _ankle(Vector3(-2.2, 0.4, -6.6)), -4.0, 55.0, Vector3(0, -1, 0.7))
+	_foot(pose, &"Left", _ankle(Vector3(2.0, 0, 2.0)), 6.0)
+	_torso(pose, 36.0 + breath * 1.5, 4.0, 0.0, 0.0)
+	pose.turn(&"Neck", Vector3(10.0, 0, 0))
+	pose.turn(&"Head", Vector3(14.0, 0, 0))
+	match stance:
+		&"rifle":
+			_rifle(pose, _item(Vector3(-1.0, -0.5, 2.6), Vector3(0.1, 1.0, 0.1), Vector3(0, 0, 1)), Vector3(-1, -1, -0.3), Vector3(1, -1, 0))
+		&"melee":
+			var chest := pose.at(&"Chest")
+			var sword := chest * _item(Vector3(-1.0, -1.0, 2.8), Vector3(0.05, 1.0, 0.1), Vector3(0, 0, 1))
+			_hold(pose, &"Right", sword, sword_grip, Vector3(-1, -1, 0))
+			_hand(pose, &"Left", chest * Vector3(1.2, -0.4, 2.8), Vector3(1, -1, 0))
+		_:
+			var head := pose.at(&"Head")
+			_hand(pose, &"Right", head * Vector3(-1.6, 4.0, -0.5), Vector3(-1, 0.3, 0.5))
+			_hand(pose, &"Left", head * Vector3(1.6, 4.0, -0.5), Vector3(1, 0.3, 0.5))
+	return pose
+
+
 ## Shouldering the rifle and looking down its sights. On overwatch
 ## ([param watch] 1) it is lowered a touch and swept slowly from side to side.
 func _aim(time: float, watch: float) -> Pose:
@@ -915,6 +1008,87 @@ func _draw(time: float, drawing: bool) -> Pose:
 	var hilt := chest * Vector3(-2.8, 5.5, -1.5)
 	var hand := pose.at(&"RightHand")
 	_hand(pose, &"Right", (hand * _palm[&"Right"]).lerp(hilt, up), Vector3(-1, -0.4, -0.3), hand.basis)
+	return pose
+
+
+## Loading a fresh magazine, over the arms and head alone, everything placed
+## from the chest so it rides whatever pose the body holds: the rifle comes up
+## across the chest, rolled to show its underside to the left hand, which pulls
+## the spent magazine from under the receiver, drops it by the hip, takes a
+## fresh one from the belt and slaps it home (the [code]seat[/code] metadata,
+## 0.78 s, when the gun is loaded), then goes back to the fore-end as the rifle
+## returns to the ready. The head looks down at the work. The rifle model has
+## no magazine of its own, so the hand mimes one just ahead of the grip.
+func _reload(time: float) -> Pose:
+	var pose := _pose()
+	pose.move(Vector3.ZERO, Vector3(0.0, -0.5, 0.0))
+	_torso(pose, 4.0, 8.0, 0.0, 0.5)
+	var chest := pose.at(&"Chest")
+
+	# The rifle, chest-relative: from the ready up to the reload hold, a jolt as
+	# the magazine is slapped home, and back down.
+	var ready := _low_ready()
+	var hold := _item(Vector3(-2.4, -0.4, 3.8), Vector3(0.62, 0.48, 0.62), Vector3(-0.6, 0.6, -0.5))
+	var up := smoothstep(0.0, 0.22, time) * (1.0 - smoothstep(0.88, 1.15, time))
+	var rifle_in_chest := ready.interpolate_with(hold, up)
+	var slap := smoothstep(0.74, 0.78, time) * (1.0 - smoothstep(0.78, 0.9, time))
+	rifle_in_chest.origin += Vector3(0.0, 0.5, 0.0) * slap
+	var rifle := chest * rifle_in_chest
+	_hold(pose, &"Right", rifle, rifle_grip, Vector3(-1, -1, -0.3))
+
+	# The left hand: each key a point in the rifle's space (true) or the
+	# chest's (false), turned into the chest's as the rifle stands now.
+	var well := Vector3(0.0, -1.4, 1.5)
+	var keys := [
+		[0.00, true, rifle_foregrip],
+		[0.24, true, well],
+		[0.40, false, Vector3(5.0, -5.0, 2.5)],
+		[0.56, false, Vector3(3.6, -6.2, 1.2)],
+		[0.72, true, well + Vector3(0.0, -1.8, 0.0)],
+		[0.78, true, well + Vector3(0.0, 0.3, 0.0)],
+		[0.98, true, rifle_foregrip],
+		[1.20, true, rifle_foregrip],
+	]
+	var in_chest := keys.map(func(key: Array) -> Array:
+		return [key[0], rifle_in_chest * (key[2] as Vector3) if key[1] else key[2]])
+	_hand(pose, &"Left", chest * (_keyed(in_chest, time) as Vector3), Vector3(1, -1, 0))
+
+	var look := smoothstep(0.1, 0.3, time) * (1.0 - smoothstep(0.85, 1.1, time))
+	pose.turn(&"Neck", Vector3(6.0 * look, -4.0 * look, 0))
+	pose.turn(&"Head", Vector3(14.0 * look, -10.0 * look, 0))
+	return pose
+
+
+## Using a medkit, over the left arm alone, placed from the chest so it rides
+## whatever pose the body holds: the left hand reaches back to the belt for the
+## medkit (taken in hand at the [code]take[/code] metadata, 0.24 s), brings it
+## round and holds it out at arm's length toward the ally in front, who mends
+## as it gets there ([code]apply[/code], 0.58 s), holds it there a moment, then
+## hooks it back on the belt ([code]stow[/code], 1.18 s) and lets the arm hang.
+## The right hand keeps whatever it held, which is why only the left arm is
+## keyed. [param on_self] ([code]use_medkit_self[/code]) brings it to the
+## figure's own front instead, pressed to its middle and pressed again, at the
+## same moments.
+func _medkit(time: float, on_self: bool) -> Pose:
+	var pose := _pose()
+	pose.move(Vector3.ZERO, Vector3(0.0, -0.5, 0.0))
+	_torso(pose, 4.0, 8.0, 0.0, 0.5)
+	var chest := pose.at(&"Chest")
+	var belt := Vector3(4.2, -6.6, -1.2)
+	var out := SELF_MEDKIT if on_self else Vector3(1.6, 1.2, 7.2)
+	# Held out, it is pushed a little toward the ally; on itself, pressed in.
+	var press := Vector3(0.0, -0.3, -0.5) if on_self else Vector3(0.0, -0.4, 0.3)
+	var keys := [
+		[0.00, Vector3(4.6, -5.6, 1.0)],
+		[0.24, belt],
+		[0.42, Vector3(3.6, -3.0, 4.0) if on_self else Vector3(3.4, -1.5, 5.0)],
+		[0.58, out],
+		[0.80, out + press],
+		[0.98, out],
+		[1.18, belt],
+		[1.40, Vector3(4.6, -5.6, 1.0)],
+	]
+	_hand(pose, &"Left", chest * (_keyed(keys, time) as Vector3), Vector3(1, -1, -0.4))
 	return pose
 
 

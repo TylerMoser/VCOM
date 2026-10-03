@@ -2,7 +2,8 @@
 ## as the Roster tab shows the party but read only, and along the bottom a
 ## [PurchaseBar] that hires the selected character for their
 ## [member Character.hire_cost]. Hired, they leave the board for the end of
-## the roster.
+## the roster. Enter, Space, A or a double-click on a character moves the
+## keyboard to the bar's button, to be held there.
 ##
 ## Filled from [method Campaign.for_hire] as it enters the tree, which is each
 ## time the village menu opens, since the menu makes its tabs afresh.
@@ -40,6 +41,7 @@ func _init(for_board: HiringBoard) -> void:
 	_bar = PurchaseBar.new()
 	_bar.held.connect(_on_hire_held)
 	add_child(_bar)
+	_browser.character_activated.connect(_bar.focus_offer.unbind(1))
 
 
 func _ready() -> void:
@@ -50,6 +52,13 @@ func _ready() -> void:
 ## menu's tabs. False when no one is for hire.
 func focus_selection() -> bool:
 	return _browser.focus_selection()
+
+
+## What A does on a character, for the gamepad's prompts ([TabbedMenu]).
+func gamepad_hint(focused: Control) -> Array:
+	if focused is CharacterButton and _bar.can_take():
+		return [[&"A"], "Choose"]
+	return []
 
 
 func _show_board() -> void:

@@ -5,7 +5,9 @@
 ## item for its [member Item.price], or sells one for its
 ## [method Item.sale_price]. Bought, it leaves the market's stock for the
 ## party's inventory; sold, it leaves the inventory for good. A held item
-## needs a hold for each one bought or sold.
+## needs a hold for each one bought or sold. Enter, Space, A or a
+## double-click on an item moves the keyboard to the bar's button, to be held
+## there.
 ##
 ## Filled from [method Campaign.stock_of] and [member Campaign.inventory] as it
 ## enters the tree, which is each time the village menu opens, so it opens on
@@ -42,6 +44,7 @@ func _init(for_market: Market) -> void:
 
 	for side: InventoryTab in [_buy, _sell]:
 		side.selection_changed.connect(_show_offer)
+		side.item_activated.connect(_bar.focus_offer.unbind(1))
 	_sides.tab_changed.connect(_show_offer.unbind(1))
 
 
@@ -49,6 +52,13 @@ func _ready() -> void:
 	_buy.show_inventory(Campaign.stock_of(market))
 	_sell.show_inventory(Campaign.inventory)
 	_show_offer()
+
+
+## What A does on an item, for the gamepad's prompts ([TabbedMenu]).
+func gamepad_hint(focused: Control) -> Array:
+	if focused is ItemSquare and _bar.can_take():
+		return [[&"A"], "Choose"]
+	return []
 
 
 func _selling() -> bool:

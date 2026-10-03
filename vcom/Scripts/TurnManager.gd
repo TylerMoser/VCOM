@@ -22,7 +22,8 @@
 ## ([method Coins.sweep]). The side left standing cheers while the banner is
 ## up. A battle opened on its own stays open, over.
 ##
-##   End turn - hold Shift. Letting go, or pressing any other key, cancels.
+##   End turn - hold Shift, or View on the gamepad. Letting go, or pressing
+##              any other key or button, cancels.
 class_name TurnManager
 extends Node
 
@@ -128,8 +129,9 @@ func _exit_tree() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	var key := event as InputEventKey
-	if key != null and key.pressed and not key.echo and not key.is_action(&"end_turn"):
+	# Any other key or gamepad button pressed during the hold spoils it.
+	var pressed := (event is InputEventKey or event is InputEventJoypadButton) and event.is_pressed()
+	if pressed and not event.is_echo() and not event.is_action(&"end_turn"):
 		if Input.is_action_pressed(&"end_turn"):
 			_hold_spoiled = true
 
@@ -203,6 +205,10 @@ func _take_enemy_turn(enemy: Unit) -> void:
 			# A reaction on the way may have finished it, and the node with it.
 			if not is_instance_valid(enemy) or enemy.health <= 0:
 				return
+		elif action.kind == AIAction.Kind.RELOAD:
+			enemy.spend_actions(enemy.reload_cost())
+			await enemy.reload()
+			await enemy.recover()
 		else:
 			enemy.spend_actions(ShootAction.COST)
 			await _enemy_fire.play(enemy, action.shot, action.estimate)

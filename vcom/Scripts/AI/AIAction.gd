@@ -1,10 +1,10 @@
 ## One action a computer-controlled unit has settled on: walk somewhere, take
-## a shot, or stop for the turn. An [EnemyAI] picks it and the [TurnManager]
+## a shot, load a fresh magazine, or stop for the turn. An [EnemyAI] picks it and the [TurnManager]
 ## carries it out, charging it the same actions the squad would pay.
 class_name AIAction
 extends RefCounted
 
-enum Kind { MOVE, SHOOT, END_TURN }
+enum Kind { MOVE, SHOOT, RELOAD, END_TURN }
 
 var kind := Kind.END_TURN
 ## For a move: the tiles walked through, in order, ending where the unit
@@ -32,6 +32,15 @@ static func shoot(aimed: LineOfSight.Shot, odds: HitChance.Estimate) -> AIAction
 	action.kind = Kind.SHOOT
 	action.shot = aimed
 	action.estimate = odds
+	return action
+
+
+## Load a fresh magazine, for the actions its gun's [member Weapon.reload]
+## costs. Not named [code]reload[/code]: called on the class, that would be
+## the class's own [method Script.reload].
+static func reload_gun() -> AIAction:
+	var action := AIAction.new()
+	action.kind = Kind.RELOAD
 	return action
 
 

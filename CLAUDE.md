@@ -7,7 +7,9 @@ working in the code.
 ## Layout
 
 The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where commands are run from.
-`MagicaVoxel/` holds source `.vox` art outside the project. `Images/` holds screenshots of the game
+`MagicaVoxel/` holds source `.vox` art outside the project; `MagicaVoxel/Shapes/` holds basic
+block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants) that nothing in the game
+uses yet, made by its `make_shapes.py` (`Shapes/README.md`). `Images/` holds screenshots of the game
 (the world map, the menus, battles just begun and long fought, clean and with blood), two of them
 shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
@@ -26,15 +28,26 @@ vcom/Scripts/
                        of its cover, while a shot sees it there); aim_point() (a target's eye, lean() further out
                        while it leans);
                        hurt (every hit that takes health, where it landed and how: for Blood); hit_from,
-                       hit_blasted, hit_at, hit_sweep (the last hit: the way the figure breaks apart if it kills)
+                       hit_blasted, hit_at, hit_sweep (the last hit: the way the figure breaks apart if it kills);
+                       hunkered (HunkerDownAction; until a move, a fall or its next start_turn()) -> hunker_changed;
+                       rounds (its gun's magazine, full as it enters the map; one off in shoot_at()) -> rounds_changed,
+                       magazine_size(), has_magazine(), can_fire(), can_reload(), reload_cost(), reload() (full at
+                       the clip's seat); medkits (those it can still use this battle: one per Medkit carried, full as
+                       it enters the map), is_wounded(), heal() (up to max_health), use_medkit(target) (the heal lands
+                       at the clip's apply; itself too; use_medkit(target, from) spends from's, a squad member
+                       beside it), attend() (turned to an ally a medkit is lined up on; at itself, looking down)
   PlayerSquad.gd       spawns the roster's squad on the SquadStarts; members + selection; drops the dead;
                        writes wounds, used-up grenades and deaths back to the characters; award_survivors()
                        (experience, and the gold their skills find -> found_gold)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
   TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST; a win's
                        victory_gold and Coins.sweep(); calls the survivors' skill gold over their heads
-  Reactions.gd         reaction window: slow motion, number prompts, reaction fire
-  CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view
+  Reactions.gd         reaction window: slow motion, number prompts, reaction fire; the gamepad's focus on one
+                       prompt (_focus: A fires it, LB / RB move it)
+  CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view; the right stick
+  InputDevice.gd       autoload InputDevices (first of them): static gamepad, the device touched last, and changed;
+                       use_gamepad() (hides the mouse), watch(), pointer_position() / pointer_on_canvas() (the
+                       mouse, or the middle of the screen with the gamepad)
   Campaign.gd          autoload: state that outlives a scene; roster, inventory, gold, equip() / unequip(), learn()
                        (a skill, as Character.learn() but refused in battle), in_mission,
                        for_hire() / hire() (who is still on each HiringBoard), stock_of() / buy() (each Market), sell(),
@@ -50,7 +63,8 @@ vcom/Scripts/
     LineOfSight.gd     cover, step-out (firing_positions(), lean_tiles()), find_shots() -> Shot (from / stepped_out:
                        where the shooter fires from; seen_at / leaning: where the target is seen, its own tile or
                        one it leans out to); find_shot(..., leans false) for a reaction; watched_tiles()
-    HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll()
+    HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll();
+                       hunker_penalty() (HUNKER, 20, off a shot at a hunkered target its cover counts against)
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path (wound: where on the
                        target a hit is drawn landing, for show; drawn_to()); a target seen leaning out is shot at
                        where it leans to
@@ -66,15 +80,21 @@ vcom/Scripts/
                        take(); for show
     ShotPlayback.gd    shots not taken from the action bar: aim, step out, show, shoot_at(), step back; the target
                        leaning out meanwhile if that is where the shot sees it
-    Weapon.gd          Item: damage, environment_damage
-    TileHighlights.gd  named layers of coloured squares
+    Weapon.gd          Item: damage, environment_damage; magazine (shots, 0 for none) and reload (actions), for a
+                       gun; has_magazine(); stateless, the rounds left are the unit's
+    TileHighlights.gd  named layers of coloured squares; an on_top layer (the cursor) over every other
+    TileCursor.gd      the gamepad's pointer in combat, owned by ActionController: a tile the left stick steps
+                       (screen-relative, 8 ways, repeating), its `cursor` layer and a bobbing marker; snap_to(),
+                       current(), moved
     TileGrid.gd        map node: the optional tile grid (G, or the System tab); gives the ground blocks
                        TileGrid.gdshader as the map loads; static shown, set_shown(), toggle()
   AI/
     EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
-    AssaultAI.gd       close in, point-blank when adjacent, best odds with the last action
-    AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / END_TURN
-    Tactics.gd         shared queries: adjacent_foes, shots_at, best_shot, advance, paths
+    AssaultAI.gd       reload when empty, close in, point-blank when adjacent, best odds with the last action, top
+                       up a part-spent magazine with nothing else to do
+    AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / RELOAD (reload_gun()) / END_TURN
+    Tactics.gd         shared queries: adjacent_foes, shots_at (none with no round), best_shot, reload(), advance,
+                       paths
   Terrain/
     TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
                            blast's debris about, tidies debris; block_broken(cell, destruction); make_piece() /
@@ -126,19 +146,24 @@ vcom/Scripts/
                        spread(); the Surface it runs over: TerrainSurface (every block as one grid), ModelSurface
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
-                       tags / has_tag() (GUN, GRENADE, MELEE), model (its prop scene); Weapon, Armor, BattleItem
-                       extend it
+                       tags / has_tag() (GUN, GRENADE, MELEE, MEDKIT), model (its prop scene); Weapon, Armor,
+                       BattleItem extend it
     Armor.gd           the Armor slot's kind: defense, added to the wearer's
     BattleItem.gd      grenades, medkits: name and description; a kind's subclass says what it does
     Grenade.gd         BattleItem: damage, blast_size (odd, tiles across), environment_damage, blast_force
+    Medkit.gd          BattleItem: heal (4); never used up, each usable once a battle (Unit.medkits)
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Characters/          the rigged figure every unit wears, and how it is baked
     CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
                        does, facing, hops, gear in its sockets; lean_out() / lean_back() / leaning / lean_reach()
-                       (out round the end of its cover, standing or on one knee); break_apart() (hides it once
-                       broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for blood:
-                       voxels() (FigureVoxels), pick_wound(), swing(), gear()
+                       (out round the end of its cover, standing or on one knee, hunkered or not); hunkered;
+                       reload() (over the arms and head, _act_upper()); use_medkit() (over the left arm,
+                       _act_left(); the medkit from the belt to the hand, or a borrowed one made in it, _borrowed;
+                       given null, pressed to its own middle), attend() (faces and looks at an ally, not idle, until
+                       stand_easy(); given null, keeps its facing and looks down at itself); break_apart() (hides
+                       it once broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for
+                       blood: voxels() (FigureVoxels), pick_wound(), swing(), gear()
     FigureVoxels.gd    a figure's voxels for blood and breaking apart, read from its .vox at run time: each bone's a
                        part posed as the skeleton is; march() (bones and gear), pick_wound(), hit_near(), exit(),
                        bleed(); crumble() (the lumps it breaks into); its stains drawn by a mesh skinned to the
@@ -148,8 +173,10 @@ vcom/Scripts/
     BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
     VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions; LAYOUTS by .vox), per-bone
                        mesher
-    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
-    PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them
+    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree; UPPER_ACTS
+                           (played over ARMS_AND_HEAD alone: the reload), LEFT_ACTS (over LEFT_ARM alone: a medkit)
+    PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them; an
+                           arms-and-head or left-arm clip over a base pose (--over)
   Roster/
     Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
                        (TREES), learned (node ids by SkillSource, one for each time taken), learned_of() /
@@ -175,18 +202,36 @@ vcom/Scripts/
     SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
     SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
     SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
-  Actions/             UnitAction base (required_tag, is_granted) + ActionController + Move/Shoot/Overwatch,
-                       Strike (melee, at an adjacent enemy), ThrowGrenade (at a tile in reach; uses the grenade up)
+  Actions/             UnitAction base (required_tag, is_granted; uses_left() (the count on its button),
+                       takes_click_on() (a left click on a squad member as its target, not a selection); for the
+                       gamepad confirm_hint(), cycles_targets(), shows_odds(), cursor_moved()) + ActionController
+                       (the tile cursor, the prompts, pointed_tile(), the d-pad's next / previous action) +
+                       Move/Shoot/Overwatch,
+                       Strike (melee, at an adjacent enemy), ThrowGrenade (at a tile in reach; uses the grenade up),
+                       HunkerDown (in cover only, one action; hunkered until a move or the player's next turn),
+                       Reload (a gun with a magazine; dimmed while full; the gun's reload in actions),
+                       UseMedkit (a wounded ally next to the unit, or itself, lined up as Strike; once a battle per
+                       medkit; supplier(): its own uses first, then a squad member's beside it, _lenders())
   UI/                  every HUD widget, built in code
-    TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree
+    TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree;
+                       LB / RB tabs, LT / RT sub-tabs (_sub_tabs()), the gamepad's prompts along the bottom
+                       (_gamepad_hints(), _accept_hint() over gamepad_hint(focused), _close_hints())
+    AmmoIndicator.gd   HUD node, bottom-right: the selected squad member's magazine, a rectangle a round, filled
+                       while loaded and hollow once fired, edged red when empty; hidden without a magazine
+    ButtonGlyph.gd     a gamepad button drawn from shapes (the font has none): A / B / X / Y, LB ... RT, LS / RS,
+                       L3 / R3, View, Menu, the d-pad's arms; draw_glyph() on any canvas
+    ControlHints.gd    a panel of [buttons, words] rows, a column or a row, shown only with the gamepad
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
-    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in
+    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in;
+                       enterable() (the village a click or A opens)
     SquadMenu.gd       TabbedMenu in WorldMap.tscn, opened by Party.encountered, cannot be closed: one SquadTab
-    SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton
+    SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton;
+                       focus_start() (the gamepad's Menu)
     LocationTab.gd     placeholder tab for one Location: its description in the middle
     HiringBoardTab.gd  a HiringBoard's tab: read-only CharacterBrowser of who is for hire, a PurchaseBar
     MarketTab.gd       a Market's tab: Buy / Sell SubTabs, InventoryTabs over its stock and the party's; a PurchaseBar
-    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy (or sell) the offer
+    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy (or sell) the offer;
+                       focus_offer() (where A / Enter on what is offered goes), can_take()
     HoldButton.gd      a button that acts only once held for hold_time (2 s), filling left to right
     CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
     CharacterBrowser.gd strip of CharacterButtons across the top; under it SubTabs of CharacterPages;
@@ -217,21 +262,25 @@ vcom/Scripts/
     InventoryTab.gd    SubTabs: Weapons, Armor, Battle Items, each an ItemBrowser; follows inventory.changed;
                        selected_stack() + selection_changed
     ItemBrowser.gd     split view: grid of ItemSquares left, selected item's name + description right;
-                       optional action button (Equip), also Enter / double-click on a square
+                       optional action button (Equip), also Enter / double-click on a square; item_activated
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
     SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
                        note), Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
-    WorldMapCamera.gd  pan / zoom with the combat camera's input actions
+    WorldMapCamera.gd  pan / zoom with the combat camera's input actions; the left stick pans, the right zooms
+    MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen and its
+                       prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: sent by any right click (no selecting), travels a route; is_at(destination);
+    Party.gd           the party dot: sent by any right click, or A at the reticle (no selecting), travels a route;
+                       is_at(destination); pointed_at(), can_go_to(); L3 centres it;
                        every step_length map pixels heals the roster by heal_per_step, then rolls a forest's
                        encounter chance; encountered(map)
     Forest.gd          Polygon2D (Scenes/Forest.tscn): a forest's outline, encounter_chance per step, encounter_map
     GameOver.gd        CanvasLayer: once the roster is empty, pauses, shows "Game Over" in a TurnBanner, quits
     Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip listing its locations
+                       (under the pointer: is_under_pointer(), find_under_pointer(); not while paused)
     Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
                        description, make_tab()
     HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
@@ -259,22 +308,25 @@ selection gets the default action instead.
 
 **An action can need an item.** `UnitAction.required_tag`, set in the action's `_init()` beside its
 `display_name`, names an `Item` tag the unit must carry for it to have the action at all
-(`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot and Overwatch need `Item.GUN`, Strike
-`Item.MELEE`, Throw Grenade `Item.GRENADE`, and Move, with none, is every unit's. That is a different test from
+(`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot, Overwatch and Reload need `Item.GUN`
+(Reload, overriding `is_granted`, a gun with a magazine as well), Strike `Item.MELEE`, Throw Grenade
+`Item.GRENADE`, Use Medkit `Item.MEDKIT` (overriding `is_granted`, or a squad member next to the unit with a
+medkit use left: see the medkit below), and Move and Hunker Down, with none, are every unit's. That is a different test from
 `is_available`: an action the unit lacks has no button on the bar (the bar shrinks and re-centres),
 where one it cannot take right now is dimmed; `ActionController.activate()` checks both. The first
 child, the default, must need nothing. What a unit carries is `Unit.equipment`, copied from its
 character's slots as it enters the map (see Squad units below), so it changes mid-battle only as the
 unit uses something up (`Unit.use_up()`: a thrown grenade); with the last grenade gone, Throw Grenade
-leaves the bar, since the bar asks `is_granted` on every `changed`. A unit with no character (enemies,
+leaves the bar, since the bar asks `is_granted` on every `changed`. Use Medkit is the one grant that
+also follows where the unit stands, which a move (and its `changed`) brings. A unit with no character (enemies,
 the harness) carries just its `weapon`, `Rifle.tres` when the scene sets none. Enemies are not gated:
 their AI shoots whatever it carries.
 
 **Strike is a shot at arm's length.** `StrikeAction` is laid out as `ShootAction`: its targets are the
 living enemies next to the unit, as `Tactics.is_next_to()` has it (the AI's point-blank range, so the
-two cannot drift), nearest first; Tab / Shift+Tab cycle them, Enter / Space strikes, Ctrl opens the
-breakdown, and `ShotOverlay.show_strike()` draws the same line, reticle and target panel (its status
-line reads "Melee" instead of the cover). It costs `StrikeAction.COST` (1, a shot's) and is dimmed
+two cannot drift), nearest first; Tab / Shift+Tab cycle them, Enter / Space strikes (or a click, as
+below), Ctrl opens the breakdown, and `ShotOverlay.show_strike()` draws the same line, reticle and
+target panel (its status line reads "Melee" instead of the cover). It costs `StrikeAction.COST` (1, a shot's) and is dimmed
 without an action left or an enemy next to the unit. The odds are `HitChance.for_strike()`, worked out
 once as the target is lined up; `Unit.strike()` rolls them and deals `Unit.melee_weapon`'s damage
 plus the striker's `Unit.strength` through `take_damage()`, so defense comes off that sum as it does
@@ -286,9 +338,37 @@ lands; `StrikeAction` then awaits `Unit.recover()`, the follow-through, before i
 busy throughout, so a kill that wins the battle finds the action mid-play and leaves it to be put
 away as it completes.
 
+**A shot or a strike is confirmed by a key, a click on the target, or the panel's tick.** Enter / Space
+is as it was. `ShootAction` and `StrikeAction` also read a click on a unit, with either button
+(`UnitAction.clicked_unit()`, over `is_click()`: left, `select_unit`, as the squad is selected;
+right, `execute_action`, as Move is carried out), which reaches them through `handle_input()` once
+`ActionController` has let clicks on the squad go to `PlayerSquad`. A click on the target lined up
+fires or strikes; a click on another target only lines it up (`_click()`), so nothing is ever taken
+at odds the player has not been shown; a click on anything else is left alone. While either is up,
+the cursor is a hand over any of its targets (`UnitAction.hovered_unit()`, `point_at_target()`,
+checked every frame, as the camera moves under a still mouse): `Input.set_default_cursor_shape()`
+is set only when it changes, since setting it sends a mouse motion of its own, and is put back to
+the arrow as the action ends, as the tree pauses and as it leaves the tree. The target panel
+(`TargetPanel`) has a tick box beside the chance, the roster's `UI/black_tick.png` on a pale box
+filled with the menus' accent under the mouse, shown only when `ShotOverlay.show_shot()` /
+`show_strike()` are told `confirmable`, which only the two actions say: reaction fire playing out
+through `ShotPlayback` shows the panel without it. Clicking it emits `TargetPanel.confirmed`, passed
+on as `ShotOverlay.confirmed`, which both actions listen to; the one active and not busy takes its
+shot or strike. The box never takes the keyboard (`FOCUS_NONE`), or Space would press it as well as
+reach the action, and the rest of the panel lets the mouse through, so a target under it can still
+be clicked. Three calls were made without asking the user: both mouse buttons, a click on another
+target lining it up rather than firing, and the hand cursor. With the gamepad the box gives way to an
+A (`TargetPanel._confirm_glyph`, swapped on `InputDevice.changed`), which A, being `confirm_action`,
+already did.
+
 **A throw is planned, then flown.** `ThrowGrenadeAction` aims with the mouse, as Move previews: it
-follows the tile under the cursor every frame, and right-click (`execute_action`) or Enter / Space
-throws there; there are no targets to Tab through. `begin()` works out every throw the unit can make
+follows the tile under the cursor every frame (`ActionController.pointed_tile()`, the tile cursor's
+with the gamepad, where A throws), and a click with either button
+(`UnitAction.is_click()`, as a shot's target is clicked; the left as well as the right at the user's
+request) or Enter / Space throws there; there are no targets to Tab through. A left click on a
+squad member's figure is the one click it never sees: `ActionController` hands it to `PlayerSquad`,
+which selects them, as during any action, so a throw at a tile a squad member stands on is a right
+click or the keys. `begin()` works out every throw the unit can make
 (`Throwing.throws_for()`: tiles within `Throwing.RANGE` whose arc is clear, about 16 ms on
 BoundaryMap) and tints them (`throw_range`); the tile under the cursor gets the `throw_blast` layer and
 `ShotOverlay.show_throw()`: the arc's points, a cross where a blocked arc stops, and an outlined
@@ -310,9 +390,127 @@ everyone caught, then `CombatGrid.blast()` with the cube's cells. Results are ca
 unit is moving, so anyone the blast dropped has landed before the next throw is worked out. The
 3D effects go under `effects_path`, the map root.
 
+**A medkit heals an ally next to the unit, or the unit itself, once a battle for each one carried,
+and the squad members beside its carrier can draw on its uses.** `Medkit.tres` is a
+`Medkit` (`BattleItem`, tagged `medkit`, `heal` 4, price 10, one in `Village1Market.tres`'s stock), so it
+goes in an item slot and gives `UseMedkitAction`. It is never used up, unlike a grenade: what a battle
+spends is `Unit.medkits`, the `Medkit`s the unit can still use, filled from its equipment as it enters
+the map (one per medkit carried, so two give two uses) and popped by `Unit.use_medkit()`; the item stays
+in `Unit.equipment`, on the figure's belt and on the character, and the next battle fills the list
+again. Nothing is kept on the character (the user's: "only once per mission, per Medkit given to a
+character"). The action is laid out as `StrikeAction` (the user's: "similarly to how a character with a
+melee weapon chooses the target"): its targets are the living allies in `ally_group` (`players`) that
+`Unit.is_wounded()` (health short of `max_health`), next to the unit as `Tactics.is_next_to()` has it,
+nearest first, then the unit itself if it is wounded (`UseMedkitAction._patients()`; the user's "let the
+Medkit heal the character holding it as well"; last, so an ally beside comes up first, as my call); Tab /
+Shift+Tab, LB / RB and the tile cursor cycle them (the cursor on the unit's own tile lines itself up);
+Enter / Space, A, a click on the one lined up (either button) or the panel's tick heals; a click on another
+lines it up. It costs `UseMedkitAction.COST` (1) and is available with a use left, an action left and
+someone to treat: itself wounded, or a wounded ally beside. `ShotOverlay.show_heal()` draws a strike's line, reticle and panel in green
+(`TargetPanel.bind_heal()`: the ally's health now and after, and "+N HP" where the odds go, with no
+breakdown, so the prompts drop LT's row: `UnitAction.shows_odds()`). `Unit.use_medkit(target)` is the
+single place one is used: it spends the use, has the figure play `CharacterModel.use_medkit()` (turn to
+the ally, the medkit off the belt and held out, returning at the clip's `apply`; on itself, `Unit._chest_of()`
+passes null and the figure keeps its facing and presses the medkit to its own middle,
+`use_medkit_self`), then
+`target.heal(kit.heal)`: `Unit.heal()` adds to `health`, which clamps at `max_health`, so an ally 2 short
+gains 2, and `PlayerSquad` writes the new health on the character's `wounds` as it does every change.
+The action calls the gain over the ally in green (`ShotOverlay.flash_heal()`), waits `Unit.recover()`
+and completes. Its button counts the uses left in its corner (`UnitAction.uses_left()`, drawn by
+`ActionButton.uses`, -1 for the actions with no count). Since its targets are squad members, a left
+click on one would select them (`PlayerSquad`); `ActionController` asks the active action first
+(`UnitAction.takes_click_on()`), and Use Medkit takes a left click on any ally it offers, so selecting
+one of them means Tab, the squad panel or putting the action away first; a left click on the unit
+itself, while it is on offer, lines it up or heals it too. Lined up on itself, `ShotOverlay.show_heal()`
+gets one point for both ends and draws no line, only the reticle and panel over it. Decided without
+asking the user: one action; never above the most health; nothing rolled; the left click taken; the
+count on the button; the green; the figure's showing of it, the kit on the belt and a clip over the
+left arm alone; and, once healing itself was asked for, itself offered last, no line to itself, and
+the figure pressing the kit to its own middle without turning. Enemies carry none, and their AI
+never heals.
+
+A use can be borrowed (the user's: "allow allies next to a character holding a Medkit to use the 'Use
+Medkit' action, even if they are not equipped with one"; their own uses first; "it should still use 1
+usage ... for the unit equipped with the Medkit", so a carrier whose last use a neighbour spent has none
+left). Whose use the action spends is `UseMedkitAction.supplier(unit)`: the unit itself while its
+`Unit.medkits` has one, else the first of `_lenders(unit)`, the living squad members in `ally_group`
+next to it (`Tactics.is_next_to()`) with a use left, in the group's order, which is the squad's. So the
+action is granted (`is_granted()`, overriding the tag test) to a carrier always and to anyone else only
+while `_lenders()` has someone, and available only with a supplier; its targets are the unit's own, as
+before (the wounded next to the *user*, and itself), and `uses_left()` counts the unit's uses and every
+lender's. `_heal()` passes the supplier to `Unit.use_medkit(target, from)`, which pops `from.medkits`;
+the user spends the action. The panel's status line names a borrowed kit ("Blue's Medkit · 7 → 10 HP",
+`TargetPanel.bind_heal(..., kit)`, through `ShotOverlay.show_heal()`), and the figure, given the kit
+(`CharacterModel.use_medkit(point, borrowed)`), makes a prop of it in the left hand from `take` to
+`stow` (`_borrowed`, one of `_medkits` meanwhile) when it has none of its own on its belt, or takes its
+own spent one otherwise. Decided without asking: the squad's order picking among several lenders, and
+the player not choosing; the count on the button including the neighbours'; the panel's naming; a kit
+appearing in the borrower's hand while the lender's figure does nothing and keeps its own on its belt;
+and a carrier's spent use being taken before a neighbour's whenever it has one left, as "use their
+usages first" reads.
+
+**Hunkering down is a state on the unit that one term of the hit chance reads.** `HunkerDownAction`
+needs no item, so every unit has it, but it is only available in cover (`HunkerDownAction.is_in_cover()`:
+`LineOfSight.cover_at()` of the unit's tile not empty, any side, either height), with an action left
+and not hunkered already; out of cover its button is dimmed. Like Overwatch it shows nothing on the map
+while it is up, and Enter / Space spends `HunkerDownAction.COST` (1, the user's call, in place of
+the rest of the turn it first took) and sets `Unit.hunkered`. The unit carries on with its turn;
+shooting, striking, throwing and overwatch leave it hunkered. Moving ends it, also the user's call:
+`Unit.start_walk()` clears it for every walk but one that keeps its facing, which is only ever a
+step out of cover to shoot and back (`ShootAction`, `ShotPlayback`), and `Unit.drop_to()` clears it
+too, since falling when the ground goes is moving (assumed, not asked). So the rule is in `Unit`,
+where every move goes through, not in `MoveAction`, and a new kind of walk that should not stand a
+unit up has to keep its facing or say so there. `Unit.start_turn()` clears it as well, as it does
+overwatch, and a squad member's turn starts with the player's, so short of a move it lasts through
+the enemies' turn until the player's next. While it holds, `HitChance.for_shot()` adds a
+**Hunkered** term of `-HitChance.HUNKER` (20) just after **Cover**, whenever `Shot.cover` is not
+`NONE` (`HitChance.hunker_penalty()`): flanked, or with its cover shot away, a hunkered unit gets
+nothing for it. Every shot is lined up through `for_shot()` (the action bar's, reaction fire, the
+AI's `Tactics`), so it counts everywhere, and the assault AI's best odds steer it to a target that
+is not hunkered. Two calls were made without asking the user: melee counts no cover, so
+`for_strike()` counts no hunkering either (no enemy strikes yet); and nothing is drawn on the map
+while it is lined up. With nothing to Tab through and nothing to repeat, the action is put away once
+taken, as any action no longer available is, so the player picks the next one from the bar. It is
+seen two ways: `Unit.hunkered` sets `CharacterModel.hunkered`, which holds `hunker_<stance>` over
+every base pose but a readied one (so the figure ducks low behind cover of either height, on
+overwatch too, rises to aim a shot and ducks again, and still cheers a win) and a lean out of its
+cover: a shot that sees it only leaning out is aimed where it leans, so the figure leans out there
+for it, hunkered or not, and ducks again once it draws back (decided in the merge, not asked; the
+sight rule is untouched, so hunkering never hides a unit), and `UnitCard` shows a
+`HunkerBadge`, a blue shield over its portrait's corner, rather than another pip, which would widen
+the card.
+
+**A gun counts its rounds, and the unit holds them.** A `Weapon` has a `magazine` (shots, 5 for the
+Rifle; 0 for a gun that never runs dry) and a `reload` (actions, 1 for the Rifle), both the user's
+names for them; `has_magazine()` is a gun with one. The weapon stays a stateless shared resource: the
+rounds left are `Unit.rounds`, filled to `magazine_size()` in `Unit._ready()`, so every battle starts
+full and nothing is kept on the character (the user's call). `Unit.shoot_at()` takes one off as the
+trigger is pulled, after the aim and before the roll, so every shot spends a round, hit or miss, the
+squad's, the enemies' and reaction fire alike, and a magazine never goes below empty. Nothing lines a
+shot up without a round: `Unit.can_fire()` (a round left, or a gun with no magazine) is asked by
+`ShootAction.is_available()`, `OverwatchAction.is_available()`, `Reactions._find_offers()` and
+`Tactics.shots_at()`, so an empty gun gets no Shoot, no Overwatch, no reaction prompt and no AI shot.
+`ReloadAction` is offered to a gun with a magazine (`is_granted`) and available while
+`Unit.can_reload()` (rounds short of full) with `reload_cost()` actions left, dimmed otherwise (the
+user's: "when the magazine is full, the action is disabled"). Like Hunker Down it marks nothing on the
+map; Enter / Space or A spends the cost and plays `Unit.reload()`, a coroutine that awaits the figure's
+`CharacterModel.reload()` and fills the magazine at the clip's `seat` moment, then waits out the clip
+(`Unit.recover()`) before completing; full again, it is put away. Nothing is called over the unit's
+head: a "Reloaded" call came first and was taken out at the user's request, the animation being
+enough for now. Enemies have magazines too (the
+user's call): the assault AI reloads first when empty (`Tactics.reload(true)`), and with nothing to
+shoot and nowhere nearer to go tops up a part-spent one (`Tactics.reload()`) before ending its turn;
+`TurnManager` carries an `AIAction.Kind.RELOAD` out as the action does.
+`AmmoIndicator`, a HUD node in each map, draws the selected squad member's magazine in the
+bottom-right corner, following `PlayerSquad.selection_changed` and the unit's `rounds_changed`;
+`ActionController._place_hints()` stands the gamepad's prompt column on top of it while it shows (the
+user's choice of corner). The action bar refreshes on the controller's `changed`, as for actions: a
+round spent through an action, or on the enemies' turn, is caught then.
+
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
-`shoot_step_out`, `overwatch`, `throw_range`, `throw_blast`. A colour's alpha dims a square's fill and
+`shoot_step_out`, `overwatch`, `throw_range`, `throw_blast`, and the gamepad's `cursor`, set
+`on_top` so it stays over every layer set after it. A colour's alpha dims a square's fill and
 border together, which is how `throw_range` stays faint.
 
 **The tile grid is the ground's own material, and off until the player turns it on.** Style 19's
@@ -337,7 +535,8 @@ themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn`
 future scene gets it free. Being ahead of the scene in the tree, it sees `_unhandled_input` last:
 Esc (`pause_menu`, bound to the same key as `cancel_action`) opens it only once nothing in the
 scene has taken Esc to cancel something. Anything that cancels on Esc must mark the event handled,
-or the menu opens on the same press. Opening sets `get_tree().paused`; the menu alone runs
+or the menu opens on the same press. On the gamepad the two are apart: `Menu` is `pause_menu`, `B`
+is `cancel_action`, and the open menu closes on either. Opening sets `get_tree().paused`; the menu alone runs
 `PROCESS_MODE_ALWAYS`. A tab is any `Control` added to `PauseMenu.tabs`, titled by its node name.
 The menu refills its tabs from `Campaign` each time it opens (`_refresh()`), so it never holds state of its own.
 
@@ -345,8 +544,62 @@ Its frame is `TabbedMenu`, which the world map's **`VillageMenu`** shares. A lef
 on the icon of the `Destination` the party stands on (`Party.is_at()`: a trip there ends exactly on its
 position) opens it with one tab per entry in that destination's `locations`, rebuilt each time, titled by
 `Location.display_name`; a destination with none does not open. It is in the scene, so it sees Esc
-(`cancel_action`) before the pause menu and takes it. Down from either menu's tabs goes to the open
-tab's `focus_selection()` when it has one.
+(`cancel_action`) before the pause menu and takes it, and the gamepad's `Menu` too, which closes it
+rather than open the pause menu over it. Being `PROCESS_MODE_ALWAYS` like every menu, it opens on
+nothing while the tree is paused, or A on the pause menu's tab row would open it underneath. Down
+from either menu's tabs goes to the open tab's `focus_selection()` when it has one.
+
+**The gamepad plays everything, and the screen says how.** `InputDevice` (the autoload
+`InputDevices`, first of the three so it is there when the pause menu's widgets ready) watches every
+event in `_input`, paused or not, and sets the static `InputDevice.gamepad` to whichever was touched
+last: a pad button, or a stick or trigger past `STICK_THRESHOLD`, for the gamepad; a key, a mouse
+button, or the mouse moved `MOUSE_THRESHOLD` pixels in one event (the game moves it itself as it
+changes the cursor's shape) for the keyboard and mouse. It hides the mouse while the gamepad is in
+use and emits `changed`; everything else reads the static by the class's name, so a probe can still
+name them (see Gotchas), and `InputDevice.watch()` connects to the signal. Being last to see `_input`,
+it never sees an event another `_input` handled, so new gamepad handling goes in `_unhandled_input`.
+The layout is an Xbox controller's (a Steam Deck's), bound in `project.godot` beside the keys: most
+actions gained a button (A `confirm_action` and `ui_accept`, B `cancel_action`, `ui_cancel` and
+`reaction_continue`, Menu `pause_menu`, View `end_turn`, LB / RB the squad and the targets, LT
+`show_shot_details`, R3 `toggle_grid`, the right stick's x `camera_rotate_*`, the d-pad's up / down
+`camera_zoom_*`), and the pad has actions of its own: `cursor_*` (the left stick), `next_action` /
+`previous_action` (d-pad right / left), `recenter` (L3), `camera_zoom_stick_*` (the right stick's y),
+`menu_next_tab` / `menu_previous_tab` (RB / LB), `menu_next_subtab` / `menu_previous_subtab` (RT / LT),
+and `reaction_fire` / `reaction_next` / `reaction_previous` (A, RB, LB). Godot's own `ui_*` already
+had the d-pad and the left stick, so the menus' focus moves as with the arrow keys.
+
+Where the mouse points, the gamepad has a pointer of its own. In combat it is the `TileCursor`, which
+`ActionController` makes and shows on the player's turn, not busy, with someone selected, and puts on
+whoever is selected as the selection changes, the turn starts, or L3 is pressed: the left stick steps
+it a tile at a time in eight ways relative to the camera (up the screen is away from it), finding
+the tile nearest its height in the next column with one, and the camera follows it. Actions ask
+`ActionController.pointed_tile()` (the cursor's tile with the gamepad, the mouse's tile without),
+which is how Move previews and walks and Throw Grenade aims; `cursor_moved()` tells the active action
+it moved, which is how Shoot and Strike line up the target the cursor reaches, and they snap the
+cursor to each target `LB` / `RB` line up. A, being `confirm_action`, already fired, struck, threw,
+went on overwatch, hunkered or reloaded; on Move it walks to the cursor, or selects the squad member standing
+there. Switching device begins the active action again, so it starts from the new pointer. On the
+world map it is the middle of the screen, where `MapReticle` draws a ring:
+`InputDevice.pointer_position()` / `pointer_on_canvas()` give it, or the mouse, so `Destination`'s
+hover, `Party`'s sending and `VillageMenu`'s opening take one path for both, and the map's camera
+slides under it on the left stick and zooms toward it.
+
+The prompts are `ControlHints` panels of rows, a `ButtonGlyph` or two and the words: down the right in
+combat (`ActionController._show_hints()`, A's words from the active action's `confirm_hint()`) and on
+the map (`MapReticle._rows()`), along the bottom of every `TabbedMenu` (`_gamepad_hints()`), shown only
+with the gamepad. A menu's A words come from the focused control: its own `gamepad_hint(focused)` if it
+has one (a `SkillButton`: "Hold: Learn" while learnable, else nothing), else the first ancestor's that
+says something (`ItemBrowser`'s action, the shops' "Choose", `SquadTab`'s "Tick" / "Untick"), else
+"Hold" and the caption on a `HoldButton`, the text on any other button A presses, and nothing on a
+toggle the focus alone selects. Elsewhere the HUD swaps a key for a glyph: the target panel's tick
+becomes an A, the action bar gains d-pad arrows at its ends, and a reaction window picks out one
+prompt with an A (`Reactions._focus`, first in squad order, moved by LB / RB) instead of numbering
+them all. In the shops A on an item or a character goes on to the buy or hire button
+(`PurchaseBar.focus_offer()`), to be held there. Decided without asking the user: the Xbox layout and
+its labels; the d-pad choosing actions and zooming rather than moving the cursor; A on a squad member
+with Move up selecting them; LB / RB, not the d-pad, moving a reaction's pick; `Menu` going to Start
+on the squad menu; and the cursor's marker, a pyramid bobbing over the tile, over a unit's head when
+one stands there.
 
 **Forests are shapes drawn in the editor.** Each is an instance of `Scenes/Forest.tscn`, a
 light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
@@ -386,7 +639,8 @@ Start is greyed out with nobody ticked. It opens on `Campaign.squad()`, which is
 last and is still on the roster (the first four before any battle, or after a whole squad fell), and
 Start passes the ticks to `Campaign.start_battle(map, chosen)`, which keeps them for the battle's
 `PlayerSquad` and the next menu. It swallows Esc (`cancel_action` and `pause_menu`, the same key) so
-the pause menu, which sees it after the scene, does not open over it; closing it on Start unpauses the
+the pause menu, which sees it after the scene, does not open over it, and the gamepad's `B`; the
+gamepad's `Menu` takes the keyboard to Start (`SquadTab.focus_start()`). Closing it on Start unpauses the
 tree, and the deferred swap takes the map out of it before it moves again. Mouse input pushed into a
 headless probe does not reach the GUI (see Gotchas): drive this menu's clicks in a windowed run.
 
@@ -424,7 +678,7 @@ other tab may have spent some.
 stateless `.tres`: the same `Rifle.tres` is what units shoot with and what the
 inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
 sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres` (a
-`Grenade`, the `BattleItem` that carries its blast: 5 damage, 3 tiles across) `grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot). A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
+`Grenade`, the `BattleItem` that carries its blast: 5 damage, 3 tiles across) `grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot), `Medkit.tres` (a `Medkit`, the `BattleItem` that carries its `heal`) `medkit`. A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
 is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
 copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
 subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
@@ -493,7 +747,9 @@ character's `color` for the squad (`Unit._paint()` gives `CharacterModel.paint()
 (`Mat_enemy1` in each combat map) is slate grey, `Color(0.32, 0.35, 0.4)`: they were red until blood,
 which barely showed on them, so keep every unit's colour off red. The figure
 shapes the unit's bodies (`Unit._add_bodies()`): an upright cylinder `PICK_RADIUS` round for clicks,
-and the debris capsule as before, as thick as the figure's body; neither turns with it.
+and the debris capsule as before, as thick as the figure's body; neither turns with it. The click
+body follows the figure out of its tile while it leans out of its cover (`Unit.lean()`, see "A
+target is seen where it leans out" below), so a target is clicked where it is seen.
 
 **The rig is rigid, one bone per voxel.** `VoxelRig` shares the model's voxels out between 18 bones,
 named as Godot's `SkeletonProfileHumanoid` names them, by the layout's regions (boxes in the model's
@@ -508,7 +764,7 @@ reads that table (`BakeCharacter.LAYOUTS` is the same one) and writes the model'
 (`FigureVoxels`), and a model with no entry never bleeds, with an error. Blood relies on the rig being
 rigid too: its stains are weighted wholly to their voxel's bone.
 
-**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 50 for the rig's
+**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 56 for the rig's
 proportions: a function of time places the feet, the hands and what they hold, and leans the body,
 and two-bone IK solves the limbs between, so a model with other proportions gets animations that fit
 it by baking again. The rifle is held through `rifle_grip` and the rifle scene's `Foregrip` marker:
@@ -516,22 +772,30 @@ these arms reach only 8 voxels to the palm, which is why the aim holds the rifle
 the off hand just under the receiver, behind the fore-end. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
 (`rifle`, `melee`, `unarmed`) has stand, crouch (on one knee behind low cover), wall (up close to
 high cover), a lean out round either end of each of those two (`wall_lean_left` / `_right`,
-`crouch_lean_left` / `_right`: `_wall()` and `_crouch()` with a side), ready_throw, cheer, run and
-throw; the rifle has aim, overwatch, overwatch_crouch and
+`crouch_lean_left` / `_right`: `_wall()` and `_crouch()` with a side), hunker (lower on one knee,
+bent over its weapon, behind either: hunkered down), ready_throw, cheer, run and throw; the rifle has
+aim, overwatch, overwatch_crouch and
 the back / strafe steps a rifleman takes stepping out, still aimed; the sword has ready_melee,
-strike_sword, draw_sword and stow_sword; and there are hop, fall, and the reactions fire_rifle,
+strike_sword, draw_sword and stow_sword, and reload_rifle, keyed on the arms and head alone so it
+plays over whatever the legs hold; use_medkit and use_medkit_self (the kit held out to an ally, or
+pressed to the figure's own middle) are keyed on the left arm alone, so they play in any stance, the
+right hand keeping its weapon; and there are hop, fall, and the reactions fire_rifle,
 hit_front, hit_back, dodge and land, which key only what they move and are added to the pose. Clips
 carry the moments the game waits on as metadata: `speed` on the runs (5 tiles a second, a stride a
-tile), `impact` on the strike, `release` on the throws, `swap` on the draws; and each lean its
-`reach`, how far out of the middle of its tile it puts the head (about 0.7 to 0.76 cells), measured
-off the pose as it is baked. The editor's animation
+tile), `impact` on the strike, `release` on the throws, `swap` on the draws, `seat` on the reload,
+`take`, `apply` and `stow` on the medkit's two; and each lean its `reach`, how far out of the
+middle of its tile it puts the head (about 0.7 to 0.76 cells), measured off the pose as it is baked.
+The editor's animation
 panel can play them; a change made there is lost at the next bake.
 
 **`CharacterModel` plays them through one `AnimationTree`.** Its `AnimationNodeBlendTree`
 (`HumanoidAnimations.make_tree()`): `stance` picks the base loop; `move` blends it to `run`, scaled by
 `run_scale`, whose `run_rifle` is a 2D blend of the forward, back and strafe runs; `hop` (legs only)
-and `air` (falling) blend over that; `act` is a one-shot played whole (strike, throw, draw, stow) and
-`react` a one-shot added on top. The tree resource is shared by every figure, so the model sets its
+and `air` (falling) blend over that; `act` is a one-shot played whole (strike, throw, draw, stow),
+`upper` a one-shot over the arms and head alone, filtered to them (the reload: a kneeling or hunkered
+figure stays down; filtered because the tree blends deterministically, and a bone a clip leaves unkeyed
+would be pulled toward its rest), `left` the same over the left arm alone (the medkit), and `react` a
+one-shot added on top. The tree resource is shared by every figure, so the model sets its
 parameters and never its nodes' properties. Most of what it plays it reads off its unit each frame:
 it runs while `Unit.is_moving()`, as fast as the unit really goes, so a reaction's slow motion slows
 its legs and a held walk freezes them mid-stride; it faces the way it goes, unless the walk keeps its
@@ -540,19 +804,25 @@ a hop, on the figure's own position, so the unit still moves in a straight line 
 sees it. `Unit.drop_to()` sets it falling until it lands. The rest the unit asks for, through
 presentational calls that do nothing without a figure: `aim_at()` (raise the gun to a point, which
 `AimModifier` bends the spine and chest to, above or below), `ready_strike()`, `ready_throw()`,
-`celebrate()` (the winners, as `TurnManager` decides the battle), `stand_easy()` (at the end of the
+`celebrate()` (the winners, as `TurnManager` decides the battle), `reload()` (through `Unit.reload()`,
+returning at the clip's `seat`), `attend()` (turned to an ally and looking at them, nothing readied,
+which keeps `Postures` off the figure until `stand_easy()`), `use_medkit()` (through
+`Unit.use_medkit()`, returning at the clip's `apply`; both take null for the unit itself: no turn, a
+look down in front of it, `CharacterModel.SELF_LOOK`, and `use_medkit_self`), `stand_easy()` (at the end of the
 frame, called off if something is readied again at once, so a Shoot that begins again never lowers
 the gun), `dodge()`, `take_damage()`'s flinch, and `lean_out()` / `lean_back()` (see "A target is
 seen where it leans out" below). Between actions `Postures`, a node in each combat
 map, moves only figures that are `is_idle()`.
 
-**Gear hangs in the figure's sockets.** `CharacterModel.equip(gun, melee, grenades)` shows each item's
+**Gear hangs in the figure's sockets.** `CharacterModel.equip(gun, melee, grenades, kits)` shows each item's
 `Item.model`: a scene whose origin is where the hand grips it, standing along +z with its top up +y;
 a gun's `Muzzle` marker is where it fires from and its `Foregrip` where the off hand holds it. The bake
 makes the sockets: `RightHand/RifleGrip` and `SwordGrip`, `LeftHand/GrenadeGrip`, `Back/RifleSlot` and
 `SwordSlot`, `Belt/Grenade1`..`3`. The gun is in hand; the sword is in hand without a gun, else slung
 on the back and drawn for a strike, swapping with the gun at `draw_sword`'s `swap`; grenades hang on
-the belt, one in the left hand while a throw is lined up. `Unit._dress()` calls `equip()` as the unit
+the belt, one in the left hand while a throw is lined up; medkits hang on the belt slots the grenades
+leave (three items at most, so there is always one), the first in the left hand from the medkit clip's
+`take` to its `stow`, turned a quarter there (`MEDKIT_IN_HAND`) so its cross faces the ally. `Unit._dress()` calls `equip()` as the unit
 enters the map and as it uses something up. A prop scene's `Mesh` is placed to put the grip on the
 scene's origin: the importer carries where a model sits in MagicaVoxel's world into the mesh (`0 21 2`
 for one left where MagicaVoxel put it), so the `Mesh`'s transform cancels that, and turns a model
@@ -606,7 +876,8 @@ equipped decides a squad unit's actions by its tags (see "An action can need an 
 it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
 (`Unit.weapon`, null with none), and strikes with the first melee weapon, the same way
 (`Unit.melee_weapon`), which gives it Strike. A grenade in any item slot gives it Throw Grenade,
-which throws the first one, Item 1 before Item 2 before Item 3 (`Unit.grenade`), and uses it up.
+which throws the first one, Item 1 before Item 2 before Item 3 (`Unit.grenade`), and uses it up. A
+medkit in any item slot gives it Use Medkit, a use a battle for each, and is never used up.
 Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
 which the unit copies as its own; the Details page shows that total and refreshes as it comes into view, since the
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
@@ -810,7 +1081,7 @@ carries on behind `if x != null`; something essential bails.
 the scene to a shared `.tres` such as `Resources/AI/Assault.tres`. `TurnManager._take_enemy_turn`
 asks `ai.choose_action(Tactics.new(...))` once per action and carries out the `AIAction`, charging
 squad costs: `ceil(tiles / move_range)` for a move (at least 1, and cut to what the unit can afford),
-`ShootAction.COST` for a shot. So a new enemy type is an `EnemyAI` subclass plus a `.tres`; no turn,
+`ShootAction.COST` for a shot, `Unit.reload_cost()` for a reload. So a new enemy type is an `EnemyAI` subclass plus a `.tres`; no turn,
 reaction or camera code changes. Put reusable queries on `Tactics`, not in one AI. AI resources are
 shared between units, so they must stay stateless (the same rule as `Weapon`). An enemy with no `ai`
 sits its turn out with a warning.
@@ -1323,8 +1594,10 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   callers need an explicit type annotation to unpack them.
 - Units are in group `units` plus `players` or `enemies`.
 - Every key, click and hold the player can use is in `README.md`'s Controls, under World map (its
-  Menus covering every `TabbedMenu`) or Combat. A new input action, a new use of an existing one,
-  or a widget that reads keys or clicks itself gets a row there.
+  Menus covering every `TabbedMenu`) or Combat, and every gamepad button under Gamepad. A new input
+  action, a new use of an existing one, or a widget that reads keys or clicks itself gets a row
+  there, and a gamepad binding: the game must stay playable with the pad alone, with what each button
+  does on screen (a `confirm_hint()`, a `gamepad_hint()`, or a row in the prompts that list the rest).
 
 ## Combat rules that must not drift
 
@@ -1357,7 +1630,15 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - `Unit.shoot_at(shot, chance, grid, show_rounds)` is the single place a shot is resolved.
   `ShootAction`, the enemy AI and reaction fire all go through it; keep it that way so they cannot
   diverge. `Unit.strike(target, chance)` is the same for a melee strike, and
-  `Unit.throw_at(throw, grid, show_flight)` for a grenade.
+  `Unit.throw_at(throw, grid, show_flight)` for a grenade, and `Unit.use_medkit(target)` for a medkit.
+- **A medkit is never rolled, never used up, and heals only its user or an ally next to it**, to at most
+  their `max_health`: `Medkit.heal` through `Unit.heal()`. Its carrier has one use a battle for each
+  medkit it carries (`Unit.medkits`, filled as it enters the map, so every battle starts with them
+  all). Its user is its carrier, or a squad member standing next to the carrier, as
+  `Tactics.is_next_to()` has it, drawing on the carrier's uses once it has none of its own: a use is
+  spent from whoever's medkit it is, and the user's action pays. It is offered
+  (`UseMedkitAction.is_available()`) only with a use to draw on, an action left and someone wounded to
+  treat: the user itself, or an ally standing next to the user.
 - **A throw is never rolled, and a blocked arc is never thrown.** Unlike XCOM 2, where a grenade goes
   off wherever its arc meets something, an arc that meets anything solid before its target cannot be
   thrown (`Throwing.Throw.is_clear()`), so the blast always goes off where the preview showed it.
@@ -1368,6 +1649,11 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   side centred on the target tile's lower cell; anyone with either cell inside is caught, friend, foe
   and thrower, and nothing inside it shelters them. Its damage goes through `take_damage()`, so
   defense comes off as from a shot.
+- **Hunkering down adds to cover, never stands in for it.** `HitChance.HUNKER` comes off a shot only
+  while the target is `hunkered` and `Shot.cover` is not `NONE`, worked out as the shot is lined up
+  like every other term. It lasts until the unit moves (any walk but a step out to shoot and back,
+  or a fall) or its next `start_turn()`, for the squad the start of the player's turn, and is only
+  ever taken in cover.
 - **A strike's odds are the shot's sum with Melee Accuracy for Aim**: `HitChance.for_strike()`,
   Melee Accuracy − Evasion. Cover, flanking, height and distance count for nothing in melee for now,
   and a strike is never a reaction. Like a shot's, they are computed once, when the target is lined
@@ -1397,6 +1683,11 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - **Rounds tear through loose models and fly on.** Where a round goes is still decided against the
   grid alone; `round_flown` reports its line only once it has landed, and the loose models along it
   lose voxels. No loose model, nor any lump, ever stops a round or shelters anyone.
+- **Every shot spends a round, in `Unit.shoot_at()`, as the trigger is pulled,** hit or miss, the
+  squad's, the enemies' and reaction fire alike, and nothing offers a shot (Shoot, Overwatch, a
+  reaction prompt, the AI's `Tactics`) unless `Unit.can_fire()`. A reload fills the magazine, costs
+  the gun's `Weapon.reload` in actions, and is never offered with the magazine full. Every battle
+  starts with every magazine full.
 - **Reactions are Pathfinder's:** one per unit, refilled in `Unit.start_turn()`. Overwatch spends all
   remaining actions to hold it, and its shot takes `HitChance.REACTION_PENALTY` via
   `for_shot(..., reaction = true)`.
@@ -1418,7 +1709,8 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   one's lumps and gear are debris, in no group, scattered on `TerrainDestruction`'s own generator,
   never the global one. The figure decides only *when* a few things happen, never what: a shot is
   fired once the gun is up and its target, if the shot sees it leaning out, has leaned out, a strike
-  lands at the swing's impact, a grenade leaves at the throw's release. Every rule above still holds
+  lands at the swing's impact, a grenade leaves at the throw's release, a magazine is full at the
+  reload's seat and a medkit heals at its apply. Every rule above still holds
   at that moment, and a unit with no figure plays the same, at once. A figure leaning out of its
   cover is one of those things: the unit is on its own tile throughout, and whether it is seen
   leaning was `LineOfSight`'s to say, from the tiles alone.
@@ -1512,6 +1804,37 @@ bodies under `TerrainDestruction`. Seed the global generator and compare the nex
 fresh seed's: a death draws nothing from it. Whether the lumps are red can only be seen in a window
 (see Gotchas); they come to rest in 2-3 s, a blast's a little later.
 
+The gamepad is probed headless: `Input.parse_input_event()` of an `InputEventJoypadButton` (press,
+a frame or two, release) or an `InputEventJoypadMotion` (an axis value, then 0 to let go) reaches the
+game, the menus' focus included, as a key does, and switches `InputDevice.gamepad` on as a real pad
+would; `InputDevice.use_gamepad(true)` switches it without an event. A stick held for a while steps
+the tile cursor (`ActionController.cursor`, `current()`) on its repeat; `cursor.snap_to(tile)` puts
+it anywhere. Read the prompts off the `ControlHints` panels (`ctrl.hints`, `MapReticle._hints`, a
+menu's `_hints`): each row is an `HBoxContainer` whose last child is the words' `Label`. Hold a
+`HoldButton` by pressing A on it and waiting past 2 s before letting go. To see the glyphs and the
+cursor, render in a window as for any frame.
+
+Ammo is probed the same way: set `unit.rounds` directly (0 to empty it), read `can_fire()` /
+`can_reload()` and the actions' `is_available()`, fire through `ShootAction._fire()` and reload by
+activating `Reload` and sending Enter (or `ReloadAction._reload()`); `HUD/AmmoIndicator`'s `_rounds`
+and `_magazine` are what it draws. An enemy's choice is `unit.ai.choose_action(Tactics.new(unit, grid,
+squad.members))` (its `kind`), and `TurnManager._take_enemy_turn(enemy)` plays a turn out (await it
+through a lambda, with the dictionary flag above). The reload clip is seen with `PreviewAnimations.gd
+-- reload_rifle --over <base pose>`.
+
+A medkit is probed the same way. Buy and equip one before the map loads (`Campaign.buy(market, item)`,
+`Campaign.equip(character, &"item_1", item)`), or give a unit uses directly (`unit.medkits.append()`,
+with the item in `unit.equipment` too). Wound an ally by setting its `health` (its character's `wounds`
+follow), stand it next to the medic, activate `UseMedkit` and send Enter, A, LB / RB, or call
+`_click(unit)`; wound the medic too and it is offered last, or alone; stand a squad member with no
+medkit next to the medic to borrow (`use.supplier(unit)`, `_lenders(unit)`; a Move's `changed` puts the
+button on the bar, `ActionBar`'s button for it `visible`); `_targets` is what is on offer, `current_target()` what is lined up, and the overlay's
+`_panel._chance_label.text` the "+N HP" shown. Mouse clicks on an ally have to be driven in a window,
+where `Input.warp_mouse()` and a parsed `InputEventMouseButton` reach `ActionController` as a player's
+would. The clips are seen with `PreviewAnimations.gd -- use_medkit --over <base pose>` (or
+`use_medkit_self`), which moves the medkit to the hand between the clip's `take` and `stow` as the game
+does; which one a figure plays is `model._tree.get(&"parameters/left_pick/current_state")`.
+
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
 
@@ -1597,7 +1920,14 @@ where something lands; a hit follows the sight line and is never cast.
 `StandardMaterial3D` overrides, and the viewport mouse position is pinned at `(0,0)` while the
 window reports focus. Mouse button events pushed with `Viewport.push_input` never reach the GUI
 there either (keys do), so a probe that clicks buttons has to run in a window, with `--write-movie`
-to see it.
+to see it. There `root.push_input(event, true)`, a mouse button event at a point in the viewport's
+own coordinates (`Camera3D.unproject_position()`, or a control's `get_global_rect()`), clicks units
+on the map and HUD buttons alike and leaves the player's cursor where it is; `Input.warp_mouse()` and
+`Input.parse_input_event()` do too, moving the real cursor, and `Input.get_current_cursor_shape()`
+reads the cursor. Turn off the actions' `_process` first (they follow the real cursor) and the
+camera's `edge_pan_enabled`. On a software renderer (a cloud container's, under `xvfb-run`), setting
+the root viewport's `scaling_3d_scale` low, and turning off the environment's SSAO and SSIL, makes
+such a run several times faster.
 
 **`AnimatableBody3D.sync_to_physics` leaves a body behind when its parent moves.** It hands the
 body's transform to the physics server, and a parent moving underneath does not tell it. A unit's
@@ -1651,10 +1981,18 @@ few thousand lumps settling at once ("contacts were ignored", lumps sinking into
 lumps rather than single voxels (`DEBRIS_CLUMP`, `crumble_size`) keep the count down. Raising the contact or pair
 limits much further needs a bigger `temporary_memory_buffer_size`.
 
-**A fresh checkout imported headless has no `.vox` meshes.** `--headless --import` in a new git worktree
-imported no MagicaVoxel meshes, so every block was invisible and the map rendered almost nothing.
-Open it in the editor once, or copy `.godot/` from a working copy, before measuring or rendering
-there.
+**The MagicaVoxel addon's `.import` files must stay in git.** Its `plugin.gd` preloads
+`framed_mesh_instance.png`, and the editor starts plugins before it scans for files to import, so on
+a checkout without that PNG's `.import` file the plugin fails to load: no `.vox` importer, no block,
+figure or prop imported, and a map that renders almost nothing. The addon came with a `.gitignore`
+of its own ignoring `*.import`, which left every fresh checkout (a new clone or git worktree)
+needing a second `--import`, to find the PNG the first had imported. That `.gitignore` is gone and
+the addon's three `.import` files are committed, so one `--headless --path . --import` imports
+everything; an update of the addon must not bring the `.gitignore` back. The first import of a
+fresh checkout still logs four errors, and they are expected: as the autoloads compile, before the
+plugin starts, `Campaign.gd`'s preloads of the starting roster and inventory reach `Rifle2.vox` (the
+roster's rifles) and `StickGrenade.vox` (the inventory's grenades). The scan imports both a moment
+later, and the next run logs none.
 
 **Probe runs in parallel can log `Jolt Physics job system exceeded the maximum number of jobs`.**
 That is several Godot processes fighting over the CPU, not the scene; it does not appear run alone.
@@ -1671,6 +2009,30 @@ the edges along it on both sides, or the tiles do not join. The world map's navi
 over a second after the scene opens to be usable (`WorldMapTerrain.is_ready()`), and a
 `NavigationPathQueryParameters2D` gives up after 4096 polygons unless `path_search_max_polygons`
 is set (0 lifts it).
+
+**The game's font has no arrows and no shapes.** Open Sans SemiBold, the default, draws `←`, `▲` or
+`⏵` as nothing at all, so a gamepad button is drawn from shapes and its letters (`ButtonGlyph`), and
+anything else that wants a symbol has to draw it too.
+
+**`Control.reset_size()` keeps the top-left corner, whatever the grow direction.** A panel anchored
+to the bottom right and growing up and left grows off the screen after one. `ControlHints._collapse()`
+shrinks the offsets to the edge it grows from instead, and lets the minimum size grow it back the
+right way.
+
+**A `TabbedMenu` subclass that handles `_unhandled_input` must call `super(event)` first**, and stop
+if the event was handled: the base reads the gamepad's tab and sub-tab buttons there, and a GDScript
+override replaces the base's method rather than adding to it.
+
+**A static method on a `class_name` script must not share a name with a `Script` method.** Called on
+the class (`AIAction.reload()`), the name reaches the class's own `Script` object first, so
+`Script.reload()` ran and returned an error code where an action was wanted ("Trying to return a value
+of type int"). That is why the constructor is `AIAction.reload_gun()`; keep clear of `reload`, `new`,
+`get_class` and the rest of `Script`'s and `Resource`'s methods. Instance methods (`Unit.reload()`,
+`Tactics.reload()`) are fine.
+
+**A lambda captures a local variable's value, not the variable.** A probe's `var done := false` set
+to true inside a lambda it awaits never changes outside it, so a wait on it times out. Share a
+dictionary (`var turn := {"done": false}`) and set its key instead.
 
 **A script error does not end a `--script` run.** Godot sits idle after it until killed, so give
 scripted runs a `timeout`.
@@ -1732,8 +2094,16 @@ reaches may preload a destruction.
 
 ## Known gaps
 
-- A shared `Weapon` resource must stay stateless; give it `resource_local_to_scene` before adding
-  per-unit state like rounds remaining.
+- A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
+  in its magazine do (`Unit.rounds`), not on the weapon.
+- There is one kind of magazine and no ammunition to buy, carry or run out of: a reload always fills
+  it. Only the selected squad member's rounds are shown; an enemy's are seen only when it reloads,
+  by the animation. The action bar dims and lights its buttons on the controller's `changed`, not on
+  `Unit.rounds_changed`, so rounds set from outside an action (a probe) leave it stale until the next
+  change. Reload has no key of its own: it is chosen on the bar (or the d-pad) and confirmed, as every
+  action is. The reload is the rifle's alone (a pistol would need its own clip), and the rifle prop has
+  no magazine to pull, so the hand mimes one. The assault AI tops up a part-spent magazine only when it
+  has nothing else to do, never ahead of a fight.
 - Crates break whole on any strike or blast, however weak: only blocks that wear away read
   `Weapon.environment_damage` and `Grenade.environment_damage`.
 - Rounds fly straight through debris: the trace only sees the grid, and the voxels of blocks that wear
@@ -1773,6 +2143,17 @@ reaches may preload a destruction.
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
+- The gamepad's buttons are drawn and named as an Xbox controller's (a Steam Deck's), whatever pad is
+  plugged in: a PlayStation or Nintendo pad works, as the same buttons by place, but its prompts name
+  the Xbox ones. Nothing can be rebound, from the pad or the keyboard, and there is no rumble. It has
+  only been driven by simulated input (`Input.parse_input_event()`), never a real pad or a Deck.
+- The tile cursor steps whole tiles, and never on to one more than `HIGHEST_STEP` (4) cells above the
+  one it is on: a tile atop a taller stack than that, which no map has, would be the mouse's alone.
+  The world map's reticle does not snap to a village: it has to be put on the icon. The move path is
+  drawn only a shade bluer than the range round it, with the pad as with the mouse.
+- With the gamepad a reaction window's prompts lose their numbers (one has an A, the others none), so
+  the numbers' order is not shown, and the combat prompts' ten rows are a tall column: a player who
+  knows the pad has no way to hide them.
 - The only experience is for surviving a battle. The Human tree's four skills and the Minor Noble
   tree's first three are the only ones that do anything, and a stat bonus, gold after a combat and a
   grant of skill points the only kinds of effect; every take costs one skill point, and nothing
@@ -1787,12 +2168,24 @@ reaches may preload a destruction.
   out of the panel's bottom. Grenades are the
   only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
   its four enemies.
-- Enemies never strike or throw: their AI only shoots, so no enemy figure draws a sword or readies
-  a grenade, though the same figure can.
+- Enemies never strike, throw or hunker down: their AI only shoots, so no enemy figure draws a sword,
+  readies a grenade or ducks, though the same figure can. Nor do they carry medkits, and their AI never
+  heals.
+- A medkit heals a fixed 4 HP, its user or an ally beside it; nothing heals out of battle but the road.
+  A borrower cannot choose whose medkit to draw on (the first lender in the squad's order lends), the
+  lender's figure takes no part, and the borrower's hand reaches to its own belt for a kit that is not
+  there and appears in its hand; the button's count includes uses that walking away would lose.
+  Its uses are counted only on the action's button, and a medkit's prop does not show whether it has
+  been used. With Use Medkit up, a left click on a wounded ally beside the medic heals or lines them up
+  rather than selecting them. Treating itself, the figure keeps facing whoever it last turned to. The medkit hangs at the back of the belt, so the left hand's reach for it
+  falls a little short of a slot on the right, as a grenade's does at a throw.
+- The player never sees the Hunkered term at work: an enemy's shot shows its line but not its odds,
+  so only the outcomes tell. Hunker Down marks nothing on the map while it is lined up, and the unit
+  hunkers wherever it stands in cover, whichever way its cover faces.
 - Every unit wears the one figure, and only `BaseCharacter.vox` has a rig layout. Armor does not show
   on it, and a character's colour is the only thing that tells the squad apart.
 - A figure turns on the spot without stepping, so its feet slide round. Every throw is left-handed,
-  so the right hand keeps its weapon. There is no wounded idle, and no reload since there is no ammo.
+  so the right hand keeps its weapon. There is no wounded idle.
 - A target leans out of its cover only for a shot that sees it leaning, while that shot is lined up
   or played. XCOM 2 has more: a unit in cover leans out for a look every few seconds while it has
   enemies in sight, and one that is targeted holds its peek even when it is seen where it stands.
@@ -1802,7 +2195,7 @@ reaches may preload a destruction.
   rather than stepping there, and its head keeps the tilt of its chest. It leans out about three
   quarters of a tile, which from straight in front of its cover at long range shows its head, a
   shoulder and half its chest past the edge and no more; a hit is drawn landing on what shows.
-  The click body and the debris capsule stay on its tile.
+  The debris capsule stays on its tile; the click body goes out with the figure.
 - The enemy AI gains the shots the rule gives it and nothing else: `Tactics.advance()` still walks
   toward the nearest foe, and nothing weighs where a move would leave it seen leaning out.
 - Props are posed by kind: the rifle's grip and foregrip, the sword's grip. A gun shaped very

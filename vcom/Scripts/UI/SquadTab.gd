@@ -1,12 +1,13 @@
 ## The [SquadMenu]'s one tab: the roster, as the pause menu's Roster tab
 ## shows it, and along the bottom a footer for choosing who fights.
 ##
-## A double-click on a character (or Enter or Space on one) ticks them, or
+## A double-click on a character (or Enter, Space or A on one) ticks them, or
 ## unticks them, up to [constant Campaign.SQUAD_SIZE]; with that many ticked,
 ## another is refused until one is unticked. The footer says so and counts
 ## them, and its [HoldButton] starts the battle once held, greyed out while
 ## nobody is ticked. Single clicks still pick whose pages show, and their
-## equipment can still be changed: the battle has not begun.
+## equipment can still be changed: the battle has not begun. The footer's note
+## names the gamepad's A while the gamepad is in use.
 class_name SquadTab
 extends VBoxContainer
 
@@ -16,6 +17,7 @@ signal started(chosen: Array[Character])
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TEXT_COLOR := Color(0.7, 0.72, 0.78)
 const HINT := "Double click a character to select them for combat. %d / %d characters selected."
+const GAMEPAD_HINT := "Press A on a character to select them for combat. %d / %d characters selected."
 
 var _browser: CharacterBrowser
 var _note: Label
@@ -68,6 +70,35 @@ func show_roster(characters: Array[Character], ticked: Array[Character]) -> void
 	_refresh()
 
 
+func _ready() -> void:
+	InputDevice.watch(_refresh.unbind(1))
+
+
+## What A does on a character, for the gamepad's prompts ([TabbedMenu]):
+## ticks or unticks them, or nothing with the squad full.
+func gamepad_hint(focused: Control) -> Array:
+	var button := focused as CharacterButton
+	if button == null:
+		return []
+	if _chosen.has(button.character):
+		return [[&"A"], "Untick"]
+	return [[&"A"], "Tick"] if _chosen.size() < Campaign.SQUAD_SIZE else []
+
+
+## Gives the Start button the keyboard, to be held there. False while it is
+## greyed out.
+func focus_start() -> bool:
+	if _start.disabled:
+		return false
+	_start.grab_focus()
+	return true
+
+
+## Whether the Start button has the keyboard.
+func is_start_focused() -> bool:
+	return _start.has_focus()
+
+
 ## Moves the keyboard to the selected character, coming down from the menu's
 ## tab. False when there is nobody.
 func focus_selection() -> bool:
@@ -86,7 +117,7 @@ func _toggle(character: Character) -> void:
 
 func _refresh() -> void:
 	_browser.show_ticks(_chosen)
-	_note.text = HINT % [_chosen.size(), Campaign.SQUAD_SIZE]
+	_note.text = (GAMEPAD_HINT if InputDevice.gamepad else HINT) % [_chosen.size(), Campaign.SQUAD_SIZE]
 	_start.disabled = _chosen.is_empty()
 
 

@@ -61,7 +61,7 @@ cd /c/Users/tandm/Documents/Projects/VoxelXCOM/vcom
 A good bake prints one line:
 
 ```
-BakeCharacter: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn: 536 voxels on 18 bones, 552 vertices, 50 animations.
+BakeCharacter: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn: 536 voxels on 18 bones, 552 vertices, 56 animations.
 ```
 
 Bake again after **any** change to `Characters/BaseCharacter.vox`, `Scripts/Characters/VoxelRig.gd`,
@@ -83,8 +83,12 @@ that is open) rather than saving it over the new one.
 "$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- stand_rifle run_rifle strike_sword
 
 # Options: --frames N (default 6), --view three_quarter|side|front|back|top, --out <folder>,
-# --scene <figure scene> (default res://Scenes/BaseCharacter.tscn).
+# --scene <figure scene> (default res://Scenes/BaseCharacter.tscn), --over <base pose> (what an
+# arms-and-head act such as reload_rifle, or a left-arm act such as use_medkit, plays over; default
+# stand_rifle).
 "$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- crouch_rifle --view side --frames 4
+"$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- reload_rifle --over hunker_rifle --frames 8
+"$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- use_medkit --over crouch_rifle --frames 8
 ```
 
 Output goes to `user://animation_preview` unless `--out` says otherwise; on this machine that is
@@ -96,7 +100,7 @@ order given.
 
 1. Write a pose function in `HumanoidAnimations.gd` (section 6, recipes in 13).
 2. Register it in `make_library()`, and if the tree must play it, in the list that feeds the tree
-   (`STANCE_POSES`, `RIFLE_POSES`, `MELEE_POSES`, `ACTS` or `REACTS`).
+   (`STANCE_POSES`, `RIFLE_POSES`, `MELEE_POSES`, `ACTS`, `UPPER_ACTS`, `LEFT_ACTS` or `REACTS`).
 3. Bake.
 4. Preview it with `PreviewAnimations.gd`.
 5. Make `CharacterModel.gd` ask for it at the right moment, and the game code call that.
@@ -182,6 +186,9 @@ what it needs to be seen doing:
 | `TurnManager` deciding the battle | the winners cheering | `cheer_*` |
 | `LineOfSight.cover_at()` (cover beside the tile) | kneeling behind low cover, bracing at high | `crouch_*`, `wall_*` |
 | `LineOfSight.Shot.leaning` (a shot that sees its target only where it leans out of its cover; added later, section 19) | the target leaning out round the end of its cover, held while it is in the shooter's sights | `wall_lean_left_*`, `wall_lean_right_*`, `crouch_lean_left_*`, `crouch_lean_right_*` |
+| `HunkerDownAction` / `Unit.hunkered` (added later) | ducking low behind cover of either height | `hunker_*` |
+| `ReloadAction` / `Unit.reload()` (added later) | loading a fresh magazine, kneeling or hunkered as well as standing | `reload_rifle` |
+| `UseMedkitAction` / `Unit.use_medkit()` (added later) | holding a medkit out to an ally, or to itself, in any stance | `use_medkit`, `use_medkit_self` |
 | Standing about | an idle | `stand_*` |
 
 Items decide the three versions of most of these: a unit with a gun is in the **rifle** stance, one
@@ -239,7 +246,7 @@ Section 14 has how to repeat that.
                                          │                                                                            breaks apart on death
  Scenes/Props/Rifle.tscn ─(Foregrip)─► HumanoidAnimations.gd                                    Postures.gd ──────► settle(cover, yaw)
                                          poses as functions of time, IK ──► AnimationLibrary      (map node)
-                                         (50 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
+                                         (56 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
                                          AnimationNodeBlendTree (the tree)                        (on the skeleton)    turns the head
                                          │
                                        BakeCharacter.gd ──► Scenes/BaseCharacter.tscn
@@ -464,6 +471,8 @@ The figure shapes its unit's physics bodies (`Unit._add_bodies()`), neither of w
 
 - **Click body**: an upright `CylinderShape3D` of radius `Unit.PICK_RADIUS` (0.3) and the figure's
   height, on `Unit.PICK_LAYER`. Before the rig it was the convex hull of the T-posed mesh, arms out.
+  While the figure leans out of its cover (9.13) it stands where the figure leans to, `Unit.lean()`
+  off its tile, so a click on the target of a shot that sees it there finds it.
 - **Debris capsule**: as before, as thick as the figure's body (0.189 radius, from the rest box's
   depth), starting `Unit.BODY_CLEARANCE` above the feet.
 
@@ -690,7 +699,7 @@ holds the rifle should be checked from the side and the front for this.
 - **The plain importer cannot do it.** It makes a single mesh with greedy faces that span bones, so
   a face cannot be split by bone. Rigid skinning needs each bone meshed on its own (section 5).
 - **Hand-writing a rigged scene is error-prone** (CLAUDE.md: do not hand-write `Transform3D`s), and
-  so is keying 50 animations by hand.
+  so is keying 56 animations by hand.
 - **Animations depend on the model's proportions** (IK targets, hip heights), so they have to be
   generated *for* the rig. One command regenerates all of it consistently whenever the model, the
   rig or the animation code changes.
@@ -759,13 +768,13 @@ Every figure plays its animations through one `AnimationTree`, whose root is the
 `AnimationNodeBlendTree` from `HumanoidAnimations.make_tree()`.
 
 ```
- [31 base-pose clips] ─► stance (Transition, xfade 0.22) ─────────────────────────┐
-                                                                                   ├─► move (Blend2) ─► hop (Blend2, legs only) ─► air (Blend2) ─► act (OneShot, BLEND) ─► react (OneShot, ADD) ─► output
- run_rifle (BlendSpace2D: forward/back/left/right) ┐                               │        ▲                    ▲                    ▲                    ▲
- run_melee ────────────────────────────────────────┼─► run (Transition, 0.15) ─► run_scale ─┘    hop_pose (hop)       fall_pose (fall)     act_pick (Transition,     react_pick (Transition,
- run_unarmed ──────────────────────────────────────┘                    (TimeScale)                                                        xfade 0, reset):         xfade 0, reset):
-                                                                                                                                           strike_sword,            fire_rifle, hit_front,
-                                                                                                                                           throw_rifle/melee/       hit_back, dodge, land
+ [34 base-pose clips] ─► stance (Transition, xfade 0.22) ─────────────────────────┐
+                                                                                   ├─► move (Blend2) ─► hop (Blend2, legs only) ─► air (Blend2) ─► act (OneShot, BLEND) ─► upper (OneShot, BLEND, arms + head only) ─► left (OneShot, BLEND, left arm only) ─► react (OneShot, ADD) ─► output
+ run_rifle (BlendSpace2D: forward/back/left/right) ┐                               │        ▲                    ▲                    ▲                    ▲                                           ▲                            ▲
+ run_melee ────────────────────────────────────────┼─► run (Transition, 0.15) ─► run_scale ─┘    hop_pose (hop)       fall_pose (fall)     act_pick (Transition,     upper_pick (Transition,           left_pick (Transition,                 react_pick (Transition,
+ run_unarmed ──────────────────────────────────────┘                    (TimeScale)                                                        xfade 0, reset):         xfade 0, reset):                   xfade 0, reset):                      xfade 0, reset):
+                                                                                                                                           strike_sword,            reload_rifle                       use_medkit,                           fire_rifle, hit_front,
+                                                                                                                                           throw_rifle/melee/                                          use_medkit_self                       hit_back, dodge, land
                                                                                                                                            unarmed, draw_sword,
                                                                                                                                            stow_sword
 ```
@@ -774,8 +783,8 @@ Every figure plays its animations through one `AnimationTree`, whose root is the
 
 | Node | Type | Settings | Role |
 |---|---|---|---|
-| (31 clips named after their animations) | `AnimationNodeAnimation` | — | the base loops |
-| `stance` | `AnimationNodeTransition` | 31 inputs, one per base pose, named as the clip; `xfade_time` 0.22; reset off | which base pose is held; the cross-fade is how long raising a gun takes, and leaning out of cover |
+| (34 clips named after their animations) | `AnimationNodeAnimation` | — | the base loops |
+| `stance` | `AnimationNodeTransition` | 34 inputs, one per base pose, named as the clip; `xfade_time` 0.22; reset off | which base pose is held; the cross-fade is how long raising a gun takes, and leaning out of cover |
 | `run_rifle` | `AnimationNodeBlendSpace2D` | points `forward` (0, 1) `run_rifle`, `back` (0, -1) `back_rifle`, `left` (1, 0) `strafe_left_rifle`, `right` (-1, 0) `strafe_right_rifle`; `sync` on | the rifleman's run, any way across the ground in his own space |
 | `run_melee`, `run_unarmed` | `AnimationNodeAnimation` | — | the other runs |
 | `run` | `AnimationNodeTransition` | inputs `run_rifle`, `run_melee`, `run_unarmed`; xfade 0.15 | which run |
@@ -788,6 +797,12 @@ Every figure plays its animations through one `AnimationTree`, whose root is the
 | `<act>_clip` (6) | `AnimationNodeAnimation` | — | the acts |
 | `act_pick` | `AnimationNodeTransition` | 6 inputs, xfade 0, reset on | which act |
 | `act` | `AnimationNodeOneShot` | `MIX_MODE_BLEND`, fade in 0.1, out 0.22 | an act played whole over everything below |
+| `reload_rifle_clip` | `AnimationNodeAnimation` | — | the one arms-and-head act (`UPPER_ACTS`) |
+| `upper_pick` | `AnimationNodeTransition` | 1 input, xfade 0, reset on | which arms-and-head act |
+| `upper` | `AnimationNodeOneShot` | `MIX_MODE_BLEND`, fade in 0.15, out 0.25; **filter on**: the six arm bones, `Neck` and `Head` (`ARMS_AND_HEAD`) | an act played over the arms and head alone, the rest straight from below |
+| `<left act>_clip` (2) | `AnimationNodeAnimation` | — | the left-arm acts (`LEFT_ACTS`): `use_medkit`, `use_medkit_self` |
+| `left_pick` | `AnimationNodeTransition` | 2 inputs, xfade 0, reset on | which left-arm act |
+| `left` | `AnimationNodeOneShot` | `MIX_MODE_BLEND`, fade in 0.15, out 0.25; **filter on**: `LeftUpperArm`, `LeftLowerArm`, `LeftHand` (`LEFT_ARM`) | an act played over the left arm alone, the right hand keeping its weapon and the head left to the aim modifier |
 | `<react>_clip` (5) | `AnimationNodeAnimation` | — | the reactions |
 | `react_pick` | `AnimationNodeTransition` | 5 inputs, xfade 0, reset on | which reaction |
 | `react` | `AnimationNodeOneShot` | **`MIX_MODE_ADD`**, fade in 0.03, out 0.12 | a reaction added on top |
@@ -811,6 +826,10 @@ What `CharacterModel` sets each frame or on demand. Paths are `parameters/<node>
 | `parameters/act_pick/transition_request` | String | `_act(clip)` | the act to play |
 | `parameters/act/request` | int | `_act(clip)` | `ONE_SHOT_REQUEST_FIRE` |
 | `parameters/act/active` | bool (read) | — | whether an act is playing |
+| `parameters/upper_pick/transition_request` | String | `_act_upper(clip)` | the arms-and-head act to play |
+| `parameters/upper/request` | int | `_act_upper(clip)` | `ONE_SHOT_REQUEST_FIRE` |
+| `parameters/left_pick/transition_request` | String | `_act_left(clip)` | the left-arm act to play |
+| `parameters/left/request` | int | `_act_left(clip)` | `ONE_SHOT_REQUEST_FIRE` |
 | `parameters/react_pick/transition_request` | String | `_react(clip)` | the reaction |
 | `parameters/react/request` | int | `_react(clip)` | `ONE_SHOT_REQUEST_FIRE` |
 
@@ -827,6 +846,18 @@ Each clip node also exposes `current_length` and `backward`; nothing sets them.
   feet do not step.
 - `act` replaces everything below it while it plays (with its fades), so an act must be a whole pose
   and should start and end close to the base pose it is played over.
+- `upper` replaces only the bones its filter names, so the legs and body keep whatever they hold below
+  it: a reload kneeling behind cover stays kneeling. It is filtered rather than relying on its clip
+  having no leg tracks: the tree blends **deterministically**, so a bone a clip leaves unkeyed is pulled
+  toward its rest, not left to what is under it. Its clip's arms are turned from the chest and its head
+  from the neck, so they ride the body whatever pose it holds.
+- `left` is `upper` for the left arm alone (`LEFT_ARM`): its clips (using a medkit, on an ally or on
+  itself) work whatever the stance, since the right hand keeps whatever it holds from below, and leave
+  the head to the aim modifier's look, which `CharacterModel.attend()` points at the ally, or down in
+  front of the figure's own middle.
+- Aborting `upper` (`ONE_SHOT_REQUEST_ABORT`) and firing it again left it showing nothing of the clip
+  in a scripted run; nothing in the game aborts it, and `PreviewAnimations` fires it once and steps
+  through it rather than aborting between frames.
 - `react` adds; its clips must be changes from the rest, keyed only where they change something.
 - A Transition feeding a one-shot has xfade 0 and resets its input, so the one-shot always starts the
   picked clip from its beginning; the one-shot does the fading.
@@ -869,9 +900,9 @@ late (`HOP_DOWN` 0.15).
 ### 9.3 Readiness, cover and the base pose
 
 `readiness` is one of `NONE`, `AIM`, `MELEE`, `THROW`, `CHEER`, set by the calls in 9.4. `cover`
-(`LineOfSight.Cover`) comes from `Postures`. `overwatching` comes from the unit's setter. `leaning`
-(1 to its left, -1 to its right, 0 not) and the cover it leans out from come from `lean_out()`
-(9.13). The **hands**
+(`LineOfSight.Cover`) comes from `Postures`. `overwatching` and `hunkered` come from the unit's
+setters. `leaning` (1 to its left, -1 to its right, 0 not) and the cover it leans out from come from
+`lean_out()` (9.13). The **hands**
 are `melee` while a gun carrier has drawn its sword, else the stance. `_base_pose()` picks:
 
 | readiness | other conditions | base pose |
@@ -880,8 +911,9 @@ are `melee` while a gun carrier has drawn its sword, else the stance. `_base_pos
 | `AIM` | has a gun | `aim_rifle` (without a gun, AIM falls through to the rows below) |
 | `MELEE` | — | `ready_melee` |
 | `THROW` | — | `ready_throw_<hands>` |
-| `NONE` | leaning out from high cover | `wall_lean_left_<hands>` or `wall_lean_right_<hands>` |
-| `NONE` | leaning out from low cover | `crouch_lean_left_<hands>` or `crouch_lean_right_<hands>` |
+| `NONE` | leaning out from high cover, hunkered or not | `wall_lean_left_<hands>` or `wall_lean_right_<hands>` |
+| `NONE` | leaning out from low cover, hunkered or not | `crouch_lean_left_<hands>` or `crouch_lean_right_<hands>` |
+| `NONE` | hunkered down, any cover | `hunker_<hands>` |
 | `NONE` | overwatching, hands `rifle`, low cover | `overwatch_crouch_rifle` |
 | `NONE` | overwatching, hands `rifle`, high cover | `wall_rifle` (no visible overwatch in high cover) |
 | `NONE` | overwatching, hands `rifle`, no cover | `overwatch_rifle` |
@@ -902,7 +934,7 @@ without one.
 | `fall()` | inside `Unit.drop_to()` | `TerrainDestruction` dropping a stranded unit | falls until the unit stops, then lands |
 | `face(point)` | — | the readiness calls | turns to a point |
 | `settle(cover, yaw, watch, at_once)` | — | `Postures` | cover, facing, what to keep an eye on; `at_once` snaps (first look of a battle) |
-| `is_idle()` | — | `Postures` | not moving, falling, leaning out or dead, nothing ready, no act playing |
+| `is_idle()` | — | `Postures` | not moving, falling, leaning out or dead, nothing ready, nothing attended to, no act playing |
 | `lean_out(side, held, yaw, watch)` | `Unit.lean_out(tile, watch, grid)`, which works out the cover, the side and the yaw | `ShootAction._show_shot()`, `ShotPlayback.play()`, and `Unit.shoot_at()` (again, which changes nothing if it was already leaning for this shot), all only for a shot whose `Shot.leaning` is true | leans out round the end of its cover, facing it, looking at the shooter (9.13) |
 | `lean_back()` | `Unit.lean_back()` | `ShootAction` (another target lined up, or `end()`), `ShotPlayback.play()` after the shot, `Unit.shoot_at()` if nobody had lined the shot up | draws back behind its cover, once any flinch or duck is over |
 | `has_leaned_out()` | `Unit.has_leaned_out()` | inside `Unit.shoot_at()`, polled | whether it has turned to its cover and the lean has faded in (`RAISE_SECONDS`), or has been given `TURN_TIMEOUT` to; true of a figure that is not leaning |
@@ -910,6 +942,7 @@ without one.
 | `aim_at(point)` | `Unit.aim_at(point)` | `ShootAction._show_shot()`, `ShotPlayback.play()` | readiness `AIM`, faces the point, the aim modifier pitches to it |
 | `ready_strike(point)` | `Unit.ready_strike(point)` | `StrikeAction._show_target()` | readiness `MELEE`, draws a slung sword, faces the target |
 | `ready_throw(point = null)` | `Unit.ready_throw(point)` | `ThrowGrenadeAction.begin()` (no point) and `_aim()` (the throw's end) | readiness `THROW`, a grenade from the belt into the left hand, faces the point |
+| `attend(point)` | `Unit.attend(target)` | `UseMedkitAction._show_target()` | readiness `NONE`, faces the ally's chest and looks at it, and keeps doing so (not idle) until `stand_easy()`; given null (the unit itself), keeps the way it is turning and looks down `SELF_LOOK` ahead of its feet instead |
 | `celebrate()` | `Unit.celebrate()` | `TurnManager._end_if_decided()` for the winning side | readiness `CHEER` |
 | `stand_easy()` | `Unit.stand_easy()` | each action's `end()`, `ShotPlayback.play()` after a shot | back to `NONE`, at the end of the frame (see below) |
 | `take_aim(point)` (coroutine) | inside `Unit.shoot_at()` | every shot | aims, returns once turned and the gun up; at once if it already was |
@@ -917,10 +950,12 @@ without one.
 | `muzzle_point()` | — | `fire()` | the `Muzzle` marker's position, or eye height without a gun |
 | `strike(point)` (coroutine) | inside `Unit.strike()` | every strike | squares up, waits out a draw, plays `strike_sword`, returns at `impact` |
 | `throw_toward(point) -> Vector3` (coroutine) | inside `Unit.throw_at()` | every throw | turns, plays `throw_<hands>`, returns at `release` with the hand's position; hides the grenade in hand |
-| `recover()` (coroutine) | `Unit.recover()` | `StrikeAction._strike()` | waits for the act playing to end |
+| `reload()` (coroutine) | inside `Unit.reload()` | `ReloadAction._reload()`, `TurnManager` (an enemy's reload) | stands easy, waits out any act, plays `reload_rifle` over the arms and head, returns at `seat`; at once without a rifle in hand |
+| `use_medkit(point)` (coroutine) | inside `Unit.use_medkit()` | `UseMedkitAction._heal()` | attends the ally, waits out any act, plays `use_medkit` over the left arm, the medkit from the belt into the left hand at `take` and back at `stow`; returns at `apply`. Given null (the unit itself), attends to itself and plays `use_medkit_self`. `use_medkit(point, borrowed)`: a medkit drawn from a squad member beside it; with none on its own belt, a prop of it is made in the left hand at `take` and freed at `stow` (`_borrowed`) |
+| `recover()` (coroutine) | `Unit.recover()` | `StrikeAction._strike()`, `ReloadAction`, `UseMedkitAction`, `TurnManager` after a reload | waits for the act (or arms-and-head or left-arm act) playing to end |
 | `flinch(from)` | inside `Unit.take_damage()` (non-lethal hits) | every hit that does not kill | `hit_front` if `from` is in front of it, else `hit_back` |
 | `dodge()` | `Unit.dodge()` | `Unit.shoot_at()` and `Unit.strike()` on a miss | plays `dodge` on the target |
-| `equip(gun, melee, grenades)` | `Unit._dress()` | `Unit._ready()`, `Unit.use_up()` | shows the gear (9.6) |
+| `equip(gun, melee, grenades, kits)` | `Unit._dress()` | `Unit._ready()`, `Unit.use_up()` | shows the gear (9.6) |
 | `break_apart()` | `TerrainDestruction.break_figure()`, and `Unit.die()` | every death, once its voxels and gear are taken | marks it `dead`, hides it, stops its tree and aim (9.8) |
 | `paint(color)` / `tint()` | `Unit._paint()` / `Unit.color` | `Unit._take_character()` / UI | the flat body colour |
 | `body_box()` | — | `Unit._add_bodies()` | the rest box |
@@ -948,12 +983,21 @@ Where the rules wait for the figure:
 - **A throw**: `Unit.throw_at()` awaits `throw_toward()`, which turns, waits for any act, plays the
   throw and returns at release (0.36 s in) with the hand's position. Then the grenade is used up and
   flown from the hand.
+- **A reload**: `Unit.reload()` awaits `CharacterModel.reload()`, which waits for any act, plays
+  `reload_rifle` over the arms and head and returns at `seat` (0.78 s in). Then the magazine is full.
+  `ReloadAction` (and an enemy's turn) waits `Unit.recover()` (the remaining 0.42 s) before going on.
+  Nothing is called over the unit's head: the clip is the only sign of a reload.
+- **A medkit**: `Unit.use_medkit()` spends the use, then awaits `CharacterModel.use_medkit()`, which
+  turns to the ally (up to 0.5 s), waits for any act, plays `use_medkit` over the left arm and returns
+  at `apply` (0.58 s in). Then the ally mends, and `UseMedkitAction` calls "+N HP" over them and waits
+  `Unit.recover()` (the remaining 0.82 s) before completing. On the unit itself there is no turn, and
+  `use_medkit_self` plays to the same moments.
 
 Everything else (flinches, ducks, landings, cheers, runs) never makes the rules wait.
 
 ### 9.6 Gear
 
-`equip(gun, melee, grenades)` makes a prop for each item from its `Item.model` scene and calls
+`equip(gun, melee, grenades, kits)` makes a prop for each item from its `Item.model` scene and calls
 `_place_gear()`:
 
 | Item | Where it goes |
@@ -961,6 +1005,7 @@ Everything else (flinches, ducks, landings, cheers, runs) never makes the rules 
 | gun | `RightHand/RifleGrip`, or `Back/RifleSlot` while the sword is drawn |
 | melee weapon | `RightHand/SwordGrip` if there is no gun (melee stance) or it is drawn; else `Back/SwordSlot` |
 | grenades | the first one in `LeftHand/GrenadeGrip` while a throw is readied; the next three on `Belt/Grenade1`..`3`; more are carried unseen |
+| medkits | on the belt slots the grenades leave (`Belt/Grenade<n>` after them), used or not; the first in `LeftHand/GrenadeGrip`, turned a quarter (`MEDKIT_IN_HAND`) so its cross faces forward, from either medkit clip's `take` to its `stow`; a figure with none, using a squad member's, shows a prop of it in that grip meanwhile, made and freed there |
 
 - **Stances.** `rifle` with a gun, else `melee` with a melee weapon, else `unarmed`.
 - **Drawing and stowing.** A rifleman with a sword draws it when a strike is readied (`draw_sword`)
@@ -970,6 +1015,8 @@ Everything else (flinches, ducks, landings, cheers, runs) never makes the rules 
   A prop for the same item is kept, and the grenades are rebuilt.
 - **A thrown grenade** is hidden at release (the `ThrownGrenade` takes over). The next one comes off
   the belt only when another throw is readied.
+- **A medkit is never used up**: it stays on the belt for the battle, used or not, and the same prop
+  goes to the hand every time.
 - **An item with no `model`** is carried unseen.
 
 ### 9.7 The aim modifier
@@ -1175,7 +1222,7 @@ targeting method) until the shooter has gone back into cover (`X2Action_EnterCov
 
 ## 10. Catalogue of every animation
 
-50 clips. "Rot tracks" is how many bones are keyed (18 means all); "pos" the position tracks; "keys"
+56 clips. "Rot tracks" is how many bones are keyed (18 means all); "pos" the position tracks; "keys"
 the total after `optimize()`. Coordinates are rig voxels. "Chest" and "hip" positions are in that
 bone's own space (section 6.3).
 
@@ -1192,6 +1239,9 @@ bone's own space (section 6.3).
 | `wall_rifle` | base | 2.60 | loop | all + Root, Hips | 382 | |
 | `wall_melee` | base | 2.60 | loop | all + Root, Hips | 380 | |
 | `wall_unarmed` | base | 2.60 | loop | all + Root, Hips | 474 | |
+| `hunker_rifle` | base | 3.20 | loop | all + Root, Hips | 291 | |
+| `hunker_melee` | base | 3.20 | loop | all + Root, Hips | 291 | |
+| `hunker_unarmed` | base | 3.20 | loop | all + Root, Hips | 250 | |
 | `wall_lean_left_rifle` | base | 2.60 | loop | all + Root, Hips | 338 | `reach` 0.759 |
 | `wall_lean_left_melee` | base | 2.60 | loop | all + Root, Hips | 336 | `reach` 0.759 |
 | `wall_lean_left_unarmed` | base | 2.60 | loop | all + Root, Hips | 430 | `reach` 0.759 |
@@ -1228,6 +1278,9 @@ bone's own space (section 6.3).
 | `throw_unarmed` | act | 0.80 | once | all + Root, Hips | 402 | `release` 0.36 |
 | `draw_sword` | act | 0.45 | once | all + Root, Hips | 221 | `swap` 0.17 |
 | `stow_sword` | act | 0.45 | once | all + Root, Hips | 221 | `swap` 0.2 |
+| `reload_rifle` | act (arms and head) | 1.20 | once | both arms, Neck, Head | 167 | `seat` 0.78 |
+| `use_medkit` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 72 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
+| `use_medkit_self` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 71 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
 | `fire_rifle` | react (additive) | 0.30 | once | Spine, Chest, Neck, Head | 40 | |
 | `hit_front` | react (additive) | 0.42 | once | Spine, Chest, Neck, Head | 56 | |
 | `hit_back` | react (additive) | 0.42 | once | Spine, Chest, Neck, Head | 56 | |
@@ -1282,6 +1335,27 @@ bone's own space (section 6.3).
     direction (0.15, 1, 0.25));
   - sword upright in front, left hand by it;
   - unarmed: both hands raised in front of the chest (chest (±1.4, 1.8, 3.6)), bracing.
+
+### Base poses: hunkered down (`hunker_rifle`, `hunker_melee`, `hunker_unarmed`)
+
+- **Function:** `_hunker(time, stance)`, 3.2 s loop. Added with the Hunker Down action.
+- **When:** while the unit is hunkered down (`Unit.hunkered`), whatever the height of its cover, on
+  overwatch or not, until it moves or the player's next turn stands it up. Anything readied takes
+  over meanwhile (lining up a shot, a strike or a throw, the cheer at a win), and so does a lean out
+  of its cover while a shot sees it only there (9.13); it ducks again after.
+- **Body:**
+  - hips down to y 3.6, lower than the crouch's 5 (offset (-0.4, -5.4 + 0.1 breath, -1.8)), turned -6°;
+  - torso lean 36° + 1.5 breath, turn 4°, unsteadied (0), so the head goes down with it; neck +10°
+    and head +14° more, bowed.
+- **Legs:** the crouch's: right knee on the floor, its ankle drawn back to (-2.2, 1.4, -6.6); left
+  foot planted at (2, 0, 2), turned 6°.
+- **Hands:**
+  - rifle hugged upright to the chest, muzzle up past the face (chest (-1, -0.5, 2.6), direction
+    (0.1, 1, 0.1)), as the wall's but closer;
+  - sword upright against the chest (chest (-1, -1, 2.8)), the left hand by it;
+  - unarmed: the hands clasped over the back of the bowed head (head (±1.6, 4, -0.5)).
+- **Notes:** from the front the rifle stands across the face; it reads as ducking from every side.
+  The head stays a little higher than a one-cell crate.
 
 ### Base poses: leaning out of high cover (`wall_lean_left_*`, `wall_lean_right_*`)
 
@@ -1496,6 +1570,57 @@ bone's own space (section 6.3).
 - **The swap** of the props happens at the hand's highest point, in `CharacterModel`, not in the clip.
 - **For a swordsman without a gun** (the sword is always in hand), neither plays.
 
+### Reload (`reload_rifle`)
+
+- **Function:** `_reload(time)`, 1.2 s, once; keyed on `ARMS_AND_HEAD` only (both arms, `Neck`,
+  `Head`) and played through the filtered `upper` one-shot, so the legs and body keep whatever base
+  pose they hold: standing, kneeling behind low cover, against high cover, hunkered. Meta `seat` 0.78.
+- **When:** `CharacterModel.reload()`, from `Unit.reload()`: the squad's `ReloadAction` and an
+  enemy's `AIAction.Kind.RELOAD`. The magazine is full from `seat` on.
+- **Pose:** everything placed from the chest (the clip's own torso is the standing one's, but no
+  torso bone is keyed, so only the arms' and head's turns from it matter):
+  - the rifle eases from the low ready (`_low_ready()`) to a reload hold by 0.22 s, grip chest
+    (-2.4, -0.4, 3.8), muzzle up and out to the figure's left (0.62, 0.48, 0.62), rolled to turn its
+    underside to the left hand, and back to the ready from 0.88 to 1.15 s; it jolts 0.5 up as the
+    magazine is slapped home, 0.74-0.9 s;
+  - the left palm, keyed in the rifle's space or the chest's: the fore-end (0), under the receiver
+    just ahead of the grip, rifle (0, -1.4, 1.5) (0.24), down by the left hip, chest (5, -5, 2.5)
+    (0.4, the spent magazine dropped), the belt, chest (3.6, -6.2, 1.2) (0.56), below the receiver
+    (0.72), slapped up into it (0.78, `seat`), back on the fore-end by 0.98;
+  - the head looks down at the work: neck 6° and head 14° down, both turned a little toward the
+    gun, easing in from 0.1 s and out from 0.85 s.
+- **The rifle has no magazine of its own** (`Rifle2.vox` is a 19-voxel profile one voxel thick), so
+  the hand mimes one under the receiver.
+- **Over the other poses:** the arms are turned from the chest, so the gesture rides the body: behind
+  low cover it plays over the kneeling legs; hunkered, with the chest bent far forward, the raised
+  muzzle points ahead rather than up.
+
+### Using a medkit (`use_medkit`, `use_medkit_self`)
+
+- **Function:** `_medkit(time, on_self)`, 1.4 s, once, false for `use_medkit` and true for
+  `use_medkit_self`; keyed on `LEFT_ARM` only and played through the filtered
+  `left` one-shot, so everything else keeps whatever base pose it holds, in any stance: the right hand
+  keeps the rifle (one-handed now, at the ready) or the sword, standing, kneeling or hunkered. Meta
+  `take` 0.24, `apply` 0.58, `stow` 1.18.
+- **When:** `CharacterModel.use_medkit()`, from `Unit.use_medkit()`: the squad's `UseMedkitAction`.
+  The ally mends at `apply`; the medkit is in the left hand from `take` to `stow`.
+- **Pose:** the left palm, keyed in the chest's space: by the left hip, (4.6, -5.6, 1) (0), back to
+  the belt, (4.2, -6.6, -1.2) (0.24, taken), up past the waist, (3.4, -1.5, 5) (0.42), held out at
+  chest height, (1.6, 1.2, 7.2) (0.58, applied), a slight dip and back (0.8-0.98), the belt again
+  (1.18, hooked back on), the hip (1.4). The elbow's pole is out and down, (1, -1, -0.4). The head is
+  not keyed: the aim modifier's look turns it to the ally (`attend()`).
+- **On itself** (`use_medkit_self`, the medic treating its own wounds): the same keys but three. On
+  the way up it passes (3.6, -3, 4) (0.42), it is pressed to the figure's own middle, `SELF_MEDKIT`
+  (0.4, -2.6, 3.2), just below the rifle held across the chest, at 0.58, pressed in a little more,
+  (0, -0.3, -0.5) on that, at 0.8, and eased back at 0.98. The figure does not turn; the look goes
+  down in front of it (`CharacterModel.SELF_LOOK`, 0.6 m ahead of its feet and 0.7 m up, which the
+  look's 35-degree limit stops short of). Previewed from the side, front and three-quarters, standing
+  and over crouch_rifle, hunker_rifle and stand_unarmed: the kit stays clear of the rifle and the
+  thighs. The first try, (1.2, -1.5, 3.4), sat behind the rifle in the front view.
+- **The medkit belt slots are at the back** (`Belt/Grenade<n>`), so the reach back to the belt is a
+  little short of a slot on the right; the prop moves at `take` and `stow` all the same, as a grenade
+  does at a throw.
+
 ### Fire (`fire_rifle`)
 
 - **Function:** `_fire(time)`, 0.3 s, once; additive on `UPPER_BODY`.
@@ -1685,7 +1810,7 @@ Every significant choice, why it was made, and what it costs.
     - *Cons:* not diffable, so the diff to review is the script's.
 12. **Three stances (rifle, melee, unarmed) as variants of shared pose functions.**
     - *Pros:* one body motion per action; the hands differ by `_carry`.
-    - *Cons:* the clip count grows with every stance (a new stance adds eleven clips: nine base
+    - *Cons:* the clip count grows with every stance (a new stance adds twelve clips: ten base
       poses, a run and a throw); the run Transition and some `match` blocks must be extended by hand.
 
 ### The tree and the runtime
@@ -1693,7 +1818,7 @@ Every significant choice, why it was made, and what it costs.
 13. **A BlendTree with a Transition of base poses**, rather than a state machine or plain
     `AnimationPlayer` cross-fades.
     - *Pros:* every layer in one place; base poses are chosen by name; one-shots layer over anything.
-    - *Cons:* the Transition holds every base pose (31 inputs, growing); the tree is generated, so
+    - *Cons:* the Transition holds every base pose (34 inputs, growing); the tree is generated, so
       it is edited in code.
 14. **Reactions are additive** (`MIX_MODE_ADD`, deltas from the rest on the upper body).
     - *Pros:* one flinch, duck, recoil and landing for every pose: standing, kneeling, aiming,
@@ -1915,7 +2040,9 @@ their health.
 
 ### 13.3 Add an act: a one-shot played whole
 
-Example: a "reload" one-shot for a future ammo system.
+Example: a whole-body "reload" one-shot, as it was sketched here before there was ammo. The game's
+own `reload_rifle` went another way, over the arms and head alone so it works kneeling and hunkered
+too: see the end of this recipe.
 
 1. **Write the function**, starting and ending close to the base pose it plays over (here `aim_rifle`
    or `stand_rifle`), so the fade in and out is invisible. Use a key table for the timing:
@@ -1967,6 +2094,13 @@ Example: a "reload" one-shot for a future ammo system.
 
 6. **Props:** if the act moves a prop between sockets mid-clip, do it at a moment from the metadata,
    as `_draw_or_stow()` does, then `_place_gear()`.
+
+**Over the arms and head alone instead**, as `reload_rifle` is: something the hands do that should
+not stand a kneeling figure up. Key it on `ARMS_AND_HEAD` only (`_once(length, pose, ARMS_AND_HEAD)`),
+placing everything from the chest so it rides any pose; add it to `UPPER_ACTS` (the `upper_pick`
+Transition gets an input for it); play it with `_act_upper(clip)` rather than `_act()`, which counts
+as acting just the same; and preview it with `--over <base pose>`. The `upper` one-shot is filtered
+to those bones, so what it leaves comes straight from below (section 8).
 
 ### 13.4 Add a reaction: additive, on top of anything
 
@@ -2279,7 +2413,7 @@ cover, and nobody left leaning as a turn began.
   readies a grenade, though the same figure can.
 - **One figure for every unit.** Only `BaseCharacter.vox` has a layout; armor does not show; a
   character's colour is the only thing that tells the squad apart.
-- **No wounded idle, no reload** (there is no ammo), no idle fidgets beyond breathing and drift, no
+- **No wounded idle**, no idle fidgets beyond breathing and drift, no
   turn-in-place steps, no start or stop transitions on the run, no walk gait.
 - **No idle peeks.** XCOM 2's units in cover lean out for a look every one to five seconds while
   they have enemies in sight, and hold a peek whenever they are targeted. Here a figure leans out
@@ -2331,8 +2465,9 @@ cover, and nobody left leaning as a turn began.
   - the kneeling lean uses the same legs to either side;
   - from straight in front of its cover at long range it shows its head, a shoulder and about half
     its chest past the edge; hits are drawn landing on what shows;
-  - its click body and debris capsule stay on its tile, so a click on the leaning figure can miss
-    it, and debris it leans into does not move;
+  - its debris capsule stays on its tile, so debris it leans into does not move (its click body goes
+    out with it, the full `Unit.lean()` from the start, while the figure takes the 0.22 s cross-fade
+    to get there);
   - nothing on the HUD says a target is leaning but the figure itself, and the sight line going to
     it.
 - **Breaking apart:**
@@ -2363,7 +2498,8 @@ cover, and nobody left leaning as a turn began.
 | `Could not find type "CharacterModel"` (or another new class) | a new `class_name` script created outside the editor is not in the class cache | `--headless --path . --import` once |
 | My edit to `BaseCharacter.tscn` or the animations vanished | the bake regenerates the scene and both `.res` | change the scripts, not the outputs; for hand-made clips see 13.9 |
 | The open editor overwrote the new scene | it held the old one and was saved | reload changed scenes in the editor instead of saving them |
-| A new clip never plays | not in the tree (missing from `STANCE_POSES`, `RIFLE_POSES`, `MELEE_POSES`, `ACTS` or `REACTS`), not baked, or never requested by `CharacterModel` | add it, bake, and request it (`_base_pose()`, `_act()`, `_react()`) |
+| A new clip never plays | not in the tree (missing from `STANCE_POSES`, `RIFLE_POSES`, `MELEE_POSES`, `ACTS`, `UPPER_ACTS`, `LEFT_ACTS` or `REACTS`), not baked, or never requested by `CharacterModel` | add it, bake, and request it (`_base_pose()`, `_act()`, `_act_upper()`, `_act_left()`, `_react()`) |
+| An arms-and-head clip stands a kneeling figure up, or its legs go to the T-pose | played through `act` rather than `upper`: `act` replaces every bone, and the tree's deterministic blend pulls the bones the clip leaves unkeyed toward their rest | add it to `UPPER_ACTS` and play it with `_act_upper()` |
 | A tree input plays nothing (the figure snaps to the rest pose) | a name in `base_poses()` with no clip of that name | add the clip in `make_library()` for every stance |
 | An arm twists 180° or bends backwards | the IK pole points to the wrong side | flip or rotate the pole (section 6.2's table) |
 | A kneeling knee points up | the leg's default pole is forward and up | pass `knee = Vector3(0, -1, 0.7)` (as `_crouch` does) |
@@ -2400,7 +2536,7 @@ animated figures:
 | All 15 `CharacterModel._process`es | about 0.25 ms |
 | One `Postures` run (every 0.2 s) | 0.13 ms |
 | The skinned mesh | 552 vertices a figure |
-| The library | 50 clips, 501 KB (binary); 38 clips and 384 KB before the leans |
+| The library | 56 clips, 537 KB (binary); 38 clips and 384 KB before the leans, the hunker, the reload and the medkit |
 | A bake | a few seconds (the library itself about 80 ms) |
 | A death, breaking apart (`BoundaryMap.tscn`) | about 1.6 ms on its frame: the lumps cut 0.7, made 0.6, the gear 0.1; about 3.8 with blood, which stains the killing wound at once |
 

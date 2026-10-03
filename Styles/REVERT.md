@@ -147,7 +147,7 @@ current = true
   ```
 
   Everything else is at its default: Burley diffuse, Schlick-GGX specular, metallic 0, no rim. The scene importer (the crate's pieces) builds its meshes with the same generator, so it gets the same material.
-- **The addon is unmodified** since it was added in `184c84d`: `git diff 5f9a0f9 -- vcom/addons/` must come back empty. If a style added a material import option (APPLYING.md option **b**), restore the addon and the import files, then re-import.
+- **The addon is unmodified** since it was added in `184c84d`: `git diff 5f9a0f9 -- vcom/addons/ ':!*.import' ':!*.gitignore'` must come back empty. What it leaves out changed for another reason: the addon's own `.gitignore`, which ignored `*.import`, was deleted and its three `.import` files committed, so a fresh checkout imports in one go (CLAUDE.md, Gotchas). If a style added a material import option (APPLYING.md option **b**), restore the addon and the import files, then re-import.
 - **Import options**, the `[params]` of each `.vox.import`:
   - `Blocks/BrightGrass1`, `BrightCrate1`, `SkinnyTree1Bottom`, `SkinnyTree1Top`: `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
   - `Blocks/Destruct_BrightCrate1` (imported as a scene): `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false OriginsToGeometry=false ImportAnimation=true AnimationFPS=8.0 AnimationLoop=true AnimationAutoplay=false`

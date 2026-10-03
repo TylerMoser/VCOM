@@ -54,9 +54,12 @@ func adjacent_foes() -> Array[Unit]:
 
 
 ## Every shot the unit has at [param targets], each as an action with its
-## odds, nearest target first.
+## odds, nearest target first. None with its magazine empty
+## ([method Unit.can_fire]).
 func shots_at(targets: Array[Unit]) -> Array[AIAction]:
 	var shots: Array[AIAction] = []
+	if not unit.can_fire():
+		return shots
 	for shot in _line_of_sight.find_shots(unit, targets):
 		shots.append(AIAction.shoot(shot, HitChance.for_shot(unit, shot)))
 	return shots
@@ -70,6 +73,17 @@ func best_shot(targets: Array[Unit]) -> Variant:
 		if best == null or option.estimate.chance > best.estimate.chance:
 			best = option
 	return best
+
+
+## A reload, if the unit's magazine is short of full and it has the actions
+## its gun's reload costs; null otherwise. [param only_when_empty] asks for
+## one only once there is nothing left to fire.
+func reload(only_when_empty := false) -> Variant:
+	if not unit.can_reload() or unit.actions_remaining < unit.reload_cost():
+		return null
+	if only_when_empty and unit.can_fire():
+		return null
+	return AIAction.reload_gun()
 
 
 ## A move of up to [param max_steps] tiles along the shortest way to the

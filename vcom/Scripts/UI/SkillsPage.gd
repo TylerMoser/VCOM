@@ -61,12 +61,15 @@ func _init() -> void:
 
 
 ## Notes which of the mouse and the keyboard was used last, before either
-## moves anything, and hands the tooltip to its node.
+## moves anything, and hands the tooltip to its node. The gamepad counts as
+## the keyboard: it moves the same focus.
 func _input(event: InputEvent) -> void:
 	if not is_visible_in_tree():
 		return
 	var by_keyboard := _by_keyboard
-	if event is InputEventKey and event.is_pressed():
+	if (event is InputEventKey or event is InputEventJoypadButton) and event.is_pressed():
+		by_keyboard = true
+	elif event is InputEventJoypadMotion and absf((event as InputEventJoypadMotion).axis_value) >= InputDevice.STICK_THRESHOLD:
 		by_keyboard = true
 	elif event is InputEventMouse:
 		by_keyboard = false
