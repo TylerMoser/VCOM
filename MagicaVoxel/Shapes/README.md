@@ -97,7 +97,7 @@ Two things to know first:
   full cover. Climbing, stairs, water, crossing a fence and rough ground (all on `todo.txt`'s list of
   terrain types) would each need rules of their own.
 - **Blood reads every block in the library drawn from a `.vox` as a map loads**, used on the map or
-  not (`CLAUDE.md`, Known gaps). That is fine for a handful more. With all of these in the library it
+  not (`Docs/BLOOD.md`, Known gaps). That is fine for a handful more. With all of these in the library it
   would be worth reading only the blocks a map uses.
 
 ## Building them again

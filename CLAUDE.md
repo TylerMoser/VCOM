@@ -18,6 +18,13 @@ camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.god
 `Styles/REVERT.md` restores the original look. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
+`Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
+subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
+`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MEDKIT.md` and
+`SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
+file before touching it, and put new detail about it there, not here; when this file nears the limit
+again, split another subsystem out the same way.
+
 ```
 vcom/Scripts/
   Unit.gd              health, actions, reaction, walking, shoot_at(), strike(), throw_at(); name, colour, stats, health
@@ -311,7 +318,7 @@ selection gets the default action instead.
 (`is_granted(unit)`, which reads `Unit.carries(tag)`): Shoot, Overwatch and Reload need `Item.GUN`
 (Reload, overriding `is_granted`, a gun with a magazine as well), Strike `Item.MELEE`, Throw Grenade
 `Item.GRENADE`, Use Medkit `Item.MEDKIT` (overriding `is_granted`, or a squad member next to the unit with a
-medkit use left: see the medkit below), and Move and Hunker Down, with none, are every unit's. That is a different test from
+medkit use left: see `Docs/MEDKIT.md`), and Move and Hunker Down, with none, are every unit's. That is a different test from
 `is_available`: an action the unit lacks has no button on the bar (the bar shrinks and re-centres),
 where one it cannot take right now is dimmed; `ActionController.activate()` checks both. The first
 child, the default, must need nothing. What a unit carries is `Unit.equipment`, copied from its
@@ -391,63 +398,19 @@ unit is moving, so anyone the blast dropped has landed before the next throw is 
 3D effects go under `effects_path`, the map root.
 
 **A medkit heals an ally next to the unit, or the unit itself, once a battle for each one carried,
-and the squad members beside its carrier can draw on its uses.** `Medkit.tres` is a
-`Medkit` (`BattleItem`, tagged `medkit`, `heal` 4, price 10, one in `Village1Market.tres`'s stock), so it
-goes in an item slot and gives `UseMedkitAction`. It is never used up, unlike a grenade: what a battle
-spends is `Unit.medkits`, the `Medkit`s the unit can still use, filled from its equipment as it enters
-the map (one per medkit carried, so two give two uses) and popped by `Unit.use_medkit()`; the item stays
-in `Unit.equipment`, on the figure's belt and on the character, and the next battle fills the list
-again. Nothing is kept on the character (the user's: "only once per mission, per Medkit given to a
-character"). The action is laid out as `StrikeAction` (the user's: "similarly to how a character with a
-melee weapon chooses the target"): its targets are the living allies in `ally_group` (`players`) that
-`Unit.is_wounded()` (health short of `max_health`), next to the unit as `Tactics.is_next_to()` has it,
-nearest first, then the unit itself if it is wounded (`UseMedkitAction._patients()`; the user's "let the
-Medkit heal the character holding it as well"; last, so an ally beside comes up first, as my call); Tab /
-Shift+Tab, LB / RB and the tile cursor cycle them (the cursor on the unit's own tile lines itself up);
-Enter / Space, A, a click on the one lined up (either button) or the panel's tick heals; a click on another
-lines it up. It costs `UseMedkitAction.COST` (1) and is available with a use left, an action left and
-someone to treat: itself wounded, or a wounded ally beside. `ShotOverlay.show_heal()` draws a strike's line, reticle and panel in green
-(`TargetPanel.bind_heal()`: the ally's health now and after, and "+N HP" where the odds go, with no
-breakdown, so the prompts drop LT's row: `UnitAction.shows_odds()`). `Unit.use_medkit(target)` is the
-single place one is used: it spends the use, has the figure play `CharacterModel.use_medkit()` (turn to
-the ally, the medkit off the belt and held out, returning at the clip's `apply`; on itself, `Unit._chest_of()`
-passes null and the figure keeps its facing and presses the medkit to its own middle,
-`use_medkit_self`), then
-`target.heal(kit.heal)`: `Unit.heal()` adds to `health`, which clamps at `max_health`, so an ally 2 short
-gains 2, and `PlayerSquad` writes the new health on the character's `wounds` as it does every change.
-The action calls the gain over the ally in green (`ShotOverlay.flash_heal()`), waits `Unit.recover()`
-and completes. Its button counts the uses left in its corner (`UnitAction.uses_left()`, drawn by
-`ActionButton.uses`, -1 for the actions with no count). Since its targets are squad members, a left
-click on one would select them (`PlayerSquad`); `ActionController` asks the active action first
-(`UnitAction.takes_click_on()`), and Use Medkit takes a left click on any ally it offers, so selecting
-one of them means Tab, the squad panel or putting the action away first; a left click on the unit
-itself, while it is on offer, lines it up or heals it too. Lined up on itself, `ShotOverlay.show_heal()`
-gets one point for both ends and draws no line, only the reticle and panel over it. Decided without
-asking the user: one action; never above the most health; nothing rolled; the left click taken; the
-count on the button; the green; the figure's showing of it, the kit on the belt and a clip over the
-left arm alone; and, once healing itself was asked for, itself offered last, no line to itself, and
-the figure pressing the kit to its own middle without turning. Enemies carry none, and their AI
-never heals.
-
-A use can be borrowed (the user's: "allow allies next to a character holding a Medkit to use the 'Use
-Medkit' action, even if they are not equipped with one"; their own uses first; "it should still use 1
-usage ... for the unit equipped with the Medkit", so a carrier whose last use a neighbour spent has none
-left). Whose use the action spends is `UseMedkitAction.supplier(unit)`: the unit itself while its
-`Unit.medkits` has one, else the first of `_lenders(unit)`, the living squad members in `ally_group`
-next to it (`Tactics.is_next_to()`) with a use left, in the group's order, which is the squad's. So the
-action is granted (`is_granted()`, overriding the tag test) to a carrier always and to anyone else only
-while `_lenders()` has someone, and available only with a supplier; its targets are the unit's own, as
-before (the wounded next to the *user*, and itself), and `uses_left()` counts the unit's uses and every
-lender's. `_heal()` passes the supplier to `Unit.use_medkit(target, from)`, which pops `from.medkits`;
-the user spends the action. The panel's status line names a borrowed kit ("Blue's Medkit · 7 → 10 HP",
-`TargetPanel.bind_heal(..., kit)`, through `ShotOverlay.show_heal()`), and the figure, given the kit
-(`CharacterModel.use_medkit(point, borrowed)`), makes a prop of it in the left hand from `take` to
-`stow` (`_borrowed`, one of `_medkits` meanwhile) when it has none of its own on its belt, or takes its
-own spent one otherwise. Decided without asking: the squad's order picking among several lenders, and
-the player not choosing; the count on the button including the neighbours'; the panel's naming; a kit
-appearing in the borrower's hand while the lender's figure does nothing and keeps its own on its belt;
-and a carrier's spent use being taken before a neighbour's whenever it has one left, as "use their
-usages first" reads.
+and the squad members beside its carrier can draw on its uses.** `Medkit.tres` is a `Medkit`
+(`BattleItem`, tagged `medkit`, `heal` 4), so it goes in an item slot and gives `UseMedkitAction`,
+laid out as `StrikeAction`: its targets are the wounded allies next to the unit, nearest first, then
+the unit itself if it is wounded, and it costs `UseMedkitAction.COST` (1). It is never used up, unlike
+a grenade: what a battle spends is `Unit.medkits`, filled from the unit's equipment as it enters the
+map. Whose use is spent is `UseMedkitAction.supplier(unit)`: the unit's own first, else a squad
+member's standing next to it (`_lenders()`), which is why `is_granted()` overrides the tag test.
+`Unit.use_medkit(target, from)` is the single place one is used, the heal (`Unit.heal()`, never above
+`max_health`) landing at the clip's `apply`. Its targets being squad members, the action takes a left
+click on one it offers (`UnitAction.takes_click_on()`), which would otherwise select them.
+`Docs/MEDKIT.md` has the rest: the targets and the clicks, the panel, the figure's showing of it,
+borrowing, how to probe it, its gaps and what was decided without asking the user. Read it before
+touching the medkit.
 
 **Hunkering down is a state on the unit that one term of the hit chance reads.** `HunkerDownAction`
 needs no item, so every unit has it, but it is only available in cover (`HunkerDownAction.is_in_cover()`:
@@ -551,55 +514,21 @@ from either menu's tabs goes to the open tab's `focus_selection()` when it has o
 
 **The gamepad plays everything, and the screen says how.** `InputDevice` (the autoload
 `InputDevices`, first of the three so it is there when the pause menu's widgets ready) watches every
-event in `_input`, paused or not, and sets the static `InputDevice.gamepad` to whichever was touched
-last: a pad button, or a stick or trigger past `STICK_THRESHOLD`, for the gamepad; a key, a mouse
-button, or the mouse moved `MOUSE_THRESHOLD` pixels in one event (the game moves it itself as it
-changes the cursor's shape) for the keyboard and mouse. It hides the mouse while the gamepad is in
-use and emits `changed`; everything else reads the static by the class's name, so a probe can still
-name them (see Gotchas), and `InputDevice.watch()` connects to the signal. Being last to see `_input`,
-it never sees an event another `_input` handled, so new gamepad handling goes in `_unhandled_input`.
-The layout is an Xbox controller's (a Steam Deck's), bound in `project.godot` beside the keys: most
-actions gained a button (A `confirm_action` and `ui_accept`, B `cancel_action`, `ui_cancel` and
-`reaction_continue`, Menu `pause_menu`, View `end_turn`, LB / RB the squad and the targets, LT
-`show_shot_details`, R3 `toggle_grid`, the right stick's x `camera_rotate_*`, the d-pad's up / down
-`camera_zoom_*`), and the pad has actions of its own: `cursor_*` (the left stick), `next_action` /
-`previous_action` (d-pad right / left), `recenter` (L3), `camera_zoom_stick_*` (the right stick's y),
-`menu_next_tab` / `menu_previous_tab` (RB / LB), `menu_next_subtab` / `menu_previous_subtab` (RT / LT),
-and `reaction_fire` / `reaction_next` / `reaction_previous` (A, RB, LB). Godot's own `ui_*` already
-had the d-pad and the left stick, so the menus' focus moves as with the arrow keys.
-
-Where the mouse points, the gamepad has a pointer of its own. In combat it is the `TileCursor`, which
-`ActionController` makes and shows on the player's turn, not busy, with someone selected, and puts on
-whoever is selected as the selection changes, the turn starts, or L3 is pressed: the left stick steps
-it a tile at a time in eight ways relative to the camera (up the screen is away from it), finding
-the tile nearest its height in the next column with one, and the camera follows it. Actions ask
-`ActionController.pointed_tile()` (the cursor's tile with the gamepad, the mouse's tile without),
-which is how Move previews and walks and Throw Grenade aims; `cursor_moved()` tells the active action
-it moved, which is how Shoot and Strike line up the target the cursor reaches, and they snap the
-cursor to each target `LB` / `RB` line up. A, being `confirm_action`, already fired, struck, threw,
-went on overwatch, hunkered or reloaded; on Move it walks to the cursor, or selects the squad member standing
-there. Switching device begins the active action again, so it starts from the new pointer. On the
-world map it is the middle of the screen, where `MapReticle` draws a ring:
-`InputDevice.pointer_position()` / `pointer_on_canvas()` give it, or the mouse, so `Destination`'s
-hover, `Party`'s sending and `VillageMenu`'s opening take one path for both, and the map's camera
-slides under it on the left stick and zooms toward it.
-
-The prompts are `ControlHints` panels of rows, a `ButtonGlyph` or two and the words: down the right in
-combat (`ActionController._show_hints()`, A's words from the active action's `confirm_hint()`) and on
-the map (`MapReticle._rows()`), along the bottom of every `TabbedMenu` (`_gamepad_hints()`), shown only
-with the gamepad. A menu's A words come from the focused control: its own `gamepad_hint(focused)` if it
-has one (a `SkillButton`: "Hold: Learn" while learnable, else nothing), else the first ancestor's that
-says something (`ItemBrowser`'s action, the shops' "Choose", `SquadTab`'s "Tick" / "Untick"), else
-"Hold" and the caption on a `HoldButton`, the text on any other button A presses, and nothing on a
-toggle the focus alone selects. Elsewhere the HUD swaps a key for a glyph: the target panel's tick
-becomes an A, the action bar gains d-pad arrows at its ends, and a reaction window picks out one
-prompt with an A (`Reactions._focus`, first in squad order, moved by LB / RB) instead of numbering
-them all. In the shops A on an item or a character goes on to the buy or hire button
-(`PurchaseBar.focus_offer()`), to be held there. Decided without asking the user: the Xbox layout and
-its labels; the d-pad choosing actions and zooming rather than moving the cursor; A on a squad member
-with Move up selecting them; LB / RB, not the d-pad, moving a reaction's pick; `Menu` going to Start
-on the squad menu; and the cursor's marker, a pyramid bobbing over the tile, over a unit's head when
-one stands there.
+event in `_input`, paused or not, and sets the static `InputDevice.gamepad` to whichever device was
+touched last; it hides the mouse while the gamepad is in use and emits `changed`
+(`InputDevice.watch()` connects to it). Being last to see `_input`, it never sees an event another
+`_input` handled, so new gamepad handling goes in `_unhandled_input`. The layout is an Xbox
+controller's, bound in `project.godot` beside the keys. Where the mouse points, the gamepad has a
+pointer of its own: in combat the `TileCursor` the left stick steps, which actions read through
+`ActionController.pointed_tile()` (the mouse's tile without the pad) and hear of through
+`cursor_moved()`; on the world map the middle of the screen (`InputDevice.pointer_position()` /
+`pointer_on_canvas()`, where `MapReticle` draws a ring). Switching device begins the active action
+again, so it starts from the new pointer. The prompts are `ControlHints` panels of `ButtonGlyph`s and
+words, shown only with the gamepad: A's words come from the active action's `confirm_hint()` in
+combat, and from the focused control's `gamepad_hint(focused)`, or the first ancestor's that says
+something, in a menu. `Docs/GAMEPAD.md` has the rest: every binding, how the cursor steps, where
+each prompt's words come from, what the HUD swaps for a glyph, how to probe the pad headless, its
+gaps and what was decided without asking the user. Read it before touching input.
 
 **Forests are shapes drawn in the editor.** Each is an instance of `Scenes/Forest.tscn`, a
 light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
@@ -699,7 +628,7 @@ square on the tile it counts as over, and nothing in game. So they are linked: a
 `display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
 `melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure on a copy
 of the material). Each is `Character.total(stat)`, not the character's own property: their own with
-what their learned skills add (see "What a skill gives" below) and, for defense, their armor's
+what their learned skills add (see "Skills are data" below) and, for defense, their armor's
 (`Character.total_defense` is `total(&"defense")`). They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
 (actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
@@ -712,7 +641,7 @@ is the character's alone and never copied to the unit. It only goes up through
 one way is surviving a battle: as `TurnManager` decides the battle it calls
 `PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50),
 and adds to `Campaign.gold` whatever gold each one's skills find after a combat
-(`Character.combat_gold()`, see "What a skill gives" below), emitting `found_gold(unit, gold)`, on
+(`Character.combat_gold()`, see "Skills are data" below), emitting `found_gold(unit, gold)`, on
 which `TurnManager` calls "+N Gold" over that unit's head as a coin it picked up would be
 (`ShotOverlay.flash_pickup()`).
 A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment, and has
@@ -883,7 +812,7 @@ which the unit copies as its own; the Details page shows that total and refreshe
 Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
 tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
 its buttons and says why. This is the menu's first read-only-in-combat rule; the System tab's
-**Blood** button is the second (see Blood), and learning a skill the third (see Skill trees).
+**Blood** button is the second (see Blood), and learning a skill the third (see "Skills are data").
 `Campaign.use_up()` and `lose()` do not refuse: they follow what the battle did.
 
 The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
@@ -893,185 +822,36 @@ is never left showing someone else; a page with content overrides `_refresh()`, 
 the open page; opening the menu goes back to Details. A page that can change the character hides
 the means when `read_only` is set, as it is for characters not on the roster.
 
-**Skill trees are data, and any shape.** A `Skill` (`Resources/Skills/`) is a stateless `.tres` like
-an `Item`: a name, a line of flavour text, an icon and its levels, each with its words and what it
-gives. A `SkillTree` places skills as
-`SkillTreeNode`s, each with an `id` unique in its tree, a `cell` on the tree's grid (column, row,
-from 0 at the top left) and `requires`, the ids of nodes in the same tree that must all be learned
-before it can be (`SkillTree.is_open()`). A tree's shape is nothing more than where its nodes sit and what
-they require: a column of nodes each requiring the one above is a path, two requiring one node a
-fork, one requiring two a join. A skill is kept apart from where it sits so one can sit in several
-trees (decided with the user), though no skill sits in two yet. A node's `id` is what a character's
-progress keys on, and saves will, so never rename one once in play.
+**Skills are data: a skill's levels, placed in a tree, give effects.** A `Skill`
+(`Resources/Skills/`) is a stateless `.tres` like an `Item`, with a `SkillLevel` for each time it can
+be taken (`Skill.takes()`, at most `Skill.MOST_LEVELS`, 5), each with its words and its `effects`. A
+`SkillTree` places skills as `SkillTreeNode`s (an `id` unique in its tree, a `cell` on the tree's
+grid, the ids it `requires`), so a tree's shape is only where its nodes sit and what they require,
+and belongs to a `SkillSource`: a `Species`, a `SubSpecies` or a `CharacterClass`. A `Character`
+holds one of each (`Character.TREES`); every character is a Human Minor Noble, and no class exists
+yet. A node's `id` is what a character's progress keys on, and saves will, so never rename one once
+in play.
 
-A tree belongs to a `SkillSource`, the base of `Species` (`Resources/Species/`), `SubSpecies`
-(`Resources/SubSpecies/`) and `CharacterClass`, each with its tree as a sub-resource in its `.tres`.
-A sub-species is a kind of exactly one species (`SubSpecies.species`; decided with the user); a class
-has one tree, shown the same whether it is the Main Class or the Multi-Class (also decided). A
-`Character` holds one of each, `species`, `sub_species`, `main_class` and `multi_class`, any of them
-unset, listed with their titles in `Character.TREES`. Every character is a Human Minor Noble, and no
-class exists yet. Nothing checks that a character's sub-species is one of their species' kinds: keep
-them agreeing.
+What a character has learned is theirs, like their wounds: `Character.learned`, the node ids of each
+tree keyed by its `SkillSource`, once for each time taken. It only changes through
+`Character.learn()`, one skill point a take, which refuses unless `can_learn()`; a requirement is met
+by taking the node once. The Skills page learns through `Campaign.learn()`, which refuses first
+during a mission, since a unit copies its stats as the map loads. A character has the effects of
+every level taken (`Character.skill_effects()`), so a level holds only what it adds, and an effect is
+a `SkillEffect` subclass of one of two sorts. One lasts while the level is had, and nothing is
+applied or stored for it: the rules ask the effects when they need an answer, `bonus_to(stat)`
+(`StatBonus`) through `Character.total(stat)`, which everything wanting a character's stat reads, and
+`gold_after_combat()` (`CombatGold`) through `Character.combat_gold()`, which
+`PlayerSquad.award_survivors()` asks of the squad's members still standing. The other happens once,
+as `learn()` takes the level: `when_taken(character)` (`SkillPointGrant`). A new skill of a kind of
+effect that exists is only its `.tres` and its node in a tree; a new kind is a `SkillEffect`
+subclass and, if neither sort fits, a new method on the base class and a call where the rules need
+it.
 
-**Skills are learned by holding a node.** What a character has learned is theirs, like their wounds:
-`Character.learned`, the node ids of each tree in the order learned, keyed by the `SkillSource`
-resource (not by the column, so a tree's progress follows the species or class, wherever it shows).
-It only changes through `Character.learn()`, which spends one skill point a node, every node the
-same, and refuses, changing nothing, unless `can_learn()`: the tree is one of the character's own
-(`TREES`), the node is in it and not yet taken as often as it can be, everything it requires is
-learned, and there is a point to spend. The page learns through `Campaign.learn()`, which refuses
-first during a mission, as `equip()` does: a unit will take what its character has learned when the
-map loads.
-
-**A skill has a level for each time it can be taken.** `Skill.levels` is a list of `SkillLevel`s
-(sub-resources of the skill's `.tres`) in the order they are taken: the first is what learning the
-skill gives, each after it what taking it again adds, for more or different benefits each time. A
-level has its `description`, the words its tooltip shows, and its `effects`. How often a skill can
-be taken is how many levels it has (`Skill.takes()`: at least once, with none, and at most
-`Skill.MOST_LEVELS`, 5, the first and four more), so there is no separate count to disagree with
-them: a level is added by adding one. They are the skill's, so the
-same in every tree that places it, and `SkillTreeNode.takes()` is its node's count. Every take is a
-`learn()` of its own, a skill point each, and
-`Character.learned` lists the node's id once for each (`times_learned()` counts them), so the list is
-still the order things were learned in. A requirement is met by taking the node once, however often
-it can be taken (`is_open()` only asks whether the id is there): assumed, not asked of the user, as
-is a press of the button taking it once at most, as every hold does. `Ambition.tres` (five levels)
-is the Human tree's first node, `ambition`, and `Hardiness.tres` (one level, so no rings: +1
-`defense`) its second, `hardiness`, which requires it, and `Dexterity.tres` (one level with two
-effects, +1 `move_range` and +5 `evasion`) its third, `dexterity`, which requires that, and
-`Adaptability.tres` (one level, a `SkillPointGrant` of 5) its last, `adaptability`. That is the whole
-Human tree. The Minor Noble tree starts with `MoneyGrubbing.tres` (five levels, each a `CombatGold`:
-1, 1, 3, 5 and 5, 15 in all), `money_grubbing`, then `BallisticsSkill.tres` (one level, +10 `aim`),
-`ballistics_skill`, which requires it, then `WeaponSkill.tres` (two levels, so one ring: +10
-`melee_accuracy`, then +1 `strength`, a level giving a different stat from the one before it),
-`weapon_skill`, and last `RichBlood.tres`, `rich_blood`: one level with its words and no effects,
-so it shows, and can be learned for a skill point, but does nothing. Its logic was left out at the
-user's request until there are more items: it is to unlock rare goods at markets, at twice their
-usual price, while a character with it is in the party, which will want a new question on
-`SkillEffect` for `Campaign.stock_of()` / `buy()` and the Market tab to ask, and a way to mark an item
-rare. Hardiness, Dexterity, Ballistics Skill and Weapon Skill took no code: a skill of a kind of
-effect that exists is its `.tres` and its node in the tree. With every node a real skill, the
-`Placeholder.tres` they started as is gone.
-
-**What a skill gives is its levels' effects, and a character has those of every level taken.** An
-effect is a `SkillEffect` resource in a level's `effects`, and a kind of effect is a subclass, as a
-kind of enemy is an `EnemyAI` subclass: `StatBonus` (a `stat` from its list, an `amount`),
-`CombatGold` and `SkillPointGrant` (an `amount` each) so far. Levels add up: a character has the
-effects of each level they have taken, the earlier
-with the later, so a level holds only what it adds (Ambition's five are +1, +1, +1, +2 and +5
-`max_health`, +10 in all, as their words say: "An additional +2 HP (for a total of +5 HP)").
-`Character.skill_effects()` gathers them, from every node of the character's own trees (`TREES`) by
-how often `learned` has it; what was learned of a tree no longer theirs gives nothing.
-
-An effect is one of two sorts, and `SkillEffect` has a method for each, doing nothing unless a kind
-overrides it. One sort lasts for as long as the level is had. For it nothing is applied when the
-skill is learned, and nothing stored but `learned`: the rules ask the effects when they need an
-answer. So far the one question is `bonus_to(stat)`, asked by `Character.total(stat)`:
-the character's own stat (the exported property, never changed by a skill or by gear) plus every
-effect's bonus to it, plus the armor's for defense. Everything that wants a character's stat reads
-`total()`: `Unit._take_character()` for all seven, so a bonus goes into battle with the unit;
-`Character.health` (`total(&"max_health")` less `wounds`), so a level of Ambition raises the most
-health and what is left alike, and a wounded character stays as wounded; and the Details page, which
-refreshes as it comes into view. A unit copies its stats as the map loads, which is why learning is
-refused during a mission.
-
-The second question is `gold_after_combat()`, which `CombatGold` answers with its `amount` and
-`Character.combat_gold()` adds up. `PlayerSquad.award_survivors()` asks it of each member's character
-as the battle is decided, beside their experience, and pays it into `Campaign.gold` at once. Who it
-asks is the whole rule, decided with the user: only the squad's members, so a character left on the
-roster finds nothing however many levels they have, and only those still in `members`, which the
-fallen have left, so the character must come through the battle. A defeat leaves nobody standing, so
-it only ever pays on a win, and it is on top of `victory_gold` and the coins. It reads the character
-as the battle ends rather than a copy on the unit: nothing can be learned in between.
-
-The other sort happens once, as the level is taken: `Character.learn()`, having spent the point and
-recorded the take, calls `when_taken(character)` on each effect of that level, and what it does is
-the character's from then on, with nothing to ask later. `SkillPointGrant` is it: Adaptability's
-`skill_points += 5`, so learning it with one point left leaves five (the page's sub-tab count follows,
-since it shows progress again after every skill learned). It is not done for a level a character
-starts out with in their `.tres`, which goes through no `learn()`: set what it would have given there
-too. Nothing undoes it, as nothing unlearns a skill.
-
-A new skill of a kind that exists is only a `.tres`. A new kind of effect (an action granted, a rule
-bent) is a `SkillEffect` subclass and, if neither method fits it, a new method on the base class
-asking what the rules need to know of it, and a call where they need it, over `skill_effects()`.
-
-The Skills page has a column per `Character.TREES` entry, its share of the width from
-`SkillsPage.SHARES`, and is rebuilt for every character, a column headed by its source's
-`display_name` ("Human"), or by its plain title ("Species") with no tree under it while the
-character has none. A new kind of tree is a `SkillSource` subclass, a `Character` property and a
-row in `TREES` (and in `SHARES`, unless 1 will do). Each tree is a `SkillTreeView`,
-which places its `SkillButton`s itself by their cells (`GAP` apart) rather than in containers, and
-draws every link as an elbow: down from the node required, across just above the row of the node
-requiring it, and down into it, so a path is a straight line; lit once the node required is learned.
-A button with rings is bigger (`SkillButton.size_of()`: `RING_GAP` + `RING_WIDTH` more each side a
-ring, 84 across with four against 44), so cells are not all one size: a column is as wide as its
-widest button, and a row as tall as its tallest button in any tree on the page
-(`SkillTreeView.row_heights()`, which the page works out over every tree it is about to show and
-hands to each view), so the trees' rows stay level across the columns. Each button sits in the
-middle of its cell, and a link runs from the bottom of one button to the top of the other, outside
-their rings.
-A link to a node on the same row or higher, which a tree should not need, is a straight line between
-them. It warns of two nodes with one id, and of a requirement the tree lacks; nothing stops two
-nodes sharing a cell. A button is a circle (it takes the mouse only inside it, `_has_point()`) that
-draws itself, its theme's boxes all empty, so the fill can go under its face: its skill's icon,
-dimmed while locked, or its rank (its row, from 1). The arrow keys are pointed from a button as
-it takes focus, once the trees are laid out, at the nearest button that way (`_nearest()`): up and
-down within its own tree, left and right on across the trees. With none to the left or right it stays
-put; with none above or below, the key is left to Godot, which takes up back to the sub-tabs and down
-to whatever lies under the page: the squad menu's Start, a hiring board's Hire (as Down from the
-sub-tabs of the Details page reaches them), and nowhere in the pause menu, which has nothing there.
-Up from those buttons goes to the sub-tabs, and Down from the sub-tabs back to the selected node.
-
-A node is learned by holding it down, with the mouse or Enter / Space, as a `HoldButton` is held
-(its `HOLD_TIME`, 2 s, its `DRAIN_SPEED` and its fill colour, decided with the user): it fills like a
-clock's face, from the top round clockwise, a sector drawn under its face. That is the first time it
-is taken. A skill that can be taken again has a ring round the circle for each further time, drawn
-dim from the start, and once it is taken a hold draws the innermost ring not yet lit round instead,
-the same way, from the top clockwise (decided with the user: the circle first, then the rings from
-the inside out); `SkillButton.taken`, which `show_learned()` sets, says which. The rings are part of
-the button, so a press on them counts. Let go early it drains;
-full, it emits `held`, empties and stays empty until let go, so a press learns one skill at most. It
-fills only while the page has set it `learnable`, which `_show_progress()` sets for every node from
-`can_learn()`, and never in a mission or read only; any other node can still be pressed and selected,
-and nothing happens. On `held` the page calls `Campaign.learn()` and `_show_progress()` again, which
-restyles every tree (`SkillTreeView.show_learned()`: learned, open or locked, links lit) in place,
-rather than rebuilding, so the selection and the keyboard stay where they were. Nothing on the page
-says how to learn, or why a node will not fill (a mission, no points): a help line under the trees
-was taken out at the user's request, for now.
-
-A button is not a toggle: holding a toggle button reads as pressed whether it is held or not
-(`get_draw_mode()`), which the fill depends on. So the page keeps the selection itself, `_selected`,
-moved as a button takes focus (a click or the arrow keys), and sets the button's `selected`, which
-fills its circle a shade lighter: blended toward `SELECTED_COLOR`, a near white, by `SELECTED_BLEND`
-on a dark circle and by `SELECTED_LEARNED_BLEND` on a learned one's gold, where as little would not
-show. That fill is all that shows where the keyboard is (asked for by the user in place of a white
-ring round the node, which they had taken out), and it is not the accent, which is kept for what is
-learned and being learned. It stays on the selected node while the keyboard is up on the tabs, as a
-selected character's frame does, since Down comes back to it. Changing character clears
-it. The page also titles its own sub-tab, "Skills (2)" from
-`Character.skill_points`, again after every skill learned. It reads `Campaign` only once a character
-is shown: the pause menu builds its pages before that autoload exists.
-
-**A skill's tooltip is the page's own panel, not Godot's.** A built-in tooltip only follows the mouse,
-and a skill's has to show for the keyboard too, so `SkillsPage` owns one `SkillTooltip`, a child added
-after the columns so it draws over the trees, and a `SkillButton` has no `tooltip_text`. Its parts,
-from the top, are the user's: the skill's name; its `flavor`; "Current:" and `Skill.describe(taken)`,
-once the character has taken it; "Next:" and `Skill.describe(taken + 1)`, while a level is left to take,
-whether or not it can be taken now (locked, or no points). A part with nothing to say is left out.
-It is `WIDTH` (300) wide and as tall as its text: every label has its wrap width as its minimum
-width, so it knows its height the moment its text is set and `reset_size()` fits the panel there and
-then, with no frame's wait for a container. It never takes the mouse, so a node under it can still
-be hovered and held.
-
-Whose it is: the node with the keyboard (`_focused`, kept from the buttons' `focus_entered` /
-`focus_exited`) when a key was pressed more recently than the mouse did anything, else the node under
-the mouse (`_hovered`), else nobody and it hides. The page's `_input()` notes which was used last
-(`_by_keyboard`), before either moves anything, so arrowing about with the mouse left lying on a node
-shows the keyboard's node, and a nudge of the mouse hands it back. It hides once the keyboard goes up
-to the tabs, though the node stays selected. `_show_tooltip()` places it to the node's right, top to
-top, `TOOLTIP_GAP` off, or to its left where that would run off the page, and never below the page's
-bottom; `_show_progress()` calls it again, since a level just taken changes what it says.
+`Docs/SKILLS.md` has the rest: each skill in the two trees and what it gives, the Skills page
+(`SkillsPage`, `SkillTreeView`, `SkillButton`: its columns, links and rings, holding a node to learn
+it, the selection and the arrow keys), the `SkillTooltip`, the skills' gaps and what was decided
+with the user. Read it before touching skills, trees or the Skills page.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -1193,332 +973,71 @@ child, so its own position is where it rests, and the model is centred on its bo
 half a cell, so it is not scaled; `Coins.STACK_STEP` (0.7) must stay more than its height plus its
 bob, or a stack's coins touch.
 
-To make another object break like the crate:
-
-1. Model the pieces in MagicaVoxel in the same frame as the block's own model, as separate models.
-2. Import the `.vox` as a Scene at **Scale 0.0625**, the blocks' scale, or the pieces will not line
-   up with the block they replace. Make an inherited scene of it in `Scenes/` to add to.
-3. Make a `ScriptedDestruction` `.tres` in `Resources/Destruction/` naming the block and that scene,
-   and add it to `Catalog.tres`. Set its **Mass** to what the block weighs whole, if it is not
-   about a crate's 300 kg; that is only felt while it falls. Set its **Coin Chance** (0 to 1) if it
-   should leave coins, as a crate does three times in four. Set its **Wear** (see below) if blood on
-   the block should go to its pieces when it breaks: only pieces that wear can carry stains.
-
-Every bare mesh in the scene becomes a rigid body with a box collider, 3.5% smaller than the mesh
-(`ScriptedDestruction.SLACK`, see Gotchas); a `RigidBody3D` you author is used as it is, and other
-nodes are left alone. A new way of breaking is a `Destruction` subclass that overrides `shatter()`,
-the same shape as a new enemy being an `EnemyAI` subclass; it should honour `motion` when given
-one, adding `motion.at(point)` to what it throws each part of the block at.
-
-That block just collapses, which is the default. To have it burst apart instead, as the crate does:
-
-4. In the pieces scene, add a `Marker3D` named **`DestructOrigin`** where the blast goes off, with a
-   `float` metadata entry **`force`**: 1 is a moderate blast (a crate's boards land about a cell and
-   a half out, nine in ten within three), 2 is twice as hard, 0 is none; left out, it is 1.
-5. Tick **Blast** on the block's `ScriptedDestruction` `.tres`.
-
-Untick Blast to go back to the plain collapse; the marker is then ignored, so it can stay in the
-scene. The blast goes off every time the block breaks, including when it comes down because the
-block under it broke. Blast on with no marker warns and collapses. Where the marker sits shapes the
-burst: the crate's is at the bottom centre, like a charge underneath, so it throws up and out; one
-at the middle of the block throws evenly every way.
-
-`Blast.burst(pieces, origin, force)` works on any `RigidBody3D`s, so a new `Destruction` can use it
-too. Each piece gets an impulse away from the origin of `force * Blast.IMPULSE / (r² + Blast.CORE²)`
-times the area it turns toward the origin (from its box colliders), applied at its point nearest the
-origin. So the push falls off with the square of the distance, as a real blast's does, but stays
-finite at the origin; a board facing the blast is thrown harder than one edge-on to it, a light
-piece further than a heavy one, and pieces tumble as they fly. `IMPULSE` is what force 1 means, and
-is the only thing to retune if every blast is too strong or too weak.
-
-**Some blocks wear away instead, a few voxels at a time.** A block whose catalog entry is a
-`VoxelDestruction` (`BrightGrass1`, both `SkinnyTree1` blocks) is the second kind of breakable block:
-a strike or a blast breaks voxels off it rather than breaking it whole. Every block is 16 voxels a
-side, and its voxels are read on ready from the `.vox` its MeshLibrary mesh was imported from
-(`VoxelShape.read()`, with the importer's own reader, so they sit exactly where the imported mesh
-draws them). `TerrainDestruction` makes a `VoxelTerrain` node, which keeps them, and a `VoxelDebris`
-node, which keeps what is broken off, and hands the grid the terrain (`CombatGrid.voxels`).
+**A breakable block is one of two kinds, and adding either is a recipe.** A `ScriptedDestruction`
+breaks a block whole into pieces cut in advance, which collapse or, with **Blast** ticked and a
+`DestructOrigin` marker in the pieces scene, burst apart (`Blast.burst()`); a `VoxelDestruction`
+(`BrightGrass1`, both `SkinnyTree1` blocks) wears a block away a few voxels at a time. Either is a
+`.tres` in `Resources/Destruction/` naming the block, added to `Catalog.tres`, and its art must be
+imported from a `.vox` at Scale 0.0625, the blocks' scale. `Docs/DESTRUCTION.md` has both recipes
+step by step, how wear works in full and its gaps; read it before touching either. What the rest of
+the code has to know of wear:
 
 - **A worn block draws itself; the rules see its stand-in.** The first time a block loses a voxel,
-  `VoxelTerrain` makes it a `WornBlock` (its own mesh and trimesh collision, rebuilt as it wears) and
-  swaps its GridMap cell to the block's stand-in, an item `take_on()` added to the map's library copy
-  with no mesh and no shapes. `CombatGrid.is_solid()` only asks whether a cell has an item, so sight,
-  cover, paths, throws, coins and units see the whole block, however little is left. Anything that
-  reads a cell's item id must allow for a stand-in (`VoxelTerrain.wears_away()`, `shape_at()`, or
-  `kind_of()` for any block drawn from a `.vox`, worn or not).
-  Unworn, a block that does not fill its cell (a tree) collides as its voxels, a trimesh from
-  `VoxelMesher.faces()`; a full one keeps the cube.
-- **A round takes a bite.** `terrain_struck` on such a block calls `VoxelTerrain.chip()`: the
-  `damage * voxels_per_damage` voxels nearest where it struck (12 a point; 60 for a rifle's 5),
-  roughened with noise, from whichever blocks they are in, out to `BITE_SPREAD` times the bite's own
-  radius. They fly out of the struck face in lumps up to `DEBRIS_CLUMP` (2) voxels across, and the
-  block is redrawn at once.
-- **A blast blows a crater.** `terrain_blasted` calls `VoxelTerrain.crater()` first: every voxel within
-  `crater_radius(damage)` of where it goes off (a ball of `crater_per_damage` cubic cells a point,
-  a radius of about 1.06 cells for a frag grenade's 10), roughened, but only in the blast's
-  cells. Up to `CRATER_DEBRIS` (150) lumps are thrown up and out, the ground throwing back what the
-  blast drives into it; the rest is dust. They are chosen before any is made: what wear breaks off
-  comes back grouped into lumps (`Batch`), and `_scatter()` makes only those it keeps, since making a
-  lump costs about three times what grouping its voxels does (a grenade on raised ground breaks off
-  some 1,600 lumps). Its blocks are redrawn over the next frames, no more than `REBUILD_BUDGET`
-  microseconds a frame, under the fireball.
-- **What is cut loose drops.** After any wear, a voxel left joined to nothing that holds it (a voxel
-  or block across a face of its cell, or the ground under the bottom layer) breaks off too
-  (`_loose_voxels()`, searched from the voxels next to those just lost, which the rows find).
-- **Worn past standing, it breaks.** A block left with less than `collapse_below` (half) of its voxels,
-  or one holding something up that nothing joins from its bottom to its top any more (`_holds_up()`:
-  the trees' trunk is one 4x4 layer of voxels at its narrowest, so a couple of rounds through it fell
-  the tree), is in `Wear.broken`, and `TerrainDestruction` breaks it as it breaks a crate: out of the
-  grid at once, `block_broken`, stacks above fall, units drop. What is left crumbles
-  (`VoxelTerrain.crumble()`) into lumps `crumble_size` (3) across; one that fell whole
-  (`_drop_worn_block()`, a `FallingBlock` showing what is left of it) crumbles where it lands.
-- **The bottom layer never breaks,** and is only worn `FLOOR_DEPTH` (4) voxels deep, since a unit
-  stands at the top of its block whatever is left of it. A crater there is a flattened bowl centred
-  under the blast, as wide as the ball is where it meets the ground.
-- **Rounds are traced voxel by voxel.** `CombatGrid.cast(..., by_voxel)`, which of the rules only
-  `Ballistics` passes, asks `VoxelTerrain.trace()` in each solid cell that wears away and carries on
-  through the cell if the ray meets none of its voxels; the hit's `point` and `face` are then the
-  voxel's, and its `index` the voxel's place in its block. Sight (`is_line_clear()`), throws
-  (`Throwing.plan()`) and clicks (`pick_tile()`) stop at whole cells. Blood passes `every_block` as
-  well, which traces every block drawn from a `.vox` so, crates included; rounds never do.
-- **The debris is lean.** `VoxelDebris` makes each lump a rigid body straight on the `PhysicsServer3D`,
-  with no node, on the debris layer, and draws every voxel as a cube instance of a few MultiMeshes,
-  coloured as it was. A lump's voxels move only from the server's state-sync callback, so a lump at
-  rest costs nothing a frame. Blasts push it (`burst()`), a redrawn block wakes what lay on it
-  (`wake()`), `TerrainDestruction` tidies it with the rest (`tidy()`), and units dropping through a
-  collapse pass through it, which is why `Unit.pass_through()` and `drop_to()` take body RIDs.
-- **Lumps stay for good; their bodies do not.** The moment the lumps' bodies reach
-  `VoxelDebris.MOST` (20,000), `_make_room()` stills the lumps at rest furthest from `focus` (the
-  middle of the tile the camera is looking at, `TerrainDestruction._looked_at()`: where the middle of
-  its view first meets the ground) until fewer than `KEEP` (5,000) have bodies. A stilled lump loses
-  its body but stays drawn where it lies, so nothing leaves the board, and the bodies go to what the
-  player is watching and to everything broken off from then on. A lump that moved in the last
-  `RESTING_STEPS` physics steps is never stilled, so nothing freezes in mid-air. A stilled lump gets
-  its body back, lying as it lay, the moment anything disturbs it: a blast reaching it (`burst()`), a
-  worn block under it being redrawn or a broken one going (`wake()`, `LYING_ON` round the block, the
-  whole column above a broken one), or a unit on the move coming within its cell
-  (`TerrainDestruction._wake_in_the_way()`). Lumps are filed by the world cell their middle was last
-  in (`_by_cell`), so those calls look only at the cells they reach. Clearing 15,000 bodies takes
-  about 30 ms, on the frame that reaches the limit.
+  `VoxelTerrain` makes it a `WornBlock` (its own mesh and trimesh collision) and swaps its GridMap
+  cell to the block's stand-in, an item with no mesh and no shapes. `CombatGrid.is_solid()` only asks
+  whether a cell has an item, so sight, cover, paths, throws, coins and units see the whole block,
+  however little is left. Anything that reads a cell's item id must allow for a stand-in
+  (`VoxelTerrain.wears_away()`, `shape_at()`, or `kind_of()` for any block drawn from a `.vox`, worn
+  or not).
+- **A round takes a bite, a blast blows a crater** (`VoxelTerrain.chip()`, `crater()`), and what is
+  cut loose drops. A block left with less than `collapse_below` (half) of its voxels, or cut through
+  under something it holds up (`_holds_up()`), breaks as a crate does: out of the grid at once,
+  `block_broken`, stacks above fall, units drop. The bottom layer never breaks, and is only worn
+  `FLOOR_DEPTH` (4) voxels deep, since a unit stands at the top of its block whatever is left of it.
+- **Rounds are traced voxel by voxel** (`CombatGrid.cast(..., by_voxel)`, which of the rules only
+  `Ballistics` passes); sight, throws and clicks stop at whole cells. Blood passes `every_block` as
+  well, which traces every block drawn from a `.vox` so; rounds never do.
+- **What breaks off is `VoxelDebris`:** each lump a rigid body straight on the `PhysicsServer3D`,
+  with no node, every voxel drawn as an instance of a few MultiMeshes. Units dropping through a
+  collapse pass through it, which is why `Unit.pass_through()` and `drop_to()` take body RIDs. At
+  `VoxelDebris.MOST` (20,000) bodies the lumps at rest furthest from where the camera looks are
+  stilled: drawn where they lie, bodiless until something disturbs them.
+- **A broken crate's pieces wear away as well, as loose models,** since its `ScriptedDestruction` has
+  a `wear`: a `RigidBody3D` drawn by a MagicaVoxel model, given a `VoxelBody`
+  (`VoxelTerrain.take_on_body()`) the first time a round's line or a blast's crater reaches it.
+  `Unit.shoot_at()` reports every round's line through `CombatGrid.fly()`, whose `round_flown` calls
+  `VoxelTerrain.tear()`. A loose model blocks nothing in the rules.
 - **It is deterministic.** Which voxels go, and so which blocks break, comes from the global random
   generator, one number a round or blast, so a seeded fight replays exactly, as long as no block
-  falls whole (see Known gaps). How the lumps fly, and which a blast keeps, draws on `VoxelTerrain`'s
-  own generator, and how they fall is physics: only for show.
-
-To make another block wear away, add a `VoxelDestruction` `.tres` naming it in
-`Resources/Destruction/` to `Catalog.tres`, with its `mass` whole (what it weighs falling), its
-voxels' `density`, and `voxels_per_damage` / `crater_per_damage` for how soft it is. Its mesh must be
-imported from a `.vox` at Scale 0.0625, one cell to sixteen voxels.
-
-**A broken crate's pieces wear away as well, as loose models.** The crate still breaks into its
-pieces as cut, and bursts as before; only then do they break down further, as a block does. Any
-voxel model loose in the world can be worn this way: a `RigidBody3D` drawn by a MagicaVoxel model in a
-`MeshInstance3D` among its children, taken on with `VoxelTerrain.take_on_body()`, which puts a
-`VoxelBody` node under it. So far only a `ScriptedDestruction`'s pieces are.
-
-- **A piece is taken on the first time something reaches it.** A `ScriptedDestruction` with a `wear`
-  (a `VoxelDestruction`; `BrightCrate1.tres` has `CrateBoards.tres`: 3 voxels a point of damage, lumps
-  of 2) only notes each piece as `shatter()` makes it (`VoxelTerrain.take_on_later()`, a `Wearable`),
-  with the bodies `_pass_overlaps()` found it overlapping. A round's line or a blast's crater reaching
-  it takes it on (`_model_of()` calls `take_on_body()`): its voxels come from the `.vox` the pieces
-  scene inherits (`VoxelShape.source_of()`), the model whose `magica_voxel_model_id` the importer put
-  on its `MeshInstance3D`, cropped to its voxels (`read_model()`): each of the crate's models is a
-  whole crate's frame with only that piece in it, 36 to 64 voxels. Most pieces are never hit, and
-  taking one on (copying its voxels, a node, its bounds) cost a crate 1.7 ms of its 3.6. A blast takes
-  on only the pieces whose box its crater reaches. `Destruction.prepare()` reads every piece's model
-  as the map loads (about 10 ms for the crate), so the first crate to break does not catch on it.
-- **A round tears through them and flies on.** `Unit.shoot_at()` reports every round's line, from the
-  muzzle (where its tracer starts) to where it landed, through `CombatGrid.fly()`, whose `round_flown`
-  calls `VoxelTerrain.tear()`. Every loose model the line passes through (ray queries on
-  `PIECE_LAYER`, nearest first, at most `MOST_TORN`, 8) loses the `damage * voxels_per_damage` voxels
-  nearest where the line first meets one of its voxels (`VoxelTerrain.march()`, the static voxel walk
-  `trace()` uses on blocks and blood uses on figures and props; 15 for a rifle's 5), which fly out of
-  the face it went in by. `fly()` comes before
-  `strike()`, so a crate a round breaks is not torn by the same round.
-- **A blast craters them.** `crater()` craters every loose model reaching into the blast's box
-  (`TerrainDestruction.pieces_in()`) as it does blocks: the voxels within its `crater_radius()` and
-  inside the box. The burst a physics step later throws them, as it throws every piece.
-- **What is left settles** (`_settle()`). A model left with fewer than `SMALLEST_PART` (8) voxels, or
-  under its destruction's `collapse_below` of `VoxelBody.whole`, crumbles into lumps `crumble_size`
-  across, carrying on as it moved, and its body goes. Otherwise every part no longer joined face to
-  face to the biggest (`_parts()`) is cut off: as a model of its own if it has `SMALLEST_PART` voxels
-  (`_split_off()`: a new `RigidBody3D` and `VoxelBody` beside it, in the same frame, moving as that
-  part moved), as lumps if not. What is left is redrawn (`VoxelMesher.surface()`), its box collider
-  fitted to it (shrunk by `ScriptedDestruction.SLACK`), and it weighs its share. After a cut each
-  part's `whole` starts again from what it has, so a board shot in two is two boards, each worn down
-  from its own size.
-- **A part cut off passes through what its model did.** Their boxes overlap wherever the cut ran, so
-  a part passes through the model it came from, everything that model passed through (a crate's
-  pieces cut to overlap), and every part cut from it since; `VoxelBody.passes` keeps the list on both
-  sides, and a piece not yet taken on keeps its own in its `Wearable` (see Gotchas).
-- **It does not touch the rules.** A loose model blocks nothing (sight, cover, rounds, throws), and
-  everything random about wearing one draws on `VoxelTerrain`'s own generator (`_show`), never the
-  global one, so tearing boards never changes what a seeded fight rolls next. Blocks still take one
-  global number per round or blast.
-
-A crate breaks in about 2.2 ms; a round through boards costs 1 to 3 ms, taking on those it hits, and
-a blast among a crate's boards 14-20 ms more than the blast alone, about 2 ms of it taking on the
-boards its crater reaches. To have
-another `ScriptedDestruction`'s pieces wear, set its `wear`: its pieces scene must inherit a `.vox`
-imported as a Scene at 0.0625. A body made some other way can be taken on directly, its `source` the
-`.vox` its model came from, or none if the mesh was imported straight from a `.vox`.
+  falls whole (see Known gaps). Everything only for show (how lumps fly, wearing a loose model) draws
+  on `VoxelTerrain`'s own generator (`_show`), never the global one.
 
 **Blood is painted on voxel faces, and only for show.** `Unit.take_damage()` emits
 `hurt(taken, from, at, blasted, sweep)` for every hit that takes health (none for one defense stops),
 before the unit can die of it. `Blood`, a node in each combat map after `Coins`, connects to every
-unit as it readies and does the rest; it reads each figure's rig as the map loads (about 10 ms for
-the base figure, and its gear's `.vox`), not on the first hit.
+unit as it readies and does the rest: it wounds the figure and sprays drops, each a voxel under
+gravity in one MultiMesh, which stain the first voxel face they meet and run from there
+(`BloodFlow`), and a pool spreads where each of the dead stood. A stain is a face, never a voxel's
+colour: `VoxelStains` keeps each stained voxel's faces and draws them as an overlay of red squares,
+hung from whatever draws the model, so blood never rebuilds a block or a figure, and whatever moves
+the model moves its stains. A stain is handed on only when its model becomes others (a block falling
+whole, a crate's pieces, a board cut in two, a voxel broken off). A hit is drawn landing on the
+body, not at the eye, where the round still flies: `CharacterModel.pick_wound()` picks where, kept in
+`Ballistics.Path.wound`, which the tracer is drawn to and `take_damage()` passes on as `at`.
 
-**The player can play clean.** **Blood** on the pause menu's System tab, just under **Tile Grid**,
-turns it all off: `Blood.enabled`, a static like `TileGrid.shown`, so it holds from battle to battle
-until the game closes and is never saved. It only changes between battles, on the world map: while
-`Campaign.in_mission` the menu greys the button out and shows a note under it saying so
-(`SystemTab.show_blood_state()`, called as the menu opens, since the menu is made before `Campaign`
-is), and each map's `Blood` reads `enabled` once, in `_ready`, so a battle keeps what it began with
-and nothing has to be cleaned off or added mid-fight. Off, `Blood` still reads every figure's rig as
-the map loads, since a shot still draws its tracer on to the body (`pick_wound()`), then stops: it
-connects to no unit and never processes, so no wound, drop, stain or pool is made, and no lump turns
-red. The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe could name `Blood`
-(see Gotchas).
+**Blood** on the pause menu's System tab turns it all off: `Blood.enabled`, a static like
+`TileGrid.shown`, never saved, changed only between battles (the menu greys the button out while
+`Campaign.in_mission`) and read by each map's `Blood` once, in `_ready`. Off, `Blood` still reads
+every figure's rig as the map loads, since a shot still draws its tracer on to the body, then stops.
+The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe could name `Blood` (see
+Gotchas). And blood never looks for coins: a drop flies straight through one, and no coin is ever
+stained. Keep it so.
 
-- **A hit is drawn landing on the body, not at the eye.** The round still flies eye to eye
-  (`Ballistics`), but as it is fired `Unit.shoot_at()` asks the target's figure where it is seen to
-  land: `CharacterModel.pick_wound()` picks a voxel by bone, mostly the torso
-  (`FigureVoxels.WOUND_WEIGHTS`), and traces from the muzzle to it, so the point is the first voxel
-  facing the gun. It goes in `Ballistics.Path.wound`, which `ShotOverlay` draws the tracer to
-  (`Path.drawn_to()`), as the muzzle moved its start, and `take_damage()` passes it on as `at`. A
-  strike picks one from the striker's chest (`Unit.STRIKE_HEIGHT`) and passes its figure's `swing()`
-  as `sweep`; a blast passes neither, and `Blood` picks two to four wounds facing it. On landing
-  `FigureVoxels.hit_near()` finds the spot on the figure as it stands then.
-- **The figure bleeds and sprays.** A wound stains `WOUND_FACES` and 4 more a point of damage (counting
-  at most `MOST_DAMAGE`) round where it landed. It leans a little downward rather than running down:
-  the even splash round a wound (`FigureVoxels.WOUND_SPLAT`, 2 voxels) wraps round a torso only 5
-  voxels wide and 2 deep and takes most of the stain. Over 40 wounds its middle sat 0.8 voxels below
-  the wound and its lowest face 3.6 below, against 0.1 and 2.4 with downhill costing no less. In the
-  standing pose the arms cover the chest, so many wounds land on a forearm, where blood cannot go
-  lower without crossing the arm's underside. Every hit sprays `DROPS` and 8 more a point: a round's
-  mostly out of an exit wound, found by tracing back through the figure along the round's flight
-  (`FigureVoxels.exit()`), which bleeds too, and the rest back toward the gun; a blade's along its
-  swing; a blast's away from it. A drop leaving a figure passes through it for `CLEAR_SECONDS`.
-- **A drop is a voxel under gravity**, a cube one or two voxels across in one MultiMesh, stepped every
-  physics frame and traced along its step: through the terrain voxel by voxel, every `.vox` block,
-  crates' slats and gaps too (`CombatGrid.cast()`'s `every_block`, which only blood uses); against
-  every living unit's figure whose ball it passes near (`FigureVoxels.march()`: each bone's voxels are
-  a part in its bone's posed frame, culled by a sphere, and so is the gear in its sockets); and against
-  debris, by a physics ray on the debris layer (a lump by its RID, a dead figure's among them; a piece
-  that wears away, dropped gear among them, taken on and traced through its voxels; falling blocks
-  passed). It
-  lands on the first it meets, and is forgotten once below the map. **Coins are the one exception:**
-  blood never looks for them, so a drop flies straight through a coin to whatever is behind it, and
-  no coin is ever stained. Keep it so.
-- **Where blood lands, it runs** (`BloodFlow`): it stains up to its volume of faces, always the one
-  cheapest to reach next (Dijkstra over voxel faces: across each edge of a face to the face beside
-  it, up the wall rising there, or round on to the voxel's own side). A flat step costs the same every
-  way, roughened by smooth noise and a speckle, so a pool is a blob with lobes; downhill is cheap, so
-  blood runs over an edge and down before it spreads far on top; sideways along a wall dear, so it
-  streaks down; climbing dearer, so it barely climbs; undersides never. Within `splat` voxels of
-  where it landed it spreads every way alike. Faces already stained cost little and no blood, so a
-  drop landing in a pool runs out to its edge, looking at most `VISITS` + 3 a face. The terrain is one
-  grid of voxels across every block (`TerrainSurface`), so a pool crosses from block to block; a
-  loose model or prop is its own (`ModelSurface`), and so is a figure, standing as drawn with
-  down taken from each voxel's bone (`FigureVoxels.FigureSurface`).
-- **The dead bleed out.** `died` hands `Blood` where the unit stood; `POOL_DELAY` (1 s) later, once
-  the lumps its figure broke into have mostly landed, a flow of `DEATH_FACES` (800, about two tiles
-  across on flat ground) starts on the ground under its feet, or below them if it died falling, and
-  spreads over `DEATH_SECONDS` (3), quickly at first, under the heap.
-- **A killing wound is stained at once.** A hit that kills (`taken` at least the unit's health as
-  `hurt` goes out, before it is taken) stains its wounds there and then (`_wound(..., now)`), not
-  queued with the landings, since the figure breaks apart a moment later in the same call and its
-  lumps take their colour from its stains (about 2 ms).
-- **Landings wait their turn.** Wounds and landed drops are queued and settled oldest first for up to
-  `SPLASH_BUDGET` microseconds a physics step, the rest the next: a stain a frame late is not seen.
-  A landing whose block has broken or fallen while it waited is dropped (`_splash()` asks
-  `kind_of()` first): the cover of someone hit leaning out of it often goes to the very next round.
-
-A stain is a face, never a voxel's colour: `VoxelStains` keeps each stained voxel's faces as six bits
-(+x, -x, +y, -y, +z, -z), by its place in its model's array, and draws them by an overlay, a
-`MeshInstance3D` of red squares `PROUD` (2 mm) off each face along its normal, rebuilt once at the end
-of the frame (`changed()`), so blood never rebuilds a block or a figure. A face shows only while its
-voxel is there (each rebuild reads the model's voxels as they are now), and is only stained while open
-to the air (voxels are never added, so it stays open).
-
-Overlays rather than recolouring the models, because rebuilding a block's own mesh
-(`VoxelMesher.surface()`) costs 1.5 ms for grass, 2 for a tree and 3.3 for a crate, and a burst of
-drops lands on dozens of blocks at once, where a stained cell's overlay rebuilds in about 0.1-0.3 ms;
-and the GridMap goes on drawing the block, so staining one needs no stand-in.
-
-Nothing moves a stain on its own. It is recorded by which voxel of which model it is on, and its
-overlay is built in that model's own space and hangs from whatever draws the model, so whatever moves
-the model moves its stains: the scene tree for blocks, boards and gear, the skeleton for a figure. Only
-when a model becomes others (a block falling whole, a crate's pieces, a board cut in two, a voxel
-broken off) is a stain handed on, by these rules. Where they live:
-
-- **Blocks:** `VoxelTerrain`, by cell, for every block drawn from a `.vox` (`kind_of()`, crates
-  included, which do not wear), the overlay under `VoxelTerrain` in the cell's frame. Wear hands the
-  cell's stains to its debris, so a stained voxel's lump is blood red (`VoxelTerrain._make()`), and
-  redraws the overlay. A breaking block's stains go with it (`take_stains()`): a worn block crumbling
-  colours its lumps, a block falling whole carries its overlay under the `FallingBlock` and hands the
-  stains on as it lands, and a crate's go to its pieces (`carry_stains()`: each piece holding a
-  stained voxel is taken on as a loose model and stained where the crate was, its faces turned to the
-  piece's frame), only if its `ScriptedDestruction` has a `wear`.
-- **Loose models:** `VoxelBody.stains` (`stained()`), the overlay under its mesh; a part cut off takes
-  a copy (`carry_stains()`).
-- **Figures:** `FigureVoxels.stains`, over the figure as drawn, drawn by a mesh skinned to its skeleton
-  with the body's `Skin`, each square weighted to its voxel's bone (`FigureStains`), so it moves with
-  every pose. The rig is read from the `.vox` the figure was baked from (`CharacterModel.voxel_model`, a
-  layout from `VoxelRig.LAYOUTS`), once a model. As the figure breaks apart, a voxel with any face
-  stained goes into its lump blood red (`FigureVoxels.crumble()`).
-- **Gear:** `VoxelStains.on(mesh_instance)`, kept in its metadata, the overlay under it. Props are
-  imported at 0.063 a voxel, so `scale` grows the shape's frame to the mesh's. Dropped, the mesh takes
-  its overlay into its body, and once it is worn its `VoxelBody` adopts the stains
-  (`adopt_stains()`), reading what is left of it.
-- **Lumps:** a voxel's MultiMesh colour (`VoxelDebris.stain()`), the whole voxel rather than a face.
-
-Decided with the user when blood was made, so not to be "fixed": blood is as exaggerated as Fat
-Princess's, one bright red (`VoxelStains.COLOR`); a stain is per face, not per voxel; only damage
-actually taken bleeds, more with more damage; where blood lands it runs, rather than splatting round;
-a hit's wound is anywhere on the body facing the shooter, mostly the torso, with the tracer drawn to
-it, rather than always at the head, where the round flies; the pool under a body is about two tiles
-across, spreading over three seconds once it rests (since the dead break apart, from a second after
-death, where the unit stood); stains last the battle and nothing carries over to
-the roster; the enemies went from red to slate grey (bone and khaki were too near the white and yellow
-squad members, and charcoal read navy, with blood dark in its shade). Two came later: a wound on a
-figure leans a little downward rather than running, and is kept so (a smaller splash with drip trails
-that creep down and drip off the body was offered and turned down); and coins never take blood.
-
-To tune it: how much a hit bleeds, how its blood flies, and the pool under a body are the constants at
-the top of `Blood.gd`; how blood spreads (the cost of each step, the noise, how far a drop looks
-through a pool) at the top of `BloodFlow.gd`; the colour and gloss in `VoxelStains.gd` (`COLOR`; the
-material's roughness 0.55 and specular 0.35, softened from 0.35 and 0.5 so the sun's glint on a pool no
-longer washed it white); where wounds land and how wide they splash in `FigureVoxels.gd`
-(`WOUND_WEIGHTS`, `WOUND_SPLAT`).
-
-Adding things blood should stain:
-
-- **A block** needs nothing more than destruction asks: drawn from a `.vox` at 0.0625, one block a
-  cell. Every such block is read as the map loads, breakable or not, so drops meet its voxels and
-  pools run across it on to its neighbours. One that wears away colours its lumps and falls with its
-  blood. One that breaks into cut pieces hands its blood to them only if its `ScriptedDestruction` has
-  a `wear`; without one, its blood goes as it breaks, and drops pass its pieces.
-- **A new kind of destruction** (a `Destruction` subclass) has to hand a breaking block's stains on
-  itself: `TerrainDestruction._break()` and `_on_landed()` only know a block that wears away (crumbled
-  with its stains) or one that breaks at once into rigid pieces that wear (`carry_stains()`). Passing
-  the stains into `shatter()`, so each kind decides where its blood goes as it does its pieces, would
-  be the clean way.
-- **A destructible thing that is not a grid cell** (a prop placed as a scene) needs `Blood` to find
-  it: `_first_met()` and `_splash()` know blocks, figures and their gear, pieces that wear, and lumps,
-  a branch each. A common interface for anything stainable (trace a ray against its voxels, give a
-  surface to run over), found by a group, would let new kinds plug in; it would come with destruction
-  outside the grid, which does not exist yet either.
-- **A material that should take blood differently** (water, glass, sand) has nowhere to say so: every
-  surface takes it alike, and only breakable blocks have a resource to put a setting on.
-- **A turned block** (a GridMap orientation) should work, `TerrainSurface` and `carry_stains()`
-  turning voxels and faces, but no map has one yet, so probe the first.
-
-Headless on BoundaryMap a hit costs 0.2-0.4 ms; a shot's 50-odd drops about 1-2 ms a physics step in
-flight; landing them is held to the 2 ms budget; overlays redraw in up to about 1 ms a frame, 2 ms
-while a pool under a body spreads. Before the rig was read at load and the gear cached a frame, the
-first hit took 10 ms and a frame of drops near a figure up to 9.
+`Docs/BLOOD.md` has the rest: how a hit bleeds and sprays, what a drop meets, how blood runs, where
+stains live and how each is handed on, what was decided with the user (so not to be "fixed"), what
+to tune, what a new block, destruction or material needs for blood to stain it, what it costs, how
+to probe it and its gaps. Read it before touching blood, or anything that turns one voxel model into
+others.
 
 **Physics is only for debris, the dead's included.** Layers: 1 terrain, 2 unit clicks
 (`Unit.PICK_LAYER`), 3 debris, 4 unit bodies (`Unit.BODY_LAYER`), 5 pieces
@@ -1771,31 +1290,10 @@ its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `v
 says how many have been taken on, `voxels._loose` maps each body to its `VoxelBody`, and
 `voxels._wearable` holds the pieces still waiting to be (`_model_of(body)` takes one on).
 
-Blood is probed the same way. `unit.take_damage(5, from, false, unit.model.pick_wound(from))` stands
-in for a round's hit, with `from` the muzzle; `blood.drops_in_flight()` counts drops still flying or
-landed but not yet settled, and `blood.pools_to_come()` the dead yet to bleed out. Count stained faces
-over `VoxelStains.faces` (`voxels.stains_at(cell)`, a model's `stains`, a figure's
-`model.voxels().stains`), and drop blood anywhere with `BloodFlow.new(blood._terrain,
-blood._terrain.voxel_of(hit.cell, hit.index), VoxelStains.FACES.find(hit.face), faces, rng).spread(faces)`
-on a hit from `grid.cast(origin, direction, distance, true, true)`. Lumps' colours can only be checked
-in a window (see Gotchas). Hide `HUD` and `TileHighlights` to look at blood: the move range's squares
-draw over it. To look at a figure's wounds, turn it to the camera (`model.face()`) and paint it a
-colour blood shows on; the shot itself is best driven through `Unit.shoot_at()` with a shot from
-`LineOfSight.new(grid).find_shot()`, which plays the tracer to the wound.
+How to probe blood, the gamepad and a medkit is in their `Docs/` files (`BLOOD.md`, `GAMEPAD.md`,
+`MEDKIT.md`), under "Probing it".
 
-Three checks blood was made with, worth repeating after changing it:
-
-- **It draws nothing from the global generator.** Seed, fire the same volley through
-  `Unit.shoot_at()` on a map with its `Blood` node and on one with it freed before the map enters the
-  tree, and compare the outcomes and the next `randi()`: they matched.
-- **How much a wound leans.** Flow the same wounds with `figure.bleed()` and with
-  `BloodFlow.new(FigureVoxels.FigureSurface.new(figure), hit.voxel, hit.face, faces, rng, 1000.0)`,
-  whose splash covers the whole figure, so every step costs the same; compare how far below the wound
-  each stain's faces sit (the numbers under Blood above).
-- **Coins stay clean.** `blood._spray()` drops straight at a coin: they should land beyond it, and
-  its `MeshInstance3D` should get no `stains` metadata and no `Stains` child.
-
-A death is probed the same way: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
+A death is probed headless too: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
 with a round (a blast passes `blasted` and no `at`, a blade a `sweep` too), and
 `TerrainDestruction.break_figure()` breaks any figure without its unit dying. Its lumps are the
 `VoxelDebris` entries from `_state.size()` before it to after (`_centers[piece]` where each is now,
@@ -1804,16 +1302,6 @@ bodies under `TerrainDestruction`. Seed the global generator and compare the nex
 fresh seed's: a death draws nothing from it. Whether the lumps are red can only be seen in a window
 (see Gotchas); they come to rest in 2-3 s, a blast's a little later.
 
-The gamepad is probed headless: `Input.parse_input_event()` of an `InputEventJoypadButton` (press,
-a frame or two, release) or an `InputEventJoypadMotion` (an axis value, then 0 to let go) reaches the
-game, the menus' focus included, as a key does, and switches `InputDevice.gamepad` on as a real pad
-would; `InputDevice.use_gamepad(true)` switches it without an event. A stick held for a while steps
-the tile cursor (`ActionController.cursor`, `current()`) on its repeat; `cursor.snap_to(tile)` puts
-it anywhere. Read the prompts off the `ControlHints` panels (`ctrl.hints`, `MapReticle._hints`, a
-menu's `_hints`): each row is an `HBoxContainer` whose last child is the words' `Label`. Hold a
-`HoldButton` by pressing A on it and waiting past 2 s before letting go. To see the glyphs and the
-cursor, render in a window as for any frame.
-
 Ammo is probed the same way: set `unit.rounds` directly (0 to empty it), read `can_fire()` /
 `can_reload()` and the actions' `is_available()`, fire through `ShootAction._fire()` and reload by
 activating `Reload` and sending Enter (or `ReloadAction._reload()`); `HUD/AmmoIndicator`'s `_rounds`
@@ -1821,19 +1309,6 @@ and `_magazine` are what it draws. An enemy's choice is `unit.ai.choose_action(T
 squad.members))` (its `kind`), and `TurnManager._take_enemy_turn(enemy)` plays a turn out (await it
 through a lambda, with the dictionary flag above). The reload clip is seen with `PreviewAnimations.gd
 -- reload_rifle --over <base pose>`.
-
-A medkit is probed the same way. Buy and equip one before the map loads (`Campaign.buy(market, item)`,
-`Campaign.equip(character, &"item_1", item)`), or give a unit uses directly (`unit.medkits.append()`,
-with the item in `unit.equipment` too). Wound an ally by setting its `health` (its character's `wounds`
-follow), stand it next to the medic, activate `UseMedkit` and send Enter, A, LB / RB, or call
-`_click(unit)`; wound the medic too and it is offered last, or alone; stand a squad member with no
-medkit next to the medic to borrow (`use.supplier(unit)`, `_lenders(unit)`; a Move's `changed` puts the
-button on the bar, `ActionBar`'s button for it `visible`); `_targets` is what is on offer, `current_target()` what is lined up, and the overlay's
-`_panel._chance_label.text` the "+N HP" shown. Mouse clicks on an ally have to be driven in a window,
-where `Input.warp_mouse()` and a parsed `InputEventMouseButton` reach `ActionController` as a player's
-would. The clips are seen with `PreviewAnimations.gd -- use_medkit --over <base pose>` (or
-`use_medkit_self`), which moves the medkit to the hand between the clip's `take` and `stow` as the game
-does; which one a figure plays is `model._tree.get(&"parameters/left_pick/current_state")`.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
@@ -2094,6 +1569,9 @@ reaches may preload a destruction.
 
 ## Known gaps
 
+Blood's, the gamepad's, the medkit's and the skills' gaps, and more of voxel wear's and loose
+models', are in their `Docs/` files, under "Known gaps".
+
 - A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
   in its magazine do (`Unit.rounds`), not on the weapon.
 - There is one kind of magazine and no ammunition to buy, carry or run out of: a reload always fills
@@ -2106,79 +1584,28 @@ reaches may preload a destruction.
   has nothing else to do, never ahead of a fight.
 - Crates break whole on any strike or blast, however weak: only blocks that wear away read
   `Weapon.environment_damage` and `Grenade.environment_damage`.
-- Rounds fly straight through debris: the trace only sees the grid, and the voxels of blocks that wear
-  away. They tear the loose models they pass through, but are never stopped by one.
-- Only a crate's pieces wear away as loose models so far. A loose model must be a `RigidBody3D` drawn by
-  a MagicaVoxel model in a `MeshInstance3D` among its children, and no more than 62 voxels along its x
-  (`VoxelShape.WIDEST`); static props, units' figures and their gear cannot be worn yet, and a
-  `FallingBlock` is not one until it lands.
-- A loose model collides as the box round what is left of it, so a board shot into an L lies as its
-  box, and a part cut off one passes through its whole family of parts for good.
 - A unit stands at the top of its tile however worn the block under it is, so it floats over a crater:
   up to 4 voxels on the bottom layer, deeper on a raised block. Tile highlights float with it.
 - A worn block gives full cover until it breaks, however holed it looks; nothing reads partial wear.
   Each block holds up what is on it by itself: voxels are only joined across a cell face, not traced
   through several blocks, so a lump held only by a block that is itself cut loose stays put.
-- A bite costs about 4-6 ms on the frame it lands and a grenade 15-50 ms, the most among crates and on
-  raised ground (gathering and removing voxels, cutting lumps and meshing in GDScript), more for each
-  block it brings down; the blast's redraws spread over the next few frames.
 - A seeded fight replays exactly only while no block falls whole. A crate that falls draws on the
   global random generator when it lands (its pieces' knocks, its coin), at a moment the physics
   decides, so one that lands before the next round or blast in one run and after it in another
   changes the number that round or blast draws.
 - Voxels are read from the `.vox` files at `res://` on ready: an exported build must include `*.vox` as
   non-resource files, and there are no export presets yet.
-- A lump of debris collides as the box round its voxels, so one that is not a full box rests a little
-  proud of what it lies on.
-- A stilled lump is woken only by a blast, the block under it being worn or broken, or a unit walking
-  into it. A crate's board, dropped gear or a falling block coming down on one passes through it, and a
-  lump still on the move can come to rest inside it.
-- A column of crates broken between two standing columns mostly heaps up in its own one-cell slot.
-  The columns either side hold the struck crate's wreck in place, so the crates above only drop a
-  fifth of a cell on to it before breaking, and their pieces take more room loose than as crates.
-  Stood in the open the same stack clears its column. Clearing a slot would need debris that can
-  be crushed, or thinned out once it settles.
 - The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
   land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates
   the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The gamepad's buttons are drawn and named as an Xbox controller's (a Steam Deck's), whatever pad is
-  plugged in: a PlayStation or Nintendo pad works, as the same buttons by place, but its prompts name
-  the Xbox ones. Nothing can be rebound, from the pad or the keyboard, and there is no rumble. It has
-  only been driven by simulated input (`Input.parse_input_event()`), never a real pad or a Deck.
-- The tile cursor steps whole tiles, and never on to one more than `HIGHEST_STEP` (4) cells above the
-  one it is on: a tile atop a taller stack than that, which no map has, would be the mouse's alone.
-  The world map's reticle does not snap to a village: it has to be put on the icon. The move path is
-  drawn only a shade bluer than the range round it, with the pad as with the mouse.
-- With the gamepad a reaction window's prompts lose their numbers (one has an A, the others none), so
-  the numbers' order is not shown, and the combat prompts' ten rows are a tall column: a player who
-  knows the pad has no way to hide them.
-- The only experience is for surviving a battle. The Human tree's four skills and the Minor Noble
-  tree's first three are the only ones that do anything, and a stat bonus, gold after a combat and a
-  grant of skill points the only kinds of effect; every take costs one skill point, and nothing
-  unlearns one. Rich Blood, the Minor Noble tree's last, can be learned but does nothing: no market
-  has rare goods, no item is marked rare, and no price is doubled. There are no
-  classes. Nothing shows where a stat's total comes from: the Details page gives the total alone. A
-  level's words and its effects are written separately, so nothing keeps them agreeing. A pie's
-  straight edges are not antialiased. A skill's tooltip lies over whatever is beside its node, the
-  next tree's nodes among them, for as long as the keyboard is on the node. The Skills page does not
-  scroll: its trees have about 296 px of height, which the two trees as they are fit (280: a row of
-  four rings, a row of one and two plain rows) but a fifth row, or rings on three rows of four, run
-  out of the panel's bottom. Grenades are the
-  only items used up in battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with
-  its four enemies.
+- The only experience is for surviving a battle. There are no classes, and Rich Blood, the Minor
+  Noble tree's last skill, can be learned but does nothing. Grenades are the only items used up in
+  battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with its four enemies.
 - Enemies never strike, throw or hunker down: their AI only shoots, so no enemy figure draws a sword,
   readies a grenade or ducks, though the same figure can. Nor do they carry medkits, and their AI never
   heals.
-- A medkit heals a fixed 4 HP, its user or an ally beside it; nothing heals out of battle but the road.
-  A borrower cannot choose whose medkit to draw on (the first lender in the squad's order lends), the
-  lender's figure takes no part, and the borrower's hand reaches to its own belt for a kit that is not
-  there and appears in its hand; the button's count includes uses that walking away would lose.
-  Its uses are counted only on the action's button, and a medkit's prop does not show whether it has
-  been used. With Use Medkit up, a left click on a wounded ally beside the medic heals or lines them up
-  rather than selecting them. Treating itself, the figure keeps facing whoever it last turned to. The medkit hangs at the back of the belt, so the left hand's reach for it
-  falls a little short of a slot on the right, as a grenade's does at a throw.
 - The player never sees the Hunkered term at work: an enemy's shot shows its line but not its odds,
   so only the outcomes tell. Hunker Down marks nothing on the map while it is lined up, and the unit
   hunkers wherever it stands in cover, whichever way its cover faces.
@@ -2211,29 +1638,6 @@ reaches may preload a destruction.
   no way yet to pick which. Grenades do not bounce or roll, and a blocked arc is simply not thrown;
   walls inside a blast shelter nobody. Only the player sees the throw: no reaction or camera move
   follows it.
-- Blood never dries, fades or soaks in: every stain stays bright red for the battle, and every battle
-  starts clean; nothing is kept on the character. Figures do not leave trails or drip, and blood on a
-  figure stays on it rather than dripping on to the ground.
-- The Blood on / off choice is not saved: every launch starts with blood on, as every launch starts
-  with the tile grid off. It cannot be changed in a battle, so a battle opened on its own (F6, the
-  harness) always has blood unless a probe sets `Blood.enabled` before the map loads.
-- Drops pass through what has no voxels to them or no body: stilled lumps, pieces that do not wear,
-  blocks falling whole, and the scenery beyond the battlefield (lost below the map). A lump is stained
-  a whole voxel at a time.
-- A crate whose `ScriptedDestruction` has no `wear` loses its blood as it breaks: only pieces taken on
-  as loose models can carry stains.
-- Blood runs over one surface at a time: from a figure's wound it never runs on to its gear or the
-  ground, and a small drop stains so few faces that it is mostly a cross or a bar.
-- The move range's tile highlights draw over blood, which shows pink through their fill, and blood in
-  shade takes the sky's blue light, so it looks a dark purple-red there.
-- A blast's worn blocks are redrawn over the next frames, but their stains' overlays at the end of the
-  blast's own, so for a frame or two, under the fireball, a voxel about to go shows without its stain.
-- Blood on the grenades on a belt goes when any grenade is used up: `equip()` builds them all afresh.
-- Every block in the map's library drawn from a `.vox` is read as the map loads, used on the map or
-  not, and every stained cell is an overlay and a draw call of its own. Fine for four kinds and a few
-  hundred stained cells; with dozens of kinds, read only those the map uses, and with thousands of
-  stained cells, gather the overlays by area. See "Adding things blood should stain" for what a new
-  kind of breakable, a destructible outside the grid, or a material that sheds blood would need.
 - `TurnManager._take_enemy_turn()` reads its enemy again after each pause, so anything that kills an
   enemy during its own turn other than a reaction (which it checks for) leaves it reading a freed unit.
   Only a probe does so far.

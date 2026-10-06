@@ -1141,7 +1141,7 @@ target, 9.13).
 
 ### 9.12 Blood on the figure
 
-Blood (`Scripts/Blood/`, described in full in `CLAUDE.md`) is the one thing besides the animations that
+Blood (`Scripts/Blood/`, described in full in `Docs/BLOOD.md`) is the one thing besides the animations that
 reads the figure's voxels while the game runs. It does so through **`FigureVoxels`**
 (`Scripts/Characters/FigureVoxels.gd`), which `CharacterModel.voxels()` makes the first time it is
 asked (the combat map's `Blood` node asks for every figure as the map loads):
