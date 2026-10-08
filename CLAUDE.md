@@ -288,7 +288,8 @@ vcom/Scripts/
                        prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: sent by any right click, or A at the reticle (no selecting), travels a route;
+    Party.gd           the party dot: sent by any right click, or A at the reticle (no selecting), travels a route
+                       (with no terrain_path, as in Map.tscn, a straight line to anywhere);
                        is_at(destination); pointed_at(), can_go_to(); L3 centres it;
                        every step_length map pixels heals the roster by heal_per_step, then rolls a forest's
                        encounter chance; encountered(map)
@@ -547,7 +548,7 @@ duchies, 220 counties; `MapCreation/` holds the pictures and data it was made fr
 the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 units, the sheet's
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
-nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`,
+nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
 `Camera` (a `MapCamera`, so the scene runs by itself), `Detail`. A settlement is a `Destination`, as the old
 map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
 or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
@@ -560,7 +561,14 @@ duchy's and kingdom's numbers as metadata. Villages and hamlets have their scene
 pack's folder as `WorldMap/Hamlet.png`) and their groups, `Settlements/Hamlets` and `Villages`,
 ahead of the capitals' so that towns and cities draw over them, but there are none on the map yet:
 one is added by instancing its scene under its group. `Village.tscn` is the old map's village as
-well, which keeps its 32 by setting `icon_height` on its own node in `WorldMap.tscn`. The camera's
+well, which keeps its 32 by setting `icon_height` on its own node in `WorldMap.tscn`. `Party` is
+the old map's `Party`, brought over at the user's request (the old map keeps its own): it starts
+near the middle of county 115, at (7302, 7381), the outline's centroid, as they asked, and is
+drawn over the settlements. Its `terrain_path` is empty, this map having no land collider or
+navigation mesh, so it goes wherever it is sent in a straight line, over water too; a right click
+on a settlement's icon sends it to the settlement. Keeping it to the land is not built: what
+stops it (lakes, rivers but for their bridges) is the user's to say. Its speed and step are the
+script's, here in units: 25 km a second, a step every 5 km. The camera's
 limits are the user's: all the way out
 the whole land just fits the window and nothing pans; all the way in the view is 25 miles tall
 (`MapCamera.closest_view_miles`, a mile being `UNITS_A_MILE`, 16.09344, of the map's units: 56 m to
@@ -1664,8 +1672,11 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
   changes the number that round or blast draws.
 - Voxels are read from the `.vox` files at `res://` on ready: an exported build must include `*.vox` as
   non-resource files, and there are no export presets yet.
-- `Scenes/Map.tscn` is not in the game: no party, village, forest, land test or navigation uses
-  it, and nothing in it can be clicked. Its settlements are not drawn in the editor (`Destination`
+- `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
+  navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. The map has
+  no forest, so nothing is met on it, no `VillageMenu`, so no settlement is entered, and no
+  `MapReticle`, so the gamepad's A sends the party to the middle of the screen with nothing drawn
+  there. Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture.
   Its level of detail's gaps are in `Docs/MAP.md`. It is 8 MB of text and takes about a
   second to open: half reading the file, a quarter cutting its 936 polygons into triangles.

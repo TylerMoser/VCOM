@@ -669,7 +669,8 @@ counties, with their coast, lakes, rivers, roads, bridges and settlements. It is
 and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
 reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
 To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
-controls (see [Controls](#world-map)), within limits of its own, given below.
+controls (see [Controls](#world-map)), within limits of its own, given below, and its party is
+sent as the world map's is.
 
 It was made from the pictures and data in [`MapCreation/`](MapCreation), which
 [`MapCreation/Features.md`](MapCreation/Features.md) describes, by the programs in
@@ -698,6 +699,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart |
 | `Bridges` | 146 bridges, each along its road from bank to bank |
 | `Settlements` | The settlements, an icon each. The 220 there are, by rank: nine kingdoms' capitals and 35 duchies', which are cities, and 176 counties', which are towns. Ahead of them, so drawn under them, `Hamlets` and `Villages`, both still empty |
+| `Party` | The player's party, the red dot, where it starts: near the middle of county 115 |
 | `Camera` | The map's camera, so that the scene can be run by itself |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
@@ -756,8 +758,26 @@ the node, at a height in screen pixels that the zoom does not change, and while 
 - **In the editor a settlement has no picture.** A `Destination` draws itself only while the game
   runs, as the old map's village does, so in the editor a settlement is a node to pick from the
   scene tree, shown by its cross once picked. Run the scene (F6) to see the icons.
-- A kingdom's capital and a duchy's look alike for now. Nothing here can be clicked or travelled
-  to yet: the scene has no party.
+- A kingdom's capital and a duchy's look alike for now. A settlement can be travelled to (below),
+  but not entered: the scene has no menu for one, and no settlement has anything in it.
+
+**The party is on the map, and goes in straight lines.** The `Party` node is the old map's party,
+the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
+the middle of the county's area, 9 km from its capital. It is sent as on the old map (see
+[Controls](#world-map)): a right-click anywhere, or on a settlement's icon to go to the settlement
+itself, and with the gamepad `A` for what is in the middle of the screen and `L3` to bring the view
+back to it. The old map keeps a party of its own.
+
+- **It keeps to no land yet.** The old map's party asks that map's land, traced from a picture,
+  where it may go and the way there round the coast. This map has no such land, so its party goes
+  wherever it is sent in a straight line, over the sea and the lakes as over the land, and off the
+  sheet if sent there. That is `terrain_path` on the node, left empty.
+- **Speed.** Its speed and its steps are the old map's numbers, here in units: 250 a second,
+  which is 25 km, so the sheet's 1,340 km from north to south take under a minute, and a step
+  every 50, which is 5 km, each healing the roster as on the old map.
+- Nothing is met on the way, the map having no forests, and the gamepad has no reticle here to
+  show where `A` points. The dot and the dashed line to where it is going are close to the roads'
+  red.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):

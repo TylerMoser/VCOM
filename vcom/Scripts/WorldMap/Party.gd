@@ -11,6 +11,10 @@
 ## the new point instead. The left button is left free for other things, such
 ## as a left click on the village the party is in opening its [VillageMenu].
 ##
+## With no terrain ([member terrain_path] left empty, as on the new map,
+## [code]Scenes/Map.tscn[/code], which has no land to ask yet) it goes wherever
+## it is sent in a straight line, over the sea as over the land.
+##
 ## With the gamepad, A does what the right click does, at the [MapReticle] in
 ## the middle of the screen, and L3 (recenter) brings the party back into the
 ## middle of the view.
@@ -35,7 +39,8 @@ signal encountered(map: PackedScene)
 
 ## Finds the way over land. Leave empty to go anywhere, in a straight line.
 @export var terrain_path: NodePath = ^"../Terrain"
-## Map pixels per second. The map is about 9000 across.
+## Map pixels per second. The map is about 9000 across. On the new map a
+## pixel is a unit, 100 m, and the island about 10,400 by 13,400 of them.
 @export var travel_speed := 250.0
 ## How far the party goes, in map pixels, from one chance of a random
 ## encounter to the next. The chance itself is each forest's.

@@ -1,7 +1,8 @@
 extends SceneTree
 ## Makes the map's scene, res://Scenes/Map.tscn, out of the shapes m1_shapes.py worked out: areas as
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
-## and settlements as instances of the game's City.tscn and Town.tscn.
+## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
+## own nodes for the map: its party, its camera and its level of detail.
 ##
 ## A Godot unit is 100 m. A pixel of the pictures is 335 m, so a pixel is 3.35 units, and the
 ## picture's top left corner is the scene's origin.
@@ -21,6 +22,8 @@ const ICON_SCENE := {
 }
 ## How far the sea reaches beyond the sheet, in units.
 const SEA_BEYOND := 30000.0
+## Where the party starts, in units: near the middle of county 115, the middle of its area.
+const PARTY_START := Vector2(7302.0, 7381.0)
 
 # Line widths, in Godot units: the pictures' widths in pixels times 3.35, to the whole unit.
 const COAST_INK := 23.0          # 7 px. The coast's line is twice this, its inner half under the land.
@@ -70,6 +73,7 @@ func _initialize() -> void:
 	_add_roads(shapes["roads"])
 	_add_bridges(shapes["bridges"])
 	_add_settlements(shapes["settlements"])
+	_add_party()
 	_add_camera(size)
 	_add_detail()
 
@@ -270,6 +274,20 @@ func _add_settlements(settlements: Array) -> void:
 		icon.set_meta(&"kingdom", int(settlement["kingdom"]))
 		of_rank[rank].add_child(icon)
 		_nodes += 1
+
+
+## The player's party (Scripts/WorldMap/Party.gd), as on the old world map, drawn over the
+## settlements. It starts at PARTY_START, and with no terrain to ask (the map has no land collider
+## or navigation mesh yet) it goes wherever it is sent in a straight line.
+func _add_party() -> void:
+	var party := Node2D.new()
+	party.name = "Party"
+	party.set_script(load("res://Scripts/WorldMap/Party.gd"))
+	party.set(&"terrain_path", NodePath(""))
+	party.position = PARTY_START
+	party.editor_description = "The player's party, the red dot, drawn over the settlements. Where it is here is where it starts: near the middle of county 115. A right click sends it there (on a settlement's icon, to the settlement), and it goes in a straight line, over water as over land: this map has no land for it to keep to yet, which is why its Terrain Path is empty. Its speed and its steps are in the map's units, 100 m each."
+	_root.add_child(party)
+	_nodes += 1
 
 
 ## The map's own camera, so that the scene can be run by itself and looked over. It pans and

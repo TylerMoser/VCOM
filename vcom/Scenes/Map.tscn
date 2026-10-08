@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/City.tscn" id="3_city"]
 [ext_resource type="Script" path="res://Scripts/WorldMap/MapCamera.gd" id="1_s486e"]
 [ext_resource type="Script" path="res://Scripts/WorldMap/MapDetail.gd" id="4_detail"]
+[ext_resource type="Script" uid="uid://cthdiw86m6jyd" path="res://Scripts/WorldMap/Party.gd" id="5_party"]
 
 [sub_resource type="Curve" id="Curve_7yn8b"]
 _data = [Vector2(0, 0.97477067), 0.0, 0.025229335, 1, 1, Vector2(1, 1), 0.025229335, 0.0, 1, 1]
@@ -21067,6 +21068,12 @@ display_name = "Capital of Kingdom 9"
 metadata/county = 195
 metadata/duchy = 40
 metadata/kingdom = 9
+
+[node name="Party" type="Node2D" parent="." unique_id=1637420915]
+editor_description = "The player's party, the red dot, drawn over the settlements. Where it is here is where it starts: near the middle of county 115. A right click sends it there (on a settlement's icon, to the settlement), and it goes in a straight line, over water as over land: this map has no land for it to keep to yet, which is why its Terrain Path is empty. Its speed and its steps are in the map's units, 100 m each."
+position = Vector2(7302, 7381)
+script = ExtResource("5_party")
+terrain_path = NodePath("")
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1352741681]
 editor_description = "Pans and zooms as on the world map (WASD, the screen's edges, the middle mouse button, the wheel). All the way out, the whole land just fits the window, and nothing can be panned. All the way in, the view is 25 miles tall (this node's Closest View Miles). The view never leaves what is seen all the way out. The land's extent is read off the Land and Coast nodes as the scene opens."

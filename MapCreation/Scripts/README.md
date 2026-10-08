@@ -288,7 +288,9 @@ What `m1_shapes.py` does, in the order it does it:
 for a settlement an instance of the game's `City.tscn` (a kingdom's or a duchy's capital) or
 `Town.tscn` (a county's), which draw its icon. It leaves two empty groups ahead of them,
 `Settlements/Hamlets` and `Settlements/Villages`, for the two lesser kinds of settlement, which
-the source data has none of, and ends with the game's camera for the map and its `Detail` node,
+the source data has none of, and ends with the game's own nodes for the map: the party, where it
+starts (near the middle of county 115, a place written into the program), the camera, and the
+`Detail` node,
 which shows and hides those groups by the zoom while the game runs and finds them by these names. It
 turns pixels into the scene's units (3.35 to a pixel: a unit is 100 m), gives the lines the
 pictures' widths in those units, tries every polygon in Godot's own cutter of polygons into
