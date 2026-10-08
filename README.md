@@ -701,6 +701,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Settlements` | The settlements, an icon each. The 220 there are, by rank: nine kingdoms' capitals and 35 duchies', which are cities, and 176 counties', which are towns. Ahead of them, so drawn under them, `Hamlets` and `Villages`, both still empty |
 | `Party` | The player's party, the red dot, where it starts: near the middle of county 115 |
 | `Camera` | The map's camera, so that the scene can be run by itself |
+| `MapReticle` | The gamepad's pointer, as on the old map: a ring in the middle of the screen and the buttons' prompts, shown only with the gamepad |
 | `VillageMenu` | The menu of the settlement the party is in, as on the old map: it draws nothing until it opens |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
@@ -766,8 +767,8 @@ the node, at a height in screen pixels that the zoom does not change, and while 
 the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
 the middle of the county's area, 9 km from its capital. It is sent as on the old map (see
 [Controls](#world-map)): a right-click anywhere, or on a settlement's icon to go to the settlement
-itself, and with the gamepad `A` for what is in the middle of the screen and `L3` to bring the view
-back to it. The old map keeps a party of its own.
+itself, and with the gamepad `A` for what is under the reticle and `L3` to bring the view back to
+it. The old map keeps a party of its own.
 
 - **It keeps to no land yet.** The old map's party asks that map's land, traced from a picture,
   where it may go and the way there round the coast. This map has no such land, so its party goes
@@ -776,15 +777,14 @@ back to it. The old map keeps a party of its own.
 - **Speed.** Its speed and its steps are the old map's numbers, here in units: 250 a second,
   which is 25 km, so the sheet's 1,340 km from north to south take under a minute, and a step
   every 50, which is 5 km, each healing the roster as on the old map.
-- Nothing is met on the way, the map having no forests, and the gamepad has no reticle here to
-  show where `A` points. The dot and the dashed line to where it is going are close to the roads'
-  red.
+- Nothing is met on the way, the map having no forests. The dot and the dashed line to where it
+  is going are close to the roads' red.
 
 **One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
 the party starts, has what the old map's village has, and is used as that village is (see
 [Controls](#world-map)): its tooltip lists the two under its name, and once the party is in the
 town, sent there by a right-click on its icon, a left-click on the icon opens its menu, a tab for
-each. With the gamepad both are `A` with the town in the middle of the screen. The menu is the
+each. With the gamepad both are `A` with the reticle on the town. The menu is the
 scene's `VillageMenu` node, the old map's, and opens for any settlement that has something in it;
 the other 219 have nothing, so a click on one of them does nothing.
 
@@ -797,6 +797,17 @@ the other 219 have nothing, so a click on one of them does nothing.
 - **The town has to be in view.** A county's capital shows once the view is under 240 miles tall
   (six steps of the wheel in from all the way out), and one that does not show cannot be pointed
   at: further out, the town can be neither sent to nor entered.
+
+**The gamepad has its reticle.** The `MapReticle` node is the old map's (see
+[Gamepad](#gamepad)): while the gamepad is in use, a ring in the middle of the screen, which the
+left stick moves the map under, and in the bottom right corner what each button does. The first of
+those says what `A` does with the ring where it is: "Enter" the settlement the party is in, "Go to"
+a settlement, or "Go here". It is hidden while a menu is up, and with the mouse.
+
+- On the old map there is no prompt for `A` over the sea, where the party cannot be sent. Here
+  it says "Go here" there too, since the party keeps to no land yet and goes.
+- The ring is white with a dark edge, made for the old map's art. On this map's white land it
+  shows by its edge alone, and is faint.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):

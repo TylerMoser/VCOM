@@ -2,8 +2,8 @@ extends SceneTree
 ## Makes the map's scene, res://Scenes/Map.tscn, out of the shapes m1_shapes.py worked out: areas as
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
 ## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
-## own nodes for the map: its party, its camera, the menu of the settlement the party is in, and
-## its level of detail.
+## own nodes for the map: its party, its camera, the gamepad's reticle, the menu of the settlement
+## the party is in, and its level of detail.
 ##
 ## A Godot unit is 100 m. A pixel of the pictures is 335 m, so a pixel is 3.35 units, and the
 ## picture's top left corner is the scene's origin.
@@ -84,6 +84,7 @@ func _initialize() -> void:
 	_add_settlements(shapes["settlements"])
 	_add_party()
 	_add_camera(size)
+	_add_reticle()
 	_add_village_menu()
 	_add_detail()
 
@@ -315,6 +316,22 @@ func _add_camera(size: Array) -> void:
 	camera.position = Vector2(size[0], size[1]) * UNITS * 0.5
 	camera.editor_description = "Pans and zooms as on the world map (WASD, the screen's edges, the middle mouse button, the wheel). All the way out, the whole land just fits the window, and nothing can be panned. All the way in, the view is 25 miles tall (this node's Closest View Miles). The view never leaves what is seen all the way out. The land's extent is read off the Land and Coast nodes as the scene opens."
 	_root.add_child(camera)
+	_nodes += 1
+
+
+## The gamepad's pointer (Scripts/WorldMap/MapReticle.gd), as on the old world map: a ring in the
+## middle of the screen and the prompts for what each button does, shown only with the gamepad. It
+## finds the party and the menu below by their names. Like that menu it makes what it shows as its
+## script starts, so none of that is kept in the scene.
+func _add_reticle() -> void:
+	var reticle := CanvasLayer.new()
+	reticle.name = "MapReticle"
+	reticle.set_script(load("res://Scripts/WorldMap/MapReticle.gd"))
+	reticle.layer = 1
+	reticle.process_mode = Node.PROCESS_MODE_INHERIT
+	reticle.editor_description = "The gamepad's pointer, as on the world map: a ring in the middle of the screen, which the left stick moves the map under, and prompts in the bottom right corner for what each button does. A acts on what is under the ring: it enters the settlement the party is in, or sends the party to a settlement, or to that spot. Shown only while the gamepad is in use."
+	_root.add_child(reticle)
+	_builds_itself.append(reticle)
 	_nodes += 1
 
 
