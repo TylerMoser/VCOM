@@ -20,8 +20,8 @@ from, every clip, every decision and gap, and recipes for adding more. Read it b
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
 subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
-`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MEDKIT.md` and
-`SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
+`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MAP.md` (the
+new map's level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
 file before touching it, and put new detail about it there, not here; when this file nears the limit
 again, split another subsystem out the same way.
 
@@ -275,7 +275,15 @@ vcom/Scripts/
     SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
                        note), Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
-    WorldMapCamera.gd  pan / zoom with the combat camera's input actions; the left stick pans, the right zooms
+    WorldMapCamera.gd  pan / zoom with the combat camera's input actions; the left stick pans, the right zooms;
+                       its limits the map sprite's, behind _has_map(), _map_rect(), _max_zoom() and
+                       _clamp_to_map(point, zoom), which MapCamera overrides
+    MapCamera.gd       WorldMapCamera for Scenes/Map.tscn: all the way out the land just fits (read off the
+                       land's nodes), all the way in the view is closest_view_miles (25) tall, and the view
+                       never leaves what is seen all the way out
+    MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
+                       (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
+                       factor of the zoom, a few lines a frame
     MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen and its
                        prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
@@ -286,8 +294,10 @@ vcom/Scripts/
                        encounter chance; encountered(map)
     Forest.gd          Polygon2D (Scenes/Forest.tscn): a forest's outline, encounter_chance per step, encounter_map
     GameOver.gd        CanvasLayer: once the roster is empty, pauses, shows "Game Over" in a TurnBanner, quits
-    Destination.gd     a place to send the party (Scenes/Village.tscn): icon, hover tooltip listing its locations
-                       (under the pointer: is_under_pointer(), find_under_pointer(); not while paused)
+    Destination.gd     a place to send the party (Scenes/Village.tscn; with City, Town and Hamlet.tscn, the
+                       settlements of Map.tscn): icon, hover tooltip listing its locations
+                       (under the pointer: is_under_pointer(), find_under_pointer(); not while paused);
+                       hidden, it stops its _process
     Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
                        description, make_tab()
     HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
@@ -529,6 +539,60 @@ combat, and from the focused control's `gamepad_hint(focused)`, or the first anc
 something, in a menu. `Docs/GAMEPAD.md` has the rest: every binding, how the cursor steps, where
 each prompt's words come from, what the HUD swaps for a glyph, how to probe the pad headless, its
 gaps and what was decided without asking the user. Read it before touching input.
+
+**The new world map is a scene of Godot's own nodes, written once by program and changed by hand
+from then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44
+duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from, and
+`MapCreation/Features.md` describes them). The game does not use it yet: `WorldMap.tscn` is still
+the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 units, the sheet's
+top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
+is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
+nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`,
+`Camera` (a `MapCamera`, so the scene runs by itself), `Detail`. A settlement is a `Destination`, as the old
+map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
+or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
+village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
+tooltip under the pointer. `icon_height` is on each scene's root (26 and 20, not the village's 32,
+which with 220 on screen hides the map: my call), and an instance keeps only its position, its
+`display_name` (a placeholder, "Capital of County 103": nothing is named yet) and its county's,
+duchy's and kingdom's numbers as metadata. Villages and hamlets have their scenes too
+(`Scenes/Village.tscn`, 16, the pack's Village; `Scenes/Hamlet.tscn`, 12, `Hamlet2.png` of the
+pack's folder as `WorldMap/Hamlet.png`) and their groups, `Settlements/Hamlets` and `Villages`,
+ahead of the capitals' so that towns and cities draw over them, but there are none on the map yet:
+one is added by instancing its scene under its group. `Village.tscn` is the old map's village as
+well, which keeps its 32 by setting `icon_height` on its own node in `WorldMap.tscn`. The camera's
+limits are the user's: all the way out
+the whole land just fits the window and nothing pans; all the way in the view is 25 miles tall
+(`MapCamera.closest_view_miles`, a mile being `UNITS_A_MILE`, 16.09344, of the map's units: 56 m to
+a pixel at 1280 by 720, 33 times all the way out; it was first just large enough for any one
+outline of the land, 186 m to a pixel, which they then replaced); and the view never leaves what
+is seen all the way out (that view's edges, not
+the land's own box, as they chose, so in a wide window it can slide out over the sea either side).
+`MapCamera` reads the land's extent off `Land` and `Coast` as the scene opens. Areas are `Polygon2D`
+and lines `Line2D` with a width in units. Last in the tree is `Detail`, a `MapDetail`, the map's
+level of detail while the game runs (the editor shows every node, at the width it was given). The
+view is in one of four tiers by its height in miles, the user's: Realm (the kingdoms' borders and
+capitals, the greatest rivers and lakes), Kingdom under 480 (the duchies' borders and capitals,
+highways), Duchy under 240 (the counties' borders and capitals, the other roads, bridges, every
+river and lake) and County under 100 (villages, hamlets). What a tier brings is faded by
+`modulate`, never hidden, since showing a `Line2D` builds it again; only the settlements' groups
+are hidden outright, where a `Destination` stops its `_process` and is not pointed at. A line's
+width in the scene is its width at 220 miles tall: `MapDetail` scales them all by one factor, so
+that on screen they follow about a third of the zoom, and sets them a few lines a frame, since
+that too builds a line again. A border's `...Along` line is a plain border while its river, lake
+or road is out of its tier. A new layer that should come and go by the zoom goes in
+`MapDetail.SHOWN_FROM`. `Docs/MAP.md` has the rest; read it before touching the map's detail.
+Lines are thin far out, which is why `project.godot` has 4x 2D MSAA
+(`anti_aliasing/quality/msaa_2d`), for the whole game: nothing else in Godot 4.7 smooths a
+`Line2D` or a `Polygon2D`, whose own `antialiased` does nothing. Things that share an edge have
+the same points, each its own copy: two counties and the line of the border between them; a
+county and its stretch of `Coast` (`CoastOfCounty163` for `County163`, named apart so that a search
+by name finds one thing; a line twice the coast's width, its inner half under the
+land); a border that follows a river, the river, and the `...AlongRiver` line under the river
+that shows the border's colour on both banks. A hand edit has to move the copies too. **Never run
+`MapCreation/Scripts/scene/m2_scene.gd` over it unasked: it writes the scene afresh, and every
+change made by hand is lost.** `README.md`, "The new world map", has the decisions and what each
+node holds; `MapCreation/Scripts/README.md`, step 11, how it was made and checked.
 
 **Forests are shapes drawn in the editor.** Each is an instance of `Scenes/Forest.tscn`, a
 light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
@@ -1290,8 +1354,13 @@ its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `v
 says how many have been taken on, `voxels._loose` maps each body to its `VoxelBody`, and
 `voxels._wearable` holds the pieces still waiting to be (`_model_of(body)` takes one on).
 
-How to probe blood, the gamepad and a medkit is in their `Docs/` files (`BLOOD.md`, `GAMEPAD.md`,
-`MEDKIT.md`), under "Probing it".
+The new map's scene is looked at with `MapCreation/Scripts/scene/m3_draw.gd`, in a window: it draws
+the whole map at one screen pixel to a pixel of the pictures (`render_full.png`), times it, and
+draws close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
+`MapCreation/Scripts/scene/m4_compare.py` sets that drawing beside `MapCreation/AllSimple.png`.
+
+How to probe blood, the gamepad, a medkit and the new map's level of detail is in their `Docs/`
+files (`BLOOD.md`, `GAMEPAD.md`, `MEDKIT.md`, `MAP.md`), under "Probing it".
 
 A death is probed headless too: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
 with a round (a blast passes `blasted` and no `at`, a blade a `sweep` too), and
@@ -1569,8 +1638,8 @@ reaches may preload a destruction.
 
 ## Known gaps
 
-Blood's, the gamepad's, the medkit's and the skills' gaps, and more of voxel wear's and loose
-models', are in their `Docs/` files, under "Known gaps".
+Blood's, the gamepad's, the medkit's, the skills' and the new map's level of detail's gaps, and
+more of voxel wear's and loose models', are in their `Docs/` files, under "Known gaps".
 
 - A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
   in its magazine do (`Unit.rounds`), not on the weapon.
@@ -1595,6 +1664,11 @@ models', are in their `Docs/` files, under "Known gaps".
   changes the number that round or blast draws.
 - Voxels are read from the `.vox` files at `res://` on ready: an exported build must include `*.vox` as
   non-resource files, and there are no export presets yet.
+- `Scenes/Map.tscn` is not in the game: no party, village, forest, land test or navigation uses
+  it, and nothing in it can be clicked. Its settlements are not drawn in the editor (`Destination`
+  is no tool script, so the old map's village is not either): there they are nodes with no picture.
+  Its level of detail's gaps are in `Docs/MAP.md`. It is 8 MB of text and takes about a
+  second to open: half reading the file, a quarter cutting its 936 polygons into triangles.
 - The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
   land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates
   the mask from the art and overwrites any edits to it.

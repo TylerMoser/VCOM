@@ -269,6 +269,7 @@ polygon = PackedVector2Array(-1122, -84, -970, -507, -50, -600, 709, -734, 1013,
 position = Vector2(1000, 0)
 display_name = "Village1"
 locations = Array[ExtResource("7_location")]([ExtResource("8_hiring_board"), ExtResource("9_market")])
+icon_height = 32.0
 
 [node name="Party" type="Node2D" parent="." unique_id=1808455911]
 script = ExtResource("3_party")

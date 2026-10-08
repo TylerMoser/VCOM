@@ -16,6 +16,10 @@
 ## Zoomed all the way out the whole map fits on screen; all the way in, one
 ## pixel of the map image is one pixel of the view. The centre of the view
 ## never leaves the map.
+##
+## Those limits are this camera's own. [MapCamera], the new map's, keeps the
+## panning and zooming and sets other limits, by overriding [method _has_map],
+## [method _map_rect], [method _max_zoom] and [method _clamp_to_map].
 class_name WorldMapCamera
 extends Camera2D
 
@@ -66,7 +70,7 @@ func _ready() -> void:
 
 	# Start with the whole map in view, centred on it.
 	_target_zoom = _min_zoom()
-	_target_position = _map_rect().get_center() if _map != null else global_position
+	_target_position = _map_rect().get_center() if _has_map() else global_position
 	_current_zoom = _target_zoom
 	_current_position = _target_position
 	_apply()
@@ -89,14 +93,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		# scales, so the map stays under the cursor whatever the window size.
 		# The drag skips the smoothing for the same reason.
 		var motion := (event as InputEventMouseMotion).relative
-		_target_position = _clamp_to_map(_target_position - motion / _current_zoom)
+		_target_position = _clamp_to_map(_target_position - motion / _current_zoom, _target_zoom)
 		_current_position = _target_position
 
 
 func _process(delta: float) -> void:
-	# The zoom-out limit follows the window, so resizing it never leaves the
-	# view zoomed out past the whole map.
-	_target_zoom = clampf(_target_zoom, _min_zoom(), max_zoom)
+	# The limits follow the window, so resizing it never leaves the view
+	# zoomed out past the whole map, or off it.
+	_target_zoom = clampf(_target_zoom, _min_zoom(), _max_zoom())
+	_target_position = _clamp_to_map(_target_position, _target_zoom)
 	_update_pan(delta)
 	var push := Input.get_axis(&"camera_zoom_stick_out", &"camera_zoom_stick_in")
 	if not is_zero_approx(push):
@@ -106,26 +111,29 @@ func _process(delta: float) -> void:
 	var log_zoom := lerpf(log(_current_zoom), log(_target_zoom), _weight(delta, zoom_smoothing))
 	_current_zoom = exp(log_zoom)
 	_current_position = _current_position.lerp(_target_position, _weight(delta, pan_smoothing))
+	# Where the view may be can depend on its zoom, and the zoom is still on
+	# its way: the view is held to the limits of the zoom it has this frame.
+	_current_position = _clamp_to_map(_current_position, _current_zoom)
 	_apply()
 
 
 ## Centres the view on a point of the map, keeping the current zoom.
 func focus_on(map_position: Vector2) -> void:
-	_target_position = _clamp_to_map(map_position)
+	_target_position = _clamp_to_map(map_position, _target_zoom)
 
 
 ## One wheel notch, multiplying the zoom by [param factor]. The point under the
 ## pointer stays under it, so the wheel zooms toward what the player points
 ## at: the mouse, or with the gamepad the middle of the screen.
 func _step_zoom(factor: float) -> void:
-	var zoom_to := clampf(_target_zoom * factor, _min_zoom(), max_zoom)
+	var zoom_to := clampf(_target_zoom * factor, _min_zoom(), _max_zoom())
 	if is_equal_approx(zoom_to, _target_zoom):
 		return
 	var viewport := get_viewport()
 	var offset := InputDevice.pointer_position(viewport) - viewport.get_visible_rect().size * 0.5
 	var anchor := _target_position + offset / _target_zoom
 	_target_zoom = zoom_to
-	_target_position = _clamp_to_map(anchor - offset / _target_zoom)
+	_target_position = _clamp_to_map(anchor - offset / _target_zoom, _target_zoom)
 
 
 func _update_pan(delta: float) -> void:
@@ -137,7 +145,7 @@ func _update_pan(delta: float) -> void:
 		input += _edge_pan_input()
 	input = input.limit_length(1.0)
 	if not input.is_zero_approx():
-		_target_position = _clamp_to_map(_target_position + input * pan_speed / _current_zoom * delta)
+		_target_position = _clamp_to_map(_target_position + input * pan_speed / _current_zoom * delta, _target_zoom)
 
 
 func _edge_pan_input() -> Vector2:
@@ -165,20 +173,33 @@ func _edge_pan_input() -> Vector2:
 
 ## The zoom at which the whole map fills [member fit_margin] of the screen.
 func _min_zoom() -> float:
-	if _map == null:
+	if not _has_map():
 		return minf(0.01, max_zoom)
 	var size := _map_rect().size
 	var screen := get_viewport().get_visible_rect().size
 	return minf(minf(screen.x / size.x, screen.y / size.y) * fit_margin, max_zoom)
 
 
-## The map sprite's rectangle in global space, where the camera sits.
+## The closest zoom.
+func _max_zoom() -> float:
+	return max_zoom
+
+
+## Whether there is a map to keep to. Without one the camera has no limits.
+func _has_map() -> bool:
+	return _map != null
+
+
+## The map's rectangle in global space, where the camera sits: what fits the
+## screen zoomed all the way out. Only asked for when [method _has_map].
 func _map_rect() -> Rect2:
 	return _map.get_global_transform() * _map.get_rect()
 
 
-func _clamp_to_map(point: Vector2) -> Vector2:
-	if _map == null:
+## The nearest place to [param point] that the middle of the view may be when
+## zoomed by [param _at_zoom]. Here that is anywhere on the map, at any zoom.
+func _clamp_to_map(point: Vector2, _at_zoom: float) -> Vector2:
+	if not _has_map():
 		return point
 	var rect := _map_rect()
 	return point.clamp(rect.position, rect.end)

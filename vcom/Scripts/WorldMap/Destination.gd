@@ -74,8 +74,20 @@ func _ready() -> void:
 	# Runs through the pause to drop its tooltip under a menu, where the
 	# gamepad's reticle would otherwise leave it showing.
 	process_mode = PROCESS_MODE_ALWAYS
+	set_process(is_visible_in_tree())
 	if icon == null:
 		push_warning("Destination '%s': no icon, so it cannot be seen or clicked." % name)
+
+
+func _notification(what: int) -> void:
+	# A destination out of sight (the new map hides whole ranks of them by the
+	# zoom) is not pointed at and has nothing to redraw, so it stops its
+	# _process: with thousands on a map, that is most of a frame.
+	if what == NOTIFICATION_VISIBILITY_CHANGED:
+		var seen := is_visible_in_tree()
+		set_process(seen)
+		if not seen:
+			hovered = false
 
 
 func _process(_delta: float) -> void:

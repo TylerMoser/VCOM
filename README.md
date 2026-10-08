@@ -662,6 +662,197 @@ shoot that — and the turn manager carries it out and charges for it. Walking, 
 and the camera are the same code for every kind of enemy, so a new enemy type is a new decision
 routine and nothing else.
 
+## The new world map
+
+`vcom/Scenes/Map.tscn` is the island the campaign is moving to: nine kingdoms, 44 duchies and 220
+counties, with their coast, lakes, rivers, roads, bridges and settlements. It is drawn with shapes
+and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
+reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
+To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
+controls (see [Controls](#world-map)), within limits of its own, given below.
+
+It was made from the pictures and data in [`MapCreation/`](MapCreation), which
+[`MapCreation/Features.md`](MapCreation/Features.md) describes, by the programs in
+[`MapCreation/Scripts/scene/`](MapCreation/Scripts). These are the decisions it rests on.
+
+**A unit is 100 metres.** The island is about the size of Texas: 695,800 km² of land. The pictures
+it was drawn on are 3100 by 4000 pixels at 335 m a pixel, so a pixel is 3.35 units, the whole sheet
+is 10,385 by 13,400 units (1,038.5 by 1,340 km), and ten units are a kilometre. The sheet's top
+left corner is the origin, with x running east and y south, so the place at pixel (x, y) of any of
+the pictures is at ((x + 0.5) × 3.35, (y + 0.5) × 3.35) in the scene. A hundred metres works well:
+at that size Godot still holds a position to a thousandth of a unit, the scene file keeps every
+point to the hundredth (a metre), and the whole island draws in two or three milliseconds.
+
+**Areas are Polygon2D nodes and lines are Line2D nodes**, Godot's own, so the editor's point tools
+work on all of them. The scene's tree is the order they are drawn in:
+
+| Node | Holds |
+|---|---|
+| `Sea` | One polygon: the sheet, and 3,000 km more on every side, so that the view never runs off it |
+| `Coast` | The coast's black line, in 84 stretches, each along one county's shore and named for it (`CoastOfCounty163`) |
+| `Land` | The land, a polygon for each of the 220 counties and for each island off a county's shore, grouped by kingdom and duchy (`Land/Kingdom7/Duchy33/County163`). A kingdom is also a biome, named in its node's description and metadata |
+| `Borders` | Borders as lines, the counties' first and the kingdoms' last, so that a greater is drawn over a lesser: 299, 54 and 15 of them, named for what they part (`Kingdoms3And6`) |
+| `Lakes` | The 700 lakes, numbered by size |
+| `Rivers` | The 291 rivers, numbered by the water they carry |
+| `BordersOverLakes` | The parts of borders that cross a broad lake, drawn again over the water |
+| `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart |
+| `Bridges` | 146 bridges, each along its road from bank to bank |
+| `Settlements` | The settlements, an icon each. The 220 there are, by rank: nine kingdoms' capitals and 35 duchies', which are cities, and 176 counties', which are towns. Ahead of them, so drawn under them, `Hamlets` and `Villages`, both still empty |
+| `Camera` | The map's camera, so that the scene can be run by itself |
+| `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
+
+The land is cut into counties, not left as one piece, for two reasons. The counties, duchies and
+kingdoms are then areas of their own, there to be coloured or asked "which is the party in?". And
+Godot cuts a polygon into triangles again whenever one of its points moves, which for the mainland
+as one outline of 25,000 points took two seconds a time, where a county's few hundred points take
+a few thousandths.
+
+**Lines have a point wherever they bend.** No line or outline turns by more than 6° at any one
+point, so a curve stays a curve at any zoom; where one runs straight it has few. There are 414,000
+points in all, and the scene file is 8 MB.
+
+**Lines have a width in units, which is their width when the view is 220 miles tall.** Closer in
+or further out the `Detail` node scales them all, as given under "The map shows more the closer
+the view" below. The widths are the pictures', to the whole unit:
+
+| | Width in units | In the pictures |
+|---|---|---|
+| Coast | 23, all of it outside the land | 7 px |
+| Kingdom, duchy and county borders | 17, 10 and 7 | 5, 3 and 2 px |
+| Rivers | 6.7 at the least to 24.8 at the mouth of the largest | 2 to 7.4 px, by the water they carry |
+| Highways and other roads | 10 and 7 | 3 and 2 px |
+| Bridges | 7 wider than their road | 2 px wider |
+
+Left at those widths, with the whole island on a window 720 pixels high the thinnest lines would
+be under half a pixel wide and faint, and far in they would be thick, which is what the `Detail`
+node is for. Lines are still thin far out, so 2D anti-aliasing is on for the whole game (4x MSAA,
+`rendering/anti_aliasing/quality/msaa_2d` in `project.godot`): in Godot 4.7 nothing else smooths
+the edge of a line or a polygon, and without it a line near a pixel wide breaks into dashes.
+
+**A settlement is an icon of one size on the screen.** Each is an instance of `Scenes/City.tscn`
+(a kingdom's or a duchy's capital) or `Scenes/Town.tscn` (a county's), and both are what the old
+map's village is, a `Destination`, so they behave as it does. There are two lesser kinds as well,
+`Scenes/Village.tscn` and `Scenes/Hamlet.tscn`, with none of either on the map yet. For all four: the icon is drawn with its middle on
+the node, at a height in screen pixels that the zoom does not change, and while the mouse is on it
+(or the gamepad's pointer, the middle of the screen) its name shows in a tooltip above it.
+
+- **Size.** A city is 26 pixels high, a town 20, a village 16 and a hamlet 12, where the old
+  map's one village is 32: with the whole island in view there are 220 cities and towns on a
+  window 720 pixels high, and at 32 they hide the map and each other. It is `icon_height` on the
+  root of each of the four scenes, so one number changes every settlement of a kind. The old map's
+  village is the same `Village.tscn`, and keeps its 32 by setting `icon_height` on its own node in
+  `WorldMap.tscn`.
+- **Adding a village or a hamlet.** Instance `Scenes/Village.tscn` under `Settlements/Villages`, or
+  `Scenes/Hamlet.tscn` under `Settlements/Hamlets` (drag the scene on to the group in the editor's
+  scene tree), move it to its place and give it a `display_name`. The two groups come before the
+  capitals', so a town or a city is drawn over a village, and a village over a hamlet.
+- **Names.** Nothing on the map has a name yet, so each says what it is the capital of ("Capital
+  of Kingdom 5", "Capital of County 103"). It is `display_name` on the settlement's own node,
+  beside its county's, duchy's and kingdom's numbers in its metadata.
+- **Art.** The icon pack's Castle for a city, its Town for a town and its Village for a village,
+  and for a hamlet three small cottages drawn in the pack's manner, as chosen:
+  `WorldMapResources/MWM Icons/City.png`, `Town.png`, `Village.png` and `Hamlet2.png`, each cropped
+  to what is drawn with four pixels round it into `vcom/WorldMap/` (the hamlet's as `Hamlet.png`).
+- **In the editor a settlement has no picture.** A `Destination` draws itself only while the game
+  runs, as the old map's village does, so in the editor a settlement is a node to pick from the
+  scene tree, shown by its cross once picked. Run the scene (F6) to see the icons.
+- A kingdom's capital and a duchy's look alike for now. Nothing here can be clicked or travelled
+  to yet: the scene has no party.
+
+**The camera keeps to the land.** It is the world map's camera with three limits of its own
+(`Scripts/WorldMap/MapCamera.gd`):
+
+- Zoomed all the way out, the whole land just fits the window, its coast's line touching the
+  window's top and bottom, and nothing can be panned.
+- Zoomed all the way in, the view is 25 miles tall (40.2 km), whatever the window's size, and as
+  wide as the window's shape then makes it. That is `closest_view_miles` on the scene's `Camera`
+  node, there to be changed.
+- In between, the view never leaves what is seen all the way out: its edges stop at that view's
+  edges.
+
+In a window of 1280 by 720 that is from 1,860 m to a pixel of the screen, the view 2,380 by
+1,339 km, down to 56 m to a pixel, the view 44.4 by 25 miles (71.5 by 40.2 km): 33 times closer.
+A window wider than the land, as that one is, shows sea either side of it all the
+way out, and once zoomed in the view can be slid out over that sea, as far as it showed and no
+further. The land's extent is read off the `Land` and `Coast` nodes as the scene opens, and the
+limits are worked out for the window's size, so the far limit and the panning follow the land as
+it is reshaped by hand.
+
+**The map shows more the closer the view.** While the game runs, the `Detail` node
+(`Scripts/WorldMap/MapDetail.gd`) puts the view in one of four tiers by how tall it is in miles,
+each named for what about fills the window then, and each adding to the one before:
+
+| Tier | The view's height | Wheel steps from all the way out | Brings |
+|---|---|---|---|
+| Realm | over 480 miles | 0 to 2 | The coast, the kingdoms' borders and their nine capitals, the 42 greatest rivers and the 79 greatest lakes |
+| Kingdom | 480 to 240 miles | 3 to 5 | The duchies' borders and their 35 capitals, the highways, 92 more rivers and 179 more lakes |
+| Duchy | 240 to 100 miles | 6 to 9 | The counties' borders and their 176 capitals, the other roads, the bridges, every river and lake |
+| County | under 100 miles | 10 to 16 | The villages and hamlets, once there are some |
+
+What a tier brings fades in over a fifth of a second as the view crosses into it, and out as it
+leaves. A settlement out of its tier cannot be pointed at.
+
+The node also holds the lines near a width on the screen. Each is as wide as its node says when
+the view is 220 miles tall, and from there follows only about a third of the zoom: a kingdom's
+border is 2 pixels wide all the way out and 7 all the way in, where it would be 1 and 30 left
+alone, and a lesser road 1.4 where it first shows and 3 all the way in, not 12. Every line is
+scaled alike, since some are sized to others. A border's line along a river, a lake or a road is
+drawn as a plain border while that river, lake or road is out of its tier.
+
+All of it is set on the `Detail` node: the three heights, the least width of a river and the
+least distance across a lake for the Realm and the Kingdom tiers, the fade's time, the height at
+which lines have their own width, and how much of the zoom they follow. It works only while the
+game runs: in the editor every node shows, at the width it was given.
+[`Docs/MAP.md`](Docs/MAP.md) has how it works and what it costs.
+
+**No line hides another.** Water and roads are drawn over the borders, so a border that crosses a
+river passes under it. Where a border runs *along* a river, a lake's shore or a road it would be
+lost, so a second line lies under that river, shore or road, wide enough for the border's colour
+to show on both sides: these are the lines named `...AlongRiver088`, `...AlongLake215` and
+`...AlongRoad093` beside the borders. And where a border crosses a lake broad enough to show on
+both sides of it, that part of the border is drawn again over the water, in `BordersOverLakes`.
+
+**Things that share an edge have the same points for it, each its own copy.** Two counties that
+touch have the very same points along their border, and so has the border's line. Godot has no
+node that is both an area and its outline, so moving something by hand means moving its copies too:
+
+| To move | Move as well |
+|---|---|
+| A border | The two counties' polygons either side; its `Along...` and `OverLake...` lines, if it has them there |
+| The coast | The county's polygon (`County163`) and its stretch of `Coast` (`CoastOfCounty163`), which have the same points. The coast's line is twice its width and centred on the land's edge, and the land covers its inner half |
+| A river | Any border and `Along...` line that runs on it; the bridges over it |
+| A road | Its bridges, which lie along it; the settlement at its end |
+| A settlement | Its icon is one node, moved as a whole. The roads that end at its middle |
+
+**What was put right on the way.** The pictures were drawn in pixels a third of a kilometre across,
+which hid some things that shapes would show:
+
+- Borders that follow a river were drawn a pixel or two off it, the river swinging from side to
+  side of its bed. They are now on the river's own line: 193 stretches, an eighth of all the
+  borders' length, moved by at most 2.9 pixels (under a kilometre).
+- Where three counties meet, one was often left a tongue a pixel wide between the other two, and
+  borders had single pixels standing out of them. 347 such tongues, 447 pixels of the land's six
+  million, went to the county beside them, as did eight pixels that left a hook in a duchy's
+  border where the coast had been mended.
+- Every edge was a staircase of pixels. Each is now the smoothest line that keeps within 0.6 of a
+  pixel of its staircase, so a long gentle slope is straight and a bend keeps its shape. Lakes and
+  small islands were then put back to exactly the area their pixels had, which smoothing a small
+  ring takes a little from.
+- 48 single pixels joined to a lake only by a corner were left out.
+
+The areas still agree: no county's differs from its pixels by more than half a percent, and no
+kingdom's by more than a twentieth of one, so the kingdoms are as equal as they were. Drawn by
+Godot at the pictures' own scale and set beside `MapCreation/AllSimple.png` pixel by pixel, the
+scene has the same colour at the same pixel over 98.5% of the sheet, and for every colour at least
+99.2% of the picture's pixels have that colour within a pixel of them in the scene. What differs
+beyond that is the border colour beside rivers, which the scene puts along both banks evenly.
+(Measured while the settlements were still the pictures' dots: the icons that replaced them are
+not in the pictures.)
+
+**The scene is the map now.** It was written once by program and is meant to be changed by hand
+from here on. Run again, `MapCreation/Scripts/scene/m2_scene.gd` writes it afresh, and anything
+changed in it since is lost.
+
 ## Layout
 
 ```
@@ -693,11 +884,18 @@ vcom/                     the Godot project
     Destruction/          what breaks and how: one resource per breakable block, and the catalog
   Scenes/
     WorldMap.tscn         the campaign map, where the game opens
+    Map.tscn              the new world map, drawn with shapes; not in the game yet
+    City.tscn, Town.tscn, Village.tscn, Hamlet.tscn
+                          its settlements' icons, each a destination; Village.tscn is the old
+                          map's village too
     BoundaryMap.tscn      the map random encounters are fought on, in a ring of forest
     CombatMap.tscn        the same battlefield without the forest, and one enemy
     LineOfSightTest.tscn  harness for the sight and shot rules
     BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
+MapCreation/              the new world map as it was drawn: its pictures, the data under them
+                          (SourceData/), Features.md, which describes them, and the programs that
+                          made them and Map.tscn (Scripts/)
 MagicaVoxel/              source .vox art
   Shapes/                 basic 16x16x16 models (terrain, walls, props, plants) not yet in the game,
                           the script that makes them, and a preview of them all

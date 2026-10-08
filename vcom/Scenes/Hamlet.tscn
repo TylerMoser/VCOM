@@ -1,0 +1,11 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/WorldMap/Destination.gd" id="1_destination"]
+[ext_resource type="Texture2D" path="res://WorldMap/Hamlet.png" id="2_icon"]
+
+[node name="Hamlet" type="Node2D"]
+texture_filter = 4
+script = ExtResource("1_destination")
+display_name = "Hamlet"
+icon = ExtResource("2_icon")
+icon_height = 12.0
