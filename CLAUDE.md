@@ -549,7 +549,7 @@ the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
-`Camera` (a `MapCamera`, so the scene runs by itself), `Detail`. A settlement is a `Destination`, as the old
+`Camera` (a `MapCamera`, so the scene runs by itself), `VillageMenu`, `Detail`. A settlement is a `Destination`, as the old
 map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
 or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
 village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
@@ -568,7 +568,11 @@ drawn over the settlements. Its `terrain_path` is empty, this map having no land
 navigation mesh, so it goes wherever it is sent in a straight line, over water too; a right click
 on a settlement's icon sends it to the settlement. Keeping it to the land is not built: what
 stops it (lakes, rivers but for their bridges) is the user's to say. Its speed and step are the
-script's, here in units: 25 km a second, a step every 5 km. The camera's
+script's, here in units: 25 km a second, a step every 5 km. One settlement has something in it,
+at the user's request: county 115's capital has the old village's hiring board and market, the
+same two `.tres` and not copies (my call: a character stays on one board), and the scene's
+`VillageMenu` opens them as on the old map, on a left click once the party is in the town. A
+town shows from the Duchy tier, so it is sent to and entered only that far in. The camera's
 limits are the user's: all the way out
 the whole land just fits the window and nothing pans; all the way in the view is 25 miles tall
 (`MapCamera.closest_view_miles`, a mile being `UNITS_A_MILE`, 16.09344, of the map's units: 56 m to
@@ -1674,9 +1678,10 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
   non-resource files, and there are no export presets yet.
 - `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
   navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. The map has
-  no forest, so nothing is met on it, no `VillageMenu`, so no settlement is entered, and no
-  `MapReticle`, so the gamepad's A sends the party to the middle of the screen with nothing drawn
-  there. Its settlements are not drawn in the editor (`Destination`
+  no forest, so nothing is met on it, and no `MapReticle`, so the gamepad's A acts on the middle
+  of the screen with nothing drawn there. Only county 115's capital has anything in it, and it
+  shares the old village's board and market: with both maps in one game they would be one shop.
+  Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture.
   Its level of detail's gaps are in `Docs/MAP.md`. It is 8 MB of text and takes about a
   second to open: half reading the file, a quarter cutting its 936 polygons into triangles.

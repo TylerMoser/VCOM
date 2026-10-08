@@ -5,6 +5,10 @@
 [ext_resource type="Script" path="res://Scripts/WorldMap/MapCamera.gd" id="1_s486e"]
 [ext_resource type="Script" path="res://Scripts/WorldMap/MapDetail.gd" id="4_detail"]
 [ext_resource type="Script" uid="uid://cthdiw86m6jyd" path="res://Scripts/WorldMap/Party.gd" id="5_party"]
+[ext_resource type="Script" uid="uid://dp3coy0w7f8ne" path="res://Scripts/WorldMap/Location.gd" id="6_location"]
+[ext_resource type="Resource" path="res://Resources/Locations/Village1HiringBoard.tres" id="7_hiring_board"]
+[ext_resource type="Resource" uid="uid://cawwd2i1phld4" path="res://Resources/Locations/Village1Market.tres" id="8_market"]
+[ext_resource type="Script" uid="uid://dr3m0f87tpbll" path="res://Scripts/UI/VillageMenu.gd" id="9_village_menu"]
 
 [sub_resource type="Curve" id="Curve_7yn8b"]
 _data = [Vector2(0, 0.97477067), 0.0, 0.025229335, 1, 1, Vector2(1, 1), 0.025229335, 0.0, 1, 1]
@@ -20170,6 +20174,7 @@ metadata/kingdom = 5
 [node name="County115Capital" parent="Settlements/CountyCapitals" unique_id=1056343590 instance=ExtResource("2_town")]
 position = Vector2(7385.08, 7415.23)
 display_name = "Capital of County 115"
+locations = Array[ExtResource("6_location")]([ExtResource("7_hiring_board"), ExtResource("8_market")])
 metadata/county = 115
 metadata/duchy = 22
 metadata/kingdom = 5
@@ -21081,6 +21086,10 @@ position = Vector2(5192.5, 6700)
 script = ExtResource("1_s486e")
 map_path = NodePath("")
 fit_margin = 1.0
+
+[node name="VillageMenu" type="CanvasLayer" parent="." unique_id=1289473362]
+editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
+script = ExtResource("9_village_menu")
 
 [node name="Detail" type="Node" parent="." unique_id=1904226071]
 editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages and hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."

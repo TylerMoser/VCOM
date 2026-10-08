@@ -701,6 +701,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Settlements` | The settlements, an icon each. The 220 there are, by rank: nine kingdoms' capitals and 35 duchies', which are cities, and 176 counties', which are towns. Ahead of them, so drawn under them, `Hamlets` and `Villages`, both still empty |
 | `Party` | The player's party, the red dot, where it starts: near the middle of county 115 |
 | `Camera` | The map's camera, so that the scene can be run by itself |
+| `VillageMenu` | The menu of the settlement the party is in, as on the old map: it draws nothing until it opens |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
 The land is cut into counties, not left as one piece, for two reasons. The counties, duchies and
@@ -758,8 +759,8 @@ the node, at a height in screen pixels that the zoom does not change, and while 
 - **In the editor a settlement has no picture.** A `Destination` draws itself only while the game
   runs, as the old map's village does, so in the editor a settlement is a node to pick from the
   scene tree, shown by its cross once picked. Run the scene (F6) to see the icons.
-- A kingdom's capital and a duchy's look alike for now. A settlement can be travelled to (below),
-  but not entered: the scene has no menu for one, and no settlement has anything in it.
+- A kingdom's capital and a duchy's look alike for now. A settlement can be travelled to, and the
+  one that has something in it entered (both below).
 
 **The party is on the map, and goes in straight lines.** The `Party` node is the old map's party,
 the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
@@ -778,6 +779,24 @@ back to it. The old map keeps a party of its own.
 - Nothing is met on the way, the map having no forests, and the gamepad has no reticle here to
   show where `A` points. The dot and the dashed line to where it is going are close to the roads'
   red.
+
+**One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
+the party starts, has what the old map's village has, and is used as that village is (see
+[Controls](#world-map)): its tooltip lists the two under its name, and once the party is in the
+town, sent there by a right-click on its icon, a left-click on the icon opens its menu, a tab for
+each. With the gamepad both are `A` with the town in the middle of the screen. The menu is the
+scene's `VillageMenu` node, the old map's, and opens for any settlement that has something in it;
+the other 219 have nothing, so a click on one of them does nothing.
+
+- **They are the village's own board and market**, `Village1HiringBoard.tres` and
+  `Village1Market.tres` in `vcom/Resources/Locations/`, not copies: the same fighter for hire and
+  the same stock, on the node's `locations`. A fighter belongs on one board only, and a second
+  board with the same name on it would let them be hired twice. Who is still for hire and what
+  is still in stock are kept for each board and market, so if both maps were ever in one game
+  the village and the town would be one shop; a town of its own needs its own two files there.
+- **The town has to be in view.** A county's capital shows once the view is under 240 miles tall
+  (six steps of the wheel in from all the way out), and one that does not show cannot be pointed
+  at: further out, the town can be neither sent to nor entered.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):

@@ -1,5 +1,9 @@
 --TODO CAMPAIGN:
-Refine/Improve map, travel speed, time limits, etc. More locations.
+Slow party movement speed
+Clock of time passing, and time limit
+New Map: Settlements, map features, encounters, pathfinding/terrain, cleanup edges, toggle borders on/off, art
+Map fog of war on unvisited areas
+Use google maps as an example for how much to put in each area: Current max zoom in Map scene is 25 miles tall and ~44 miles wide
 Classes/Skills
 More Items, Weapon Types, Armors, Shields, Medicines, Stat Buff Equipment, etc
 Noble: Rich Blood skill (new tier of market goods)
@@ -16,7 +20,7 @@ Action economy fleshing-out: second shot costs 2 actions? Lower hit chance on su
 --DEFECTS:
 
 --LOW PRIORITY:
-Fog of war? Maybe make it sections of the map, and obvious.
+Fog of war in tactical combat? Maybe make it sections of the map, and obvious.
 Replace GenAI: Animations (Mixamo? Blender?), UI
 Music/Ambiance, Sound Effects
 Better Ground Blocks

@@ -2,7 +2,8 @@ extends SceneTree
 ## Makes the map's scene, res://Scenes/Map.tscn, out of the shapes m1_shapes.py worked out: areas as
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
 ## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
-## own nodes for the map: its party, its camera and its level of detail.
+## own nodes for the map: its party, its camera, the menu of the settlement the party is in, and
+## its level of detail.
 ##
 ## A Godot unit is 100 m. A pixel of the pictures is 335 m, so a pixel is 3.35 units, and the
 ## picture's top left corner is the scene's origin.
@@ -24,6 +25,12 @@ const ICON_SCENE := {
 const SEA_BEYOND := 30000.0
 ## Where the party starts, in units: near the middle of county 115, the middle of its area.
 const PARTY_START := Vector2(7302.0, 7381.0)
+## What there is to use in a settlement, by the number of the county it is the capital of: the
+## game's Location resources, in the order its tooltip and its menu show them. Only county 115's
+## capital has any yet, the hiring board and the market of the old world map's village.
+const LOCATIONS := {
+	115: ["res://Resources/Locations/Village1HiringBoard.tres", "res://Resources/Locations/Village1Market.tres"],
+}
 
 # Line widths, in Godot units: the pictures' widths in pixels times 3.35, to the whole unit.
 const COAST_INK := 23.0          # 7 px. The coast's line is twice this, its inner half under the land.
@@ -44,6 +51,8 @@ var _bridge := Color8(60, 35, 15)
 var _rank_color := {"kingdom": Color8(233, 0, 255), "duchy": Color8(110, 30, 180), "county": Color8(128, 128, 128)}
 
 var _root: Node2D
+# Nodes whose children are made by their own script as it starts, and so are not the scene's to keep.
+var _builds_itself: Array[Node] = []
 var _failed := 0
 var _points := 0
 var _nodes := 0
@@ -75,6 +84,7 @@ func _initialize() -> void:
 	_add_settlements(shapes["settlements"])
 	_add_party()
 	_add_camera(size)
+	_add_village_menu()
 	_add_detail()
 
 	_own(_root)
@@ -269,6 +279,8 @@ func _add_settlements(settlements: Array) -> void:
 		icon.name = icon_name
 		icon.position = _to_point(settlement["at"][0], settlement["at"][1])
 		icon.set(&"display_name", shown)
+		if LOCATIONS.has(int(settlement["county"])):
+			icon.set(&"locations", _locations(LOCATIONS[int(settlement["county"])]))
 		icon.set_meta(&"county", int(settlement["county"]))
 		icon.set_meta(&"duchy", int(settlement["duchy"]))
 		icon.set_meta(&"kingdom", int(settlement["kingdom"]))
@@ -303,6 +315,23 @@ func _add_camera(size: Array) -> void:
 	camera.position = Vector2(size[0], size[1]) * UNITS * 0.5
 	camera.editor_description = "Pans and zooms as on the world map (WASD, the screen's edges, the middle mouse button, the wheel). All the way out, the whole land just fits the window, and nothing can be panned. All the way in, the view is 25 miles tall (this node's Closest View Miles). The view never leaves what is seen all the way out. The land's extent is read off the Land and Coast nodes as the scene opens."
 	_root.add_child(camera)
+	_nodes += 1
+
+
+## The menu of the settlement the party is in (Scripts/UI/VillageMenu.gd), as on the old world map:
+## a left click on the settlement's icon opens it, with a tab for each of its locations. The menu
+## makes its own frame as its script starts, and sets its own layer and process mode, which is why
+## none of that is kept in the scene: kept, it would be made twice, and hold against a later change
+## to the script.
+func _add_village_menu() -> void:
+	var menu := CanvasLayer.new()
+	menu.name = "VillageMenu"
+	menu.set_script(load("res://Scripts/UI/VillageMenu.gd"))
+	menu.layer = 1
+	menu.process_mode = Node.PROCESS_MODE_INHERIT
+	menu.editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
+	_root.add_child(menu)
+	_builds_itself.append(menu)
 	_nodes += 1
 
 
@@ -387,7 +416,16 @@ func _place(id: float, fork: bool) -> String:
 	return "Fork%03d" % int(id) if fork else "%03d" % int(id)
 
 
+## The Location resources at some paths, as the typed list a Destination keeps its locations in.
+func _locations(paths: Array) -> Array:
+	var locations := Array([], TYPE_OBJECT, &"Resource", load("res://Scripts/WorldMap/Location.gd"))
+	for path: String in paths:
+		locations.append(load(path))
+	return locations
+
+
 func _own(node: Node) -> void:
 	for child in node.get_children():
 		child.owner = _root
-		_own(child)
+		if not _builds_itself.has(child):
+			_own(child)
