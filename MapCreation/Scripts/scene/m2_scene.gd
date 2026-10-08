@@ -3,7 +3,7 @@ extends SceneTree
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
 ## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
 ## own nodes for the map: its party, its camera, the gamepad's reticle, the menu of the settlement
-## the party is in, the game's end, and its level of detail.
+## the party is in, the menu that picks who fights a battle, the game's end, and its level of detail.
 ##
 ## A Godot unit is 100 m. A pixel of the pictures is 335 m, so a pixel is 3.35 units, and the
 ## picture's top left corner is the scene's origin.
@@ -86,6 +86,7 @@ func _initialize() -> void:
 	_add_camera(size)
 	_add_reticle()
 	_add_village_menu()
+	_add_squad_menu()
 	_add_game_over()
 	_add_detail()
 
@@ -348,6 +349,21 @@ func _add_village_menu() -> void:
 	menu.layer = 1
 	menu.process_mode = Node.PROCESS_MODE_INHERIT
 	menu.editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
+	_root.add_child(menu)
+	_builds_itself.append(menu)
+	_nodes += 1
+
+
+## Who fights, chosen as a battle starts (Scripts/UI/SquadMenu.gd), as on the old world map: the
+## party's random encounters open it, and holding its Start begins the battle. It finds the party by
+## its name, and like the menu above makes its own frame as its script starts.
+func _add_squad_menu() -> void:
+	var menu := CanvasLayer.new()
+	menu.name = "SquadMenu"
+	menu.set_script(load("res://Scripts/UI/SquadMenu.gd"))
+	menu.layer = 1
+	menu.process_mode = Node.PROCESS_MODE_INHERIT
+	menu.editor_description = "Who fights, chosen as a battle starts, as on the world map: the party's random encounters open it, it cannot be closed, and holding its Start begins the battle with whoever is ticked. The map waits as it stands and is come back to once the battle is over. Nothing on this map sets the party upon yet: it has no forests."
 	_root.add_child(menu)
 	_builds_itself.append(menu)
 	_nodes += 1

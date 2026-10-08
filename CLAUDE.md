@@ -549,7 +549,7 @@ the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
-`Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
+`Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
 map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
 or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
 village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
@@ -573,8 +573,8 @@ at the user's request: county 115's capital has the old village's hiring board a
 same two `.tres` and not copies (my call: a character stays on one board), and the scene's
 `VillageMenu` opens them as on the old map, on a left click once the party is in the town. A
 town shows from the Duchy tier, so it is sent to and entered only that far in. `MapReticle`, the
-gamepad's ring and prompts, is the old map's as well, and so is `GameOver`, which nothing here
-can set off yet, the map having no battles. The camera's
+gamepad's ring and prompts, is the old map's as well, and so are `SquadMenu` and `GameOver`,
+which nothing here sets off yet: no forest sets the party upon. The camera's
 limits are the user's: all the way out
 the whole land just fits the window and nothing pans; all the way in the view is 25 miles tall
 (`MapCamera.closest_view_miles`, a mile being `UNITS_A_MILE`, 16.09344, of the map's units: 56 m to

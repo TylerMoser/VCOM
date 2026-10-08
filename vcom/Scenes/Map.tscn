@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://dr3m0f87tpbll" path="res://Scripts/UI/VillageMenu.gd" id="9_village_menu"]
 [ext_resource type="Script" uid="uid://cim0jlbtfd3bq" path="res://Scripts/WorldMap/MapReticle.gd" id="10_reticle"]
 [ext_resource type="Script" uid="uid://c65v824b36cp0" path="res://Scripts/WorldMap/GameOver.gd" id="11_game_over"]
+[ext_resource type="Script" uid="uid://ddo51p56uv676" path="res://Scripts/UI/SquadMenu.gd" id="12_squad_menu"]
 
 [sub_resource type="Curve" id="Curve_7yn8b"]
 _data = [Vector2(0, 0.97477067), 0.0, 0.025229335, 1, 1, Vector2(1, 1), 0.025229335, 0.0, 1, 1]
@@ -21096,6 +21097,10 @@ script = ExtResource("10_reticle")
 [node name="VillageMenu" type="CanvasLayer" parent="." unique_id=1289473362]
 editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
 script = ExtResource("9_village_menu")
+
+[node name="SquadMenu" type="CanvasLayer" parent="." unique_id=1722860419]
+editor_description = "Who fights, chosen as a battle starts, as on the world map: the party's random encounters open it, it cannot be closed, and holding its Start begins the battle with whoever is ticked. The map waits as it stands and is come back to once the battle is over. Nothing on this map sets the party upon yet: it has no forests."
+script = ExtResource("12_squad_menu")
 
 [node name="GameOver" type="CanvasLayer" parent="." unique_id=1461907233]
 editor_description = "Ends the game once nobody is left on the roster, as on the world map: the map stops, \"Game Over\" comes up in the battles' banner, over any menu, and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet: it has no battles."

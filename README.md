@@ -703,6 +703,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Camera` | The map's camera, so that the scene can be run by itself |
 | `MapReticle` | The gamepad's pointer, as on the old map: a ring in the middle of the screen and the buttons' prompts, shown only with the gamepad |
 | `VillageMenu` | The menu of the settlement the party is in, as on the old map: it draws nothing until it opens |
+| `SquadMenu` | Who fights, chosen as a battle starts, as on the old map: it draws nothing until the party is set upon |
 | `GameOver` | The game's end, as on the old map: "Game Over" once nobody is left on the roster |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
@@ -810,11 +811,18 @@ a settlement, or "Go here". It is hidden while a menu is up, and with the mouse.
 - The ring is white with a dark edge, made for the old map's art. On this map's white land it
   shows by its edge alone, and is faint.
 
-**The game can end here.** The `GameOver` node is the old map's: once nobody is left on the
-roster the map stops, "Game Over" comes up in the battles' banner, over any menu that is open,
-and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet,
-since only a battle kills and the map has none: it is there for when it has. A battle goes back
-to whichever map it was started from, so nothing more is needed for it then.
+**A battle can be fought from here, and the game can end here, but nothing starts a battle yet.**
+The `SquadMenu` and `GameOver` nodes are the old map's (see [The campaign](#the-campaign)). When
+the party is set upon, the squad menu opens over the stopped map, with whoever fought last
+already ticked, and cannot be closed; holding its Start begins the battle. The map waits as it
+stands, and once the battle is over the party is back where it was set upon, still on its way,
+with the view where it was. And once nobody is left on the roster the map stops, "Game Over"
+comes up in the battles' banner, over any menu that is open, and the game quits as the banner
+starts to fade.
+
+- Nothing sets the party upon: on the old map that is a forest's chance at each step, and this
+  map has no forests. Until it has, neither node is ever seen, since only a battle can empty the
+  roster.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):
