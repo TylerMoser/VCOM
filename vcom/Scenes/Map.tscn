@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://cawwd2i1phld4" path="res://Resources/Locations/Village1Market.tres" id="8_market"]
 [ext_resource type="Script" uid="uid://dr3m0f87tpbll" path="res://Scripts/UI/VillageMenu.gd" id="9_village_menu"]
 [ext_resource type="Script" uid="uid://cim0jlbtfd3bq" path="res://Scripts/WorldMap/MapReticle.gd" id="10_reticle"]
+[ext_resource type="Script" uid="uid://c65v824b36cp0" path="res://Scripts/WorldMap/GameOver.gd" id="11_game_over"]
 
 [sub_resource type="Curve" id="Curve_7yn8b"]
 _data = [Vector2(0, 0.97477067), 0.0, 0.025229335, 1, 1, Vector2(1, 1), 0.025229335, 0.0, 1, 1]
@@ -21095,6 +21096,10 @@ script = ExtResource("10_reticle")
 [node name="VillageMenu" type="CanvasLayer" parent="." unique_id=1289473362]
 editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
 script = ExtResource("9_village_menu")
+
+[node name="GameOver" type="CanvasLayer" parent="." unique_id=1461907233]
+editor_description = "Ends the game once nobody is left on the roster, as on the world map: the map stops, \"Game Over\" comes up in the battles' banner, over any menu, and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet: it has no battles."
+script = ExtResource("11_game_over")
 
 [node name="Detail" type="Node" parent="." unique_id=1904226071]
 editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages and hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."

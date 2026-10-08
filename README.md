@@ -703,6 +703,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Camera` | The map's camera, so that the scene can be run by itself |
 | `MapReticle` | The gamepad's pointer, as on the old map: a ring in the middle of the screen and the buttons' prompts, shown only with the gamepad |
 | `VillageMenu` | The menu of the settlement the party is in, as on the old map: it draws nothing until it opens |
+| `GameOver` | The game's end, as on the old map: "Game Over" once nobody is left on the roster |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
 The land is cut into counties, not left as one piece, for two reasons. The counties, duchies and
@@ -808,6 +809,12 @@ a settlement, or "Go here". It is hidden while a menu is up, and with the mouse.
   it says "Go here" there too, since the party keeps to no land yet and goes.
 - The ring is white with a dark edge, made for the old map's art. On this map's white land it
   shows by its edge alone, and is faint.
+
+**The game can end here.** The `GameOver` node is the old map's: once nobody is left on the
+roster the map stops, "Game Over" comes up in the battles' banner, over any menu that is open,
+and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet,
+since only a battle kills and the map has none: it is there for when it has. A battle goes back
+to whichever map it was started from, so nothing more is needed for it then.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):

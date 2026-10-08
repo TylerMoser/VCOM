@@ -3,7 +3,7 @@ extends SceneTree
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
 ## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
 ## own nodes for the map: its party, its camera, the gamepad's reticle, the menu of the settlement
-## the party is in, and its level of detail.
+## the party is in, the game's end, and its level of detail.
 ##
 ## A Godot unit is 100 m. A pixel of the pictures is 335 m, so a pixel is 3.35 units, and the
 ## picture's top left corner is the scene's origin.
@@ -86,6 +86,7 @@ func _initialize() -> void:
 	_add_camera(size)
 	_add_reticle()
 	_add_village_menu()
+	_add_game_over()
 	_add_detail()
 
 	_own(_root)
@@ -349,6 +350,21 @@ func _add_village_menu() -> void:
 	menu.editor_description = "The menu of the settlement the party is in, as on the world map: a left click on the settlement's icon opens it, with a tab for each of the settlement's Locations, and a settlement with none does not open. Only the capital of county 115 has any yet: the hiring board and the market of the world map's village."
 	_root.add_child(menu)
 	_builds_itself.append(menu)
+	_nodes += 1
+
+
+## The game's end (Scripts/WorldMap/GameOver.gd), as on the old world map: once nobody is left on the
+## roster the map stops, "Game Over" comes up and the game quits. It makes its banner as its script
+## starts, as the menu above makes its frame, so none of that is kept in the scene.
+func _add_game_over() -> void:
+	var game_over := CanvasLayer.new()
+	game_over.name = "GameOver"
+	game_over.set_script(load("res://Scripts/WorldMap/GameOver.gd"))
+	game_over.layer = 1
+	game_over.process_mode = Node.PROCESS_MODE_INHERIT
+	game_over.editor_description = "Ends the game once nobody is left on the roster, as on the world map: the map stops, \"Game Over\" comes up in the battles' banner, over any menu, and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet: it has no battles."
+	_root.add_child(game_over)
+	_builds_itself.append(game_over)
 	_nodes += 1
 
 

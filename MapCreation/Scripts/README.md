@@ -292,7 +292,8 @@ game's hiring board and market. It leaves two empty groups ahead of them,
 `Settlements/Hamlets` and `Settlements/Villages`, for the two lesser kinds of settlement, which
 the source data has none of, and ends with the game's own nodes for the map: the party, where it
 starts (near the middle of county 115, a place written into the program), the camera, the
-gamepad's reticle, the menu of the settlement the party is in, and the `Detail` node,
+gamepad's reticle, the menu of the settlement the party is in, the game's end, and the `Detail`
+node,
 which shows and hides those groups by the zoom while the game runs and finds them by these names. It
 turns pixels into the scene's units (3.35 to a pixel: a unit is 100 m), gives the lines the
 pictures' widths in those units, tries every polygon in Godot's own cutter of polygons into
