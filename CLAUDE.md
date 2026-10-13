@@ -284,6 +284,9 @@ vcom/Scripts/
     MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
                        (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
                        factor of the zoom, a few lines a frame
+    MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
+                       starting_days in the top left as days:hours:minutes; seconds_per_day; advance()
+                       (only the Party calls it, while it moves), elapsed, remaining()
     MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen and its
                        prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
@@ -549,7 +552,7 @@ the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
-`Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
+`Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
 map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
 or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
 village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
@@ -567,8 +570,14 @@ near the middle of county 115, at (7302, 7381), the outline's centroid, as they 
 drawn over the settlements. Its `terrain_path` is empty, this map having no land collider or
 navigation mesh, so it goes wherever it is sent in a straight line, over water too; a right click
 on a settlement's icon sends it to the settlement. Keeping it to the land is not built: what
-stops it (lakes, rivers but for their bridges) is the user's to say. Its speed and step are the
-script's, here in units: 25 km a second, a step every 5 km. One settlement has something in it,
+stops it (lakes, rivers but for their bridges) is the user's to say. Its speed is the user's: 25 miles a day
+(`Party.miles_per_day`), a day taking 30 real seconds (`MapClock.seconds_per_day`, on the scene's
+`Clock`, which the party's `clock_path` names), so 13.4 units a second. Time passes only while the
+party moves: `Party` calls `MapClock.advance()` with the seconds it spent travelling, and nothing
+else moves the clock. The clock counts down from `starting_days` (90) in the top left corner, as
+days:hours:minutes, and nothing happens yet when it runs out (the user's: "for now"). A step is
+still every 5 km, by distance (their call), about eight a day. The old map's party has no clock
+and keeps `travel_speed`. One settlement has something in it,
 at the user's request: county 115's capital has the old village's hiring board and market, the
 same two `.tres` and not copies (my call: a character stays on one board), and the scene's
 `VillageMenu` opens them as on the old map, on a left click once the party is in the town. A
@@ -594,7 +603,9 @@ are hidden outright, where a `Destination` stops its `_process` and is not point
 width in the scene is its width at 220 miles tall: `MapDetail` scales them all by one factor, so
 that on screen they follow about a third of the zoom, and sets them a few lines a frame, since
 that too builds a line again. A border's `...Along` line is a plain border while its river, lake
-or road is out of its tier. A new layer that should come and go by the zoom goes in
+or road is out of its tier. A border or river that reaches the sea ends in the coast's black
+line, and `MapDetail` moves that end with its width, so it never shows past the coast's line as
+that narrows. A new layer that should come and go by the zoom goes in
 `MapDetail.SHOWN_FROM`. `Docs/MAP.md` has the rest; read it before touching the map's detail.
 Lines are thin far out, which is why `project.godot` has 4x 2D MSAA
 (`anti_aliasing/quality/msaa_2d`), for the whole game: nothing else in Godot 4.7 smooths a

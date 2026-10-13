@@ -32,6 +32,14 @@
 ## tier's lines have waited since it last showed, at some other zoom: as it
 ## comes in they are set first, and it fades in once they are near right.
 ##
+## A border or a river that reaches the sea ends a little past the land's
+## edge, in the middle of the coast's black line as the scene has it. The
+## coast's line narrows with the rest as the view closes in, so an end left
+## where it is would come out of the far side of it and lie over the sea. Each
+## such end is therefore moved with its width: how far it goes past the land's
+## edge is scaled by the same factor, which keeps it as deep in the coast's
+## line at every zoom as it is in the scene.
+##
 ## Nothing here changes the scene as it is edited: the editor shows every node
 ## at the width it was given.
 class_name MapDetail
@@ -55,6 +63,7 @@ const SHOWN_FROM := {
 const RIVERS := ^"Rivers"
 const LAKES := ^"Lakes"
 const ROADS := ^"Roads"
+const COAST := ^"Coast"
 ## In the name of a border's line that lies under a river, a lake's shore or a
 ## road it follows, wide enough to show on both sides: "Kingdoms1And2AlongRiver173".
 const ALONG := "Along"
@@ -66,6 +75,14 @@ const VIEW_MARGIN := 0.15
 ## A line's box is grown by this many of its widths: its points are its middle,
 ## and far out it is drawn wider than its node says.
 const BOX_MARGIN := 1.5
+## The layers whose lines end in the coast's line where they reach the sea.
+## Not the roads or the bridges: the one road over the sea, to the island
+## town, crosses the land's edge on its way and ends on land, where it is to
+## stay.
+const ENDS_IN_COAST: Array[NodePath] = [^"Borders", ^"Rivers"]
+## The side of the squares the coast's pieces are sorted into to be found
+## quickly, in the map's units.
+const COAST_CELL := 64.0
 ## Lines are set the furthest off their width first: those more than
 ## [constant FAR_STEPS] steps off (one that has just come into view, or a
 ## tier's as it comes in, last given a width when they last showed, at some
@@ -152,6 +169,12 @@ var _plain := PackedFloat32Array()
 var _set_step := PackedInt32Array()
 var _set_wide := PackedByteArray()
 
+# For a line that ends past the land's edge (its place in the lists above):
+# each of its points out there as [which point, where the line crosses the
+# land's edge, where the scene has the point], the last two in the line's own
+# space. See _gather_sea_ends() for why they are moved.
+var _sea_ends := {}
+
 ## The widths' factor is [member width_step] to this power.
 var _step := 0
 var _factor := 1.0
@@ -170,6 +193,7 @@ func _ready() -> void:
 	_gather_groups()
 	_gather_water()
 	_gather_lines()
+	_gather_sea_ends()
 
 
 func _process(delta: float) -> void:
@@ -313,6 +337,16 @@ func _set_width(i: int, wide: bool) -> void:
 	line.width = (_widths[i] if wide else _plain[i]) * _factor
 	if line.width_curve != curve:
 		line.width_curve = curve
+	# An end out past the land's edge keeps its depth in the coast's line, which
+	# has just been scaled by the same factor: left where the scene has it, it
+	# would stick out over the sea once the coast's line is narrower than that.
+	# Done here because the width just set builds the line again anyway, so
+	# moving a point with it costs nothing more.
+	if _sea_ends.has(i):
+		for end: Array in _sea_ends[i]:
+			var edge: Vector2 = end[1]
+			var drawn: Vector2 = end[2]
+			line.set_point_position(end[0], edge + (drawn - edge) * _factor)
 	_set_step[i] = _step
 	_set_wide[i] = 1 if wide else 0
 
@@ -428,6 +462,108 @@ func _gather_lines() -> void:
 		_plain[i] = plain_widths[group]
 	if unmatched > 0:
 		push_warning("MapDetail: %d lines named '...%s...' follow nothing found; they keep their width." % [unmatched, ALONG])
+
+
+## Finds the lines that end past the land's edge, and which of their points
+## are out there.
+##
+## Why: the borders and rivers that reach the sea were drawn to end in the
+## middle of the coast's black line, some 10 units past the land's edge, the
+## coast's line being 23 wide outside the land. That holds only at the widths
+## the scene has. All the way in, every width is a quarter of the scene's, the
+## coast's line under 6 units outside the land, and the ends showed 4 units
+## (8 pixels) out over the sea; all the way out they stopped short inside it.
+## So [method _set_width] moves these points as it sets a width, scaling how
+## far each is past the land's edge by the widths' factor. The scene is left
+## as it is, and at the height the scene's widths are true the points are
+## where it has them.
+##
+## The land's edge is the middle of the coast's lines, whose inner half lies
+## under the land. An end is out past it when, followed back from the end,
+## the line crosses a coast's line before it has gone as far as the coast's
+## line is wide outside the land: the end is then within that line as the
+## scene has it. Only the layers of [constant ENDS_IN_COAST] are looked at.
+func _gather_sea_ends() -> void:
+	var coast := _map.get_node_or_null(COAST)
+	if coast == null:
+		push_error("MapDetail: no '%s' under the map; lines that end in the sea are left where they are." % COAST)
+		return
+	var to_map := _map.get_global_transform().affine_inverse()
+
+	# The coast's pieces by the square they are in, each as its two ends one
+	# after the other, so that an end is tried against only the few near it.
+	var cells := {}
+	var outside := 0.0
+	for i in _lines.size():
+		if not coast.is_ancestor_of(_lines[i]):
+			continue
+		outside = maxf(outside, _widths[i] * 0.5)
+		var in_map := to_map * _lines[i].get_global_transform()
+		var points := _lines[i].points
+		for n in points.size() - 1:
+			var a := in_map * points[n]
+			var b := in_map * points[n + 1]
+			for cell in _cells_of(a, b):
+				if not cells.has(cell):
+					cells[cell] = PackedVector2Array()
+				cells[cell].append(a)
+				cells[cell].append(b)
+
+	var layers: Array[Node] = []
+	for path in ENDS_IN_COAST:
+		var layer := _map.get_node_or_null(path)
+		if layer != null:
+			layers.append(layer)
+	for i in _lines.size():
+		var points := _lines[i].points
+		if points.size() < 2 or not layers.any(func(layer: Node) -> bool: return layer.is_ancestor_of(_lines[i])):
+			continue
+		var in_map := to_map * _lines[i].get_global_transform()
+		for from_start: bool in [true, false]:
+			var gone := 0.0
+			for n in points.size() - 1:
+				var at := n if from_start else points.size() - 1 - n
+				var a := in_map * points[at]
+				var b := in_map * points[at + (1 if from_start else -1)]
+				var crossing: Variant = _coast_crossing(cells, a, b)
+				if crossing != null:
+					var edge: Vector2 = in_map.affine_inverse() * (crossing as Vector2)
+					if not _sea_ends.has(i):
+						_sea_ends[i] = []
+					for back in n + 1:
+						var which := back if from_start else points.size() - 1 - back
+						_sea_ends[i].append([which, edge, points[which]])
+					break
+				gone += a.distance_to(b)
+				if gone > outside:
+					break
+
+
+## Where the stretch from [param a] to [param b] crosses the coast, nearest
+## [param a], or null when it does not. [param cells] is the coast's pieces
+## by square, as [method _gather_sea_ends] sorts them.
+func _coast_crossing(cells: Dictionary, a: Vector2, b: Vector2) -> Variant:
+	var nearest: Variant = null
+	for cell in _cells_of(a, b):
+		if not cells.has(cell):
+			continue
+		var pieces: PackedVector2Array = cells[cell]
+		for n in range(0, pieces.size(), 2):
+			var hit: Variant = Geometry2D.segment_intersects_segment(a, b, pieces[n], pieces[n + 1])
+			if hit != null and (nearest == null or a.distance_squared_to(hit) < a.distance_squared_to(nearest)):
+				nearest = hit
+	return nearest
+
+
+## The squares of [constant COAST_CELL] the box round two points lies over.
+func _cells_of(a: Vector2, b: Vector2) -> Array[Vector2i]:
+	var low := Vector2i((a.min(b) / COAST_CELL).floor())
+	var high := Vector2i((a.max(b) / COAST_CELL).floor())
+	var found: Array[Vector2i] = []
+	for x in range(low.x, high.x + 1):
+		for y in range(low.y, high.y + 1):
+			found.append(Vector2i(x, y))
+	return found
 
 
 ## The tier a line shows from: its own (a river's), or that of the nearest

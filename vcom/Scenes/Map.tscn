@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cim0jlbtfd3bq" path="res://Scripts/WorldMap/MapReticle.gd" id="10_reticle"]
 [ext_resource type="Script" uid="uid://c65v824b36cp0" path="res://Scripts/WorldMap/GameOver.gd" id="11_game_over"]
 [ext_resource type="Script" uid="uid://ddo51p56uv676" path="res://Scripts/UI/SquadMenu.gd" id="12_squad_menu"]
+[ext_resource type="Script" uid="uid://cf75778wt1nlp" path="res://Scripts/WorldMap/MapClock.gd" id="13_clock"]
 
 [sub_resource type="Curve" id="Curve_7yn8b"]
 _data = [Vector2(0, 0.97477067), 0.0, 0.025229335, 1, 1, Vector2(1, 1), 0.025229335, 0.0, 1, 1]
@@ -21078,10 +21079,18 @@ metadata/duchy = 40
 metadata/kingdom = 9
 
 [node name="Party" type="Node2D" parent="." unique_id=1637420915]
-editor_description = "The player's party, the red dot, drawn over the settlements. Where it is here is where it starts: near the middle of county 115. A right click sends it there (on a settlement's icon, to the settlement), and it goes in a straight line, over water as over land: this map has no land for it to keep to yet, which is why its Terrain Path is empty. Its speed and its steps are in the map's units, 100 m each."
+editor_description = "The player's party, the red dot, drawn over the settlements. Where it is here is where it starts: near the middle of county 115. A right click sends it there (on a settlement's icon, to the settlement), and it goes in a straight line, over water as over land: this map has no land for it to keep to yet, which is why its Terrain Path is empty. Its speed is Miles Per Day, by the Clock's Seconds Per Day, and time passes on the Clock only while it moves. Its steps are in the map's units, 100 m each."
 position = Vector2(7302, 7381)
 script = ExtResource("5_party")
 terrain_path = NodePath("")
+clock_path = NodePath("../Clock")
+miles_per_day = 25.0
+
+[node name="Clock" type="CanvasLayer" parent="."]
+editor_description = "The campaign's time: a count down from Starting Days, shown in the top left corner as days:hours:minutes. Time passes only while the party is moving, a day every Seconds Per Day of real time. The party's speed is its own Miles Per Day, worked out from this node's Seconds Per Day. Nothing happens yet when the count runs out."
+script = ExtResource("13_clock")
+seconds_per_day = 30.0
+starting_days = 90.0
 
 [node name="Camera" type="Camera2D" parent="." unique_id=1352741681]
 editor_description = "Pans and zooms as on the world map (WASD, the screen's edges, the middle mouse button, the wheel). All the way out, the whole land just fits the window, and nothing can be panned. All the way in, the view is 25 miles tall (this node's Closest View Miles). The view never leaves what is seen all the way out. The land's extent is read off the Land and Coast nodes as the scene opens."

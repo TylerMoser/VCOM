@@ -39,9 +39,17 @@ signal encountered(map: PackedScene)
 
 ## Finds the way over land. Leave empty to go anywhere, in a straight line.
 @export var terrain_path: NodePath = ^"../Terrain"
-## Map pixels per second. The map is about 9000 across. On the new map a
-## pixel is a unit, 100 m, and the island about 10,400 by 13,400 of them.
+## Map pixels per second, on a map with no clock. The map is about 9000
+## across.
 @export var travel_speed := 250.0
+## The map's clock, on a map that has one (the new map). With it the party
+## goes [member miles_per_day] instead of [member travel_speed], and time
+## passes on it while the party moves, and only then.
+@export var clock_path: NodePath
+## Miles the party covers in a day of the clock's, a mile being
+## [constant MapCamera.UNITS_A_MILE] of the map's units. Read only with a
+## clock.
+@export_range(0.0, 200.0, 0.5, "or_greater") var miles_per_day := 25.0
 ## How far the party goes, in map pixels, from one chance of a random
 ## encounter to the next. The chance itself is each forest's.
 @export var step_length := 50.0
@@ -56,6 +64,7 @@ signal encountered(map: PackedScene)
 @export var destination_color := Color(0.85, 0.1, 0.1, 0.8)
 
 var _terrain: WorldMapTerrain
+var _clock: MapClock
 ## The points still to head for, in order, the destination last. Empty when
 ## the party is not travelling.
 var _route := PackedVector2Array()
@@ -69,6 +78,10 @@ var _drawn_scale := 0.0
 
 
 func _ready() -> void:
+	if not clock_path.is_empty():
+		_clock = get_node_or_null(clock_path) as MapClock
+		if _clock == null:
+			push_error("Party: no MapClock at '%s'; travelling at its travel speed, and no time passes." % clock_path)
 	if not terrain_path.is_empty():
 		_terrain = get_node_or_null(terrain_path) as WorldMapTerrain
 		if _terrain == null:
@@ -115,7 +128,8 @@ func _process(delta: float) -> void:
 	if not _route.is_empty():
 		# Spend the whole frame's travel, carrying on past a turn reached
 		# part-way through it.
-		var travel := travel_speed * delta
+		var pace := speed()
+		var travel := pace * delta
 		var moved := travel
 		while travel > 0.0 and not _route.is_empty():
 			var leg := global_position.distance_to(_route[0])
@@ -127,9 +141,21 @@ func _process(delta: float) -> void:
 			travel -= leg
 			_route.remove_at(0)
 		queue_redraw()
+		# Only the part of the frame spent travelling: the trip's last frame
+		# ends early.
+		if _clock != null and pace > 0.0:
+			_clock.advance((moved - travel) / pace)
 		_take_steps(moved - travel)
 	elif not is_equal_approx(_screen_scale(), _drawn_scale):
 		queue_redraw()
+
+
+## How fast the party travels, in map pixels a second: [member miles_per_day]
+## by the map's clock where there is one, else [member travel_speed].
+func speed() -> float:
+	if _clock == null or _clock.seconds_per_day <= 0.0:
+		return travel_speed
+	return miles_per_day * MapCamera.UNITS_A_MILE / _clock.seconds_per_day
 
 
 func _draw() -> void:

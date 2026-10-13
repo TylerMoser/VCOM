@@ -776,9 +776,13 @@ it. The old map keeps a party of its own.
   where it may go and the way there round the coast. This map has no such land, so its party goes
   wherever it is sent in a straight line, over the sea and the lakes as over the land, and off the
   sheet if sent there. That is `terrain_path` on the node, left empty.
-- **Speed.** Its speed and its steps are the old map's numbers, here in units: 250 a second,
-  which is 25 km, so the sheet's 1,340 km from north to south take under a minute, and a step
-  every 50, which is 5 km, each healing the roster as on the old map.
+- **Speed and time.** It covers 25 miles a day (`miles_per_day` on the `Party` node), and a day
+  takes 30 seconds of real time (`seconds_per_day` on the `Clock` node), so it goes about 13.4
+  units a second and the sheet's 833 miles from north to south take 33 days, some 17 minutes.
+  Time passes only while the party is moving. The `Clock` counts down from 90 days
+  (`starting_days`) in the top left corner, as days:hours:minutes; nothing happens yet when it
+  runs out. A step is still every 50 units, which is 5 km, each healing the roster as on the old
+  map: about eight a day. The old map has no clock and keeps its own speed.
 - Nothing is met on the way, the map having no forests. The dot and the dashed line to where it
   is going are close to the roads' red.
 

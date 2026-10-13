@@ -62,6 +62,19 @@ border's sake. A river or lake is found by the name (`Rivers/River173`); a road'
 node's name, so it is the road that shares the line's middle point. Of the 258 such lines, 45 are
 narrowed at some tier.
 
+**A border's or a river's end in the sea moves with its width.** Where one reaches the sea it
+ends past the land's edge, in the coast's black line: about 10 units out, the coast's line being
+23 wide outside the land. Left there, the end came out of the far side of the coast's line once
+that narrowed: all the way in the coast's line is under 6 units, and the ends showed 4 units (8
+pixels) out over the sea. So `_gather_sea_ends()` finds, as the scene opens, every line under
+`Borders` or `Rivers` (`ENDS_IN_COAST`) that, followed back from an end, crosses a coast's line
+within the coast's width outside the land (138 lines), and `_set_width()` moves the points out
+there as it sets the width: how far each is past the crossing is scaled by the widths' factor.
+The end is then as deep in the coast's line at every zoom as the scene has it, and at 220 miles
+tall the points are the scene's. It costs nothing more, the width having built the line again
+anyway; finding them takes about 35 ms as the scene opens. Roads and bridges are left out: the
+road over the sea to the island town crosses the land's edge and ends on land.
+
 **Nothing in the scene as saved changes.** `MapDetail` is no tool script: the editor shows every
 node, at the width it was given, and those widths are the ones the map has at 220 miles tall.
 
