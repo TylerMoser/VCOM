@@ -4,7 +4,8 @@ lines with points finer than a pixel, ready to be made into a Godot scene.
 Out of the maps of numbers come the areas: the counties (and with them the land, the duchies and
 the kingdoms), and the lakes. Their edges are smoothed once and shared: two counties that touch
 have the very same points along their border, and so has the border's line. Out of the tables come
-the lines that are lines already: rivers, roads and bridges, and the settlements.
+the lines that are lines already: rivers, roads and bridges, and the settlements; and the streams,
+which ../streams/t1_streams.py worked out against the scene this makes, as they are (streamshapes.py).
 
 Three things are put right on the way, where the pictures' pixels hid them:
 - a border that follows a river is put on the river's own line (the two were drawn a pixel or two
@@ -19,6 +20,7 @@ of pixel (x, y) is (x + 0.5, y + 0.5)); m2_scene.gd turns that into the scene's.
 Usage: m1_shapes.py <MapCreation dir> <shapes .json to write>
 """
 import json
+import os
 import sys
 import time
 import numpy as np
@@ -26,6 +28,7 @@ from PIL import Image
 from scipy import ndimage
 from scipy.spatial import cKDTree
 import geo
+import streamshapes
 
 Image.MAX_IMAGE_PIXELS = None
 MC, WRITE_TO = sys.argv[1:3]
@@ -809,6 +812,15 @@ for rank, between, p in border_lines:
         tally[rank]["road"] += 1
 out["across_lakes"] = across
 out["banks"] = banks
+
+# == the streams ==========================================================================================
+# Worked out by ../streams/t1_streams.py against the scene this makes, so taken as they are: their
+# lines, and where one runs on a border's line, the line of the border's colour under it, among the banks.
+if os.path.exists(SRC + "/Streams.json"):
+    out["streams"], stream_banks = streamshapes.shapes(load_json("Streams.json"))
+    banks.extend(stream_banks)
+    print("streams: %d, %d with a width curve; laid on a border's line in %d places" % (
+        len(out["streams"]), sum(1 for s in out["streams"] if s["widths"]), len(stream_banks)))
 for name in ("kingdom", "duchy", "county"):
     t = tally[name]
     print("%s borders: drawn across a lake in %d places; under water for %.0f px or more on end in %d places (%.0f px), shorter (crossings) in %d; their colour put along a river's banks %d times, a lake's shore %d, beside a road %d" % (

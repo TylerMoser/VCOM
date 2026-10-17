@@ -20,15 +20,17 @@ They are working programs, not a product:
 ## What is here
 
 143 programs and written parts in three groups, as they were kept while the map was made,
-with this file and `requirements.txt`. A fourth group of five, `scene/`, was added the same day,
-when the finished map was made into a scene for the game.
+with this file and `requirements.txt`. A fourth group, `scene/`, was added the same day, when the
+finished map was made into a scene for the game, and a fifth, `streams/`, on 2026-10-17, when the
+streams were worked out and added to that scene.
 
 | Folder | Files | Holds |
 |---|---:|---|
 | this folder | 20 | The sketch read, and the kingdoms' first lines: nine kingdoms of equal area, on smooth lines close to the sketch's |
 | `water/` | 10 | The heights of the land, and the rivers, lakes and watersheds worked out on them |
 | `duchy/` | 113 | Everything after that. It is named for the first thing made in it, the duchies, and holds the counties, settlements and roads, the kingdoms' borders as they are now, the picture of everything, the standard outline, the source data and the document as well |
-| `scene/` | 5 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
+| `scene/` | 6 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
+| `streams/` | 4 | The streams: worked out on the drainage against the scene, written into the source data, made into the scene's nodes and spliced into the scene as it is |
 | `icons/` | 6 | Proposals for the settlements' icons, drawn in the manner of the MWM icon pack: added on 2026-10-08, and not part of making the map |
 
 A program finds the others it leans on beside it, so the files of a group have to stay together.
@@ -62,7 +64,8 @@ taught to read before it could start from them.
 
 ## How the map was made
 
-Ten steps, and an eleventh that made the game's scene from the finished map. Each table gives a
+Ten steps, an eleventh that made the game's scene from the finished map, and a thirteenth that
+added its streams (the twelfth is not a step: proposals for icons). Each table gives a
 program, what it was given the last time it was run, and what it left. A name in the last column
 with no folder is a file in the working folder named in the step's heading.
 
@@ -277,7 +280,8 @@ What `m1_shapes.py` does, in the order it does it:
   (a lake's shore, a small island's) is put back to the area its pixels had, since smoothing a
   small ring draws it in: by 3% on average for the lakes under 50 px, and by 12% for the worst,
   before this.
-- **Takes roads, bridges and settlements** from `Roads.json` and `Settlements.json`.
+- **Takes roads, bridges and settlements** from `Roads.json` and `Settlements.json`, and the
+  streams, as they are, from `Streams.json` if it is there (`streamshapes.py`; step 13).
 - **Finds where a border lies under water or a road**, so that no line hides another. Where it
   crosses a broad lake (as `duchy/layers.py` has broad), that part is to be drawn again over the
   water. Where it runs under a river, a narrow lake or a road for 12 px or more, a second line is
@@ -336,6 +340,52 @@ house. A proposal that says "the pack's" is built from the pack's own icons, the
 it is and moved or resized; the rest are drawn afresh (`parts.py` has the buildings). Every
 proposal has its own seed, so drawn again it comes out the same.
 
+### 13. The streams
+
+`streams/`. Added on 2026-10-17, when the user asked for streams: the flowing water too small to
+be a river, following the land, joining the lakes to the rivers and spreading up from the rivers
+into their watersheds, as many as suits each kingdom's biome, at the County tier of the scene's
+level of detail. This step needs no working folder either: it reads `../SourceData/`,
+`../Elevation.png` and the scene, and takes about a minute and a half in all.
+
+| Program | Given | Leaves |
+|---|---|---|
+| `t1_streams.py` | `<repo> <a folder> [look x,y,w,h ...]` | `Streams.json` in the folder, to be put in `../SourceData/` once looked at; with `look`, a picture of each view given as the game shows it all the way in |
+| `t2_shapes.py` | `<repo>/MapCreation <a file>` | The streams alone as shapes, from `../SourceData/Streams.json`, as `m1_shapes.py` puts them among the whole map's |
+| `m2_scene.gd` | by Godot, from `vcom/`: `godot --headless --path . --script ../MapCreation/Scripts/scene/m2_scene.gd -- <that file> <a scene to write> streams` | A scene of the streams alone, and the lines of a border's colour under them, each under the group it goes in |
+| `t3_splice.py` | `<repo>/vcom/Scenes/Map.tscn <that scene> [--replace]` | The streams spliced into the map's scene as it is: nothing else in it changes. `--replace` takes out the streams spliced before |
+
+What `t1_streams.py` does, in order (its own head says it in full, and `../SourceData/README.md`,
+"Streams", what the file holds):
+
+- **Reads the scene** (`scene_read.py`): its rivers, lakes, borders and roads as Godot draws them,
+  so that a stream ends on a river's line as the scene has it and keeps clear of the rest.
+- **Picks the cells of the drainage that carry a stream.** One begins where the ground it gathers
+  (km²) times the water it carries (m³/s) reaches 5.3, what 20 km² of the Deciduous Forest gives,
+  and where it carries 0.2 m³/s or more; it runs on down while it carries water (in the Desert and
+  the Grassland 0.1 m³/s), until a river, a drawn lake or the sea. The outlet of every lake that
+  touches no river is a stream down to what it reaches, if water leaves the lake; a lake whose
+  water runs at once into a river, a lake or a stream gets a short one to it.
+- **Chains them into lines** as the rivers were (`../water/w3_water.py`): at each meeting the
+  stream carrying more goes on.
+- **Draws each line, the biggest first**, as the rivers were drawn (`../water/w4_draw.py`): its
+  course smoothed, made to wander where its bed is nearly level and a little everywhere, never
+  more than three tenths of the way to other water; ended on the line of the river or stream it
+  joins, inside the lake as drawn, or 3 px past the land's edge; put on a border's line where it
+  runs along one for 24 px (with the line of the border's colour to lay under it), and moved off a
+  road that runs along it for 12 px. One that would cross a bigger line is drawn again with less
+  wandering, and if it still would, ended where it meets it. One nothing joins, under 1.5 km on
+  land, is left out.
+- **Checks** that every stream ends on water and none crosses another, and says how much still
+  runs under a road.
+- **Writes `Streams.json`**, numbered by the water each carries, its points thinned to within
+  0.08 px and given points where they bend (none turning more than 10 degrees), every point
+  another stream ends on kept.
+
+`m2_scene.gd` makes the streams' nodes as it makes them in the whole scene (`_add_streams()`, and
+the lines along borders through `_add_bank()`), so the spliced scene and one made afresh have the
+very same streams; that was held true, node for node, when they were first spliced in.
+
 ## Things to watch for
 
 - **`scene/m2_scene.gd` writes the game's scene afresh.** The scene is meant to be changed by
@@ -344,7 +394,13 @@ proposal has its own seed, so drawn again it comes out the same.
   it by hand is lost. Give it another name to write to (`-- <shapes> res://Scenes/MapAgain.tscn`)
   to make one to look at.
 - **Two programs write into the repository themselves**: `water/w5_finish.py` and
-  `water/w6_water_only.py`. Every other writes where it is told.
+  `water/w6_water_only.py`. Every other writes where it is told, `streams/t3_splice.py` into the
+  scene it is given.
+- **`streams/t3_splice.py --replace` makes every stream afresh.** Anything changed by hand in a
+  stream, or in a line along a border under one, is lost; nothing changed in the scene goes back to
+  `../SourceData/Streams.json`. And the streams were worked out against the scene's rivers, lakes,
+  borders and roads as they were: once those are changed by hand, work them out again
+  (`t1_streams.py`) before splicing.
 - **`water/w0_grids.py` reads the kingdoms' first lines from a picture named `Kingdoms.png`**:
   the one `make_kingdoms.py` writes, which had that name then. The `Kingdoms.png` in the folder
   now holds the borders along the land. Run on the folder as it is, `w0_grids.py` would shape
@@ -663,6 +719,16 @@ What a file is for (the files of `scene/` are listed after the rest):
 | `geo.py` | leaned on | Shapes out of a map of numbers: the edges between unlike pixels as chains, the chains joined into lines, and the lines smoothed, given points where they bend and thinned where they run straight. |
 | `m4_compare.py` | check | The scene as Godot draws it, set beside the picture it was made from, colour by colour. |
 | `m3_draw.gd` | look | Draws the scene in Godot: the whole map at the pictures' scale, close views, and how long it takes to load and to draw. |
+| `streamshapes.py` | leaned on | The streams of `../SourceData/Streams.json` as the scene wants them: shapes, and the lines of a border's colour under them. For `m1_shapes.py` and `../streams/t2_shapes.py` alike. |
+
+### streams/
+
+| File | For | What it does |
+|---|---|---|
+| `t1_streams.py` | makes | Works the streams out on the drainage, against the scene, and writes `Streams.json`; with `look`, draws views as the game shows them. |
+| `t2_shapes.py` | makes | The streams alone as shapes for `m2_scene.gd`, from `Streams.json`, by `../scene/streamshapes.py`. |
+| `t3_splice.py` | makes | Splices the scene of the streams alone into the map's scene, touching nothing else; `--replace` takes the old streams out first. |
+| `scene_read.py` | leaned on | The map's scene read as `t1_streams.py` needs it: every `Line2D` and `Polygon2D`, in pixels of the pictures. |
 
 ### icons/
 

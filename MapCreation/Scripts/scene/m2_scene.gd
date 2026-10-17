@@ -12,6 +12,11 @@ extends SceneTree
 ##   godot --headless --path . --script <this file> -- <shapes .json> [res://Scenes/Map.tscn]
 ##
 ## It writes the whole scene afresh: anything changed in it by hand since is lost.
+##
+## Given "streams" after the scene to write, it makes only the streams, from shapes that hold
+## nothing else (../streams/t2_shapes.py), and the lines of a border's colour laid under them
+## where they run on a border, each under the group it belongs in: a scene of those alone, to be
+## spliced into the scene as it is (../streams/t3_splice.py), where nothing else is touched.
 
 ## Godot units to a pixel of the pictures.
 const UNITS := 3.35
@@ -64,6 +69,9 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	var shapes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(args[0]))
 	var write_to: String = args[1] if args.size() > 1 else "res://Scenes/Map.tscn"
+	if args.size() > 2 and args[2] == "streams":
+		_write_streams_alone(shapes, write_to)
+		return
 	var size: Array = shapes["size"]
 
 	_root = Node2D.new()
@@ -77,6 +85,7 @@ func _initialize() -> void:
 	_add_land(shapes["counties"], shapes["kingdoms"])
 	_add_borders(shapes["borders"], shapes["banks"])
 	_add_lakes(shapes["lakes"])
+	_add_streams(shapes.get("streams", []))
 	_add_rivers(shapes["rivers"])
 	_add_borders_over_lakes(shapes["across_lakes"])
 	_add_roads(shapes["roads"])
@@ -167,14 +176,21 @@ func _add_borders(borders: Dictionary, banks: Array) -> void:
 			line.begin_cap_mode = Line2D.LINE_CAP_NONE if border["from_coast"] else Line2D.LINE_CAP_ROUND
 			line.end_cap_mode = Line2D.LINE_CAP_NONE if border["to_coast"] else Line2D.LINE_CAP_ROUND
 		for bank: Dictionary in banks:
-			if bank["rank"] != rank:
-				continue
-			var beside := "%sAlong%s%03d" % [_border_name(rank, bank["between"]), String(bank["along"]).capitalize(), int(bank["id"])]
-			var line := _line(of_rank, _numbered(names, beside), bank["points"], snappedf(float(bank["widest"]) * UNITS, 0.1), _rank_color[rank])
-			line.closed = bank.get("closed", false)
-			line.begin_cap_mode = Line2D.LINE_CAP_ROUND
-			line.end_cap_mode = Line2D.LINE_CAP_NONE if bank.get("square_end", false) else Line2D.LINE_CAP_ROUND
-			_narrow(line, bank["widths"], bank["widest"], bank["px"])
+			if bank["rank"] == rank:
+				_add_bank(of_rank, names, rank, bank)
+
+
+## A line of a border's colour under a river, a lake's shore, a road or a stream the border runs
+## along, as wide as that and the border on both sides of it.
+func _add_bank(of_rank: Node, names: Dictionary, rank: String, bank: Dictionary) -> void:
+	var along := String(bank["along"])
+	var number: String = ("%05d" if along == "stream" else "%03d") % int(bank["id"])
+	var beside := "%sAlong%s%s" % [_border_name(rank, bank["between"]), along.capitalize(), number]
+	var line := _line(of_rank, _numbered(names, beside), bank["points"], snappedf(float(bank["widest"]) * UNITS, 0.1), _rank_color[rank])
+	line.closed = bank.get("closed", false)
+	line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+	line.end_cap_mode = Line2D.LINE_CAP_NONE if bank.get("square_end", false) else Line2D.LINE_CAP_ROUND
+	_narrow(line, bank["widths"], bank["widest"], bank["px"])
 
 
 ## Where a border crosses a lake broad enough to show on both sides of it, the border is drawn
@@ -218,6 +234,52 @@ func _add_lakes(lakes: Array) -> void:
 		var islands: Array = lake["islands"]
 		for i in islands.size():
 			_polygon(group, "Lake%03dIsland%d" % [int(lake["id"]), i + 1], _to_points(islands[i]), _land)
+
+
+## The streams: the flowing water too small to be a river, a line each, under the kingdom most of
+## each lies in. They are drawn over the lakes and the borders and under the rivers, so a stream
+## ends on the river it joins, inside the lake it reaches, or a little into the coast's line.
+func _add_streams(streams: Array) -> void:
+	if streams.is_empty():
+		return
+	var group := _group(_root, "Streams", "The streams: the flowing water too small to be a river, numbered by the water they carry as MapCreation/SourceData/Streams.json has them, under the kingdom most of each lies in. A stream's width is its width at its widest; one that widens by more than 0.3 px of the pictures has a width curve narrowing it from there toward its source. They show from the County tier in (see the Detail node).")
+	var kingdoms := {}
+	for stream: Dictionary in streams:
+		kingdoms[int(stream["kingdom"])] = null
+	var numbers := kingdoms.keys()
+	numbers.sort()
+	for k: int in numbers:
+		kingdoms[k] = _group(group, "Kingdom%d" % k, "")
+	for stream: Dictionary in streams:
+		var line := _line(kingdoms[int(stream["kingdom"])], "Stream%05d" % int(stream["id"]), stream["points"], snappedf(float(stream["widest"]) * UNITS, 0.1), _water)
+		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+		line.end_cap_mode = Line2D.LINE_CAP_NONE if stream["ends_in"] == "sea" else Line2D.LINE_CAP_ROUND
+		_narrow(line, stream["widths"], stream["widest"], stream["px"])
+
+
+## The streams alone, and the lines of a border's colour under them where they run on a border,
+## each under the group it belongs in (Streams/Kingdom3, Borders/Duchies), and nothing else: for
+## ../streams/t3_splice.py to splice into the scene as it is.
+func _write_streams_alone(shapes: Dictionary, write_to: String) -> void:
+	_root = Node2D.new()
+	_root.name = "Map"
+	var borders := _group(_root, "Borders", "")
+	for rank: String in RANKS:
+		var of_rank := _group(borders, RANK_PLURAL[rank], "")
+		var names := {}
+		for bank: Dictionary in shapes["banks"]:
+			if bank["rank"] == rank:
+				_add_bank(of_rank, names, rank, bank)
+	_add_streams(shapes["streams"])
+	_own(_root)
+	var packed := PackedScene.new()
+	var error := packed.pack(_root)
+	if error == OK:
+		error = ResourceSaver.save(packed, write_to)
+	print("nodes ", _nodes, "; points ", _points)
+	print("saved ", write_to, ": ", "ok" if error == OK else "FAILED %d" % error, ", ", FileAccess.get_file_as_bytes(write_to).size(), " bytes")
+	_root.free()
+	quit(0 if error == OK else 1)
 
 
 func _add_rivers(rivers: Array) -> void:
@@ -391,7 +453,7 @@ func _add_detail() -> void:
 	var detail := Node.new()
 	detail.name = "Detail"
 	detail.set_script(load("res://Scripts/WorldMap/MapDetail.gd"))
-	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages and hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
+	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the streams, the villages and hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
 	_root.add_child(detail)
 	_nodes += 1
 

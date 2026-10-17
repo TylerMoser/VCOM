@@ -998,6 +998,7 @@ has to be traced off a picture. Its `README.md` says what each file holds and ho
 | `Regions.json`, `Settlements.json` | Which county is in which duchy and kingdom; every capital, its rank and where it stands |
 | `KingdomBorders.json` | The kingdoms' fifteen borders as smooth lines |
 | `Rivers.json` | The 291 rivers as lines, with the water each carries and its width at every point |
+| `Streams.json` | The 9,869 streams as lines: the flowing water below the rivers, added on 2026-10-17 and drawn in the game's scene, on no picture |
 | `LakeMap.png`, `Lakes.json` | The 700 lakes |
 | `WatershedMap.png`, `Watersheds.json` | The 51 watersheds |
 | `Roads.json` | The road network: the settlements and forks, the stretches of road between them as lines, the 351 roads and the 146 bridges |
@@ -1094,7 +1095,8 @@ kingdom of 77,309 km² is a little smaller than Scotland.
   mountain is drawn.
 - **Relief.** The heights are in `Elevation.png` only; no picture draws mountains or hills.
 - **Small streams.** Rivers carrying less than 15 m³/s are not drawn unless they drain a large
-  lake, so many valleys look dry. (`SourceData/` has them, in `DrainageFlow.png`.)
+  lake, so many valleys look dry. (`SourceData/` has them, in `DrainageFlow.png`, and as lines in
+  `Streams.json`, which the game's scene draws.)
 - **Sea routes, ports and anything else at sea** but the bridge to the island.
 - **A key, a compass, a scale bar or a grid.**
 

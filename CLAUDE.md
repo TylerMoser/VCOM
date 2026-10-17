@@ -21,7 +21,7 @@ from, every clip, every decision and gap, and recipes for adding more. Read it b
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
 subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
 `DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MAP.md` (the
-new map's level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
+new map: its scene, streams and level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
 file before touching it, and put new detail about it there, not here; when this file nears the limit
 again, split another subsystem out the same way.
 
@@ -546,78 +546,25 @@ gaps and what was decided without asking the user. Read it before touching input
 
 **The new world map is a scene of Godot's own nodes, written once by program and changed by hand
 from then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44
-duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from, and
-`MapCreation/Features.md` describes them). The game does not use it yet: `WorldMap.tscn` is still
-the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 units, the sheet's
-top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
-is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
-nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
-`Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
-map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
-or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
-village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
-tooltip under the pointer. `icon_height` is on each scene's root (26 and 20, not the village's 32,
-which with 220 on screen hides the map: my call), and an instance keeps only its position, its
-`display_name` (a placeholder, "Capital of County 103": nothing is named yet) and its county's,
-duchy's and kingdom's numbers as metadata. Villages and hamlets have their scenes too
-(`Scenes/Village.tscn`, 16, the pack's Village; `Scenes/Hamlet.tscn`, 12, `Hamlet2.png` of the
-pack's folder as `WorldMap/Hamlet.png`) and their groups, `Settlements/Hamlets` and `Villages`,
-ahead of the capitals' so that towns and cities draw over them, but there are none on the map yet:
-one is added by instancing its scene under its group. `Village.tscn` is the old map's village as
-well, which keeps its 32 by setting `icon_height` on its own node in `WorldMap.tscn`. `Party` is
-the old map's `Party`, brought over at the user's request (the old map keeps its own): it starts
-near the middle of county 115, at (7302, 7381), the outline's centroid, as they asked, and is
-drawn over the settlements. Its `terrain_path` is empty, this map having no land collider or
-navigation mesh, so it goes wherever it is sent in a straight line, over water too; a right click
-on a settlement's icon sends it to the settlement. Keeping it to the land is not built: what
-stops it (lakes, rivers but for their bridges) is the user's to say. Its speed is the user's: 25 miles a day
-(`Party.miles_per_day`), a day taking 30 real seconds (`MapClock.seconds_per_day`, on the scene's
-`Clock`, which the party's `clock_path` names), so 13.4 units a second. Time passes only while the
-party moves: `Party` calls `MapClock.advance()` with the seconds it spent travelling, and nothing
-else moves the clock. The clock counts down from `starting_days` (90) in the top left corner, as
-days:hours:minutes, and nothing happens yet when it runs out (the user's: "for now"). A step is
-still every 5 km, by distance (their call), about eight a day. The old map's party has no clock
-and keeps `travel_speed`. One settlement has something in it,
-at the user's request: county 115's capital has the old village's hiring board and market, the
-same two `.tres` and not copies (my call: a character stays on one board), and the scene's
-`VillageMenu` opens them as on the old map, on a left click once the party is in the town. A
-town shows from the Duchy tier, so it is sent to and entered only that far in. `MapReticle`, the
-gamepad's ring and prompts, is the old map's as well, and so are `SquadMenu` and `GameOver`,
-which nothing here sets off yet: no forest sets the party upon. The camera's
-limits are the user's: all the way out
-the whole land just fits the window and nothing pans; all the way in the view is 25 miles tall
-(`MapCamera.closest_view_miles`, a mile being `UNITS_A_MILE`, 16.09344, of the map's units: 56 m to
-a pixel at 1280 by 720, 33 times all the way out; it was first just large enough for any one
-outline of the land, 186 m to a pixel, which they then replaced); and the view never leaves what
-is seen all the way out (that view's edges, not
-the land's own box, as they chose, so in a wide window it can slide out over the sea either side).
-`MapCamera` reads the land's extent off `Land` and `Coast` as the scene opens. Areas are `Polygon2D`
-and lines `Line2D` with a width in units. Last in the tree is `Detail`, a `MapDetail`, the map's
-level of detail while the game runs (the editor shows every node, at the width it was given). The
-view is in one of four tiers by its height in miles, the user's: Realm (the kingdoms' borders and
-capitals, the greatest rivers and lakes), Kingdom under 480 (the duchies' borders and capitals,
-highways), Duchy under 240 (the counties' borders and capitals, the other roads, bridges, every
-river and lake) and County under 100 (villages, hamlets). What a tier brings is faded by
-`modulate`, never hidden, since showing a `Line2D` builds it again; only the settlements' groups
-are hidden outright, where a `Destination` stops its `_process` and is not pointed at. A line's
-width in the scene is its width at 220 miles tall: `MapDetail` scales them all by one factor, so
-that on screen they follow about a third of the zoom, and sets them a few lines a frame, since
-that too builds a line again. A border's `...Along` line is a plain border while its river, lake
-or road is out of its tier. A border or river that reaches the sea ends in the coast's black
-line, and `MapDetail` moves that end with its width, so it never shows past the coast's line as
-that narrows. A new layer that should come and go by the zoom goes in
-`MapDetail.SHOWN_FROM`. `Docs/MAP.md` has the rest; read it before touching the map's detail.
-Lines are thin far out, which is why `project.godot` has 4x 2D MSAA
-(`anti_aliasing/quality/msaa_2d`), for the whole game: nothing else in Godot 4.7 smooths a
-`Line2D` or a `Polygon2D`, whose own `antialiased` does nothing. Things that share an edge have
-the same points, each its own copy: two counties and the line of the border between them; a
-county and its stretch of `Coast` (`CoastOfCounty163` for `County163`, named apart so that a search
-by name finds one thing; a line twice the coast's width, its inner half under the
-land); a border that follows a river, the river, and the `...AlongRiver` line under the river
-that shows the border's colour on both banks. A hand edit has to move the copies too. **Never run
-`MapCreation/Scripts/scene/m2_scene.gd` over it unasked: it writes the scene afresh, and every
-change made by hand is lost.** `README.md`, "The new world map", has the decisions and what each
-node holds; `MapCreation/Scripts/README.md`, step 11, how it was made and checked.
+duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from). The game does
+not use it yet: `WorldMap.tscn` is still the main scene. A unit is 100 m, and pixel (x, y) of the
+`MapCreation/` pictures is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree is its drawing order:
+`Sea`, `Coast`, `Land`, `Borders`, `Lakes`, `Streams`, `Rivers`, `BordersOverLakes`, `Roads`,
+`Bridges`, `Settlements`, `Party`, `Clock`, `Camera`, `MapReticle`, `VillageMenu`, `SquadMenu`,
+`GameOver`, `Detail`. Its settlements are `Destination`s, its party the old map's, with a clock and
+a speed that are the user's, and its camera's limits are the user's. `Detail`, a `MapDetail`, is
+its level of detail: four tiers by the view's height in miles, the user's (Realm; Kingdom under
+480; Duchy under 240; County under 100, which brings the streams), faded by `modulate`, every
+line's width scaled by one factor of the zoom, a few lines a frame; a new layer that should come
+and go by the zoom goes in `MapDetail.SHOWN_FROM`. Things that share an edge have the same points,
+each its own copy (two counties and their border's line; a county and its `CoastOfCounty...`; a
+border along a river or a stream and its `...Along...` line; a stream and the stream it ends on),
+so a hand edit moves the copies too. The 9,869 streams are made by `MapCreation/Scripts/streams/`
+and spliced in by `t3_splice.py`; spliced again they are made afresh and a hand edit to one is
+lost. **Never run `MapCreation/Scripts/scene/m2_scene.gd` over it unasked: it writes the scene
+afresh, and every change made by hand is lost.** `Docs/MAP.md` has all of it (settlements, party,
+clock, camera, streams, level of detail) and why; read it before touching the map. `README.md`,
+"The new world map", has the decisions and what each node holds.
 
 **Forests are shapes drawn in the editor.** Each is an instance of `Scenes/Forest.tscn`, a
 light-green, half-transparent `Polygon2D`, under `WorldMap.tscn`'s `Forests` node, in world
@@ -1696,8 +1643,8 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
   shares the old village's board and market: with both maps in one game they would be one shop.
   Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture.
-  Its level of detail's gaps are in `Docs/MAP.md`. It is 8 MB of text and takes about a
-  second to open: half reading the file, a quarter cutting its 936 polygons into triangles.
+  The rest of its gaps are in `Docs/MAP.md`. It is 12.9 MB of text and takes about 2.8 s to open,
+  1.4 before its 9,869 streams.
 - The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
   land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates
   the mask from the art and overwrites any edits to it.

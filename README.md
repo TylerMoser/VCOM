@@ -665,7 +665,7 @@ routine and nothing else.
 ## The new world map
 
 `vcom/Scenes/Map.tscn` is the island the campaign is moving to: nine kingdoms, 44 duchies and 220
-counties, with their coast, lakes, rivers, roads, bridges and settlements. It is drawn with shapes
+counties, with their coast, lakes, rivers, streams, roads, bridges and settlements. It is drawn with shapes
 and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
 reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
 To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
@@ -694,6 +694,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Land` | The land, a polygon for each of the 220 counties and for each island off a county's shore, grouped by kingdom and duchy (`Land/Kingdom7/Duchy33/County163`). A kingdom is also a biome, named in its node's description and metadata |
 | `Borders` | Borders as lines, the counties' first and the kingdoms' last, so that a greater is drawn over a lesser: 299, 54 and 15 of them, named for what they part (`Kingdoms3And6`) |
 | `Lakes` | The 700 lakes, numbered by size |
+| `Streams` | The 9,869 streams, numbered by the water they carry, under the kingdom most of each lies in (`Streams/Kingdom6/Stream00001`) |
 | `Rivers` | The 291 rivers, numbered by the water they carry |
 | `BordersOverLakes` | The parts of borders that cross a broad lake, drawn again over the water |
 | `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart |
@@ -714,8 +715,9 @@ as one outline of 25,000 points took two seconds a time, where a county's few hu
 a few thousandths.
 
 **Lines have a point wherever they bend.** No line or outline turns by more than 6° at any one
-point, so a curve stays a curve at any zoom; where one runs straight it has few. There are 414,000
-points in all, and the scene file is 8 MB.
+point (a stream by more than 10°, which on a line a pixel or two wide cannot be seen), so a curve
+stays a curve at any zoom; where one runs straight it has few. The streams add 120,000 points to
+the 414,000 the rest has, and the scene file is 12.9 MB.
 
 **Lines have a width in units, which is their width when the view is 220 miles tall.** Closer in
 or further out the `Detail` node scales them all, as given under "The map shows more the closer
@@ -726,6 +728,7 @@ the view" below. The widths are the pictures', to the whole unit:
 | Coast | 23, all of it outside the land | 7 px |
 | Kingdom, duchy and county borders | 17, 10 and 7 | 5, 3 and 2 px |
 | Rivers | 6.7 at the least to 24.8 at the mouth of the largest | 2 to 7.4 px, by the water they carry |
+| Streams | 2.5 at the least to 6.5 | 0.75 to 1.95 px, by the water they carry: under the narrowest river |
 | Highways and other roads | 10 and 7 | 3 and 2 px |
 | Bridges | 7 wider than their road | 2 px wider |
 
@@ -734,6 +737,31 @@ be under half a pixel wide and faint, and far in they would be thick, which is w
 node is for. Lines are still thin far out, so 2D anti-aliasing is on for the whole game (4x MSAA,
 `rendering/anti_aliasing/quality/msaa_2d` in `project.godot`): in Godot 4.7 nothing else smooths
 the edge of a line or a polygon, and without it a line near a pixel wide breaks into dashes.
+
+**Streams fill the valleys below the rivers.** The `Streams` node holds 9,869 of them, 88,900 km,
+six times the rivers' length: the flowing water too small to be a river, worked out on the very
+drainage the rivers and lakes were made from, so they run down the same heights and join as the
+rivers do. The decisions:
+
+- **What they are** (the user's): water that follows the land, joins the lakes to the rivers and
+  spreads up from the rivers into their watersheds, as real as can be.
+- **How many** (the user's: the medium of the densities put to them; the rule is mine): a stream
+  begins where the ground it gathers times the water it carries reaches what 20 km² of the
+  Deciduous Forest gives, so the wetter the kingdom the more there are. A view all the way in
+  holds about 73 in the Evergreen Rainforest, 63 in the Tropical Rainforest, 40 in the Deciduous
+  Forest, 10 in the Grassland and 3 in the Desert. It is meant to show at least what Google Maps
+  does with a view 25 miles tall, which was estimated, not set beside Google Maps.
+- **Flowing water only** (the user's): no dry washes. A stream must carry 0.2 m³/s to begin, and
+  in the Desert and the Grassland it ends where it carries less than 0.1, so the Desert is all but
+  empty.
+- **The lakes are joined to the rivers.** Every lake that touches no river and has water leaving it
+  has its outlet drawn, down to what it reaches: 665 of the 700 lakes now touch water, against 150
+  before. The rest are six crater lakes and 29 in the Grassland nothing flows out of.
+- **They show from the County tier**, all at once as the view crosses 100 miles tall (the user's),
+  and are narrower than the narrowest river, in the rivers' blue.
+- **They are in `Map.tscn` itself** (the user's), and as lines in
+  `MapCreation/SourceData/Streams.json`. [`Docs/MAP.md`](Docs/MAP.md) has the rest: the rule, the
+  widths, the borders and roads they run along, and what was decided without asking.
 
 **A settlement is an icon of one size on the screen.** Each is an instance of `Scenes/City.tscn`
 (a kingdom's or a duchy's capital) or `Scenes/Town.tscn` (a county's), and both are what the old
@@ -856,7 +884,7 @@ each named for what about fills the window then, and each adding to the one befo
 | Realm | over 480 miles | 0 to 2 | The coast, the kingdoms' borders and their nine capitals, the 42 greatest rivers and the 79 greatest lakes |
 | Kingdom | 480 to 240 miles | 3 to 5 | The duchies' borders and their 35 capitals, the highways, 92 more rivers and 179 more lakes |
 | Duchy | 240 to 100 miles | 6 to 9 | The counties' borders and their 176 capitals, the other roads, the bridges, every river and lake |
-| County | under 100 miles | 10 to 16 | The villages and hamlets, once there are some |
+| County | under 100 miles | 10 to 16 | The 9,869 streams, and the villages and hamlets once there are some |
 
 What a tier brings fades in over a fifth of a second as the view crosses into it, and out as it
 leaves. A settlement out of its tier cannot be pointed at.
@@ -880,6 +908,10 @@ lost, so a second line lies under that river, shore or road, wide enough for the
 to show on both sides: these are the lines named `...AlongRiver088`, `...AlongLake215` and
 `...AlongRoad093` beside the borders. And where a border crosses a lake broad enough to show on
 both sides of it, that part of the border is drawn again over the water, in `BordersOverLakes`.
+Streams are water too: drawn over the borders and under the rivers, and narrower than any border.
+Where one runs along a border for a long way it is put on the border's line, with a line of the
+border's colour under it (`...AlongStream00335`); where a road runs along a stream, the stream is
+moved off beside it.
 
 **Things that share an edge have the same points for it, each its own copy.** Two counties that
 touch have the very same points along their border, and so has the border's line. Godot has no
@@ -889,7 +921,8 @@ node that is both an area and its outline, so moving something by hand means mov
 |---|---|
 | A border | The two counties' polygons either side; its `Along...` and `OverLake...` lines, if it has them there |
 | The coast | The county's polygon (`County163`) and its stretch of `Coast` (`CoastOfCounty163`), which have the same points. The coast's line is twice its width and centred on the land's edge, and the land covers its inner half |
-| A river | Any border and `Along...` line that runs on it; the bridges over it |
+| A river | Any border and `Along...` line that runs on it; the bridges over it; the streams that end on it |
+| A stream | The streams that end on it, each on one of its points; its `...AlongStream...` line, if it has one |
 | A road | Its bridges, which lie along it; the settlement at its end |
 | A settlement | Its icon is one node, moved as a whole. The roads that end at its middle |
 
@@ -920,7 +953,9 @@ not in the pictures.)
 
 **The scene is the map now.** It was written once by program and is meant to be changed by hand
 from here on. Run again, `MapCreation/Scripts/scene/m2_scene.gd` writes it afresh, and anything
-changed in it since is lost.
+changed in it since is lost. The streams are the one part still made by program:
+`MapCreation/Scripts/streams/` works them out and splices them into the scene as it is, touching
+nothing else. Spliced again, every stream is made afresh, and one changed by hand loses the change.
 
 ## Layout
 

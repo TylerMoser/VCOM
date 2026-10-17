@@ -11,6 +11,18 @@ checked against the pictures ([How it was checked](#how-it-was-checked)). The pr
 the map, wrote these files and checked them are in `../Scripts/`. If a picture is changed, the
 files here that describe it are out of date until they are made again.
 
+The game's scene of the map, `vcom/Scenes/Map.tscn`, was made from these files on the same day,
+by `../Scripts/scene/` (step 11 of that folder's `README.md`). The scene is the map from now on:
+it is changed by hand in the Godot editor, and nothing changed there comes back to these files.
+It already differs from them a little, by design: where a border follows a river the scene puts
+it on the river's own line, and 455 pixels of `CountyMap.png` that stood out of a border as a
+tongue or a hook went to the county beside them.
+
+`Streams.json` was added on 2026-10-17: the streams, the flowing water too small to be a river,
+worked out on the drainage here by `../Scripts/streams/` (step 13 of that folder's `README.md`)
+against the scene, whose rivers, lakes, borders and roads they meet, follow and keep clear of. The
+scene draws them; no picture does.
+
 ## What is here
 
 | File | Size | Kind | Holds |
@@ -23,6 +35,7 @@ files here that describe it are out of date until they are made again.
 | `Settlements.json` | {{Settlements.json}} | table | The 220 capitals |
 | `KingdomBorders.json` | {{KingdomBorders.json}} | lines | The kingdoms' 15 borders |
 | `Rivers.json` | {{Rivers.json}} | lines | The 291 rivers, with the water each carries and its width at every point |
+| `Streams.json` | {{Streams.json}} | lines | The 9,869 streams, with the water each carries and its width at every point |
 | `LakeMap.png` | {{LakeMap.png}} | number map | The lake of every pixel of lake, 1 to 700 |
 | `Lakes.json` | {{Lakes.json}} | table | The 700 lakes |
 | `WatershedMap.png` | {{WatershedMap.png}} | grey map | The watershed of every pixel of the mainland, 1 to 51 |
@@ -218,6 +231,41 @@ the points. With the lakes of `LakeMap.png` that gives the blue of `../Water.png
 `left_out` lists the 14 lines the water was worked out as that are too short to draw: 13 streams
 that reach the sea within 11 km, and one that joins a larger river after 2 px.
 
+## Streams
+
+`Streams.json` holds the 9,869 streams, the largest first, as `Rivers.json` holds the rivers: the
+water below the rivers that still flows, worked out on the drainage (below) by
+`../Scripts/streams/t1_streams.py` and drawn in the game's scene, on no picture. Its
+`which_are_drawn`, `width_rule`, `wandering` and `meeting_other_lines` say in full how.
+
+- **Which streams are drawn.** A stream begins where the ground it gathers (km²) times the water
+  it carries (m³/s) reaches 5.3, what 20 km² of the Deciduous Forest gives, and where it carries
+  0.2 m³/s or more, so on less ground the wetter the country. It runs on until it meets a river,
+  a lake, the sea or a bigger stream; in the Desert and the Grassland only while it carries 0.1
+  m³/s. The outlet of every lake that touches no river is drawn, if water leaves the lake. No dry
+  washes are drawn.
+- **A stream ends on the line of what it joins as the game's scene draws it**, a river's or a
+  stream's (a stream's on one of its points), inside the lake it runs into, or 3 px past the
+  land's edge, in the coast's line.
+- **Its points are thinned** where it runs straight, and have a point wherever it bends so that
+  it nowhere turns more than 10 degrees at one point. A whole number is a pixel's middle, as here.
+- **`along_borders`** lists the eight stretches where a stream runs on a border's line, with the
+  line of the border's colour the scene lays under it there: the border's own points.
+
+| Field | Meaning |
+|---|---|
+| `id` | 1 for the stream carrying the most water, and so on down. A stream is listed after the stream it joins |
+| `ends_in` | `stream`, `river`, `lake`, `sea`, or `dry` where it runs out of water (none does) |
+| `joins` | The `id` of the stream or the river it ends on, or of the lake it runs into |
+| `from_lake` | The lake it flows out of, if its line starts at a lake's outlet |
+| `kingdom`, `kingdoms` | The kingdom of `KingdomMap.png` most of it lies in (its group in the scene), and all it touches |
+| `largest_flow_m3s`, `flow_at_end_m3s` | The most water it carries, and what it carries at its end |
+| `length_km` | Along its line |
+| `points` | The line: 120,064 points in all |
+| `flow_m3s` | The most water it has carried so far, at each point |
+| `width_px` | Its width at each point: 0.7 + 0.396 × flow^0.36, a quarter more in swamp and tropical rainforest country (7 and 9 on `TerrainMap.png`), and never under 0.75 or over 1.95, so under the narrowest river's 2 |
+| `course` | The middles of the cells of `DrainageDirection.png` its water runs through: the line it was drawn from |
+
 ## Lakes
 
 `LakeMap.png` gives every pixel of lake its lake, 1 for the largest down to 700. `Lakes.json`
@@ -266,7 +314,8 @@ pixels x = 2c and 2c + 1, y = 2r and 2r + 1, and its middle is (2c + 0.5, 2r + 0
   size, `surface_m`, `outlet` and `drawn_as`, the drawn lake it is part of, if any.
 
 This is where smaller water is to be had: any stream below the 15 m³/s at which rivers are
-drawn can be followed on the first two maps, and the pools are on the third.
+drawn can be followed on the first two maps, and the pools are on the third. `Streams.json` holds
+the streams drawn from them.
 
 ## Roads
 
@@ -356,3 +405,8 @@ on 2026-10-07. It found:
   each line has its two kingdoms on its two sides.
 - **Godot.** Godot 4.7 reads the maps and the tables as they are written here
   (`g5_read_source.gd` and `g6_readme_snippet.gd`, beside the checking program).
+
+`Streams.json`, added after, was checked as it was made, on 2026-10-17, by the program that made
+it: every stream ends on water as the scene draws it, no stream crosses another, and every stream
+that joins another ends on one of its points. The scene's streams were then held against a scene
+made afresh from the file: the same nodes, point for point.

@@ -10,7 +10,8 @@
 ##             capitals, the highways, more rivers and lakes.
 ##   Duchy   - under [member duchy_view_miles]: the counties' borders and
 ##             capitals, the other roads, the bridges, every river and lake.
-##   County  - under [member county_view_miles]: the villages and hamlets.
+##   County  - under [member county_view_miles]: the streams, the villages and
+##             hamlets.
 ##
 ## What a tier brings fades in over [member fade_time] as the view crosses
 ## into it, and out as it leaves. Lines and lakes are only ever faded, by
@@ -32,8 +33,8 @@
 ## tier's lines have waited since it last showed, at some other zoom: as it
 ## comes in they are set first, and it fades in once they are near right.
 ##
-## A border or a river that reaches the sea ends a little past the land's
-## edge, in the middle of the coast's black line as the scene has it. The
+## A border, a river or a stream that reaches the sea ends a little past the
+## land's edge, in the middle of the coast's black line as the scene has it. The
 ## coast's line narrows with the rest as the view closes in, so an end left
 ## where it is would come out of the far side of it and lie over the sea. Each
 ## such end is therefore moved with its width: how far it goes past the land's
@@ -58,14 +59,16 @@ const SHOWN_FROM := {
 		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Roads/Roads", ^"Bridges",
 		^"Settlements/CountyCapitals",
 	],
-	Tier.COUNTY: [^"Settlements/Villages", ^"Settlements/Hamlets"],
+	Tier.COUNTY: [^"Streams", ^"Settlements/Villages", ^"Settlements/Hamlets"],
 }
 const RIVERS := ^"Rivers"
+const STREAMS := ^"Streams"
 const LAKES := ^"Lakes"
 const ROADS := ^"Roads"
 const COAST := ^"Coast"
-## In the name of a border's line that lies under a river, a lake's shore or a
-## road it follows, wide enough to show on both sides: "Kingdoms1And2AlongRiver173".
+## In the name of a border's line that lies under a river, a lake's shore, a
+## road or a stream it follows, wide enough to show on both sides:
+## "Kingdoms1And2AlongRiver173", "Counties211And214AlongStream00003".
 const ALONG := "Along"
 ## In the name of an island in a lake, after the lake's own: "Lake001Island1".
 const ISLAND := "Island"
@@ -79,10 +82,15 @@ const BOX_MARGIN := 1.5
 ## Not the roads or the bridges: the one road over the sea, to the island
 ## town, crosses the land's edge on its way and ends on land, where it is to
 ## stay.
-const ENDS_IN_COAST: Array[NodePath] = [^"Borders", ^"Rivers"]
+const ENDS_IN_COAST: Array[NodePath] = [^"Borders", ^"Rivers", ^"Streams"]
 ## The side of the squares the coast's pieces are sorted into to be found
 ## quickly, in the map's units.
 const COAST_CELL := 64.0
+## The side of the squares the lines are sorted into, tier by tier, in the
+## map's units: a frame looks only at the lines of the tiers showing whose
+## squares the view reaches. With the streams there are some 11,700 lines,
+## and going through every one each frame the view moved took 4.4 ms.
+const LINE_SQUARE := 512.0
 ## Lines are set the furthest off their width first: those more than
 ## [constant FAR_STEPS] steps off (one that has just come into view, or a
 ## tier's as it comes in, last given a width when they last showed, at some
@@ -93,6 +101,11 @@ const COAST_CELL := 64.0
 const FAR_STEPS := 8
 const READY_STEPS := 3
 const MOST_WAIT := 0.5
+## What building a line again costs beyond its points, as so many points:
+## about 21 microseconds a line against half a microsecond a point (Godot 4.7,
+## an RTX 3060 laptop). Most streams are short, and 650 of them made a frame's
+## [member points_per_frame] and took 16 ms.
+const LINE_POINTS := 40
 
 @export_group("Nodes")
 ## The map: the node the layers of [constant SHOWN_FROM] are under.
@@ -130,8 +143,9 @@ const MOST_WAIT := 0.5
 @export_range(0.0, 1.0, 0.01) var width_growth := 0.36
 ## Widths are set again each time they are off by this much, as a ratio.
 @export_range(1.01, 1.5, 0.01) var width_step := 1.06
-## The most points' worth of lines given a new width in one frame. Each point
-## costs most of a microsecond; a line longer than this takes a frame alone.
+## The most points' worth of lines given a new width in one frame, each line
+## counted as [constant LINE_POINTS] points more than it has. A point costs
+## half a microsecond; a line longer than this takes a frame alone.
 @export var points_per_frame := 4000
 
 var _map: Node2D
@@ -161,7 +175,16 @@ var _boxes: Array[Rect2] = []
 var _sizes := PackedInt32Array()
 # Which lines each tier brings, as places in the lists above.
 var _tier_lines: Array[Array] = [[], [], [], []]
-# For a border's line along a river, a lake or a road: the tier that one shows
+# The same, by the squares of LINE_SQUARE their boxes reach: for each tier,
+# Vector2i -> PackedInt32Array. And the lines last found near the view, what
+# they were found for, and a mark for each line so that one reaching several
+# squares is taken once.
+var _squares: Array[Dictionary] = [{}, {}, {}, {}]
+var _near := PackedInt32Array()
+var _near_for := []
+var _marks := PackedInt32Array()
+var _mark := 0
+# For a border's line along a river, a lake, a road or a stream: the tier that one shows
 # from, and the plain border's width, which is all it is until then.
 var _wide_from := PackedInt32Array()
 var _plain := PackedFloat32Array()
@@ -178,9 +201,8 @@ var _sea_ends := {}
 ## The widths' factor is [member width_step] to this power.
 var _step := 0
 var _factor := 1.0
-## Whether some line in view may be at an old width, and where to carry on from.
+## Whether some line in view may be at an old width.
 var _stale := false
-var _cursor := 0
 var _last_view := Transform2D()
 
 
@@ -200,7 +222,7 @@ func _process(delta: float) -> void:
 	var viewport := _map.get_viewport()
 	var view := viewport.get_canvas_transform() * _map.get_global_transform()
 	var miles := viewport.get_visible_rect().size.y / view.get_scale().y / MapCamera.UNITS_A_MILE
-	var step := roundi(log(pow(miles / true_width_view_miles, 1.0 - width_growth)) / log(width_step))
+	var step := _step_at(miles)
 
 	if not _started:
 		_started = true
@@ -211,9 +233,19 @@ func _process(delta: float) -> void:
 			for item: CanvasItem in _brings[tier]:
 				_show(item, _shown[tier])
 		# Every line is built for the first time this frame whatever it is
-		# given, so all of them start out right, in view or not.
+		# given, so all of them start out right, in view or not: those that
+		# show at the width for this zoom, and those of a tier still to come at
+		# the width they will want as it comes in. The streams alone are some
+		# 9,900 short lines, and to set them all as the County tier came in
+		# took a third of a second of frames.
+		var under: Array[float] = [INF, kingdom_view_miles, duchy_view_miles, county_view_miles]
 		for i in _lines.size():
-			_set_width(i, _wide_from[i] <= _tier)
+			if _line_tier[i] <= _tier:
+				_set_width(i, _wide_from[i] <= _tier)
+			else:
+				_set_step_to(_step_at(under[_line_tier[i]]))
+				_set_width(i, _wide_from[i] <= _line_tier[i])
+				_set_step_to(step)
 		_last_view = view
 		return
 
@@ -284,10 +316,17 @@ func _set_step_to(step: int) -> void:
 	_factor = pow(width_step, step)
 
 
+## The step of the widths' factor for a view [param miles] tall.
+func _step_at(miles: float) -> int:
+	return roundi(log(pow(miles / true_width_view_miles, 1.0 - width_growth)) / log(width_step))
+
+
 ## Whether the lines a tier brings that are in [param seen] are near enough
 ## the width for this zoom to be shown.
 func _lines_ready(tier: int, seen: Rect2) -> bool:
-	for i: int in _tier_lines[tier]:
+	for i: int in _lines_near(seen):
+		if _line_tier[i] != tier:
+			continue
 		var wide := _wide_from[i] <= _tier
 		if absi(_set_step[i] - _step) <= READY_STEPS and (_set_wide[i] == 1) == wide:
 			continue
@@ -298,37 +337,62 @@ func _lines_ready(tier: int, seen: Rect2) -> bool:
 
 ## Gives the lines in [param seen] (the view, in the map's own space) that
 ## show at this tier their width for this zoom, as many as a frame allows,
-## the furthest off it first.
+## the furthest off it first: those more than [constant FAR_STEPS] steps off
+## (or wide where they should be plain, or plain where wide), then those more
+## than [constant READY_STEPS], then the rest.
 func _refresh_widths(seen: Rect2) -> void:
-	var left := points_per_frame
-	for within: int in [FAR_STEPS, READY_STEPS, 0]:
-		left = _set_widths(seen, left, within)
-		if left <= 0:
-			break
-	_stale = left <= 0
-
-
-## Sets the lines in [param seen] more than [param within] steps off their
-## width, from where the last frame stopped, until [param budget] points'
-## worth are done. Returns what is left of the budget.
-func _set_widths(seen: Rect2, budget: int, within: int) -> int:
-	var count := _lines.size()
-	for n in count:
-		var i := (_cursor + n) % count
+	var bands: Array[PackedInt32Array] = [PackedInt32Array(), PackedInt32Array(), PackedInt32Array()]
+	for i: int in _lines_near(seen):
 		# Not one out of its tier, unless it is still fading out.
 		if _line_tier[i] > _tier and _shown[_line_tier[i]] <= 0.0:
 			continue
-		var wide := _wide_from[i] <= _tier
-		if absi(_set_step[i] - _step) <= within and (_set_wide[i] == 1) == wide:
+		var off := absi(_set_step[i] - _step)
+		var right_kind := (_set_wide[i] == 1) == (_wide_from[i] <= _tier)
+		if off == 0 and right_kind:
 			continue
 		if not seen.intersects(_boxes[i]):
 			continue
-		if budget <= 0:
-			_cursor = i
-			return 0
-		_set_width(i, wide)
-		budget -= _sizes[i]
-	return maxi(budget, 0)
+		bands[0 if off > FAR_STEPS or not right_kind else (1 if off > READY_STEPS else 2)].append(i)
+	var budget := points_per_frame
+	for band in bands:
+		for i: int in band:
+			if budget <= 0:
+				return
+			_set_width(i, _wide_from[i] <= _tier)
+			budget -= _sizes[i] + LINE_POINTS
+	_stale = false
+
+
+## The lines of the tiers showing (or still fading out) whose squares
+## [param seen] reaches, each once. Found again only when the squares or the
+## tiers change.
+func _lines_near(seen: Rect2) -> PackedInt32Array:
+	var low := Vector2i((seen.position / LINE_SQUARE).floor())
+	var high := Vector2i((seen.end / LINE_SQUARE).floor())
+	var tiers := 0
+	for tier in _squares.size():
+		if tier <= _tier or _shown[tier] > 0.0:
+			tiers |= 1 << tier
+	var wanted := [low, high, tiers]
+	if wanted == _near_for:
+		return _near
+	_near_for = wanted
+	_mark += 1
+	_near = PackedInt32Array()
+	for tier in _squares.size():
+		if tiers & (1 << tier) == 0:
+			continue
+		var squares: Dictionary = _squares[tier]
+		for x in range(low.x, high.x + 1):
+			for y in range(low.y, high.y + 1):
+				var here: Variant = squares.get(Vector2i(x, y))
+				if here == null:
+					continue
+				for i: int in here:
+					if _marks[i] != _mark:
+						_marks[i] = _mark
+						_near.append(i)
+	return _near
 
 
 func _set_width(i: int, wide: bool) -> void:
@@ -439,6 +503,17 @@ func _gather_lines() -> void:
 		_plain.append(line.width)
 		_set_step.append(0)
 		_set_wide.append(1)
+	_marks.resize(_lines.size())
+	for i in _lines.size():
+		var squares: Dictionary = _squares[_line_tier[i]]
+		var low := Vector2i((_boxes[i].position / LINE_SQUARE).floor())
+		var high := Vector2i((_boxes[i].end / LINE_SQUARE).floor())
+		for x in range(low.x, high.x + 1):
+			for y in range(low.y, high.y + 1):
+				var square := Vector2i(x, y)
+				var here: PackedInt32Array = squares.get(square, PackedInt32Array())
+				here.append(i)
+				squares[square] = here
 
 	# The lines that lie under something a border follows, now that every
 	# road is among the lines to be looked for.
@@ -509,17 +584,21 @@ func _gather_sea_ends() -> void:
 				cells[cell].append(a)
 				cells[cell].append(b)
 
-	var layers: Array[Node] = []
+	var in_layers := {}
 	for path in ENDS_IN_COAST:
 		var layer := _map.get_node_or_null(path)
 		if layer != null:
-			layers.append(layer)
+			for line in layer.find_children("*", "Line2D", true, false):
+				in_layers[line] = true
 	for i in _lines.size():
 		var points := _lines[i].points
-		if points.size() < 2 or not layers.any(func(layer: Node) -> bool: return layer.is_ancestor_of(_lines[i])):
+		if points.size() < 2 or not in_layers.has(_lines[i]):
 			continue
 		var in_map := to_map * _lines[i].get_global_transform()
 		for from_start: bool in [true, false]:
+			# Only an end with some of the coast near it can be out in the coast's line.
+			if not _coast_near(cells, in_map * points[0 if from_start else points.size() - 1]):
+				continue
 			var gone := 0.0
 			for n in points.size() - 1:
 				var at := n if from_start else points.size() - 1 - n
@@ -553,6 +632,18 @@ func _coast_crossing(cells: Dictionary, a: Vector2, b: Vector2) -> Variant:
 			if hit != null and (nearest == null or a.distance_squared_to(hit) < a.distance_squared_to(nearest)):
 				nearest = hit
 	return nearest
+
+
+## Whether any of the coast lies in the square of [constant COAST_CELL]
+## round [param point] or the eight about it: all a line's end can reach
+## while it is followed back the coast's width.
+func _coast_near(cells: Dictionary, point: Vector2) -> bool:
+	var at := Vector2i((point / COAST_CELL).floor())
+	for x in range(at.x - 1, at.x + 2):
+		for y in range(at.y - 1, at.y + 2):
+			if cells.has(Vector2i(x, y)):
+				return true
+	return false
 
 
 ## The squares of [constant COAST_CELL] the box round two points lies over.
@@ -593,8 +684,10 @@ func _plain_width_in(group: Node) -> float:
 
 ## The tier from which what line [param i] follows shows, or -1 when that
 ## cannot be found. [param named] is the rest of its name: "River173",
-## "Lake085b", "Road093". A river or a lake is the node of that name; a road's
-## number is in no node's name, so it is the road that shares the line's points.
+## "Lake085b", "Road093", "Stream00003". A river or a lake is the node of that
+## name, and a stream the node of that name in its kingdom's group under the
+## streams; a road's number is in no node's name, so it is the road that
+## shares the line's points.
 func _followed_tier(i: int, named: String) -> int:
 	var split := 0
 	while split < named.length() and not named[split].is_valid_int():
@@ -611,6 +704,10 @@ func _followed_tier(i: int, named: String) -> int:
 		"Lake":
 			var lake := _map.get_node_or_null(NodePath("%s/Lake%s" % [LAKES, digits]))
 			return _tier_of.get(lake, -1)
+		"Stream":
+			var streams := _map.get_node_or_null(STREAMS)
+			var stream: Node = streams.find_child("Stream%s" % digits, true, false) if streams != null else null
+			return _tier_above(stream) if stream != null else -1
 		"Road":
 			return _road_tier_at(i)
 	return -1
