@@ -21,25 +21,28 @@ They are working programs, not a product:
 
 143 programs and written parts in three groups, as they were kept while the map was made,
 with this file and `requirements.txt`. A fourth group, `scene/`, was added the same day, when the
-finished map was made into a scene for the game, and a sixth, `villages/`, on 2026-10-17, when
-villages and hamlets were placed on it.
+finished map was made into a scene for the game, a sixth, `villages/`, on 2026-10-17, when
+villages and hamlets were placed on it, and a seventh, `forests/`, the same day, when it was
+given forests.
 
 | Folder | Files | Holds |
 |---|---:|---|
 | this folder | 20 | The sketch read, and the kingdoms' first lines: nine kingdoms of equal area, on smooth lines close to the sketch's |
 | `water/` | 10 | The heights of the land, and the rivers, lakes and watersheds worked out on them |
 | `duchy/` | 113 | Everything after that. It is named for the first thing made in it, the duchies, and holds the counties, settlements and roads, the kingdoms' borders as they are now, the picture of everything, the standard outline, the source data and the document as well |
-| `scene/` | 6 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
+| `scene/` | 8 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
 | `icons/` | 6 | Proposals for the settlements' icons, drawn in the manner of the MWM icon pack: added on 2026-10-08, and not part of making the map |
 | `villages/` | 3 | The villages and hamlets, placed where people would have settled, with the lanes and channels that join them to the map, and spliced into the game's scene as it is: added on 2026-10-17 |
+| `forests/` | 3 | The forests, grown where each kingdom's country and the terrain suit them and cleared round the settlements, cut into pieces and spliced into the game's scene as it is: added on 2026-10-17 |
 
 A program finds the others it leans on beside it, so the files of a group have to stay together.
 [Every file](#every-file) lists them all.
 
 ## What the programs need
 
-- **Python 3.14** with numpy, scipy, Pillow and scikit-image. `requirements.txt` gives the
-  versions they were run with, on Windows.
+- **Python 3.14** with numpy, scipy, Pillow and scikit-image, and shapely for the forests (and so
+  for `scene/m1_shapes.py`, once there are forests). `requirements.txt` gives the versions they
+  were run with, on Windows.
 - **Folders, given on the command line.** No program has this machine's folders written into
   it; each says at its top (`Usage:`) what it is given. Below, `<repo>` is the repository,
   `<work>` the working folder, and a program is run as `python <program> <what it is given>`.
@@ -281,7 +284,9 @@ What `m1_shapes.py` does, in the order it does it:
   before this.
 - **Takes roads, bridges and settlements** from `Roads.json` and `Settlements.json`; and, once
   there is a `Villages.json` (step 13), the villages and hamlets with their lanes, the bridges on
-  those and the channels, through `villageshapes.py`, as they are.
+  those and the channels, through `villageshapes.py`, as they are; and, once there is a
+  `Forests.json` (step 14), the forests, cut into the scene's pieces by the counties it has just
+  made, through `forestshapes.py`.
 - **Finds where a border lies under water or a road**, so that no line hides another. Where it
   crosses a broad lake (as `duchy/layers.py` has broad), that part is to be drawn again over the
   water. Where it runs under a river, a narrow lake or a road for 12 px or more, a second line is
@@ -412,6 +417,108 @@ To place them again: `v1_villages.py`, `v2_shapes.py`, `m2_scene.gd ... villages
 `v3_splice.py ... --replace`. Run in full, `m1_shapes.py` and `m2_scene.gd` give the very same
 village nodes as the splice: checked node for node on 2026-10-17 (2,807 nodes, names, positions,
 points and order alike). The scene's `Detail` node shows them by the zoom
+(`vcom/Scripts/WorldMap/MapDetail.gd`; `Docs/MAP.md` at the repository's top).
+
+### 14. Forests
+
+`forests/`, with `scene/forestshapes.py` and `scene/godotcut.py`. Added on 2026-10-17, when the
+user asked for realistic forests on the scene, scaled to each biome and fitted to the terrain. Like
+steps 11 and 13 it needs no working folder: it reads `../SourceData/`, `../Water.png`,
+`../Elevation.png` and the game's scene (and `../AllSimple.png` for the pictures to look at), and
+takes about two minutes.
+
+| Program | Given | Leaves |
+|---|---|---|
+| `forests/f1_forests.py` | `<repo>/MapCreation <repo>/MapCreation/SourceData/Forests.json [a folder]` | `Forests.json`. In the folder, if one is given, `AllSimple.png` with the forests painted green and the villages and hamlets as dots, at half size, and a close view in each kingdom |
+| `forests/f2_shapes.py` | `<repo>/MapCreation <repo>/vcom/Scenes/Map.tscn <a file>` | The forests alone as the scene's pieces, cut by the counties as the scene has them (`scene/forestshapes.py`, which `m1_shapes.py` uses too, with its own counties) |
+| `scene/m2_scene.gd` | by Godot, from `vcom/`: `... -- <that file> <a scene to write> forests` | A scene of the forests alone, under their group, `Forests` |
+| `forests/f3_splice.py` | `<repo>/vcom/Scenes/Map.tscn <that scene> [--replace]` | Those spliced into the map's scene as it is, right after the land, and nothing else in it changed. With `--replace`, every forest spliced in before is taken out first, with anything changed in it by hand |
+
+The user chose four things (2026-10-17), out of three choices each: wild forests, about half the
+land, open only round the settlements the map shows (against a settled 35% and a sparse 20%), at
+these shares of each kingdom's land, its lakes left out: the Tropical Rainforest 92%, the
+Evergreen Temperate Rainforest 88%, the Deciduous Forest 80%, the Swamp and the Temperate
+Mountains 60%, the Volcanic Mountains 30%, the Tundra Mountains 20%, the Grassland 9% and the
+Desert 1.5%; battles met in them as in the old map's forest, 10% a step; a colour of its own for
+each kind of forest; and the smaller forests coming in as the view closes in, as the lakes do.
+The rest is mine. What `f1_forests.py` does, every rule a kingdom's, blended over 4 km either side
+of its border:
+
+- **Works out what would grow with nobody here**, from 0 to 1 a pixel. Under the tree line: 560 m
+  in the Tundra Mountains, 1,100 in the Volcanic, 1,500 in the Evergreen Rainforest, 1,700 in the
+  Temperate Mountains and the Swamp, 1,750 in the Deciduous Forest, 1,900 in the Desert and the
+  Grassland, and over every top in the Tropical Rainforest (3,500); 50 to 150 m higher on a face
+  turned south and lower on one turned north, and up to 150 m higher along water where the
+  country is cold or dry. In the dry country, the Desert and the Grassland, only by water or high
+  enough on the mountains to catch the rain: over 1,150 and 700 m, 200 m lower on a north face.
+  The water is a river (its trees reaching 0.6 to 1.5 km from it, by the water it carries), a
+  lake, and the drainage's streams (`DrainageFlow.png`: 4, 1 and 0.2 m³/s and more, each less;
+  the least not in the dry country, where it runs dry in summer). In the cold country, the Tundra
+  and the Volcanic Mountains, in the valleys, a place high up its valley's side losing 45% and
+  60%. Nothing on a cliff (a slope over 0.42), on a coast the wind keeps bare (5 km of it in the
+  Tundra, 3 in the Volcanic, 1.5 in the Desert, 1 in the Grassland, less elsewhere), on the high
+  ridges of the Temperate Mountains and of the Deciduous Forest's mountains, on the flat floor of
+  a great river's valley, which is wet meadow (in the Temperate Mountains and the three wet
+  forests), in the Swamp's open marsh (2.4 km round its great lakes, 3 km along its shore, and
+  its wettest low ground away from the rivers), on the volcanoes' cones, and on the young lava in
+  patches round them. On top of that, an unevenness for what the map does not show (soil, fire,
+  wind, grazing), broad and middling, its middling part drawn out and bent rather than round,
+  heavier in the patchy cold country and the Swamp.
+- **Clears round every settlement**: 6 km round a kingdom's capital, 5 round a duchy's, 4 round a
+  county's, 2.4 round a village and 1.5 round a hamlet, on good flat ground. How far is a cost of
+  going, not a distance: cheap over a flat valley floor near water and along a road, dear up a
+  slope, so a clearing runs along its valley and its road and stops at the hills. It is the same
+  in every kingdom but three, where people would have cleared more than 80% of what its share
+  leaves open: the Evergreen Rainforest, the Deciduous Forest and the Tropical Rainforest clear
+  1.12, 1.045 and 0.976 times as far.
+- **Takes each kingdom's share** of what people left, where what would grow is greatest: 20.0,
+  30.1, 60.1, 1.5, 9.0, 88.0, 60.0, 80.0 and 92.0% of kingdoms 1 to 9, 48.7% of the land.
+- **Traces it as outlines**, finer than a pixel, along a smoothed field; drops woods under
+  0.5 km², fills clearings under 0.8 km², and simplifies within 0.15 px. A forest runs on under
+  the lakes, as on its nearest shore, and 4 px out over the sea, for the scene to cut at the
+  coast's own line. That gives 1,101 forests, 336,575 km² of them, with 2,327 clearings in 130,618
+  points: 34 of 250 km² and more, the largest 297,141 km² (the west and south, joined), 58 of 50 to
+  250, 203 of 10 to 50 and 806 under 10.
+- **Gives where each kind grows**: conifer in kingdoms 1, 2 and 6, broadleaf in 3, 4, 5 and 8,
+  swamp forest in the Swamp's own low country (7 on `TerrainMap.png`, under 60 m) and tropical in
+  9; conifer instead over 1,000 m in kingdom 3, 900 in 4 and 5, 600 in 7 and 1,100 in 8. These are
+  regions on heights smoothed over 1 km, for the scene to cut its pieces by.
+
+`forestshapes.py` then makes the scene's pieces, the same for a scene made afresh as for one
+spliced:
+
+- **Cuts each forest by the counties**: by the scene's own outlines when it is given the scene
+  (`f2_shapes.py`), so the forests fit the land as it stands, even after a hand edit, and by those
+  `m1_shapes.py` makes when the scene is made afresh, which are the same to the hundredth of a
+  unit while the land is as the program made it. Two pieces either side of a border share its
+  points. 223 slivers under 0.05 km², where a forest's edge runs along a border, are left out.
+- **Cuts each county's piece by kind**, by its kingdom's rule.
+- **Joins every clearing to its piece's outline by a bridge**, since a Polygon2D draws no holes: a
+  cut of no width from a point of the clearing to the nearest point of the outline, or of a
+  clearing joined before, that is reached without touching anything, out and back the same way.
+  1,471 bridges, in 457 pieces.
+- **Tries every piece in Godot's own cutter into triangles**, `godotcut.py`: Godot 4.7's
+  `core/math/triangulate.cpp` done again in Python, in float32, on the very points the scene will
+  hold. It was checked against Godot on 1,961 pieces, where both failed the same 14. A piece that
+  fails is cut in two through the middle of its largest clearing and each half tried again (5
+  times); and a piece of more than 500 points is cut so too (288 times), since Godot cuts a
+  polygon into triangles as the scene opens, in a time that grows with the square of its points
+  (0.6 s for the forests uncut, 0.22 s cut). One piece of 0.09 km² could not be drawn and was left
+  out.
+- **Names each piece for its county**, numbered in it, the largest first (`County125Forest3`), and
+  **groups it by the size of its whole forest**: `Great` (250 km² and more), `Large`, `Small` (10
+  km² and more) and `Woods`. That came to 2,459 pieces in 209,505 points: 1,182, 111, 269 and 897
+  of them; 123,391 km² of conifer, 104,243 of broadleaf, 71,060 of tropical and 37,878 of swamp
+  forest.
+
+Everything random is seeded, so run again it gives the same file. Changed by a little, though (a
+share, a tree line, a radius), much of the forest moves.
+
+To make them again: `f1_forests.py`, `f2_shapes.py`, `m2_scene.gd ... forests` and then
+`f3_splice.py ... --replace`. After a hand edit to the land (a county's border, the coast) the last
+three alone fit the forests to it. Run in full, `m1_shapes.py` and `m2_scene.gd` give the very same
+forest nodes as the splice: checked node for node on 2026-10-17 (2,495 nodes, names, places,
+points, numbers and kinds alike). The scene's `Detail` node shows them by the zoom
 (`vcom/Scripts/WorldMap/MapDetail.gd`; `Docs/MAP.md` at the repository's top).
 
 ## Things to watch for
@@ -743,6 +850,8 @@ What a file is for (the files of `scene/` are listed after the rest):
 | `m2_scene.gd` | makes | Makes the map's scene, `vcom/Scenes/Map.tscn`, out of those shapes: areas as Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn. |
 | `geo.py` | leaned on | Shapes out of a map of numbers: the edges between unlike pixels as chains, the chains joined into lines, and the lines smoothed, given points where they bend and thinned where they run straight. |
 | `villageshapes.py` | leaned on | The villages and hamlets of `Villages.json` as shapes, for `m1_shapes.py` and `../villages/v2_shapes.py` alike: their places, and their lanes, bridges and channels given points where they bend. |
+| `forestshapes.py` | leaned on | The forests of `Forests.json` as the scene's pieces, for `m1_shapes.py` and `../forests/f2_shapes.py` alike: cut by county and by kind, their clearings joined to their outlines, every piece tried in Godot's cutter into triangles, named and grouped by size. Needs shapely. |
+| `godotcut.py` | leaned on | Godot 4.7's own cutter of a polygon into triangles, done again in Python and float32, so that `forestshapes.py` knows a piece will draw before the scene has it. |
 | `m4_compare.py` | check | The scene as Godot draws it, set beside the picture it was made from, colour by colour. |
 | `m3_draw.gd` | look | Draws the scene in Godot: the whole map at the pictures' scale, close views, and how long it takes to load and to draw. |
 
@@ -764,3 +873,11 @@ What a file is for (the files of `scene/` are listed after the rest):
 | `v1_villages.py` | makes | Places the villages and hamlets, and lays the villages' lanes and the Swamp's channels: `../../SourceData/Villages.json`. Leans on `../duchy/roadnet.py`. |
 | `v2_shapes.py` | makes | The villages alone as shapes, for `../scene/m2_scene.gd` to make into nodes. |
 | `v3_splice.py` | makes | Splices those nodes into the map's scene as it is. |
+
+### forests/
+
+| File | For | What it does |
+|---|---|---|
+| `f1_forests.py` | makes | Grows the forests where each kingdom's country and the terrain suit them, clears them round the settlements, takes each kingdom's share, and traces them: `../../SourceData/Forests.json`. Needs shapely. |
+| `f2_shapes.py` | makes | The forests alone as the scene's pieces, cut by the counties as the scene has them, for `../scene/m2_scene.gd` to make into nodes. |
+| `f3_splice.py` | makes | Splices those nodes into the map's scene as it is, after the land. |

@@ -6,7 +6,8 @@ the kingdoms), and the lakes. Their edges are smoothed once and shared: two coun
 have the very same points along their border, and so has the border's line. Out of the tables come
 the lines that are lines already: rivers, roads and bridges, and the settlements; and the villages
 and hamlets with their lanes and channels, which ../villages/v1_villages.py placed, as they are
-(villageshapes.py).
+(villageshapes.py); and the forests ../forests/f1_forests.py made, cut into pieces by the counties
+made here (forestshapes.py), in the scene's units.
 
 Three things are put right on the way, where the pictures' pixels hid them:
 - a border that follows a river is put on the river's own line (the two were drawn a pixel or two
@@ -30,6 +31,7 @@ from scipy import ndimage
 from scipy.spatial import cKDTree
 import geo
 import villageshapes
+import forestshapes
 
 Image.MAX_IMAGE_PIXELS = None
 MC, WRITE_TO = sys.argv[1:3]
@@ -826,6 +828,18 @@ if os.path.exists(SRC + "/Villages.json"):
     print("villages: %d, hamlets %d; lanes %d, with %d bridges; channels %d" % (
         sum(p["kind"] == "village" for p in out["villages"]), sum(p["kind"] == "hamlet" for p in out["villages"]), len(out["lanes"]),
         len(out["lane_bridges"]), len(out["channels"])))
+
+# == forests ================================================================================================
+# Made by ../forests/f1_forests.py, and cut here into the scene's pieces by the counties as the scene will
+# have them: in its units, rounded to the hundredth as m2_scene.gd rounds every point it is given.
+if os.path.exists(SRC + "/Forests.json"):
+    in_units = [{"number": c["number"], "duchy": c["duchy"], "kingdom": c["kingdom"],
+                 "pieces": [np.floor(np.asarray(p, dtype=np.float64).reshape(-1, 2) * 3.35 / 0.01 + 0.5) * 0.01 for p in c["pieces"]]}
+                for c in counties]
+    out["forests"], figures = forestshapes.shapes(load_json("Forests.json"), in_units)
+    print("forests: %d pieces (%s), %d points, in the scene's units; cut in two to be drawable %d times and for size %d, %d dropped; %d slivers left out  [%.0f s]" % (
+        figures["pieces"], ", ".join("%s %d" % kv for kv in figures["by_group"].items()), figures["points"], figures["cut_in_two"],
+        figures["split_for_size"], figures["dropped"], figures["slivers"], time.time() - started))
 
 with open(WRITE_TO, "w", encoding="utf-8", newline="\n") as handle:
     json.dump(out, handle, separators=(",", ":"))

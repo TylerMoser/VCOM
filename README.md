@@ -668,7 +668,8 @@ routine and nothing else.
 
 `vcom/Scenes/Map.tscn` is the island the campaign is moving to: nine kingdoms, 44 duchies and 220
 counties, with their coast, lakes, rivers, roads, bridges and settlements, down to some 2,000
-villages and hamlets and the lanes and channels that reach them. It is drawn with shapes
+villages and hamlets and the lanes and channels that reach them, and forests over half the land.
+It is drawn with shapes
 and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
 reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
 To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
@@ -695,6 +696,7 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Sea` | One polygon: the sheet, and 3,000 km more on every side, so that the view never runs off it |
 | `Coast` | The coast's black line, in 84 stretches, each along one county's shore and named for it (`CoastOfCounty163`) |
 | `Land` | The land, a polygon for each of the 220 counties and for each island off a county's shore, grouped by kingdom and duchy (`Land/Kingdom7/Duchy33/County163`). A kingdom is also a biome, named in its node's description and metadata |
+| `Forests` | The forests, drawn over the land and under everything else: 2,459 pieces, each a `Forest` of its kind (below), cut along the counties' borders and the coast and named for its county (`County125Forest3`), grouped by the size of the whole forest they are part of and by kingdom (`Forests/Great/Kingdom8`) |
 | `Borders` | Borders as lines, the counties' first and the kingdoms' last, so that a greater is drawn over a lesser: 299, 54 and 15 of them, named for what they part (`Kingdoms3And6`) |
 | `Lakes` | The 700 lakes, numbered by size |
 | `Rivers` | The 291 rivers, numbered by the water they carry |
@@ -719,8 +721,10 @@ as one outline of 25,000 points took two seconds a time, where a county's few hu
 a few thousandths.
 
 **Lines have a point wherever they bend.** No line or outline turns by more than 6° at any one
-point, so a curve stays a curve at any zoom; where one runs straight it has few. There are 426,000
-points in all, 23,000 of them the villages' lanes and channels, and the scene file is 9 MB.
+point, so a curve stays a curve at any zoom; where one runs straight it has few. A forest's
+outline is kept instead within 50 m of the smooth edge traced for it. There are 635,000 points
+in all, 23,000 of them the villages' lanes and channels and 210,000 the forests', and the scene
+file is 13.5 MB.
 
 **Lines have a width in units, which is their width when the view is 220 miles tall.** Closer in
 or further out the `Detail` node scales them all, as given under "The map shows more the closer
@@ -816,6 +820,63 @@ stand within 1 km of a river or lake the map draws (7% of the land does) and nin
 3.5 km for a hamlet (4.5 km to a capital), so that no icons touch where they first show. 21
 counties have neither, all in the Desert (12), the Tundra (8) and the Volcanic Mountains (1).
 
+**Forests cover about half the land, each kingdom's share by its biome.** They were grown by
+program, `MapCreation/Scripts/forests/` ([its step](MapCreation/Scripts/README.md)), into
+`MapCreation/SourceData/Forests.json`, from which their nodes are made: 1,101 forests, 336,575 km²
+with the lakes inside them, cut into 2,459 pieces. What was decided with the user (2026-10-17),
+each out of three choices put to them:
+
+- **Wild forests, about half the land**: little cleared, and that round the settlements the map
+  shows, at the shares in the table below (against a settled 35% and a sparse 20%).
+- **A colour for each kind of forest**, see-through over the land (below).
+- **The smaller come in as the view closes in, as the lakes do**: forests of 250 km² and more show
+  all the way out, those of 50 to 250 from 480 miles, 10 to 50 from 240, and woods under 10 from
+  100.
+- **A battle may be met in any of them, as in the old map's forest**: 10% a step (below).
+
+| Kingdom | Under forest | Its kind |
+|---|---:|---|
+| 9 Tropical Rainforest | 92% | Tropical |
+| 6 Evergreen Temperate Rainforest | 88% | Conifer |
+| 8 Deciduous Forest | 80% | Broadleaf, conifer over 1,100 m |
+| 7 Swamp | 60% | Swamp forest in its own low country, broadleaf on drier ground, conifer over 600 m |
+| 3 Temperate Mountains | 60% | Broadleaf, conifer over 1,000 m |
+| 2 Volcanic Mountains / Ruins | 30% | Conifer |
+| 1 Tundra Mountains | 20% | Conifer |
+| 5 Grassland | 9% | Broadleaf, conifer over 900 m |
+| 4 Desert | 1.5% | Broadleaf, conifer over 900 m |
+
+The shares are of each kingdom's land, its lakes left out: 48.7% of all of it.
+
+Where the trees grow, which the user left to me, is the terrain's: under each kingdom's tree line,
+higher on a south face and along water (560 m in the Tundra, 1,700 in the Temperate Mountains,
+over every top in the Tropical Rainforest); in the Desert and the Grassland only by water, as
+ribbons along the rivers and streams and round the lakes, or high enough on the mountains to
+catch the rain; in the Tundra and the Volcanic Mountains in the sheltered valleys; and not on
+cliffs, on coasts the wind keeps bare, on the high ridges, on the wet floors of the great rivers'
+valleys, in the Swamp's open marsh round its lakes and along its shore, or on the volcanoes and
+the young lava round them. People have cleared round every settlement, from a hamlet's 1.5 km to
+a kingdom's capital's 6 km, the clearing reaching farther along a flat valley floor or a road and
+stopping at a slope, so that the open land runs along the valleys and the forest keeps the hills.
+
+- **Pieces.** Each forest is cut by the counties, so that a piece belongs to one county and stops
+  exactly on the coast, and by kind. A piece is named for its county and numbered in it, the
+  largest first (`County125Forest3`), and holds in its metadata the forest it is a piece of and
+  that forest's size. They are in `Forests/Great`, `Large`, `Small` and `Woods`, by the size of the
+  whole forest, and under those by kingdom.
+- **Colours.** Each kind is a scene of its own, and every piece an instance of its kind's:
+  `Scenes/ConiferForest.tscn` a cool blue-green, `BroadleafForest.tscn` a soft yellow-green,
+  `SwampForest.tscn` an olive green and `TropicalForest.tscn` a deep green. A colour changed on its
+  scene's root changes every piece of that kind. The four inherit `Scenes/Forest.tscn`, the old
+  map's forest.
+- **Clearings.** A Polygon2D draws no holes, so a clearing in a piece is joined to the piece's
+  outline by a cut of no width, there and back: in the editor the outline runs in to the
+  clearing, round it and out again along the same line. Drawn, the cut does not show.
+- **Changing them by hand.** A piece's points move with the editor's polygon tools. Its points
+  along a county's border or the coast are the county's, each its own copy (below). Made again by
+  program, the forests are taken out and put in afresh, and any change made to them by hand is
+  lost, but nothing else.
+
 **The party is on the map, and goes in straight lines.** The `Party` node is the old map's party,
 the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
 the middle of the county's area, 9 km from its capital. It is sent as on the old map (see
@@ -834,8 +895,8 @@ it. The old map keeps a party of its own.
   (`starting_days`) in the top left corner, as days:hours:minutes; nothing happens yet when it
   runs out. A step is still every 50 units, which is 5 km, each healing the roster as on the old
   map: about eight a day. The old map has no clock and keeps its own speed.
-- Nothing is met on the way, the map having no forests. The dot and the dashed line to where it
-  is going are close to the roads' red.
+- A step that ends in a forest may meet a battle there (below). The dot and the dashed line to
+  where it is going are close to the roads' red.
 
 **One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
 the party starts, has what the old map's village has, and is used as that village is (see
@@ -866,7 +927,7 @@ a settlement, or "Go here". It is hidden while a menu is up, and with the mouse.
 - The ring is white with a dark edge, made for the old map's art. On this map's white land it
   shows by its edge alone, and is faint.
 
-**A battle can be fought from here, and the game can end here, but nothing starts a battle yet.**
+**The party is set upon in the forests, and a battle can be fought from here and the game end here.**
 The `SquadMenu` and `GameOver` nodes are the old map's (see [The campaign](#the-campaign)). When
 the party is set upon, the squad menu opens over the stopped map, with whoever fought last
 already ticked, and cannot be closed; holding its Start begins the battle. The map waits as it
@@ -875,9 +936,11 @@ with the view where it was. And once nobody is left on the roster the map stops,
 comes up in the battles' banner, over any menu that is open, and the game quits as the banner
 starts to fade.
 
-- Nothing sets the party upon: on the old map that is a forest's chance at each step, and this
-  map has no forests. Until it has, neither node is ever seen, since only a battle can empty the
-  roster.
+- **In a forest, 10% a step**, the old map's forest's odds, which every forest here inherits
+  (`Scenes/Forest.tscn`). A step is 5 km, about eight a day, so a day's travel through forest
+  meets a battle more often than not (57%), and a step in a clearing or on open land meets
+  nothing: the rainforests are the most dangerous, the Desert and the Grassland the least. A lake
+  inside a forest counts as the forest, the party keeping to no land yet.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):
@@ -904,10 +967,10 @@ each named for what about fills the window then, and each adding to the one befo
 
 | Tier | The view's height | Wheel steps from all the way out | Brings |
 |---|---|---|---|
-| Realm | over 480 miles | 0 to 2 | The coast, the kingdoms' borders and their nine capitals, the 42 greatest rivers and the 79 greatest lakes |
-| Kingdom | 480 to 240 miles | 3 to 5 | The duchies' borders and their 35 capitals, the highways, 92 more rivers and 179 more lakes |
-| Duchy | 240 to 100 miles | 6 to 9 | The counties' borders and their 176 capitals, the other roads, the bridges, every river and lake |
-| County | under 100 miles | 10 to 16 | The villages, their lanes (with the bridges on them) and the Swamp's channels; and in a second step, under 50 miles (steps 13 to 16), the hamlets |
+| Realm | over 480 miles | 0 to 2 | The coast, the kingdoms' borders and their nine capitals, the 42 greatest rivers and the 79 greatest lakes, the 34 forests of 250 km² and more |
+| Kingdom | 480 to 240 miles | 3 to 5 | The duchies' borders and their 35 capitals, the highways, 92 more rivers and 179 more lakes, the 58 forests of 50 to 250 km² |
+| Duchy | 240 to 100 miles | 6 to 9 | The counties' borders and their 176 capitals, the other roads, the bridges, every river and lake, the 203 forests of 10 to 50 km² |
+| County | under 100 miles | 10 to 16 | The villages, their lanes (with the bridges on them) and the Swamp's channels, the 806 woods under 10 km²; and in a second step, under 50 miles (steps 13 to 16), the hamlets |
 
 What a tier brings fades in over a fifth of a second as the view crosses into it, and out as it
 leaves. A settlement out of its tier cannot be pointed at, and one far from the view does no work
@@ -947,8 +1010,8 @@ node that is both an area and its outline, so moving something by hand means mov
 
 | To move | Move as well |
 |---|---|
-| A border | The two counties' polygons either side; its `Along...` and `OverLake...` lines, if it has them there |
-| The coast | The county's polygon (`County163`) and its stretch of `Coast` (`CoastOfCounty163`), which have the same points. The coast's line is twice its width and centred on the land's edge, and the land covers its inner half |
+| A border | The two counties' polygons either side; its `Along...` and `OverLake...` lines, if it has them there; the pieces of forest either side, which have its points |
+| The coast | The county's polygon (`County163`) and its stretch of `Coast` (`CoastOfCounty163`), which have the same points. The coast's line is twice its width and centred on the land's edge, and the land covers its inner half. The pieces of forest along it have its points too |
 | A river | Any border and `Along...` line that runs on it; the bridges over it |
 | A road | Its bridges, which lie along it; the settlement at its end |
 | A settlement | Its icon is one node, moved as a whole. The roads that end at its middle |
@@ -983,7 +1046,8 @@ from here on. Run again, `MapCreation/Scripts/scene/m2_scene.gd` writes it afres
 changed in it since is lost. The villages and hamlets came later and were spliced into it as it
 was, nothing else touched (`MapCreation/Scripts/villages/v3_splice.py`); placed again, they and
 their lanes and channels are taken out and put in afresh, and any change made to them by hand is
-lost, but nothing else.
+lost, but nothing else. So were the forests, after them, and so it is with them
+(`MapCreation/Scripts/forests/f3_splice.py`).
 
 ## Layout
 
@@ -1020,6 +1084,9 @@ vcom/                     the Godot project
     City.tscn, Town.tscn, Village.tscn, Hamlet.tscn
                           its settlements' icons, each a destination; Village.tscn is the old
                           map's village too
+    ConiferForest.tscn, BroadleafForest.tscn, TropicalForest.tscn, SwampForest.tscn
+                          its forests' four kinds, each the old map's Forest.tscn in a colour
+                          of its own
     BoundaryMap.tscn      the map random encounters are fought on, in a ring of forest
     CombatMap.tscn        the same battlefield without the forest, and one enemy
     LineOfSightTest.tscn  harness for the sight and shot rules

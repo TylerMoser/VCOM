@@ -29,6 +29,7 @@ files here that describe it are out of date until they are made again.
 | `Watersheds.json` | {{Watersheds.json}} | table | The 51 watersheds |
 | `Roads.json` | {{Roads.json}} | lines | The road network: places, stretches of road, the 351 roads, the 146 bridges |
 | `Villages.json` | {{Villages.json}} | table and lines | The 2,000 villages and hamlets, and the villages' lanes and channels |
+| `Forests.json` | {{Forests.json}} | outlines | The 1,101 forests, with their clearings, and where each kind of forest grows |
 | `DrainageDirection.png` | {{DrainageDirection.png}} | grey map, half size | Which way the water runs from every cell of land |
 | `DrainageFlow.png` | {{DrainageFlow.png}} | number map, half size | How much water passes through every cell |
 | `DrainageLakes.png` | {{DrainageLakes.png}} | number map, half size | The lake of every cell of lake, 1 to 1,059 |
@@ -330,6 +331,48 @@ nearest the roads first.
 
 `rules` gives the numbers they were placed by: how many in all, each kingdom's weight and share
 of villages, the least distances between them, and the seed.
+
+## Forests
+
+`Forests.json` holds the forests made on 2026-10-17, at the user's request, by
+`../Scripts/forests/f1_forests.py`: where trees would stand on this island, each kingdom's
+country holding its share of them, and where the people of its settlements have cleared them.
+No picture draws them: they were made after the pictures, for the game's scene, where the same
+folder's programs cut them into pieces (step 14 of `../Scripts/README.md`, which says how they
+were made). It holds four parts.
+
+`forests`: the 1,101 forests, the largest first, each a polygon with holes.
+
+| Field | Meaning |
+|---|---|
+| `id` | 1 to 1,101, by size |
+| `km2` | Its area on land, the lakes inside it counted |
+| `clearings` | How many holes it has |
+| `outline` | Its edge, all the way round, as `[x, y]` points |
+| `holes` | The edges of its clearings, each all the way round |
+
+- **A forest runs on under the lakes and a little over the sea.** Under a lake it goes on as on
+  the shore nearest (the scene draws the lakes over it), and it runs up to 4 px out past the
+  coast, for the scene to cut at the coast's own line, county by county. `km2` is its area on
+  the land.
+- **Its points are finer than a pixel**, to the hundredth: the edge of a smooth field traced
+  between pixels, simplified so that it moves 0.15 px at the most.
+- There are 2,327 clearings. Woods under 0.5 km² were dropped and clearings under 0.8 km² filled.
+
+`kinds`: what kind of forest grows where, for the scene to cut its pieces by and to colour them.
+
+| Field | Meaning |
+|---|---|
+| `base` | Each kingdom's kind: `conifer` (1, 2, 6), `broadleaf` (3, 4, 5, 8), `swamp` (7), `tropical` (9) |
+| `conifer_above_m` | The height over which a kingdom's forest is conifer instead: 3 at 1,000 m, 4 and 5 at 900, 7 at 600, 8 at 1,100 |
+| `swamp` | In kingdom 7, the forest of the swamp country is swamp forest, and the rest broadleaf (conifer over its height) |
+| `regions` | Where the land is over each of those heights (`above_600` to `above_1100`, the heights smoothed over 1 km), and the swamp country (`swamp_country`: shaped as the Swamp's country on `TerrainMap.png`, and under 60 m), as polygons with holes |
+
+`figures`, by kingdom: the share of its land under forest, its lakes left out, wanted and got, in
+km² too, and the shares that people cleared and where nothing would grow, as worked out on the
+pixels. `rules` gives the numbers the forests were made by: the shares, the tree lines, how far
+round each rank of settlement people clear and how much more or less in each kingdom, the least
+wood and clearing kept, the simplification, and the seed.
 
 ## The land's own lines, and its kinds
 

@@ -1,7 +1,9 @@
 extends SceneTree
 ## Makes the map's scene, res://Scenes/Map.tscn, out of the shapes m1_shapes.py worked out: areas as
 ## Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn,
-## and settlements as instances of the game's City.tscn and Town.tscn. After them come the game's
+## settlements as instances of the game's City.tscn and Town.tscn (and Village.tscn and
+## Hamlet.tscn), and the forests' pieces as instances of their kinds' scenes, which are Forests
+## (ConiferForest.tscn and the rest), right after the land. After them come the game's
 ## own nodes for the map: its party, its camera, the gamepad's reticle, the menu of the settlement
 ## the party is in, the menu that picks who fights a battle, the game's end, and its level of detail.
 ##
@@ -17,6 +19,7 @@ extends SceneTree
 ## and the bridges on them and the channels, from shapes that hold nothing else
 ## (../villages/v2_shapes.py), each under the group it belongs in: a scene of those alone, to be
 ## spliced into the scene as it is (../villages/v3_splice.py), where nothing else is touched.
+## Given "forests", likewise the forests alone (../forests/f2_shapes.py, ../forests/f3_splice.py).
 
 ## Godot units to a pixel of the pictures.
 const UNITS := 3.35
@@ -48,6 +51,21 @@ const LANE_WIDTH := 4.0          # 1.2 px: a village's lane, narrower than any r
 const LANE_BRIDGE_WIDER := 5.0   # a lane's bridge is 1.5 px wider than the lane
 const CHANNEL_WIDTH := 4.0       # 1.2 px: a swamp village's channel, narrower than any river
 const SETTLEMENTS_ABOUT := "The settlements, an icon each, drawn at one size on the screen whatever the zoom, its middle at the node's position. The 220 capitals, one a county, are cities and towns; the villages and hamlets, about 2,000, are drawn under them."
+## A forest's piece, by its kind: each scene a Forest (Scripts/WorldMap/Forest.gd), which inherits
+## Forest.tscn's odds of the party being set upon and sets only its colour.
+const FOREST_SCENE := {
+	"conifer": "res://Scenes/ConiferForest.tscn", "broadleaf": "res://Scenes/BroadleafForest.tscn",
+	"tropical": "res://Scenes/TropicalForest.tscn", "swamp": "res://Scenes/SwampForest.tscn",
+}
+const FORESTS_ABOUT := "The forests (MapCreation/Scripts/forests/f1_forests.py), drawn over the land and under everything else: a Forest for each piece, cut along the counties' borders and the coast and by kind (conifer, broadleaf, tropical, swamp, each a scene of its own colour), named for its county and numbered in it, the largest first. Grouped by the size of the whole forest a piece belongs to (its metadata's forest and forest_km2), so that the Detail node brings the smaller in as the view closes in, and under that by kingdom. Polygon2D draws no holes, so a clearing in a piece is joined to its outline by a cut of no width, there and back. The party may be set upon in any of them, at Forest.tscn's odds."
+## The groups of the forests by the size of the whole forest, the order they are drawn in, and what
+## each says of itself.
+const FOREST_GROUPS := [
+	["Great", "Forests of 250 km2 and more, and every piece of them. They show at every zoom."],
+	["Large", "Forests of 50 to 250 km2. They show from the Kingdom tier in (see the Detail node)."],
+	["Small", "Forests of 10 to 50 km2. They show from the Duchy tier in (see the Detail node)."],
+	["Woods", "Woods under 10 km2, the smallest 0.5 km2. They show from the County tier in (see the Detail node)."],
+]
 ## The ranks of border, the least first: the order they are drawn in.
 const RANKS := ["county", "duchy", "kingdom"]
 const RANK_PLURAL := {"county": "Counties", "duchy": "Duchies", "kingdom": "Kingdoms"}
@@ -77,6 +95,9 @@ func _initialize() -> void:
 	if args.size() > 2 and args[2] == "villages":
 		_write_villages_alone(shapes, write_to)
 		return
+	if args.size() > 2 and args[2] == "forests":
+		_write_forests_alone(shapes, write_to)
+		return
 	var size: Array = shapes["size"]
 
 	_root = Node2D.new()
@@ -88,6 +109,7 @@ func _initialize() -> void:
 	_add_sea(size)
 	_add_coast(shapes["coast"])
 	_add_land(shapes["counties"], shapes["kingdoms"])
+	_add_forests(_root, shapes.get("forests", []))
 	_add_borders(shapes["borders"], shapes["banks"])
 	_add_lakes(shapes["lakes"])
 	_add_rivers(shapes["rivers"])
@@ -170,6 +192,49 @@ func _add_land(counties: Array, realms: Array) -> void:
 			# A county's further pieces are islands off its shore.
 			var piece_name := "County%03d" % int(county["number"]) + ("" if i == 0 else "Island%d" % i)
 			_polygon(duchies[d], piece_name, _to_points(pieces[i]), _land)
+
+
+## The forests, after the land and before the borders: an instance of its kind's scene for each piece
+## (forestshapes.py), under the group of its forest's size and, in that, of its kingdom. The pieces'
+## points are in the scene's units already, rounded as forestshapes.py checked them against Godot's
+## own cutter into triangles, so they are put in as they are.
+func _add_forests(parent: Node, forests: Array) -> void:
+	if forests.is_empty():
+		return
+	var group := _group(parent, "Forests", FORESTS_ABOUT)
+	var sizes := {}
+	for entry: Array in FOREST_GROUPS:
+		sizes[entry[0]] = _group(group, entry[0], entry[1])
+	var kingdoms := {}
+	for piece: Dictionary in forests:
+		var size: String = piece["group"]
+		var k := int(piece["kingdom"])
+		if not kingdoms.has(size + str(k)):
+			kingdoms[size + str(k)] = _group(sizes[size], "Kingdom%d" % k, "")
+		var flat: Array = piece["points"]
+		var points := PackedVector2Array()
+		points.resize(flat.size() / 2)
+		for i in points.size():
+			points[i] = Vector2(flat[2 * i], flat[2 * i + 1])
+		# As the editor instances a scene: packed, the node keeps only its outline and its numbers, so a
+		# change to its kind's scene (a colour) or to Forest.tscn (the odds) reaches every piece.
+		var forest: Polygon2D = (load(FOREST_SCENE[piece["kind"]]) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		forest.name = piece["name"]
+		forest.polygon = points
+		forest.set_meta(&"county", int(piece["county"]))
+		forest.set_meta(&"duchy", int(piece["duchy"]))
+		forest.set_meta(&"kingdom", k)
+		forest.set_meta(&"forest", int(piece["forest"]))
+		forest.set_meta(&"forest_km2", float(piece["forest_km2"]))
+		kingdoms[size + str(k)].add_child(forest)
+		_nodes += 1
+		_points += points.size()
+		_check_cut(piece["name"], points)
+	# Groups no piece fell in are left out.
+	for size: String in sizes:
+		if sizes[size].get_child_count() == 0:
+			group.remove_child(sizes[size])
+			sizes[size].free()
 
 
 func _add_borders(borders: Dictionary, banks: Array) -> void:
@@ -386,6 +451,24 @@ func _write_villages_alone(shapes: Dictionary, write_to: String) -> void:
 	quit(0 if error == OK else 1)
 
 
+## The forests alone, under their groups, and nothing else: for ../forests/f3_splice.py to splice into
+## the scene as it is.
+func _write_forests_alone(shapes: Dictionary, write_to: String) -> void:
+	_root = Node2D.new()
+	_root.name = "Map"
+	_add_forests(_root, shapes["forests"])
+	_own(_root)
+	var packed := PackedScene.new()
+	var error := packed.pack(_root)
+	if error == OK:
+		error = ResourceSaver.save(packed, write_to)
+	print("nodes ", _nodes, "; points ", _points, "; polygons Godot could not cut into triangles: ", _failed,
+			"; cutting them all took ", snappedf(_cutting, 0.1), " ms, the slowest ", snappedf(_slowest, 0.1), " ms")
+	print("saved ", write_to, ": ", "ok" if error == OK else "FAILED %d" % error, ", ", FileAccess.get_file_as_bytes(write_to).size(), " bytes")
+	_root.free()
+	quit(0 if error == OK and _failed == 0 else 1)
+
+
 ## The player's party (Scripts/WorldMap/Party.gd), as on the old world map, drawn over the
 ## settlements. It starts at PARTY_START, and with no terrain to ask (the map has no land collider
 ## or navigation mesh yet) it goes wherever it is sent in a straight line.
@@ -458,7 +541,7 @@ func _add_squad_menu() -> void:
 	menu.set_script(load("res://Scripts/UI/SquadMenu.gd"))
 	menu.layer = 1
 	menu.process_mode = Node.PROCESS_MODE_INHERIT
-	menu.editor_description = "Who fights, chosen as a battle starts, as on the world map: the party's random encounters open it, it cannot be closed, and holding its Start begins the battle with whoever is ticked. The map waits as it stands and is come back to once the battle is over. Nothing on this map sets the party upon yet: it has no forests."
+	menu.editor_description = "Who fights, chosen as a battle starts, as on the world map: the party's random encounters open it, it cannot be closed, and holding its Start begins the battle with whoever is ticked. The map waits as it stands and is come back to once the battle is over. The party is set upon in the forests (Forests), as on the world map: a step it ends in one rolls that forest's odds."
 	_root.add_child(menu)
 	_builds_itself.append(menu)
 	_nodes += 1
@@ -473,7 +556,7 @@ func _add_game_over() -> void:
 	game_over.set_script(load("res://Scripts/WorldMap/GameOver.gd"))
 	game_over.layer = 1
 	game_over.process_mode = Node.PROCESS_MODE_INHERIT
-	game_over.editor_description = "Ends the game once nobody is left on the roster, as on the world map: the map stops, \"Game Over\" comes up in the battles' banner, over any menu, and the game quits as the banner starts to fade. Nothing on this map can empty the roster yet: it has no battles."
+	game_over.editor_description = "Ends the game once nobody is left on the roster, as on the world map: the map stops, \"Game Over\" comes up in the battles' banner, over any menu, and the game quits as the banner starts to fade. Only a battle, met in the forests, can empty the roster."
 	_root.add_child(game_over)
 	_builds_itself.append(game_over)
 	_nodes += 1
@@ -497,7 +580,7 @@ func _add_detail() -> void:
 	var detail := Node.new()
 	detail.name = "Detail"
 	detail.set_script(load("res://Scripts/WorldMap/MapDetail.gd"))
-	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages, their lanes and the Swamp's channels; and in a second step, under 50, the hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
+	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes, the great forests. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes, the large forests. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake, the small forests. County (under 100): the villages, their lanes and the Swamp's channels, the woods; and in a second step, under 50, the hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
 	_root.add_child(detail)
 	_nodes += 1
 
@@ -523,15 +606,21 @@ func _polygon(parent: Node, polygon_name: String, points: PackedVector2Array, co
 	_nodes += 1
 	_points += points.size()
 	if check:
-		var start := Time.get_ticks_usec()
-		var cut := Geometry2D.triangulate_polygon(points)
-		var took := (Time.get_ticks_usec() - start) / 1000.0
-		_cutting += took
-		_slowest = maxf(_slowest, took)
-		if cut.is_empty():
-			_failed += 1
-			print("   could not be cut into triangles: ", polygon_name, " (", points.size(), " points)")
+		_check_cut(polygon_name, points)
 	return polygon
+
+
+## Tries a polygon in Godot's own cutter into triangles, which Polygon2D uses as it draws, and counts
+## the time it took and any it could not cut.
+func _check_cut(polygon_name: String, points: PackedVector2Array) -> void:
+	var start := Time.get_ticks_usec()
+	var cut := Geometry2D.triangulate_polygon(points)
+	var took := (Time.get_ticks_usec() - start) / 1000.0
+	_cutting += took
+	_slowest = maxf(_slowest, took)
+	if cut.is_empty():
+		_failed += 1
+		print("   could not be cut into triangles: ", polygon_name, " (", points.size(), " points)")
 
 
 func _line(parent: Node, line_name: String, flat: Array, width: float, color: Color) -> Line2D:

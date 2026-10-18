@@ -5,23 +5,25 @@
 ## what about fills the window then, and each adds to the one before it:
 ##
 ##   Realm   - the island: the coast, the kingdoms' borders and capitals, the
-##             greatest rivers and lakes.
+##             greatest rivers and lakes, the great forests.
 ##   Kingdom - under [member kingdom_view_miles]: the duchies' borders and
-##             capitals, the highways, more rivers and lakes.
+##             capitals, the highways, more rivers and lakes, large forests.
 ##   Duchy   - under [member duchy_view_miles]: the counties' borders and
-##             capitals, the other roads, the bridges, every river and lake.
+##             capitals, the other roads, the bridges, every river and lake,
+##             small forests.
 ##   County  - under [member county_view_miles]: the villages, their lanes
-##             and the Swamp's channels; and in a second step, under
-##             [member hamlet_view_miles], the hamlets.
+##             and the Swamp's channels, the woods; and in a second step,
+##             under [member hamlet_view_miles], the hamlets.
 ##
 ## What a tier brings fades in over [member fade_time] as the view crosses
-## into it, and out as it leaves. Lines and lakes are only ever faded, by
-## their modulate, never hidden: at nothing the renderer skips them, where
-## showing a hidden Line2D builds it again (0.07 ms a line, 70 ms for a tier's
-## worth). Whatever holds no lines, the settlements, is hidden outright once
-## faded out, so that a [Destination] out of sight is not pointed at and stops
-## its own work. So does one far from the view ([member Destination.in_view]):
-## of some 2,200, only those in and round the view do any work a frame.
+## into it, and out as it leaves. Lines, lakes and forests are only ever
+## faded, by their modulate, never hidden: at nothing the renderer skips them,
+## where showing a hidden Line2D builds it again (0.07 ms a line, 70 ms for a
+## tier's worth) and a hidden Polygon2D is cut into triangles again. What
+## holds neither, the settlements, is hidden outright once faded out, so that
+## a [Destination] out of sight is not pointed at and stops its own work. So
+## does one far from the view ([member Destination.in_view]): of some 2,200,
+## only those in and round the view do any work a frame.
 ##
 ## A Line2D's width is in the map's units, so left alone it is thin and faint
 ## far out and thick close in. Here every line is as wide as its node says at
@@ -54,16 +56,19 @@ enum Tier { REALM, KINGDOM, DUCHY, COUNTY, HAMLETS }
 
 ## What comes into view with each tier, by its place under the map. Whatever
 ## is not named here, nor sorted by its own size (the rivers and lakes), shows
-## at every zoom.
+## at every zoom: the great forests, Forests/Great, among them. The forests'
+## groups are by the size of the whole forest each piece is part of, so a
+## forest comes in whole.
 const SHOWN_FROM := {
 	Tier.KINGDOM: [
 		^"Borders/Duchies", ^"BordersOverLakes/Duchies", ^"Roads/Highways", ^"Settlements/DuchyCapitals",
+		^"Forests/Large",
 	],
 	Tier.DUCHY: [
 		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Roads/Roads", ^"Bridges",
-		^"Settlements/CountyCapitals",
+		^"Settlements/CountyCapitals", ^"Forests/Small",
 	],
-	Tier.COUNTY: [^"Settlements/Villages", ^"Roads/Lanes", ^"Bridges/Lanes", ^"Channels"],
+	Tier.COUNTY: [^"Settlements/Villages", ^"Roads/Lanes", ^"Bridges/Lanes", ^"Channels", ^"Forests/Woods"],
 	Tier.HAMLETS: [^"Settlements/Hamlets"],
 }
 ## The settlements, by their place under the map: the [Destination]s kept
@@ -425,7 +430,10 @@ func _set_width(i: int, wide: bool) -> void:
 
 # -- reading the scene ------------------------------------------------------------------------
 
-## The groups each tier brings, from [constant SHOWN_FROM].
+## The groups each tier brings, from [constant SHOWN_FROM]. One that holds
+## no line and no polygon, a rank of settlements, is hidden outright once
+## faded out; the rest are only ever faded, since a Line2D shown again is
+## built again and a Polygon2D cut into triangles again.
 func _gather_groups() -> void:
 	for tier: int in SHOWN_FROM:
 		for path: NodePath in SHOWN_FROM[tier]:
@@ -433,7 +441,9 @@ func _gather_groups() -> void:
 			if group == null:
 				push_error("MapDetail: nothing at '%s' under the map; it is left as it is." % path)
 				continue
-			_bring(group, tier, group.find_children("*", "Line2D", true, false).is_empty())
+			var drawn := not group.find_children("*", "Line2D", true, false).is_empty() \
+					or not group.find_children("*", "Polygon2D", true, false).is_empty()
+			_bring(group, tier, not drawn)
 
 
 ## The settlements, by the group they are in and the square they are in, every

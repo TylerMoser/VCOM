@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Forest.tscn" id="1_forest"]
+
+[node name="ConiferForest" instance=ExtResource("1_forest")]
+editor_description = "A conifer forest on the new map (Scenes/Map.tscn): the Tundra's taiga, the Volcanic Mountains', the Evergreen Temperate Rainforest's, and every kingdom's high forest above its broadleaf. A Forest, so the party may be set upon in it, at Forest.tscn's odds; this scene sets only its colour, a cool blue-green, see-through over the land."
+color = Color(0.16, 0.56, 0.36, 0.5)

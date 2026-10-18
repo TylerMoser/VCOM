@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Forest.tscn" id="1_forest"]
+
+[node name="BroadleafForest" instance=ExtResource("1_forest")]
+editor_description = "A broadleaf forest on the new map (Scenes/Map.tscn): the Deciduous Forest's, the Temperate Mountains' lower slopes, the trees along the water in the Grassland and the Desert, and the Swamp's drier ground. A Forest, so the party may be set upon in it, at Forest.tscn's odds; this scene sets only its colour, a soft yellow-green, see-through over the land."
+color = Color(0.6, 0.8, 0.32, 0.5)

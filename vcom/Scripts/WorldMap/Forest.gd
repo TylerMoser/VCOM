@@ -1,15 +1,26 @@
-## A forest on the world map: a shape drawn in the editor where the party
-## may be set upon as it travels.
+## A forest on a world map: an area where the party may be set upon as it
+## travels.
 ##
 ## Its outline is the [member Polygon2D.polygon], moved and reshaped in the
-## editor, and drawn as a light-green, see-through fill. The [Party] rolls
+## editor, and drawn as a see-through fill. The [Party] rolls
 ## [member encounter_chance] each step it ends inside it, and on a success
 ## the game goes to a battle on [member encounter_map].
 ##
+## On the old map (WorldMap.tscn) it is a shape drawn by hand, an instance of
+## Scenes/Forest.tscn, light green. On the new map (Scenes/Map.tscn) the
+## forests were made by program (MapCreation/Scripts/forests/) and cut into
+## some 2,500 pieces, by county and by kind, each an instance of its kind's
+## scene (ConiferForest.tscn, BroadleafForest.tscn, TropicalForest.tscn,
+## SwampForest.tscn), which inherits Forest.tscn's odds and sets only its
+## colour. A Polygon2D draws no holes, so a clearing in a piece is joined to
+## its outline by a cut of no width, there and back: the outline goes round
+## the clearing, and a point in the clearing is outside it.
+##
 ## Whether a point is inside is left to [method Geometry2D.is_point_in_polygon],
-## unlike the land (see [WorldMapTerrain]): that only misjudges points almost
-## on a corner, which on the coast's tens of thousands of corners added up,
-## but on an outline of a few corners drawn by hand never matters.
+## unlike the land (see [WorldMapTerrain]): that misjudges points almost on a
+## corner, which on the coast's tens of thousands of corners added up, but on
+## a forest's few hundred at the most only ever puts a point a hair from an
+## edge on the other side of it.
 class_name Forest
 extends Polygon2D
 
@@ -48,7 +59,8 @@ func roll_encounter() -> bool:
 
 
 ## The forest that [param point] is in, or null when it is in none. Where
-## forests overlap, the one drawn on top.
+## forests overlap, the one drawn on top. Every forest is tried, which on the
+## new map's 2,459 pieces takes 4 to 5 ms: the party asks once a step.
 static func find_at(tree: SceneTree, point: Vector2) -> Forest:
 	var found: Forest = null
 	for node in tree.get_nodes_in_group(GROUP):

@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Forest.tscn" id="1_forest"]
+
+[node name="TropicalForest" instance=ExtResource("1_forest")]
+editor_description = "A tropical rainforest on the new map (Scenes/Map.tscn): the Tropical Rainforest's. A Forest, so the party may be set upon in it, at Forest.tscn's odds; this scene sets only its colour, a deep green, see-through over the land."
+color = Color(0.1, 0.56, 0.16, 0.5)
