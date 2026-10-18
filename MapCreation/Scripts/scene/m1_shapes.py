@@ -4,7 +4,9 @@ lines with points finer than a pixel, ready to be made into a Godot scene.
 Out of the maps of numbers come the areas: the counties (and with them the land, the duchies and
 the kingdoms), and the lakes. Their edges are smoothed once and shared: two counties that touch
 have the very same points along their border, and so has the border's line. Out of the tables come
-the lines that are lines already: rivers, roads and bridges, and the settlements.
+the lines that are lines already: rivers, roads and bridges, and the settlements; and the villages
+and hamlets with their lanes and channels, which ../villages/v1_villages.py placed, as they are
+(villageshapes.py).
 
 Three things are put right on the way, where the pictures' pixels hid them:
 - a border that follows a river is put on the river's own line (the two were drawn a pixel or two
@@ -19,6 +21,7 @@ of pixel (x, y) is (x + 0.5, y + 0.5)); m2_scene.gd turns that into the scene's.
 Usage: m1_shapes.py <MapCreation dir> <shapes .json to write>
 """
 import json
+import os
 import sys
 import time
 import numpy as np
@@ -26,6 +29,7 @@ from PIL import Image
 from scipy import ndimage
 from scipy.spatial import cKDTree
 import geo
+import villageshapes
 
 Image.MAX_IMAGE_PIXELS = None
 MC, WRITE_TO = sys.argv[1:3]
@@ -813,6 +817,15 @@ for name in ("kingdom", "duchy", "county"):
     t = tally[name]
     print("%s borders: drawn across a lake in %d places; under water for %.0f px or more on end in %d places (%.0f px), shorter (crossings) in %d; their colour put along a river's banks %d times, a lake's shore %d, beside a road %d" % (
         name, t["across"], FOLLOW, t["along"], t["px"], t["crossings"], t["river"], t["lake"], t["road"]))
+
+# == villages and hamlets ===================================================================================
+# Placed by ../villages/v1_villages.py, with the lanes and channels that join the villages to the map, so
+# taken as they are (villageshapes.py).
+if os.path.exists(SRC + "/Villages.json"):
+    out["villages"], out["lanes"], out["lane_bridges"], out["channels"] = villageshapes.shapes(load_json("Villages.json"))
+    print("villages: %d, hamlets %d; lanes %d, with %d bridges; channels %d" % (
+        sum(p["kind"] == "village" for p in out["villages"]), sum(p["kind"] == "hamlet" for p in out["villages"]), len(out["lanes"]),
+        len(out["lane_bridges"]), len(out["channels"])))
 
 with open(WRITE_TO, "w", encoding="utf-8", newline="\n") as handle:
     json.dump(out, handle, separators=(",", ":"))

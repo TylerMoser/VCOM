@@ -283,7 +283,9 @@ vcom/Scripts/
                        never leaves what is seen all the way out
     MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
                        (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
-                       factor of the zoom, a few lines a frame
+                       factor of the zoom, a few lines a frame; settlements far from the view stopped (in_view)
+    BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
+                       nothing and back (shown); MapDetail fades only the ranks under them
     MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
                        starting_days in the top left as days:hours:minutes; seconds_per_day; advance()
                        (only the Party calls it, while it moves), elapsed, remaining()
@@ -301,7 +303,7 @@ vcom/Scripts/
     Destination.gd     a place to send the party (Scenes/Village.tscn; with City, Town and Hamlet.tscn, the
                        settlements of Map.tscn): icon, hover tooltip listing its locations
                        (under the pointer: is_under_pointer(), find_under_pointer(); not while paused);
-                       hidden, it stops its _process
+                       hidden, it stops its _process; out of view (in_view false) it draws nothing too
     Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
                        description, make_tab()
     HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
@@ -552,7 +554,7 @@ the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Borders`, `Lakes`, `Rivers`, `BordersOverLakes`, `Roads`, `Bridges`, `Settlements`, `Party`,
-`Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `Detail`. A settlement is a `Destination`, as the old
+`Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `BorderSwitch`, `Detail`. A settlement is a `Destination`, as the old
 map's village (the user's call): an instance of `Scenes/City.tscn` (a kingdom's or a duchy's capital)
 or `Scenes/Town.tscn` (a county's), the pack's Castle and Town cropped into `vcom/WorldMap/` as the
 village's art was, so an icon of one height on the screen at any zoom with its `display_name` in a
@@ -562,8 +564,9 @@ which with 220 on screen hides the map: my call), and an instance keeps only its
 duchy's and kingdom's numbers as metadata. Villages and hamlets have their scenes too
 (`Scenes/Village.tscn`, 16, the pack's Village; `Scenes/Hamlet.tscn`, 12, `Hamlet2.png` of the
 pack's folder as `WorldMap/Hamlet.png`) and their groups, `Settlements/Hamlets` and `Villages`,
-ahead of the capitals' so that towns and cities draw over them, but there are none on the map yet:
-one is added by instancing its scene under its group. `Village.tscn` is the old map's village as
+ahead of the capitals' so that towns and cities draw over them: 1,102 hamlets and 898 villages,
+with the villages' `Roads/Lanes`, `Bridges/Lanes` and the Swamp's `Channels`, placed by program
+(`MapCreation/Scripts/villages/`, spliced in; README.md has the user's calls). `Village.tscn` is the old map's village as
 well, which keeps its 32 by setting `icon_height` on its own node in `WorldMap.tscn`. `Party` is
 the old map's `Party`, brought over at the user's request (the old map keeps its own): it starts
 near the middle of county 115, at (7302, 7381), the outline's centroid, as they asked, and is
@@ -597,9 +600,11 @@ level of detail while the game runs (the editor shows every node, at the width i
 view is in one of four tiers by its height in miles, the user's: Realm (the kingdoms' borders and
 capitals, the greatest rivers and lakes), Kingdom under 480 (the duchies' borders and capitals,
 highways), Duchy under 240 (the counties' borders and capitals, the other roads, bridges, every
-river and lake) and County under 100 (villages, hamlets). What a tier brings is faded by
+river and lake) and County under 100 (villages, lanes, channels; hamlets under 50, its second
+step, `Tier.HAMLETS`). What a tier brings is faded by
 `modulate`, never hidden, since showing a `Line2D` builds it again; only the settlements' groups
-are hidden outright, where a `Destination` stops its `_process` and is not pointed at. A line's
+are hidden outright, where a `Destination` stops its `_process` and is not pointed at; one far
+from the view stops too (`Destination.in_view`, set by `MapDetail`). A line's
 width in the scene is its width at 220 miles tall: `MapDetail` scales them all by one factor, so
 that on screen they follow about a third of the zoom, and sets them a few lines a frame, since
 that too builds a line again. A border's `...Along` line is a plain border while its river, lake

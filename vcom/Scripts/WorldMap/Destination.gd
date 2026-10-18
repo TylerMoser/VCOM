@@ -48,6 +48,18 @@ var hovered := false:
 		z_index = 1 if hovered else 0
 		queue_redraw()
 
+## Whether the destination is in or near the view. The new map's level of
+## detail ([MapDetail]) turns this off for those far from it, which then do no
+## work a frame: with thousands of villages and hamlets on the map, that would
+## be most of one. Nothing else sets it, so on a map without that node every
+## destination counts as in view.
+var in_view := true:
+	set(value):
+		if value == in_view:
+			return
+		in_view = value
+		_wake()
+
 var _tooltip_style := StyleBoxFlat.new()
 ## Screen pixels per map pixel as last drawn, to redraw when the zoom changes.
 var _drawn_scale := 0.0
@@ -74,20 +86,32 @@ func _ready() -> void:
 	# Runs through the pause to drop its tooltip under a menu, where the
 	# gamepad's reticle would otherwise leave it showing.
 	process_mode = PROCESS_MODE_ALWAYS
-	set_process(is_visible_in_tree())
+	set_process(in_view and is_visible_in_tree())
 	if icon == null:
 		push_warning("Destination '%s': no icon, so it cannot be seen or clicked." % name)
 
 
 func _notification(what: int) -> void:
-	# A destination out of sight (the new map hides whole ranks of them by the
-	# zoom) is not pointed at and has nothing to redraw, so it stops its
-	# _process: with thousands on a map, that is most of a frame.
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
-		var seen := is_visible_in_tree()
-		set_process(seen)
-		if not seen:
-			hovered = false
+		_wake()
+
+
+## Starts or stops the work of a frame. A destination out of sight (the new map
+## hides whole ranks of them by the zoom) or far from the view is not pointed
+## at and has nothing to redraw, so it stops its _process: with thousands on a
+## map, that is most of a frame.
+##
+## It is drawn again either way. Its icon is drawn for the zoom it last saw,
+## so one left as it was while out of view would grow with the map as the view
+## closes in: a city put away all the way out, just off the edge, came back
+## half the window high. Out of view it draws nothing, and coming into view it
+## draws itself for the zoom there is now.
+func _wake() -> void:
+	var seen := in_view and is_visible_in_tree()
+	set_process(seen)
+	if not seen:
+		hovered = false
+	queue_redraw()
 
 
 func _process(_delta: float) -> void:
@@ -98,7 +122,7 @@ func _process(_delta: float) -> void:
 
 func _draw() -> void:
 	_drawn_scale = _screen_scale()
-	if icon == null:
+	if icon == null or not in_view:
 		return
 	# Draw in screen pixels from here on.
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE / _drawn_scale)
@@ -156,7 +180,7 @@ func _text_width(font: Font, text: String) -> float:
 ## Whether the player points at the icon: the mouse, or the gamepad's
 ## reticle in the middle of the screen ([method InputDevice.pointer_on_canvas]).
 func is_under_pointer() -> bool:
-	if icon == null or not is_visible_in_tree():
+	if icon == null or not in_view or not is_visible_in_tree():
 		return false
 	var offset := InputDevice.pointer_on_canvas(self) - global_position
 	return _icon_rect().has_point(offset * _screen_scale())

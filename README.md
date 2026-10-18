@@ -33,6 +33,7 @@ does it open the pause menu, and pressed again it closes it.
 | Go to a village | Right-click its icon. The party goes to the village itself, wherever on the icon was clicked |
 | See what is in a village | Hover over its icon |
 | Use a village | Left-click its icon once the party is there, to open its menu |
+| Show or hide the borders | `B`, on the new map: every border, the kingdoms', the duchies' and the counties'. They start shown |
 | Open the pause menu | `Esc` |
 
 The party is the only thing on the map that moves, so there is nothing to select first. A right-click
@@ -108,6 +109,7 @@ closes it again.
 | See what is in a village | Put the reticle on its icon |
 | Use a village | `A` with the reticle on the village the party is in |
 | Find the party | `L3` (press the left stick) brings it back to the middle of the screen |
+| Show or hide the borders | `R3` (press the right stick), on the new map, as `B` on the keyboard |
 | Open the pause menu | `Menu` |
 
 **Menus**
@@ -665,7 +667,8 @@ routine and nothing else.
 ## The new world map
 
 `vcom/Scenes/Map.tscn` is the island the campaign is moving to: nine kingdoms, 44 duchies and 220
-counties, with their coast, lakes, rivers, roads, bridges and settlements. It is drawn with shapes
+counties, with their coast, lakes, rivers, roads, bridges and settlements, down to some 2,000
+villages and hamlets and the lanes and channels that reach them. It is drawn with shapes
 and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
 reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
 To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
@@ -695,16 +698,18 @@ work on all of them. The scene's tree is the order they are drawn in:
 | `Borders` | Borders as lines, the counties' first and the kingdoms' last, so that a greater is drawn over a lesser: 299, 54 and 15 of them, named for what they part (`Kingdoms3And6`) |
 | `Lakes` | The 700 lakes, numbered by size |
 | `Rivers` | The 291 rivers, numbered by the water they carry |
+| `Channels` | 26 channels dug from the Swamp's villages to its rivers, lakes and the sea, each named for its village (`County149Village2Channel`) |
 | `BordersOverLakes` | The parts of borders that cross a broad lake, drawn again over the water |
-| `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart |
-| `Bridges` | 146 bridges, each along its road from bank to bank |
-| `Settlements` | The settlements, an icon each. The 220 there are, by rank: nine kingdoms' capitals and 35 duchies', which are cities, and 176 counties', which are towns. Ahead of them, so drawn under them, `Hamlets` and `Villages`, both still empty |
+| `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart; and first, so drawn under them, `Lanes`: the villages' 741 lanes, each named for its village (`County176Village2Lane`) |
+| `Bridges` | 146 bridges, each along its road from bank to bank; and under `Lanes` the 34 on the villages' lanes |
+| `Settlements` | The settlements, an icon each: the 220 capitals, by rank nine kingdoms' and 35 duchies', which are cities, and 176 counties', which are towns; and ahead of them, so drawn under them, the 1,102 hamlets in `Hamlets` and the 898 villages in `Villages`, each named for its county and numbered in it (`County103Village2`) |
 | `Party` | The player's party, the red dot, where it starts: near the middle of county 115 |
 | `Camera` | The map's camera, so that the scene can be run by itself |
 | `MapReticle` | The gamepad's pointer, as on the old map: a ring in the middle of the screen and the buttons' prompts, shown only with the gamepad |
 | `VillageMenu` | The menu of the settlement the party is in, as on the old map: it draws nothing until it opens |
 | `SquadMenu` | Who fights, chosen as a battle starts, as on the old map: it draws nothing until the party is set upon |
 | `GameOver` | The game's end, as on the old map: "Game Over" once nobody is left on the roster |
+| `BorderSwitch` | The borders' switch: it draws nothing, and while the game runs hides every border and shows it again on `B` (`R3` on the gamepad) |
 | `Detail` | The map's level of detail: it draws nothing, and while the game runs shows and hides the layers above, and sets their lines' widths, by how far the view is zoomed |
 
 The land is cut into counties, not left as one piece, for two reasons. The counties, duchies and
@@ -714,8 +719,8 @@ as one outline of 25,000 points took two seconds a time, where a county's few hu
 a few thousandths.
 
 **Lines have a point wherever they bend.** No line or outline turns by more than 6° at any one
-point, so a curve stays a curve at any zoom; where one runs straight it has few. There are 414,000
-points in all, and the scene file is 8 MB.
+point, so a curve stays a curve at any zoom; where one runs straight it has few. There are 426,000
+points in all, 23,000 of them the villages' lanes and channels, and the scene file is 9 MB.
 
 **Lines have a width in units, which is their width when the view is 220 miles tall.** Closer in
 or further out the `Detail` node scales them all, as given under "The map shows more the closer
@@ -728,6 +733,8 @@ the view" below. The widths are the pictures', to the whole unit:
 | Rivers | 6.7 at the least to 24.8 at the mouth of the largest | 2 to 7.4 px, by the water they carry |
 | Highways and other roads | 10 and 7 | 3 and 2 px |
 | Bridges | 7 wider than their road | 2 px wider |
+| Villages' lanes, and the Swamp's channels | 4 | 1.2 px |
+| Bridges on the lanes | 9 | 2.7 px |
 
 Left at those widths, with the whole island on a window 720 pixels high the thinnest lines would
 be under half a pixel wide and faint, and far in they would be thick, which is what the `Detail`
@@ -737,8 +744,8 @@ the edge of a line or a polygon, and without it a line near a pixel wide breaks 
 
 **A settlement is an icon of one size on the screen.** Each is an instance of `Scenes/City.tscn`
 (a kingdom's or a duchy's capital) or `Scenes/Town.tscn` (a county's), and both are what the old
-map's village is, a `Destination`, so they behave as it does. There are two lesser kinds as well,
-`Scenes/Village.tscn` and `Scenes/Hamlet.tscn`, with none of either on the map yet. For all four: the icon is drawn with its middle on
+map's village is, a `Destination`, so they behave as it does. The two lesser kinds,
+`Scenes/Village.tscn` and `Scenes/Hamlet.tscn`, are too (below). For all four: the icon is drawn with its middle on
 the node, at a height in screen pixels that the zoom does not change, and while the mouse is on it
 (or the gamepad's pointer, the middle of the screen) its name shows in a tooltip above it.
 
@@ -751,10 +758,12 @@ the node, at a height in screen pixels that the zoom does not change, and while 
 - **Adding a village or a hamlet.** Instance `Scenes/Village.tscn` under `Settlements/Villages`, or
   `Scenes/Hamlet.tscn` under `Settlements/Hamlets` (drag the scene on to the group in the editor's
   scene tree), move it to its place and give it a `display_name`. The two groups come before the
-  capitals', so a town or a city is drawn over a village, and a village over a hamlet.
+  capitals', so a town or a city is drawn over a village, and a village over a hamlet. One added
+  by hand is lost if the villages are ever placed again by program (below).
 - **Names.** Nothing on the map has a name yet, so each says what it is the capital of ("Capital
-  of Kingdom 5", "Capital of County 103"). It is `display_name` on the settlement's own node,
-  beside its county's, duchy's and kingdom's numbers in its metadata.
+  of Kingdom 5", "Capital of County 103"), or what it is and where ("Village in County 103",
+  "Hamlet in County 103"). It is `display_name` on the settlement's own node, beside its
+  county's, duchy's and kingdom's numbers in its metadata.
 - **Art.** The icon pack's Castle for a city, its Town for a town and its Village for a village,
   and for a hamlet three small cottages drawn in the pack's manner, as chosen:
   `WorldMapResources/MWM Icons/City.png`, `Town.png`, `Village.png` and `Hamlet2.png`, each cropped
@@ -764,6 +773,48 @@ the node, at a height in screen pixels that the zoom does not change, and while 
   scene tree, shown by its cross once picked. Run the scene (F6) to see the icons.
 - A kingdom's capital and a duchy's look alike for now. A settlement can be travelled to, and the
   one that has something in it entered (both below).
+
+**Villages and hamlets are where people would have settled, about 2,000 of them.** They were
+placed by program, `MapCreation/Scripts/villages/` ([its step](MapCreation/Scripts/README.md)),
+into `MapCreation/SourceData/Villages.json`, from which their nodes are made. What was decided
+with the user (2026-10-17):
+
+- **A density for play, about 9 a county**: 2,000 in all, 898 villages and 1,102 hamlets, a place
+  every 11 km or so in the best country. A real medieval kingdom of this size had some 30,000;
+  what Google Maps names at the closest zoom would be about 6,000.
+- **Shared out by what each kingdom's country can feed**, by the weights in the table below,
+  the Deciduous Forest's farmland most. Within a kingdom they are split into villages and
+  hamlets by how people settle that kind of country, my split, put to the user before it was
+  built: open plains and oases gather them into villages; mountains, wet forest and tundra
+  scatter them into hamlets.
+- **Villages show from 100 miles, hamlets from 50** (below).
+- **Every village is joined to the rest.** 116 stand on a road, which runs through them. 741
+  have a lane, a thin red line, to the nearest road, lane, joined village or capital, laid by the
+  roads' own rules (slope, rivers, bridges): 7,000 km of them, 8 km at the median, crossing a
+  river on 34 bridges. In the Swamp's own country a village joins by water instead: 15 stand at
+  a river, a lake or the sea, and 26 have a channel, a thin blue line, dug to one (98 km).
+  Hamlets have no road.
+
+| Kingdom | Weight | Villages | Hamlets |
+|---|---:|---:|---:|
+| 8 Deciduous Forest | 1 | 335 | 335 |
+| 5 Grassland | 0.5 | 217 | 117 |
+| 3 Temperate Mountains | 0.35 | 70 | 164 |
+| 6 Evergreen Temperate Rainforest | 0.3 | 60 | 141 |
+| 7 Swamp | 0.25 | 67 | 101 |
+| 9 Tropical Rainforest | 0.25 | 67 | 100 |
+| 2 Volcanic Mountains / Ruins | 0.2 | 47 | 86 |
+| 1 Tundra Mountains | 0.08 | 11 | 42 |
+| 4 Desert | 0.06 | 24 | 16 |
+
+What makes a site, which the user left to me: fresh water first, a river or a lake most and a
+stream of the drainage (one not drawn) less, then how high and how steep, in the mountains how
+low in its valley, in the Swamp how far above the wet ground round it, the sea for fishing, the
+roads, a market town a morning's walk off. Villages are choosier than hamlets: a quarter of them
+stand within 1 km of a river or lake the map draws (7% of the land does) and nine in ten within
+1 km of a stream (half the land). No two places are closer than 6 km for two villages (6.5 km to a capital) and
+3.5 km for a hamlet (4.5 km to a capital), so that no icons touch where they first show. 21
+counties have neither, all in the Desert (12), the Tundra (8) and the Volcanic Mountains (1).
 
 **The party is on the map, and goes in straight lines.** The `Party` node is the old map's party,
 the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
@@ -856,10 +907,11 @@ each named for what about fills the window then, and each adding to the one befo
 | Realm | over 480 miles | 0 to 2 | The coast, the kingdoms' borders and their nine capitals, the 42 greatest rivers and the 79 greatest lakes |
 | Kingdom | 480 to 240 miles | 3 to 5 | The duchies' borders and their 35 capitals, the highways, 92 more rivers and 179 more lakes |
 | Duchy | 240 to 100 miles | 6 to 9 | The counties' borders and their 176 capitals, the other roads, the bridges, every river and lake |
-| County | under 100 miles | 10 to 16 | The villages and hamlets, once there are some |
+| County | under 100 miles | 10 to 16 | The villages, their lanes (with the bridges on them) and the Swamp's channels; and in a second step, under 50 miles (steps 13 to 16), the hamlets |
 
 What a tier brings fades in over a fifth of a second as the view crosses into it, and out as it
-leaves. A settlement out of its tier cannot be pointed at.
+leaves. A settlement out of its tier cannot be pointed at, and one far from the view does no work
+a frame: of the 2,220, only those in and round the view do.
 
 The node also holds the lines near a width on the screen. Each is as wide as its node says when
 the view is 220 miles tall, and from there follows only about a third of the zoom: a kingdom's
@@ -868,11 +920,19 @@ alone, and a lesser road 1.4 where it first shows and 3 all the way in, not 12. 
 scaled alike, since some are sized to others. A border's line along a river, a lake or a road is
 drawn as a plain border while that river, lake or road is out of its tier.
 
-All of it is set on the `Detail` node: the three heights, the least width of a river and the
+All of it is set on the `Detail` node: the four heights, the least width of a river and the
 least distance across a lake for the Realm and the Kingdom tiers, the fade's time, the height at
 which lines have their own width, and how much of the zoom they follow. It works only while the
 game runs: in the editor every node shows, at the width it was given.
 [`Docs/MAP.md`](Docs/MAP.md) has how it works and what it costs.
+
+**The borders can be switched off.** `B` (`R3` on the gamepad) hides every border, the kingdoms',
+the duchies' and the counties', with the border's colour drawn along a river, a lake's shore or
+a road, and shows them again; they start shown, at the user's request. It is the `BorderSwitch`
+node (`Scripts/WorldMap/BorderSwitch.gd`), which fades the `Borders` and `BordersOverLakes`
+groups as a whole, so the tiers above go on underneath it: shown again at any zoom, the borders
+are those of the tier the view is in, at its width. Nothing else on the map takes `B`, and it
+does nothing while a menu is up. The gamepad's prompts say "Hide borders" or "Show borders".
 
 **No line hides another.** Water and roads are drawn over the borders, so a border that crosses a
 river passes under it. Where a border runs *along* a river, a lake's shore or a road it would be
@@ -920,7 +980,10 @@ not in the pictures.)
 
 **The scene is the map now.** It was written once by program and is meant to be changed by hand
 from here on. Run again, `MapCreation/Scripts/scene/m2_scene.gd` writes it afresh, and anything
-changed in it since is lost.
+changed in it since is lost. The villages and hamlets came later and were spliced into it as it
+was, nothing else touched (`MapCreation/Scripts/villages/v3_splice.py`); placed again, they and
+their lanes and channels are taken out and put in afresh, and any change made to them by hand is
+lost, but nothing else.
 
 ## Layout
 

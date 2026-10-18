@@ -28,6 +28,7 @@ files here that describe it are out of date until they are made again.
 | `WatershedMap.png` | {{WatershedMap.png}} | grey map | The watershed of every pixel of the mainland, 1 to 51 |
 | `Watersheds.json` | {{Watersheds.json}} | table | The 51 watersheds |
 | `Roads.json` | {{Roads.json}} | lines | The road network: places, stretches of road, the 351 roads, the 146 bridges |
+| `Villages.json` | {{Villages.json}} | table and lines | The 2,000 villages and hamlets, and the villages' lanes and channels |
 | `DrainageDirection.png` | {{DrainageDirection.png}} | grey map, half size | Which way the water runs from every cell of land |
 | `DrainageFlow.png` | {{DrainageFlow.png}} | number map, half size | How much water passes through every cell |
 | `DrainageLakes.png` | {{DrainageLakes.png}} | number map, half size | The lake of every cell of lake, 1 to 1,059 |
@@ -285,6 +286,50 @@ drawn can be followed on the first two maps, and the pools are on the third.
 - **A bridge** is drawn 2 px wider than its road. 145 cross rivers; one, 29 px over the sea,
   joins the island's settlement (220) to the mainland.
 - The stretches come to 5,292 km of highway and 14,020 km of other road.
+
+## Villages and hamlets
+
+`Villages.json` holds the 2,000 villages and hamlets placed on 2026-10-17, at the user's request,
+by `../Scripts/villages/v1_villages.py`, and the lanes and channels that join the villages to the
+roads and the water. No picture draws them: they were placed after the pictures, for the game's
+scene, where the same folder's programs put them (step 13 of `../Scripts/README.md`, which says
+how they were placed). Like `Settlements.json`, it is a table of places, with three lists.
+
+`places`: the 898 villages, then the 1,102 hamlets.
+
+| Field | Meaning |
+|---|---|
+| `id` | 1 to 2,000, the villages first |
+| `kind` | `village` or `hamlet` |
+| `name` | Its node's name in the scene: its county, its kind and its number in the county, the nearest its capital first (`County103Village2`) |
+| `county`, `duchy`, `kingdom` | Where it stands |
+| `terrain` | The kind of country there, as `TerrainMap.png` has it |
+| `x`, `y` | Where it stands. A village on a road stands on the road's line, between pixels |
+| `height_m` | The ground's height there, from `../Elevation.png` |
+| `from_capital_km` | Straight-line distance to its county's capital |
+| `link` | How a village is joined to the rest: `{"kind": "road", "stretch": ...}` standing on that stretch of `Roads.json`; `{"kind": "lane", "id": ...}` by its lane; `{"kind": "channel", "id": ...}` by its channel; `{"kind": "water"}` standing at a river, a lake or the sea, in the Swamp's country. `null` for a hamlet, which has no road |
+
+`lanes`: 741, one for each village joined by a lane, in the order they were laid, the villages
+nearest the roads first.
+
+| Field | Meaning |
+|---|---|
+| `id` | 1 to 741 |
+| `village` | The `id` of the village it starts at |
+| `joins` | What its last point lies on: `{"kind": "road", "stretch": ...}`; `{"kind": "lane", "village": ...}`, that village's lane; `{"kind": "village", "id": ...}`; `{"kind": "settlement", "county": ...}`, a capital, the last point the middle of its dot |
+| `km` | Its length |
+| `bridges` | Where it crosses a river: `river` and `river_m3s`, the river of `Rivers.json` and its water there, and `from` and `to`, the ends of the bridge, 2 px on to each bank. 34 in all |
+| `points` | The line from the village to where it joins, about a pixel apart |
+
+`channels`: 26, each dug from a village of the Swamp to its water.
+
+| Field | Meaning |
+|---|---|
+| `id`, `village`, `km`, `points` | As a lane's. The last point is in the water, or on the land's edge where the channel reaches the sea |
+| `ends_in` | `{"kind": "river", "id": ...}`, `{"kind": "lake", "id": ...}`, `{"kind": "sea"}` or `{"kind": "channel", "id": ...}`, another village's channel |
+
+`rules` gives the numbers they were placed by: how many in all, each kingdom's weight and share
+of villages, the least distances between them, and the seed.
 
 ## The land's own lines, and its kinds
 

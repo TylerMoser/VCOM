@@ -1001,6 +1001,7 @@ has to be traced off a picture. Its `README.md` says what each file holds and ho
 | `LakeMap.png`, `Lakes.json` | The 700 lakes |
 | `WatershedMap.png`, `Watersheds.json` | The 51 watersheds |
 | `Roads.json` | The road network: the settlements and forks, the stretches of road between them as lines, the 351 roads and the 146 bridges |
+| `Villages.json` | The 898 villages and 1,102 hamlets, and the villages' lanes and channels as lines, added on 2026-10-17 and drawn in the game's scene, on no picture |
 | `DrainageDirection.png`, `DrainageFlow.png`, `DrainageLakes.png`, `Drainage.json` | How the water runs over the land, which the rivers, lakes and watersheds were drawn from. It holds every stream and pool too small to draw as well |
 | `Ridges.png`, `Spurs.png`, `Brooks.png` | The lines of the land that borders follow and no picture draws |
 | `TerrainMap.png`, `SketchRegionMap.png` | The kind of country each pixel of land was shaped as, and the sketch's nine regions, as numbers |
@@ -1090,6 +1091,7 @@ kingdom of 77,309 km² is a little smaller than Scotland.
 
 - **Names.** Nothing is named: no kingdom, duchy, county, settlement, river, lake or road.
 - **Smaller settlements.** Only the 220 capitals are drawn: no towns, villages, castles or ports.
+  (`SourceData/Villages.json` has villages and hamlets, which the game's scene draws.)
 - **The biomes themselves.** A kingdom's biome is known from its number; no forest, marsh, dune or
   mountain is drawn.
 - **Relief.** The heights are in `Elevation.png` only; no picture draws mountains or hills.

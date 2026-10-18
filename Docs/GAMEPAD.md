@@ -20,7 +20,8 @@ it never sees an event another `_input` handled, so new gamepad handling goes in
 The layout is an Xbox controller's (a Steam Deck's), bound in `project.godot` beside the keys: most
 actions gained a button (A `confirm_action` and `ui_accept`, B `cancel_action`, `ui_cancel` and
 `reaction_continue`, Menu `pause_menu`, View `end_turn`, LB / RB the squad and the targets, LT
-`show_shot_details`, R3 `toggle_grid`, the right stick's x `camera_rotate_*`, the d-pad's up / down
+`show_shot_details`, R3 `toggle_grid` in combat and `toggle_borders` on the new map (`BorderSwitch`,
+whose state `MapReticle._rows()` words as "Hide borders" or "Show borders"), the right stick's x `camera_rotate_*`, the d-pad's up / down
 `camera_zoom_*`), and the pad has actions of its own: `cursor_*` (the left stick), `next_action` /
 `previous_action` (d-pad right / left), `recenter` (L3), `camera_zoom_stick_*` (the right stick's y),
 `menu_next_tab` / `menu_previous_tab` (RB / LB), `menu_next_subtab` / `menu_previous_subtab` (RT / LT),
@@ -57,7 +58,8 @@ them all. In the shops A on an item or a character goes on to the buy or hire bu
 (`PurchaseBar.focus_offer()`), to be held there. Decided without asking the user: the Xbox layout and
 its labels; the d-pad choosing actions and zooming rather than moving the cursor; A on a squad member
 with Move up selecting them; LB / RB, not the d-pad, moving a reaction's pick; `Menu` going to Start
-on the squad menu; and the cursor's marker, a pyramid bobbing over the tile, over a unit's head when
+on the squad menu; R3 switching the new map's borders, as it switches the tile grid in combat (the
+user asked for `B` on the keyboard); and the cursor's marker, a pyramid bobbing over the tile, over a unit's head when
 one stands there.
 
 ## Probing it

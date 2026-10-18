@@ -20,16 +20,18 @@ They are working programs, not a product:
 ## What is here
 
 143 programs and written parts in three groups, as they were kept while the map was made,
-with this file and `requirements.txt`. A fourth group of five, `scene/`, was added the same day,
-when the finished map was made into a scene for the game.
+with this file and `requirements.txt`. A fourth group, `scene/`, was added the same day, when the
+finished map was made into a scene for the game, and a sixth, `villages/`, on 2026-10-17, when
+villages and hamlets were placed on it.
 
 | Folder | Files | Holds |
 |---|---:|---|
 | this folder | 20 | The sketch read, and the kingdoms' first lines: nine kingdoms of equal area, on smooth lines close to the sketch's |
 | `water/` | 10 | The heights of the land, and the rivers, lakes and watersheds worked out on them |
 | `duchy/` | 113 | Everything after that. It is named for the first thing made in it, the duchies, and holds the counties, settlements and roads, the kingdoms' borders as they are now, the picture of everything, the standard outline, the source data and the document as well |
-| `scene/` | 5 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
+| `scene/` | 6 | The map made into the game's scene, `vcom/Scenes/Map.tscn`: its areas and lines worked out of the source data as shapes, and the scene written from them |
 | `icons/` | 6 | Proposals for the settlements' icons, drawn in the manner of the MWM icon pack: added on 2026-10-08, and not part of making the map |
+| `villages/` | 3 | The villages and hamlets, placed where people would have settled, with the lanes and channels that join them to the map, and spliced into the game's scene as it is: added on 2026-10-17 |
 
 A program finds the others it leans on beside it, so the files of a group have to stay together.
 [Every file](#every-file) lists them all.
@@ -277,7 +279,9 @@ What `m1_shapes.py` does, in the order it does it:
   (a lake's shore, a small island's) is put back to the area its pixels had, since smoothing a
   small ring draws it in: by 3% on average for the lakes under 50 px, and by 12% for the worst,
   before this.
-- **Takes roads, bridges and settlements** from `Roads.json` and `Settlements.json`.
+- **Takes roads, bridges and settlements** from `Roads.json` and `Settlements.json`; and, once
+  there is a `Villages.json` (step 13), the villages and hamlets with their lanes, the bridges on
+  those and the channels, through `villageshapes.py`, as they are.
 - **Finds where a border lies under water or a road**, so that no line hides another. Where it
   crosses a broad lake (as `duchy/layers.py` has broad), that part is to be drawn again over the
   water. Where it runs under a river, a narrow lake or a road for 12 px or more, a second line is
@@ -288,12 +292,13 @@ What `m1_shapes.py` does, in the order it does it:
 for a settlement an instance of the game's `City.tscn` (a kingdom's or a duchy's capital) or
 `Town.tscn` (a county's), which draw its icon. A settlement named in the program's `LOCATIONS`,
 by its county's number, is given what there is to use in it: the capital of county 115 the
-game's hiring board and market. It leaves two empty groups ahead of them,
-`Settlements/Hamlets` and `Settlements/Villages`, for the two lesser kinds of settlement, which
-the source data has none of, and ends with the game's own nodes for the map: the party, where it
+game's hiring board and market. Ahead of them go the groups `Settlements/Hamlets` and
+`Settlements/Villages`, with an instance of `Hamlet.tscn` or `Village.tscn` for each of those
+there are; and the villages' lanes are put first under `Roads`, the bridges on them last under
+`Bridges`, and the channels after the rivers. It ends with the game's own nodes for the map: the party, where it
 starts (near the middle of county 115, a place written into the program), the camera, the
 gamepad's reticle, the menu of the settlement the party is in, the menu that picks who fights a
-battle, the game's end, and the `Detail` node,
+battle, the game's end, the borders' switch (`B` hides and shows every border), and the `Detail` node,
 which shows and hides those groups by the zoom while the game runs and finds them by these names. It
 turns pixels into the scene's units (3.35 to a pixel: a unit is 100 m), gives the lines the
 pictures' widths in those units, tries every polygon in Godot's own cutter of polygons into
@@ -336,6 +341,79 @@ house. A proposal that says "the pack's" is built from the pack's own icons, the
 it is and moved or resized; the rest are drawn afresh (`parts.py` has the buildings). Every
 proposal has its own seed, so drawn again it comes out the same.
 
+### 13. Villages and hamlets
+
+`villages/`, with `scene/villageshapes.py`. Added on 2026-10-17, when the user asked for villages
+and hamlets on the scene: in the proportions each kingdom's country suits, at a density for play,
+at realistic sites, with roads or waterways to join them to the rest. Like step 11 it needs no
+working folder: it reads `../SourceData/`, `../Water.png` and `../Elevation.png` (and
+`../AllSimple.png` for the pictures to look at), and takes half a minute.
+
+| Program | Given | Leaves |
+|---|---|---|
+| `villages/v1_villages.py` | `<repo>/MapCreation <repo>/MapCreation/SourceData/Villages.json [a folder]` | `Villages.json`. In the folder, if one is given, `AllSimple.png` with the villages (orange), hamlets (green), lanes and channels drawn on it, whole and at half size, and a close view in each kingdom |
+| `villages/v2_shapes.py` | `<repo>/MapCreation <a file>` | The villages alone as shapes, as `m1_shapes.py` gives them among the whole map's (`villageshapes.py`, which both use) |
+| `scene/m2_scene.gd` | by Godot, from `vcom/`: `... -- <that file> <a scene to write> villages` | A scene of the villages alone, each under its group: `Settlements/Hamlets`, `Settlements/Villages`, `Roads/Lanes`, `Bridges/Lanes`, `Channels` |
+| `villages/v3_splice.py` | `<repo>/vcom/Scenes/Map.tscn <that scene> [--replace]` | Those spliced into the map's scene as it is, and nothing else in it changed. With `--replace`, every one spliced in before is taken out first, with anything changed in it by hand |
+
+The user chose four things (2026-10-17): about 2,000 places in all, about 9 a county (the
+sparsest of three densities put to them, against some 6,000 for what Google Maps names at the
+closest zoom and some 30,000 for a medieval kingdom of this size); a kingdom's share by what its
+country can feed (`SUPPORTS`, the weights the question gave); villages showing from 100 miles and
+hamlets from 50; and a lane to every village, but in the Swamp a channel, and no road to a
+hamlet. They also chose to keep the villages off the streams of another branch, so the streams of
+the drainage count here as water but none is drawn. The rest is mine. What `v1_villages.py`
+does:
+
+- **Shares the places out.** 2,000, by each kingdom's area times its weight (Deciduous Forest 1,
+  Grassland 0.5, Temperate Mountains 0.35, Evergreen Rainforest 0.3, Swamp and Tropical
+  Rainforest 0.25, Volcanic 0.2, Tundra 0.08, Desert 0.06), then split into villages and hamlets
+  by how people settle each (`VILLAGE_SHARE`: 65% villages in the Grassland, 60% in the Desert's
+  oases, 50% in the Deciduous Forest, 40% in the Swamp and the Tropical Rainforest, 35% in the
+  Volcanic Mountains, 30% in the Temperate Mountains and Rainforest, 20% in the Tundra).
+- **Scores every pixel of land** as a site for a village and for a hamlet, the product of: its
+  water, the best of a river or a lake the map draws (1.6 and 1.3, falling away over 1.2 and 1
+  km), a brook of `DrainageFlow.png` of 1 m³/s or more (0.75) and a rill of 0.2 or more (0.55),
+  or a well where there is none (`DRY`, next to nothing in the Desert); its height, full up to a
+  height and nothing from a higher one, by the kind of country (`HIGH`; a hamlet 300 m higher);
+  its slope; in the three mountain kingdoms how low it lies between the floor and the tops within
+  6 km; in the Swamp how far it stands above the ground within 3 km; the sea within a few km, for
+  fishing (`SEA_DRAW`, most in the Tundra); a road within a few km; a capital 12 km or so off, a
+  morning's walk to market; and an unevenness of the ground, 15% either way. The water, the bank
+  of a river or lake, the last 0.8 km of the coast and the capitals' dots are no site.
+- **Places them**, each kingdom's villages first and then its hamlets, a site the likelier the
+  higher its score to the power of `KEENNESS` (3 for a village, 1 for a hamlet), by a weighted
+  draw without replacement (Efraimidis and Spirakis), none nearer another than `APART`: 6 km
+  between villages and 6.5 to a capital, so that no two icons touch where they first show at
+  100 miles, and 3.5 km for a hamlet, 4.5 to a capital, for 50 miles. A quarter of the villages
+  stand within 1 km of a river or lake the map draws, where 7% of the land does.
+- **Puts a village within 1 km of a road on the road**, which then runs through it: 116.
+- **Digs the Swamp's channels.** A village in the Swamp's own country (the kingdom and
+  `TerrainMap.png` both 7) within 1 km of a river, a lake or the sea needs nothing (15). The rest
+  get a channel (26, 98 km): the cheapest way to a river, a lake, the sea's edge or a channel dug
+  before, along the lowest ground (its cost grows with the height), never across a road or a
+  capital's dot, and no longer than 15 km; one that would be gets a lane instead (none did).
+- **Lays the lanes.** Every other village gets a lane to the network as it then is: a road, a
+  lane laid before, a village already joined, or a capital's dot (741 lanes, 7,000 km). The ground
+  is the roads' own (`../duchy/r1_ground.py`, worked out again here from the source data, the
+  random unevenness of the going with its own seed), and a lane is found by `../duchy/roadnet.py`
+  in a window round the village, widened until no way out of it could be cheaper: so it climbs,
+  bridges and keeps off river banks as a road does, and a channel is crossed as a small river.
+  The villages nearest the roads go first, so that one further off joins what those laid. A
+  lane is smoothed as the roads were (`r5b_draw.py`: 3 px, less if that would leave the land or
+  cross a river once more or less), its end put on the road's or lane's own line, and its
+  bridges found where it lies on a river, 2 px on to each bank (34).
+
+Everything random is seeded, so run again it gives the same file. Changed by a little, though
+(a weight, a distance), most places stay where they were and some move, and every lane and
+channel is laid again. The figures above are those it printed.
+
+To place them again: `v1_villages.py`, `v2_shapes.py`, `m2_scene.gd ... villages` and then
+`v3_splice.py ... --replace`. Run in full, `m1_shapes.py` and `m2_scene.gd` give the very same
+village nodes as the splice: checked node for node on 2026-10-17 (2,807 nodes, names, positions,
+points and order alike). The scene's `Detail` node shows them by the zoom
+(`vcom/Scripts/WorldMap/MapDetail.gd`; `Docs/MAP.md` at the repository's top).
+
 ## Things to watch for
 
 - **`scene/m2_scene.gd` writes the game's scene afresh.** The scene is meant to be changed by
@@ -343,6 +421,9 @@ proposal has its own seed, so drawn again it comes out the same.
   `m2_scene.gd` puts a newly made scene over `vcom/Scenes/Map.tscn`, and everything changed in
   it by hand is lost. Give it another name to write to (`-- <shapes> res://Scenes/MapAgain.tscn`)
   to make one to look at.
+- **`villages/v3_splice.py --replace` takes out every village, hamlet, lane and channel** before
+  it splices them in again, so a village moved, renamed or given a market by hand is lost. Do
+  such things after the villages are placed for good, or carry them over.
 - **Two programs write into the repository themselves**: `water/w5_finish.py` and
   `water/w6_water_only.py`. Every other writes where it is told.
 - **`water/w0_grids.py` reads the kingdoms' first lines from a picture named `Kingdoms.png`**:
@@ -661,6 +742,7 @@ What a file is for (the files of `scene/` are listed after the rest):
 | `m1_shapes.py` | makes | The map as shapes: everything the pictures show, worked out of the source data as outlines and lines with points finer than a pixel, ready to be made into a Godot scene. |
 | `m2_scene.gd` | makes | Makes the map's scene, `vcom/Scenes/Map.tscn`, out of those shapes: areas as Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn. |
 | `geo.py` | leaned on | Shapes out of a map of numbers: the edges between unlike pixels as chains, the chains joined into lines, and the lines smoothed, given points where they bend and thinned where they run straight. |
+| `villageshapes.py` | leaned on | The villages and hamlets of `Villages.json` as shapes, for `m1_shapes.py` and `../villages/v2_shapes.py` alike: their places, and their lanes, bridges and channels given points where they bend. |
 | `m4_compare.py` | check | The scene as Godot draws it, set beside the picture it was made from, colour by colour. |
 | `m3_draw.gd` | look | Draws the scene in Godot: the whole map at the pictures' scale, close views, and how long it takes to load and to draw. |
 
@@ -674,3 +756,11 @@ What a file is for (the files of `scene/` are listed after the rest):
 | `markers.py` | leaned on | The proposals for marking a capital, in families across the three ranks, and the sheet that shows a mark with an icon. |
 | `parts.py` | leaned on | Buildings and other things to make settlements' icons of: houses, huts, towers, walls, churches, mills. |
 | `kit.py` | leaned on | Draws map icons in the manner of the MWM icons: black shapes with a white edge, or white shapes with a black outline. |
+
+### villages/
+
+| File | For | What it does |
+|---|---|---|
+| `v1_villages.py` | makes | Places the villages and hamlets, and lays the villages' lanes and the Swamp's channels: `../../SourceData/Villages.json`. Leans on `../duchy/roadnet.py`. |
+| `v2_shapes.py` | makes | The villages alone as shapes, for `../scene/m2_scene.gd` to make into nodes. |
+| `v3_splice.py` | makes | Splices those nodes into the map's scene as it is. |

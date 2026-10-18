@@ -12,14 +12,20 @@ extends SceneTree
 ##   godot --headless --path . --script <this file> -- <shapes .json> [res://Scenes/Map.tscn]
 ##
 ## It writes the whole scene afresh: anything changed in it by hand since is lost.
+##
+## Given "villages" after the scene to write, it makes only the villages and hamlets, the lanes
+## and the bridges on them and the channels, from shapes that hold nothing else
+## (../villages/v2_shapes.py), each under the group it belongs in: a scene of those alone, to be
+## spliced into the scene as it is (../villages/v3_splice.py), where nothing else is touched.
 
 ## Godot units to a pixel of the pictures.
 const UNITS := 3.35
 ## A settlement's icon, by the rank of what it is the capital of: a kingdom's and a duchy's is a
-## city, a county's a town. Each scene is a Destination, as Village.tscn and Hamlet.tscn are,
-## the two lesser kinds of settlement, which the source data has none of.
+## city, a county's a town; and the two lesser kinds, villages and hamlets, the capitals of
+## nothing. Each scene is a Destination.
 const ICON_SCENE := {
 	"kingdom": "res://Scenes/City.tscn", "duchy": "res://Scenes/City.tscn", "county": "res://Scenes/Town.tscn",
+	"village": "res://Scenes/Village.tscn", "hamlet": "res://Scenes/Hamlet.tscn",
 }
 ## How far the sea reaches beyond the sheet, in units.
 const SEA_BEYOND := 30000.0
@@ -38,6 +44,10 @@ const BORDER_WIDTH := {"kingdom": 17.0, "duchy": 10.0, "county": 7.0}      # 5, 
 const ROAD_WIDTH := 7.0          # 2 px
 const HIGHWAY_WIDTH := 10.0      # 3 px
 const BRIDGE_WIDER := 7.0        # a bridge is 2 px wider than its road
+const LANE_WIDTH := 4.0          # 1.2 px: a village's lane, narrower than any road
+const LANE_BRIDGE_WIDER := 5.0   # a lane's bridge is 1.5 px wider than the lane
+const CHANNEL_WIDTH := 4.0       # 1.2 px: a swamp village's channel, narrower than any river
+const SETTLEMENTS_ABOUT := "The settlements, an icon each, drawn at one size on the screen whatever the zoom, its middle at the node's position. The 220 capitals, one a county, are cities and towns; the villages and hamlets, about 2,000, are drawn under them."
 ## The ranks of border, the least first: the order they are drawn in.
 const RANKS := ["county", "duchy", "kingdom"]
 const RANK_PLURAL := {"county": "Counties", "duchy": "Duchies", "kingdom": "Kingdoms"}
@@ -64,6 +74,9 @@ func _initialize() -> void:
 	var args := OS.get_cmdline_user_args()
 	var shapes: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(args[0]))
 	var write_to: String = args[1] if args.size() > 1 else "res://Scenes/Map.tscn"
+	if args.size() > 2 and args[2] == "villages":
+		_write_villages_alone(shapes, write_to)
+		return
 	var size: Array = shapes["size"]
 
 	_root = Node2D.new()
@@ -78,16 +91,18 @@ func _initialize() -> void:
 	_add_borders(shapes["borders"], shapes["banks"])
 	_add_lakes(shapes["lakes"])
 	_add_rivers(shapes["rivers"])
+	_add_channels(_root, shapes.get("channels", []))
 	_add_borders_over_lakes(shapes["across_lakes"])
-	_add_roads(shapes["roads"])
-	_add_bridges(shapes["bridges"])
-	_add_settlements(shapes["settlements"])
+	_add_roads(shapes["roads"], shapes.get("lanes", []))
+	_add_bridges(shapes["bridges"], shapes.get("lane_bridges", []))
+	_add_settlements(shapes["settlements"], shapes.get("villages", []))
 	_add_party()
 	_add_camera(size)
 	_add_reticle()
 	_add_village_menu()
 	_add_squad_menu()
 	_add_game_over()
+	_add_border_switch()
 	_add_detail()
 
 	_own(_root)
@@ -229,8 +244,10 @@ func _add_rivers(rivers: Array) -> void:
 		_narrow(line, river["widths"], river["widest"], river["px"])
 
 
-func _add_roads(roads: Array) -> void:
+func _add_roads(roads: Array, lanes: Array) -> void:
 	var group := _group(_root, "Roads", "Roads, a line for each stretch from one settlement or fork to the next. Settlements go by their county's number.")
+	# The lanes first, so that the roads are drawn over where they join them.
+	_add_lanes(group, lanes)
 	var plain := _group(group, "Roads", "")
 	var great := _group(group, "Highways", "Roads on the way between the capitals of two kingdoms that share a border.")
 	var names := {}
@@ -241,21 +258,56 @@ func _add_roads(roads: Array) -> void:
 		line.end_cap_mode = Line2D.LINE_CAP_ROUND
 
 
-func _add_bridges(bridges: Array) -> void:
+func _add_bridges(bridges: Array, lane_bridges: Array) -> void:
 	var group := _group(_root, "Bridges", "Bridges: where a road crosses a river, and the one that joins the island town to the mainland. Each lies along its road, a little wider, from bank to bank.")
 	for bridge: Dictionary in bridges:
 		var line := _line(group, "Bridge%03d" % int(bridge["id"]), bridge["points"], (HIGHWAY_WIDTH if bridge["highway"] else ROAD_WIDTH) + BRIDGE_WIDER, _bridge)
 		# Square ends, half the bridge's width past each bank.
 		line.begin_cap_mode = Line2D.LINE_CAP_BOX
 		line.end_cap_mode = Line2D.LINE_CAP_BOX
+	_add_lane_bridges(group, lane_bridges)
 
 
-func _add_settlements(settlements: Array) -> void:
-	var group := _group(_root, "Settlements", "The settlements, an icon each, drawn at one size on the screen whatever the zoom, its middle at the node's position. The 220 capitals, one a county, are cities and towns; villages and hamlets, drawn under them, have groups here and none in them yet.")
-	# Hamlets and villages first, so that towns and cities are drawn over them. The source data
-	# has neither: the two groups are where instances of Hamlet.tscn and Village.tscn go.
-	_group(group, "Hamlets", "Instances of Scenes/Hamlet.tscn go here. None yet.")
-	_group(group, "Villages", "Instances of Scenes/Village.tscn go here. None yet.")
+## The villages' lanes (see MapCreation/Scripts/villages/v1_villages.py), each named for its village.
+func _add_lanes(roads: Node, lanes: Array) -> void:
+	if lanes.is_empty():
+		return
+	var group := _group(roads, "Lanes", "The villages' lanes: a line from each village not on a road to the nearest road, lane, joined village or capital, laid by the roads' own rules, and named for its village. Narrower than any road, and drawn under them. They show with the villages, from the County tier in (see the Detail node).")
+	for lane: Dictionary in lanes:
+		var line := _line(group, lane["name"], lane["points"], LANE_WIDTH, _road)
+		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+		line.end_cap_mode = Line2D.LINE_CAP_ROUND
+
+
+## The bridges where a lane crosses a river or a channel, under the bridges' group, so that they
+## are drawn over the rivers and the lanes; their own group shows with the lanes.
+func _add_lane_bridges(bridges: Node, lane_bridges: Array) -> void:
+	if lane_bridges.is_empty():
+		return
+	var group := _group(bridges, "Lanes", "Bridges where a village's lane crosses a river or a channel, named for the village, as a road's are drawn but narrower. They show with the lanes, from the County tier in (see the Detail node).")
+	for bridge: Dictionary in lane_bridges:
+		var line := _line(group, bridge["name"], bridge["points"], LANE_WIDTH + LANE_BRIDGE_WIDER, _bridge)
+		line.begin_cap_mode = Line2D.LINE_CAP_BOX
+		line.end_cap_mode = Line2D.LINE_CAP_BOX
+
+
+## The channels dug from the swamp's villages to its rivers, lakes and the sea, after the rivers so
+## that one ends unseen in the water it reaches.
+func _add_channels(parent: Node, channels: Array) -> void:
+	if channels.is_empty():
+		return
+	var group := _group(parent, "Channels", "Channels dug from the Swamp's villages that stand away from the water to the nearest river, lake or the sea, named for the village: their way to the rest of the map, in place of a lane. Narrower than any river. They show with the villages, from the County tier in (see the Detail node).")
+	for channel: Dictionary in channels:
+		var line := _line(group, channel["name"], channel["points"], CHANNEL_WIDTH, _water)
+		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
+		# One that reaches the sea stops at the land's edge.
+		line.end_cap_mode = Line2D.LINE_CAP_NONE if channel["ends_in"] == "sea" else Line2D.LINE_CAP_ROUND
+
+
+func _add_settlements(settlements: Array, villages: Array) -> void:
+	var group := _group(_root, "Settlements", SETTLEMENTS_ABOUT)
+	# Hamlets and villages first, so that towns and cities are drawn over them.
+	_add_villages(group, villages)
 	var of_rank := {
 		"county": _group(group, "CountyCapitals", "Towns."),
 		"duchy": _group(group, "DuchyCapitals", "Cities. A duchy's capital is the capital of one of its counties too."),
@@ -289,6 +341,49 @@ func _add_settlements(settlements: Array) -> void:
 		icon.set_meta(&"kingdom", int(settlement["kingdom"]))
 		of_rank[rank].add_child(icon)
 		_nodes += 1
+
+
+## The hamlets' and the villages' groups, hamlets first so that villages are drawn over them, with
+## an instance of Hamlet.tscn or Village.tscn for each (MapCreation/Scripts/villages/v1_villages.py),
+## numbered in its county, the nearest its capital first.
+func _add_villages(settlements: Node, villages: Array) -> void:
+	var of_kind := {
+		"hamlet": _group(settlements, "Hamlets", "Hamlets, instances of Scenes/Hamlet.tscn: a few farms or herders' steadings, named for their county and numbered in it, the nearest its capital first. No lane leads to them. They show from the County tier's second step in, under 50 miles (see the Detail node)."),
+		"village": _group(settlements, "Villages", "Villages, instances of Scenes/Village.tscn, named for their county and numbered in it, the nearest its capital first. Each is on a road, or has a lane to the network (Roads/Lanes), or in the Swamp stands by the water or has a channel to it (Channels). They show from the County tier in (see the Detail node)."),
+	}
+	for village: Dictionary in villages:
+		var kind: String = village["kind"]
+		var icon: Node2D = (load(ICON_SCENE[kind]) as PackedScene).instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE)
+		icon.name = village["name"]
+		icon.position = _to_point(village["at"][0], village["at"][1])
+		# Nothing is named yet, so the tooltip says what it is and where.
+		icon.set(&"display_name", "%s in County %d" % [kind.capitalize(), int(village["county"])])
+		icon.set_meta(&"county", int(village["county"]))
+		icon.set_meta(&"duchy", int(village["duchy"]))
+		icon.set_meta(&"kingdom", int(village["kingdom"]))
+		of_kind[kind].add_child(icon)
+		_nodes += 1
+
+
+## The villages and hamlets, their lanes, the bridges on those and the swamp's channels alone, each
+## under the group it belongs in (Settlements/Villages, Roads/Lanes, Bridges/Lanes, Channels), and
+## nothing else: for ../villages/v3_splice.py to splice into the scene as it is.
+func _write_villages_alone(shapes: Dictionary, write_to: String) -> void:
+	_root = Node2D.new()
+	_root.name = "Map"
+	_add_channels(_root, shapes["channels"])
+	_add_lanes(_group(_root, "Roads", ""), shapes["lanes"])
+	_add_lane_bridges(_group(_root, "Bridges", ""), shapes["lane_bridges"])
+	_add_villages(_group(_root, "Settlements", SETTLEMENTS_ABOUT), shapes["villages"])
+	_own(_root)
+	var packed := PackedScene.new()
+	var error := packed.pack(_root)
+	if error == OK:
+		error = ResourceSaver.save(packed, write_to)
+	print("nodes ", _nodes, "; points ", _points)
+	print("saved ", write_to, ": ", "ok" if error == OK else "FAILED %d" % error, ", ", FileAccess.get_file_as_bytes(write_to).size(), " bytes")
+	_root.free()
+	quit(0 if error == OK else 1)
 
 
 ## The player's party (Scripts/WorldMap/Party.gd), as on the old world map, drawn over the
@@ -384,6 +479,17 @@ func _add_game_over() -> void:
 	_nodes += 1
 
 
+## The borders' switch (Scripts/WorldMap/BorderSwitch.gd): B, or the gamepad's R3, hides every border
+## and shows it again. It finds the Borders and BordersOverLakes groups by those names.
+func _add_border_switch() -> void:
+	var border_switch := Node.new()
+	border_switch.name = "BorderSwitch"
+	border_switch.set_script(load("res://Scripts/WorldMap/BorderSwitch.gd"))
+	border_switch.editor_description = "Hides every border, the kingdoms', the duchies' and the counties', and shows them again: B, or the gamepad's R3, while the game runs. They start shown. It fades the Borders and BordersOverLakes groups as a whole; the Detail node still fades their ranks by the zoom under that."
+	_root.add_child(border_switch)
+	_nodes += 1
+
+
 ## The map's level of detail (Scripts/WorldMap/MapDetail.gd): while the game runs it shows and hides
 ## the layers by how far the view is zoomed, and sets the lines' widths. It reads the layers by the
 ## names they are given above, and changes nothing in the scene as it is saved.
@@ -391,7 +497,7 @@ func _add_detail() -> void:
 	var detail := Node.new()
 	detail.name = "Detail"
 	detail.set_script(load("res://Scripts/WorldMap/MapDetail.gd"))
-	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages and hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
+	detail.editor_description = "Level of detail by the zoom, while the game runs: what shows and how wide the lines are follow how tall the view is in miles. Realm (the whole island): the coast, the kingdoms' borders and capitals, the greatest rivers and lakes. Kingdom (under 480 miles): the duchies' borders and capitals, the highways, more rivers and lakes. Duchy (under 240): the counties' borders and capitals, the other roads, the bridges, every river and lake. County (under 100): the villages, their lanes and the Swamp's channels; and in a second step, under 50, the hamlets. A line is as wide as its node says when the view is 220 miles tall, and grows only a little with the zoom from there. The editor shows everything, at the widths given."
 	_root.add_child(detail)
 	_nodes += 1
 

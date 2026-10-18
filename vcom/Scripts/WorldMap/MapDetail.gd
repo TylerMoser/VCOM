@@ -10,7 +10,9 @@
 ##             capitals, the highways, more rivers and lakes.
 ##   Duchy   - under [member duchy_view_miles]: the counties' borders and
 ##             capitals, the other roads, the bridges, every river and lake.
-##   County  - under [member county_view_miles]: the villages and hamlets.
+##   County  - under [member county_view_miles]: the villages, their lanes
+##             and the Swamp's channels; and in a second step, under
+##             [member hamlet_view_miles], the hamlets.
 ##
 ## What a tier brings fades in over [member fade_time] as the view crosses
 ## into it, and out as it leaves. Lines and lakes are only ever faded, by
@@ -18,7 +20,8 @@
 ## showing a hidden Line2D builds it again (0.07 ms a line, 70 ms for a tier's
 ## worth). Whatever holds no lines, the settlements, is hidden outright once
 ## faded out, so that a [Destination] out of sight is not pointed at and stops
-## its own work.
+## its own work. So does one far from the view ([member Destination.in_view]):
+## of some 2,200, only those in and round the view do any work a frame.
 ##
 ## A Line2D's width is in the map's units, so left alone it is thin and faint
 ## far out and thick close in. Here every line is as wide as its node says at
@@ -45,7 +48,9 @@
 class_name MapDetail
 extends Node
 
-enum Tier { REALM, KINGDOM, DUCHY, COUNTY }
+## HAMLETS is the County tier's second step rather than a tier of its own,
+## kept as one here since it comes and goes as a tier does.
+enum Tier { REALM, KINGDOM, DUCHY, COUNTY, HAMLETS }
 
 ## What comes into view with each tier, by its place under the map. Whatever
 ## is not named here, nor sorted by its own size (the rivers and lakes), shows
@@ -58,8 +63,15 @@ const SHOWN_FROM := {
 		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Roads/Roads", ^"Bridges",
 		^"Settlements/CountyCapitals",
 	],
-	Tier.COUNTY: [^"Settlements/Villages", ^"Settlements/Hamlets"],
+	Tier.COUNTY: [^"Settlements/Villages", ^"Roads/Lanes", ^"Bridges/Lanes", ^"Channels"],
+	Tier.HAMLETS: [^"Settlements/Hamlets"],
 }
+## The settlements, by their place under the map: the [Destination]s kept
+## from working while far from the view.
+const SETTLEMENTS := ^"Settlements"
+## The side of the squares the settlements are sorted into to be found
+## quickly, in the map's units.
+const PLACE_SQUARE := 512.0
 const RIVERS := ^"Rivers"
 const LAKES := ^"Lakes"
 const ROADS := ^"Roads"
@@ -103,6 +115,9 @@ const MOST_WAIT := 0.5
 @export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var kingdom_view_miles := 480.0
 @export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var duchy_view_miles := 240.0
 @export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var county_view_miles := 100.0
+## The view's height in miles under which the hamlets come in: the County
+## tier's second step.
+@export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var hamlet_view_miles := 50.0
 ## How far past a tier's height the view must go before the tier changes, as
 ## a share of that height, so that a view resting on one does not flicker.
 @export_range(0.0, 0.2, 0.01) var boundary_slack := 0.05
@@ -142,9 +157,9 @@ var _started := false
 
 # Fading. For each tier: how far in what it brings is (0 to 1), those things,
 # and how long it has waited on its lines before fading in (under 0: it is not waiting).
-var _shown: Array[float] = [1.0, 0.0, 0.0, 0.0]
-var _brings: Array[Array] = [[], [], [], []]
-var _waits: Array[float] = [-1.0, -1.0, -1.0, -1.0]
+var _shown: Array[float] = [1.0, 0.0, 0.0, 0.0, 0.0]
+var _brings: Array[Array] = [[], [], [], [], []]
+var _waits: Array[float] = [-1.0, -1.0, -1.0, -1.0, -1.0]
 # The tier each of those things comes with, their alpha as the scene has it,
 # and which of them are hidden outright once faded out.
 var _tier_of := {}
@@ -160,7 +175,7 @@ var _line_tier := PackedInt32Array()
 var _boxes: Array[Rect2] = []
 var _sizes := PackedInt32Array()
 # Which lines each tier brings, as places in the lists above.
-var _tier_lines: Array[Array] = [[], [], [], []]
+var _tier_lines: Array[Array] = [[], [], [], [], []]
 # For a border's line along a river, a lake or a road: the tier that one shows
 # from, and the plain border's width, which is all it is until then.
 var _wide_from := PackedInt32Array()
@@ -174,6 +189,15 @@ var _set_wide := PackedByteArray()
 # land's edge, where the scene has the point], the last two in the line's own
 # space. See _gather_sea_ends() for why they are moved.
 var _sea_ends := {}
+
+# The settlements, by the group they are in: for each, all of them and those
+# in each square of PLACE_SQUARE, each as [Destination, where it is in the
+# map's space]. Those now in view, as keys; and whether a group has come or
+# gone since that was worked out.
+var _places := {}
+var _squares := {}
+var _awake := {}
+var _places_stale := false
 
 ## The widths' factor is [member width_step] to this power.
 var _step := 0
@@ -194,6 +218,7 @@ func _ready() -> void:
 	_gather_water()
 	_gather_lines()
 	_gather_sea_ends()
+	_gather_places()
 
 
 func _process(delta: float) -> void:
@@ -215,6 +240,7 @@ func _process(delta: float) -> void:
 		for i in _lines.size():
 			_set_width(i, _wide_from[i] <= _tier)
 		_last_view = view
+		_wake_places(_seen_from(view, viewport))
 		return
 
 	var tier := _tier_at(miles, boundary_slack)
@@ -232,24 +258,68 @@ func _process(delta: float) -> void:
 	if step != _step:
 		_set_step_to(step)
 		_stale = true
+	var seen := _seen_from(view, viewport)
 	if view != _last_view:
 		_last_view = view
 		_stale = true
+		_wake_places(seen)
 
-	# What is on screen in the map's own space, and a little round it.
-	var seen := view.affine_inverse() * viewport.get_visible_rect()
-	seen = seen.grow(seen.size.y * VIEW_MARGIN)
 	if _stale:
 		_refresh_widths(seen)
 	_fade(delta, seen)
+	if _places_stale:
+		_wake_places(seen)
+
+
+## What is on screen in the map's own space, and a little round it.
+func _seen_from(view: Transform2D, viewport: Viewport) -> Rect2:
+	var seen := view.affine_inverse() * viewport.get_visible_rect()
+	return seen.grow(seen.size.y * VIEW_MARGIN)
+
+
+## Lets the settlements in [param seen] work and stops the rest, which are too
+## far off to be pointed at or to need drawing again. Only the groups showing
+## are looked through: far out, where the view holds the whole island, the
+## villages and hamlets are hidden, and looking through them every frame the
+## view moved took 1.8 ms.
+func _wake_places(seen: Rect2) -> void:
+	_places_stale = false
+	var now := {}
+	var low := Vector2i((seen.position / PLACE_SQUARE).floor())
+	var high := Vector2i((seen.end / PLACE_SQUARE).floor())
+	var squares_seen := (high.x - low.x + 1) * (high.y - low.y + 1)
+	for group: CanvasItem in _places:
+		if not group.is_visible_in_tree():
+			continue
+		# A few places are quicker looked at one by one than square by square.
+		if _places[group].size() <= squares_seen:
+			for entry: Array in _places[group]:
+				if seen.has_point(entry[1]):
+					now[entry[0]] = true
+			continue
+		var squares: Dictionary = _squares[group]
+		for x in range(low.x, high.x + 1):
+			for y in range(low.y, high.y + 1):
+				var square := Vector2i(x, y)
+				if not squares.has(square):
+					continue
+				for entry: Array in squares[square]:
+					if seen.has_point(entry[1]):
+						now[entry[0]] = true
+	for place: Destination in _awake:
+		if not now.has(place):
+			place.in_view = false
+	for place: Destination in now:
+		place.in_view = true
+	_awake = now
 
 
 ## The tier a view [param miles] tall is in. With [param slack], the tier it
 ## is in already holds until the view is that share past its boundary.
 func _tier_at(miles: float, slack: float) -> int:
-	var under: Array[float] = [kingdom_view_miles, duchy_view_miles, county_view_miles]
+	var under: Array[float] = [kingdom_view_miles, duchy_view_miles, county_view_miles, hamlet_view_miles]
 	var tier := _tier if slack > 0.0 else int(Tier.REALM)
-	while tier < Tier.COUNTY and miles < under[tier] * (1.0 - slack):
+	while tier < Tier.HAMLETS and miles < under[tier] * (1.0 - slack):
 		tier += 1
 	while tier > Tier.REALM and miles > under[tier - 1] * (1.0 + slack):
 		tier -= 1
@@ -274,8 +344,10 @@ func _fade(delta: float, seen: Rect2) -> void:
 
 
 func _show(item: CanvasItem, amount: float) -> void:
-	if _outright.has(item):
+	if _outright.has(item) and item.visible != (amount > 0.0):
 		item.visible = amount > 0.0
+		# A rank of settlements come or gone: which of them work follows.
+		_places_stale = true
 	item.modulate.a = _alpha[item] * amount
 
 
@@ -362,6 +434,31 @@ func _gather_groups() -> void:
 				push_error("MapDetail: nothing at '%s' under the map; it is left as it is." % path)
 				continue
 			_bring(group, tier, group.find_children("*", "Line2D", true, false).is_empty())
+
+
+## The settlements, by the group they are in and the square they are in, every
+## one out of view until the first frame says which are in it.
+func _gather_places() -> void:
+	var settlements := _map.get_node_or_null(SETTLEMENTS)
+	if settlements == null:
+		push_error("MapDetail: no '%s' under the map; every settlement works whether in view or not." % SETTLEMENTS)
+		return
+	var to_map := _map.get_global_transform().affine_inverse()
+	for node in settlements.find_children("*", "Node2D", true, false):
+		var place := node as Destination
+		if place == null:
+			continue
+		var group := place.get_parent() as CanvasItem
+		var at := to_map * place.global_position
+		var square := Vector2i((at / PLACE_SQUARE).floor())
+		if not _places.has(group):
+			_places[group] = []
+			_squares[group] = {}
+		_places[group].append([place, at])
+		if not _squares[group].has(square):
+			_squares[group][square] = []
+		_squares[group][square].append([place, at])
+		place.in_view = false
 
 
 ## The rivers and lakes, each brought by the tier its size earns it. An island

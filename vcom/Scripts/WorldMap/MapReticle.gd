@@ -28,9 +28,12 @@ const HINTS_MARGIN := 16.0
 @export var party_path: NodePath = ^"../Party"
 ## Which village A enters. Optional.
 @export var village_menu_path: NodePath = ^"../VillageMenu"
+## The borders' switch, which R3 works. Optional: the old map has none.
+@export var border_switch_path: NodePath = ^"../BorderSwitch"
 
 var _party: Party
 var _village_menu: VillageMenu
+var _border_switch: BorderSwitch
 var _cross: Control
 var _hints: ControlHints
 
@@ -62,6 +65,7 @@ func _ready() -> void:
 	if _party == null:
 		push_error("MapReticle: no Party at '%s'; A sends nobody." % party_path)
 	_village_menu = get_node_or_null(village_menu_path) as VillageMenu
+	_border_switch = get_node_or_null(border_switch_path) as BorderSwitch
 
 
 func _process(_delta: float) -> void:
@@ -81,6 +85,8 @@ func _rows() -> Array:
 	rows.append([[&"LS"], "Move map"])
 	rows.append([[&"RS"], "Zoom"])
 	rows.append([[&"L3"], "Find the party"])
+	if _border_switch != null:
+		rows.append([[&"R3"], "Hide borders" if _border_switch.shown else "Show borders"])
 	rows.append([[&"Menu"], "Menu"])
 	return rows
 
