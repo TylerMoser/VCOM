@@ -17,7 +17,11 @@ Three things are put right on the way, where the pictures' pixels hid them:
 - a few pixels of the counties' map, left crooked where the coast was mended, are straightened (MENDS).
 
 Everything is written in the picture's own measure (pixels from its top left corner, so the middle
-of pixel (x, y) is (x + 0.5, y + 0.5)); m2_scene.gd turns that into the scene's.
+of pixel (x, y) is (x + 0.5, y + 0.5)); m2_scene.gd turned that into the scene's. It made the whole
+scene from these once; that part of it was taken out on 2026-10-18, the scene being changed by hand
+and given a look of its own since (git keeps it, at commit d8b5ec7). The villages and the forests
+are still made into the scene from shapes worked out by the same code (villageshapes.py,
+forestshapes.py), through ../villages/v2_shapes.py and ../forests/f2_shapes.py.
 
 Usage: m1_shapes.py <MapCreation dir> <shapes .json to write>
 """

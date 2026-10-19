@@ -4,12 +4,29 @@ side by side; under about 10 two thin lines are easily mistaken for each other a
 
 The simulation is Machado, Oliveira and Fernandes (2009) at full strength, as cvd_filter.gdshader.
 
-usage: py -3.14 colour_check.py [current|recommended]
+usage: py -3.14 colour_check.py [applied|original|recommended]
 """
 import math
 import sys
 
-CURRENT = {
+## The look applied on 2026-10-18 (02, 04, 05 and 10; Docs/MAP.md, "Its look"), each line as it shows
+## over the land: the borders' ink blended over the white land by its rank's alpha.
+APPLIED = {
+    "kingdom border": (0.25 * 0.85 + 0.15, 0.2 * 0.85 + 0.15, 0.31 * 0.85 + 0.15),
+    "duchy border": (0.25 * 0.7 + 0.3, 0.2 * 0.7 + 0.3, 0.31 * 0.7 + 0.3),
+    "county border": (0.25 * 0.5 + 0.5, 0.2 * 0.5 + 0.5, 0.31 * 0.5 + 0.5),
+    "river": (0x6d / 255, 0xc2 / 255, 0xf3 / 255),
+    "sea and lakes": (0xa4 / 255, 0xdd / 255, 0xfd / 255),
+    "shoreline": (0x68 / 255, 0xaa / 255, 0xd7 / 255),
+    "highway": (0xff / 255, 0xc4 / 255, 0x51 / 255),
+    "highway edge": (0xb5 / 255, 0x76 / 255, 0x1a / 255),
+    "road edge": (0x9c / 255, 0x8f / 255, 0x7d / 255),
+    "lane edge": (0xb5 / 255, 0xaa / 255, 0x9a / 255),
+    "parapet": (0x4b / 255, 0x40 / 255, 0x38 / 255),
+    "party": (0.85, 0.1, 0.1),
+}
+## The map as it was before that, and as every proposal's picture was taken.
+ORIGINAL = {
     "kingdom border": (0.9137255, 0.0, 1.0),
     "duchy border": (0.43137255, 0.11764706, 0.7058824),
     "county border": (0.5019608, 0.5019608, 0.5019608),
@@ -97,7 +114,8 @@ def ciede2000(lab1, lab2):
 
 
 def main():
-    colours = RECOMMENDED if len(sys.argv) > 1 and sys.argv[1] == "recommended" else CURRENT
+    which = sys.argv[1] if len(sys.argv) > 1 else "applied"
+    colours = {"applied": APPLIED, "original": ORIGINAL, "recommended": RECOMMENDED}[which]
     names = list(colours)
     print("| Colour | L* | L* with deuteranopia |")
     print("|---|---:|---:|")

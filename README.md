@@ -694,14 +694,14 @@ work on all of them. The scene's tree is the order they are drawn in:
 | Node | Holds |
 |---|---|
 | `Sea` | One polygon: the sheet, and 3,000 km more on every side, so that the view never runs off it |
-| `Coast` | The coast's black line, in 84 stretches, each along one county's shore and named for it (`CoastOfCounty163`) |
+| `Coast` | The coast's line, a thin shoreline of the water's darker blue, in 84 stretches, each along one county's shore and named for it (`CoastOfCounty163`) |
 | `Land` | The land, a polygon for each of the 220 counties and for each island off a county's shore, grouped by kingdom and duchy (`Land/Kingdom7/Duchy33/County163`). A kingdom is also a biome, named in its node's description and metadata |
 | `Forests` | The forests, drawn over the land and under everything else: 2,459 pieces, each a `Forest` of its kind (below), cut along the counties' borders and the coast and named for its county (`County125Forest3`), grouped by the size of the whole forest they are part of and by kingdom (`Forests/Great/Kingdom8`) |
 | `Borders` | Borders as lines, the counties' first and the kingdoms' last, so that a greater is drawn over a lesser: 299, 54 and 15 of them, named for what they part (`Kingdoms3And6`) |
 | `Lakes` | The 700 lakes, numbered by size |
 | `Rivers` | The 291 rivers, numbered by the water they carry |
 | `Channels` | 26 channels dug from the Swamp's villages to its rivers, lakes and the sea, each named for its village (`County149Village2Channel`) |
-| `BordersOverLakes` | The parts of borders that cross a broad lake, drawn again over the water |
+| `BordersOverLakes` | The parts of borders that cross a broad lake, drawn again over the water, and the borders along lakes' shores |
 | `Roads` | 549 stretches of road, from one settlement or fork to the next, the highways apart; and first, so drawn under them, `Lanes`: the villages' 741 lanes, each named for its village (`County176Village2Lane`) |
 | `Bridges` | 146 bridges, each along its road from bank to bank; and under `Lanes` the 34 on the villages' lanes |
 | `Settlements` | The settlements, an icon each: the 220 capitals, by rank nine kingdoms' and 35 duchies', which are cities, and 176 counties', which are towns; and ahead of them, so drawn under them, the 1,102 hamlets in `Hamlets` and the 898 villages in `Villages`, each named for its county and numbered in it (`County103Village2`) |
@@ -728,23 +728,45 @@ file is 13.5 MB.
 
 **Lines have a width in units, which is their width when the view is 220 miles tall.** Closer in
 or further out the `Detail` node scales them all, as given under "The map shows more the closer
-the view" below. The widths are the pictures', to the whole unit:
+the view" below. They were the pictures', to the whole unit, until the map's look was chosen on
+2026-10-18 (below):
 
-| | Width in units | In the pictures |
-|---|---|---|
-| Coast | 23, all of it outside the land | 7 px |
-| Kingdom, duchy and county borders | 17, 10 and 7 | 5, 3 and 2 px |
-| Rivers | 6.7 at the least to 24.8 at the mouth of the largest | 2 to 7.4 px, by the water they carry |
-| Highways and other roads | 10 and 7 | 3 and 2 px |
-| Bridges | 7 wider than their road | 2 px wider |
-| Villages' lanes, and the Swamp's channels | 4 | 1.2 px |
-| Bridges on the lanes | 9 | 2.7 px |
+| | Width in units | Before 2026-10-18 | In the pictures |
+|---|---|---|---|
+| Coast | 4 outside the land (a line of 8, half of it under the land) | 23 (a line of 46) | 7 px |
+| Kingdom, duchy and county borders | 12, 8 and 6 | 17, 10 and 7 | 5, 3 and 2 px |
+| Rivers | 6.7 at the least to 24.8 at the mouth of the largest | The same | 2 to 7.4 px, by the water they carry |
+| Highways and other roads | 20 and 14 | 10 and 7 | 3 and 2 px |
+| Bridges | Half as wide again as their road: 29 and 20.3 | 7 wider than their road | 2 px wider |
+| Villages' lanes; the Swamp's channels | 7; 4 | 4; 4 | 1.2 px |
+| Bridges on the lanes | 10.15 | 9 | 2.7 px |
 
 Left at those widths, with the whole island on a window 720 pixels high the thinnest lines would
 be under half a pixel wide and faint, and far in they would be thick, which is what the `Detail`
 node is for. Lines are still thin far out, so 2D anti-aliasing is on for the whole game (4x MSAA,
 `rendering/anti_aliasing/quality/msaa_2d` in `project.godot`): in Godot 4.7 nothing else smooths
 the edge of a line or a polygon, and without it a line near a pixel wide breaks into dashes.
+
+**Each kind of line looks like what it is.** Chosen by the user on 2026-10-18 from the proposals in
+[`MapStyles/`](MapStyles/README.md): 02's patterned borders, 04's cased roads, 05's one water in a
+brighter blue, and 10's paler forests. A line's look is a material of its kind in
+`vcom/Resources/MapLines/`, drawn by `Scripts/WorldMap/MapLine.gdshader`, so it is changed for every
+line of the kind in one place. Each line has its kind's material, `texture_mode` Tile (which gives
+the shader its place along and across the line) and its colour, and the editor shows it as the game
+does; a new line is best made by duplicating one of its kind. [`Docs/MAP.md`](Docs/MAP.md), "Its
+look", has the rest.
+
+| Kind | Drawn as | Colours |
+|---|---|---|
+| Kingdom, duchy and county borders | One ink, the rank told by its pattern: a long dash and a dot, rounded dashes, dots; each rank's groups see-through, at 0.85, 0.7 and 0.5 | Ink (0.25, 0.2, 0.31) |
+| A border along a river or a road | A band under it, wider than it by a border, the pattern along both banks | The border's |
+| A border along a lake's shore | The plain border over the shore, in `BordersOverLakes` | The border's |
+| Highways, roads and lanes | A light fill between two darker edges; solid in a darker tone where too narrow on the screen for that | Amber #ffc451 edged #b5761a; cream #fffaf0 edged #9c8f7d; white edged #b5aa9a |
+| Bridges | Their road's fill between dark parapets | Parapets #4b4038 |
+| Sea and lakes | One light blue | #a4ddfd |
+| Rivers and channels | A deeper blue | #6dc2f3 |
+| Coast | A thin shoreline, 4 units outside the land | #68aad7 |
+| Forests | Their kinds' greens, see-through at 0.38 (0.5 before) | As before |
 
 **A settlement is an icon of one size on the screen.** Each is an instance of `Scenes/City.tscn`
 (a kingdom's or a duchy's capital) or `Scenes/Town.tscn` (a county's), and both are what the old
@@ -793,7 +815,7 @@ with the user (2026-10-17):
   scatter them into hamlets.
 - **Villages show from 100 miles, hamlets from 50** (below).
 - **Every village is joined to the rest.** 116 stand on a road, which runs through them. 741
-  have a lane, a thin red line, to the nearest road, lane, joined village or capital, laid by the
+  have a lane, a narrow white road, to the nearest road, lane, joined village or capital, laid by the
   roads' own rules (slope, rivers, bridges): 7,000 km of them, 8 km at the median, crossing a
   river on 34 bridges. In the Swamp's own country a village joins by water instead: 15 stand at
   a river, a lake or the sea, and 26 have a channel, a thin blue line, dug to one (98 km).
@@ -866,7 +888,8 @@ stopping at a slope, so that the open land runs along the valleys and the forest
   whole forest, and under those by kingdom.
 - **Colours.** Each kind is a scene of its own, and every piece an instance of its kind's:
   `Scenes/ConiferForest.tscn` a cool blue-green, `BroadleafForest.tscn` a soft yellow-green,
-  `SwampForest.tscn` an olive green and `TropicalForest.tscn` a deep green. A colour changed on its
+  `SwampForest.tscn` an olive green and `TropicalForest.tscn` a deep green, each see-through at 0.38
+  alpha (0.5 until the look of 2026-10-18). A colour changed on its
   scene's root changes every piece of that kind. The four inherit `Scenes/Forest.tscn`, the old
   map's forest.
 - **Clearings.** A Polygon2D draws no holes, so a clearing in a piece is joined to the piece's
@@ -896,7 +919,7 @@ it. The old map keeps a party of its own.
   runs out. A step is still every 50 units, which is 5 km, each healing the roster as on the old
   map: about eight a day. The old map has no clock and keeps its own speed.
 - A step that ends in a forest may meet a battle there (below). The dot and the dashed line to
-  where it is going are close to the roads' red.
+  where it is going are red, which since 2026-10-18 nothing else on the map is.
 
 **One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
 the party starts, has what the old map's village has, and is used as that village is (see
@@ -978,10 +1001,10 @@ a frame: of the 2,220, only those in and round the view do.
 
 The node also holds the lines near a width on the screen. Each is as wide as its node says when
 the view is 220 miles tall, and from there follows only about a third of the zoom: a kingdom's
-border is 2 pixels wide all the way out and 7 all the way in, where it would be 1 and 30 left
-alone, and a lesser road 1.4 where it first shows and 3 all the way in, not 12. Every line is
-scaled alike, since some are sized to others. A border's line along a river, a lake or a road is
-drawn as a plain border while that river, lake or road is out of its tier.
+border is 1.6 pixels wide all the way out and 5 all the way in, where it would be 0.6 and 21 left
+alone, and a lesser road 2.8 where it first shows and 6 all the way in, not 25. Every line is
+scaled alike, since some are sized to others. A border's band along a river or a road is drawn as
+a plain border while that river or road is out of its tier.
 
 All of it is set on the `Detail` node: the four heights, the least width of a river and the
 least distance across a lake for the Realm and the Kingdom tiers, the fade's time, the height at
@@ -990,19 +1013,20 @@ game runs: in the editor every node shows, at the width it was given.
 [`Docs/MAP.md`](Docs/MAP.md) has how it works and what it costs.
 
 **The borders can be switched off.** `B` (`R3` on the gamepad) hides every border, the kingdoms',
-the duchies' and the counties', with the border's colour drawn along a river, a lake's shore or
-a road, and shows them again; they start shown, at the user's request. It is the `BorderSwitch`
+the duchies' and the counties', with their bands along rivers and roads and their lines along
+lakes' shores, and shows them again; they start shown, at the user's request. It is the `BorderSwitch`
 node (`Scripts/WorldMap/BorderSwitch.gd`), which fades the `Borders` and `BordersOverLakes`
 groups as a whole, so the tiers above go on underneath it: shown again at any zoom, the borders
 are those of the tier the view is in, at its width. Nothing else on the map takes `B`, and it
 does nothing while a menu is up. The gamepad's prompts say "Hide borders" or "Show borders".
 
 **No line hides another.** Water and roads are drawn over the borders, so a border that crosses a
-river passes under it. Where a border runs *along* a river, a lake's shore or a road it would be
-lost, so a second line lies under that river, shore or road, wide enough for the border's colour
-to show on both sides: these are the lines named `...AlongRiver088`, `...AlongLake215` and
-`...AlongRoad093` beside the borders. And where a border crosses a lake broad enough to show on
-both sides of it, that part of the border is drawn again over the water, in `BordersOverLakes`.
+river passes under it. Where a border runs *along* a river or a road it would be lost, so a
+second line lies under that river or road, wider than it by a border, which shows the border's
+pattern along both banks: these are the lines named `...AlongRiver088` and `...AlongRoad093`
+beside the borders. A border along a lake's shore is drawn over the water instead, as
+`...AlongLake215` in `BordersOverLakes`, and so is the part of a border that crosses a lake broad
+enough to show on both sides of it.
 
 **Things that share an edge have the same points for it, each its own copy.** Two counties that
 touch have the very same points along their border, and so has the border's line. Godot has no
@@ -1038,12 +1062,13 @@ Godot at the pictures' own scale and set beside `MapCreation/AllSimple.png` pixe
 scene has the same colour at the same pixel over 98.5% of the sheet, and for every colour at least
 99.2% of the picture's pixels have that colour within a pixel of them in the scene. What differs
 beyond that is the border colour beside rivers, which the scene puts along both banks evenly.
-(Measured while the settlements were still the pictures' dots: the icons that replaced them are
-not in the pictures.)
+(Measured while the settlements were still the pictures' dots, the icons that replaced them not
+being in the pictures, and before the look of 2026-10-18 changed the lines' colours and widths.)
 
-**The scene is the map now.** It was written once by program and is meant to be changed by hand
-from here on. Run again, `MapCreation/Scripts/scene/m2_scene.gd` writes it afresh, and anything
-changed in it since is lost. The villages and hamlets came later and were spliced into it as it
+**The scene is the map now.** It was written once by program and is changed by hand from here on.
+The part of `MapCreation/Scripts/scene/m2_scene.gd` that wrote it was taken out on 2026-10-18, when the map was given its look: run again, it would have written the scene afresh in the old look, over every change made by hand (git keeps it,
+at commit d8b5ec7); what is left of it writes the villages and the forests alone, for their
+splices, in the map's look. The villages and hamlets came later and were spliced into it as it
 was, nothing else touched (`MapCreation/Scripts/villages/v3_splice.py`); placed again, they and
 their lanes and channels are taken out and put in afresh, and any change made to them by hand is
 lost, but nothing else. So were the forests, after them, and so it is with them
@@ -1101,8 +1126,8 @@ MagicaVoxel/              source .vox art
 Images/                   screenshots: the world map, the menus, and battles just begun and long fought,
                           clean and with blood
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
-MapStyles/                proposals for the new world map's look (none applied), their pictures, the
-                          harness that renders them, and how to apply one
+MapStyles/                proposals for the new world map's look (02, 04, 05 and 10's forests are
+                          applied), their pictures, the harness that renders them, and how to apply one
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

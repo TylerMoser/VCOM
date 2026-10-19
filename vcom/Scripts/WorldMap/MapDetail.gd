@@ -38,12 +38,12 @@
 ## comes in they are set first, and it fades in once they are near right.
 ##
 ## A border or a river that reaches the sea ends a little past the land's
-## edge, in the middle of the coast's black line as the scene has it. The
-## coast's line narrows with the rest as the view closes in, so an end left
-## where it is would come out of the far side of it and lie over the sea. Each
-## such end is therefore moved with its width: how far it goes past the land's
-## edge is scaled by the same factor, which keeps it as deep in the coast's
-## line at every zoom as it is in the scene.
+## edge, inside the coast's line as the scene has it. The coast's line narrows
+## with the rest as the view closes in, so an end left where it is would come
+## out of the far side of it and lie over the sea. Each such end is therefore
+## moved with its width: how far it goes past the land's edge is scaled by the
+## same factor, which keeps it as deep in the coast's line at every zoom as it
+## is in the scene.
 ##
 ## Nothing here changes the scene as it is edited: the editor shows every node
 ## at the width it was given.
@@ -574,12 +574,14 @@ func _gather_lines() -> void:
 ## Finds the lines that end past the land's edge, and which of their points
 ## are out there.
 ##
-## Why: the borders and rivers that reach the sea were drawn to end in the
-## middle of the coast's black line, some 10 units past the land's edge, the
-## coast's line being 23 wide outside the land. That holds only at the widths
-## the scene has. All the way in, every width is a quarter of the scene's, the
-## coast's line under 6 units outside the land, and the ends showed 4 units
-## (8 pixels) out over the sea; all the way out they stopped short inside it.
+## Why: the borders and rivers that reach the sea end inside the coast's line,
+## some 1.6 units past the land's edge (3.7 at the most), the coast's line
+## being 4 wide outside the land. That holds only at the widths the scene has.
+## All the way in, every width is a quarter of the scene's, the coast's line
+## 1 unit outside the land, and the ends would show out over the sea; all the
+## way out they would stop short in it. (They were drawn 10 units out, in the
+## middle of a black line 23 wide outside the land, until a thin shoreline took
+## its place on 2026-10-18 and the ends were moved in with it.)
 ## So [method _set_width] moves these points as it sets a width, scaling how
 ## far each is past the land's edge by the widths' factor. The scene is left
 ## as it is, and at the height the scene's widths are true the points are

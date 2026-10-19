@@ -3,28 +3,33 @@
 Proposals for the look of the new world map, `vcom/Scenes/Map.tscn`, to make it easier to read: to
 tell at a glance what each line is, and to let the eye settle on what matters to the player. Each
 proposal was applied to the real scene by a render harness and photographed in the game's own
-renderer on 2026-10-18. **None of them is applied to the game**: `Map.tscn` and every script in
-`vcom/` are exactly as they were.
+renderer on 2026-10-18, as the scene was then. **Four are now applied to the game**, at the user's
+choice: 02, 04, 05 (in a brighter blue) and 10 where it does not conflict with those, balanced as
+[Applied](#applied) says. The rest are not.
 
 There are 28 proposals. 01 to 21 each take on one part of the problem (the borders, the roads, the
 water, the forests, the ground, names, what is shown where, colour vision) and most of them combine
-freely; 22 to 27 are whole looks; 28 is the blend recommended here. `00` is the map as it is, for
+freely; 22 to 27 are whole looks; 28 is the blend recommended here. `00` is the map as it was, for
 comparison.
 
 ![Every proposal at the same view](contact-sheet.png)
 
-*Every proposal at the County tier, 80 miles tall (panel C of each picture). `contact-sheet.png`.*
+*Every proposal at the County tier, 80 miles tall (panel C of each picture). `contact-sheet.png`. 00,
+labelled "Current look" as the harness names style 0, is the map as it was before 02, 04, 05 and 10
+were applied; [Applied](#applied) shows it now.*
 
 | File | What it is |
 |---|---|
 | `NN-name.png` | One proposal: four views of the map side by side (below) |
-| `00-current-look.png` | The map as it is |
-| `90-current-look-colour-blind-check.png` | The map as it is, each view beside a simulation of deuteranopia, laid out as proposal 21 |
+| `00-current-look.png` | The map as it was before any proposal was applied |
+| `90-current-look-colour-blind-check.png` | The same, each view beside a simulation of deuteranopia, laid out as proposal 21 |
 | `contact-sheet.png` | Every proposal at the same view |
+| `applied-look.png`, `applied-close-ups.png` | The map as it is now, 02, 04, 05 and 10 applied: the four views, and six close in |
 | `harness/` | The render harness: a style script per proposal (the source of truth for every value), the shaders, the runtime nodes, the tools that made the pictures it reads |
 
 ## Contents
 
+- [Applied](#applied)
 - [How to read the pictures](#how-to-read-the-pictures)
 - [The problem, measured](#the-problem-measured)
 - [What a readable map does](#what-a-readable-map-does)
@@ -41,6 +46,70 @@ comparison.
 - [The harness](#the-harness)
 - [What it costs](#what-it-costs)
 - [Decided without asking, and open questions](#decided-without-asking-and-open-questions)
+
+## Applied
+
+On 2026-10-18 the user chose four of these for the game: "The patterned borders from image 02; the
+cased roads from image 04; the one water approach from image 05, but use a slightly more vibrant
+color, a bit closer to the current ocean color outside of the continent; the re-weighted lines from
+image 10, where it does not conflict with any of the other approaches", the four balanced where
+they conflict. They are in `Map.tscn` itself, route 2 [below](#two-routes), so the editor shows
+them too:
+
+![The applied look](applied-look.png)
+
+*The map as it is now, at the four views. `applied-look.png`.*
+
+![The applied look, close in](applied-close-ups.png)
+
+*Close in, where borders meet rivers, roads and the sea. `applied-close-ups.png`.*
+
+`Docs/MAP.md`, "Its look", describes the look as it now is: the shader
+(`vcom/Scripts/WorldMap/MapLine.gdshader`, `map_line.gdshader` cut down to what these four need,
+with `banks` added), the eleven materials in `vcom/Resources/MapLines/`, every value, and how to draw
+a new line. Where it differs from the four as pictured here:
+
+- **Borders along rivers stay bands under the river.** 02 drew them on the water, as 01 did. With
+  borders as thin as 02's, a border over a thin river hid the river, against 05's water as one
+  network and the map's first rule, the user's: a river is never under a border. So the scene's own
+  bands under the river were kept, as wide as the river and a plain border, with the rank's pattern
+  along both banks: their materials shorten the pattern to the band's width (x0.553, x0.398 and
+  x0.361 for kingdoms, duchies and counties) and draw the dots and dash ends square (`banks`), since
+  a round dot under a river's middle is hidden whole. The seven bands along roads likewise, widened
+  with their roads as 04 says. Borders along lakes' shores are drawn over the water, as 02 had them,
+  and moved into `BordersOverLakes` for it, so that no layer needs a `z_index`.
+- **The water is brighter**: the sea and lakes #a4ddfd (05's #a6d2f1), the rivers and channels
+  #6dc2f3 (#78b6e6), the shoreline #68aad7 (#6f9fca): 05's moved 0.4 of the way toward the sea the
+  map had, (0.71, 0.92, 1), in OKLCH lightness and hue, and made 15% more vivid, keeping 05's steps
+  between the three.
+- **The coast is a plain line** 8 units wide, 4 outside the land, which is what 05's line in coast
+  mode drew, so it needs no shader. The ends of the borders and rivers in the sea were moved in in the
+  scene, to 0.16 of their distance past the land's edge, with five round ends made square, rather
+  than by the `sea_end_share` export 05 proposed: MapDetail needs no change, and the editor shows the
+  ends inside the shoreline.
+- **10 gave way** to 02, 04 and 05 on every width and alpha it set (the borders, the coast, the roads
+  and bridges), which left it the forests: each kind's colour at 0.38 alpha, on its scene.
+- **The lines have no texture.** `texture_mode` Tile alone gives a `Line2D` its UVs: a line drawn
+  without the harness's white texture came out the same, to the pixel. This file said otherwise
+  until then.
+- A road's fill is the line's own colour (the harness's `fill` uniform gave the same pixels), so a
+  road's colour in the inspector is its fill.
+
+Route 2 rather than the style node recommended below, since the map is edited by hand: in the scene
+the look shows in the editor, a line copied from one of its kind brings its look along, and the look
+is still changed in one place, its kind's material. It costs nothing measurable: 0.29, 0.22 and 0.13
+ms of GPU at views B to D, before and after, with the same draw calls.
+
+The values it replaced are in [The problem, measured](#the-problem-measured), and the scene before it
+is `Map.tscn` at commit d8b5ec7, with the four forest kinds' scenes; going back to those would lose
+every hand edit made to them since. **The harness's styles were written for the scene as it was**:
+run on the scene now, they apply over the applied look (05 would narrow the shoreline again, and
+`StyleKit.along_lines(rank, "Lake")` finds nothing under `Borders`). `BEFORE=1 harness/render.sh N`
+renders a proposal on a copy of the scene as it was, taken from git into `vcom/_probe/` for the run,
+and draws it as pictured (00 and 05 came out the same to a pixel); the scene itself is never touched.
+Without it, style 0 renders the scene as it is, now the applied look. Nothing in the repository
+writes the old look any more: the scene generator's whole-scene part was taken out as it was applied
+(`Docs/MAP.md`, "Its look").
 
 ## How to read the pictures
 
@@ -64,7 +133,8 @@ asset, so think before sharing these pictures outside the repo.
 
 ## The problem, measured
 
-The map draws these, from the bottom up. Every value is the scene's own.
+The map drew these, from the bottom up, before the look was [applied](#applied). Every value is the
+scene's own as it was then.
 
 | Layer | Nodes | Colour | Width at 220 miles tall (units) |
 |---|---|---|---|
@@ -101,7 +171,7 @@ What makes it hard to read, as measured on the pictures and the scene:
 2. **And the colours are nearly one lightness.** In CIELAB lightness (L*, 0 black to 100 white) the
    kingdom border is 57, the county border 54, the rivers and lakes 49, the roads 44, the party 46.
    Without hue (in greyscale, at a glance, on a dim screen, to a colour-blind eye) they are one grey.
-   `harness/tools/colour_check.py` prints these.
+   `harness/tools/colour_check.py original` prints these (`applied` gives the look as it is now).
 
 3. **The party is the roads' colour.** Its dot and route line are (0.85, 0.1, 0.1), the roads (0.78,
    0.16, 0.12): a CIEDE2000 difference of 2.9, about the smallest difference anyone can see side by
@@ -263,9 +333,9 @@ pattern they differ in kind.
 1. Copy `harness/shaders/map_line.gdshader` into the project ([shaders](#shaders)) and make a
    `ShaderMaterial` for each rank with the values above (`dash`, `gap`, `dot`, `dot_gap`,
    `round_dashes`).
-2. Every border `Line2D` (under `Borders/<rank>` and `BordersOverLakes/<rank>`): `texture` a 1 by 1
-   white texture, `texture_mode` Tile, `texture_repeat` Enabled, `material` its rank's material (all
-   lines of a rank share one), `default_color` the ink, `width` as above.
+2. Every border `Line2D` (under `Borders/<rank>` and `BordersOverLakes/<rank>`): `texture_mode`
+   Tile, `material` its rank's material (all lines of a rank share one), `default_color` the ink,
+   `width` as above. (Applied: see [Applied](#applied).)
 3. The group alphas and the lines along water as in 01.
 
 **Cost.** Nothing measurable (0.29 ms GPU at view B, as the map is now). **Combines with** 04, 05, 07
@@ -339,8 +409,8 @@ and the network the player travels is one of the quietest things on the map.
 
 1. `map_line.gdshader` as in 02; a material per kind with `fill_from_line` off, `fill`, `casing`,
    `casing_share`, `casing_min_px` and `narrow` from the table, and one per kind of bridge.
-2. Every `Line2D` under `Roads/<kind>` and `Bridges`: the white texture, Tile mode, the material,
-   `width` as above.
+2. Every `Line2D` under `Roads/<kind>` and `Bridges`: Tile mode, the material, `width` as above.
+   (Applied: see [Applied](#applied).)
 3. **A border along a road** (`...AlongRoad...`, 7 lines) is a band as wide as the road and the
    border either side: add to its width what its road gained (10 for a highway, 7 for a road, 3 for a
    lane). Which road it is under is the road with its middle point (`StyleKit.road_under()`, as
@@ -799,7 +869,7 @@ planning a long trip, the far end is in the faded zone; the destination could be
 county borders wait for the County tier (100 miles) instead of the Duchy tier, the lanes, their bridges
 and the smallest woods for the hamlets' step (50 miles), and lakes under 2 km across for the County
 tier. Google Maps does the same, showing a road or a boundary only once there is room for it. The Duchy
-tier, the busiest view today (panel B), loses its county borders and its peppering of small lakes (a
+tier, the busiest view as pictured (panel B), loses its county borders and its peppering of small lakes (a
 known gap in `Docs/MAP.md`); the County tier loses its lanes until the view is close enough to tell
 them from roads. The map's look is untouched.
 
@@ -852,7 +922,7 @@ the fog closes again.
 ![21 Colour-blind safe](21-colour-blind-safe.png)
 
 *Left: as everyone sees it. Right: the same view through a simulation of deuteranopia (Machado et al.
-2009, full strength). Compare `90-current-look-colour-blind-check.png`, the map as it is.*
+2009, full strength). Compare `90-current-look-colour-blind-check.png`, the map as it was.*
 
 **What it is.** Every kind of line differs in at least two of lightness, pattern and shape, and the
 hues come from the blue-orange axis every common deficiency keeps: borders in a dark ink told apart by
@@ -1045,21 +1115,23 @@ and 04. Settlements as 08. Kingdom names as 15, from 200 miles out. Route as 09.
 
 **Measured:** every pair of its line colours is at least 8 apart (CIEDE2000), and the closest pairs are
 those that should be close and differ by pattern or width (a road's casing and a lane's; a duchy
-border's dashes and a county border's dots); its lines span L* 48 to 85, where today's span 44 to 57
-(`colour_check.py recommended`).
+border's dashes and a county border's dots); its lines span L* 48 to 85, where the map's spanned 44
+to 57 before the look was applied (`colour_check.py recommended`).
 
 **How to apply.** As its parts, in this order: 19 (one table), 05 and 06 (colours, MapDetail's sea
 ends), 01 and 02 (borders), 04 (roads), 07 (four forest scenes), 12 (county colours), 13 (two nodes
 and a picture), 08 (the destination change and five symbols), 09 (the party, after the forest index),
 15 (kingdom names only). See [Recommended path](#recommended-path).
 
-**Cost.** About 0.35 ms more GPU at views B and C than the map as it is.
+**Cost.** About 0.35 ms more GPU at views B and C than the map as it was.
 
 ---
 
 ## Recommended path
 
-28 is the destination. It need not arrive at once, and every step is useful alone:
+28 is the destination. It need not arrive at once, and every step is useful alone. (Applied so far, on
+2026-10-18: 02, 04, 05 and 10, as [Applied](#applied) says; 05's sea ends by moving the points in the
+scene, not by the MapDetail export named below.)
 
 1. **Free and immediate** (properties and one table, no code): 19's later tiers; 05's water (with the
    one MapDetail export for the sea ends); 01's quiet borders, or 10's weights if the colours are to
@@ -1123,9 +1195,10 @@ and the colours of the rest), set them in the editor: in the scene tree click th
 group and shift-click the last, and the inspector sets a property on all of them at once; filter the
 tree by `Along` to select the border bands. For the forests, edit the four kind scenes. Text edits of
 `Map.tscn` work too (every `default_color` of a group is one exact string), but the file is 13.5 MB,
-must never be regenerated (`m2_scene.gd` writes it afresh, losing hand edits), and anything baked into
-it is lost if the forests, villages or streams are spliced again with `--replace`. If the scene is ever
-rebuilt by program, `MapCreation/Scripts/scene/m2_scene.gd` must carry the new values too.
+and a line the villages' or the forests' splice writes takes its look from `MapCreation/Scripts/scene/m2_scene.gd`,
+which must carry the new values for it, as it carries the applied look's for the lanes, the bridges on
+them and the channels. (Its whole-scene part, which wrote the scene afresh over hand edits, was taken
+out when 02, 04, 05 and 10 were applied.) This is the route they were applied by: see [Applied](#applied).
 
 Either way, update `Docs/MAP.md` (what the scene holds, the level of detail), `README.md` ("The new
 world map": its tables of colours and widths) and the summary in `CLAUDE.md`.
@@ -1145,11 +1218,12 @@ script), for example as `vcom/Scripts/WorldMap/MapLine.gdshader`:
 | `icon_tint.gdshader` | A settlement's icon in another colour | 23, 24 |
 | `cvd_filter.gdshader` | Colour-vision simulations and greyscale, for checking only | the harness |
 
-**A `Line2D` has UVs only with a texture.** Every line drawn by `map_line.gdshader` needs `texture` a
-1 by 1 white texture (save `Image.create(1, 1, false, Image.FORMAT_RGBA8)` filled white as
-`vcom/WorldMap/White.png`), `texture_mode` Tile and `texture_repeat` Enabled. UV.x then counts the
-line's widths along it and UV.y runs across it, so every length in the shader is in widths: a pattern
-grows and shrinks with the line, which MapDetail holds near a width on the screen.
+**A `Line2D` has UVs once its `texture_mode` is Tile**, with a texture or without: every line drawn
+by `map_line.gdshader` needs that, and nothing more (the harness also gives its lines a 1 by 1 white
+texture, which was thought needed until applying 02 and 04 showed the same picture without it, to
+the pixel). UV.x then counts the line's widths along it and UV.y runs across it, so every length in
+the shader is in widths: a pattern grows and shrinks with the line, which MapDetail holds near a
+width on the screen.
 
 **Share one material per kind of line**, as a `.tres`, never one per line: 443 county borders, one
 `CountyBorder.tres`. Keep the line's own colour's alpha at 1 and give see-through amounts in the
@@ -1205,9 +1279,10 @@ Conventions); HUD widgets are built in code.
 
 ### Checking an applied style
 
-1. Before applying, render the proposal and style 0 with the harness.
+1. Before applying, render the proposal and style 0 with the harness, into an `OUT_DIR` of their own.
 2. Apply it, then render style 0 again: it is now the scene's own look, and should match the proposal's
-   picture wherever the style is applied in full (the harness's runtime overlays aside).
+   picture wherever the style is applied in full (the harness's runtime overlays aside). A proposal
+   written for the scene as it was is rendered with `BEFORE=1` ([the harness](#the-harness)).
 3. `--headless --path . --quit-after 120` for new errors, and a play through all four tiers, panning,
    with the borders switched off and on (`B`), since the pictures cover four still views.
 
@@ -1216,11 +1291,11 @@ Conventions); HUD widgets are built in code.
 `harness/` renders any proposal from the real game, without changing the project.
 
 ```bash
-MapStyles/harness/render.sh 0 7 28                      # from the repo root -> MapStyles/NN-name.png
-OUT_DIR=/some/dir MapStyles/harness/render.sh 3         # somewhere else
-EXTRA="--views=C,D --panels" MapStyles/harness/render.sh 5   # only some views, each also saved alone
-EXTRA="--filter=deutan --tag=-deutan" MapStyles/harness/render.sh 28   # as a deuteranope sees it
-EXTRA="--timing=120" MapStyles/harness/render.sh 0 7    # GPU time over 120 frames a view
+BEFORE=1 MapStyles/harness/render.sh 7 28               # from the repo root, as pictured -> MapStyles/NN-name.png
+OUT_DIR=/some/dir MapStyles/harness/render.sh 0         # the scene as it is, somewhere else
+EXTRA="--views=C,D --panels" BEFORE=1 MapStyles/harness/render.sh 5   # only some views, each also saved alone
+EXTRA="--filter=deutan --tag=-deutan" BEFORE=1 MapStyles/harness/render.sh 28   # as a deuteranope sees it
+EXTRA="--timing=120" OUT_DIR=/some/dir MapStyles/harness/render.sh 0   # GPU time over 120 frames a view
 ```
 
 The script copies the harness into `vcom/_probe/` for the run, runs Godot in a window (`--headless`
@@ -1229,6 +1304,13 @@ cannot draw; 1280 by 720, `--fixed-fps 60 --disable-vsync`), and deletes `_probe
 `C:\Program Files\Godot\Godot_v4.7-stable_win64_console.exe`. A run takes about 30 seconds a style; a
 probe that fails gives up after 3 minutes (a watchdog), and `render.sh` gives each run 5. Style 0 is the
 scene exactly as it is, which makes it the way to check a style after applying it.
+
+**`BEFORE=1`** renders on a copy of the scene as it was before 02, 04, 05 and 10 were applied (commit
+d8b5ec7), and of its four forest kinds, taken from git into `_probe/before/` for the run: the
+proposals were written for that scene, and draw as pictured only on it. Pictures go to `MapStyles/`
+under the style's number and name unless `OUT_DIR` says otherwise, so **give style 0 an `OUT_DIR`**:
+rendered into `MapStyles/` without `BEFORE=1` it would replace `00-current-look.png`, the map as it
+was, with the map as it is.
 
 | File | What it is |
 |---|---|
@@ -1272,12 +1354,12 @@ the map's coordinates (above).
 
 Measured in a window at 1280 by 720 on the RTX 3060 laptop, Godot 4.7, the median of 120 frames a view
 (`EXTRA="--timing=120"`). GPU time is the renderer's own measure. **View A is unreliable**: it is
-measured first, while the GPU is still raising its clocks (the map as it is measured 0.41 ms and 1.76 ms
+measured first, while the GPU is still raising its clocks (the map as it was measured 0.41 ms and 1.76 ms
 there in two runs of the same pass); B to D were steady to a few hundredths.
 
 | # | Proposal | GPU B | GPU C | GPU D | Draw calls B / C / D |
 |---|---|---:|---:|---:|---|
-| 00 | The map as it is | 0.30 ms | 0.27 ms | 0.17 ms | 914 / 333 / 77 |
+| 00 | The map as it was | 0.30 ms | 0.27 ms | 0.17 ms | 914 / 333 / 77 |
 | 02 | Patterned borders | 0.29 ms | 0.27 ms | 0.17 ms | 914 / 332 / 77 |
 | 03 | Kingdom edge bands | 0.29 ms | 0.27 ms | 0.17 ms | 914 / 332 / 77 |
 | 04 | Cased roads | 0.30 ms | 0.27 ms | 0.17 ms | 914 / 333 / 77 |
@@ -1319,11 +1401,13 @@ these per style, and `tools/finish.py costs <log>` tabulates them.
 - Placeholder names for 15 and the looks that use it, made from the nodes' names.
 - The party drawn blue (09, 21 to 24, 28), so that red can mean danger; it has always been the red dot.
 - Which proposals make up 28, and the order of the recommended path.
-- A border along a river drawn on the river (01 and after) rather than on both banks.
+- A border along a river drawn on the river (01 and after) rather than on both banks. (Applied, it
+  was kept on both banks instead: see [Applied](#applied).)
 
 **For the user to decide:**
 
 1. **A direction**: clean up the present look (01 to 10, 13, 19, then 28), or an overhaul (22 to 27)?
+   Decided on 2026-10-18: a clean-up, 02, 04, 05 and 10 to begin with ([Applied](#applied)).
 2. **Names**: are places to be named? 15, 22, 24 to 26 and 28 are only complete with them, and 16's
    tooltips would use them.
 3. **The party's colour**: red, as it has always been, or blue, so that red can mean danger?

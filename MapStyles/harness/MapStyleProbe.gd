@@ -7,7 +7,10 @@
 ##
 ##   godot --path . --resolution 1280x720 --fixed-fps 60 res://_probe/MapStyleProbe.tscn \
 ##       -- --style=7 --outdir=C:/.../MapStyles [--data=C:/.../harness/data] [--filter=deutan]
-##       [--views=B,C] [--panels] [--tag=suffix] [--timing=120]
+##       [--views=B,C] [--panels] [--tag=suffix] [--timing=120] [--map=res://_probe/before/Map.tscn]
+##
+## --map renders another copy of the map than the scene's own: render.sh's BEFORE=1 gives it the
+## scene as it was before 02, 04, 05 and 10 were applied, which the proposals were written for.
 ##
 ## A style is a script in styles/ whose file name starts with its number. It is
 ## applied to the map before the map enters the tree, as an edit to the scene
@@ -47,6 +50,7 @@ var _only := ""
 var _tag := ""
 var _keep_panels := false
 var _timing := 20
+var _map_path := MAP
 
 var _map: Node2D
 var _kit: RefCounted
@@ -72,6 +76,8 @@ func _ready() -> void:
 			_tag = value
 		elif arg.begins_with("--timing="):
 			_timing = maxi(int(value), 3)
+		elif arg.begins_with("--map="):
+			_map_path = value
 		elif arg == "--panels":
 			_keep_panels = true
 	get_tree().root.gui_disable_input = true
@@ -91,7 +97,7 @@ func _ready() -> void:
 	print("MapStyleProbe: style %s" % title)
 
 	var started := Time.get_ticks_usec()
-	_map = (load(MAP) as PackedScene).instantiate()
+	_map = (load(_map_path) as PackedScene).instantiate()
 	_kit = Kit.new(_map, self, _data_dir)
 	var loaded := Time.get_ticks_usec()
 	if _style.has_method("apply"):

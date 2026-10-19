@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://Scripts/WorldMap/MapLine.gdshader" id="1_line"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_line")
+shader_parameter/gap = 0.4157
+shader_parameter/dot = 0.3072
+shader_parameter/banks = true

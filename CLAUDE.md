@@ -16,7 +16,7 @@ shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` 
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
 camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
 `Styles/REVERT.md` restores the original look. `MapStyles/` holds 28 proposals for the
-new world map's look, none applied: their pictures, the harness that renders them from `Map.tscn`,
+new world map's look, 02, 04, 05 and 10's forests applied (`Docs/MAP.md`, "Its look"): their pictures, the harness that renders them from `Map.tscn`,
 and `MapStyles/README.md` on what each changes and how to apply it. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
@@ -287,6 +287,8 @@ vcom/Scripts/
                        (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
                        factor of the zoom, a few lines a frame; settlements far from the view stopped (in_view);
                        forests by the size of the whole forest (Forests/Large, Small, Woods), only ever faded
+    MapLine.gdshader   Map.tscn's lines as map symbols: casings (roads, bridges), dashes and dots (borders), a band's
+                       pattern on both banks; a material a kind in Resources/MapLines/, and the line in Texture Mode Tile
     BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
                        nothing and back (shown); MapDetail fades only the ranks under them
     MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
@@ -576,11 +578,12 @@ from the view). Things that share an edge have the same points, each its own cop
 their border's line; a county and its `CoastOfCounty...`; a border along a river and its
 `...Along...` line; a county and the forest pieces along its border and coast), so a hand edit
 moves the copies too. The villages and the forests are made by `MapCreation/Scripts/villages/` and
-`forests/` and spliced in by their `..._splice.py`; spliced again they are made afresh, and a hand
-edit to one is lost. **Never run `MapCreation/Scripts/scene/m2_scene.gd` over it unasked: it writes
-the scene afresh, and every change made by hand is lost.** `Docs/MAP.md` has all of it (settlements,
-party, clock, camera, forests, level of detail) and why; read it before touching the map.
-`README.md`, "The new world map", has the decisions and what each node holds.
+`forests/` and spliced in by their `..._splice.py`; spliced again they are made afresh, and a hand edit
+to one is lost. `MapCreation/Scripts/scene/m2_scene.gd`, which wrote the scene, now writes only the
+villages and the forests alone, in the map's look, for those splices: its whole-scene part, which would
+write the scene afresh in the old look, was taken out (git keeps it, at d8b5ec7). `Docs/MAP.md` has all
+of it (settlements, party, clock, camera, forests, level of detail) and why; read it before touching the
+map. `README.md`, "The new world map", has the decisions and what each node holds.
 
 **Forests are shapes where the party may be set upon.** On the old map each is an instance of
 `Scenes/Forest.tscn`, a light-green, half-transparent `Polygon2D` drawn in the editor, under
@@ -1348,7 +1351,8 @@ says how many have been taken on, `voxels._loose` maps each body to its `VoxelBo
 The new map's scene is looked at with `MapCreation/Scripts/scene/m3_draw.gd`, in a window: it draws
 the whole map at one screen pixel to a pixel of the pictures (`render_full.png`), times it, and
 draws close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
-`MapCreation/Scripts/scene/m4_compare.py` sets that drawing beside `MapCreation/AllSimple.png`.
+`MapCreation/Scripts/scene/m4_compare.py` set it beside `MapCreation/AllSimple.png`, colour by colour, until
+the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at four views.
 
 How to probe blood, the gamepad, a medkit and the new map (its forests, its level of detail) is in their `Docs/`
 files (`BLOOD.md`, `GAMEPAD.md`, `MEDKIT.md`, `MAP.md`), under "Probing it".

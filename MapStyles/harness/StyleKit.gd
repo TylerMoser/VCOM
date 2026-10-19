@@ -309,9 +309,10 @@ func add_inner(path: String, color: Color, share: float, title := "Inner") -> No
 
 # -- patterned lines -----------------------------------------------------------------------------
 
-## A 1 by 1 white texture. A Line2D has UVs only when it has a texture: with
-## this one and texture_mode TILE, UV.x counts the line's widths along it and
-## UV.y runs 0 to 1 across it, which map_line.gdshader draws its patterns by.
+## A 1 by 1 white texture. With texture_mode TILE, UV.x counts a line's widths
+## along it and UV.y runs 0 to 1 across it, which map_line.gdshader draws its
+## patterns by. That needs no texture after all (a line without this one draws
+## the same, to the pixel), but the pictures were taken with it.
 func white_texture() -> ImageTexture:
 	if _white == null:
 		var image := Image.create(1, 1, false, Image.FORMAT_RGBA8)

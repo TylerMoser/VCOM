@@ -7,14 +7,16 @@ What is spliced in is the scene m2_scene.gd makes with "villages" (from v2_shape
 - the lanes, a group Roads/Lanes put first under Roads, so that the roads are drawn over them;
 - the bridges on the lanes, a group Bridges/Lanes put last under Bridges;
 - the channels, a group Channels put after the rivers, just before BordersOverLakes;
-- the two scenes the places are instances of, Village.tscn and Hamlet.tscn.
+- the two scenes the places are instances of, Village.tscn and Hamlet.tscn, and the two materials
+  the lanes and the bridges on them are drawn with, Lane.tres and LaneBridge.tres (the map's look,
+  Docs/MAP.md "Its look", which m2_scene.gd draws them in).
 Nothing else in the scene changes, a byte. A node's unique_id or a resource's id that the scene
 already uses is given a new one.
 
 With --replace, what was spliced in before is taken out first: every node under the hamlets' and
 the villages' groups, the Lanes groups under Roads and Bridges and the Channels group with
-everything under them, and the two scenes' resources. Anything changed in those by hand is lost,
-so it is refused without it.
+everything under them, and the four resources. Anything changed in those by hand is lost, so it is
+refused without it.
 
 Usage: v3_splice.py <the scene> <the villages alone> [--replace]
 """
@@ -28,7 +30,8 @@ NODE = re.compile(r'^\[node name="([^"]+)"(?: type="([^"]+)")?(?: parent="([^"]+
 EXT = re.compile(r'^\[ext_resource type="([^"]+)"(?: uid="[^"]+")? path="([^"]+)" id="([^"]+)"\]')
 UID = re.compile(r"unique_id=(\d+)")
 USES = re.compile(r'ExtResource\("([^"]+)"\)')
-OURS = ("res://Scenes/Village.tscn", "res://Scenes/Hamlet.tscn")
+OURS = ("res://Scenes/Village.tscn", "res://Scenes/Hamlet.tscn", "res://Resources/MapLines/Lane.tres",
+        "res://Resources/MapLines/LaneBridge.tres")
 GROUPS = ("Settlements", "Settlements/Hamlets", "Settlements/Villages")
 
 

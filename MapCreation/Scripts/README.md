@@ -241,13 +241,20 @@ which were copied into it by hand.
 
 ### 11. The scene
 
+On 2026-10-18 the map was given a new look (`Docs/MAP.md`, "Its look", at the repository's top),
+and the part of `m2_scene.gd` that made the whole scene was taken out: run again, it would have
+written the scene afresh in the old look, over every change made by hand since. This step is told
+as it was done; the program as it was is in git's history, last at commit d8b5ec7, and runs as
+below from a checkout of that commit. What is left of it makes the villages (step 13) and the
+forests (step 14) alone, in the map's look.
+
 `scene/`. This step needs no working folder: it reads `../SourceData/` and nothing else, and
 takes half a minute.
 
 | Program | Given | Leaves |
 |---|---|---|
 | `m1_shapes.py` | `<repo>/MapCreation <a file>` | The map as shapes, in a `.json` file: the counties' outlines, the coast, the borders, the lakes, rivers, roads, bridges and settlements, in the pictures' own pixels |
-| `m2_scene.gd` | by Godot, from `vcom/`: `godot --headless --path . --script ../MapCreation/Scripts/scene/m2_scene.gd -- <that file>` | `vcom/Scenes/Map.tscn`, the scene |
+| `m2_scene.gd`, at commit d8b5ec7 | by Godot, from `vcom/`: `godot --headless --path . --script ../MapCreation/Scripts/scene/m2_scene.gd -- <that file>` | `vcom/Scenes/Map.tscn`, the scene, in the look it had until 2026-10-18 |
 
 What `m1_shapes.py` does, in the order it does it:
 
@@ -358,7 +365,7 @@ working folder: it reads `../SourceData/`, `../Water.png` and `../Elevation.png`
 |---|---|---|
 | `villages/v1_villages.py` | `<repo>/MapCreation <repo>/MapCreation/SourceData/Villages.json [a folder]` | `Villages.json`. In the folder, if one is given, `AllSimple.png` with the villages (orange), hamlets (green), lanes and channels drawn on it, whole and at half size, and a close view in each kingdom |
 | `villages/v2_shapes.py` | `<repo>/MapCreation <a file>` | The villages alone as shapes, as `m1_shapes.py` gives them among the whole map's (`villageshapes.py`, which both use) |
-| `scene/m2_scene.gd` | by Godot, from `vcom/`: `... -- <that file> <a scene to write> villages` | A scene of the villages alone, each under its group: `Settlements/Hamlets`, `Settlements/Villages`, `Roads/Lanes`, `Bridges/Lanes`, `Channels` |
+| `scene/m2_scene.gd` | by Godot, from `vcom/`: `... -- <that file> <a scene to write> villages` | A scene of the villages alone, each under its group: `Settlements/Hamlets`, `Settlements/Villages`, `Roads/Lanes`, `Bridges/Lanes`, `Channels`; the lines in the map's look (their materials, widths and colours) |
 | `villages/v3_splice.py` | `<repo>/vcom/Scenes/Map.tscn <that scene> [--replace]` | Those spliced into the map's scene as it is, and nothing else in it changed. With `--replace`, every one spliced in before is taken out first, with anything changed in it by hand |
 
 The user chose four things (2026-10-17): about 2,000 places in all, about 9 a county (the
@@ -414,7 +421,7 @@ Everything random is seeded, so run again it gives the same file. Changed by a l
 channel is laid again. The figures above are those it printed.
 
 To place them again: `v1_villages.py`, `v2_shapes.py`, `m2_scene.gd ... villages` and then
-`v3_splice.py ... --replace`. Run in full, `m1_shapes.py` and `m2_scene.gd` give the very same
+`v3_splice.py ... --replace`. Run in full, `m1_shapes.py` and `m2_scene.gd` gave the very same
 village nodes as the splice: checked node for node on 2026-10-17 (2,807 nodes, names, positions,
 points and order alike). The scene's `Detail` node shows them by the zoom
 (`vcom/Scripts/WorldMap/MapDetail.gd`; `Docs/MAP.md` at the repository's top).
@@ -516,18 +523,20 @@ share, a tree line, a radius), much of the forest moves.
 
 To make them again: `f1_forests.py`, `f2_shapes.py`, `m2_scene.gd ... forests` and then
 `f3_splice.py ... --replace`. After a hand edit to the land (a county's border, the coast) the last
-three alone fit the forests to it. Run in full, `m1_shapes.py` and `m2_scene.gd` give the very same
+three alone fit the forests to it. Run in full, `m1_shapes.py` and `m2_scene.gd` gave the very same
 forest nodes as the splice: checked node for node on 2026-10-17 (2,495 nodes, names, places,
 points, numbers and kinds alike). The scene's `Detail` node shows them by the zoom
 (`vcom/Scripts/WorldMap/MapDetail.gd`; `Docs/MAP.md` at the repository's top).
 
 ## Things to watch for
 
-- **`scene/m2_scene.gd` writes the game's scene afresh.** The scene is meant to be changed by
-  hand from now on, in the Godot editor. Run again without a second name to write to,
-  `m2_scene.gd` puts a newly made scene over `vcom/Scenes/Map.tscn`, and everything changed in
-  it by hand is lost. Give it another name to write to (`-- <shapes> res://Scenes/MapAgain.tscn`)
-  to make one to look at.
+- **`scene/m2_scene.gd` no longer writes the game's scene.** The scene is changed by hand, in the
+  Godot editor, and since 2026-10-18 has a look of its own, so the part of `m2_scene.gd` that made
+  the whole scene was taken out. It writes the villages or the forests alone, in the map's look,
+  and refuses to write over `vcom/Scenes/Map.tscn`. As it was at commit d8b5ec7, run without a
+  second name to write to, it puts a newly made scene over the map, in the old look, and every
+  change made by hand is lost: give it another name to write to
+  (`-- <shapes> res://Scenes/MapAgain.tscn`) to make one to look at.
 - **`villages/v3_splice.py --replace` takes out every village, hamlet, lane and channel** before
   it splices them in again, so a village moved, renamed or given a market by hand is lost. Do
   such things after the villages are placed for good, or carry them over.
@@ -579,7 +588,7 @@ The scene has checks of its own. `scene/m1_shapes.py` stops if a county's outlin
 touches itself, and prints how far each county's and lake's area is from its pixels (no county
 by more than 0.5%, no kingdom by more than 0.05%). `scene/m2_scene.gd` tries every polygon in Godot's cutter and says how many
 failed: none of 936. And `scene/m4_compare.py`, given Godot's drawing of the scene at the
-pictures' scale (`scene/m3_draw.gd`), found the same colour at the same pixel as
+pictures' scale (`scene/m3_draw.gd`), found, while the scene had the pictures' colours, the same colour at the same pixel as
 `AllSimple.png` over 98.5% of the sheet, and for each of the nine colours at least 99.2% of the
 picture's pixels with that colour within a pixel of them in the drawing. What differs by more
 is the border colour beside rivers, which the scene puts along both banks evenly, and those of
@@ -635,8 +644,8 @@ Each step was given what the step before had first left, not what the step befor
 made again. Since every step gave the same bytes, that comes to the same thing; but the chain
 has not been run from end to end in one go.
 
-Step 11 was run again from here too. `scene/m1_shapes.py` gave the same file of shapes, byte for
-byte, and `scene/m2_scene.gd` the same scene but for the numbers Godot gives nodes and
+Step 11 was run again from here too, before its scene part was taken out. `scene/m1_shapes.py`
+gave the same file of shapes, byte for byte, and `scene/m2_scene.gd` the same scene but for the numbers Godot gives nodes and
 resources, which it draws afresh each time.
 
 ## What was left out
@@ -847,12 +856,12 @@ What a file is for (the files of `scene/` are listed after the rest):
 | File | For | What it does |
 |---|---|---|
 | `m1_shapes.py` | makes | The map as shapes: everything the pictures show, worked out of the source data as outlines and lines with points finer than a pixel, ready to be made into a Godot scene. |
-| `m2_scene.gd` | makes | Makes the map's scene, `vcom/Scenes/Map.tscn`, out of those shapes: areas as Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn. |
+| `m2_scene.gd` | makes | Made the map's scene, `vcom/Scenes/Map.tscn`, out of those shapes (areas as Polygon2D nodes, lines as Line2D nodes, grouped by what they are and in the order they are drawn), until that part was taken out on 2026-10-18; makes the villages and the forests alone for their splices, in the map's look. |
 | `geo.py` | leaned on | Shapes out of a map of numbers: the edges between unlike pixels as chains, the chains joined into lines, and the lines smoothed, given points where they bend and thinned where they run straight. |
 | `villageshapes.py` | leaned on | The villages and hamlets of `Villages.json` as shapes, for `m1_shapes.py` and `../villages/v2_shapes.py` alike: their places, and their lanes, bridges and channels given points where they bend. |
 | `forestshapes.py` | leaned on | The forests of `Forests.json` as the scene's pieces, for `m1_shapes.py` and `../forests/f2_shapes.py` alike: cut by county and by kind, their clearings joined to their outlines, every piece tried in Godot's cutter into triangles, named and grouped by size. Needs shapely. |
 | `godotcut.py` | leaned on | Godot 4.7's own cutter of a polygon into triangles, done again in Python and float32, so that `forestshapes.py` knows a piece will draw before the scene has it. |
-| `m4_compare.py` | check | The scene as Godot draws it, set beside the picture it was made from, colour by colour. |
+| `m4_compare.py` | check | The scene as Godot draws it, set beside the picture it was made from, colour by colour: a check of the scene as it was made, whose lines have had colours of their own since 2026-10-18. |
 | `m3_draw.gd` | look | Draws the scene in Godot: the whole map at the pictures' scale, close views, and how long it takes to load and to draw. |
 
 ### icons/

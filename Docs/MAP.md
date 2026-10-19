@@ -1,7 +1,7 @@
 # The new world map
 
-`Scenes/Map.tscn`, the island the campaign is moving to: how its scene is laid out, its forests,
-and its level of detail, `MapDetail` (`Scripts/WorldMap/MapDetail.gd`, the scene's `Detail`
+`Scenes/Map.tscn`, the island the campaign is moving to: how its scene is laid out, its look, its
+forests, and its level of detail, `MapDetail` (`Scripts/WorldMap/MapDetail.gd`, the scene's `Detail`
 node), which shows less far out and more close in and holds the lines near a width on the screen.
 `CLAUDE.md` keeps a summary; `README.md`, "The new world map", has the decisions and what each
 node holds. A section named here that is not in this file (Gotchas, Verification) is `CLAUDE.md`'s.
@@ -76,12 +76,102 @@ in Godot 4.7 smooths a `Line2D` or a `Polygon2D`, whose own `antialiased` does n
 Things that share an edge have the same points, each its own copy: two counties and the line of
 the border between them; a county and its stretch of `Coast` (`CoastOfCounty163` for `County163`,
 named apart so that a search by name finds one thing; a line twice the coast's width, its inner
-half under the land); a border that follows a river, the river, and the `...AlongRiver` line under
-the river that shows the border's colour on both banks; a county and the pieces of forest along its
-border or its coast. A hand edit has to move the copies too. **Never run
-`MapCreation/Scripts/scene/m2_scene.gd` over it unasked: it writes the scene afresh, and every
-change made by hand is lost.** `MapCreation/Scripts/README.md`, step 11, has how it was made and
-checked, step 13 how the villages were placed, and step 14 how the forests were made.
+half under the land); a border that follows a river, the river, and the `...AlongRiver` band under
+the river that shows the border's pattern on both banks; a county and the pieces of forest along its
+border or its coast. A hand edit has to move the copies too. `MapCreation/Scripts/scene/m2_scene.gd`
+made the scene, and can no longer: its whole-scene part was taken out on 2026-10-18, when the map
+was given its look, since run again it would have written the scene afresh in the old look over
+every change made by hand (git keeps it, at commit d8b5ec7). It writes only the villages and the
+forests alone now, in the map's look, for their splices, and refuses to write over
+`Scenes/Map.tscn`. `MapCreation/Scripts/README.md`, step 11, has how the scene was made and checked,
+step 13 how the villages were placed, and step 14 how the forests were made.
+
+## Its look
+
+**Every kind of line says what it is without its colour**, chosen by the user on 2026-10-18 from
+the proposals in `MapStyles/` (its README has the pictures and the reasons): 02's patterned
+borders, 04's cased roads, 05's one water in a brighter blue than proposed ("a bit closer to the
+current ocean color"), and 10's reweighting where it did not conflict with those, which left it
+the forests' paler fill (its widths for the borders, roads and coast gave way to theirs). Before,
+every line was a plain solid one, told from the rest by its colour alone.
+
+**A line's look is its kind's material.** `Scripts/WorldMap/MapLine.gdshader` draws a `Line2D` as
+a map symbol: in its own colour with a darker casing at both edges, or dashed, dotted or
+dash-dotted, every length in widths of the line, so that a pattern scales with the width MapDetail
+sets. Each kind has one `ShaderMaterial` in `Resources/MapLines/`, shared by all its lines, so a
+change there (its Shader Parameters, in the inspector) changes every line of the kind, in the editor
+too. A line drawn by it needs three things: its kind's `material`; `texture_mode` Tile, which is
+what gives a `Line2D` UVs (it needs no texture); and its colour in `default_color` at alpha 1 (the
+fill, or a border's ink), so that the alpha reaching the shader is only the fading MapDetail and
+BorderSwitch do. **To draw a new line by hand, duplicate one of its kind** (Ctrl+D), which carries
+all three and its width.
+
+| Lines | Material | Width | Colour | Drawn as |
+|---|---|---|---|---|
+| `Borders/Kingdoms`, `BordersOverLakes/Kingdoms` | `KingdomBorder` | 12 | Ink, (0.25, 0.2, 0.31) | Dashes of 3.2 widths, a dot 0.85 across after each with 0.9 either side |
+| The same under `Duchies` | `DuchyBorder` | 8 | Ink | Dashes of 2.4 with round ends, gaps of 1.3 |
+| The same under `Counties` | `CountyBorder` | 6 | Ink | Dots 0.85 across, gaps of 1.15 |
+| A border's band along a river or a road | `KingdomBorderBand`, `DuchyBorderBand`, `CountyBorderBand` | The river's or road's and a border's | Ink | Its rank's pattern along both banks |
+| `Roads/Highways` | `Highway` | 20 | Amber #ffc451 | Edges #b5761a, 0.28 of the half-width each; solid #e09a2a under 4 px across |
+| `Roads/Roads` | `Road` | 14 | Cream #fffaf0 | Edges #9c8f7d, 0.3; solid #a3958a under 4.5 px |
+| `Roads/Lanes` | `Lane` | 7 | White | Edges #b5aa9a, 0.34; solid #b8ad9d under 5 px |
+| `Bridges` | `Bridge` | 29 on a highway, 20.3 on a road | Its road's fill | Parapets #4b4038, 0.42; solid #4b4038 under 3 px |
+| `Bridges/Lanes` | `LaneBridge` | 10.15 | White | Parapets #4b4038, 0.45; solid under 3 px |
+
+A rank of border is see-through by its groups' alpha, on `Borders/<rank>` and
+`BordersOverLakes/<rank>` alike: 0.85, 0.7 and 0.5, which MapDetail fades by the tier under that and
+BorderSwitch over it. The shader works out a road's width on the screen from its own UVs, so a road
+goes solid as it narrows with no help from MapDetail.
+
+**A border along a river or a road is a band under it, patterned on both banks.** Its
+`...AlongRiver` or `...AlongRoad` line lies under the river or road as before, as wide as that plus
+a plain border (a river's band keeps the river's width curve), so the border shows half its width
+on either bank and a river is never under a border, as the user asked of the map from the start.
+The band's material is its rank's pattern with every length shortened by how much wider than a
+plain border the rank's middle band under a river is (x0.553, x0.398 and x0.361 for kingdoms,
+duchies and counties), and `banks` on, which draws the dots and the dashes' ends square, across the
+whole width: a round dot under a river's middle would be hidden whole. 02 itself drew these borders
+on the water, a plain border over the river; on a thin river its ink hid the river, so the bands
+were kept (my call, in the balancing). A border along a lake's shore is drawn over it, as 02 had
+it: its `...AlongLake` line, a plain border with no width curve, is in `BordersOverLakes/<rank>` (40,
+moved there from `Borders` on 2026-10-18), where it shows whole across the shore and hides nothing,
+a lake being an area. The seven bands along roads were widened by what their road gained.
+
+**The water is one family of blue.** The sea and the lakes #a4ddfd; the rivers and channels a shade
+deeper, #6dc2f3; the coast a thin shoreline, #68aad7: each `CoastOfCounty...` line is 8 units wide,
+centred on the land's edge with the land over its inner half, so 4 show (the black line was 46, 23
+showing). The islands in lakes keep the land's white. The blues are 05's (#a6d2f1, #78b6e6 and
+#6f9fca) moved toward the sea the map had, (0.71, 0.92, 1): in OKLCH 0.4 of the way in lightness and
+hue, with 15% more chroma, keeping 05's steps from water to river to shore.
+
+**The ends in the sea were moved in with the coast.** A border or a river that reaches the sea ran
+on about 10 units past the land's edge, into the black line; over a 4-unit shoreline the end would
+have lain out over the sea. The points out there, on 138 lines, were moved toward where the line
+crosses the land's edge, to 0.16 of their distance (about 1.6 units out, 3.7 at the most), and the
+five such ends that were round made square, so nothing reaches past the shoreline. MapDetail finds
+and scales them as before ([Level of detail](#level-of-detail)). A line given an end in the sea by
+hand should end inside the shoreline, square, or MapDetail will not find it: it looks back from an
+end only as far as the coast's line reaches outside the land.
+
+**The forests are a little paler**: each kind's colour at 0.38 alpha, from 0.5, on its scene's root
+(`Scenes/ConiferForest.tscn` and the other three), which every piece takes.
+
+It costs nothing measurable: 0.29, 0.22 and 0.13 ms of GPU a frame at 180, 80 and 30 miles tall,
+before and after, with the same draw calls; the scene grew by 91 KB, to 13.6 MB. It was applied as
+a text edit of the scene (every one of its 2,597 lines given new values, 40 of them moved; the sea and
+701 lakes recoloured; no node added), and the scene then drawn the same as the harness's prototype of
+it to within a dozen pixels a view. `MapStyles/README.md`, "Applied", has the values it replaced.
+
+**Nothing writes the old look now.** The scene generator's whole-scene part, which did, was taken
+out as the look was applied, and what is left of it draws the lanes, the bridges on them and the
+channels in the map's look, materials and all, so the villages' splice (`v3_splice.py --replace`)
+puts them back as they are: spliced afresh into a copy of the scene, they came out the same as the
+scene's to the last property (2,805 nodes, 2026-10-18). The forests' splice keeps the kinds'
+scenes, and so their look. The harness in `MapStyles/` only draws pictures, and with `BEFORE=1` it
+draws a proposal on a copy of the scene as it was before, never on the scene. The streams on the
+`map2` branch were made in the rivers' old blue, by a streams part of `m2_scene.gd` this branch's
+never had: merged in, that part wants joining to what is left of the program here, and the streams
+the rivers' colour.
 
 ## Forests
 
@@ -111,13 +201,14 @@ into 2,459 pieces, each a `Forest` (`Scripts/WorldMap/Forest.gd`, the old map's)
   `county`, `duchy` and `kingdom`, and the `forest` it is a piece of (its `id` in `Forests.json`)
   with that forest's area, `forest_km2`.
 - **By kind,** each an instance of its kind's scene, which inherits `Scenes/Forest.tscn` (the old
-  map's forest, so its odds and its battle) and sets only its colour, see-through at half
-  strength over the white land: `ConiferForest.tscn` a cool blue-green, in the Tundra and the
-  Volcanic Mountains, the Evergreen Rainforest and high up in the other kingdoms (over 1,000 m in
-  the Temperate Mountains, 900 in the Desert and the Grassland, 1,100 in the Deciduous Forest, 600
-  in the Swamp); `BroadleafForest.tscn` a soft yellow-green, below those heights;
-  `SwampForest.tscn` an olive green, in the Swamp's own low country; and `TropicalForest.tscn` a
-  deep green. A colour is changed for every piece of its kind on its scene's root.
+  map's forest, so its odds and its battle) and sets only its colour, see-through at 0.38 alpha over
+  the white land (half, until the look of 2026-10-18): `ConiferForest.tscn` a cool blue-green, in
+  the Tundra and the Volcanic Mountains, the Evergreen Rainforest and high up in the other kingdoms
+  (over 1,000 m in the Temperate Mountains, 900 in the Desert and the Grassland, 1,100 in the
+  Deciduous Forest, 600 in the Swamp); `BroadleafForest.tscn` a soft yellow-green, below those
+  heights; `SwampForest.tscn` an olive green, in the Swamp's own low country; and
+  `TropicalForest.tscn` a deep green. A colour is changed for every piece of its kind on its scene's
+  root.
 - **Grouped by the size of the whole forest,** so that a forest comes and goes whole:
   `Forests/Great` (250 km² and more: 1,182 pieces), `Large` (50 to 250: 111), `Small` (10 to 50:
   269) and `Woods` (0.5 to 10: 897), each by kingdom under that (`Forests/Great/Kingdom8`).
@@ -201,9 +292,9 @@ over the Swamp once the view was in close.
 
 **Every line's width is its node's times one factor,** `(view's height / true_width_view_miles)
 ^ (1 - width_growth)`: at 220 miles tall a line is as wide as the scene says, and from there its
-width on the screen follows only 0.36 of the zoom. A kingdom's border is 2.2 px all the way out
-and 7.5 all the way in (0.9 and 30 left alone), a lesser road 1.4 px where it first shows and 3.1
-all the way in (12.5 left alone), the coast 3 to 10. It is one factor for all of them because some
+width on the screen follows only 0.36 of the zoom. A kingdom's border is 1.6 px all the way out
+and 5.3 all the way in (0.6 and 21 left alone), a lesser road 2.8 px where it first shows and 6.2
+all the way in (25 left alone), the coast's shoreline 0.5 to 1.7. It is one factor for all of them because some
 are sized to others (below), and it scales a river's `width_curve` with it.
 
 **Widths are set a few lines a frame, the furthest off first.** Setting a `Line2D`'s width builds
@@ -217,20 +308,22 @@ all of them are built then anyway. So a tier's lines are far off when it comes i
 (`_waits`), its lines being the furthest off and so set first, and starts to fade in once those
 in view are within `READY_STEPS`, or after `MOST_WAIT` (0.5 s) whatever they are.
 
-**A border's line along something is a plain border while that is hidden.** A line named
-`...AlongRiver173`, `...AlongLake085` or `...AlongRoad093` lies under the river, shore or road its
-border follows, as wide as that and the border on both sides. While the river, lake or road does
-not show at the view's tier, the line is given the plain border's width (the middle one of its
-group's lines that follow nothing: 17, 10 or 7) and no width curve, so no river has to stay for a
-border's sake. A river or lake is found by the name (`Rivers/River173`); a road's number is in no
-node's name, so it is the road that shares the line's middle point. Of the 258 such lines, 45 are
-narrowed at some tier.
+**A border's band along something is a plain border while that is hidden.** A line named
+`...AlongRiver173` or `...AlongRoad093` lies under the river or road its border follows, as wide as
+that and a border ([Its look](#its-look)). While the river or road does not show at the view's
+tier, the line is given the plain border's width (the middle one of its group's lines that follow
+nothing: 12, 8 or 6) and no width curve, so no river has to stay for a border's sake. A river is
+found by the name (`Rivers/River173`); a road's number is in no node's name, so it is the road
+that shares the line's middle point. Of the 218 bands, 37 are narrowed at some tier. A
+`...AlongLake085` line, in `BordersOverLakes`, is found by its lake (`Lakes/Lake085`) the same way,
+but is a plain border's width either way.
 
 **A border's or a river's end in the sea moves with its width.** Where one reaches the sea it
-ends past the land's edge, in the coast's black line: about 10 units out, the coast's line being
-23 wide outside the land. Left there, the end came out of the far side of the coast's line once
-that narrowed: all the way in the coast's line is under 6 units, and the ends showed 4 units (8
-pixels) out over the sea. So `_gather_sea_ends()` finds, as the scene opens, every line under
+ends past the land's edge, inside the coast's line: about 1.6 units out, the shoreline being 4
+wide outside the land (until 2026-10-18, 10 units out in a black line 23 wide: [Its
+look](#its-look)). Left there, the end would come out of the far side of the coast's line once that
+narrowed: all the way in the shoreline is 1 unit outside the land. (In the black line's day the
+ends showed 4 units, 8 pixels, out over the sea.) So `_gather_sea_ends()` finds, as the scene opens, every line under
 `Borders` or `Rivers` (`ENDS_IN_COAST`) that, followed back from an end, crosses a coast's line
 within the coast's width outside the land (138 lines), and `_set_width()` moves the points out
 there as it sets the width: how far each is past the crossing is scaled by the widths' factor.
@@ -278,6 +371,8 @@ or goes, half a millisecond more.
   0.6 s after it stops. A tier waits up to 0.3 s on its lines.
 - Panning in the Duchy tier: no line in view is ever behind.
 
+**The look (2026-10-18)** costs nothing measurable ([Its look](#its-look)).
+
 **The forests (2026-10-17)** made the scene 13.5 MB, from 9.1, and it opens in 2.7 s, from 1.7:
 0.65 s more reading the file, and some 0.35 s more on the first frame, mostly Godot cutting the
 2,459 pieces into triangles (0.22 s; 0.6 s before the larger were cut down to 500 points). A frame
@@ -312,6 +407,11 @@ the map), connect a counter, then set `party.global_position` and call
 if anywhere, with the borders hidden (`Borders` and `BordersOverLakes` faded to nothing) all the
 way in, as single pixels a shade lighter than the forest in a line: none did (2026-10-17).
 
+The look: `MapStyles/harness/render.sh 0` draws the scene as it is at four views, in a window
+(`OUT_DIR=` puts the picture elsewhere), which is how it was checked; and with the borders off
+(`BorderSwitch.shown` false) nothing of them may show, the bands and the lake shores included.
+`MapDetail`'s `_sea_ends` holds the 138 lines that end in the sea.
+
 ## Decided with the user
 
 The four tiers and their heights; bridges with the lesser roads, in the Duchy tier; no fifth,
@@ -319,6 +419,11 @@ closer tier, the villages and hamlets coming with the County tier; only the nine
 capitals in the Realm tier. Then, once there were some 2,000 (2026-10-17): the villages at 100
 miles and the hamlets at 50, a second step inside the County tier. And every border switched off
 and on with `B`, on to begin with.
+
+The look (2026-10-18), from the proposals in `MapStyles/`: 02's patterned borders, 04's cased
+roads, 05's one water "but use a slightly more vibrant color, a bit closer to the current ocean
+color outside of the continent", and 10's reweighting where it does not conflict with those, all
+balanced where they did; more tweaks to follow.
 
 The forests (2026-10-17), each out of three choices: the wild amount, about half the land, at
 each biome's share; battles met in them as in the old map's forest, 10% a step; a colour for each
@@ -340,6 +445,12 @@ well; the villages' lanes and the bridges on them and the Swamp's channels with 
 the hamlets' step as a tier in the code; settlements far from the view stopped and drawing
 nothing; `R3` for the borders' switch on the gamepad, a node of its own for it, and the borders
 going and coming at once rather than fading.
+
+Without asking, for the look: the blues; borders along rivers and roads kept as bands under them
+(02 drew them over the water), with their patterns shortened and `banks`; those along lakes'
+shores over the water, moved into `BordersOverLakes`; 10 giving way to the others on every width it
+set; the sea ends at 0.16 of their distance and square; the materials as files, one a kind; no
+texture on the lines.
 
 ## Known gaps
 
@@ -375,3 +486,16 @@ going and coming at once rather than fading.
 - The gallery forests of the Grassland and the Desert follow the drainage's streams too, which
   the map does not draw, so some ribbons of forest follow no water it shows.
 - The see-through colours suit the white land; a land tinted later would change them.
+- A dash pattern is laid along each line from its start, in widths of the line: as MapDetail
+  changes a width while zooming the dashes slide along a little, and where two borders meet their
+  patterns need not line up.
+- A road's casing is drawn with it, so where two roads join, the one drawn later lays its edges
+  across the other's fill. Google draws every casing first and every fill after, which here would
+  take a second line a road.
+- A band's marks are shortened for its rank's middle band, so along a much wider or narrower river
+  they are a little longer or shorter than a plain border's. The seven bands along roads show their
+  border in strips 2.7 units wide, about a pixel close in.
+- The shoreline is under a pixel wide far out (0.5 px all the way out): there the land's edge is
+  only the change from land to water. A county's dots are faint at the far end of the Duchy tier.
+- The look is in the scene, and the splices' lines carry it: a new kind of line written by a
+  program has to be given its material, `texture_mode` and colour there too ([Its look](#its-look)).

@@ -3,9 +3,9 @@
 // or, in coast mode, a shoreline with rings of water lines off it; and
 // optionally faded with the distance from a point (a focus).
 //
-// The line must have a texture, which is all that gives a Line2D UVs: a 1 by 1
-// white one, with texture_mode TILE and texture_repeat on (StyleKit.pattern_line).
-// UV.x then counts the line's widths along it, and UV.y runs 0 to 1 across it,
+// The line must have texture_mode TILE, which is what gives a Line2D UVs (the
+// harness gives it a 1 by 1 white texture as well, which turned out not to be
+// needed). UV.x then counts the line's widths along it, and UV.y runs 0 to 1 across it,
 // so every length here is in widths of the line: the pattern grows and shrinks
 // with the line, which MapDetail holds near a width on the screen.
 //
