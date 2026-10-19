@@ -15,15 +15,31 @@ units), and grey (one byte a pixel):
                     the border, where a band is drawn close in, and reach enough for a band all the
                     way out. Read back as share = (value / 255)^2.
 
+And four at half the size (1550 by 2000, a pixel 6.7 units), for the ground's colours
+(MapStyles/12-biome-ground-colours/) and the fog of war (MapStyles/20-fog-of-war/), each 0 to 255:
+
+  wetness.png       how near a river: every river of SourceData/Rivers.json drawn four times as wide as
+                    it is (at least 3 px), blurred over 10 px (3.4 km), so the great rivers' valleys
+                    are wide and green and a stream's a thread. 255 on the largest rivers.
+  farmland.png      how near people: every settlement a disc by its rank (a kingdom's capital 26 px, a
+                    duchy's 20, a county's 14, a village 7, a hamlet 4), blurred over 12 px (4 km), so
+                    fields gather round towns and thin out between villages. 255 where most gather.
+  coast.png         how near the sea: the share of the sea within a blur of 8 px (2.7 km), twice over,
+                    on land only. 255 at the shore, 0 from about 5 km inland.
+  forest_mask.png   the forests: every forest of SourceData/Forests.json filled, its clearings cut out
+                    (the scene's 2,459 pieces were cut from these). 255 in a forest.
+
 Needs numpy and Pillow (on this machine: py -3.9). Heights come from Elevation.png read as 16-bit,
 which Godot cannot do (it reads it as 8-bit).
 
-usage: py -3.9 make_data.py <repo root> <out folder>
+usage: py -3.9 make_data.py <repo root> <out folder> [name ...]   (names: as above, without .png;
+                                                                   none given: all seven)
 """
+import json
 import re
 import sys
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter
 
 PIXEL_M = 335.0
 UNITS = 3.35
@@ -109,25 +125,111 @@ def line_distance(lines, reach):
     return np.sqrt(best)
 
 
+def save_half(values, path):
+    """A full-size picture of 0 to 1, saved at half the size, smoothly, as 0 to 255."""
+    image = Image.fromarray(np.round(np.clip(values, 0.0, 1.0) * 255.0).astype(np.uint8), "L")
+    image.resize((SIZE[0] // 2, SIZE[1] // 2), Image.LANCZOS).save(path, optimize=True)
+
+
+def blurred(mask, radius):
+    """A 0 to 1 picture blurred over [radius] pixels."""
+    image = Image.fromarray(np.round(np.clip(mask, 0.0, 1.0) * 255.0).astype(np.uint8), "L")
+    return np.asarray(image.filter(ImageFilter.GaussianBlur(radius))).astype(np.float32) / 255.0
+
+
+def wetness(source, land):
+    rivers = json.load(open(source + "/Rivers.json", encoding="utf-8"))["rivers"]
+    image = Image.new("L", SIZE, 0)
+    draw = ImageDraw.Draw(image)
+    for river in rivers:
+        points = river["points"]
+        widths = river["width_px"]
+        for (a, b, w) in zip(points[:-1], points[1:], widths[:-1]):
+            draw.line([tuple(a), tuple(b)], fill=255, width=max(3, int(round(w * 4.0))))
+    wet = blurred(np.asarray(image).astype(np.float32) / 255.0, 10)
+    wet = np.sqrt(wet / max(float(wet.max()), 1e-6))
+    wet[~land] = 0.0
+    return wet
+
+
+def farmland(source, land):
+    image = Image.new("L", SIZE, 0)
+    draw = ImageDraw.Draw(image)
+    size = {"kingdom": 26, "duchy": 20, "county": 14, "village": 7, "hamlet": 4}
+    places = [(float(s["x"]), float(s["y"]), s["rank"]) for s in
+              json.load(open(source + "/Settlements.json", encoding="utf-8"))["settlements"]]
+    places += [(float(p["x"]), float(p["y"]), p["kind"]) for p in
+               json.load(open(source + "/Villages.json", encoding="utf-8"))["places"]]
+    for x, y, rank in places:
+        r = size[rank]
+        draw.ellipse([x - r, y - r, x + r, y + r], fill=255)
+    farm = blurred(np.asarray(image).astype(np.float32) / 255.0, 12)
+    farm = farm / max(float(np.percentile(farm[land], 99.5)), 1e-6)
+    farm[~land] = 0.0
+    return farm
+
+
+def coast(land):
+    sea = (~land).astype(np.float32)
+    near = blurred(blurred(sea, 8), 8)
+    near = np.clip(near * 2.0, 0.0, 1.0)
+    near[~land] = 0.0
+    return near
+
+
+def forest_mask(source):
+    image = Image.new("L", SIZE, 0)
+    draw = ImageDraw.Draw(image)
+    for forest in json.load(open(source + "/Forests.json", encoding="utf-8"))["forests"]:
+        draw.polygon([tuple(p) for p in forest["outline"]], fill=255)
+        for hole in forest["holes"]:
+            if len(hole) >= 3:
+                draw.polygon([tuple(p) for p in hole], fill=0)
+    return np.asarray(image).astype(np.float32) / 255.0
+
+
 def main():
     repo, out = sys.argv[1], sys.argv[2]
-    heights = np.array(Image.open(repo + "/MapCreation/Elevation.png")).astype(np.float32) / 10.0
-    kingdoms = np.array(Image.open(repo + "/MapCreation/SourceData/KingdomMap.png"))
+    wanted = set(sys.argv[3:]) or {"hillshade", "elevation", "kingdom_edge", "wetness", "farmland", "coast",
+                                   "forest_mask"}
+    source = repo + "/MapCreation/SourceData"
+    kingdoms = np.array(Image.open(source + "/KingdomMap.png"))
     land = kingdoms > 0
+    written = []
 
-    shade = hillshade(heights)
-    shade[~land] = 128
-    Image.fromarray(shade.astype(np.uint8), "L").save(out + "/hillshade.png", optimize=True)
+    if wanted & {"hillshade", "elevation"}:
+        heights = np.array(Image.open(repo + "/MapCreation/Elevation.png")).astype(np.float32) / 10.0
+        if "hillshade" in wanted:
+            shade = hillshade(heights)
+            shade[~land] = 128
+            Image.fromarray(shade.astype(np.uint8), "L").save(out + "/hillshade.png", optimize=True)
+            written.append("hillshade.png")
+        if "elevation" in wanted:
+            height = 255.0 * np.sqrt(np.clip(heights / HIGHEST_M, 0.0, 1.0))
+            height[~land] = 0
+            Image.fromarray(height.astype(np.uint8), "L").save(out + "/elevation.png", optimize=True)
+            written.append("elevation.png")
 
-    height = 255.0 * np.sqrt(np.clip(heights / HIGHEST_M, 0.0, 1.0))
-    height[~land] = 0
-    Image.fromarray(height.astype(np.uint8), "L").save(out + "/elevation.png", optimize=True)
+    if "kingdom_edge" in wanted:
+        borders = scene_lines(repo + "/vcom/Scenes/Map.tscn", {"Borders/Kingdoms", "BordersOverLakes/Kingdoms"})
+        distance = line_distance(borders, EDGE_REACH)
+        encoded = np.round(255.0 * np.sqrt(np.clip(distance / EDGE_REACH, 0.0, 1.0)))
+        Image.fromarray(encoded.astype(np.uint8), "L").save(out + "/kingdom_edge.png", optimize=True)
+        written.append("kingdom_edge.png (from %d border lines)" % len(borders))
 
-    borders = scene_lines(repo + "/vcom/Scenes/Map.tscn", {"Borders/Kingdoms", "BordersOverLakes/Kingdoms"})
-    distance = line_distance(borders, EDGE_REACH)
-    encoded = np.round(255.0 * np.sqrt(np.clip(distance / EDGE_REACH, 0.0, 1.0)))
-    Image.fromarray(encoded.astype(np.uint8), "L").save(out + "/kingdom_edge.png", optimize=True)
-    print("wrote hillshade.png, elevation.png, kingdom_edge.png (from %d border lines) to %s" % (len(borders), out))
+    if "wetness" in wanted:
+        save_half(wetness(source, land), out + "/wetness.png")
+        written.append("wetness.png")
+    if "farmland" in wanted:
+        save_half(farmland(source, land), out + "/farmland.png")
+        written.append("farmland.png")
+    if "coast" in wanted:
+        save_half(coast(land), out + "/coast.png")
+        written.append("coast.png")
+    if "forest_mask" in wanted:
+        save_half(forest_mask(source), out + "/forest_mask.png")
+        written.append("forest_mask.png")
+    print("wrote %s to %s" % (", ".join(written), out))
 
 
 if __name__ == "__main__":

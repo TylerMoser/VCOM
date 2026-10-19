@@ -6,6 +6,6 @@
 render_priority = 0
 shader = ExtResource("1_line")
 shader_parameter/casing = Color(0.6117647, 0.56078434, 0.49019608, 1)
-shader_parameter/casing_share = 0.3
-shader_parameter/casing_min_px = 4.5
+shader_parameter/casing_share = 0.5
+shader_parameter/casing_min_px = 3.0
 shader_parameter/narrow = Color(0.6392157, 0.58431375, 0.5411765, 1)

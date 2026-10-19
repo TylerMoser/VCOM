@@ -10,12 +10,14 @@ Candidate visual styles for VCOM's combat map, rendered from the real game on 20
 | [LEDGES.md](LEDGES.md) | Making grass levels easier to tell apart: the options compared on top of 05 (pictures in `ledges/`), the recommendation (a height tint), and how to apply it. Not applied yet. |
 | [harness/](harness/) | The render harness: previews any style from the live game, holds the values (the source of truth), and contains the two shaders. |
 | [TRANSCRIPT.md](TRANSCRIPT.md) | The conversation in which these were researched, rendered and chosen. |
-| `NN-*.png` | Screenshots. Left panel: the game as it starts. Right panel: a closer view with the HUD and tile highlights hidden. |
+| `NN-*.png` | Screenshots, of `00`, `04`, `05`, `19`, `21` and `23` (the other kept styles' were removed on 2026-10-01). Left panel: the game as it starts. Right panel: a closer view with the HUD and tile highlights hidden. |
 | [GoogleSearch.png](GoogleSearch.png) | A saved search summary of "vibrant voxel Godot" advice: Filmic/ACES + saturation, glow, SSAO/SSIL, VoxelGI. |
 
 ## Kept styles
 
 `01` Sunlit Diorama · `04` Soft GI Render (SDFGI) · `05` Colour Bounce (SSIL) · `07` Soft Pastel · `10` Split-Tone Grade · `11` Tilt-Shift Miniature · `15` Toon Shading · `19` Tactical Readability · `21` Ink Outlines · `22` Cartoon · `23` Bevelled Edge Highlights · `27` Long-Lens Diorama · `28` Recommended Blend
+
+Only `04`, `05`, `19`, `21` and `23` still have their screenshots here; the others' were removed on 2026-10-01. `Styles/harness/render.sh <id>` draws any of them again, on top of the applied `05` unless it is reverted first ([APPLYING.md](APPLYING.md)).
 
 ## Dropped styles
 

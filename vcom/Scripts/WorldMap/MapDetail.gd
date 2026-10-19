@@ -8,12 +8,11 @@
 ##             greatest rivers and lakes, the great forests.
 ##   Kingdom - under [member kingdom_view_miles]: the duchies' borders and
 ##             capitals, the highways, more rivers and lakes, large forests.
-##   Duchy   - under [member duchy_view_miles]: the counties' borders and
-##             capitals, the other roads, the bridges, every river and lake,
-##             small forests.
-##   County  - under [member county_view_miles]: the villages, their lanes
-##             and the Swamp's channels, the woods; and in a second step,
-##             under [member hamlet_view_miles], the hamlets.
+##   Duchy   - under [member duchy_view_miles]: the counties' capitals, the
+##             other roads, the bridges, every river and lake, small forests.
+##   County  - under [member county_view_miles]: the counties' borders, the
+##             villages, their lanes and the Swamp's channels, the woods; and
+##             in a second step, under [member hamlet_view_miles], the hamlets.
 ##
 ## What a tier brings fades in over [member fade_time] as the view crosses
 ## into it, and out as it leaves. Lines, lakes and forests are only ever
@@ -31,11 +30,17 @@
 ## width on the screen follows only [member width_growth] of the zoom. All of
 ## them are scaled by the one factor, since some are sized to others: a
 ## border's line along a river is as wide as the river and the border on both
-## its banks. Setting a width builds the line again, so it is done in steps of
-## [member width_step], only for lines in view and showing, and a few a frame
-## ([member points_per_frame]); the rest wait until they come into view. A
-## tier's lines have waited since it last showed, at some other zoom: as it
-## comes in they are set first, and it fades in once they are near right.
+## its banks. The borders alone follow the zoom a little less on top of that
+## ([member border_growth]): far out the map is about the realm, and they lead;
+## close in it is about the road ahead, and they give way, thinner and, for
+## the kingdoms and duchies, fainter. A border's band along a river or a road
+## takes the borders' share on its border's part alone, the rest staying as
+## wide as what it lies under. Setting a width builds the line again, so it is
+## done in steps of [member width_step], only for lines in view and showing,
+## and a few a frame ([member points_per_frame]); the rest wait until they
+## come into view. A tier's lines have waited since it last showed, at some
+## other zoom: as it comes in they are set first, and it fades in once they
+## are near right.
 ##
 ## A border or a river that reaches the sea ends a little past the land's
 ## edge, inside the coast's line as the scene has it. The coast's line narrows
@@ -64,11 +69,11 @@ const SHOWN_FROM := {
 		^"Borders/Duchies", ^"BordersOverLakes/Duchies", ^"Roads/Highways", ^"Settlements/DuchyCapitals",
 		^"Forests/Large",
 	],
-	Tier.DUCHY: [
-		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Roads/Roads", ^"Bridges",
-		^"Settlements/CountyCapitals", ^"Forests/Small",
+	Tier.DUCHY: [^"Roads/Roads", ^"Bridges", ^"Settlements/CountyCapitals", ^"Forests/Small"],
+	Tier.COUNTY: [
+		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Settlements/Villages", ^"Roads/Lanes",
+		^"Bridges/Lanes", ^"Channels", ^"Forests/Woods",
 	],
-	Tier.COUNTY: [^"Settlements/Villages", ^"Roads/Lanes", ^"Bridges/Lanes", ^"Channels", ^"Forests/Woods"],
 	Tier.HAMLETS: [^"Settlements/Hamlets"],
 }
 ## The settlements, by their place under the map: the [Destination]s kept
@@ -81,6 +86,9 @@ const RIVERS := ^"Rivers"
 const LAKES := ^"Lakes"
 const ROADS := ^"Roads"
 const COAST := ^"Coast"
+## The borders: every line under these is one, its rank the group under them
+## it is in, "Kingdoms", "Duchies" or "Counties".
+const BORDERS: Array[NodePath] = [^"Borders", ^"BordersOverLakes"]
 ## In the name of a border's line that lies under a river, a lake's shore or a
 ## road it follows, wide enough to show on both sides: "Kingdoms1And2AlongRiver173".
 const ALONG := "Along"
@@ -154,6 +162,25 @@ const MOST_WAIT := 0.5
 ## costs most of a microsecond; a line longer than this takes a frame alone.
 @export var points_per_frame := 4000
 
+@export_group("Borders")
+## How the borders' width follows the zoom on top of every line's rule: it is
+## also times (the view's height / [member true_width_view_miles]) to this
+## power, so above 0 a border is wider far out, where the map is about the
+## realm, and thinner close in, where it is about the road ahead (at 0.3, 1.49
+## times as wide all the way out and 0.52 times all the way in). At
+## [member true_width_view_miles] it is as wide as its node says, as every line
+## is. 0: as the rest.
+@export_range(-1.0, 1.0, 0.01) var border_growth := 0.3
+## The share of its alpha each rank of border keeps all the way in: whole at
+## [member border_whole_view_miles] and over, and fainter closing in, by the
+## logarithm of the view's height, down to this at
+## [member border_faintest_view_miles] and under. 1: never fainter.
+@export_range(0.0, 1.0, 0.01) var kingdom_border_faintest := 0.55
+@export_range(0.0, 1.0, 0.01) var duchy_border_faintest := 0.7
+@export_range(0.0, 1.0, 0.01) var county_border_faintest := 1.0
+@export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var border_whole_view_miles := 240.0
+@export_range(1.0, 1000.0, 1.0, "or_greater", "suffix:mi") var border_faintest_view_miles := 25.0
+
 var _map: Node2D
 ## The tier the view is in, a [enum Tier].
 var _tier: int = Tier.REALM
@@ -188,6 +215,15 @@ var _plain := PackedFloat32Array()
 # What each line was last set to: the step of the widths' factor, and whether wide.
 var _set_step := PackedInt32Array()
 var _set_wide := PackedByteArray()
+# Which lines are borders, and the share of their width the borders have at
+# the present step, by border_growth.
+var _border := PackedByteArray()
+var _border_share := 1.0
+# The ranks of border that grow fainter closing in, each with the share of its
+# alpha it keeps all the way in; and how far toward that they are at the
+# present height, 0 to 1.
+var _faintest := {}
+var _faint := 0.0
 
 # For a line that ends past the land's edge (its place in the lists above):
 # each of its points out there as [which point, where the line crosses the
@@ -224,6 +260,7 @@ func _ready() -> void:
 	_gather_lines()
 	_gather_sea_ends()
 	_gather_places()
+	_gather_faint_borders()
 
 
 func _process(delta: float) -> void:
@@ -236,10 +273,12 @@ func _process(delta: float) -> void:
 		_started = true
 		_tier = _tier_at(miles, 0.0)
 		_set_step_to(step)
+		_faint = _faint_at(miles)
 		for tier in _brings.size():
 			_shown[tier] = 1.0 if tier <= _tier else 0.0
 			for item: CanvasItem in _brings[tier]:
 				_show(item, _shown[tier])
+		_show_faint()
 		# Every line is built for the first time this frame whatever it is
 		# given, so all of them start out right, in view or not.
 		for i in _lines.size():
@@ -272,6 +311,10 @@ func _process(delta: float) -> void:
 	if _stale:
 		_refresh_widths(seen)
 	_fade(delta, seen)
+	var faint := _faint_at(miles)
+	if faint != _faint:
+		_faint = faint
+		_show_faint()
 	if _places_stale:
 		_wake_places(seen)
 
@@ -353,12 +396,47 @@ func _show(item: CanvasItem, amount: float) -> void:
 		item.visible = amount > 0.0
 		# A rank of settlements come or gone: which of them work follows.
 		_places_stale = true
-	item.modulate.a = _alpha[item] * amount
+	item.modulate.a = _alpha[item] * amount * _faint_share(item)
+
+
+## Gives each rank of border that grows fainter closing in its alpha for the
+## present height, times what its tier has of it (the kingdoms' have no tier).
+func _show_faint() -> void:
+	for group: CanvasItem in _faintest:
+		_show(group, _shown[_tier_of[group]] if _tier_of.has(group) else 1.0)
+
+
+## How far toward their faintest the borders are with the view [param miles]
+## tall: 0 at [member border_whole_view_miles] and over, 1 at
+## [member border_faintest_view_miles] and under, and between by the logarithm
+## of the height, so that each wheel step takes off about as much.
+func _faint_at(miles: float) -> float:
+	var whole := border_whole_view_miles
+	if border_faintest_view_miles >= whole:
+		return 0.0
+	return clampf(log(whole / miles) / log(whole / border_faintest_view_miles), 0.0, 1.0)
+
+
+## The share of its alpha [param item] has for growing fainter closing in: 1
+## for anything but a rank of border that does.
+func _faint_share(item: CanvasItem) -> float:
+	if not _faintest.has(item):
+		return 1.0
+	return 1.0 + (float(_faintest[item]) - 1.0) * _faint
 
 
 func _set_step_to(step: int) -> void:
 	_step = step
 	_factor = pow(width_step, step)
+	_border_share = 1.0
+	if border_growth != 0.0 and width_growth < 1.0:
+		_border_share = pow(_step_miles() / true_width_view_miles, border_growth)
+
+
+## The height of the view the widths' present step stands for: every border set
+## at one step takes the same share, as every line takes the same factor.
+func _step_miles() -> float:
+	return true_width_view_miles * pow(width_step, _step / (1.0 - width_growth))
 
 
 ## Whether the lines a tier brings that are in [param seen] are near enough
@@ -411,7 +489,15 @@ func _set_widths(seen: Rect2, budget: int, within: int) -> int:
 func _set_width(i: int, wide: bool) -> void:
 	var line := _lines[i]
 	var curve: Curve = _curves[i] if wide else null
-	line.width = (_widths[i] if wide else _plain[i]) * _factor
+	var width: float = _widths[i] if wide else _plain[i]
+	if _border[i] == 1:
+		# A band along a river or a road takes the borders' share on its border's
+		# part alone: the rest is as wide as what it lies under, which keeps its own.
+		if wide and _widths[i] > _plain[i]:
+			width = (_widths[i] - _plain[i]) + _plain[i] * _border_share
+		else:
+			width *= _border_share
+	line.width = width * _factor
 	if line.width_curve != curve:
 		line.width_curve = curve
 	# An end out past the land's edge keeps its depth in the coast's line, which
@@ -469,6 +555,26 @@ func _gather_places() -> void:
 			_squares[group][square] = []
 		_squares[group][square].append([place, at])
 		place.in_view = false
+
+
+## The ranks of border that grow fainter closing in, under Borders and
+## BordersOverLakes alike, each with the share of its alpha it keeps all the
+## way in.
+func _gather_faint_borders() -> void:
+	var faintest := {"Kingdoms": kingdom_border_faintest, "Duchies": duchy_border_faintest,
+			"Counties": county_border_faintest}
+	for rank: String in faintest:
+		if faintest[rank] >= 1.0:
+			continue
+		for path in BORDERS:
+			var group := _map.get_node_or_null(NodePath("%s/%s" % [path, rank])) as CanvasItem
+			if group == null:
+				push_error("MapDetail: nothing at '%s/%s' under the map; it is never fainter." % [path, rank])
+				continue
+			# The kingdoms' come with no tier, so their alpha in the scene is kept here alone.
+			if not _alpha.has(group):
+				_alpha[group] = group.modulate.a
+			_faintest[group] = faintest[rank]
 
 
 ## The rivers and lakes, each brought by the tier its size earns it. An island
@@ -532,6 +638,11 @@ func _across(lake: Polygon2D) -> float:
 ## Every line under the map, with what its width follows.
 func _gather_lines() -> void:
 	var to_map := _map.get_global_transform().affine_inverse()
+	var borders: Array[Node] = []
+	for path in BORDERS:
+		var group := _map.get_node_or_null(path)
+		if group != null:
+			borders.append(group)
 	for node in _map.find_children("*", "Line2D", true, false):
 		var line: Line2D = node
 		_lines.append(line)
@@ -546,6 +657,7 @@ func _gather_lines() -> void:
 		_plain.append(line.width)
 		_set_step.append(0)
 		_set_wide.append(1)
+		_border.append(1 if borders.any(func(group: Node) -> bool: return group.is_ancestor_of(line)) else 0)
 
 	# The lines that lie under something a border follows, now that every
 	# road is among the lines to be looked for.

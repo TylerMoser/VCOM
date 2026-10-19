@@ -31,8 +31,8 @@ const ICON_SCENE := {"village": "res://Scenes/Village.tscn", "hamlet": "res://Sc
 
 # The lines, as the map draws them (Docs/MAP.md, "Its look"): widths in Godot units, and a lane's
 # look its material's, the line's colour the fill.
-const LANE_WIDTH := 7.0          # a village's lane, narrower than any road (14)
-const LANE_BRIDGE_WIDTH := 10.15 # a lane's bridge, half as wide again as the lane
+const LANE_WIDTH := 8.0          # a village's lane, narrower than any road (16)
+const LANE_BRIDGE_WIDTH := 11.6  # a lane's bridge, 1.45 times the lane, as a road's is its road
 const CHANNEL_WIDTH := 4.0       # a swamp village's channel, narrower than any river
 const LANE_MATERIAL := "res://Resources/MapLines/Lane.tres"
 const LANE_BRIDGE_MATERIAL := "res://Resources/MapLines/LaneBridge.tres"

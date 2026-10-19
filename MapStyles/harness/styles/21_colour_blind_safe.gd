@@ -2,7 +2,7 @@
 ## most often with weak red or green cones (deuteranomaly and protanomaly), and
 ## the present map tells its lines apart almost only by hue: magenta, purple,
 ## red, brown and grey borders, roads and bridges become muddy browns and greys
-## of about the same lightness to them (00-current-look-deutan.png shows it).
+## of about the same lightness to them (style 90, with BEFORE=1, shows it).
 ## Here every kind differs in at least two of lightness, pattern and shape, and
 ## the hues come from the blue-orange axis that every common deficiency keeps
 ## (the Okabe-Ito palette): borders a dark ink told apart by their pattern

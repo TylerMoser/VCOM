@@ -16,14 +16,16 @@ shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` 
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
 camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
 `Styles/REVERT.md` restores the original look. `MapStyles/` holds 28 proposals for the
-new world map's look, 02, 04, 05 and 10's forests applied (`Docs/MAP.md`, "Its look"): their pictures, the harness that renders them from `Map.tscn`,
-and `MapStyles/README.md` on what each changes and how to apply it. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
+new world map's look, 02, 04, 05 and 10's forests applied, and of 10, 14 and 19 revisited on that look 10b, 14b and 19a
+(`Docs/MAP.md`, "Its look"): the harness that renders them from `Map.tscn`, `MapStyles/README.md` on what each changes and
+how to apply it, and pictures of the look as it is (`render.sh 0 91` draws them again); 12 (biome ground colours), whose
+12b is applied, and 20 (fog of war), still open, are explored there in sub-folders, 25 and 24 variants written up. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
 subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
 `DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MAP.md` (the
-new map: its scene, forests and level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
+new map: its scene, look, forests and level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
 file before touching it, and put new detail about it there, not here; when this file nears the limit
 again, split another subsystem out the same way.
 
@@ -285,10 +287,14 @@ vcom/Scripts/
                        never leaves what is seen all the way out
     MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
                        (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
-                       factor of the zoom, a few lines a frame; settlements far from the view stopped (in_view);
+                       factor of the zoom, a few lines a frame, the borders' by a growth of their own too
+                       (border_growth) and the kingdoms' and duchies' fainter closing in (*_border_faintest);
+                       settlements far from the view stopped (in_view);
                        forests by the size of the whole forest (Forests/Large, Small, Woods), only ever faded
     MapLine.gdshader   Map.tscn's lines as map symbols: casings (roads, bridges), dashes and dots (borders), a band's
                        pattern on both banks; a material a kind in Resources/MapLines/, and the line in Texture Mode Tile
+    MapGround.gdshader Map.tscn's land tinted by its biome: one material, Resources/MapGround.tres, each biome's colour
+                       and intensity on it; a county's biome (its kingdom's) set on the county, an instance parameter
     BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
                        nothing and back (shown); MapDetail fades only the ranks under them
     MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
@@ -570,7 +576,8 @@ of no width, there and back, and every piece is cut into triangles as it is made
 it (`MapCreation/Scripts/scene/godotcut.py`), since Godot draws nothing of one it cannot cut.
 `Detail`, a `MapDetail`, is its level of detail: four tiers by the view's height in miles, the
 user's (Realm; Kingdom under 480; Duchy under 240; County under 100, hamlets under 50), faded by
-`modulate`, every line's width scaled by one factor of the zoom, a few lines a frame. A new layer
+`modulate`, every line's width scaled by one factor of the zoom (the borders' less, and fainter closing
+in), a few lines a frame. A new layer
 that should come and go by the zoom goes in `MapDetail.SHOWN_FROM`; one of lines or polygons is
 only ever faded, never hidden, since a `Line2D` shown again is built again and a `Polygon2D` cut into
 triangles again (only the settlements are hidden outright, and stop their work, as do those far
@@ -582,7 +589,7 @@ moves the copies too. The villages and the forests are made by `MapCreation/Scri
 to one is lost. `MapCreation/Scripts/scene/m2_scene.gd`, which wrote the scene, now writes only the
 villages and the forests alone, in the map's look, for those splices: its whole-scene part, which would
 write the scene afresh in the old look, was taken out (git keeps it, at d8b5ec7). `Docs/MAP.md` has all
-of it (settlements, party, clock, camera, forests, level of detail) and why; read it before touching the
+of it (settlements, party, clock, camera, look, forests, level of detail) and why; read it before touching the
 map. `README.md`, "The new world map", has the decisions and what each node holds.
 
 **Forests are shapes where the party may be set upon.** On the old map each is an instance of
@@ -1354,7 +1361,7 @@ draws close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
 `MapCreation/Scripts/scene/m4_compare.py` set it beside `MapCreation/AllSimple.png`, colour by colour, until
 the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at four views.
 
-How to probe blood, the gamepad, a medkit and the new map (its forests, its level of detail) is in their `Docs/`
+How to probe blood, the gamepad, a medkit and the new map (its look, its forests, its level of detail) is in their `Docs/`
 files (`BLOOD.md`, `GAMEPAD.md`, `MEDKIT.md`, `MAP.md`), under "Probing it".
 
 A death is probed headless too: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
@@ -1662,11 +1669,11 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
 - `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
   navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. Its reticle's
   prompt says "Go here" over the sea as well,
-  and its white ring is faint on the white land. Only county 115's capital has anything in it, and it
+  and its white ring is faint on the pale land. Only county 115's capital has anything in it, and it
   shares the old village's board and market: with both maps in one game they would be one shop.
   Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture.
-  The rest of its gaps, its forests' and its level of detail's, are in `Docs/MAP.md`. It is 13.5 MB
+  The rest of its gaps, its forests' and its level of detail's, are in `Docs/MAP.md`. It is 13.6 MB
   of text and takes about 2.7 s to open, 1.7 before its 2,459 pieces of forest.
 - The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
   land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates

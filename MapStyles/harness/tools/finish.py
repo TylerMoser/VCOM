@@ -10,6 +10,11 @@ a Markdown table.
       The probe's lines turned into a table: the time the style took to apply as the map loads, and
       each view's GPU time and draw calls.
 
+  py -3.14 finish.py compare <out.png> <panel 0-3> <label>=<picture>[@<panel>] [...]
+      One panel of each picture, at full size, two to a row, each labelled in its top right corner:
+      the same view of the map now and under some variants, as the revisited 10, 14 and 19 were
+      compared. A picture followed by @ and a number gives that panel of it instead.
+
 Needs Pillow (py -3.14 on this machine).
 """
 import glob
@@ -87,7 +92,8 @@ def costs(log):
     current = None
     with open(log, encoding="utf-8", errors="replace") as f:
         for line in f:
-            m = re.search(r"MapStyleProbe: style (\d+)\s+(.*)$", line)
+            # "style 07  Forest symbols", or a variant's label: "style 14 now  The map as it is now".
+            m = re.search(r"MapStyleProbe: style (.+?)  (.*)$", line)
             if m:
                 current = {"id": m.group(1), "name": m.group(2).strip(), "apply": "", "ready": "", "views": {}}
                 rows.append(current)
@@ -115,9 +121,32 @@ def costs(log):
             " | ".join(gpus), calls))
 
 
+def compare(out, index, items):
+    pictures = [item.split("=", 1) for item in items]
+    columns = 2 if len(pictures) > 1 else 1
+    rows = (len(pictures) + columns - 1) // columns
+    canvas = Image.new("RGB", (columns * PANEL_W + (columns - 1) * GAP, rows * PANEL_H + (rows - 1) * GAP), (24, 25, 30))
+    text = font(22)
+    for n, (label, path) in enumerate(pictures):
+        which = index
+        if re.search(r"@\d$", path):
+            path, which = path[:-2], int(path[-1])
+        view = panel(Image.open(path).convert("RGB"), which)
+        # In the top right corner: the clock is in the top left, the caption in the bottom left.
+        draw = ImageDraw.Draw(view)
+        width = draw.textlength(label, font=text)
+        draw.rectangle([PANEL_W - width - 22, 0, PANEL_W, 36], fill=(24, 25, 30))
+        draw.text((PANEL_W - width - 11, 3), label, fill=(240, 240, 235), font=text)
+        canvas.paste(view, ((n % columns) * (PANEL_W + GAP), (n // columns) * (PANEL_H + GAP)))
+    canvas.save(out, optimize=True)
+    print("wrote", out, canvas.size)
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "sheet":
         sheet(sys.argv[2], int(sys.argv[3]), sys.argv[4],
               int(sys.argv[5]) if len(sys.argv) > 5 else 5, float(sys.argv[6]) if len(sys.argv) > 6 else 0.5)
+    elif sys.argv[1] == "compare":
+        compare(sys.argv[2], int(sys.argv[3]), sys.argv[4:])
     else:
         costs(sys.argv[2])

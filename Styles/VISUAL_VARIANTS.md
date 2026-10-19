@@ -2,6 +2,7 @@
 
 The candidate looks for the combat map, each rendered from the real game, plus the current look as `00`.
 Out of 28 explored on 2026-09-26, these 13 were kept for consideration (see [README.md](README.md) for the ones dropped).
+Six screenshots remain (`00`, `04`, `05`, `19`, `21`, `23`); the rest were removed on 2026-10-01, and each such entry says how to draw it again.
 To apply one, follow [APPLYING.md](APPLYING.md). Every value below is generated from [`harness/VariantList.gd`](harness/VariantList.gd), which is the source of truth.
 
 ## How to read the screenshots
@@ -77,7 +78,7 @@ Settings: see **Current settings** at the top.
 
 ## 01 · Sunlit Diorama
 
-![01 Sunlit Diorama](01-sunlit-diorama.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 1` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 The baseline upgrade: sun moved to the camera's left so tops, south faces and east faces read as three distinct tones and shadows fall where you can see them; bright blue sky for backdrop and ambient; light SSAO; MSAA for clean block edges. Most variants build on this.
 
@@ -122,7 +123,7 @@ Screen-space indirect light: a cheaper bounce than SDFGI that lifts shadows with
 
 ## 07 · Soft Pastel
 
-![07 Soft Pastel](07-soft-pastel.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 7` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Pastel sky, wide soft shadows, strong AO, and block colours lightened and desaturated 22% by the block shader. Calm and Townscaper-like; the least saturated option.
 
@@ -138,7 +139,7 @@ Pastel sky, wide soft shadows, strong AO, and block colours lightened and desatu
 
 ## 10 · Split-Tone Grade (1D LUT)
 
-![10 Split-Tone Grade (1D LUT)](10-split-tone-grade-1d-lut.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 10` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Per-channel curves: teal-lifted shadows, warm mids and highlights. A muted, filmic grade; the sky goes teal-grey.
 
@@ -154,7 +155,7 @@ Per-channel curves: teal-lifted shadows, warm mids and highlights. A muted, film
 
 ## 11 · Tilt-Shift Miniature
 
-![11 Tilt-Shift Miniature](11-tilt-shift-miniature.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 11` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Near and far depth-of-field blur plus +20% saturation fake a tabletop miniature. The focus band is wide enough that units stay sharp; in game the focus distance should follow the camera zoom.
 
@@ -171,7 +172,7 @@ Near and far depth-of-field blur plus +20% saturation fake a tabletop miniature.
 
 ## 15 · Toon Shading (built-in)
 
-![15 Toon Shading (built-in)](15-toon-shading-built-in.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 15` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Godot's built-in toon diffuse on blocks and units (hard terminator), toon specular and rim on units, blue-violet ambient. Two-tone faces and crisp shadows.
 
@@ -220,7 +221,7 @@ Full-screen depth + normal outline pass: 1 px dark ink silhouettes. It also expo
 
 ## 22 · Cartoon (toon + bold outlines)
 
-![22 Cartoon (toon + bold outlines)](22-cartoon-toon-bold-outlines.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 22` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 #15's toon shading with 2 px ink outlines, crease lines where walls meet the floor, and +15% saturation. Comic-book.
 
@@ -254,7 +255,7 @@ The outline pass used for definition rather than ink: silhouettes are a darker s
 
 ## 27 · Long-Lens Diorama (FOV 40)
 
-![27 Long-Lens Diorama (FOV 40)](27-long-lens-diorama-fov-40.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 27` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Camera FOV narrowed from 75° to 40° and pulled back to keep the framing. Much less perspective distortion, so the map reads like a tabletop and walls stay parallel. Changes the camera, not the art.
 
@@ -270,7 +271,7 @@ Camera FOV narrowed from 75° to 40° and pulled back to keep the framing. Much 
 
 ## 28 · Recommended Blend
 
-![28 Recommended Blend](28-recommended-blend.png)
+*Its screenshot is not kept (removed on 2026-10-01): `Styles/harness/render.sh 28` draws it again, on top of the applied 05 unless that is reverted first ([APPLYING.md](APPLYING.md)).*
 
 Claude's pick for the todo notes: #01's lighting with softer sun shadows; the block shader with calmer greens (green-only −18% saturation), light hand-shaded faces, contact AO at wall bases and a slight elevation gain; bevel outlines like #23; and a gentle vibrance LUT with cool shadows.
 

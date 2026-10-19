@@ -10,15 +10,19 @@
 ##       [--views=B,C] [--panels] [--tag=suffix] [--timing=120] [--map=res://_probe/before/Map.tscn]
 ##
 ## --map renders another copy of the map than the scene's own: render.sh's BEFORE=1 gives it the
-## scene as it was before 02, 04, 05 and 10 were applied, which the proposals were written for.
+## scene, and the MapDetail, as they were before 02, 04, 05 and 10 were applied, which the
+## proposals were written for.
 ##
-## A style is a script in styles/ whose file name starts with its number. It is
+## A style is a script in styles/ whose file name starts with its number (1NN_ for the variants
+## of proposal NN revisited on 2026-10-19, which start from the scene as it was then, and 200 for
+## the three of them chosen; StyleKit.as_revisited() puts it back so). It is
 ## applied to the map before the map enters the tree, as an edit to the scene
 ## would be, so the map's own nodes (MapDetail, BorderSwitch) read it in their
 ## _ready. A style may also:
 ##   ready(kit)            - add runtime nodes once the map is in the tree
 ##   panels(kit) -> Array  - render other views than the standard four: each an
 ##                           Array [letter, caption, centre or null, miles]
+##   route(kit) -> PackedVector2Array - where the party is going, in place of ROUTE_TO
 ##   before_panel(kit, i, view) - change something just before panel i (its view
 ##                           as above) is captured, once the view is in place
 extends Node
@@ -93,7 +97,9 @@ func _ready() -> void:
 		get_tree().quit(1)
 		return
 	_style = script.new()
-	var title := "%02d  %s" % [_style_id, _style.get("NAME")]
+	# A variant names itself in its caption by its LABEL ("14a"), a proposal by its number.
+	var label: Variant = _style.get("LABEL")
+	var title := "%s  %s" % ["%02d" % _style_id if label == null else str(label), _style.get("NAME")]
 	print("MapStyleProbe: style %s" % title)
 
 	var started := Time.get_ticks_usec()
@@ -102,6 +108,8 @@ func _ready() -> void:
 	var loaded := Time.get_ticks_usec()
 	if _style.has_method("apply"):
 		_style.apply(_kit)
+	if _map_path != MAP:
+		_as_before(_map.get_node_or_null(^"Detail"))
 	var styled := Time.get_ticks_usec()
 	print("MapStyleProbe: map loaded in %d ms; the style applied in %.1f ms" % [
 		(loaded - started) / 1000, (styled - loaded) / 1000.0])
@@ -151,6 +159,19 @@ func _find_style(id: int) -> GDScript:
 	return null
 
 
+## On a copy of the map as it was (render.sh's BEFORE=1), MapDetail as it was too. The copy has
+## MapDetail's file as it was then, but a style that gives the Detail node a script of its own
+## built on MapDetail (19's and 28's ProgressiveDetail) has today's under it: what came since is
+## set off here, the borders' own width and fading by the zoom (14b, applied on 2026-10-19). On the
+## file as it was, which has none of them, setting them does nothing.
+func _as_before(detail: Node) -> void:
+	if detail == null:
+		return
+	detail.set("border_growth", 0.0)
+	detail.set("kingdom_border_faintest", 1.0)
+	detail.set("duchy_border_faintest", 1.0)
+
+
 ## Keeps the player's real mouse and keys out of the map: nothing pans, zooms,
 ## sends the party or opens a menu while the views are taken.
 func _quiet(map: Node) -> void:
@@ -164,10 +185,14 @@ func _quiet(map: Node) -> void:
 			node.set_process_input(false)
 
 
-## Gives the party a route, so its dashed line shows, and stops it there.
+## Gives the party a route, so its dashed line shows, and stops it there: towards ROUTE_TO, or along
+## the style's own route(kit) when it has one.
 func _send_party() -> void:
 	var party := _map.get_node(^"Party") as Node2D
-	party.set("_route", PackedVector2Array([ROUTE_TO]))
+	var route := PackedVector2Array([ROUTE_TO])
+	if _style.has_method("route"):
+		route = _style.route(_kit)
+	party.set("_route", route)
 	party.set_process(false)
 	party.queue_redraw()
 

@@ -3,33 +3,37 @@
 Proposals for the look of the new world map, `vcom/Scenes/Map.tscn`, to make it easier to read: to
 tell at a glance what each line is, and to let the eye settle on what matters to the player. Each
 proposal was applied to the real scene by a render harness and photographed in the game's own
-renderer on 2026-10-18, as the scene was then. **Four are now applied to the game**, at the user's
-choice: 02, 04, 05 (in a brighter blue) and 10 where it does not conflict with those, balanced as
-[Applied](#applied) says. The rest are not.
+renderer on 2026-10-18, as the scene was then. **Some are now in the game**, at the user's choice:
+on 2026-10-18 02, 04, 05 (in a brighter blue) and 10 where it does not conflict with those,
+balanced where they did; and on 2026-10-19 10b, 14b and 19a, variants of 10, 14 and 19 looked at
+again on that look ([Revisited](#revisited-on-the-applied-look)), and 12b, the whisper, from the
+variants of 12. [The current look](#the-current-look) shows the map as it now is and says what was
+applied, and how. The rest are not.
 
 There are 28 proposals. 01 to 21 each take on one part of the problem (the borders, the roads, the
 water, the forests, the ground, names, what is shown where, colour vision) and most of them combine
-freely; 22 to 27 are whole looks; 28 is the blend recommended here. `00` is the map as it was, for
-comparison.
+freely; 22 to 27 are whole looks; 28 is the blend recommended here.
 
-![Every proposal at the same view](contact-sheet.png)
-
-*Every proposal at the County tier, 80 miles tall (panel C of each picture). `contact-sheet.png`. 00,
-labelled "Current look" as the harness names style 0, is the map as it was before 02, 04, 05 and 10
-were applied; [Applied](#applied) shows it now.*
+**No proposal's own picture is kept here any more.** 12 and 20 were explored further, each in a
+folder of its own: [`12-biome-ground-colours/`](12-biome-ground-colours/README.md), 25 variants, of
+which 12b is now applied (12's own picture was removed after), and
+[`20-fog-of-war/`](20-fog-of-war/README.md), 24 variants, still open, which keeps 20's own picture
+beside them. Every proposal is
+described here all the same, and its script in `harness/styles/` draws its picture again, as it was
+pictured: `BEFORE=1 harness/render.sh NN` ([The harness](#the-harness)). Where a proposal speaks of
+a panel, that picture is the one meant.
 
 | File | What it is |
 |---|---|
-| `NN-name.png` | One proposal: four views of the map side by side (below) |
-| `00-current-look.png` | The map as it was before any proposal was applied |
-| `90-current-look-colour-blind-check.png` | The same, each view beside a simulation of deuteranopia, laid out as proposal 21 |
-| `contact-sheet.png` | Every proposal at the same view |
-| `applied-look.png`, `applied-close-ups.png` | The map as it is now, 02, 04, 05 and 10 applied: the four views, and six close in |
+| `00-current-look.png` | The map as it is now, at the four standard views ([How to read the pictures](#how-to-read-the-pictures)) |
+| `91-current-look-close-in.png` | The map as it is now, close in: six views where borders meet rivers, roads and the sea |
+| `12-biome-ground-colours/`, `20-fog-of-war/` | Proposals 12 and 20 explored on the map as it was on 2026-10-19: 25 and 24 variants, each described fully enough to be adopted later, with a README each ([12](12-biome-ground-colours/README.md), [20](20-fog-of-war/README.md)). 12's folder keeps two pictures, `applied.png` (12b, applied) and `stronger-option.png` (12g); 20's keeps every variant's and 20's own as proposed (`20-fog-of-war.png`). The harness draws the others again |
 | `harness/` | The render harness: a style script per proposal (the source of truth for every value), the shaders, the runtime nodes, the tools that made the pictures it reads |
 
 ## Contents
 
-- [Applied](#applied)
+- [The current look](#the-current-look)
+- [Revisited on the applied look](#revisited-on-the-applied-look): 10, 14 and 19
 - [How to read the pictures](#how-to-read-the-pictures)
 - [The problem, measured](#the-problem-measured)
 - [What a readable map does](#what-a-readable-map-does)
@@ -47,27 +51,38 @@ were applied; [Applied](#applied) shows it now.*
 - [What it costs](#what-it-costs)
 - [Decided without asking, and open questions](#decided-without-asking-and-open-questions)
 
-## Applied
+## The current look
+
+![The map as it is now](00-current-look.png)
+
+*The map as it is now, at the four standard views. `00-current-look.png`.*
+
+![The map as it is now, close in](91-current-look-close-in.png)
+
+*Close in, where borders meet rivers, roads and the sea, and the borders are at their thinnest and
+faintest: a county's dots along a river (H) are a fine edge on both banks.
+`91-current-look-close-in.png`.*
+
+Both are drawn from the scene by the harness: `harness/render.sh 0 91` writes them here, and is to
+be run again whenever the look changes. The look is 02's patterned borders, 04's cased roads, 05's
+one water and 10's paler forests, applied on 2026-10-18 and balanced where they conflicted, and since
+2026-10-19 10b's roads, 14b's borders, 19a's county borders and 12b's ground. `Docs/MAP.md`, "Its
+look" and "Level of detail", has it in full: the two shaders, the eleven materials in
+`vcom/Resources/MapLines/` and the ground's `vcom/Resources/MapGround.tres`, every value, how the
+zoom changes it, and how to draw a new line.
+
+**The map is done for now.** After 12b the user closed the map's changes for the time being
+(2026-10-19): this is its look until the map is taken up again, and every proposal and variant not
+applied, 20's fog of war among them, waits here with what it needs to be adopted.
+
+### 02, 04, 05 and 10, on 2026-10-18
 
 On 2026-10-18 the user chose four of these for the game: "The patterned borders from image 02; the
 cased roads from image 04; the one water approach from image 05, but use a slightly more vibrant
 color, a bit closer to the current ocean color outside of the continent; the re-weighted lines from
 image 10, where it does not conflict with any of the other approaches", the four balanced where
 they conflict. They are in `Map.tscn` itself, route 2 [below](#two-routes), so the editor shows
-them too:
-
-![The applied look](applied-look.png)
-
-*The map as it is now, at the four views. `applied-look.png`.*
-
-![The applied look, close in](applied-close-ups.png)
-
-*Close in, where borders meet rivers, roads and the sea. `applied-close-ups.png`.*
-
-`Docs/MAP.md`, "Its look", describes the look as it now is: the shader
-(`vcom/Scripts/WorldMap/MapLine.gdshader`, `map_line.gdshader` cut down to what these four need,
-with `banks` added), the eleven materials in `vcom/Resources/MapLines/`, every value, and how to draw
-a new line. Where it differs from the four as pictured here:
+them too. Where the look differs from the four as proposed:
 
 - **Borders along rivers stay bands under the river.** 02 drew them on the water, as 01 did. With
   borders as thin as 02's, a border over a thin river hid the river, against 05's water as one
@@ -105,23 +120,102 @@ is `Map.tscn` at commit d8b5ec7, with the four forest kinds' scenes; going back 
 every hand edit made to them since. **The harness's styles were written for the scene as it was**:
 run on the scene now, they apply over the applied look (05 would narrow the shoreline again, and
 `StyleKit.along_lines(rank, "Lake")` finds nothing under `Borders`). `BEFORE=1 harness/render.sh N`
-renders a proposal on a copy of the scene as it was, taken from git into `vcom/_probe/` for the run,
-and draws it as pictured (00 and 05 came out the same to a pixel); the scene itself is never touched.
-Without it, style 0 renders the scene as it is, now the applied look. Nothing in the repository
-writes the old look any more: the scene generator's whole-scene part was taken out as it was applied
-(`Docs/MAP.md`, "Its look").
+renders a proposal on a copy of the scene as it was, and of `MapDetail.gd`, taken from git into
+`vcom/_probe/` for the run, and draws it as pictured: 05, and style 0 drawn so, came out as their
+pictures to a pixel; 19 and style 0 again, once 14b and 19a had changed MapDetail, to within the
+few pixels by a shade that two runs of the same differ by. The scene itself is never touched.
+Without it, style 0 renders the scene as it is. Nothing in the repository writes the old look any
+more: the scene generator's whole-scene part was taken out as it was applied (`Docs/MAP.md`, "Its
+look").
+
+### 10b, 14b and 19a, on 2026-10-19
+
+From the three proposals [revisited](#revisited-on-the-applied-look) on that look, the user then
+took the variant recommended in each:
+
+- **10b, roads that keep their weight close in.** `Road.tres`'s casing is half the road (from 0.3)
+  from 3 px across (from 4.5), and in the scene the roads are 16 wide (from 14) and the lanes 8 (7),
+  the bridges on them 23.2 and 11.6, and the five borders' bands along roads 2 wider.
+  `MapCreation/Scripts/scene/m2_scene.gd` writes the lanes and their bridges at the new widths, so
+  a villages' splice keeps them.
+- **14b, borders that follow the zoom.** In `MapDetail.gd`, on top of every line's rule, the
+  borders' widths grow with the view's height by `border_growth` (0.3: 1.49 times as wide all the way
+  out, 0.52 times all the way in), a band along a river or road on its border's part alone; and the
+  kingdoms' and duchies' borders fade closing in, from whole at 240 miles to 0.55 and 0.7 of their
+  alpha at 25 (`kingdom_border_faintest`, `duchy_border_faintest`). All are settings of the
+  `Detail` node, to be tuned in the inspector.
+- **19a, the county borders with the County tier.** Two lines of `MapDetail.SHOWN_FROM`.
+
+They were checked by drawing the scene once they were applied (style 0) beside the three as the
+harness drew them before (style 200): the same to the pixel, but for the caption. `Docs/MAP.md`
+("Its look", "Level of detail") has them in full. With them, a road outweighs every border wherever
+roads show, the kingdoms read all the way out, and the Duchy tier has lost its faintest layer.
+
+### 12b, on 2026-10-19
+
+Later the same day the user took 12b, the whisper, from the variants of 12 explored in
+[`12-biome-ground-colours/`](12-biome-ground-colours/README.md#12b--whisper): each kingdom's open
+land in its biome's colour from 12's palette, at 40% of its strength, the forests as they were.
+They asked for each biome's colour and intensity to be easy to change, as they mean to tune them,
+so the ground is one material rather than colours on the 234 polygons of land:
+`vcom/Resources/MapGround.tres`, drawn by `vcom/Scripts/WorldMap/MapGround.gdshader`, with a group
+for each biome, its Color and its Intensity, and an Overall Intensity over all nine. Each polygon
+names its biome, its kingdom's, as an instance parameter, so the one material serves them all and
+the colours meet exactly on the borders as drawn. Changed in the inspector, a colour shows at once
+in the editor.
+
+It was checked as the three before it: the scene drawn at 12's views (as style 1200 draws them,
+without `without_ground()`) beside 12b's picture: the same but for a shade on 22 pixels. It costs
+nothing measurable, once the shader picked each county's colour a vertex rather than a pixel, which
+had tripled the map's GPU time. `Docs/MAP.md`, "Its look", has the colours, how to change them and
+its gaps: at this strength the biomes are only just told apart, and to a red-green colour-blind eye
+three pairs of neighbours are one colour.
+
+## Revisited on the applied look
+
+On 2026-10-19 the user asked for three of the proposals to be looked at again on the map as it then
+was, with variants of each: 10 (reweighting), 14 (emphasis following the zoom) and 19 (progressive
+disclosure). Each was measured with `harness/tools/line_weights.py`, which gives every kind of
+line's width on the screen and its weight (the width of a black line carrying as much contrast
+against the land) at any height of the view, and each variant was pictured. The variant recommended
+in each was applied the same day ([The current look](#the-current-look)); the others are not.
+
+| Proposal | The problem, measured | Variants, and the harness style that draws each | Applied |
+|---|---|---|---|
+| 10, reweighting | A road got lighter once its casing showed, and weighed half a kingdom border's all the way in; the county borders weighed a tenth of any other line | a, 10's own weights, which showed why they had given way (101); b, a road's casing half its width, from 3 px (102); c, county dots closer, wider and darker (103) | 10b |
+| 14, emphasis follows the zoom | All the way out the kingdom borders were faint, half a great river's weight; all the way in they were the darkest line | a, the borders fade closing in (141); b, and are wider far out and thinner close in (142); c, and every road wider close in (143) | 14b |
+| 19, progressive disclosure | Every Duchy-tier view carried some 80 faint county borders; 19's own lake rule caught 9 lakes, the smallest being 2 to 3 km across | a, county borders from 100 miles (191); b, lanes from 50 (192); c, all of 19, its lakes at 3 km (193); d, the county borders and lanes fading in instead of stepping (194) | 19a |
+
+Styles 100, 140 and 190 draw the map as it was then at each one's views, and 200 the three applied,
+together. Each starts from the map as it was when they were made, which `StyleKit.as_revisited()`
+puts back in memory by taking 10b, 14b and 19a out again, so they draw as pictured without
+`BEFORE=1`. The three applied cost nothing measurable, and 19a saves 81 of 914 draw calls at 180
+miles.
 
 ## How to read the pictures
 
-Every `NN-name.png` is 2568 by 1448: four views of 1280 by 720, the game's window, each captioned in
-its bottom left corner. Open them at full size: the differences are a pixel or two wide.
+`00-current-look.png`, like each proposal's picture, is 2568 by 1448: four views of 1280 by 720,
+the game's window, each captioned in its bottom left corner. Open them at full size: the
+differences are a pixel or two wide.
 
 | Panel | View | Centred on | What it shows |
 |---|---|---|---|
 | A, top left | All the way out (the Realm tier, 832 miles tall) | The land's middle | The island, the kingdoms, the great rivers and the nine capitals |
-| B, top right | The Duchy tier, 180 miles tall | The party's start, county 115 | Every border, highway, road, river and lake, the towns: the busiest view for lines |
+| B, top right | The Duchy tier, 180 miles tall | The party's start, county 115 | The borders (the counties' only on the map as it was: since 19a they come at 100 miles), every highway, road, river and lake, the towns: the busiest view for lines |
 | C, bottom left | The County tier, 80 miles tall | (6150, 8500), where the Temperate Mountains meet the Deciduous Forest | Villages and lanes, a kingdom border along a river and through lakes, the densest settlements |
 | D, bottom right | All but closest, 30 miles tall | The party's start | Hamlets, a kingdom and a duchy border, roads and lanes in close-up |
+
+`91-current-look-close-in.png` is six views of the same size, two to a row, where the map's lines
+meet, at 25 and 30 miles tall, where the borders are at their thinnest and faintest:
+
+| Panel | View | Centred on |
+|---|---|---|
+| E, top left | A kingdom border along a river, 30 miles tall | (5715, 8450) |
+| F, top right | A kingdom border along a river to the sea, 25 miles | (8330, 9120) |
+| G, middle left | A duchy border along a river, 30 miles | (7870, 6842) |
+| H, middle right | County borders along a river, 30 miles | (7850, 8450) |
+| I, bottom left | A duchy border along a road, 25 miles | The middle of `Duchies32And34AlongRoad364` |
+| J, bottom right | Borders and a river ending at the coast, 25 miles | (8330, 9700) |
 
 In every picture the party has been sent east towards the capital of kingdom 5 (a point at (8100,
 7520)), so its route line shows; the proposals that draw a route of their own (09, and 17 and 21 to 28,
@@ -133,8 +227,8 @@ asset, so think before sharing these pictures outside the repo.
 
 ## The problem, measured
 
-The map drew these, from the bottom up, before the look was [applied](#applied). Every value is the
-scene's own as it was then.
+The map drew these, from the bottom up, before the look was [applied](#the-current-look). Every
+value is the scene's own as it was then.
 
 | Layer | Nodes | Colour | Width at 220 miles tall (units) |
 |---|---|---|---|
@@ -198,7 +292,7 @@ What makes it hard to read, as measured on the pictures and the scene:
    its labels.
 
 9. **To the 1 man in 12 with a red-green deficiency it is worse.** Simulated deuteranopia
-   (`90-current-look-colour-blind-check.png`) turns the magenta and purple borders blue, the colour of
+   (style 90, `BEFORE=1 harness/render.sh 90`) turns the magenta and purple borders blue, the colour of
    the rivers (CIEDE2000 26.5 between duchy border and river becomes 11.3; kingdom border and river,
    33.1 becomes 13.1), and the roads into an olive grey near the county borders'. The forests all
    become one tan.
@@ -233,42 +327,42 @@ Every proposal draws on a handful of long-settled rules of map design:
 
 ## The proposals at a glance
 
-| # | Proposal | What changes | Kind | Needs new code |
-|---|---|---|---|---|
-| [01](#01--quiet-borders) | Quiet borders | Borders thinner, muted, see-through; drawn on the water where they follow it | Borders | No |
-| [02](#02--patterned-borders) | Patterned borders | Borders in one ink, told apart by dash-dot, dashes and dots | Borders | Line shader |
-| [03](#03--kingdom-edge-bands) | Kingdom edge bands | A soft band of the kingdom's colour inside each kingdom border | Borders | Land shader, a picture |
-| [04](#04--cased-roads) | Cased roads | Roads as light fills between dark edges; amber highways | Roads | Line shader |
-| [05](#05--one-water) | One water | Sea, lakes and rivers in one light blue; a fine shoreline | Water | One MapDetail export |
-| [06](#06--coast-with-water-lines) | Coast with water lines | A fine shoreline with fading water lines off the coast | Water | Line shader |
-| [07](#07--forest-symbols) | Forest symbols | Tree marks by kind over a lighter fill | Forests | Forest shader |
-| [08](#08--symbols-far-out-pictures-close-in) | Symbols far out, pictures close in | Settlements as small rank symbols until 50 miles | Settlements | Destination change |
-| [09](#09--route-planner) | Route planner | The route cased, red through forest, days marked, odds of a battle | The party | Party change |
-| [10](#10--reweighted-same-colours) | Reweighted, same colours | Only widths and alphas: heavier roads, lighter borders and coast | Weights | No |
-| [11](#11--political-pastels) | Political pastels | Kingdoms as pastel areas, thin borders, stippled forests | Ground | Forest shader |
-| [12](#12--biome-ground-colours) | Biome ground colours | Each kingdom's open land in its biome's pale colour | Ground | No |
-| [13](#13--shaded-relief) | Shaded relief | Hills shaded from the map's heights | Ground | Relief shader, a picture |
-| [14](#14--emphasis-follows-the-zoom) | Emphasis follows the zoom | Borders thin and fade as the view closes in; roads grow | Zoom | MapDetail change |
-| [15](#15--labels) | Labels | Names of kingdoms, duchies, settlements and lakes, ranked by zoom | Names | A labels node; names |
-| [16](#16--map-key-and-inspect) | Map key and inspect | A key; the line under the pointer lit and named | Help | A widget, an input |
-| [17](#17--map-modes) | Map modes | Travel, Political, Terrain and Danger views, switched freely | What is shown | A mode node, inputs |
-| [18](#18--focus-lens) | Focus lens | Full detail round the party, fading with distance | What is shown | Line shader |
-| [19](#19--progressive-disclosure) | Progressive disclosure | County borders, lanes and small lakes a tier later | What is shown | MapDetail's table |
-| [20](#20--fog-of-war) | Fog of war | Unseen land under a veil with a sketch of what all know | What is shown | Fog shader, a seen mask |
-| [21](#21--colour-blind-safe) | Colour-blind safe | 02 + 04 + 05 + 07 in a palette every eye can tell apart | Colour vision | As those |
-| [22](#22--google-maps) | Google Maps | The whole map in Google's manner | Whole look | As its parts |
-| [23](#23--colour-only-for-play) | Colour only for play | Greys for geography, colour for forests, the party and places to visit | Whole look | As its parts |
-| [24](#24--night-geoscape) | Night Geoscape | A dark map with glowing water, roads and markers | Whole look | As its parts |
-| [25](#25--parchment-atlas) | Parchment atlas | An old hand-coloured atlas, matching the ink settlement art | Whole look | As its parts |
-| [26](#26--pen-and-ink) | Pen and ink | Black ink on paper: everything by pattern and weight | Whole look | As its parts |
-| [27](#27--physical-map) | Physical map | The land coloured by height, quiet lines | Whole look | Land shader, pictures |
-| [28](#28--recommended-blend) | Recommended blend | 01, 02, 04–09, 12, 13, 15 and 19 together | The pick | As its parts |
+| # | Proposal | What changes | Kind | Needs new code | Applied |
+|---|---|---|---|---|---|
+| [01](#01--quiet-borders) | Quiet borders | Borders thinner, muted, see-through; drawn on the water where they follow it | Borders | No | |
+| [02](#02--patterned-borders) | Patterned borders | Borders in one ink, told apart by dash-dot, dashes and dots | Borders | Line shader | 2026-10-18 |
+| [03](#03--kingdom-edge-bands) | Kingdom edge bands | A soft band of the kingdom's colour inside each kingdom border | Borders | Land shader, a picture | |
+| [04](#04--cased-roads) | Cased roads | Roads as light fills between dark edges; amber highways | Roads | Line shader | 2026-10-18 |
+| [05](#05--one-water) | One water | Sea, lakes and rivers in one light blue; a fine shoreline | Water | One MapDetail export | 2026-10-18, bluer |
+| [06](#06--coast-with-water-lines) | Coast with water lines | A fine shoreline with fading water lines off the coast | Water | Line shader | |
+| [07](#07--forest-symbols) | Forest symbols | Tree marks by kind over a lighter fill | Forests | Forest shader | |
+| [08](#08--symbols-far-out-pictures-close-in) | Symbols far out, pictures close in | Settlements as small rank symbols until 50 miles | Settlements | Destination change | |
+| [09](#09--route-planner) | Route planner | The route cased, red through forest, days marked, odds of a battle | The party | Party change | |
+| [10](#10--reweighted-same-colours) | Reweighted, same colours | Only widths and alphas: heavier roads, lighter borders and coast | Weights | No | Its forests, 2026-10-18; 10b, 2026-10-19 |
+| [11](#11--political-pastels) | Political pastels | Kingdoms as pastel areas, thin borders, stippled forests | Ground | Forest shader | |
+| [12](#12--biome-ground-colours) | Biome ground colours | Each kingdom's open land in its biome's pale colour | Ground | No | 12b, 2026-10-19 |
+| [13](#13--shaded-relief) | Shaded relief | Hills shaded from the map's heights | Ground | Relief shader, a picture | |
+| [14](#14--emphasis-follows-the-zoom) | Emphasis follows the zoom | Borders thin and fade as the view closes in; roads grow | Zoom | MapDetail change | 14b, 2026-10-19 |
+| [15](#15--labels) | Labels | Names of kingdoms, duchies, settlements and lakes, ranked by zoom | Names | A labels node; names | |
+| [16](#16--map-key-and-inspect) | Map key and inspect | A key; the line under the pointer lit and named | Help | A widget, an input | |
+| [17](#17--map-modes) | Map modes | Travel, Political, Terrain and Danger views, switched freely | What is shown | A mode node, inputs | |
+| [18](#18--focus-lens) | Focus lens | Full detail round the party, fading with distance | What is shown | Line shader | |
+| [19](#19--progressive-disclosure) | Progressive disclosure | County borders, lanes and small lakes a tier later | What is shown | MapDetail's table | 19a, 2026-10-19 |
+| [20](#20--fog-of-war) | Fog of war | Unseen land under a veil with a sketch of what all know | What is shown | Fog shader, a seen mask | |
+| [21](#21--colour-blind-safe) | Colour-blind safe | 02 + 04 + 05 + 07 in a palette every eye can tell apart | Colour vision | As those | |
+| [22](#22--google-maps) | Google Maps | The whole map in Google's manner | Whole look | As its parts | |
+| [23](#23--colour-only-for-play) | Colour only for play | Greys for geography, colour for forests, the party and places to visit | Whole look | As its parts | |
+| [24](#24--night-geoscape) | Night Geoscape | A dark map with glowing water, roads and markers | Whole look | As its parts | |
+| [25](#25--parchment-atlas) | Parchment atlas | An old hand-coloured atlas, matching the ink settlement art | Whole look | As its parts | |
+| [26](#26--pen-and-ink) | Pen and ink | Black ink on paper: everything by pattern and weight | Whole look | As its parts | |
+| [27](#27--physical-map) | Physical map | The land coloured by height, quiet lines | Whole look | Land shader, pictures | |
+| [28](#28--recommended-blend) | Recommended blend | 01, 02, 04–09, 12, 13, 15 and 19 together | The pick | As its parts | |
 
 ---
 
 ## 01 · Quiet borders
 
-![01 Quiet borders](01-quiet-borders.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 01` draws it.*
 
 **What it is.** The borders step back. All three ranks are drawn in one muted violet-grey family,
 darkest for the kingdoms and lightest for the counties, thinner than now and see-through, so that
@@ -309,7 +403,8 @@ shown, a border on a river hides the river's middle; the river shows either side
 
 ## 02 · Patterned borders
 
-![02 Patterned borders](02-patterned-borders.png)
+*Applied on 2026-10-18 ([The current look](#the-current-look)). Its picture is not kept:
+`BEFORE=1 harness/render.sh 02` draws it.*
 
 **What it is.** Every border in one dark ink, its rank told by its pattern, as printed maps have done
 for centuries: a kingdom's a long dash and a dot, a duchy's rounded dashes, a county's dots. A
@@ -326,7 +421,7 @@ pattern they differ in kind.
 |---|---|---|---|
 | Kingdoms | 12 (17) | dash 3.2, gap 1.0, dot 0.85, gap 0.9 | 0.85 |
 | Duchies | 8 (10) | dash 2.4 with round ends, gap 1.3 | 0.7 |
-| Counties | 6 (7) | dots 0.85 across, gap 1.15 | 0.5 |
+| Counties | 6 (7) | dots 0.85 across, 2.3 apart (its gap of 1.15 falls on both sides of each dot) | 0.5 |
 
 **How to apply.**
 
@@ -335,7 +430,7 @@ pattern they differ in kind.
    `round_dashes`).
 2. Every border `Line2D` (under `Borders/<rank>` and `BordersOverLakes/<rank>`): `texture_mode`
    Tile, `material` its rank's material (all lines of a rank share one), `default_color` the ink,
-   `width` as above. (Applied: see [Applied](#applied).)
+   `width` as above. (Applied: see [The current look](#the-current-look).)
 3. The group alphas and the lines along water as in 01.
 
 **Cost.** Nothing measurable (0.29 ms GPU at view B, as the map is now). **Combines with** 04, 05, 07
@@ -348,7 +443,7 @@ need not line up.
 
 ## 03 · Kingdom edge bands
 
-![03 Kingdom edge bands](03-kingdom-edge-bands.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 03` draws it.*
 
 **What it is.** A kingdom's border becomes a thin dark line with a soft band of the kingdom's own
 colour inside it, fading inward, as Paradox's strategy maps and hand-tinted atlases draw realms. Which
@@ -384,7 +479,8 @@ of one byte a pixel: 12 MB of video memory, 16 with mipmaps. **Combines with** 0
 
 ## 04 · Cased roads
 
-![04 Cased roads](04-cased-roads.png)
+*Applied on 2026-10-18 ([The current look](#the-current-look)). Its picture is not kept:
+`BEFORE=1 harness/render.sh 04` draws it.*
 
 **What it is.** Roads drawn as roads are on every road map: a light fill between two darker edges.
 Highways amber, roads cream, lanes white; a bridge is its road carried over the water between dark
@@ -410,7 +506,7 @@ and the network the player travels is one of the quietest things on the map.
 1. `map_line.gdshader` as in 02; a material per kind with `fill_from_line` off, `fill`, `casing`,
    `casing_share`, `casing_min_px` and `narrow` from the table, and one per kind of bridge.
 2. Every `Line2D` under `Roads/<kind>` and `Bridges`: Tile mode, the material, `width` as above.
-   (Applied: see [Applied](#applied).)
+   (Applied: see [The current look](#the-current-look).)
 3. **A border along a road** (`...AlongRoad...`, 7 lines) is a band as wide as the road and the
    border either side: add to its width what its road gained (10 for a highway, 7 for a road, 3 for a
    lane). Which road it is under is the road with its middle point (`StyleKit.road_under()`, as
@@ -424,7 +520,8 @@ network, but the lanes at the County tier then want 19's later arrival.
 
 ## 05 · One water
 
-![05 One water](05-one-water.png)
+*Applied on 2026-10-18 ([The current look](#the-current-look)). Its picture is not kept:
+`BEFORE=1 harness/render.sh 05` draws it.*
 
 **What it is.** The sea, the lakes, the rivers and the Swamp's channels in one family of light blue, as
 on Google Maps. Rivers are a shade deeper than standing water, so the thinnest still show. The black
@@ -458,9 +555,8 @@ their own water; part of 21, 27 and 28.
 
 ## 06 · Coast with water lines
 
-![06 Coast with water lines](06-coast-with-water-lines.png)
-
-*Panels C and D show the Swamp's fjords, where there is coast to see.*
+*Its picture is not kept: `BEFORE=1 harness/render.sh 06` draws it, panels C and D on the Swamp's
+fjords, where there is coast to see.*
 
 **What it is.** The coast's black line becomes a fine dark shoreline with three faint water lines off
 it, each fainter than the last: the engravers' way of framing land, and that of the hand-drawn regions
@@ -487,7 +583,7 @@ each would do it).
 
 ## 07 · Forest symbols
 
-![07 Forest symbols](07-forest-symbols.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 07` draws it.*
 
 **What it is.** Forests are where the party is set upon, so they should read as woodland and nothing
 else. Each piece keeps a light green fill, the four greens drawn closer together so the land is less
@@ -531,7 +627,7 @@ right, but a forest far out (view A) reads as a texture more than as marks.
 
 ## 08 · Symbols far out, pictures close in
 
-![08 Symbols far out, pictures close in](08-symbols-far-out-pictures-close-in.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 08` draws it.*
 
 **What it is.** From all the way out to 50 miles, a settlement is a small map symbol by its rank: a
 kingdom's capital a ringed dot, a duchy's a square, a town a dot, a village a ring, a hamlet a small
@@ -565,10 +661,8 @@ in `harness/runtime/Symbols.gd`.
 
 ## 09 · Route planner
 
-![09 Route planner](09-route-planner.png)
-
-*Here the party is sent west across the Temperate Mountains' forests, so that the route has forest on
-it.*
+*Its picture is not kept: `BEFORE=1 harness/render.sh 09` draws it, with the party sent west across
+the Temperate Mountains' forests so that the route has forest on it.*
 
 **What it is.** The party and where it is going become the loudest thing on the map, in a colour
 nothing else uses: a blue "you are here" dot with a halo, the route over a white casing, red where it
@@ -603,7 +697,9 @@ the old map; here it is blue, so that red can mean danger.
 
 ## 10 · Reweighted, same colours
 
-![10 Reweighted, same colours](10-reweighted-same-colours.png)
+*Its forests' paler fill was applied on 2026-10-18, and its variant 10b,
+[revisited](#revisited-on-the-applied-look) on that look, on 2026-10-19. Its picture is not kept:
+`BEFORE=1 harness/render.sh 10` draws it.*
 
 **What it is.** Every colour stays as it is; only widths and transparency change, to give the map a
 hierarchy: the roads a little heavier, the borders much lighter, the coast half as heavy, the forests a
@@ -624,7 +720,7 @@ kinds' `color` alpha on their four scenes.
 
 ## 11 · Political pastels
 
-![11 Political pastels](11-political-pastels.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 11` draws it.*
 
 **What it is.** Each kingdom's land a soft pastel of its own, as in a political atlas, its duchies a
 shade apart; the kingdom is then the area itself, and its border only where two colours meet, so the
@@ -646,7 +742,13 @@ compete with the forests' greens; kingdoms 7 and 9 are greenish.
 
 ## 12 · Biome ground colours
 
-![12 Biome ground colours](12-biome-ground-colours.png)
+*Its variant 12b was applied on 2026-10-19 ([The current look](#12b-on-2026-10-19)). Its picture is
+not kept: `BEFORE=1 harness/render.sh 12` draws it.*
+
+*Explored further in [`12-biome-ground-colours/`](12-biome-ground-colours/README.md): 25 variants on
+the applied look, from its palette's failings (two neighbours one colour to a red-green
+colour-blind eye) to snow, green valleys, fields and seasons. One of them, 12b, the whisper, its
+colours at 40%, is the one applied.*
 
 **What it is.** The open land is no longer one white: each kingdom, which is a biome, has a pale
 ground of its own country's colour (snow-grey tundra, ash-brown volcanic land, sand desert, straw
@@ -654,8 +756,9 @@ grassland, moss-green rainforest), light enough for every line to read over it. 
 and what kind of country lies ahead, shows at a glance, as deserts and ice do on Google's land cover.
 The forests are a shade deeper and more solid, so they stand out from a ground that is no longer white.
 
-**Why.** `Docs/MAP.md`'s known gaps: "the open land is all one" and "the see-through colours suit the
-white land; a land tinted later would change them". Both are taken up here.
+**Why.** `Docs/MAP.md`'s known gaps, as they read before 12b: "the open land is all one" and "the
+see-through colours suit the white land; a land tinted later would change them". Both are taken up
+here.
 
 **Values.** Ground by kingdom: 1 Tundra Mountains #e9ecef, 2 Volcanic Mountains #e3dcd5,
 3 Temperate Mountains #e5e8dc, 4 Desert #f4e4c4, 5 Grassland #eef0cf, 6 Evergreen Rainforest #dcebd8,
@@ -672,7 +775,7 @@ takes the ground of the county round it.
 
 ## 13 · Shaded relief
 
-![13 Shaded relief](13-shaded-relief.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 13` draws it.*
 
 **What it is.** Hills and mountains shaded from the map's own heights, `MapCreation/Elevation.png`,
 lit from the north-west as maps have been since the Swiss school: the faces turned from the light a
@@ -703,7 +806,9 @@ soft; and the sea is flat.
 
 ## 14 · Emphasis follows the zoom
 
-![14 Emphasis follows the zoom](14-emphasis-follows-the-zoom.png)
+*Its variant 14b, [revisited](#revisited-on-the-applied-look) on the applied look, was applied on
+2026-10-19: the borders' growth and fading described here, at other values, and no growth for the
+roads. Its picture is not kept: `BEFORE=1 harness/render.sh 14` draws it.*
 
 **What it is.** Far out the map is about the realm: the kingdoms' borders are its strongest lines and
 the roads thin threads. Close in it is about the road ahead: the roads widen and the borders thin and
@@ -729,7 +834,7 @@ part should take the border's factor (or drop the bands, as 01 does).
 
 ## 15 · Labels
 
-![15 Labels](15-labels.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 15` draws it.*
 
 **What it is.** Names, which are most of what makes Google Maps explain itself: a kingdom's name across
 its land in wide-spaced capitals far out, the duchies' in small spaced capitals as the view closes in,
@@ -775,7 +880,7 @@ to be named, and by whom.
 
 ## 16 · Map key and inspect
 
-![16 Map key and inspect](16-map-key-and-inspect.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 16` draws it.*
 
 **What it is.** The map explains itself, in its present colours: a key in the corner (toggled with
 `K`) shows every kind of line, area and icon, its samples read off the map's own nodes so that it stays
@@ -802,9 +907,8 @@ any of the other proposals.
 
 ## 17 · Map modes
 
-![17 Map modes](17-map-modes.png)
-
-*All four panels are the same view, 180 miles tall round the party, in each mode.*
+*Its picture is not kept: `BEFORE=1 harness/render.sh 17` draws it, one view 180 miles tall round
+the party in each of the four modes.*
 
 **What it is.** One map, four ways of looking at it, switched from a bar at the top (or keys 1 to 4),
 as strategy games do: each mode shows what one question needs and quiets the rest.
@@ -837,7 +941,7 @@ that holds most of the others. **Decide:** which modes, and whether the map reme
 
 ## 18 · Focus lens
 
-![18 Focus lens](18-focus-lens.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 18` draws it.*
 
 **What it is.** Detail gathers round the party and thins out with distance from it: within about 40
 miles every border, road, lane and village is drawn as now; past about 90 the county and duchy
@@ -863,7 +967,9 @@ planning a long trip, the far end is in the faded zone; the destination could be
 
 ## 19 · Progressive disclosure
 
-![19 Progressive disclosure](19-progressive-disclosure.png)
+*Its variant 19a, [revisited](#revisited-on-the-applied-look) on the applied look, the county
+borders' move alone, was applied on 2026-10-19. Its picture is not kept:
+`BEFORE=1 harness/render.sh 19` draws it.*
 
 **What it is.** Each layer waits a tier longer before it comes in, so every view carries less: the
 county borders wait for the County tier (100 miles) instead of the Duchy tier, the lanes, their bridges
@@ -887,7 +993,12 @@ come at 50.
 
 ## 20 · Fog of war
 
-![20 Fog of war](20-fog-of-war.png)
+![20 Fog of war](20-fog-of-war/20-fog-of-war.png)
+
+*Explored further in [`20-fog-of-war/`](20-fog-of-war/README.md), where this picture is kept: 24
+variants on the map as it was on 2026-10-19, all built on a mask the party paints as it travels:
+what clears the fog, how it looks, what stays known through it, how knowledge ages and where it
+ends.*
 
 **What it is.** `todo.txt`'s "Map fog of war on unvisited areas", as a style. Land the party has not
 seen lies under a paper-coloured veil through which only what everyone would know shows, drawn as a
@@ -919,10 +1030,9 @@ the fog closes again.
 
 ## 21 · Colour-blind safe
 
-![21 Colour-blind safe](21-colour-blind-safe.png)
-
-*Left: as everyone sees it. Right: the same view through a simulation of deuteranopia (Machado et al.
-2009, full strength). Compare `90-current-look-colour-blind-check.png`, the map as it was.*
+*Its picture is not kept: `BEFORE=1 harness/render.sh 21` draws it: each view as everyone sees it,
+and beside it through a simulation of deuteranopia (Machado et al. 2009, full strength), as style 90
+draws the map as it was.*
 
 **What it is.** Every kind of line differs in at least two of lightness, pattern and shape, and the
 hues come from the blue-orange axis every common deficiency keeps: borders in a dark ink told apart by
@@ -941,7 +1051,7 @@ route #0072b2, in forest #d55e00, party #0072b2.
 
 ## 22 · Google Maps
 
-![22 Google Maps](22-google-maps.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 22` draws it.*
 
 **What it is.** The whole map restyled in the manner of Google's own: a warm light-grey land, mint
 woods, one light blue for all water with no coastline, white roads between grey casings and amber
@@ -965,7 +1075,7 @@ but it says "modern road map", not "medieval campaign".
 
 ## 23 · Colour only for play
 
-![23 Colour only for play](23-colour-only-for-play.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 23` draws it.*
 
 **What it is.** Everything that is only geography is drawn in quiet greys and grey-blues: the land, the
 water, the coast, the borders, the roads, the rivers, and the settlements' pictures. Colour is kept for
@@ -991,7 +1101,7 @@ something in them, the gold rings must stay few to keep their meaning.
 
 ## 24 · Night Geoscape
 
-![24 Night Geoscape](24-night-geoscape.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 24` draws it.*
 
 **What it is.** A dark map, as XCOM's Geoscape and many strategy games' campaign maps are: a navy sea,
 slate land lit by its own relief, a glowing cyan coastline with water lines, deep-blue lakes and bright
@@ -1018,7 +1128,7 @@ the Danger mode of 17 would matter more here.
 
 ## 25 · Parchment atlas
 
-![25 Parchment atlas](25-parchment-atlas.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 25` draws it.*
 
 **What it is.** An old hand-coloured atlas, which is what the settlements' pen-and-ink pictures were
 drawn for: parchment with a faint mottle and sepia hill shading, a sea-green sea framed by an inked
@@ -1047,7 +1157,7 @@ best match for the icon art; the busiest underlay, so it leans hardest on 19.
 
 ## 26 · Pen and ink
 
-![26 Pen and ink](26-pen-and-ink.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 26` draws it.*
 
 **What it is.** Black ink on cream paper and nothing else, as an engraved map, matching the
 settlements' ink drawings exactly: the sea the paper's own colour inside an inked coast and its water
@@ -1072,7 +1182,7 @@ a fill does.
 
 ## 27 · Physical map
 
-![27 Physical map](27-physical-map.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 27` draws it.*
 
 **What it is.** The land coloured by its height, as school atlases and the Swiss school's maps do:
 green lowlands rising through straw and tan to brown uplands, grey heights and white peaks, with shaded
@@ -1097,7 +1207,7 @@ marks it would be clear.
 
 ## 28 · Recommended blend
 
-![28 Recommended blend](28-recommended-blend.png)
+*Its picture is not kept: `BEFORE=1 harness/render.sh 28` draws it.*
 
 **What it is.** The proposals that each fix one thing, put together with nothing that fights:
 patterned borders (02) at quiet weights (01), drawn on the water where they follow it; cased roads
@@ -1129,9 +1239,10 @@ and a picture), 08 (the destination change and five symbols), 09 (the party, aft
 
 ## Recommended path
 
-28 is the destination. It need not arrive at once, and every step is useful alone. (Applied so far, on
-2026-10-18: 02, 04, 05 and 10, as [Applied](#applied) says; 05's sea ends by moving the points in the
-scene, not by the MapDetail export named below.)
+28 is the destination. It need not arrive at once, and every step is useful alone. (Applied so far,
+as [The current look](#the-current-look) says: on 2026-10-18 02, 04, 05 and 10, 05's sea ends by
+moving the points in the scene, not by the MapDetail export named below; on 2026-10-19 10b, 14b and
+19a, the last the first part of 19's later tiers, and 12b, 12 at 40% of its strength.)
 
 1. **Free and immediate** (properties and one table, no code): 19's later tiers; 05's water (with the
    one MapDetail export for the sea ends); 01's quiet borders, or 10's weights if the colours are to
@@ -1183,7 +1294,7 @@ func _ready() -> void:
 ```
 
 - For: `Map.tscn` changes by one node; styles can be switched at run time (17's modes); trying one
-  is a script, not a 13.5 MB edit.
+  is a script, not a 13.6 MB edit.
 - Against: the editor shows the scene's own colours, not the style. Do not make the node `@tool` to
   fix that: a tool script that changes nodes marks the scene changed, and saving it would bake the
   style into the scene.
@@ -1194,11 +1305,12 @@ func _ready() -> void:
 and the colours of the rest), set them in the editor: in the scene tree click the first child of a
 group and shift-click the last, and the inspector sets a property on all of them at once; filter the
 tree by `Along` to select the border bands. For the forests, edit the four kind scenes. Text edits of
-`Map.tscn` work too (every `default_color` of a group is one exact string), but the file is 13.5 MB,
+`Map.tscn` work too (every `default_color` of a group is one exact string), but the file is 13.6 MB,
 and a line the villages' or the forests' splice writes takes its look from `MapCreation/Scripts/scene/m2_scene.gd`,
 which must carry the new values for it, as it carries the applied look's for the lanes, the bridges on
 them and the channels. (Its whole-scene part, which wrote the scene afresh over hand edits, was taken
-out when 02, 04, 05 and 10 were applied.) This is the route they were applied by: see [Applied](#applied).
+out when 02, 04, 05 and 10 were applied.) This is the route they were applied by, and 10b after
+them: see [The current look](#the-current-look).
 
 Either way, update `Docs/MAP.md` (what the scene holds, the level of detail), `README.md` ("The new
 world map": its tables of colours and widths) and the summary in `CLAUDE.md`.
@@ -1215,6 +1327,9 @@ script), for example as `vcom/Scripts/WorldMap/MapLine.gdshader`:
 | `land.gdshader` | The land: a height ramp, a band along the kingdoms' borders, a paper grain, a palette indexed by kingdom and duchy | 03, 17, 25, 26, 27 |
 | `relief.gdshader`, `relief_light.gdshader` | Shaded relief, multiplied and added | 13, 17, 24 to 28 |
 | `fog.gdshader` | The fog of war | 20 |
+| `ground.gdshader` | The land as ground: a biome palette by an id map, soft ecotones, the height's tone, snow and rock, green valleys, fields, a strand, the wind's gradient, bands at the borders, per-biome marks and pictures, paper and wash, a fade by the zoom; every part off by default | 12's variants |
+| `fog_veil.gdshader`, `fog_common.gdshaderinc` | The fog of war on a painted mask: a veil, grey, blur, clouds or hatching; hill marks, a forest hatch, memory, fading with age or distance, an edge line or a burnt band. The include decides how explored a point is, for this and the next | 20's variants |
+| `map_line_fogged.gdshader` | The game's `MapLine.gdshader` drawing only in the fog: the lines the fog leaves known | 20's variants |
 | `icon_tint.gdshader` | A settlement's icon in another colour | 23, 24 |
 | `cvd_filter.gdshader` | Colour-vision simulations and greyscale, for checking only | the harness |
 
@@ -1237,16 +1352,24 @@ squares (the harness's first paper grain did). The shaders here hash integers.
 
 ### Pictures
 
-`harness/data/` holds the pictures three proposals read, made by `harness/tools/make_data.py` from
-`MapCreation/Elevation.png` and from `Map.tscn`'s own kingdom borders: `py -3.9 make_data.py <repo>
-<out folder>` (it needs numpy and Pillow; on this machine Python 3.9 has them; 25 s). All are 3100 by
-4000, one pixel to a pixel of the MapCreation sheet, one byte a pixel:
+`harness/data/` holds the pictures some styles read, made by `harness/tools/make_data.py` from
+`MapCreation/` and from `Map.tscn`'s own kingdom borders: `py -3.9 make_data.py <repo> <out folder>
+[name ...]` (it needs numpy and Pillow; on this machine Python 3.9 has them; 25 s for all, a few
+seconds for the four half-size ones). One byte a pixel; the first three are 3100 by 4000, one pixel to
+a pixel of the MapCreation sheet, the last four half that:
 
 | Picture | Holds | Used by |
 |---|---|---|
-| `hillshade.png` | Shaded relief, 128 flat | 13, 17, 24 to 28 |
-| `elevation.png` | The height, 255 × √(share of 3,352 m) | 27 |
-| `kingdom_edge.png` | Distance to the nearest kingdom border as the scene draws it, 255 × √(share of 160 pixels) | 03, 25 |
+| `hillshade.png` | Shaded relief, 128 flat | 13, 17, 24 to 28, 12u |
+| `elevation.png` | The height, 255 × √(share of 3,352 m) | 27, 12's and 20's variants |
+| `kingdom_edge.png` | Distance to the nearest kingdom border as the scene draws it, 255 × √(share of 160 pixels) | 03, 25, 12i |
+| `wetness.png` | Nearness to a river: each river four times its width, blurred over 3.4 km | 12l |
+| `farmland.png` | Nearness to people: every settlement a disc by its rank, blurred over 4 km | 12m |
+| `coast.png` | Nearness to the sea, on land: 255 at the shore, nothing from about 5 km in | 12n |
+| `forest_mask.png` | The forests of `SourceData/Forests.json`, their clearings cut out | 20l |
+
+The biomes and counties are read straight from `MapCreation/SourceData/` (`KingdomMap.png`,
+`TerrainMap.png`, `CountyMap.png`), as id maps, nearest.
 
 For the game, copy them into `vcom/WorldMap/` and import each as a `Texture2D` with mipmaps on, linear
 filtering and lossless compression (a compressed format would band the gentle gradients). Each takes
@@ -1259,8 +1382,8 @@ is made from the scene's kingdom border lines: run the tool again after moving o
 | Change | For | What |
 |---|---|---|
 | MapDetail `sea_end_share` | 05, 06, 10, 22 to 28 | Ends of borders and rivers in a narrower coast line (see 05) |
-| MapDetail `SHOWN_FROM` and a third lake size | 19, 28 | Later tiers (see 19) |
-| MapDetail growth per kind | 14 | Borders and roads follow the zoom differently |
+| MapDetail `SHOWN_FROM` and a third lake size | 19, 28 | Later tiers (see 19, and [Revisited](#revisited-on-the-applied-look): the size is 3 km, not 2). The county borders' move, 19a, is applied |
+| MapDetail growth per kind, and fades or ramps by the zoom | 14, 19d | Borders and roads follow the zoom differently ([Revisited](#revisited-on-the-applied-look)). The borders' growth and fading, 14b, are applied; the roads' growth (14c) and the ramps (19d) are sketched in `harness/runtime/RevisitedDetail.gd` |
 | Borders onto the water | 01 to 03, 11, 21 to 28 | `...AlongRiver/Lake...` lines at the plain width, no width curve, `z_index` 1; `Roads`, `Bridges` 2, `Settlements` 3, `Party` 4 |
 | `Destination` far icons | 08, 22, 28 | A symbol and its height far out |
 | `Destination` ring | 23 | A ring for a destination with locations |
@@ -1268,7 +1391,8 @@ is made from the scene's kingdom border lines: run the tool again after moving o
 | A labels node, and names | 15, 22, 24 to 26, 28 | Names on the map |
 | A key widget and an input | 16 | The key and inspect |
 | A mode node, bar and inputs | 17 | Map modes |
-| A seen mask painted by the party | 20 | Fog of war |
+| A seen mask painted by the party | 20 | Fog of war ([`20-fog-of-war/`](20-fog-of-war/README.md), "How to adopt it": the mask, the fog's layer, a fog test in `MapLine.gdshader`, a `seen` flag on `Destination`) |
+| A ground shader on the land | 12's variants | 12b's is in the game: `MapGround.gdshader` and `Resources/MapGround.tres`, a colour and an intensity a biome, so a flat palette is only nine colours on it; the rest are `harness/shaders/ground.gdshader`'s parts ([`12-biome-ground-colours/`](12-biome-ground-colours/README.md), "How to adopt any of them") |
 
 `harness/runtime/` holds the harness's versions of these (`RouteOverlay.gd`, `MapLabels.gd`,
 `Legend.gd`, `Highlights.gd`, `Symbols.gd`, `ProgressiveDetail.gd`). They draw the pictures faithfully
@@ -1285,6 +1409,12 @@ Conventions); HUD widgets are built in code.
    written for the scene as it was is rendered with `BEFORE=1` ([the harness](#the-harness)).
 3. `--headless --path . --quit-after 120` for new errors, and a play through all four tiers, panning,
    with the borders switched off and on (`B`), since the pictures cover four still views.
+4. `harness/render.sh 0 91`, with no `OUT_DIR`, to draw this folder's pictures of the current look
+   again.
+
+10b, 14b and 19a were checked so: style 0 rendered after they were applied matches style 200
+rendered before to the pixel, but for the caption, and the County tier, which 19a gives more lines
+to set as it comes in, was timed coming in and going out (`Docs/MAP.md`, "What it costs").
 
 ## The harness
 
@@ -1292,10 +1422,12 @@ Conventions); HUD widgets are built in code.
 
 ```bash
 BEFORE=1 MapStyles/harness/render.sh 7 28               # from the repo root, as pictured -> MapStyles/NN-name.png
+MapStyles/harness/render.sh 0 91                        # the current look's two pictures -> MapStyles/
 OUT_DIR=/some/dir MapStyles/harness/render.sh 0         # the scene as it is, somewhere else
 EXTRA="--views=C,D --panels" BEFORE=1 MapStyles/harness/render.sh 5   # only some views, each also saved alone
 EXTRA="--filter=deutan --tag=-deutan" BEFORE=1 MapStyles/harness/render.sh 28   # as a deuteranope sees it
 EXTRA="--timing=120" OUT_DIR=/some/dir MapStyles/harness/render.sh 0   # GPU time over 120 frames a view
+OUT_DIR=/some/dir MapStyles/harness/render.sh 102 142 191   # revisited variants, each on the map as it was then
 ```
 
 The script copies the harness into `vcom/_probe/` for the run, runs Godot in a window (`--headless`
@@ -1303,29 +1435,36 @@ cannot draw; 1280 by 720, `--fixed-fps 60 --disable-vsync`), and deletes `_probe
 `CLAUDE.md` asks of probes. Set `GODOT=` if Godot is not at
 `C:\Program Files\Godot\Godot_v4.7-stable_win64_console.exe`. A run takes about 30 seconds a style; a
 probe that fails gives up after 3 minutes (a watchdog), and `render.sh` gives each run 5. Style 0 is the
-scene exactly as it is, which makes it the way to check a style after applying it.
+scene exactly as it is, which makes it the way to check a style after applying it; it and 91, the
+scene close in, draw this folder's pictures of the current look.
 
 **`BEFORE=1`** renders on a copy of the scene as it was before 02, 04, 05 and 10 were applied (commit
-d8b5ec7), and of its four forest kinds, taken from git into `_probe/before/` for the run: the
-proposals were written for that scene, and draw as pictured only on it. Pictures go to `MapStyles/`
-under the style's number and name unless `OUT_DIR` says otherwise, so **give style 0 an `OUT_DIR`**:
-rendered into `MapStyles/` without `BEFORE=1` it would replace `00-current-look.png`, the map as it
-was, with the map as it is.
+d8b5ec7), of its four forest kinds, and of `MapDetail.gd`, which 14b and 19a have changed since,
+taken from git into `_probe/before/` for the run: the proposals were written for that map, and draw
+as pictured only on it. A style that gives the `Detail` node a script of its own built on MapDetail
+(19's and 28's `ProgressiveDetail.gd`) has today's under it, so the probe also sets 14b's settings
+back off there. The revisited styles need none of it: each puts the map back as it was when they
+were made (`StyleKit.as_revisited()`). Pictures go to `MapStyles/` under the style's number and name
+unless `OUT_DIR` says otherwise, so **give an `OUT_DIR`** to whatever is not to be kept here. Styles
+0 and 91 write this folder's pictures of the current look: with `BEFORE=1` they would draw the old
+look over them, so `render.sh` refuses them that way without an `OUT_DIR`.
 
 | File | What it is |
 |---|---|
 | `render.sh` | Runs styles by number |
 | `MapStyleProbe.gd`, `.tscn` | The probe: loads `Map.tscn`, applies the style before the map enters the tree, takes the views, writes the picture |
-| `StyleKit.gd` | Helpers every style uses: finding layers, colouring, widths, casings, patterned lines, borders by rank, coast, relief, land and forest materials, sea ends |
-| `styles/NN_name.gd` | One proposal each, its values and its description; `90_*` are checks, not proposals |
+| `StyleKit.gd` | Helpers every style uses: finding layers, colouring, widths, casings, patterned lines, borders by rank, coast, relief, land and forest materials, sea ends; for the revisited variants, the map as they were made on (`as_revisited()`) and its tiers; the land without 12b's ground (`without_ground()`) |
+| `styles/NN_name.gd` | One proposal each, its values and its description; `90_*` and `91_*` are checks, not proposals: the map as it is beside a colour-vision simulation, and close in; `1NN_*` are the variants of proposal NN revisited on 2026-10-19 (`1N0_*` the map as it was then, at their views), each starting from that map; `200_*` the three applied, together; `12NN_*` and `20NN_*` the variants of 12 and 20 explored on the map as it was on 2026-10-19 (`1200_*` the map at their views without 12b's ground, which was applied after they were pictured and which a variant's own ground replaces, and `2000_*` the map now at theirs, with the palettes, the journey and the helpers the variants share) |
 | `shaders/` | The shaders ([above](#shaders)) |
-| `runtime/` | Nodes some styles add while the map runs: route, labels, key, rings, symbols, the later tiers |
+| `runtime/` | Nodes some styles add while the map runs: route, labels, key, rings, symbols, the later tiers; `RevisitedDetail.gd`, a MapDetail with what of 14 and 19 was not applied: 14c's growth for the roads, 19's tiers, lake size and ramps; `FogMarks.gd`, the fog's rumoured places |
 | `data/` | The pictures some styles read ([above](#pictures)) |
 | `tools/make_data.py` | Makes `data/` |
 | `tools/colour_check.py` | Lightness and CIEDE2000 differences of the line colours, normal and with deuteranopia |
-| `tools/finish.py` | The contact sheet, and a table of costs from a render log |
+| `tools/line_weights.py` | Every kind of line's width on the screen and weight at any height, now and in the revisited variants; their weight charts and 19's chart of tiers |
+| `tools/finish.py` | The contact sheet, a table of costs from a render log, and side-by-side sheets of one view (`compare`) |
 
-**Adding a style.** Write `styles/NN_name.gd`: a `RefCounted` with `const NAME`, and `apply(kit)`, which
+**Adding a style.** Write `styles/NN_name.gd`: a `RefCounted` with `const NAME` (and, optionally,
+`const LABEL`, which captions it in place of its number: "14b"), and `apply(kit)`, which
 changes the map through `kit` (`kit.map` is the map, not yet in the tree). Optionally `ready(kit)` to add
 runtime nodes once the map is in the tree, `panels(kit)` to take other views than the standard four
 (each `[letter, caption, centre or null, miles or 0 for all the way out, optional filter]`), and
@@ -1377,6 +1516,8 @@ there in two runs of the same pass); B to D were steady to a few hundredths.
   frame (the extra draw calls are the labels and the route). Placing the labels once per zoom step and
   drawing them from a cache, as 15 says, would remove most of it.
 - **19 lowers the cost**: 832 draw calls at view B and 231 at C, against 914 and 333.
+- **10b, 14b and 19a**, applied on 2026-10-19, cost nothing measurable; 19a takes view B to 833
+  draw calls.
 - With `todo.txt`'s Steam Deck target in mind (a GPU with perhaps a sixth of this one's throughput),
   the extra costs grow by about that factor: the dearest look here, 26 at view C, some 2 ms here and
   perhaps 10 to 15 there; 28, well under 1 ms here, a few there. Worth measuring on the device before
@@ -1402,15 +1543,32 @@ these per style, and `tools/finish.py costs <log>` tabulates them.
 - The party drawn blue (09, 21 to 24, 28), so that red can mean danger; it has always been the red dot.
 - Which proposals make up 28, and the order of the recommended path.
 - A border along a river drawn on the river (01 and after) rather than on both banks. (Applied, it
-  was kept on both banks instead: see [Applied](#applied).)
+  was kept on both banks instead: see [The current look](#the-current-look).)
+- Applying 14b: the height at which a border is as wide as its node tied to MapDetail's
+  `true_width_view_miles` (the sketch had a setting of its own, at the same 220), and the bands'
+  patterns not laid again as the borders thin (`Docs/MAP.md`, known gaps).
+- Applying 12b: one material for the nine biomes, the biome named on each polygon, 0.4 on each
+  biome rather than once overall, no tint as the shader's defaults (`Docs/MAP.md`, "Decided with
+  the user").
 
 **For the user to decide:**
 
 1. **A direction**: clean up the present look (01 to 10, 13, 19, then 28), or an overhaul (22 to 27)?
-   Decided on 2026-10-18: a clean-up, 02, 04, 05 and 10 to begin with ([Applied](#applied)).
+   Decided on 2026-10-18: a clean-up, 02, 04, 05 and 10 to begin with, and 10b, 14b, 19a and 12b on
+   2026-10-19 ([The current look](#the-current-look)).
 2. **Names**: are places to be named? 15, 22, 24 to 26 and 28 are only complete with them, and 16's
    tooltips would use them.
 3. **The party's colour**: red, as it has always been, or blue, so that red can mean danger?
 4. **Lanes and villages**: should the lanes come with the villages at 100 miles (as now) or at 50 (19)?
+   Harness style 192 draws them at 50 (19b), and 194 a third way (19d): the lanes fading in from
+   100 miles, whole by 60.
 5. **New inputs**: a key for the map key (16) and for map modes (17), and their gamepad buttons.
 6. **Fog of war (20)**: what is known at the start, how far the party sees, whether the fog returns.
+   [`20-fog-of-war/`](20-fog-of-war/README.md) pictures each choice.
+7. **How far the borders give way close in** (14b, as applied): how faint they may grow all the way
+   in (`kingdom_border_faintest` 0.55, `duchy_border_faintest` 0.7), whether the county borders
+   should fade too (`county_border_faintest`, 1), and how much they follow the zoom
+   (`border_growth`, 0.3). All four are on the map's `Detail` node.
+8. **The ground's colours** (12b, as applied): the user means to tune them, on
+   `vcom/Resources/MapGround.tres`. 12's palette keeps three pairs of neighbours one colour to a
+   red-green colour-blind eye; 12d's lightness steps would not, as nine colours on the material.
