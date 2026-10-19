@@ -1101,6 +1101,8 @@ MagicaVoxel/              source .vox art
 Images/                   screenshots: the world map, the menus, and battles just begun and long fought,
                           clean and with blood
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
+MapStyles/                proposals for the new world map's look (none applied), their pictures, the
+                          harness that renders them, and how to apply one
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

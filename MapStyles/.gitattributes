@@ -1,0 +1,4 @@
+# As Styles/: LF everywhere, so render.sh runs in bash even with core.autocrlf
+# on Windows; the pictures are binary.
+* text=auto eol=lf
+*.png binary

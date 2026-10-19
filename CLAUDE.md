@@ -15,7 +15,9 @@ shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` 
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
 camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
-`Styles/REVERT.md` restores the original look. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
+`Styles/REVERT.md` restores the original look. `MapStyles/` holds 28 proposals for the
+new world map's look, none applied: their pictures, the harness that renders them from `Map.tscn`,
+and `MapStyles/README.md` on what each changes and how to apply it. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
