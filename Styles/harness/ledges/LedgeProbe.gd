@@ -76,7 +76,13 @@ func _ready() -> void:
 
 ## Gives the grass block's mesh the height-tint shader.
 func _tint_grass(map: Node) -> void:
-	var lib := (map.get_node(^"GridMap") as GridMap).mesh_library
+	# The combat maps are levels now, drawn by Voxels.gdshader, not by the
+	# blocks' meshes (Styles/APPLYING.md, section 3).
+	var grid := map.get_node_or_null(^"GridMap") as GridMap
+	if grid == null:
+		push_warning("LedgeProbe: no GridMap; the height tint is not previewed on a level.")
+		return
+	var lib := grid.mesh_library
 	var mat := ShaderMaterial.new()
 	mat.shader = load("res://_probe/shaders/grass_height.gdshader")
 	for id in lib.get_item_list():

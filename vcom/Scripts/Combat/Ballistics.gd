@@ -188,16 +188,22 @@ func _miss(shooter: Unit, shot: LineOfSight.Shot, from: Vector3, eye: Vector3, f
 	var cover_faces := []
 	if shot.cover != LineOfSight.Cover.NONE and _rng.randf() < COVER_SHARE:
 		cover_faces = _cover_faces(shot, from)
+	# What a miss aimed at the cover must strike: the cells beside the target,
+	# or a piece standing across one of its edges.
 	var cover_cells := {}
+	var cover_pieces := {}
 	for pick: Array in cover_faces:
-		cover_cells[pick[0]] = true
+		if pick.size() > 2:
+			cover_pieces[pick[2]] = true
+		else:
+			cover_cells[pick[0]] = true
 
 	for attempt in MISS_ATTEMPTS:
 		var at_cover := not cover_faces.is_empty() and attempt * 2 < MISS_ATTEMPTS
 		var aim := _cover_point(cover_faces) if at_cover else _ring_point(body, up, across, outer)
 		var path := _trace(from, aim, body)
 		# Aimed at the cover, it has to be the cover that stops it.
-		if at_cover and (path.struck == null or not cover_cells.has(path.struck.cell)):
+		if at_cover and (path.struck == null or not (cover_cells.has(path.struck.cell) or cover_pieces.has(path.struck.piece))):
 			continue
 		if _is_fair(path, feet, others):
 			return path
@@ -305,9 +311,23 @@ static func _around(body: Vector3, up: Vector3, across: Vector3, degrees: float,
 ## and turned toward the shooter, of every solid cell beside the target on the
 ## shooter's side, up to the top of its body. That takes in the wall either
 ## side of the cover proper, which is what a shot along a wall meets first.
+## A piece standing across an edge of the target's tile on the shooter's side
+## is cover too, as [code][cell, way, piece][/code]: the edge of that cell
+## looking that way, and the piece across it, which is what must stop the
+## round.
 func _cover_faces(shot: LineOfSight.Shot, from: Vector3) -> Array:
 	var faces := []
 	var toward_shooter := Vector2i(shot.from.x - shot.target_tile.x, shot.from.z - shot.target_tile.z)
+	for way: Vector2i in LineOfSight.COVER_DIRECTIONS:
+		if way.x * toward_shooter.x + way.y * toward_shooter.y <= 0:
+			continue
+		for height in CombatGrid.UNIT_HEIGHT:
+			var cell := shot.target_tile + Vector3i.UP * height
+			if not _grid.has_edge(cell, way):
+				continue
+			var across := _grid.level.rules.pieces_across(LevelData.edge_slot(cell, way))
+			for piece in across:
+				faces.append([cell, Vector3i(way.x, 0, way.y), piece])
 	for dx in [-1, 0, 1]:
 		for dz in [-1, 0, 1]:
 			if dx * toward_shooter.x + dz * toward_shooter.y <= 0:
@@ -334,7 +354,10 @@ func _cover_point(faces: Array) -> Vector3:
 	var face: Vector3i = pick[1]
 	var center := _grid.cell_center(cell)
 	var outward := _grid.cell_center(cell + face) - center
-	var point := center + outward * (0.5 - FACE_DEPTH)
+	# A piece across an edge stands on the edge itself: aimed at the edge, the
+	# round meets its voxels about it.
+	var depth := 0.0 if pick.size() > 2 else FACE_DEPTH
+	var point := center + outward * (0.5 - depth)
 	for axis in 3:
 		if face[axis] != 0:
 			continue

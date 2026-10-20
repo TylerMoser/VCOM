@@ -8,10 +8,11 @@ working in the code.
 
 The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where commands are run from.
 `MagicaVoxel/` holds source `.vox` art outside the project; `MagicaVoxel/Shapes/` holds basic
-block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants) that nothing in the game
-uses yet, made by its `make_shapes.py` (`Shapes/README.md`). `Images/` holds screenshots of the game
-(the world map, the menus, battles just begun and long fought, clean and with blood), two of them
-shown in `README.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
+block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants), made by its
+`make_shapes.py` (`Shapes/README.md`), three of them in the game (`vcom/Blocks/`: the fence, the stone
+wall, tall grass). `Images/` holds screenshots of the game
+(the world map, the menus, battles just begun and long fought, clean and with blood, the level
+editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
 camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
@@ -24,8 +25,12 @@ from, every clip, every decision and gap, and recipes for adding more. Read it b
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
 subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
-`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `MAP.md` (the
-new map: its scene, look, forests and level of detail), `MEDKIT.md` and `SKILLS.md`. This file keeps a summary of each and every rule that must not drift. Read a subsystem's
+`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `LEVELS.md`
+(combat maps as levels of voxel pieces: the volume, drawing it, edges), `LEVEL_EDITOR.md` (the level
+editor that paints them: every control, making a map, adding pieces), `MAP.md`
+(the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `SKILLS.md` and `VOXELS.md`
+(every voxel model: how it is drawn and recoloured, and adding one). This file
+keeps a summary of each and every rule that must not drift. Read a subsystem's
 file before touching it, and put new detail about it there, not here; when this file nears the limit
 again, split another subsystem out the same way.
 
@@ -67,10 +72,11 @@ vcom/Scripts/
                        use_up(character, item) (a thrown grenade, off them for good), heal(amount) (the whole
                        roster's wounds)
   Combat/
-    CombatGrid.gd      tiles, pathfinding, is_line_clear(), cast() (by_voxel: through the voxels of blocks that wear
-                       away, for rounds; every_block too: of any .vox block, for blood; RayHit.index the voxel met),
-                       pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() -> round_flown (every round's
-                       line, for the loose models it tears through); voxels (VoxelTerrain)
+    CombatGrid.gd      tiles and pathfinding over the level's LevelRules (level); edges: has_edge(), stepped over a
+                       level high (vault_height(), vaults_along()); is_line_clear(), cast() (by_voxel: through the
+                       voxels of pieces that wear away, for rounds; every_block too: of every piece, for blood;
+                       RayHit.voxel / piece / on_edge), pick_tile(), terrain_struck, blast() -> terrain_blasted,
+                       fly() -> round_flown (every round's line, for the loose models it tears through); voxels
     LineOfSight.gd     cover, step-out (firing_positions(), lean_tiles()), find_shots() -> Shot (from / stepped_out:
                        where the shooter fires from; seen_at / leaning: where the target is seen, its own tile or
                        one it leans out to); find_shot(..., leans false) for a reaction; watched_tiles()
@@ -97,8 +103,8 @@ vcom/Scripts/
     TileCursor.gd      the gamepad's pointer in combat, owned by ActionController: a tile the left stick steps
                        (screen-relative, 8 ways, repeating), its `cursor` layer and a bobbing marker; snap_to(),
                        current(), moved
-    TileGrid.gd        map node: the optional tile grid (G, or the System tab); gives the ground blocks
-                       TileGrid.gdshader as the map loads; static shown, set_shown(), toggle()
+    TileGrid.gd        map node: the optional tile grid (G, or the System tab), drawn by the level's shader;
+                       static shown, set_shown(), toggle()
   AI/
     EnemyAI.gd         Resource base: choose_action(tactics) -> AIAction
     AssaultAI.gd       reload when empty, close in, point-blank when adjacent, best odds with the last action, top
@@ -106,8 +112,21 @@ vcom/Scripts/
     AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / RELOAD (reload_gun()) / END_TURN
     Tactics.gd         shared queries: adjacent_foes, shots_at (none with no round), best_shot, reload(), advance,
                        paths
+  Level/               combat maps as levels of voxel pieces (Docs/LEVELS.md)
+    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove() /
+                       begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of()
+    LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
+    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece; PieceBrush.gd
+                       (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
+    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
+    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows), palette (BLOOD 255); remove_many(),
+                       recolor(), lay_bare() (dug ground as earth), counts; ChunkMesher.gd (faces by shape, none hidden)
+    LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader);
+                       collision a trimesh a chunk, streamed; SceneryRenderer.gd (a MultiMesh a kind a region)
+    LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
   Terrain/
-    TerrainDestruction.gd  breaks struck and blasted blocks, drops what they held, drops stranded units, throws a
+    TerrainDestruction.gd  breaks struck and blasted pieces (break_piece(), break_block()), drops what they held and
+                           edge pieces and stacks left on nothing, drops stranded units, throws a
                            blast's debris about, tidies debris; block_broken(cell, destruction); make_piece() /
                            pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries); hands a
                            breaking block's blood on to what it becomes (_break, _on_landed, _pieces_since());
@@ -119,34 +138,29 @@ vcom/Scripts/
                            wears away as a loose model from the first time something reaches it)
     FallingBlock.gd        a block whose support broke, falling whole until it lands
     Blast.gd               a burst from a point: impulse by distance and the area a piece shows
-    DestructionCatalog.gd  Resource: every breakable block, shared by every map
     VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind), or how a
                            ScriptedDestruction's pieces wear; collapse_below, voxels_per_damage, crater_per_damage /
                            crater_radius(), density, crumble_size
     VoxelShape.gd          one model's voxels, read from its .vox with the importer's reader: a block's (read(), 16^3),
                            one model of a .vox imported as a scene (read_model(), source_of()) or a mesh imported from
                            one (read_mesh()), cropped to its voxels; a padded array of palette places, a row of bits
-                           per (y, z) (so at most WIDEST, 62, along x), colors, the mesh's material
-    VoxelMesher.gd         surface() / faces() / mesh() from a shape and a voxel array: faces open to the air, merged
-                           greedily, found a row at a time from the rows
-    VoxelTerrain.gd        made by TerrainDestruction: worn blocks by cell, the stand-in items, trace() (rounds),
-                           chip() (a round's bite), crater() (a blast's), crumble(), take(), is_solid_at(); loose
-                           voxels, _holds_up() (cut through), deferred redraws after a blast; loose models:
-                           take_on_later() (taken on at the first hit), take_on_body(), tear() (rounds through
-                           them), _settle() (split off, crumble); lumps chosen before they are made (Batch, _scatter());
-                           blood on any .vox block: kind_of(), voxels_of(), stain(), take_stains(), carry_stains()
-                           (on to a crate's pieces); march() (a ray through a model's voxels)
-    WornBlock.gd           one block that has lost voxels: what is left, its mesh and trimesh collision
-    VoxelBody.gd           one loose model (a crate's piece), a node under its RigidBody3D: what is left, its mesh,
-                           box collider and mass; passes (the bodies it passes through); stains (stained(),
-                           adopt_stains()); scale (a prop's voxels, a shade bigger than a block's)
+                           per (y, z) (so at most WIDEST, 62, along x), colors (255 BLOOD's), scale, shared
+    VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D: voxels, palette, texture (Texels),
+                           material (Voxels.gdshader, beside it); take_over(), of(), show_on(), recolor(), paint(),
+                           remove() / rebuild(), split(), frame()
+    VoxelTerrain.gd        made by TerrainDestruction: wears the level's volume: chip() (a round's bite), crater()
+                           (a blast's), _drop_loose() (cut loose, across pieces), holds_up() (cut through),
+                           take_piece() / crumble() / roughen_hole() (a piece breaking, its ragged rim),
+                           is_solid_at(); loose models: take_on_later() (taken on at the first hit), take_on_body(),
+                           tear() (rounds through them), _settle() (split off, crumble); lumps chosen before they are
+                           made (Batch, _scatter()); carry_blood() (a crate's blood on to its pieces);
+                           march() (a ray through a model's voxels)
+    VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear), a node under its RigidBody3D: its
+                           VoxelModel, box collider and mass; passes (the bodies it passes through)
     VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
                            add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
                            (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed;
                            stain(body, point) (a drop of blood colours the voxel it met)
-    VoxelStains.gd         the faces of one voxel model blood has stained (6 bits a voxel, by its place), drawn by an
-                           overlay of red squares 2 mm proud of them, rebuilt at the end of the frame; on() (a prop's,
-                           kept on its MeshInstance3D); COLOR, the material blood is drawn with
     SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it
   Blood/
     Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops the way the blow went; drops (one
@@ -154,7 +168,7 @@ vcom/Scripts/
                        landings settled on a budget a physics step; drops_in_flight(), pools_to_come(); static
                        enabled (the System tab's Blood on / off, read as each map loads)
     BloodFlow.gd       blood running over voxel faces, cheapest first (downhill cheap, climbing dear, undersides never):
-                       spread(); the Surface it runs over: TerrainSurface (every block as one grid), ModelSurface
+                       spread(); the Surface it runs over: VolumeSurface (the level's voxels), ModelSurface
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE, MELEE, MEDKIT), model (its prop scene); Weapon, Armor,
@@ -173,12 +187,12 @@ vcom/Scripts/
                        _act_left(); the medkit from the belt to the hand, or a borrowed one made in it, _borrowed;
                        given null, pressed to its own middle), attend() (faces and looks at an ally, not idle, until
                        stand_easy(); given null, keeps its facing and looks down at itself); break_apart() (hides
-                       it once broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); for
-                       blood: voxels() (FigureVoxels), pick_wound(), swing(), gear()
-    FigureVoxels.gd    a figure's voxels for blood and breaking apart, read from its .vox at run time: each bone's a
-                       part posed as the skeleton is; march() (bones and gear), pick_wound(), hit_near(), exit(),
-                       bleed(); crumble() (the lumps it breaks into); its stains drawn by a mesh skinned to the
-                       skeleton (FigureStains)
+                       it once broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); tint /
+                       paint() (its body's colour); voxels() (FigureVoxels), pick_wound(), swing(), gear() (its props'
+                       VoxelModels)
+    FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body (the VoxelModel colouring its baked
+                       mesh); each bone's a part posed as the skeleton is; march() (bones and gear), pick_wound(),
+                       hit_near(), exit(), bleed(); crumble() (the lumps it breaks into)
     AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
     Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
     BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
@@ -326,7 +340,10 @@ Art beside the scripts: `vcom/Characters/` holds the figure's `.vox` and what `B
 of it (`BaseCharacterBody.res`, the skinned mesh; `BaseCharacterAnimations.res`, the animation
 library), `vcom/Items/` the props' `.vox` (copies of `MagicaVoxel/`'s), and `vcom/Scenes/Props/` a scene
 for each prop: its mesh, placed so the grip is on the scene's origin, with markers where it fires from
-and where it is held.
+and where it is held. `vcom/Blocks/` holds the level pieces' `.vox` and `Pieces.tres` (every kind and
+brush), `vcom/Levels/` each map's pieces, and `vcom/addons/level_editor/` the level editor, a Godot
+editor plugin (`LevelEditorPlugin.gd`, its panel `LevelEditorDock.gd`, `LevelCursor.gd`;
+`Docs/LEVEL_EDITOR.md`).
 
 ## Architecture
 
@@ -504,20 +521,15 @@ owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_p
 `on_top` so it stays over every layer set after it. A colour's alpha dims a square's fill and
 border together, which is how `throw_range` stays faint.
 
-**The tile grid is the ground's own material, and off until the player turns it on.** Style 19's
-grid lines alone (Styles/): a faint darkening along every block boundary on the ground blocks, tops
-and walls. `TileGrid`, a node in each combat map, gives the `BrightGrass1` mesh
-`TileGrid.gdshader` as the map loads, on the mesh itself, since the imported mesh is shared. With
-the grid off that shader draws exactly as the importer's `StandardMaterial3D` (its
-`render_mode diffuse_burley` is what makes it so: Godot 4.7's default diffuse differs). The lines
-answer to the global shader uniform `tile_grid` (`project.godot`'s `[shader_globals]`), which only
-`TileGrid.set_shown()` / `toggle()` set; `TileGrid.shown` is static, so the choice holds from battle
-to battle until the game closes, and is never read back from the RenderingServer. `G`
-(`toggle_grid`) toggles it in combat, as does **Tile Grid** on the System tab anywhere, which the
-pause menu relabels as it opens. `TileGrid` must stay before `TerrainDestruction` in each map: that
-copies each wearable block's material as it readies (`VoxelShape.read()`) and draws worn blocks with
-it, so worn grass keeps the grid. A block style that changes the ground's material has to carry the
-grid with it (Styles/APPLYING.md section 3).
+**The tile grid is drawn by the level's shader, and off until the player turns it on.** Style 19's
+grid lines alone (Styles/): a faint darkening along every block boundary on the ground, tops and
+walls, drawn by `Voxels.gdshader` on the voxels of each kind with `PieceKind.tile_grid` (the
+grass), worn or not. The lines answer to the global shader uniform `tile_grid` (`project.godot`'s
+`[shader_globals]`), which only `TileGrid.set_shown()` / `toggle()` set; `TileGrid.shown` is static,
+so the choice holds from battle to battle until the game closes, and is never read back from the
+RenderingServer. `G` (`toggle_grid`) toggles it in combat, as does **Tile Grid** on the System tab
+anywhere, which the pause menu relabels as it opens. A style that changes the level's look has to
+carry the grid with it (Styles/APPLYING.md section 3).
 
 **The HUD is written in code, not scenes.** Widgets build their children in `_init()` and style
 themselves with `StyleBoxFlat` overrides. Follow that rather than adding `.tscn` files for UI.
@@ -691,8 +703,7 @@ does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) a
 reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
 square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
 `display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
-`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure on a copy
-of the material). Each is `Character.total(stat)`, not the character's own property: their own with
+`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure). Each is `Character.total(stat)`, not the character's own property: their own with
 what their learned skills add (see "Skills are data" below) and, for defense, their armor's
 (`Character.total_defense` is `total(&"defense")`). They are copied once, when
 the unit enters the map: the rules read the unit, never the character. The unit's other stats
@@ -726,7 +737,7 @@ on) calls `Campaign.heal(heal_per_step)` (1), which takes that off every roster 
 down to none, before that step's roll.
 Unlike an `Item`, a character is state and changes in play; nothing writes it back to disk, and
 save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
-and keep the scene's name and material; the harness has no `SquadStarts` (`starts_path` is empty), so
+and keep the scene's name and tint; the harness has no `SquadStarts` (`starts_path` is empty), so
 its eight fixed units are its squad and spawn nothing.
 
 **Every unit wears one rigged voxel figure for now.** A unit's `Model` child, squad or enemy, is an
@@ -735,11 +746,11 @@ instance of `Scenes/BaseCharacter.tscn`, which `Scripts/Characters/BakeCharacter
 again: `--headless --path . --script res://Scripts/Characters/BakeCharacter.gd`. It overwrites the scene
 and the two `.res` beside the model, so never edit those by hand or in the editor. The rules never read
 the figure, as they never read debris: shots take a unit's body from `Ballistics`' constants and its
-two cells. Each unit sets the figure's `body_material`, a plain `StandardMaterial3D` that ignores the
-model's vertex colours, so it shows one flat colour: the scene's for enemies and the harness, the
-character's `color` for the squad (`Unit._paint()` gives `CharacterModel.paint()` a copy). The enemies'
-(`Mat_enemy1` in each combat map) is slate grey, `Color(0.32, 0.35, 0.4)`: they were red until blood,
-which barely showed on them, so keep every unit's colour off red. The figure
+two cells. Each unit paints its figure one flat colour, its `CharacterModel.tint`, into the palette of
+the `VoxelModel` drawing its body (`FigureVoxels.body`): the scene's for enemies and the harness, the
+character's `color` for the squad (`Unit._paint()` calls `paint()`). The enemies' (set in each combat
+map) is slate grey, `Color(0.32, 0.35, 0.4)`: they were red until blood, which barely showed on them,
+so keep every unit's colour off red. The figure
 shapes the unit's bodies (`Unit._add_bodies()`): an upright cylinder `PICK_RADIUS` round for clicks,
 and the debris capsule as before, as thick as the figure's body; neither turns with it. The click
 body follows the figure out of its tile while it leans out of its cover (`Unit.lean()`, see "A
@@ -755,8 +766,8 @@ hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, 
 `VoxelRig.LAYOUTS`, by its `.vox`, or can share `BASE_CHARACTER` if drawn to its proportions. The bake
 reads that table (`BakeCharacter.LAYOUTS` is the same one) and writes the model's path into the figure
 (`CharacterModel.voxel_model`); blood reads the figure's voxels by the two while the game runs
-(`FigureVoxels`), and a model with no entry never bleeds, with an error. Blood relies on the rig being
-rigid too: its stains are weighted wholly to their voxel's bone.
+(`FigureVoxels`), and a model with no entry is drawn in its baked material and never bleeds, with an
+error. Every corner of the baked mesh carries its voxel, so the shader colours it however it is posed.
 
 **Animations are poses written in code and baked.** `HumanoidAnimations` authors all 56 for the rig's
 proportions: a function of time places the feet, the hands and what they hold, and leans the body,
@@ -794,8 +805,8 @@ parameters and never its nodes' properties. Most of what it plays it reads off i
 it runs while `Unit.is_moving()`, as fast as the unit really goes, so a reaction's slow motion slows
 its legs and a held walk freezes them mid-stride; it faces the way it goes, unless the walk keeps its
 facing (`Unit.walk(..., keep_facing)`, a step out to shoot); and a step up or down a level lifts it in
-a hop, on the figure's own position, so the unit still moves in a straight line and `tile_at()` never
-sees it. `Unit.drop_to()` sets it falling until it lands. The rest the unit asks for, through
+a hop, as does a step over a fence (the walk's `vaults`, from `CombatGrid.vaults_along()`), on the
+figure's own position, so the unit still moves in a straight line and `tile_at()` never sees it. `Unit.drop_to()` sets it falling until it lands. The rest the unit asks for, through
 presentational calls that do nothing without a figure: `aim_at()` (raise the gun to a point, which
 `AimModifier` bends the spine and chest to, above or below), `ready_strike()`, `ready_throw()`,
 `celebrate()` (the winners, as `TurnManager` decides the battle), `reload()` (through `Unit.reload()`,
@@ -823,18 +834,18 @@ for one left where MagicaVoxel put it), so the `Mesh`'s transform cancels that, 
 drawn along another axis (`Rifle2.vox` lies along MagicaVoxel's x). Props import at 0.063, as the
 figure does. Belt grenades are tucked in by their handles, the outer two fanned out so the heads stand
 apart. A longer model reaches further than the poses were made for: preview its clips for it going
-into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7). Blood stains a prop as a voxel model
-of its own (`CharacterModel.gear()`, `VoxelStains.on()`), drawn over it in its socket; a prop swapped
-for another takes its stains with it, and since `equip()` builds the belt afresh whenever a grenade is
-used up, every grenade left on it comes back clean.
+into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7). Every prop is a `VoxelModel` of its
+own, taken over as the figure makes it (`_make_prop()`; `CharacterModel.gear()` lists them), which blood
+recolours; since `equip()` builds the belt afresh whenever a grenade is used up, every grenade left on
+it comes back clean.
 
 **The dead break apart, and what they break into stays.** As a unit dies (`Unit.die()` emits `died`),
 `TerrainDestruction`, which watches every unit's `died` (`_watch_units()`, deferred until the squad
 has spawned), breaks its figure apart where it stands (`break_figure()`), as a block that wears away
 crumbles: every voxel of the figure, posed as it was, goes into lumps of `VoxelDebris`
 `crumbles_as.crumble_size` (3) across, cut on a grid set at random within each bone, so a lump is one
-bone's (`FigureVoxels.crumble()`; the base figure's 536 voxels make some 60-90 lumps). A lump is the
-unit's colour (`CharacterModel.tint()`), and a voxel blood stained is blood red. Each is knocked the way
+bone's (`FigureVoxels.crumble()`; the base figure's 536 voxels make some 60-90 lumps). A lump is its
+voxels' colours on the figure: the unit's `tint`, blood red where blood recoloured one. Each is knocked the way
 the killing blow went, which `take_damage()` keeps on the unit (`Unit.hit_from`, `hit_blasted`,
 `hit_at`, `hit_sweep`): along a round's way or a blade's swing (`FIGURE_KNOCK`), or away from a blast
 (`FIGURE_BLAST_KNOCK`; the blast's own push then throws the lumps, held until the next physics step as
@@ -989,32 +1000,50 @@ drawn landing on the part of it that is out (`Unit._wound_on()`: a wound its cov
 muzzle is picked again, on the figure's own generator). Only the figure moves: the unit never leaves
 its tile, so coins, reactions and everything else that reads `tile_at()` see nothing.
 
-**Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
-`terrain_struck` and looks the struck block up in `Resources/Destruction/Catalog.tres`, a
-`DestructionCatalog` of `Destruction` resources each naming a block by its MeshLibrary item name.
-A block with no entry never breaks. A breaking block leaves the grid at once, then its destruction's
-`shatter(site, at, hit, motion)` plays out what is left under the `TerrainDestruction` node, `at`
-being where the grid drew the block's mesh.
+**A combat map is a level of voxel pieces, painted in the level editor.** Its `Level` node
+(`VoxelLevel`, `@tool`) holds a `LevelData` (`Levels/<Map>.tres`: every piece placed, in order, as a
+kind, a slot and a turn) and the `PieceLibrary` every map shares (`Blocks/Pieces.tres`: the kinds, each
+a 16³ `.vox` model at 0.0625 with its destruction, and the brushes). A slot is the middle of a cell,
+where a block stood, or the edge between two cells side by side, where a fence or a wall stands. As
+the map loads, the level stamps every piece into one grid of voxels (`VoxelVolume`, 32³ chunks, a
+later piece winning voxel by voxel), draws it a chunk at a time with every hidden face left out,
+across chunks too, its colours from a texture (`LevelRenderer`: BoundaryMap's battlefield is 269k
+triangles, the GridMap's 924k), gives it collision over the frames after (whatever puts debris
+somewhere asks `ensure_collision()` first), and gives the rules `LevelRules`: the solid pieces
+standing in each cell and across each edge, whole until they break, which `CombatGrid` reads
+(`level_path`). Nothing in the rules reads a voxel but a round's trace. The editor is a Godot editor
+plugin (`addons/level_editor/`): select a `Level` and paint from the panel beside the 3D view, its
+keys its own while a level is selected. `Docs/LEVELS.md` has all of the level (the data, the volume
+and why 32³, the mesher and shader, collision, scenery, the edge rules, destruction and blood on the
+volume, how the maps came over, how to probe it, its gaps and what was decided without asking), and
+`Docs/LEVEL_EDITOR.md` all of the editor (every control, how painting behaves, making a map, adding
+kinds and brushes, how it works, probing it, its gaps); read them before touching a level or the
+editor.
 
-It listens to `terrain_blasted` too (`CombatGrid.blast()`, a grenade going off): every breakable block
-among the blast's cells breaks, from the top down, so each is blasted apart where it stands rather
+**Breakable blocks are data.** `TerrainDestruction` (a node in each map) listens to
+`terrain_struck` and breaks or wears the struck piece (`RayHit.piece`) as its kind says: its
+`PieceKind.destruction`, a `Destruction` resource. A kind with none never breaks. A breaking piece
+leaves the rules at once, then its destruction's `shatter(site, at, hit, motion)` plays out what is
+left under the `TerrainDestruction` node, `at` being where the level drew its model
+(`VoxelLevel.frame_of()` times the kind's `model_transform`).
+
+It listens to `terrain_blasted` too (`CombatGrid.blast()`, a grenade going off): every breakable piece
+in the blast's cells, or across an edge with a side in them, breaks, from the top down, so each is
+blasted apart where it stands rather
 than first falling on to the one below it (blocks stacked above the blast still fall, as usual). It
 passes no `hit`, so the pieces get no knock from a round; instead, once they are let go a physics step
 later, `Blast.burst()` throws every loose piece inside the blast (new and old, not a `FallingBlock`)
 from the grenade's centre with its `blast_force`, on top of the crate's own burst.
 
-**Stacks fall, then break.** Every breakable block stacked on a broken one, up to the first that
-cannot break, leaves the grid in the same moment but does not break yet: it becomes a
-`FallingBlock` (its own mesh and collision, as heavy as its destruction's `mass`) that drops
+**Stacks fall, then break.** Every breakable piece stacked on a broken one, up to the first that
+cannot break, and every edge piece left with nothing under either side of it, leaves the rules in
+the same moment but does not break yet: it becomes a `FallingBlock` (a mesh of what is left of its
+voxels, and collision, as heavy as its destruction's `mass`) that drops
 straight down its column and breaks where it lands, calling `shatter` with a `Destruction.Motion`
-so its pieces carry on its fall. It has landed once something takes more than half its speed away
-after it has got going (0.5 cells a second), once it has sat still for a quarter of a second, or
-three seconds after it was let go; it reports where it was two physics steps earlier (see
-Gotchas). A unit left standing on nothing drops (`Unit.drop_to`) through the rubble, and
-`TerrainDestruction.Collapse` lets it pass through the pieces the falling blocks leave later too
-(`Unit.pass_through`). Where the wreck under a falling block can get out of the way (a stack in the
-open, blasted apart) the blocks fall nearly a whole cell and smash; in a one-cell slot between two
-columns the columns hold the wreck in place, and the blocks drop on to it.
+so its pieces carry on its fall. A unit left standing on nothing drops (`Unit.drop_to`) through the
+rubble, and `TerrainDestruction.Collapse` lets it pass through the pieces the falling blocks leave
+later too (`Unit.pass_through`). When a falling block has landed, and how a slot between two columns
+holds a wreck, are `Docs/DESTRUCTION.md`'s ("Stacks falling").
 
 **Coins are rolled as blocks break and go by tiles.** `TerrainDestruction` emits
 `block_broken(cell, destruction)` for every block that breaks: from `_break` with the cell it stood
@@ -1032,68 +1061,68 @@ the battle, and `ShotOverlay.flash_pickup()` calls "+N Gold" over the taker's ey
 lost to it. A blast top-down leaves its coins in the cells the crates stood in, so the upper ones
 fall a frame later on to the bottom one's tile. `sweep()`, on a win, pays for every pile, calling
 each over it, and sets `_swept`, after which a block that breaks (one still falling as the battle
-ends) pays at once and leaves no coin. The `Coin` node is only for show: it is spun and bobbed on a
-child, so its own position is where it rests, and the model is centred on its box, since
-`Coin2.vox` is drawn well off its origin. It is nine voxels across at the props' 0.063, a little over
-half a cell, so it is not scaled; `Coins.STACK_STEP` (0.7) must stay more than its height plus its
+ends) pays at once and leaves no coin. The `Coin` node is only for show (how it is drawn:
+`Docs/DESTRUCTION.md`, "Coins"); `Coins.STACK_STEP` (0.7) must stay more than its height plus its
 bob, or a stack's coins touch.
 
 **A breakable block is one of two kinds, and adding either is a recipe.** A `ScriptedDestruction`
 breaks a block whole into pieces cut in advance, which collapse or, with **Blast** ticked and a
 `DestructOrigin` marker in the pieces scene, burst apart (`Blast.burst()`); a `VoxelDestruction`
-(`BrightGrass1`, both `SkinnyTree1` blocks) wears a block away a few voxels at a time. Either is a
-`.tres` in `Resources/Destruction/` naming the block, added to `Catalog.tres`, and its art must be
+(the grass, the trees, the fence, the wall) wears a block away a few voxels at a time. Either is a
+`.tres` in `Resources/Destruction/`, its kind's `destruction` in `Pieces.tres`, and its art must be
 imported from a `.vox` at Scale 0.0625, the blocks' scale. `Docs/DESTRUCTION.md` has both recipes
 step by step, how wear works in full and its gaps; read it before touching either. What the rest of
 the code has to know of wear:
 
-- **A worn block draws itself; the rules see its stand-in.** The first time a block loses a voxel,
-  `VoxelTerrain` makes it a `WornBlock` (its own mesh and trimesh collision) and swaps its GridMap
-  cell to the block's stand-in, an item with no mesh and no shapes. `CombatGrid.is_solid()` only asks
-  whether a cell has an item, so sight, cover, paths, throws, coins and units see the whole block,
-  however little is left. Anything that reads a cell's item id must allow for a stand-in
-  (`VoxelTerrain.wears_away()`, `shape_at()`, or `kind_of()` for any block drawn from a `.vox`, worn
-  or not).
+- **Wear is the level's voxels; the rules see whole pieces.** A bite or a crater takes voxels out of
+  the `VoxelVolume`, one grid across pieces and chunks, and the level draws what is left (a bite at
+  once, a blast's chunks over the next frames); `LevelRules` keeps the piece, so sight, cover, paths,
+  throws, coins and units see it whole, however little is left.
 - **A round takes a bite, a blast blows a crater** (`VoxelTerrain.chip()`, `crater()`), and what is
-  cut loose drops. A block left with less than `collapse_below` (half) of its voxels, or cut through
-  under something it holds up (`_holds_up()`), breaks as a crate does: out of the grid at once,
-  `block_broken`, stacks above fall, units drop. The bottom layer never breaks, and is only worn
+  cut loose drops (`_drop_loose()`, across pieces). A piece left with less than `collapse_below`
+  (half) of its voxels, or cut through under something it holds up (`holds_up()`), breaks as a crate
+  does: out of the rules at once, `block_broken`, stacks and edges above fall, units drop, and its
+  hole gets a ragged rim (`roughen_hole()`); what it lays bare inside the ground is recoloured as
+  earth (`VoxelVolume.lay_bare()`), so no block's outline shows. The bottom layer never breaks, and is only worn
   `FLOOR_DEPTH` (4) voxels deep, since a unit stands at the top of its block whatever is left of it.
 - **Rounds are traced voxel by voxel** (`CombatGrid.cast(..., by_voxel)`, which of the rules only
-  `Ballistics` passes); sight, throws and clicks stop at whole cells. Blood passes `every_block` as
-  well, which traces every block drawn from a `.vox` so; rounds never do.
-- **What breaks off is `VoxelDebris`:** each lump a rigid body straight on the `PhysicsServer3D`,
-  with no node, every voxel drawn as an instance of a few MultiMeshes. Units dropping through a
-  collapse pass through it, which is why `Unit.pass_through()` and `drop_to()` take body RIDs. At
-  `VoxelDebris.MOST` (20,000) bodies the lumps at rest furthest from where the camera looks are
-  stilled: drawn where they lie, bodiless until something disturbs them.
-- **A broken crate's pieces wear away as well, as loose models,** since its `ScriptedDestruction` has
-  a `wear`: a `RigidBody3D` drawn by a MagicaVoxel model, given a `VoxelBody`
-  (`VoxelTerrain.take_on_body()`) the first time a round's line or a blast's crater reaches it.
-  `Unit.shoot_at()` reports every round's line through `CombatGrid.fly()`, whose `round_flown` calls
-  `VoxelTerrain.tear()`. A loose model blocks nothing in the rules.
-- **It is deterministic.** Which voxels go, and so which blocks break, comes from the global random
-  generator, one number a round or blast, so a seeded fight replays exactly, as long as no block
-  falls whole (see Known gaps). Everything only for show (how lumps fly, wearing a loose model) draws
-  on `VoxelTerrain`'s own generator (`_show`), never the global one.
+  `Ballistics` passes); sight, throws and clicks stop at whole cells and edges. Blood passes
+  `every_block` as well, which traces every piece so; rounds never do.
+- **What breaks off is `VoxelDebris`:** each lump a body straight on the `PhysicsServer3D`, no node,
+  drawn by MultiMeshes, which is why `Unit.pass_through()` and `drop_to()` take body RIDs; past
+  `VoxelDebris.MOST` (20,000) bodies, those at rest furthest from the camera's focus are stilled.
+- **A broken crate's pieces wear away as well, as loose models** (`VoxelBody`, its
+  `ScriptedDestruction`'s `wear`), from the first round's line (`CombatGrid.fly()` ->
+  `round_flown` -> `VoxelTerrain.tear()`) or crater to reach them. A loose model blocks nothing.
+- **It is deterministic.** Which voxels go, and so which pieces break, comes from the global random
+  generator, one number a round, blast or broken piece, so a seeded fight replays exactly, as long
+  as no block falls whole (see Known gaps). Everything only for show (how lumps fly, wearing a loose
+  model) draws on `VoxelTerrain`'s own generator (`_show`), never the global one.
 
-**Blood is painted on voxel faces, and only for show.** `Unit.take_damage()` emits
-`hurt(taken, from, at, blasted, sweep)` for every hit that takes health (none for one defense stops),
-before the unit can die of it. `Blood`, a node in each combat map after `Coins`, connects to every
-unit as it readies and does the rest: it wounds the figure and sprays drops, each a voxel under
-gravity in one MultiMesh, which stain the first voxel face they meet and run from there
-(`BloodFlow`), and a pool spreads where each of the dead stood. A stain is a face, never a voxel's
-colour: `VoxelStains` keeps each stained voxel's faces and draws them as an overlay of red squares,
-hung from whatever draws the model, so blood never rebuilds a block or a figure, and whatever moves
-the model moves its stains. A stain is handed on only when its model becomes others (a block falling
-whole, a crate's pieces, a board cut in two, a voxel broken off). A hit is drawn landing on the
-body, not at the eye, where the round still flies: `CharacterModel.pick_wound()` picks where, kept in
-`Ballistics.Path.wound`, which the tracer is drawn to and `take_damage()` passes on as `at`.
+**Every voxel model is drawn and recoloured one way** (`Docs/VOXELS.md`, the user's call): faces
+merged by shape alone (`ChunkMesher`), each pixel its voxel's colour, read by one shader
+(`Voxels.gdshader`) from a texture of the voxels' palette places, 255 blood's. The level is drawn so a
+chunk at a time; every other model by a `VoxelModel` under its `MeshInstance3D` (a figure, a prop, a
+crate's board, a part cut off, a block falling whole), sharing its shape's mesh, texture and material
+until it changes. Coins and a grenade in flight stay the importer's.
+
+**Blood recolours voxels, and is only for show.**
+`Unit.take_damage()` emits `hurt(taken, from, at, blasted, sweep)` for every hit that takes health
+(none for one defense stops), before the unit can die of it. `Blood`, a node in each combat map
+after `Coins`, connects to every unit as it readies and does the rest: it wounds the figure and
+sprays drops, each a voxel under gravity in one MultiMesh, which stain the first voxel they meet and
+run from there (`BloodFlow`), and a pool spreads where each of the dead stood. A stain is the voxel's
+colour (`VoxelVolume.recolor(voxel, BLOOD)` on the level, `VoxelModel.recolor()` on any other model:
+the user's choice of texture writes over overlays), a unit of blood for each face it turns red, and
+goes wherever the voxel goes, handed on only when a model becomes others (a crate's pieces,
+`carry_blood()`; a board cut in two). A hit is drawn landing on the body, not at the eye, where the round still flies:
+`CharacterModel.pick_wound()` picks where, kept in `Ballistics.Path.wound`, which the tracer is drawn
+to and `take_damage()` passes on as `at`.
 
 **Blood** on the pause menu's System tab turns it all off: `Blood.enabled`, a static like
 `TileGrid.shown`, never saved, changed only between battles (the menu greys the button out while
-`Campaign.in_mission`) and read by each map's `Blood` once, in `_ready`. Off, `Blood` still reads
-every figure's rig as the map loads, since a shot still draws its tracer on to the body, then stops.
+`Campaign.in_mission`) and read by each map's `Blood` once, in `_ready`. Off, every figure still reads
+its rig, which draws it and which a shot draws its tracer on to, but `Blood` stops.
 The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe could name `Blood` (see
 Gotchas). And blood never looks for coins: a drop flies straight through one, and no coin is ever
 stained. Keep it so.
@@ -1108,66 +1137,26 @@ others.
 (`Unit.PICK_LAYER`), 3 debris, 4 unit bodies (`Unit.BODY_LAYER`), 5 pieces
 (`TerrainDestruction.PIECE_LAYER`: debris that is a body with a node of its own, a broken block's
 pieces and the parts cut from them, and dropped gear, which are on 3 as well; nothing collides with 5,
-it is only searched). Blood's drops are no bodies: they find debris
-with a ray on 3 (a lump by its RID, a piece through `VoxelTerrain.model_of()`, falling blocks
-passed), and meet figures by their voxels, never by a unit's bodies.
-What a dead unit breaks into is debris among debris: its lumps on layer 3, its dropped gear on 3 and
-5, landing on terrain and other debris and shoved aside by the living. Blocks have no collision in the
-MeshLibrary, so
-`TerrainDestruction` gives the map a copy of it with a cube on every shapeless block (a tree that
-wears away gets its voxels' trimesh instead, and a worn block collides through its `WornBlock`).
-Debris stays live for good and sleeps when still. Jolt's limits on bodies, body pairs, contacts and
-scratch memory are raised in `project.godot` for the voxel debris.
+it is only searched). Blood's drops are no bodies: they find debris with a ray on 3 and meet figures
+by their voxels, never by a unit's bodies. A dead unit's lumps and gear are debris among debris. The
+level collides as a trimesh a chunk on layer 1 (`LevelRenderer`). Debris stays live for good and
+sleeps when still; the rules never look at it. **Pieces are found by the physics, never by walking
+the scene:** every piece is made by `TerrainDestruction.make_piece()`, on `PIECE_LAYER` and in the
+`PIECES` group, and whatever looks for pieces in a box asks `pieces_in()`, a shape query. Each unit's
+frictionless capsule shoves debris aside, and a `FallingBlock` never collides with units.
+`Docs/DESTRUCTION.md`, "The physics of debris", has the rest (what each body is, what it costs,
+Jolt's raised limits); read it before touching debris's bodies.
 
-**Pieces are found by the physics, never by walking the scene.** Every piece is made one by
-`TerrainDestruction.make_piece()` (`ScriptedDestruction._make_pieces()`, `VoxelTerrain._split_off()`):
-on `PIECE_LAYER` and in the `PIECES` group. Whatever looks for the pieces in a box (waking those lying
-on what wore away, the ones a blast throws, the ones its crater wears) asks `pieces_in()`, a shape query
-on that layer, and the tidy looks over the group. A battle that has broken every crate leaves some 2,700
-pieces, and walking the scene for them took 11-14 ms on every bite, crate and blast, and 5-6 ms every
-second; a query takes 0.1-0.5 ms, and the tidy under 1 ms. A block falling whole is no piece: it lands,
-or gives up after 3 seconds, by itself. Each unit carries a frictionless
-`AnimatableBody3D` capsule, starting `Unit.BODY_CLEARANCE` above its feet, that shoves debris aside and
-is never pushed back.
-A `FallingBlock` is on the debris layer but never collides with units: nobody can stand in its
-column but units dropping with it. It is 1 cm narrower than its cell on each side
-(`FallingBlock.CLEARANCE`), cannot turn, and is frictionless, so it slides down between the blocks
-either side of it instead of wedging between them. Debris knocked off the map, or wedged inside a
-block, is removed. The rules never look at debris.
-
-**Scenery around a combat map is a second GridMap.** The rules, the camera and the destruction read
-only the node at their `grid_map_path` (`GridMap`): the battlefield and the ring of trees walling it
-in. `BoundaryMap.tscn` paints the forest beyond that ring into a sibling GridMap, `Boundary`, out
-to 75 tiles past the battlefield. Nothing in the rules sees it, so it adds no tiles, cover or
-collision, and `CameraRig`'s pan bounds stop at the battlefield. Paint scenery into `Boundary`,
-never `GridMap`. Debris thrown over the ring falls through it (it has no collision) and is removed
-below the map.
-
-The scenery is built to be cheap, because it is most of what is drawn: painted like the
-battlefield, the forest took about 50 ms of GPU time a frame (an RTX 3060 laptop), nearly all of it
-trees drawn into the sun's shadow map, on and off screen. Now it costs about 3 ms at most:
-
-- `Boundary` uses `Blocks/SceneryLibrary.tres`, `BlockLibrary.tres`'s blocks with the same ids and
-  shadow casting off. The scenery still receives the battlefield's shadows. A block added to
-  `BlockLibrary` that scenery should use goes in both, shadows off in this one.
-- It has no ground blocks. `Boundary/Ground` is one plane in the grass block's top colour, 2 cm
-  below the top of the ground blocks and covering the ring's whole outer rectangle; it fills the
-  corners the battlefield leaves out too. Resize it with the ring, or the sky shows between the
-  trees. Its `SceneryGround` script cuts every column of the battlefield's bottom layer out of it on
-  ready, or a crater in the floor would show the plane running through it 2 cm down.
-- Only the 6 rows nearest the battlefield have trunks (`SkinnyTree1Bottom`); past them the tree
-  tops hide where the trunks would be.
-
-Without their shadows the forest's trees look a little paler and flatter than the battlefield's,
-most visibly zoomed in right beside them.
-
-75 tiles is the standard depth for a combat map's scenery ring. The least that hides the ring's
-outer edge is 73, found by rendering at 1280×720: zoomed all the way out (`far_distance` at
-`view_pitch`) or framed as far as it goes (`max_frame_distance` at `Reactions.camera_pitch`), with
-the pivot at its pan limit, facing any way. At 72 a sliver of sky shows past a screen corner; 75
-rounds that up. Anything that lets the camera see further (more zoom or framing distance, a lower
-pitch, a wider FOV or window, a larger `pan_margin`) needs the standard deepened to match; that is
-why `max_frame_distance` is kept to about what the zoomed-out camera sees.
+**Scenery around a combat map is a second level, only drawn.** The rules, the camera and the
+destruction read only the `Level`: the battlefield and the ring of trees walling it in.
+`BoundaryMap.tscn` places the forest beyond that ring in a sibling `VoxelLevel`, `Scenery`
+(`scenery` ticked), out to 75 tiles past the battlefield: no rules, no collision, nothing breaks or
+stains it, and `CameraRig`'s pan bounds stop at the battlefield. Put scenery there, never in
+`Level`. 75 tiles is the standard depth for a ring: anything that lets the camera see further (zoom,
+framing distance, pitch, FOV, window, `pan_margin`) needs it deepened, which is why
+`max_frame_distance` is kept to about what the zoomed-out camera sees. How it is kept cheap (no
+shadows, a `MultiMesh` a kind a region, a ground plane, trunks only near the battlefield) and how 75
+was found are `Docs/LEVELS.md`'s ("Scenery").
 
 ## Conventions
 
@@ -1188,6 +1177,12 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
 - A unit fills **two cells** (`CombatGrid.UNIT_HEIGHT`) and sights from the centre of the upper one
   (`LineOfSight.EYE_HEIGHT`). This is what makes 1-cell blocks half cover (never blocks sight) and
   2-cell blocks full cover (blocks it).
+- **A piece on the edge between two cells is cover to both sides of it**, half or, with more of it a
+  level up, full (`LineOfSight.cover_at()`); it **blocks a sight line crossing that edge at its level**
+  (one through a corner only if blocked whichever way round it went), a throw's arc and a whole
+  cast; and a unit **steps over it only if it is a level high or less**, as it climbs a level,
+  never diagonally past it and never leaning out through it. Like a block, it is whole until it
+  breaks (`LevelRules`).
 - **Step-out requires cover.** A unit in the open fires from its own tile only.
 - **A target is seen on its own tile, or on a tile it could lean out to** (`LineOfSight.lean_tiles()`,
   the same tiles it could step out to shoot from), as in XCOM 2, so sight runs both ways: with the
@@ -1253,17 +1248,18 @@ why `max_frame_distance` is kept to about what the zoomed-out camera sees.
   sight. A miss never stops on terrain more than `Ballistics.SHORT_OF_TARGET` short of the target.
   A leaning target is kept clear of both where it stands and where it leans.
 - **Damage and terrain strikes land when the round does**, inside `shoot_at`, not when it is fired.
-- **A broken block leaves the grid the moment the round strikes it**, before any debris moves, so
-  sight, cover and paths never wait on physics, and so does every breakable block stacked on it,
-  though it is still to be seen falling. Debris, and a falling block, is for show: nothing in the
+- **A broken block leaves the rules the moment the round strikes it**, before any debris moves, so
+  sight, cover and paths never wait on physics, and so does every breakable piece stacked on it and
+  every edge piece left on nothing, though it is still to be seen falling. Debris, and a falling block, is for show: nothing in the
   rules reads it.
 - **A block that wears away is a whole block to the rules until it is worn past standing**: below
   `collapse_below` of its voxels, or cut through under something it holds up, decided as the round
-  or blast lands, when it leaves the grid as any broken block does. How worn it looks never changes
-  sight, cover, paths or throws, and the bottom layer never leaves the grid.
-- **Rounds alone are traced voxel by voxel**, and only through blocks that wear away
+  or blast lands, when it leaves the rules as any broken block does. How worn it looks never changes
+  sight, cover, paths or throws, and the bottom layer never leaves them.
+- **Rounds alone are traced voxel by voxel**, and only through pieces that wear away
   (`CombatGrid.cast(..., by_voxel)`): a miss strikes the voxel it meets, or flies on through the
-  empty part of the cell. Sight lines, throw arcs and clicks read whole cells.
+  empty part of the cell, between a fence's rails. Sight lines, throw arcs and clicks read whole cells
+  and edges.
 - **Rounds tear through loose models and fly on.** Where a round goes is still decided against the
   grid alone; `round_flown` reports its line only once it has landed, and the loose models along it
   lose voxels. No loose model, nor any lump, ever stops a round or shelters anyone.
@@ -1345,11 +1341,11 @@ units to random pairs of tiles and compare `find_shot(a, b)` with `find_shot(b, 
 `find_shot(a, b, false)`, which is the rule as it was before a target could be seen leaning.
 
 Physics runs headless, and with `--fixed-fps 60` every physics step is exactly 1/60 s, so debris
-can be tested without rendering: break a block by calling `CombatGrid.strike()` with a hand-built
-`RayHit`, then wait on `physics_frame`. To wear a block that wears away, get the hit from
-`grid.cast(origin, direction, distance, true)` so it lands on a voxel, then `grid.strike(hit, 5)`; a
-blast is `grid.blast(origin, cells, 10, 1.0)`. `TerrainDestruction.voxels.count_at(cell)` says how much
-is left, and `voxel_debris.count()` how many lumps there are. Seed the global generator first and the
+can be tested without rendering: break a block with `terrain.break_block(cell)` (or `break_piece()`),
+then wait on `physics_frame`. To wear a piece that wears away, get the hit from
+`grid.cast(origin, direction, distance, true)` so it lands on a voxel (`hit.voxel`, `hit.piece`), then
+`grid.strike(hit, 5)`; a blast is `grid.blast(origin, cells, 10, 1.0)`. `level.volume.counts[piece]`
+says how much of a piece is left, and `voxel_debris.count()` how many lumps there are. Seed the global generator first and the
 same wear comes out every run. To tear loose models, break a crate (`terrain.break_block(cell)`), let
 its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `voxels.loose_count()`
 says how many have been taken on, `voxels._loose` maps each body to its `VoxelBody`, and
@@ -1361,8 +1357,9 @@ draws close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
 `MapCreation/Scripts/scene/m4_compare.py` set it beside `MapCreation/AllSimple.png`, colour by colour, until
 the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at four views.
 
-How to probe blood, the gamepad, a medkit and the new map (its look, its forests, its level of detail) is in their `Docs/`
-files (`BLOOD.md`, `GAMEPAD.md`, `MEDKIT.md`, `MAP.md`), under "Probing it".
+How to probe blood, the gamepad, a level and its editor, a medkit and the new map (its look, its forests, its level of
+detail) and a voxel model is in their `Docs/` files (`BLOOD.md`, `GAMEPAD.md`, `LEVELS.md`, `LEVEL_EDITOR.md`, `MEDKIT.md`,
+`MAP.md`, `VOXELS.md`), under "Probing it".
 
 A death is probed headless too: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
 with a round (a blast passes `blasted` and no `at`, a blade a `sweep` too), and
@@ -1449,7 +1446,7 @@ press does nothing.
 **`.tscn` `load_steps` must be bumped** when you add `ext_resource`/`sub_resource` entries by hand
 (it is total resources + 1).
 
-**Do not hand-write `Transform3D`, GridMap `data`, or `project.godot` input events.** The text
+**Do not hand-write `Transform3D` or `project.godot` input events.** The text
 serialization order is not the constructor order. Have Godot print `var_to_str(...)`, or build the
 scene with a script and `PackedScene.pack()` + `ResourceSaver.save()`. When packing, every node must
 have `owner` set to the root, recursively, or it is silently dropped; clear `scene_file_path` for a
@@ -1480,9 +1477,19 @@ body's transform to the physics server, and a parent moving underneath does not 
 body moves with the unit's tweens, so it is not synced. Jolt still moves a kinematic body with
 velocity when its transform is set, so it pushes debris properly.
 
-**A GridMap cell's collision goes at the end of the frame, not on `set_cell_item()`.** Debris
-spawned where a block just was would start inside the block's old collision and be flung out, so
-`ScriptedDestruction` holds the pieces frozen until the next `physics_frame`.
+**New debris is held a physics step, and the level's collision catches up ahead of it.** A chunk worn
+since its collision was made gets it again in `VoxelLevel._physics_process`, before `VoxelDebris`
+(after it in the tree) lets that step's new lumps go, and `ScriptedDestruction` holds its pieces
+frozen until the next `physics_frame` the same way. Keep `Level` before `TerrainDestruction` in each
+map, or a bite's lumps start out inside the voxels they were.
+
+**A `PackedColorArray` shader uniform arrives converted to linear.** The level's palette drew
+everything far too dark that way; `VoxelModel.palette_entries()` passes a `PackedVector4Array`, which
+arrives as it is. And `VIEWPORT_SIZE` is no size in a sun's shadow pass: `Voxels.gdshader` grows
+faces by a fraction of a pixel only in perspective, a fixed 0.2 mm in the shadow.
+
+**A texture made by a headless run has nothing to save.** The dummy renderer keeps no texture's data:
+saved, a `Texture2DArray` a `--headless` script made has no layers and fails to load (`img.is_null()`).
 
 **A kinematic body driven into a heap grinds thin pieces into whatever is under them.** That is why
 a unit dropping into its own rubble passes through it (`drop_to`'s `rubble`), and why its body
@@ -1513,7 +1520,9 @@ Anything else made on the server must do the same.
 **A packed array is passed by reference.** A `PackedByteArray` read off an object, out of a
 dictionary or passed to a function is the same array, not a copy, so writing into it writes into the
 original. A `VoxelShape`'s `voxels` and `rows` are shared by every block and model of its kind, which
-is why `WornBlock` and `VoxelBody` `duplicate()` them before wearing anything.
+is why a `VoxelModel` `duplicate()`s them before it changes anything. `LevelRules.pieces_in()` and
+`pieces_across()` hand out the rules' own arrays: duplicate one before breaking pieces while going
+through it.
 
 **`get_collision_exceptions()` fails on bodies since freed.** The physics server keeps a freed body in
 the exception list of every body that passed through it, and `PhysicsBody3D.get_collision_exceptions()`
@@ -1591,7 +1600,7 @@ constants; `Unit`, `CombatGrid` and `Throwing` are safe. The autoloads themselve
 time (`root.get_node("Campaign")`).
 
 **`get_meta(name, null)` errors when there is no such metadata.** A null default counts as none, so
-the call fails rather than returning null. Ask `has_meta()` first, as `VoxelStains.on()` does.
+the call fails rather than returning null. Ask `has_meta()` first, as `VoxelModel.take_over()` does.
 
 **The headless renderer keeps no MultiMesh instance data.** `get_instance_color()` reads black there
 whatever was set, so whether a lump is blood red can only be checked in a window.
@@ -1605,9 +1614,9 @@ the `is_instance_valid()` inside the loop never runs. Loop untyped and check fir
 `CombatGrid.tile_position(tile)` is the floor surface (where units stand);
 `CombatGrid.cell_center(cell)` is the middle of a cell (used for eye positions).
 
-**`LineOfSightTest.tscn` is generated**, by a throwaway script that instantiates `CombatMap.tscn`,
-rebuilds the GridMap and repositions units. That script is not in the repo, so edit the scene
-directly or write a fresh generator.
+**`LineOfSightTest.tscn`'s units were placed by a throwaway script**, not in the repo; its level is
+`Levels/LineOfSightTest.tres`, painted like any other (its edge lanes added by another script). Edit
+the scene and the level directly, or write a fresh generator.
 
 **`BaseCharacter.tscn` is generated too**, by `BakeCharacter.gd`, with its mesh and animations. Change
 the scripts and bake; anything edited into the scene or its `.res` is lost at the next bake.
@@ -1640,8 +1649,8 @@ reaches may preload a destruction.
 
 ## Known gaps
 
-Blood's, the gamepad's, the medkit's, the skills' and the new map's forests' and level of detail's gaps, and
-more of voxel wear's and loose models', are in their `Docs/` files, under "Known gaps".
+Blood's, the gamepad's, the levels' and their editor's, the medkit's, the skills' and the new map's forests' and
+level of detail's gaps, and more of voxel wear's and loose models', are in their `Docs/` files, under "Known gaps".
 
 - A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
   in its magazine do (`Unit.rounds`), not on the weapon.
@@ -1658,8 +1667,8 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
 - A unit stands at the top of its tile however worn the block under it is, so it floats over a crater:
   up to 4 voxels on the bottom layer, deeper on a raised block. Tile highlights float with it.
 - A worn block gives full cover until it breaks, however holed it looks; nothing reads partial wear.
-  Each block holds up what is on it by itself: voxels are only joined across a cell face, not traced
-  through several blocks, so a lump held only by a block that is itself cut loose stays put.
+  A voxel counts as held once the search from it passes `VoxelTerrain.HOLD_SEARCH` voxels, so a big
+  overhang cut loose far from what holds it stays up.
 - A seeded fight replays exactly only while no block falls whole. A crate that falls draws on the
   global random generator when it lands (its pieces' knocks, its coin), at a moment the physics
   decides, so one that lands before the next round or blast in one run and after it in another
@@ -1727,9 +1736,5 @@ more of voxel wear's and loose models', are in their `Docs/` files, under "Known
   anywhere below it, or under a block that cannot break, floats there out of reach until a win
   sweeps it up. A collapsed stack's coins can sit half buried in its boards. Combat has no gold
   readout: the "+N Gold" calls are all it shows.
-- The tile grid is drawn on grass blocks only, not on crate tops a unit can stand on, and its choice
-  is not saved: every launch starts with it off. It is world-space, so a grass block falling whole
-  shows its horizontal lines slide past as it drops. Giving the grass a material of its own changed
-  7 pixels of BoundaryMap's start frame (out of 1.8 million; one at a crate's corner on a grass
-  block, six by one level). Likely Godot's drawing order, which sorts by material, settling a depth
-  tie the other way; CombatMap and LineOfSightTest came out identical.
+- The tile grid is drawn on the grass only (`PieceKind.tile_grid`), not on crate tops a unit can stand
+  on nor on a block falling whole, and its choice is not saved: every launch starts with it off.

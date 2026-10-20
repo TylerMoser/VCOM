@@ -1,3 +1,4 @@
+@tool
 ## The voxels of one voxel model, as its MagicaVoxel file draws them: what a
 ## block, or a loose model such as one of a crate's pieces, is before anything
 ## wears it away.
@@ -15,14 +16,15 @@
 ## The voxels are kept in an array with an empty voxel all round the model's
 ## own, so a voxel's neighbours can be read without minding the edges, and a
 ## voxel holds the place of its colour in [member colors], 0 being no voxel at
-## all. Beside them are the same voxels a row at a time ([member rows]): for
-## each y and z, which of the voxels along x there are, as the bits of one
-## number, bit x for voxel x, so a model can be at most [constant WIDEST]
-## voxels along x.
+## all and [constant BLOOD] being blood, which no colour of the model's own
+## ever takes ([method reserve_blood]). Beside them are the same voxels a row
+## at a time ([member rows]): for each y and z, which of the voxels along x
+## there are, as the bits of one number, bit x for voxel x, so a model can be
+## at most [constant WIDEST] voxels along x.
 ##
 ## What a model is whole never changes, so each is read once and shared: a
-## block or a loose model wearing away changes a copy of the arrays, never
-## these.
+## model wearing away or recoloured ([VoxelModel]) changes a copy of the
+## arrays, never these.
 class_name VoxelShape
 extends RefCounted
 
@@ -31,6 +33,11 @@ const BLOCK := 16
 const SCALE := 1.0 / BLOCK
 ## The most voxels a model can have along x: a row's bits, less the sign.
 const WIDEST := 62
+## The place in every model's palette that blood takes, the last: a model's
+## own colour there is moved ([method reserve_blood]). And blood's colour,
+## bright red, as Fat Princess has it.
+const BLOOD := 255
+const BLOOD_COLOR := Color(0.78, 0.02, 0.03)
 
 ## The reader the MagicaVoxel importer uses, and how it turns the model's axes
 ## (z up) into Godot's (y up).
@@ -51,13 +58,17 @@ var corner := Vector3.ZERO
 var voxels := PackedByteArray()
 var rows := PackedInt64Array()
 ## The model's palette, each colour at the place its voxels hold. The first,
-## 0, is no colour.
+## 0, is no colour; the last, [constant BLOOD], blood's.
 var colors := PackedColorArray()
 ## How many voxels the model has whole.
 var count := 0
-## What the imported mesh is drawn with, for drawing what is left of a model
-## the same way.
-var material: Material
+## How much bigger the mesh the model was read from draws its voxels than a
+## block's: 1 for blocks and their pieces, a shade more for props, imported
+## at 0.063 a voxel. Its frame is the mesh's space shrunk by this.
+var scale := 1.0
+## What is made of the model once, for everything drawn from it whole
+## ([VoxelModel]): its mesh, the texture of its colours, its material.
+var shared := {}
 
 ## Every .vox read so far and the frames it has, by path, and every model's
 ## shape, by path and model: none of them ever changes.
@@ -89,7 +100,6 @@ static func read(mesh: Mesh, mesh_transform: Transform3D) -> VoxelShape:
 		return null
 	var shape := VoxelShape.new(Vector3i.ONE * BLOCK, -Vector3.ONE * 0.5)
 	shape._paint(_files[mesh.resource_path].colors)
-	shape.material = mesh.surface_get_material(0) if mesh.get_surface_count() > 0 else null
 	var outside := 0
 	var half := Vector3.ONE * 0.5
 	for voxel: Vector3 in frame:
@@ -104,6 +114,7 @@ static func read(mesh: Mesh, mesh_transform: Transform3D) -> VoxelShape:
 		shape.count += 1
 	if outside > 0:
 		push_warning("VoxelShape: %d voxels of '%s' lie outside its cell, and are left out." % [outside, mesh.resource_path])
+	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
 	return shape
 
@@ -130,10 +141,13 @@ static func read_mesh(mesh: Mesh) -> VoxelShape:
 		push_error("VoxelShape: '%s' is %d voxels along x, more than the %d a model can be." % [mesh.resource_path, shape.size.x, WIDEST])
 		return null
 	shape._paint(_files[mesh.resource_path].colors)
-	shape.material = mesh.surface_get_material(0) if mesh.get_surface_count() > 0 else null
+	# What the mesh measures over what the voxels do: a prop is imported at 0.063
+	# a voxel.
+	shape.scale = mesh.get_aabb().size.x / (shape.size.x * SCALE)
 	for voxel: Vector3 in frame:
 		shape.voxels[shape.index_of(_godot_corner(voxel) - least)] = int(frame[voxel]) + 1
 		shape.count += 1
+	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
 	_models[mesh.resource_path] = shape
 	return shape
@@ -181,6 +195,7 @@ static func read_model(path: String, model_id: int) -> VoxelShape:
 		var at := Vector3i(int(voxel.x), int(voxel.z), drawn.y - 1 - int(voxel.y))
 		shape.voxels[shape.index_of(at - least)] = int(model.voxels[voxel]) + 1
 		shape.count += 1
+	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
 	_models[key] = shape
 	return shape
@@ -201,6 +216,26 @@ static func source_of(scene: PackedScene) -> String:
 ## Whether every voxel of the model is filled.
 func is_full() -> bool:
 	return count == size.x * size.y * size.z
+
+
+## Keeps [constant BLOOD] free for blood, and gives it blood's colour: a model
+## with a colour of its own there has it moved to a place none of its voxels
+## use. Call once its voxels are in, as every reading of a .vox does.
+func reserve_blood() -> void:
+	if voxels.has(BLOOD):
+		var used := PackedByteArray()
+		used.resize(256)
+		for held in voxels:
+			used[held] = 1
+		var free := used.find(0, 1)
+		if free < 0 or free >= BLOOD:
+			push_error("VoxelShape: a model uses all %d colours, so one is drawn as blood." % BLOOD)
+		else:
+			colors[free] = colors[BLOOD]
+			for index in voxels.size():
+				if voxels[index] == BLOOD:
+					voxels[index] = free
+	colors[BLOOD] = BLOOD_COLOR
 
 
 ## Whether [param at], counted from voxel (0, 0, 0), is one of the model's.
@@ -272,8 +307,8 @@ func bounds_of(of_rows: PackedInt64Array) -> AABB:
 			var high := row
 			while high & (high - 1):
 				high &= high - 1
-			least = least.min(Vector3i(VoxelMesher.BIT[low], y, z))
-			most = most.max(Vector3i(VoxelMesher.BIT[high], y, z))
+			least = least.min(Vector3i(ChunkMesher.BIT[low % 67], y, z))
+			most = most.max(Vector3i(ChunkMesher.BIT[high % 67], y, z))
 	if most.x < 0:
 		return AABB(corner + Vector3(size) * SCALE * 0.5, Vector3.ZERO)
 	return AABB(corner + Vector3(least) * SCALE, Vector3(most - least + Vector3i.ONE) * SCALE)
@@ -297,7 +332,7 @@ static func _godot_corner(voxel: Vector3) -> Vector3i:
 ## it cannot be read.
 static func _first_frame(mesh: Mesh) -> Variant:
 	if mesh == null or mesh.resource_path.get_extension().to_lower() != "vox":
-		push_error("VoxelShape: a model that wears away must be drawn by a mesh imported from a .vox, not '%s'." % (mesh.resource_path if mesh != null else "nothing"))
+		push_error("VoxelShape: a voxel model must be drawn by a mesh imported from a .vox, not '%s'." % (mesh.resource_path if mesh != null else "nothing"))
 		return null
 	var vox: Variant = _file(mesh.resource_path)
 	if vox == null:

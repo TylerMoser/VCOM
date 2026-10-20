@@ -1,12 +1,12 @@
 ## A breakable block that lost what held it up, falling whole until it lands.
 ##
-## By the time it falls, the block has left the grid along with the one it
-## stood on, so to the rules it is already gone: this is only the block as it
-## looks, coming down. [TerrainDestruction] builds it from the block's own mesh
-## and collision, standing exactly where the grid drew it, and breaks it where
-## it lands. It is held still until a physics step after the one it was made
-## in, while the grid takes the block's own collision away, and then drops
-## straight down its own column, never turning. It is a hair narrower than the
+## By the time it falls, the block has left the rules along with the one it
+## stood on, so to them it is already gone: this is only the block as it
+## looks, coming down. [TerrainDestruction] builds it from what is left of the
+## block's voxels, drawn as a [VoxelModel] standing exactly where the level
+## drew them, and breaks it where it lands. It is held still until a physics
+## step after the one it was made in, while the level takes the block's own
+## collision away, and then drops straight down its own column, never turning. It is a hair narrower than the
 ## block, so it slides down between blocks either side of it rather than
 ## wedging between them, as a block exactly as wide as the gap would. It is
 ## frictionless, so it neither drags on the blocks either side of it nor pins
@@ -84,26 +84,18 @@ class Step:
 			angular_velocity = body.angular_velocity
 
 
-## A block showing [param mesh], placed within it by [param mesh_transform],
-## colliding as a box round [param shapes] - a MeshLibrary item's list of
-## shapes, each followed by its transform - and weighing [param block_mass]
-## kilograms.
-func _init(mesh: Mesh, mesh_transform: Transform3D, shapes: Array, block_mass: float) -> void:
+## A block showing [param drawn], a mesh of its voxels about the block's
+## middle, colliding as the box round that mesh and weighing
+## [param block_mass] kilograms.
+func _init(drawn: MeshInstance3D, block_mass: float) -> void:
 	name = &"FallingBlock"
-	_mesh = MeshInstance3D.new()
-	_mesh.name = &"Mesh"
-	_mesh.mesh = mesh
-	_mesh.transform = mesh_transform
+	_mesh = drawn
 	add_child(_mesh)
 
-	# A block with no shapes of its own collides as the box round its mesh,
-	# or, with no mesh either, as a cube a cell across.
+	# The box round its mesh, or, with no mesh, a cube a cell across.
 	var bounds := AABB(-Vector3.ONE * 0.5, Vector3.ONE)
-	if mesh != null:
-		bounds = mesh_transform * mesh.get_aabb()
-	for index in range(0, shapes.size() - 1, 2):
-		var shape_bounds: AABB = (shapes[index + 1] as Transform3D) * (shapes[index] as Shape3D).get_debug_mesh().get_aabb()
-		bounds = shape_bounds if index == 0 else bounds.merge(shape_bounds)
+	if drawn.mesh != null:
+		bounds = drawn.transform * drawn.mesh.get_aabb()
 	var box := BoxShape3D.new()
 	box.size = bounds.size - Vector3(CLEARANCE * 2.0, 0.0, CLEARANCE * 2.0)
 	var collider := CollisionShape3D.new()
@@ -131,8 +123,8 @@ func _physics_process(delta: float) -> void:
 		return
 	if freeze:
 		# Held where it stood until a physics step after the one it was made
-		# in: the grid takes the block's own collision away at the end of
-		# that frame, and until then the block would start inside it.
+		# in: the level takes the block's own collision away by then, and until
+		# then the block would start inside it.
 		if Engine.get_physics_frames() > _made_in:
 			freeze = false
 			_last = Step.new(self)

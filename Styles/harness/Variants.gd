@@ -104,9 +104,15 @@ static func _apply_light(light: DirectionalLight3D, props: Dictionary) -> void:
 
 
 static func _block_meshes(map: Node) -> Dictionary:
-	var grid := map.get_node(^"GridMap") as GridMap
-	var lib := grid.mesh_library
 	var meshes := {}
+	# Since 2026-10-20 the combat maps are levels (VoxelLevel), drawn by one
+	# shader, Voxels.gdshader, not by these meshes: a block style has to
+	# be applied there (Styles/APPLYING.md, section 3).
+	var grid := map.get_node_or_null(^"GridMap") as GridMap
+	if grid == null:
+		push_warning("Variants: no GridMap; block materials are not previewed on a level.")
+		return meshes
+	var lib := grid.mesh_library
 	for id in lib.get_item_list():
 		meshes[lib.get_item_name(id)] = lib.get_item_mesh(id)
 	return meshes

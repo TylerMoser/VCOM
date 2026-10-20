@@ -632,10 +632,10 @@ nodes/react/node = SubResource("AnimationNodeOneShot_7xjv6")
 nodes/react/position = Vector2(2100, 200)
 node_connections = [&"output", 0, &"react", &"stance", 0, &"stand_rifle", &"stance", 1, &"crouch_rifle", &"stance", 2, &"wall_rifle", &"stance", 3, &"hunker_rifle", &"stance", 4, &"ready_throw_rifle", &"stance", 5, &"cheer_rifle", &"stance", 6, &"wall_lean_left_rifle", &"stance", 7, &"wall_lean_right_rifle", &"stance", 8, &"crouch_lean_left_rifle", &"stance", 9, &"crouch_lean_right_rifle", &"stance", 10, &"stand_melee", &"stance", 11, &"crouch_melee", &"stance", 12, &"wall_melee", &"stance", 13, &"hunker_melee", &"stance", 14, &"ready_throw_melee", &"stance", 15, &"cheer_melee", &"stance", 16, &"wall_lean_left_melee", &"stance", 17, &"wall_lean_right_melee", &"stance", 18, &"crouch_lean_left_melee", &"stance", 19, &"crouch_lean_right_melee", &"stance", 20, &"stand_unarmed", &"stance", 21, &"crouch_unarmed", &"stance", 22, &"wall_unarmed", &"stance", 23, &"hunker_unarmed", &"stance", 24, &"ready_throw_unarmed", &"stance", 25, &"cheer_unarmed", &"stance", 26, &"wall_lean_left_unarmed", &"stance", 27, &"wall_lean_right_unarmed", &"stance", 28, &"crouch_lean_left_unarmed", &"stance", 29, &"crouch_lean_right_unarmed", &"stance", 30, &"aim_rifle", &"stance", 31, &"overwatch_rifle", &"stance", 32, &"overwatch_crouch_rifle", &"stance", 33, &"ready_melee", &"run", 0, &"run_rifle", &"run", 1, &"run_melee", &"run", 2, &"run_unarmed", &"run_scale", 0, &"run", &"move", 0, &"stance", &"move", 1, &"run_scale", &"hop", 0, &"move", &"hop", 1, &"hop_pose", &"air", 0, &"hop", &"air", 1, &"fall_pose", &"act_pick", 0, &"strike_sword_clip", &"act_pick", 1, &"throw_rifle_clip", &"act_pick", 2, &"throw_melee_clip", &"act_pick", 3, &"throw_unarmed_clip", &"act_pick", 4, &"draw_sword_clip", &"act_pick", 5, &"stow_sword_clip", &"act", 0, &"air", &"act", 1, &"act_pick", &"upper_pick", 0, &"reload_rifle_clip", &"upper", 0, &"act", &"upper", 1, &"upper_pick", &"left_pick", 0, &"use_medkit_clip", &"left_pick", 1, &"use_medkit_self_clip", &"left", 0, &"upper", &"left", 1, &"left_pick", &"react_pick", 0, &"fire_rifle_clip", &"react_pick", 1, &"hit_front_clip", &"react_pick", 2, &"hit_back_clip", &"react_pick", 3, &"dodge_clip", &"react_pick", 4, &"land_clip", &"react", 0, &"left", &"react", 1, &"react_pick"]
 
-[node name="BaseCharacter" type="Node3D" unique_id=707232850]
+[node name="BaseCharacter" type="Node3D" unique_id=1406433887]
 script = ExtResource("1_62gcc")
 
-[node name="Skeleton3D" type="Skeleton3D" parent="." unique_id=1836513428]
+[node name="Skeleton3D" type="Skeleton3D" parent="." unique_id=1569236859]
 bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -763,12 +763,12 @@ bones/17/position = Vector3(0, -0.252, 0)
 bones/17/rotation = Quaternion(0, 0, 0, 1)
 bones/17/scale = Vector3(1, 1, 1)
 
-[node name="Body" type="MeshInstance3D" parent="Skeleton3D" unique_id=2000818233]
+[node name="Body" type="MeshInstance3D" parent="Skeleton3D" unique_id=2066311039]
 mesh = ExtResource("2_j63q7")
 skin = SubResource("Skin_fwb0t")
 skeleton = NodePath("..")
 
-[node name="Aim" type="SkeletonModifier3D" parent="Skeleton3D" unique_id=216395120]
+[node name="Aim" type="SkeletonModifier3D" parent="Skeleton3D" unique_id=534932288]
 unique_name_in_owner = false
 process_mode = 0
 process_priority = 0
@@ -787,46 +787,46 @@ active = true
 influence = 1.0
 script = ExtResource("3_514d0")
 
-[node name="RightHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1604933819]
+[node name="RightHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=168306794]
 bone_name = "RightHand"
 
-[node name="RifleGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=1945276882]
+[node name="RifleGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=659030576]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.062999964, 0.031499982, 0)
 
-[node name="SwordGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=1393818590]
+[node name="SwordGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=1769877349]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062999964, 0.031499982, 0)
 
-[node name="LeftHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=167365771]
+[node name="LeftHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1627396783]
 bone_name = "LeftHand"
 
-[node name="GrenadeGrip" type="Node3D" parent="Skeleton3D/LeftHand" unique_id=811736508]
+[node name="GrenadeGrip" type="Node3D" parent="Skeleton3D/LeftHand" unique_id=1656215448]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06299999, 0.031499982, 0)
 
-[node name="Back" type="BoneAttachment3D" parent="Skeleton3D" unique_id=2081702826]
+[node name="Back" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1205530091]
 bone_name = "Chest"
 
-[node name="RifleSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=1110250732]
+[node name="RifleSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=623462371]
 transform = Transform3D(0, 0.86193424, 0.5070201, 0, -0.5070201, 0.86193424, 1, 0, 0, -0.07875, -0.037800003, -0.1638)
 
-[node name="SwordSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=77458527]
+[node name="SwordSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=675929769]
 transform = Transform3D(0, -0.89442724, 0.4472136, 0, -0.44721362, -0.8944272, 1, 0, 0, -0.1575, 0.252, -0.1386)
 
-[node name="Belt" type="BoneAttachment3D" parent="Skeleton3D" unique_id=470155877]
+[node name="Belt" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1604751092]
 bone_name = "Hips"
 
-[node name="Grenade1" type="Node3D" parent="Skeleton3D/Belt" unique_id=1310678509]
+[node name="Grenade1" type="Node3D" parent="Skeleton3D/Belt" unique_id=773114772]
 transform = Transform3D(0.72488517, 0.3384398, 0, -0.3384398, 0.72488517, 0, 0, 0, 0.8, 0.1386, 0.094500005, -0.13229999)
 
-[node name="Grenade2" type="Node3D" parent="Skeleton3D/Belt" unique_id=1230085966]
+[node name="Grenade2" type="Node3D" parent="Skeleton3D/Belt" unique_id=1462624479]
 transform = Transform3D(0.72488517, -0.3384398, 0, 0.3384398, 0.72488517, 0, 0, 0, 0.8, -0.1386, 0.094500005, -0.13229999)
 
-[node name="Grenade3" type="Node3D" parent="Skeleton3D/Belt" unique_id=1222441574]
+[node name="Grenade3" type="Node3D" parent="Skeleton3D/Belt" unique_id=1253608429]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.094500005, -0.1701)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1845871771]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=163998843]
 libraries/ = ExtResource("4_apbvc")
 
-[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1797384299]
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1219646213]
 tree_root = SubResource("AnimationNodeBlendTree_f7i2y")
 anim_player = NodePath("../AnimationPlayer")
 parameters/stance/current_state = ""

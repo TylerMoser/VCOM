@@ -86,14 +86,12 @@ The exact settings used:
 
 The general recipe is [APPLYING.md](APPLYING.md) section 3 (block materials). What this one needs:
 
-1. **The shader: add the tint to the grass's existing one.** Since 2026-10-01 the grass has its own material: `vcom/Scripts/Combat/TileGrid.gdshader`, the optional tile grid (`G`), which with the grid off draws exactly as the importer's material.
-   - Add `grass_height.gdshader`'s uniforms and its tint (the `level`, `green` and HSV lines) to that shader's `fragment()`, before the grid's lines.
+1. **The shader: add the tint to the one that draws the level.** Since 2026-10-20 the combat maps are levels of voxel pieces, every one drawn by `vcom/Scripts/Terrain/Voxels.gdshader` (`Docs/LEVELS.md`, `Docs/VOXELS.md`), which already draws the optional tile grid (`G`) on the grass: a palette colour whose flags (its entry's alpha) have bit 1 is one of a kind with `PieceKind.tile_grid`.
+   - Add `grass_height.gdshader`'s uniforms and its tint (the `level`, `green` and HSV lines) to its `fragment()`, before the grid's lines, for the colours with that flag alone.
    - Keep its `render_mode diffuse_burley, specular_schlick_ggx`.
-   - A second material would replace the grid's rather than add to it.
-2. **The hookup already exists.** `TileGrid` puts that shader on the `BrightGrass1` mesh as each map loads, before `TerrainDestruction`'s `_ready`, so worn blocks keep it. It's in BoundaryMap, CombatMap and LineOfSightTest.
-   - The order matters because `VoxelShape.read()` copies the block's material there, and worn blocks are drawn with that copy.
-   - The mesh resource is shared, so `SceneryLibrary` (BoundaryMap's forest ring) gets the shader as well. That's harmless: the ring has no grass blocks (its ground is one plane, `Boundary/Ground`), and floor-level grass is level 0, which the tint leaves alone anyway.
-3. **Every map that has a `TileGrid` node shows it**, so all three get it.
+   - The same shader draws every other voxel model (figures, props, a crate's boards, a block falling whole) and the scenery, so the flag is what keeps the tint to the grass.
+2. **No hookup is needed.** Every map's `Level` is drawn with that shader, BoundaryMap, CombatMap and LineOfSightTest alike, and BoundaryMap's forest ring (`Scenery`) too, which has no grass blocks (its ground is a plane of its own, `Scenery/Ground`); floor-level grass is level 0, which the tint leaves alone anyway.
+3. **The tile grid's switch** (`TileGrid.set_shown()`, the global uniform `tile_grid`) is untouched: the tint shows with the grid on or off.
 4. **Decisions to make, and things to check:**
    - **Debris:** `VoxelDebris` draws broken-off voxels with its own vertex-colour material, so lumps blasted off a raised block come out untinted, slightly darker than the block they left. Tint them by height too, or leave them.
    - **A falling block** (a stack whose support broke) changes tint a level at a time as it drops, because the level is read from the world height. It's brief; check whether it shows.

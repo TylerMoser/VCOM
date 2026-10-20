@@ -1,10 +1,10 @@
 ## The ground of the scenery round a combat map: one plane in the grass's
 ## colour, a hair below the top of the battlefield's ground, under the trees
-## the scenery's GridMap paints round the battlefield.
+## the scenery level ([VoxelLevel]) stands round the battlefield.
 ##
 ## It covers the battlefield too, where the battlefield's own ground hides it,
-## and on ready it has that part cut out of it: every column the bottom of the
-## battlefield's GridMap fills. A crater worn into the battlefield's floor
+## and on ready it has that part cut out of it: every column the bottom layer
+## of the battlefield's level fills. A crater worn into the battlefield's floor
 ## ([VoxelTerrain]) then shows the crater, not this plane a hair below the top
 ## of the floor running through it. Anywhere the battlefield leaves empty, its
 ## corners, it still covers.
@@ -15,30 +15,28 @@ class_name SceneryGround
 extends MeshInstance3D
 
 ## The battlefield, whose bottom layer is cut out of the plane.
-@export var grid_map_path: NodePath = ^"../../GridMap"
+@export var level_path: NodePath = ^"../../Level"
 
 
 func _ready() -> void:
-	var map := get_node_or_null(grid_map_path) as GridMap
-	if map == null:
-		push_error("SceneryGround: no GridMap at '%s', so the plane is left whole." % grid_map_path)
+	var level := get_node_or_null(level_path) as VoxelLevel
+	if level == null or level.rules == null:
+		push_error("SceneryGround: no battlefield level at '%s', so the plane is left whole." % level_path)
 		return
 	var plane := mesh as PlaneMesh
 	if plane == null:
 		push_error("SceneryGround: needs a PlaneMesh to cut the battlefield out of.")
 		return
-	var cells := map.get_used_cells()
+	var cells := level.rules.solid_cells()
 	if cells.is_empty():
 		return
-	var bottom := cells[0].y
-	for cell in cells:
-		bottom = mini(bottom, cell.y)
+	var bottom := level.rules.bottom
 	# Every column the battlefield's floor fills, by where its least corner is
 	# across the ground, in the world.
 	var holes := {}
 	for cell in cells:
 		if cell.y == bottom:
-			var corner := map.to_global(map.map_to_local(cell) - map.cell_size * 0.5)
+			var corner := level.to_global(Vector3(cell))
 			holes[Vector2i(roundi(corner.x), roundi(corner.z))] = true
 
 	var middle := global_position

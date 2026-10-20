@@ -39,7 +39,7 @@ A scene line not shown in a block below is at its Godot default. Restoring a blo
 To print the current visual blocks of the three maps and compare them with this file (from `vcom/`):
 
 ```bash
-for f in Scenes/CombatMap.tscn Scenes/BoundaryMap.tscn Scenes/LineOfSightTest.tscn; do echo "== $f"; awk '/^\[/{ p = ($0 ~ /ProceduralSkyMaterial|type="Sky"|Environment|Material|PlaneMesh|QuadMesh|Texture|Gradient|CameraAttributes|WorldEnvironment|Light3D|GI"|CameraRig|Camera3D|"Boundary"|"Ground"|"GridMap"|TileHighlights|name="Model"|Outline/) } p && !/"cells"/' "$f"; done
+for f in Scenes/CombatMap.tscn Scenes/BoundaryMap.tscn Scenes/LineOfSightTest.tscn; do echo "== $f"; awk '/^\[/{ p = ($0 ~ /ProceduralSkyMaterial|type="Sky"|Environment|Material|PlaneMesh|QuadMesh|Texture|Gradient|CameraAttributes|WorldEnvironment|Light3D|GI"|CameraRig|Camera3D|"Scenery"|"Ground"|"Level"|TileHighlights|name="Model"|Outline/) } p && !/"cells"/' "$f"; done
 ```
 
 ## Checklist: the original setup
@@ -152,28 +152,27 @@ current = true
   - `Blocks/BrightGrass1`, `BrightCrate1`, `SkinnyTree1Bottom`, `SkinnyTree1Top`: `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
   - `Blocks/Destruct_BrightCrate1` (imported as a scene): `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false OriginsToGeometry=false ImportAnimation=true AnimationFPS=8.0 AnimationLoop=true AnimationAutoplay=false`
   - `Characters/BaseCharacter`, `Items/Coin2`, `Rifle2`, `Shortsword2`, `StickGrenade`: `Scale=0.063 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
-- **`Blocks/BlockLibrary.tres` and `Blocks/SceneryLibrary.tres`** each hold the four blocks, with the mesh taken straight from the `.vox` and no material.
-  - `mesh_cast_shadow` is `1` in BlockLibrary and `0` in SceneryLibrary. That difference is the scenery's performance setup, not a style, so keep it.
+- **The blocks' libraries are gone (2026-10-20).** The combat maps are levels (`Docs/LEVELS.md`): `Blocks/Pieces.tres` lists every kind of piece with its mesh taken straight from the `.vox` and no material, and the level is drawn by `vcom/Scripts/Terrain/Voxels.gdshader` (once `vcom/Scripts/Level/LevelVoxels.gdshader`; since 2026-10-20 it draws every voxel model, `Docs/VOXELS.md`), which draws as the importer's material does (`render_mode diffuse_burley, specular_schlick_ggx`, colours as they are in the model). A style applied since goes into that shader: undo it there. The scenery casting no shadow (`SceneryRenderer`) is its performance setup, not a style, so keep it.
 - **No runtime material hookup** (APPLYING.md option **a**). In the baseline:
-  - nothing calls `surface_set_material()` on MeshLibrary meshes;
-  - there's no `BlockMaterials` node, and neither GridMap has a script;
+  - nothing calls `surface_set_material()` on the blocks' meshes;
+  - there's no `BlockMaterials` node;
   - there's no `vcom/Scripts/Rendering/` folder.
 
-  Delete any hookup script or node, and any copied `VoxelBlock.gdshader`. The **only** shader in the project at baseline is `vcom/Scripts/Combat/TileHighlight.gdshader`, the tile highlights, which no style touches.
+  Delete any hookup script or node, and any copied `VoxelBlock.gdshader`. The only shaders in the project at baseline were `vcom/Scripts/Combat/TileHighlight.gdshader`, the tile highlights, which no style touches, and since then the voxel models' `Voxels.gdshader` and the new world map's (`MapLine.gdshader`, `MapGround.gdshader`), which are not styles of the combat maps.
 
   **Exception, added after this baseline: the tile grid. Keep it.** On 2026-10-01 the game gained an optional tile grid. It's a gameplay option, not a style, and isn't part of anything to revert. It consists of:
-  - `vcom/Scripts/Combat/TileGrid.gd`, a `TileGrid` node in each combat map before `TerrainDestruction`;
-  - `TileGrid.gdshader`;
+  - `vcom/Scripts/Combat/TileGrid.gd`, a `TileGrid` node in each combat map;
+  - its lines, once `TileGrid.gdshader` and now part of `Voxels.gdshader` (drawn on kinds with `PieceKind.tile_grid`);
   - the `toggle_grid` input action and the `tile_grid` shader global in `project.godot`;
   - the **Tile Grid** button on the System tab.
 
-  It does call `surface_set_material()`, putting `TileGrid.gdshader` on the grass mesh, but with the grid off that shader draws as the importer's material does: CombatMap and LineOfSightTest render identically, and BoundaryMap differs in 7 pixels of 1.8 million. So a revert leaves it exactly as it is.
+  With the grid off it draws nothing: a revert leaves it exactly as it is.
 - **What takes its material from the blocks:**
-  - `WornBlock`, `VoxelBody` and `VoxelMesher` use `VoxelShape.material`, which is the imported mesh's own, so they follow the blocks back with no code change.
-  - **Broken crates** are swapped for `Scenes/Destruct_BrightCrate1.tscn`, which has no material overrides: its meshes carry the importer's material. `ScriptedDestruction` sets only physics materials on the pieces. APPLYING.md suggests giving the pieces a style's material, for example in `ScriptedDestruction.prepare()`; remove any such code.
-  - `VoxelDebris` builds its own material: vertex colour as albedo, sRGB, roughness 1.0 (`VoxelDebris.gd`, where `_cube.material` is set). So does `VoxelRig` for the baked figure, but every unit overrides it (section 5).
+  - Loose models (a crate's boards once taken on, dropped gear), props, figures and falling blocks are drawn by `Voxels.gdshader` through their `VoxelModel`s, so a style there is reverted with the level's; `VoxelMesher` and `VoxelShape.material` are gone.
+  - **Broken crates** are swapped for `Scenes/Destruct_BrightCrate1.tscn`, which has no material overrides: its meshes carry the importer's material until each piece is taken on. `ScriptedDestruction` sets only physics materials on the pieces. APPLYING.md suggests giving the pieces a style's material, for example in `ScriptedDestruction.prepare()`; remove any such code.
+  - `VoxelDebris` builds its own material: vertex colour as albedo, sRGB, roughness 1.0 (`VoxelDebris.gd`, where `_cube.material` is set). `VoxelRig` saves the baked figure with a flat `StandardMaterial3D` in its commonest colour, roughness 1, which only the editor shows (section 5).
   - If a style edited either of those scripts, put those three settings back.
-- **BoundaryMap's scenery ground plane** (`Boundary/Ground`) is the grass block's top colour. A style that recoloured grass may have recoloured it to match. Restore:
+- **BoundaryMap's scenery ground plane** (`Scenery/Ground`) is the grass block's top colour. A style that recoloured grass may have recoloured it to match. Restore:
 
   ```ini
   [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h16oa"]
@@ -189,14 +188,12 @@ current = true
 
 ### 5. Unit materials
 
-Every unit wears `Scenes/BaseCharacter.tscn` (baked; never edit it by hand), painted one flat colour through `CharacterModel.body_material`:
+Every unit wears `Scenes/BaseCharacter.tscn` (baked; never edit it by hand), drawn by `Voxels.gdshader` through its `VoxelModel` and painted one flat colour, its `CharacterModel.tint` (until 2026-10-20 a `body_material`, a `StandardMaterial3D` per scene: `Mat_unit`, `Mat_enemy1`, `Mat_player1`-`8`, gone since):
 
-- **Squad:** `vcom/Scenes/SquadUnit.tscn` has `[sub_resource type="StandardMaterial3D" id="Mat_unit"]` with **no properties**, set as the Model's `body_material`.
-  - `Unit._paint()` hands it to `CharacterModel.paint()`, which duplicates it and sets only `albedo_color` to the character's `color`. So anything a style put on `Mat_unit` (toon diffuse, rim and so on) reached every squad member. Empty it again.
-  - If a style changed `CharacterModel.paint()` or `Unit._paint()` instead, restore those to the baseline commit.
-- **Enemies:** `Mat_enemy1` is `albedo_color = Color(0.32, 0.35, 0.4, 1)` and nothing else, in CombatMap, BoundaryMap and LineOfSightTest. That slate grey is not part of any style: the enemies were red, `Color(0.85, 0.15, 0.15, 1)`, until blood was added, and were made grey so their wounds show. Reverting a style leaves them grey.
-- **Blood:** stains and drops are drawn with one material of their own, `VoxelStains.material` (`Scripts/Terrain/VoxelStains.gd`: albedo `COLOR`, roughness 0.55, `metallic_specular` 0.35), which no style has touched. If one did, put those values back.
-- **LineOfSightTest's eight squad units:** `Mat_player1`–`Mat_player8`, albedo only, alpha 1:
+- **Squad:** `vcom/Scenes/SquadUnit.tscn` sets no `tint`; `Unit._paint()` hands the character's `color` to `CharacterModel.paint()`. If a style changed `CharacterModel.paint()`, `_paint_body()`, `VoxelModel.paint()` or `Unit._paint()`, restore those.
+- **Enemies:** each enemy's `Model` has `tint = Color(0.32, 0.35, 0.4, 1)`, in CombatMap, BoundaryMap and LineOfSightTest. That slate grey is not part of any style: the enemies were red, `Color(0.85, 0.15, 0.15, 1)`, until blood was added, and were made grey so their wounds show. Reverting a style leaves them grey.
+- **Blood:** a voxel's colour, place 255 of every palette (`VoxelShape.BLOOD_COLOR`, `Color(0.78, 0.02, 0.03)`), drawn by the shader's wet flag (roughness 0.55, specular 0.35); the drops in flight are a material of their own in `Blood._make_drops()` with the same values. No style has touched them. If one did, put those values back.
+- **LineOfSightTest's eight squad units:** a `tint` each on their `Model`, alpha 1:
   - 1: (0.2, 0.45, 0.9)
   - 2: (0.25, 0.75, 0.3)
   - 3: (0.95, 0.8, 0.15)
@@ -206,7 +203,7 @@ Every unit wears `Scenes/BaseCharacter.tscn` (baked; never edit it by hand), pai
   - 7: (0.95, 0.45, 0.7)
   - 8: (0.85, 0.85, 0.8)
 - **Character colours** (`vcom/Resources/Characters/*.tres`, `color`) are character data, not part of the look. No style changes them.
-- **Props** (rifle, sword, grenade, coin): the importer's material, with no overrides in `Scenes/Props/*.tscn`.
+- **Props** (rifle, sword, grenade, medkit): no overrides in `Scenes/Props/*.tscn`; drawn by `Voxels.gdshader` once a figure takes them over, the importer's material otherwise (a grenade in flight). Coins: the importer's material.
 
 ### 6. Post-processing, GI and effects: none
 

@@ -3,29 +3,39 @@
 ## It pools on flat ground, fills the bottom of a crater, and a drop landing by
 ## a ledge runs over it, down the wall and out across the ground below.
 ##
-## It stains so many faces ([member left]), always the face that is cheapest
-## to reach next from where it started: a step across flat ground costs the
-## same every way, so a pool comes out round, roughened by noise into a blob
-## with lobes ([constant LUMPY]); a step down costs little, so blood runs over
-## an edge before it spreads far on top; a step along a wall costs more, so on a
-## wall it runs down in a streak; a step up costs a great deal, so it rarely
-## climbs; and it never runs on to the underside of anything. Near where it
-## landed ([member splat]) it spreads every way alike, splashing a little up a
-## wall it struck by. Faces already stained cost little to cross and cost no
-## blood, so blood landing in a pool runs out to its edge and makes it bigger.
+## It runs face by face, always to the face that is cheapest to reach next
+## from where it started, and recolours the voxel of each face it reaches that
+## blood has not, until it has stained so many faces ([member left]): every
+## face of the voxel open to the air turns red, and each costs one, so a unit
+## of blood is a face of red whatever it lands on, the ground or a board's
+## edge. A step across flat ground costs the same every way, so a pool comes
+## out round, roughened by noise into a blob with lobes ([constant LUMPY]); a
+## step down costs little, so blood runs over an edge before it spreads far on
+## top; a step along a wall costs more, so on a wall it runs down in a streak;
+## a step up costs a great deal, so it rarely climbs; and it never runs on to
+## the underside of anything. Near where it landed ([member splat]) it spreads
+## every way alike, splashing a little up a wall it struck by. A face whose
+## voxel is red already costs little to cross and costs no blood, so blood
+## landing in a pool runs out to its edge and makes it bigger.
 ##
-## It runs over a [Surface]: a voxel grid of its own, whose faces it can stain.
-## The terrain's is every block on the map across one grid
-## ([TerrainSurface]); a loose model's or a prop's is its own
-## ([ModelSurface]); a figure's is the figure standing as drawn
-## ([FigureVoxels]), so a stain can cross from the chest on to the hips.
+## It runs over a [Surface]: a voxel grid of its own, whose voxels it
+## recolours. The level's is every piece of it across one grid
+## ([VolumeSurface]); any other voxel model's - a loose model, a prop - is its
+## own ([ModelSurface], over its [VoxelModel]); a figure's is the figure
+## standing as drawn ([FigureVoxels]), so blood can cross from the chest on to
+## the hips.
 ##
 ## It can stain everything at once ([method spread] with all of it), or a few
 ## faces a frame, as the pool under a body spreads.
 class_name BloodFlow
 extends RefCounted
 
-const FACES := VoxelStains.FACES
+## The six ways a face can look, by number: +x, -x, +y, -y, +z, -z. A face's
+## opposite is its number with the lowest bit flipped.
+const FACES: Array[Vector3i] = [
+	Vector3i(1, 0, 0), Vector3i(-1, 0, 0), Vector3i(0, 1, 0),
+	Vector3i(0, -1, 0), Vector3i(0, 0, 1), Vector3i(0, 0, -1),
+]
 ## The faces next to each face across each of its four edges lie this way,
 ## as face numbers: along the two axes the face does not look along.
 const ALONG: Array = [[2, 3, 4, 5], [2, 3, 4, 5], [0, 1, 4, 5], [0, 1, 4, 5], [0, 1, 2, 3], [0, 1, 2, 3]]
@@ -63,7 +73,8 @@ static var _noise := _make_noise()
 
 ## A voxel grid blood can run over. Voxels are counted along its own axes;
 ## a face is a voxel and the way it looks out, one of [constant FACES] by
-## number.
+## number. Blood stains a voxel, recolouring it, so a face is stained once its
+## voxel is.
 class Surface:
 	## Forgets anything it has kept about what is where: the surface may have
 	## worn, moved or turned since it was last asked.
@@ -84,6 +95,15 @@ class Surface:
 	func slope(_voxel: Vector3i, _face: int) -> float:
 		return 1.0
 
+	## How many faces of [param voxel] are open to the air: what turns red as
+	## blood recolours it.
+	func open_faces(voxel: Vector3i) -> int:
+		var open := 0
+		for way in FACES:
+			if not is_solid(voxel + way):
+				open += 1
+		return open
+
 	## How big a voxel is in the world.
 	func voxel_size() -> float:
 		return VoxelShape.SCALE
@@ -95,35 +115,21 @@ class Surface:
 		pass
 
 
-## The blocks of the map as one grid of voxels, a sixteenth of a cell each,
-## along the grid's axes, voxel (0, 0, 0) at the least corner of cell
-## (0, 0, 0): blood runs from one block on to the next as if they were one.
-class TerrainSurface extends Surface:
-	var terrain: VoxelTerrain
-	## The grid's voxels in the world.
+## The level's voxels as one grid ([VoxelVolume]), a sixteenth of a cell each,
+## along the level's axes: blood runs from one piece on to the next as if they
+## were one, as they are.
+class VolumeSurface extends Surface:
+	var volume: VoxelVolume
+	## The level's voxels in the world: a voxel's place, counted in voxels, to
+	## the world.
 	var frame: Transform3D
-	## What each cell looked at since the last refresh holds: its block's
-	## voxels now, its kind, how it is turned and whether it is; empty for a
-	## cell with no block drawn from a .vox. And the last cell looked at, which
-	## is most often the next.
-	var _cells := {}
-	var _last_cell := Vector3i.MAX
-	var _last_entry: Array = []
 
-	func _init(on: VoxelTerrain, grid: Transform3D, cell_size: Vector3) -> void:
-		terrain = on
-		frame = grid * Transform3D(Basis.from_scale(cell_size / VoxelShape.BLOCK), Vector3.ZERO)
-
-	func refresh() -> void:
-		_cells.clear()
-		_last_cell = Vector3i.MAX
+	func _init(on: VoxelVolume, level: Transform3D) -> void:
+		volume = on
+		frame = level * Transform3D(Basis.from_scale(Vector3.ONE / VoxelShape.BLOCK), Vector3.ZERO)
 
 	func is_solid(voxel: Vector3i) -> bool:
-		var entry := _cell(Vector3i(voxel.x >> 4, voxel.y >> 4, voxel.z >> 4))
-		if entry.is_empty():
-			return false
-		var voxels: PackedByteArray = entry[0]
-		return voxels[_index(voxel, entry)] != 0
+		return volume.is_solid(voxel)
 
 	func height(voxel: Vector3i, face: int) -> float:
 		return (frame * (Vector3(voxel) + HALF + Vector3(FACES[face]) * 0.5)).y
@@ -134,89 +140,33 @@ class TerrainSurface extends Surface:
 	func voxel_size() -> float:
 		return frame.basis.y.length()
 
-	func is_stained(voxel: Vector3i, face: int) -> bool:
-		var cell := cell_of(voxel)
-		var stains := terrain.stains_at(cell)
-		if stains == null:
-			return false
-		var entry := _cell(cell)
-		return stains.bits_at(_index(voxel, entry)) & _bit(face, entry) != 0
+	func is_stained(voxel: Vector3i, _face: int) -> bool:
+		return volume.color_at(voxel) == VoxelVolume.BLOOD
 
-	func stain(voxel: Vector3i, face: int) -> void:
-		var cell := cell_of(voxel)
-		var entry := _cell(cell)
-		if not entry.is_empty():
-			terrain.stain(cell, _index(voxel, entry), _bit(face, entry))
-
-	## The cell [param voxel] is in.
-	static func cell_of(voxel: Vector3i) -> Vector3i:
-		return Vector3i(voxel.x >> 4, voxel.y >> 4, voxel.z >> 4)
-
-	## The voxel at [param index] in the array of the block in [param cell],
-	## counted across the grid.
-	func voxel_of(cell: Vector3i, index: int) -> Vector3i:
-		var entry := _cell(cell)
-		var kind: VoxelShape = entry[1]
-		var at := kind.voxel_at(index)
-		if entry[3]:
-			at = _turned(at, entry[2])
-		return cell * VoxelShape.BLOCK + at
-
-	func _cell(cell: Vector3i) -> Array:
-		if cell == _last_cell:
-			return _last_entry
-		var entry: Variant = _cells.get(cell)
-		if entry == null:
-			entry = []
-			var kind := terrain.kind_of(cell)
-			if kind != null:
-				var turn := terrain.turn_of(cell)
-				entry = [terrain.voxels_of(cell), kind, turn, not turn.is_equal_approx(Basis.IDENTITY)]
-			_cells[cell] = entry
-		_last_cell = cell
-		_last_entry = entry
-		return entry
-
-	## Where [param voxel], counted across the grid, is in its block's array.
-	func _index(voxel: Vector3i, entry: Array) -> int:
-		var at := Vector3i(voxel.x & 15, voxel.y & 15, voxel.z & 15)
-		if entry[3]:
-			at = _turned(at, (entry[2] as Basis).inverse())
-		return (entry[1] as VoxelShape).index_of(at)
-
-	## The bit of the face [param face], along the grid, in its block's frame.
-	func _bit(face: int, entry: Array) -> int:
-		if not entry[3]:
-			return 1 << face
-		return VoxelStains.bit(Vector3i(((entry[2] as Basis).inverse() * Vector3(FACES[face])).round()))
-
-	## [param at], a voxel of a block counted from its cell's least corner,
-	## turned by [param turn] about the middle of the cell.
-	static func _turned(at: Vector3i, turn: Basis) -> Vector3i:
-		var middle := Vector3.ONE * (VoxelShape.BLOCK * 0.5)
-		return Vector3i((turn * (Vector3(at) + HALF - middle) + middle - HALF).round())
+	func stain(voxel: Vector3i, _face: int) -> void:
+		volume.recolor(voxel, VoxelVolume.BLOOD)
 
 
-## One voxel model, standing in the world: a crate's piece, or a prop.
+## Any other voxel model ([VoxelModel]), standing in the world as it stands
+## now: a crate's piece, a prop, in a figure's hand or dropped.
 class ModelSurface extends Surface:
-	var stains: VoxelStains
-	## Its voxels now, laid out as [member stains]' shape's, and its frame in
-	## the world.
-	var voxels: PackedByteArray
+	var model: VoxelModel
+	## Its frame in the world, as it was when the flow last looked.
 	var frame: Transform3D
 
-	func _init(on: VoxelStains, present: PackedByteArray, placed: Transform3D) -> void:
-		stains = on
-		voxels = present
-		frame = placed
+	func _init(on: VoxelModel) -> void:
+		model = on
+		frame = on.frame()
+
+	func refresh() -> void:
+		if is_instance_valid(model):
+			frame = model.frame()
 
 	func is_solid(voxel: Vector3i) -> bool:
-		var shape := stains.shape
-		return shape.holds(voxel) and voxels[shape.index_of(voxel)] != 0
+		return model.is_solid(voxel)
 
 	func height(voxel: Vector3i, face: int) -> float:
-		var shape := stains.shape
-		return (frame * (shape.corner + (Vector3(voxel) + HALF + Vector3(FACES[face]) * 0.5) * VoxelShape.SCALE)).y
+		return (frame * (model.shape.corner + (Vector3(voxel) + HALF + Vector3(FACES[face]) * 0.5) * VoxelShape.SCALE)).y
 
 	func slope(_voxel: Vector3i, face: int) -> float:
 		return (frame.basis * Vector3(FACES[face])).normalized().y
@@ -224,16 +174,17 @@ class ModelSurface extends Surface:
 	func voxel_size() -> float:
 		return frame.basis.y.length() * VoxelShape.SCALE
 
-	func is_stained(voxel: Vector3i, face: int) -> bool:
-		return stains.bits_at(stains.shape.index_of(voxel)) & (1 << face) != 0
+	func is_stained(voxel: Vector3i, _face: int) -> bool:
+		return model.voxels[model.shape.index_of(voxel)] == VoxelModel.BLOOD
 
-	func stain(voxel: Vector3i, face: int) -> void:
-		stains.stain(stains.shape.index_of(voxel), 1 << face)
+	func stain(voxel: Vector3i, _face: int) -> void:
+		model.recolor(model.shape.index_of(voxel), VoxelModel.BLOOD)
 
 
 ## What it runs over.
 var surface: Surface
-## How many more faces it may stain, and how many it has.
+## How many more faces it may stain, and how many it has: a voxel it recolours
+## stains every one of its faces open to the air.
 var left := 0
 var stained := 0
 ## How far from where it landed, in voxels, it spreads every way alike.
@@ -267,8 +218,9 @@ func _init(on: Surface, voxel: Vector3i, face: int, volume: int, rng: RandomNumb
 	_push(0.0, _key(voxel, face))
 
 
-## Stains up to [param most] more faces, cheapest to reach first, and returns
-## how many it stained.
+## Stains up to [param most] more faces, recolouring the voxels of those
+## cheapest to reach first, and returns how many it stained: a voxel's open
+## faces all at once, so at the last a few past [param most].
 func spread(most: int) -> int:
 	surface.refresh()
 	var done := 0
@@ -287,9 +239,10 @@ func spread(most: int) -> int:
 			continue
 		if not surface.is_stained(voxel, face):
 			surface.stain(voxel, face)
-			left -= 1
-			stained += 1
-			done += 1
+			var shown := surface.open_faces(voxel)
+			left -= shown
+			stained += shown
+			done += shown
 		_reach_from(voxel, face, cost)
 	return done
 

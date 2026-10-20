@@ -28,11 +28,14 @@
 ## [member crumbles_as]). Then it hides, and goes with its unit
 ## ([method break_apart]).
 ##
-## It bleeds: [Blood] reads its voxels as they are posed ([method voxels]),
-## asks it where a blow lands ([method pick_wound]) and which way its own
-## blade sweeps ([method swing]), and stains its body and its gear; stained
-## voxels stay red in the lumps it breaks into. None of that changes what the
-## figure does.
+## Its body and every prop it carries are voxel models ([VoxelModel]), drawn
+## by the voxel shader from their voxels' colours, as the level is: the body
+## painted its unit's colour ([member tint]), each prop in its own. It bleeds:
+## [Blood] reads its voxels as they are posed ([method voxels]), asks it where
+## a blow lands ([method pick_wound]) and which way its own blade sweeps
+## ([method swing]), and recolours the voxels of its body and its gear, which
+## stay red in the lumps it breaks into. None of that changes what the figure
+## does.
 class_name CharacterModel
 extends Node3D
 
@@ -93,12 +96,13 @@ const SELF_LOOK := Vector2(0.6, 0.7)
 ## [constant GEAR_DESTRUCTION] unless set.
 @export var gear_wears_as: VoxelDestruction
 
-## The body's material: a flat colour for now (see [member Unit.color]).
-@export var body_material: Material:
+## The one colour its body is painted, a flat colour for now (see
+## [member Unit.color]); left clear, the default, the body is drawn in its
+## model's own colours ([method paint]).
+@export var tint := Color.TRANSPARENT:
 	set(value):
-		body_material = value
-		if _body != null:
-			_body.set_surface_override_material(0, body_material)
+		tint = value
+		_paint_body()
 
 ## What it has ready. Set through [method aim_at], [method ready_strike],
 ## [method ready_throw], [method celebrate] and [method stand_easy].
@@ -170,11 +174,14 @@ var _last_position := Vector3.ZERO
 var _speed := 0.0
 var _velocity := Vector3.ZERO
 ## The walk it is on: the points, and how far along it is, and whether it
-## keeps its facing as it goes (stepping out to shoot).
+## keeps its facing as it goes (stepping out to shoot); and how high it steps
+## over a piece standing across the edge on the way to each point, in levels,
+## none if it steps over nothing.
 var _walk: Array[Vector3] = []
 var _walk_from := Vector3.ZERO
 var _walk_index := 0
 var _strafe := false
+var _vaults := PackedFloat32Array()
 var _falling := false
 var _blends := {&"move": 0.0, &"air": 0.0}
 ## The base pose and run last asked of the tree, to ask only on a change.
@@ -185,7 +192,8 @@ var _acting := 0.0
 ## The speed the run cycles were made for, in cells a second, from their
 ## metadata: what a speed of 1 plays them at.
 var _run_speed := 5.0
-## Its voxels, for blood: read the first time they are asked for.
+## Its voxels, which its body is drawn by and blood lands on: read as it
+## readies.
 var _voxels: FigureVoxels
 ## What picks where a blow lands on it: only for show, so never the global
 ## generator, which the rules draw on.
@@ -206,8 +214,10 @@ func _ready() -> void:
 		push_error("CharacterModel: '%s' is missing its Skeleton3D, Body or AnimationTree; rebake it." % name)
 		set_process(false)
 		return
-	if body_material != null:
-		_body.set_surface_override_material(0, body_material)
+	# Now, as the map loads, rather than on the first hit: about 10 ms the
+	# first time for the base figure, then shared by every figure of it.
+	voxels()
+	_paint_body()
 	var run := _tree.get_animation(&"run_rifle")
 	if run != null:
 		_run_speed = run.get_meta(&"speed", _run_speed)
@@ -264,12 +274,13 @@ func _process(delta: float) -> void:
 ## Starts the unit's walk through [param points]. Facing the way it goes,
 ## unless [param keep_facing], as a unit stepping out to shoot keeps facing its
 ## target.
-func begin_walk(points: Array[Vector3], keep_facing := false) -> void:
+func begin_walk(points: Array[Vector3], keep_facing := false, vaults := PackedFloat32Array()) -> void:
 	_stop_leaning()
 	_walk = points.duplicate()
 	_walk_from = _ground()
 	_walk_index = 0
 	_strafe = keep_facing
+	_vaults = vaults
 
 
 ## The floor under it is gone: it falls until its unit lands, and lands with
@@ -628,24 +639,21 @@ func body_box() -> AABB:
 	return _body.mesh.get_aabb()
 
 
-## The flat colour its body is painted.
-func tint() -> Color:
-	var material := body_material as BaseMaterial3D
-	return material.albedo_color if material != null else Color.WHITE
-
-
-## Paints its body [param color], on a copy of its material so a material
-## another figure shares is left alone.
+## Paints its body [param color], all of it, as its [member tint]; blood stays
+## blood. Every figure draws its body with a material of its own, so another
+## figure is left alone.
 func paint(color: Color) -> void:
-	var material: BaseMaterial3D = StandardMaterial3D.new()
-	if body_material is BaseMaterial3D:
-		material = body_material.duplicate()
-	material.albedo_color = color
-	body_material = material
+	tint = color
 
 
-## Its voxels as blood and breaking apart need them: where each is now, and
-## the stains on them. Null if they cannot be read.
+## Paints its body its [member tint], once it has one and its voxels are read.
+func _paint_body() -> void:
+	if _voxels != null and _voxels.rig != null and tint.a > 0.0:
+		_voxels.body.paint(tint)
+
+
+## Its voxels as drawing it, blood and breaking apart need them: their
+## colours, and where each is now. Null if they cannot be read.
 func voxels() -> FigureVoxels:
 	if _voxels == null:
 		_voxels = FigureVoxels.new(self, voxel_model)
@@ -667,10 +675,10 @@ func swing() -> Vector3:
 	return (global_basis * Vector3(0.75, -0.45, 0.3)).normalized()
 
 
-## What draws each thing it carries that blood can land on: each prop's voxel
-## model, those shown.
-func gear() -> Array[MeshInstance3D]:
-	var drawn: Array[MeshInstance3D] = []
+## The voxel model of each thing it carries, those shown: what blood can land
+## on, and what it drops as it breaks apart.
+func gear() -> Array[VoxelModel]:
+	var models: Array[VoxelModel] = []
 	var props: Array = [_gun, _sword]
 	props.append_array(_grenades)
 	props.append_array(_medkits)
@@ -678,11 +686,10 @@ func gear() -> Array[MeshInstance3D]:
 		if held == null or not is_instance_valid(held) or not (held as Node3D).is_visible_in_tree():
 			continue
 		for node in (held as Node3D).find_children("*", "MeshInstance3D", true, false):
-			var mesh := node as MeshInstance3D
-			# Only the models themselves: not the stains drawn over them.
-			if mesh.mesh != null and mesh.mesh.resource_path.get_extension().to_lower() == "vox":
-				drawn.append(mesh)
-	return drawn
+			var model := VoxelModel.of(node)
+			if model != null:
+				models.append(model)
+	return models
 
 
 ## Goes to pieces as its unit dies, once whatever breaks it apart has taken
@@ -784,6 +791,8 @@ func _swap_prop(old: Node3D, item: Item) -> Node3D:
 	return _make_prop(item)
 
 
+## A prop showing [param item], its voxel models drawn as such
+## ([method VoxelModel.take_over_all]), so blood can recolour them.
 func _make_prop(item: Item) -> Node3D:
 	if item == null or item.model == null:
 		return null
@@ -791,6 +800,7 @@ func _make_prop(item: Item) -> Node3D:
 	if prop == null:
 		return null
 	prop.set_meta(&"item", item)
+	VoxelModel.take_over_all(prop)
 	return prop
 
 
@@ -906,6 +916,11 @@ func _hop(now: Vector3) -> Vector2:
 			_walk_index += 1
 			continue
 		var rise := to.y - from.y
+		var vault := _vaults[_walk_index] if _walk_index < _vaults.size() else 0.0
+		if absf(rise) < 0.01 and vault > 0.0:
+			# Over a fence a level high: up and over its top in the middle of the
+			# step, as a climb up a level, and down the far side.
+			return Vector2(along * (1.0 - along) * 4.0 * (vault + HOP_UP), sin(PI * along))
 		if absf(rise) < 0.01:
 			return Vector2.ZERO
 		# Up, it rises early and clears the edge; down, it stays up and drops

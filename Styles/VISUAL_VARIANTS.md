@@ -50,7 +50,7 @@ The styles are layers, and most of them combine freely: lighting (01, 04, 05, 07
 
 ## Current settings (what `00` shows)
 
-*Since 2026-10-01 the game uses style `05`, so "current" here means the original look the styles were rendered against. [REVERT.md](REVERT.md) has it value by value.*
+*Since 2026-10-01 the game uses style `05`, so "current" here means the original look the styles were rendered against. [REVERT.md](REVERT.md) has it value by value. Since 2026-10-20 the blocks and the units are drawn by one voxel shader rather than the materials below ([APPLYING.md](APPLYING.md) section 3).*
 
 - **Environment:** `background_mode` Custom Color · `background_color` #141721 (0.08, 0.09, 0.12) · `ambient_light_source` Sky · `ambient_light_energy` 0.45 · `tonemap_mode` Filmic · `tonemap_exposure` 1 · `tonemap_white` 1. SSAO, SSIL, SDFGI, glow, fog and adjustments are all off.
 - **Sky:** ProceduralSkyMaterial defaults: `sky_top_color` (0.385, 0.454, 0.55) · `sky_horizon_color` (0.646, 0.656, 0.671) · `ground_bottom_color` (0.2, 0.169, 0.133) · `ground_horizon_color` (0.646, 0.656, 0.671) · `ground_curve` 0.02. It is not visible, because the background is a flat colour, but it drives the ambient light.
@@ -127,7 +127,7 @@ Screen-space indirect light: a cheaper bounce than SDFGI that lifts shadows with
 
 Pastel sky, wide soft shadows, strong AO, and block colours lightened and desaturated 22% by the block shader. Calm and Townscaper-like; the least saturated option.
 
-*Cost:* Low  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; new block shader + GridMap material hookup
+*Cost:* Low  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; the block shader merged into Voxels.gdshader
 
 - **Environment:** `background_mode` Sky (2) · `ambient_light_source` Sky (3) · `ambient_light_energy` 1.1 · `tonemap_mode` Filmic (2) · `tonemap_exposure` 1 · `ssao_enabled` on · `ssao_radius` 1.5 · `ssao_intensity` 2.2 · `ssao_power` 1.6 · `ssao_detail` 0.5
 - **Sky (ProceduralSkyMaterial):** `sky_top_color` #b3c7f2 (0.7, 0.78, 0.95) · `sky_horizon_color` #fae6e6 (0.98, 0.9, 0.9) · `ground_horizon_color` #f0dbe6 (0.94, 0.86, 0.9) · `ground_bottom_color` #c2c2eb (0.76, 0.76, 0.92) · `ground_curve` 0.1
@@ -193,7 +193,7 @@ Godot's built-in toon diffuse on blocks and units (hard terminator), toon specul
 
 World-space tile grid lines on blocks, contact AO at wall bases, raised ground a little brighter per metre, darker map skirt, slightly calmer greens. For reading tiles, elevation and cover at a glance.
 
-*Cost:* Free  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; new block shader + GridMap material hookup
+*Cost:* Free  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; the block shader merged into Voxels.gdshader
 
 - **Environment:** `background_mode` Sky (2) · `ambient_light_source` Sky (3) · `ambient_light_energy` 0.8 · `tonemap_mode` Filmic (2) · `tonemap_exposure` 1 · `ssao_enabled` on · `ssao_radius` 1.2 · `ssao_intensity` 1.6 · `ssao_power` 1.6 · `ssao_detail` 0.5
 - **Sky (ProceduralSkyMaterial):** `sky_top_color` #4780d9 (0.28, 0.5, 0.85) · `sky_horizon_color` #b3cceb (0.7, 0.8, 0.92) · `sky_curve` 0.15 · `ground_horizon_color` #9eb8d6 (0.62, 0.72, 0.84) · `ground_bottom_color` #5275a8 (0.32, 0.46, 0.66) · `ground_curve` 0.1
@@ -275,7 +275,7 @@ Camera FOV narrowed from 75° to 40° and pulled back to keep the framing. Much 
 
 Claude's pick for the todo notes: #01's lighting with softer sun shadows; the block shader with calmer greens (green-only −18% saturation), light hand-shaded faces, contact AO at wall bases and a slight elevation gain; bevel outlines like #23; and a gentle vibrance LUT with cool shadows.
 
-*Cost:* Low  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; new block shader + GridMap material hookup; new outline shader + full-screen quad node; generated LUT resource
+*Cost:* Low  ·  *Applying it changes:* CombatMap.tscn Environment/sky/sun; project.godot anti-aliasing; the block shader merged into Voxels.gdshader; new outline shader + full-screen quad node; generated LUT resource
 
 - **Environment:** `background_mode` Sky (2) · `ambient_light_source` Sky (3) · `ambient_light_energy` 0.8 · `tonemap_mode` Filmic (2) · `tonemap_exposure` 1 · `ssao_enabled` on · `ssao_radius` 1.2 · `ssao_intensity` 1.6 · `ssao_power` 1.6 · `ssao_detail` 0.5
 - **Sky (ProceduralSkyMaterial):** `sky_top_color` #4780d9 (0.28, 0.5, 0.85) · `sky_horizon_color` #b3cceb (0.7, 0.8, 0.92) · `sky_curve` 0.15 · `ground_horizon_color` #9eb8d6 (0.62, 0.72, 0.84) · `ground_bottom_color` #5275a8 (0.32, 0.46, 0.66) · `ground_curve` 0.1

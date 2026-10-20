@@ -27,7 +27,7 @@ import struct
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TEMPLATE = os.path.join(HERE, "..", "LeafCluster1.vox")
+TEMPLATE = os.path.join(HERE, "..", "Plants", "LeafCluster1.vox")
 N = 16
 
 # Palette indices (as XYZI stores them, from 1), each row dark to light.
@@ -508,6 +508,25 @@ def masonry(stone_colors, mortar, seed, length=8, course=4, recess=True):
 
 def stone_brick():
     return masonry((GREY[1], GREY[2], GREY[2], GREY[3]), GREY[0], 121)
+
+
+def stone_wall():
+    """Dressed stone a quarter of a block thick along x through the middle
+    (y 6-9) and the full height, so lengths of it join up: a wall to stand on
+    the edge between two cells, as a fence does. The mortar is set a voxel back
+    on both its faces and its top, as on a whole block of StoneBrick."""
+    m = masonry((GREY[1], GREY[2], GREY[2], GREY[3]), GREY[0], 141, recess=False)
+    length, course = 8, 4
+    for x, y, z in all_cells():
+        if not 6 <= y <= 9:
+            m.set(x, y, z, None)
+            continue
+        c = z // course
+        offset = (length // 2) * (c % 2)
+        joint = z % course == 0 or (x + offset) % length == 0
+        if joint and (y in (6, 9) or z == 15):
+            m.set(x, y, z, None)
+    return m
 
 
 def brick():
@@ -1246,6 +1265,7 @@ SHAPES = {
     "Brick": brick,
     "WoodWall": wood_wall,
     "RuinedWall": ruined_wall,
+    "StoneWall": stone_wall,
     # Cover and clutter.
     "Boulder": boulder,
     "Sandbags": sandbags,

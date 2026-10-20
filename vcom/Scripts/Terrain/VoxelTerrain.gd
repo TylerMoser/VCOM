@@ -1,70 +1,64 @@
 ## The voxels of everything on the map that wears away ([VoxelDestruction]):
-## the blocks of the grid, and the voxel models loose in the world
-## ([VoxelBody]). It keeps what is left of each, draws and collides it, and
-## wears it: a round's bite ([method chip], [method tear]), a blast's crater
-## ([method crater]), or breaking up whole ([method crumble]).
-## [TerrainDestruction] makes it and says when.
+## the pieces of the level, worn as one grid of voxels in its [VoxelVolume],
+## and the voxel models loose in the world ([VoxelBody]). It wears them: a
+## round's bite ([method chip], [method tear]), a blast's crater
+## ([method crater]), or a piece breaking up whole ([method take_piece],
+## [method crumble]). [TerrainDestruction] makes it and says when.
 ##
-## A block nothing has touched is drawn by the GridMap as any other is, and
-## collides as its voxels do. The first time it loses one it becomes a
-## [WornBlock], which draws and collides as what is left, and its cell is
-## given the block's stand-in: an item of the map's library that draws nothing
-## and collides as nothing, but is still a block, so to the rules the cell is
-## exactly as solid as before. Sight, cover and paths are read off whole cells
-## and never see a voxel.
+## The level's voxels are one grid, whatever the cells and chunks they are
+## kept in, so a bite or a crater is one round shape across however many
+## pieces and chunks it reaches, and what it cuts loose is found across them
+## too: a lump hanging off one piece, held only by another that is itself cut
+## off, drops with it. The level draws what is left as it wears
+## ([LevelRenderer]), a bite at once and a blast's craters over the next few
+## frames; the voxels themselves, and so the rules, have changed at once.
 ##
-## Rounds are the exception: [method CombatGrid.cast] traces them through these
-## blocks voxel by voxel ([method trace]), so a stray round strikes the voxel it
-## actually meets, and one that passes beside a thin trunk, or through a hole,
-## flies on.
+## To the rules a piece is whole until it is worn past standing: less than its
+## destruction's [member VoxelDestruction.collapse_below] of its voxels left,
+## or, holding something up, nothing joining its bottom to its top any more,
+## as a tree's trunk shot through ([method holds_up]). Then [TerrainDestruction]
+## breaks it, out of the rules at once, and what is left of it crumbles; the
+## edges of the hole it leaves are worn a little into the pieces round it
+## ([method roughen_hole]), so a broken block leaves a ragged hole, not a
+## clean cube. The level's bottom layer never breaks, and is only ever worn
+## [constant FLOOR_DEPTH] voxels deep, since a unit stands on the top of its
+## tile whatever is under its feet.
 ##
-## A voxel left joined to nothing that holds it up - the ground under a block
-## on the bottom of the map, or a voxel of the next block across - falls away
-## with those broken off. A block worn below its share of voxels
-## ([member VoxelDestruction.collapse_below]) is worn past standing, and so is
-## one holding something up that nothing joins from its bottom to its top any
-## more, such as a tree's trunk shot through: [TerrainDestruction] breaks them.
-## The bottom of the map never is, and is only ever worn [constant FLOOR_DEPTH]
-## voxels deep, since a unit stands on the top of its tile whatever is under
-## its feet.
+## Rounds are traced through the voxels by the grid itself
+## ([method CombatGrid.cast]); this only wears what they strike.
 ##
 ## A loose model - one of a crate's pieces once the crate has broken, or any
 ## rigid body drawn by a MagicaVoxel model taken on with
 ## [method take_on_body] - wears the same way, but is only for show, as all
 ## debris is: a round tears through it, taking a bite where it goes in, and
-## flies on ([method tear]), and a blast craters it as it craters blocks. Once
-## part of it is cut off from the rest, that part flies on as a model of its
-## own if it has [constant SMALLEST_PART] voxels or more, and crumbles into
-## lumps if not; one worn past its share crumbles whole. A crate's pieces are
-## only taken on the first time a round or a blast reaches them
+## flies on ([method tear]), and a blast craters it as it craters the level.
+## Once part of it is cut off from the rest, that part flies on as a model of
+## its own if it has [constant SMALLEST_PART] voxels or more, and crumbles
+## into lumps if not; one worn past its share crumbles whole. A crate's pieces
+## are only taken on the first time a round or a blast reaches them
 ## ([method take_on_later]): most never are, and taking one on costs more than
 ## making it.
 ##
-## A round's bite is drawn at once. A blast wears many blocks at a time, so
-## what it leaves of them is drawn over the next few frames, no more than
-## [constant REBUILD_BUDGET] microseconds of each, under its fireball; the
-## voxels themselves, and so the rules, have changed at once.
+## Which voxels of the level go is decided by the global random generator -
+## one number for each round, blast or broken piece - so seeding it replays a
+## fight exactly, which pieces break included. Everything else here is only
+## for show and draws on a generator of its own, so how much debris there is,
+## or what a round tears through on its way, never changes what the rules draw
+## next.
 ##
-## Which voxels of a block go is decided by the global random generator - one
-## number for each round or blast - so seeding it replays a fight exactly,
-## which blocks break included. Everything else here is only for show and
-## draws on a generator of its own, so how much debris there is, or what a
-## round tears through on its way, never changes what the rules draw next.
-##
-## It also keeps the blood on the blocks ([method stain]): every block drawn
-## from a .vox, worn away or not, can be stained face by face, each stained
-## block's faces drawn over it by an overlay ([VoxelStains]). Blood goes where
-## its voxels go: a stained voxel broken off is a lump of blood's colour, a
-## block falling whole takes its stains with it, and a crate breaking hands
-## them to its pieces ([method carry_stains]).
+## Blood recolours voxels themselves ([Blood]), the level's and every loose
+## model's ([VoxelModel]), so wherever a voxel goes, its colour goes: a lump
+## broken off a bloodied voxel is blood red, and a part cut off a model keeps
+## its blood. A crate breaking hands its blood on to its pieces voxel by voxel
+## ([method carry_blood]), since its pieces are models of their own.
 class_name VoxelTerrain
 extends Node3D
 
 const VOXEL := VoxelShape.SCALE
 const HALF := Vector3(0.5, 0.5, 0.5)
-## How deep, in voxels from its top, a block on the bottom of the map can be
-## worn. Its tile's floor stays at the top of the block, where a unit stands, so
-## a deep crater would leave the unit standing on air.
+## How deep, in voxels from its top, the level's bottom layer can be worn. Its
+## tiles' floor stays at the top of the layer, where a unit stands, so a deep
+## crater would leave the unit standing on air.
 const FLOOR_DEPTH := 4
 ## How far from where a round strikes the voxels it breaks off can be, as many
 ## times as far as its bite would reach into a solid block, and never further
@@ -88,9 +82,18 @@ const CRATER_DEBRIS := 150
 ## model of its own; and the most loose models a round tears through.
 const SMALLEST_PART := 8
 const MOST_TORN := 8
-## Most time a frame given to drawing what a blast has left of the blocks it
-## wore, in microseconds.
-const REBUILD_BUDGET := 4000
+## How many voxels a search for what a voxel holds on to looks through before
+## it takes the voxel to be held: a quarter of a block. Anything bigger cut off
+## is a piece, or part of one, that the rules bring down whole, as a tree's
+## crown falls with its trunk shot through.
+const HOLD_SEARCH := 1024
+## How far into the pieces round it, in voxels, the edges of the hole a
+## breaking piece leaves are worn, and how far that wanders in and out, so
+## the hole is ragged rather than a clean cube; and how close together the
+## wanderings are, in cells.
+const RIM_DEPTH := 1.5
+const RIM_WANDER := 1.2
+const RIM_BUMPS := 4.0
 
 ## How fast a voxel a round breaks off flies out of the face it struck, in cells
 ## a second, between these; how much it scatters about that; how much it is
@@ -122,24 +125,29 @@ const CRUMBLE_PUSH := 1.5
 const CRUMBLE_REACH := 1.0
 
 
-## What wearing blocks away did: whether any block lost a voxel, the blocks now
-## worn past standing, which must break, and the box, in the world, round every
-## block that lost voxels.
+## What wearing the level did: whether any voxel went, the pieces now worn
+## past standing, which must break, by index, and the box, in the world, round
+## every voxel that went.
 class Wear:
 	var worn := false
-	var broken: Array[Vector3i] = []
+	var broken := PackedInt32Array()
 	var box := AABB()
 
 
-## Voxels found near a point: the blocks they are in, by cell (none for a loose
-## model), and for each voxel which of those it is in, its place in that
-## block's array, and how near it is, roughened, as a score. A block's voxels
-## come one after another.
+## Voxels of the level found near a point, as places in its grid, three
+## numbers each, and how near each is, roughened, as a score.
 class Found:
-	var cells: Array[Vector3i] = []
-	var owners := PackedInt32Array()
-	var indices := PackedInt32Array()
+	var voxels := PackedInt32Array()
 	var scores := PackedFloat32Array()
+
+	func add(at: Vector3i, score: float) -> void:
+		voxels.append(at.x)
+		voxels.append(at.y)
+		voxels.append(at.z)
+		scores.append(score)
+
+	func voxel(pick: int) -> Vector3i:
+		return Vector3i(voxels[pick * 3], voxels[pick * 3 + 1], voxels[pick * 3 + 2])
 
 	## The [param count] voxels scoring least, by place in the lists.
 	func least(count: int) -> PackedInt32Array:
@@ -162,8 +170,33 @@ class Found:
 				picks.append(index)
 		return picks
 
-	## The voxels at [param picks], places in the lists, by their places in
-	## their arrays.
+
+## Voxels of one loose model found near a point: where each is in the model's
+## array, and how near it is, roughened, as a score.
+class ModelFound:
+	var owners := PackedInt32Array()
+	var indices := PackedInt32Array()
+	var scores := PackedFloat32Array()
+
+	func least(count: int) -> PackedInt32Array:
+		var picks := PackedInt32Array()
+		if scores.is_empty() or count <= 0:
+			return picks
+		var sorted := scores.duplicate()
+		sorted.sort()
+		var limit := sorted[mini(count, sorted.size()) - 1]
+		for index in scores.size():
+			if scores[index] <= limit and picks.size() < count:
+				picks.append(index)
+		return picks
+
+	func under(limit: float) -> PackedInt32Array:
+		var picks := PackedInt32Array()
+		for index in scores.size():
+			if scores[index] < limit:
+				picks.append(index)
+		return picks
+
 	func voxels_at(picks: PackedInt32Array) -> PackedInt32Array:
 		var found := PackedInt32Array()
 		for pick in picks:
@@ -171,23 +204,18 @@ class Found:
 		return found
 
 
-## The voxels one block lost in one go: where each was in its array and what
-## it held, and the same as rows ([method VoxelShape.rows_of]), for finding
-## what that cut loose.
-class Lost:
-	var indices := PackedInt32Array()
-	var held := PackedByteArray()
-	var rows := PackedInt64Array()
+## What a piece left of itself as it went from the level: each voxel, by its
+## place in the grid, three numbers each, and the place of its colour in the
+## level's palette.
+class Taken:
+	var voxels := PackedInt32Array()
+	var places := PackedByteArray()
 
-	func _init(shape: VoxelShape) -> void:
-		rows.resize(shape.size.y * shape.size.z)
+	func size() -> int:
+		return places.size()
 
-	## Notes the voxel at [param index], which held [param what], at bit
-	## [param x] of row [param row].
-	func add(index: int, what: int, row: int, x: int) -> void:
-		indices.append(index)
-		held.append(what)
-		rows[row] |= 1 << x
+	func voxel(index: int) -> Vector3i:
+		return Vector3i(voxels[index * 3], voxels[index * 3 + 1], voxels[index * 3 + 2])
 
 
 ## Where a ray first meets a voxel of a model: the point, in the world; the
@@ -202,24 +230,92 @@ class Met:
 	var distance := 0.0
 
 
-## Voxels broken off one model in one go, grouped into lumps but not made yet:
-## the model's kind and frame, which voxels and what each held, what breaks
-## them, and how a lump of them sets off once made. A blast breaks off far more
-## lumps than are ever made ([method _scatter]).
+## Voxels broken off in one go, grouped into lumps but not made yet: what
+## breaks them, how a lump of them sets off once made, and the lumps, each as
+## the places of its voxels in the batch. A blast breaks off far more lumps
+## than are ever made ([method _scatter]).
 class Batch:
-	var shape: VoxelShape
-	var frame: Transform3D
-	var indices: PackedInt32Array
-	var held: PackedByteArray
 	var destruction: VoxelDestruction
-	## The blood on the model they broke off, if any: a stained voxel's lump is
-	## blood's colour.
-	var stains: VoxelStains
 	## Sets a lump moving: called with the [VoxelDebris.Piece], standing where
 	## it broke off.
 	var motion: Callable
-	## The lumps, each as the places in [member indices] of its voxels.
 	var clumps: Array = []
+
+	## The lump of the voxels at [param clump], places in the batch, standing
+	## where they broke off and set moving.
+	func make(_clump: Array) -> VoxelDebris.Piece:
+		return null
+
+
+## Voxels broken off one loose model: its kind, frame and palette, and which
+## voxels, with the place of the colour each held: blood's, for a voxel blood
+## recoloured.
+class ShapeBatch extends Batch:
+	var shape: VoxelShape
+	var frame: Transform3D
+	var palette: PackedColorArray
+	var indices: PackedInt32Array
+	var held: PackedByteArray
+
+	func make(clump: Array) -> VoxelDebris.Piece:
+		var least := Vector3i.MAX
+		var most := Vector3i.MIN
+		for place: int in clump:
+			var at := shape.voxel_at(indices[place])
+			least = least.min(at)
+			most = most.max(at)
+		var middle := shape.corner + (Vector3(least) + Vector3(most + Vector3i.ONE)) * 0.5 * VOXEL
+		var piece := VoxelDebris.Piece.new()
+		# A body cannot be scaled, so a lump of a model grown a shade (a prop) is
+		# turned as it was but drawn a block's voxels across.
+		piece.transform = Transform3D(frame.basis.orthonormalized(), frame * middle)
+		piece.size = Vector3(most - least + Vector3i.ONE) * VOXEL
+		piece.voxels = PackedVector3Array()
+		piece.colors = PackedColorArray()
+		for place: int in clump:
+			piece.voxels.append(shape.center_of(indices[place]) - middle)
+			piece.colors.append(palette[held[place]])
+		motion.call(piece)
+		return piece
+
+
+## Voxels broken off the level, or off a piece that fell from it: each by its
+## place, counted in voxels in [member frame], which takes a voxel's place to
+## the world, and its colour.
+class VolumeBatch extends Batch:
+	var frame: Transform3D
+	var voxels := PackedInt32Array()
+	var colors := PackedColorArray()
+
+	func add(at: Vector3i, color: Color) -> void:
+		voxels.append(at.x)
+		voxels.append(at.y)
+		voxels.append(at.z)
+		colors.append(color)
+
+	func voxel(place: int) -> Vector3i:
+		return Vector3i(voxels[place * 3], voxels[place * 3 + 1], voxels[place * 3 + 2])
+
+	func make(clump: Array) -> VoxelDebris.Piece:
+		var least := Vector3i.MAX
+		var most := Vector3i.MIN
+		for place: int in clump:
+			var at := voxel(place)
+			least = least.min(at)
+			most = most.max(at)
+		var middle := (Vector3(least) + Vector3(most + Vector3i.ONE)) * 0.5
+		var piece := VoxelDebris.Piece.new()
+		var basis := frame.basis.orthonormalized()
+		var across := frame.basis.get_scale().x
+		piece.transform = Transform3D(basis, frame * middle)
+		piece.size = Vector3(most - least + Vector3i.ONE) * across
+		piece.voxels = PackedVector3Array()
+		piece.colors = PackedColorArray()
+		for place: int in clump:
+			piece.voxels.append((Vector3(voxel(place)) + HALF - middle) * across)
+			piece.colors.append(colors[place])
+		motion.call(piece)
+		return piece
 
 
 ## A piece waiting to wear away until a round or a blast first reaches it
@@ -232,29 +328,24 @@ class Wearable:
 
 
 var _grid: CombatGrid
-var _map: GridMap
+var _level: VoxelLevel
+var _volume: VoxelVolume
+var _rules: LevelRules
 var _debris: VoxelDebris
-## Every block that wears away, by MeshLibrary item, its own and its
-## stand-in's: its kind's voxels, and its destruction.
-var _shapes := {}
-var _destructions := {}
-## The stand-in of each such block, by its own item.
-var _stand_ins := {}
-## The voxels of every kind of block drawn from a .vox, wearing away or not, by
-## item, stand-ins included: what blood is traced against and stains.
-var _kinds := {}
-## The blood on the blocks, by cell.
-var _stains := {}
-## The blocks that have lost voxels, by cell.
-var _worn := {}
-## Worn blocks still drawn as they were before a blast, as a set.
-var _stale := {}
+## Voxels lower than this in the level's grid are never worn: the bottom
+## layer's, below [constant FLOOR_DEPTH] of its top.
+var _floor_limit := 0
+## The top of the bottom layer, in voxels.
+var _floor_top := 0
+## How each of the level's kinds wears away, by its place in the level's
+## kinds; null for one that does not.
+var _kind_wear: Array[VoxelDestruction] = []
+## What a voxel of a piece that does not wear away breaks off as, cut loose.
+var _fallback := VoxelDestruction.new()
 ## Every loose model, by its body, and every piece waiting to be taken on as
 ## one, by its body.
 var _loose := {}
 var _wearable := {}
-## The level of the bottom of the map, in cells.
-var _bottom := 0
 ## What roughens bites and craters, reseeded for each.
 var _noise := FastNoiseLite.new()
 var _bump_scale := 1.0
@@ -264,114 +355,53 @@ var _bump_size := 0.0
 var _show := RandomNumberGenerator.new()
 
 
-func _init(grid: CombatGrid, map: GridMap, debris: VoxelDebris) -> void:
+func _init(grid: CombatGrid, level: VoxelLevel, debris: VoxelDebris) -> void:
 	name = &"VoxelTerrain"
 	_grid = grid
-	_map = map
+	_level = level
+	_volume = level.volume
+	_rules = level.rules
 	_debris = debris
+	_floor_top = (_rules.bottom + 1) * VoxelVolume.BLOCK
+	_floor_limit = _floor_top - FLOOR_DEPTH
+	for id in level.data.kinds:
+		var kind := level.library.find(StringName(id))
+		_kind_wear.append(kind.destruction as VoxelDestruction if kind != null else null)
 	_noise.noise_type = FastNoiseLite.TYPE_SIMPLEX_SMOOTH
 	_noise.frequency = 1.0
 	_show.randomize()
-
-
-func _process(_delta: float) -> void:
-	if _stale.is_empty():
-		return
-	var start := Time.get_ticks_usec()
-	for block: WornBlock in _stale.keys():
-		_stale.erase(block)
-		_redraw(block)
-		if Time.get_ticks_usec() - start > REBUILD_BUDGET:
-			break
-
-
-## Takes on every block of [param library] that [param destructions] (by item)
-## says wears away: reads its voxels, has it collide as them, and gives it a
-## stand-in, which is added to [param destructions] with the same destruction.
-## A block whose voxels cannot be read is taken out of [param destructions], and
-## never breaks. Call it on the map's library before the map is given it.
-func take_on(library: MeshLibrary, destructions: Dictionary) -> void:
-	var cells := _map.get_used_cells()
-	if not cells.is_empty():
-		_bottom = cells[0].y
-		for cell in cells:
-			_bottom = mini(_bottom, cell.y)
-	for item: int in destructions.keys():
-		var destruction := destructions[item] as VoxelDestruction
-		if destruction == null:
-			continue
-		var shape := VoxelShape.read(library.get_item_mesh(item), library.get_item_mesh_transform(item))
-		if shape == null:
-			destructions.erase(item)
-			_kinds[item] = null
-			continue
-		# A block that fills its cell keeps the cube it has; anything else
-		# collides as its voxels, so debris lands on the trunk, not round it.
-		if not shape.is_full():
-			var faces := ConcavePolygonShape3D.new()
-			faces.set_faces(VoxelMesher.faces(shape, shape.voxels))
-			library.set_item_shapes(item, [faces, Transform3D.IDENTITY])
-		var stand_in := library.get_last_unused_item_id()
-		library.create_item(stand_in)
-		library.set_item_name(stand_in, "%s (worn)" % library.get_item_name(item))
-		library.set_item_mesh_transform(stand_in, library.get_item_mesh_transform(item))
-		_stand_ins[item] = stand_in
-		for each in [item, stand_in]:
-			_shapes[each] = shape
-			_kinds[each] = shape
-			_destructions[each] = destruction
-		destructions[stand_in] = destruction
-	# Every other block drawn from a .vox can still be stained, if not worn.
-	for item in library.get_item_list():
-		var mesh := library.get_item_mesh(item)
-		if _kinds.has(item) or mesh == null or mesh.resource_path.get_extension().to_lower() != "vox":
-			continue
-		var kind := VoxelShape.read(mesh, library.get_item_mesh_transform(item))
-		if kind != null:
-			_kinds[item] = kind
+	if level.renderer != null:
+		level.renderer.chunk_redrawn.connect(_on_chunk_redrawn)
 
 
 ## Takes on [param body], a rigid body drawn by a MagicaVoxel model, as a loose
 ## model wearing away as [param destruction] says. The model is the first of
-## its MeshInstance3D children drawn by one: a model of a .vox imported as a
-## scene, the .vox being [param source] ([method VoxelShape.source_of]), or a
-## mesh imported straight from a .vox, which needs none. [param passes] are the
-## bodies it passes through, which it hands on to the parts cut from it
-## ([member VoxelBody.passes]). It is made a piece
-## ([method TerrainDestruction.make_piece]), if it was not one, for rounds and
-## blasts to find it by. Returns its [VoxelBody], or null if no voxel model
-## draws it.
+## its MeshInstance3D children drawn by one ([method VoxelModel.take_over]): a
+## model of a .vox imported as a scene, the .vox being [param source]
+## ([method VoxelShape.source_of]), a mesh imported straight from a .vox,
+## which needs none, or one already drawn as a [VoxelModel], as a prop a figure
+## dropped is, blood and all. [param passes] are the bodies it passes through,
+## which it hands on to the parts cut from it ([member VoxelBody.passes]). It
+## is made a piece ([method TerrainDestruction.make_piece]), if it was not one,
+## for rounds and blasts to find it by. Returns its [VoxelBody], or null if no
+## voxel model draws it.
 func take_on_body(body: RigidBody3D, destruction: VoxelDestruction, source := "", passes: Array = []) -> VoxelBody:
 	if _loose.has(body):
 		return _loose[body]
 	_wearable.erase(body)
 	for child in body.get_children():
 		var drawn := child as MeshInstance3D
-		if drawn == null or drawn.mesh == null:
+		if drawn == null:
 			continue
-		var shape: VoxelShape = null
-		var scale := 1.0
-		if drawn.has_meta(&"magica_voxel_model_id") and not source.is_empty():
-			shape = VoxelShape.read_model(source, int(drawn.get_meta(&"magica_voxel_model_id")))
-		elif drawn.mesh.resource_path.get_extension().to_lower() == "vox":
-			shape = VoxelShape.read_mesh(drawn.mesh)
-			# A prop is imported at 0.063 a voxel, a shade more than a block.
-			if shape != null and shape.count > 0:
-				scale = VoxelStains.scale_of(drawn, shape)
-		if shape == null or shape.count == 0:
+		var model := VoxelModel.take_over(drawn, source)
+		if model == null or model.count == 0:
 			continue
-		if shape.material == null and drawn.mesh.get_surface_count() > 0:
-			shape.material = drawn.mesh.surface_get_material(0)
-		var model := VoxelBody.new(shape, destruction, body, drawn)
-		model.scale = scale
-		model.passes = passes
-		# Blood its mesh took before it came loose, as a prop on a figure, stays.
-		if drawn.has_meta(VoxelStains.KEPT):
-			model.adopt_stains(drawn.get_meta(VoxelStains.KEPT))
-		body.add_child(model)
+		var loose := VoxelBody.new(model, destruction, body)
+		loose.passes = passes
+		body.add_child(loose)
 		TerrainDestruction.make_piece(body)
-		_keep(body, model)
-		return model
+		_keep(body, loose)
+		return loose
 	return null
 
 
@@ -398,42 +428,15 @@ func loose_count() -> int:
 	return _loose.size()
 
 
-## Whether the block in [param cell] is one that wears away.
-func wears_away(cell: Vector3i) -> bool:
-	return _shapes.has(_map.get_cell_item(cell))
+## Whether piece [param piece] of the level wears away.
+func wears_away(piece: int) -> bool:
+	return _wear_of_piece(piece) != null
 
 
-## The kind of block in [param cell], if it wears away; null if not.
-func shape_at(cell: Vector3i) -> VoxelShape:
-	return _shapes.get(_map.get_cell_item(cell))
-
-
-## The kind of block in [param cell], whether it wears away or not, so long as
-## it is drawn from a .vox; null if not, or if the cell is empty.
-func kind_of(cell: Vector3i) -> VoxelShape:
-	return _kinds.get(_map.get_cell_item(cell))
-
-
-## The voxels the block in [param cell] has now, laid out as its kind's: what
-## is left of it if it is worn, its kind's if not, none if it has no kind.
-func voxels_of(cell: Vector3i) -> PackedByteArray:
-	if _worn.has(cell):
-		return (_worn[cell] as WornBlock).voxels
-	var kind := kind_of(cell)
-	return kind.voxels if kind != null else PackedByteArray()
-
-
-## The block in [param cell]'s own frame, in the world: its cell's middle,
-## turned as the block is. Its voxels are laid out in it as its
-## [VoxelShape]'s.
-func frame_of(cell: Vector3i) -> Transform3D:
-	var turn := _map.get_basis_with_orthogonal_index(_map.get_cell_item_orientation(cell))
-	return _map.global_transform * Transform3D(turn, _map.map_to_local(cell))
-
-
-## How the block in [param cell] is turned in its cell, along the grid's axes.
-func turn_of(cell: Vector3i) -> Basis:
-	return _map.get_basis_with_orthogonal_index(_map.get_cell_item_orientation(cell))
+## How piece [param piece] of the level comes apart, or null if it never does.
+func destruction_of(piece: int) -> Destruction:
+	var kind := _level.kind_of(piece)
+	return kind.destruction if kind != null else null
 
 
 ## The loose model [param body] is, taken on now if it was a piece waiting to
@@ -442,60 +445,24 @@ func model_of(body: Object) -> VoxelBody:
 	return _model_of(body)
 
 
-## How many voxels the block in [param cell] has left.
-func count_at(cell: Vector3i) -> int:
-	if _worn.has(cell):
-		return (_worn[cell] as WornBlock).count
-	var shape := shape_at(cell)
-	return shape.count if shape != null else 0
-
-
-## Whether [param point], in the world, is inside a block: inside one of its
-## voxels for a block that wears away, anywhere in its cell for any other.
+## Whether [param point], in the world, is inside a voxel of the level.
 func is_solid_at(point: Vector3) -> bool:
-	var cell := _map.local_to_map(_map.to_local(point))
-	if not _grid.is_solid(cell):
-		return false
-	var shape := shape_at(cell)
-	if shape == null:
-		return true
-	var at := shape.voxel_under(frame_of(cell).affine_inverse() * point).clamp(Vector3i.ZERO, shape.size - Vector3i.ONE)
-	return _voxels_in(cell)[shape.index_of(at)] != 0
+	return _volume.is_solid(VoxelVolume.voxel_under(_level.to_local(point)))
 
 
-## Where a ray from [param origin] along [param direction] first meets a voxel
-## of the block in [param cell], as a [CombatGrid.RayHit]:
-## [member CombatGrid.RayHit.face] is the face of the voxel it came in through.
-## Null if it crosses the cell without meeting one, or meets one further than
-## [param max_distance] from [param origin]. Rounds are traced so only through
-## blocks that wear away; blood through any block drawn from a .vox.
-func trace(cell: Vector3i, origin: Vector3, direction: Vector3, max_distance: float) -> Variant:
-	var shape := kind_of(cell)
-	if shape == null or direction.is_zero_approx():
-		return null
-	var heading := direction.normalized()
-	var met := march(shape, voxels_of(cell), frame_of(cell), origin, heading, max_distance)
-	if met == null:
-		return null
-	var hit := CombatGrid.RayHit.new()
-	hit.cell = cell
-	hit.point = met.point
-	hit.direction = heading
-	hit.distance = met.distance
-	hit.index = met.index
-	if met.face != Vector3i.ZERO:
-		var turn := _map.get_basis_with_orthogonal_index(_map.get_cell_item_orientation(cell))
-		hit.face = Vector3i((turn * Vector3(met.face)).round())
-	return hit
+## Where the level's voxels are in the world: a voxel's place, counted in
+## voxels, to the world.
+func voxel_frame() -> Transform3D:
+	return _level.global_transform * Transform3D(Basis.from_scale(Vector3.ONE * VOXEL), Vector3.ZERO)
 
 
-## Breaks off the voxels nearest where [param hit] struck a block that wears
-## away, so many for each point of [param damage] (its destruction's
-## [member VoxelDestruction.voxels_per_damage]), from whichever blocks they
-## are in, out to [constant BITE_SPREAD] times as far as the bite would go
-## into a solid block. Each flies out of the face the round struck.
+## Breaks off the voxels nearest where [param hit] struck a piece that wears
+## away, so many for each point of [param damage] (the struck piece's
+## [member VoxelDestruction.voxels_per_damage]), from whichever pieces they are
+## in, out to [constant BITE_SPREAD] times as far as the bite would go into a
+## solid block. Each flies out of the face the round struck.
 func chip(hit: CombatGrid.RayHit, damage: int) -> Wear:
-	var destruction: VoxelDestruction = _destructions.get(_map.get_cell_item(hit.cell))
+	var destruction := _wear_of_piece(hit.piece)
 	if destruction == null:
 		return Wear.new()
 	var budget := roundi(damage * destruction.voxels_per_damage)
@@ -504,16 +471,16 @@ func chip(hit: CombatGrid.RayHit, damage: int) -> Wear:
 	# Half a voxel in, so the voxel struck is the nearest. Into a solid block the
 	# bite would be a half ball of budget voxels, which sets how far it reaches
 	# and how much its edge is roughened.
-	var center := hit.point + hit.direction * VOXEL * 0.5
+	var center := _level.to_local(hit.point + hit.direction * VOXEL * 0.5)
 	var radius := _bite_radius(budget)
 	var reach := minf(radius * BITE_SPREAD, BITE_REACH)
 	_roughen(radius, randi())
 	var found := Found.new()
-	for cell in _cells_round(center, reach):
-		_gather(cell, center, reach, 1.0, found)
+	_gather(center, reach, 1.0, found)
+	_level.ensure_collision(AABB(hit.point - Vector3.ONE, Vector3.ONE * 2.0))
 	var outward := -hit.direction
 	if hit.face != Vector3i.ZERO:
-		outward = (_map.global_basis * Vector3(hit.face)).normalized()
+		outward = (_level.global_basis * Vector3(hit.face)).normalized()
 	var batches: Array = []
 	var wear := _wear_away(found, found.least(budget), _chip_motion(outward, hit.direction), true, batches)
 	_scatter(batches)
@@ -534,30 +501,31 @@ func tear(from: Vector3, to: Vector3, damage: int) -> void:
 	var length := from.distance_to(to)
 	var batches: Array = []
 	# Found first and torn after, as tearing one can cut new models from it.
-	for model in _models_along(from, to):
-		if not is_instance_valid(model):
+	for loose in _models_along(from, to):
+		if not is_instance_valid(loose):
 			continue
+		var model := loose.model
 		var met := march(model.shape, model.voxels, model.frame(), from, heading, length)
 		if met == null:
 			continue
-		var budget := roundi(damage * model.destruction.voxels_per_damage)
+		var budget := roundi(damage * loose.destruction.voxels_per_damage)
 		if budget <= 0:
 			continue
 		var center := met.point + heading * VOXEL * 0.5
 		var radius := _bite_radius(budget)
 		var reach := minf(radius * BITE_SPREAD, BITE_REACH)
 		_roughen(radius, _show.randi())
-		var found := Found.new()
+		var found := ModelFound.new()
 		_gather_voxels(model.shape, model.voxels, model.rows, model.frame(), center, reach, 1.0, found, 0)
 		var outward := met.normal if met.face != Vector3i.ZERO else -heading
-		_wear_model(model, found.voxels_at(found.least(budget)), _chip_motion(outward, heading), batches)
+		_wear_model(loose, found.voxels_at(found.least(budget)), _chip_motion(outward, heading), batches)
 	_scatter(batches)
 
 
 ## Blows a crater round [param origin], where a blast doing [param damage]
-## environmental damage goes off, in every block that wears away among
-## [param cells], the cells the blast reaches: every voxel within its
-## destruction's [method VoxelDestruction.crater_radius] of it, roughened. Every
+## environmental damage goes off, in every piece of the level that wears away
+## within [param cells], the cells the blast reaches: every voxel within its
+## piece's [method VoxelDestruction.crater_radius] of it, roughened. Every
 ## loose model inside the blast is cratered the same way, inside the blast.
 ## Up to [constant CRATER_DEBRIS] lumps of what they lose fly off as debris.
 ##
@@ -568,35 +536,28 @@ func crater(origin: Vector3, cells: Array[Vector3i], damage: int) -> Wear:
 	var wear := Wear.new()
 	var batches: Array = []
 	var largest := 0.0
-	for cell in cells:
-		var destruction: VoxelDestruction = _destructions.get(_map.get_cell_item(cell))
+	for destruction in _kind_wear:
 		if destruction != null:
 			largest = maxf(largest, destruction.crater_radius(damage))
-	if largest > 0.0:
+	if largest > 0.0 and not cells.is_empty():
 		_roughen(largest, randi())
+		var inside := _cell_box(cells)
+		var local := _level.to_local(origin)
 		var found := Found.new()
-		for cell in cells:
-			var destruction: VoxelDestruction = _destructions.get(_map.get_cell_item(cell))
-			if destruction == null:
-				continue
-			var radius := destruction.crater_radius(damage)
-			if radius <= 0.0:
-				continue
-			# Well inside, a voxel goes however its edge is roughened.
-			if cell.y != _bottom:
-				_gather(cell, origin, radius + _bump_size, radius, found, 1.0, radius - _bump_size)
-				continue
-			var ground := _grid.cell_center(cell).y + 0.5
-			var across := sqrt(maxf(radius * radius - pow(origin.y - ground, 2.0), 0.0))
-			if across > 0.0:
-				var under := Vector3(origin.x, ground, origin.z)
-				_gather(cell, under, across + _bump_size, across, found, across / (FLOOR_DEPTH * VOXEL), across - _bump_size)
+		# Above the floor, a ball; each voxel goes by its own piece's crater.
+		_gather(local, largest + _bump_size, largest, found, 1.0, -INF, inside, -1, damage)
+		var ground := float(_floor_top) * VOXEL
+		var across := sqrt(maxf(largest * largest - pow(local.y - ground, 2.0), 0.0))
+		if across > 0.0:
+			var under := Vector3(local.x, ground, local.z)
+			_gather(under, across + _bump_size, across, found, across / (FLOOR_DEPTH * VOXEL), across - _bump_size, inside, 1, damage)
+		_level.ensure_collision(_level.global_transform * inside)
 		wear = _wear_away(found, found.under(1.0), _crater_motion(origin, largest), false, batches)
 
 	# Then every loose model the blast reaches: only for show. A piece waiting
 	# to wear away is only taken on if the crater reaches its box.
 	if not (_loose.is_empty() and _wearable.is_empty()) and not cells.is_empty():
-		var box := _box_round(cells)
+		var box := _level.global_transform * _cell_box(cells)
 		for body in TerrainDestruction.pieces_in(get_world_3d().direct_space_state, box):
 			var how := _wear_of(body)
 			if how == null:
@@ -607,51 +568,61 @@ func crater(origin: Vector3, cells: Array[Vector3i], damage: int) -> Wear:
 			var near := TerrainDestruction.debris_box(body)
 			if origin.distance_to(origin.clamp(near.position, near.end)) > radius * (1.0 + ROUGHNESS) + VOXEL:
 				continue
-			var model := _model_of(body)
-			if model == null:
+			var loose := _model_of(body)
+			if loose == null:
 				continue
+			var model := loose.model
 			_roughen(radius, _show.randi())
-			var found := Found.new()
+			var found := ModelFound.new()
 			_gather_voxels(model.shape, model.voxels, model.rows, model.frame(), origin, radius + _bump_size, radius, found, 0, 1.0, radius - _bump_size, -INF, box)
-			_wear_model(model, found.voxels_at(found.under(1.0)), _crater_motion(origin, radius), batches)
+			_wear_model(loose, found.voxels_at(found.under(1.0)), _crater_motion(origin, radius), batches)
 	_scatter(batches, CRATER_DEBRIS)
 	return wear
 
 
-## Takes what is left of the block in [param cell] out of this: its voxels,
-## worn or whole, as an array laid out as its [VoxelShape]'s. Its worn block,
-## if it had one, is gone; the cell itself is the caller's to clear.
-func take(cell: Vector3i) -> PackedByteArray:
-	if _worn.has(cell):
-		var block: WornBlock = _worn[cell]
-		var voxels := block.voxels
-		_worn.erase(cell)
-		_stale.erase(block)
-		block.free()
-		return voxels
-	var shape := shape_at(cell)
-	return shape.voxels if shape != null else PackedByteArray()
+## Takes piece [param piece] out of the level's voxels, all it has left, as it
+## breaks or falls: returns what it left, for it to crumble or fall as.
+func take_piece(piece: int) -> Taken:
+	var taken := Taken.new()
+	var voxels := _volume.voxels_of(piece)
+	var wanted := PackedInt32Array()
+	wanted.resize(voxels.size() * 3)
+	for at in voxels.size():
+		wanted[at * 3] = int(voxels[at].x)
+		wanted[at * 3 + 1] = int(voxels[at].y)
+		wanted[at * 3 + 2] = int(voxels[at].z)
+	var places := PackedByteArray()
+	var owners := PackedInt32Array()
+	_volume.remove_many(wanted, places, owners)
+	_volume.lay_bare_box(_level.data.slot_at(piece), wanted)
+	for at in places.size():
+		if places[at] == 0:
+			continue
+		taken.voxels.append(wanted[at * 3])
+		taken.voxels.append(wanted[at * 3 + 1])
+		taken.voxels.append(wanted[at * 3 + 2])
+		taken.places.append(places[at])
+	if not taken.places.is_empty():
+		var origin := LevelData.voxel_origin(_level.data.slot_at(piece))
+		_level.ensure_collision(_level.global_transform * AABB(Vector3(origin) * VOXEL, Vector3.ONE))
+	return taken
 
 
-## Breaks [param voxels], what is left of a model of [param shape]'s kind, up
-## into lumps at most [member VoxelDestruction.crumble_size] voxels across,
-## standing in [param frame] (the model's frame, where it stood or landed), and
-## lets them fall. [param hit] is the round that broke it, if one did, which
-## knocks the lumps nearest where it struck on along its flight; [param motion]
-## is how the model was moving, if it fell whole, which its lumps carry on.
-## [param stains] is the blood on it, which colours the lumps of stained
-## voxels. Returns their bodies.
-func crumble(
-	voxels: PackedByteArray, shape: VoxelShape, frame: Transform3D, destruction: VoxelDestruction,
-	hit: CombatGrid.RayHit = null, motion: Destruction.Motion = null, stains: VoxelStains = null
-) -> Array[RID]:
-	var indices := PackedInt32Array()
-	var held := PackedByteArray()
-	for index in shape.length:
-		if voxels[index] != 0:
-			indices.append(index)
-			held.append(voxels[index])
-	var sets_off := func(piece: VoxelDebris.Piece) -> void:
+## Breaks [param taken], what a piece left of itself, up into lumps at most
+## [member VoxelDestruction.crumble_size] voxels across and lets them fall.
+## [param frame] takes a voxel's place in [param taken] to the world: the
+## level's ([method voxel_frame]) for a piece breaking where it stood, the place
+## it landed for one that fell. [param hit] is the round that broke it, if one
+## did, which knocks the lumps nearest where it struck on along its flight;
+## [param motion] is how it was moving, if it fell whole, which its lumps carry
+## on. Returns their bodies.
+func crumble(taken: Taken, frame: Transform3D, destruction: VoxelDestruction, hit: CombatGrid.RayHit = null, motion: Destruction.Motion = null) -> Array[RID]:
+	var batch := VolumeBatch.new()
+	batch.frame = frame
+	for index in taken.size():
+		batch.add(taken.voxel(index), _volume.palette[taken.places[index]])
+	batch.destruction = destruction if destruction != null else _fallback
+	batch.motion = func(piece: VoxelDebris.Piece) -> void:
 		var center := piece.transform.origin
 		piece.velocity = _random_in_ball() * CRUMBLE_SCATTER
 		piece.spin = _random_in_ball() * CRUMBLE_SPIN
@@ -661,58 +632,133 @@ func crumble(
 		if motion != null:
 			piece.velocity += motion.at(center)
 			piece.spin += motion.angular_velocity
-	return _scatter([_batch(indices, held, shape, frame, destruction.crumble_size, destruction, sets_off, stains)])
+	_group(batch, batch.destruction.crumble_size)
+	return _scatter([batch])
 
 
-## Stains [param bits], faces as [VoxelStains] has them, of the voxel at
-## [param index] of the block in [param cell], which must be there, and returns
-## the bits that were not stained already. Any block drawn from a .vox can be
-## stained, whether it wears away or not.
-func stain(cell: Vector3i, index: int, bits: int) -> int:
-	var stains: VoxelStains = _stains.get(cell)
-	if stains == null:
-		var kind := kind_of(cell)
-		if kind == null:
-			return 0
-		stains = VoxelStains.new(kind)
-		stains.voxels = voxels_of.bind(cell)
-		stains.attach(self, global_transform.affine_inverse() * frame_of(cell))
-		_stains[cell] = stains
-	return stains.stain(index, bits)
+## Wears a ragged rim round the hole the piece in [param slot] left as it
+## broke: up to [constant RIM_DEPTH] voxels into every piece round it that
+## wears away, wandering in and out, so the hole a block leaves is not a clean
+## cube. What it wears off drops away; nothing it wears is worn past standing
+## by it, as the rules decide that only as a round or blast lands. Draws on the
+## global generator once, as a bite does. Returns the lumps' bodies.
+func roughen_hole(slot: Vector3i) -> Array[RID]:
+	var origin := LevelData.voxel_origin(slot)
+	var reach := ceili(RIM_DEPTH + RIM_WANDER)
+	var least := origin - Vector3i.ONE * reach
+	var most := origin + Vector3i.ONE * (VoxelVolume.BLOCK - 1 + reach)
+	least.y = maxi(least.y, _floor_limit)
+	_noise.seed = randi()
+	var frame := voxel_frame()
+	var hole := AABB(Vector3(origin), Vector3.ONE * VoxelVolume.BLOCK)
+	var batch := VolumeBatch.new()
+	batch.frame = frame
+	batch.destruction = _fallback
+	var removed := PackedInt32Array()
+	var destruction: VoxelDestruction = null
+	for x in range(least.x, most.x + 1):
+		for z in range(least.z, most.z + 1):
+			for y in range(least.y, most.y + 1):
+				var voxel := Vector3i(x, y, z)
+				var middle := Vector3(voxel) + HALF
+				if hole.has_point(middle):
+					continue
+				var distance := middle.distance_to(middle.clamp(hole.position, hole.end))
+				if distance > RIM_DEPTH + RIM_WANDER:
+					continue
+				if not _volume.is_solid(voxel):
+					continue
+				var piece := _volume.owner_at(voxel)
+				var how := _wear_of_piece(piece)
+				if how == null:
+					continue
+				var wander := _noise.get_noise_3dv(middle * VOXEL * RIM_BUMPS) * RIM_WANDER
+				if distance + wander >= RIM_DEPTH:
+					continue
+				var place := _volume.remove(voxel)
+				if place == 0:
+					continue
+				destruction = how
+				batch.add(voxel, _volume.palette[place])
+				removed.append_array(PackedInt32Array([voxel.x, voxel.y, voxel.z]))
+	if batch.colors.is_empty():
+		return []
+	_volume.lay_bare(removed)
+	if destruction != null:
+		batch.destruction = destruction
+	batch.motion = _falling_motion(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, LOOSE_SCATTER, CHIP_SPIN * 0.2)
+	var batches: Array = [batch]
+	_drop_loose(removed, batches)
+	for each: Batch in batches:
+		if each.clumps.is_empty():
+			_group(each, DEBRIS_CLUMP)
+	return _scatter(batches)
 
 
-## The blood on the block in [param cell], or null if it has none.
-func stains_at(cell: Vector3i) -> VoxelStains:
-	return _stains.get(cell)
+## Whether what is left of piece [param piece] can still hold up whatever
+## stands on it: nothing does, or some run of its own voxels still joins the
+## bottom of its box to the top. A tree's trunk shot through holds up its crown
+## no longer, however much of the rest of it is left. Searched from every voxel
+## along the bottom, upward first, until one reaches the top.
+func holds_up(piece: int) -> bool:
+	var slot := _level.data.slot_at(piece)
+	var above := slot + Vector3i.UP
+	if LevelData.is_centre(slot):
+		if not _rules.is_solid(LevelData.cell_of(above)):
+			return true
+	elif not _rules.has_edge_slot(above):
+		return true
+	var origin := LevelData.voxel_origin(slot)
+	var top := origin.y + VoxelVolume.BLOCK - 1
+	var box := AABB(Vector3(origin), Vector3.ONE * VoxelVolume.BLOCK)
+	var seen := {}
+	var stack: Array[Vector3i] = []
+	for at in _volume.voxels_of(piece):
+		var voxel := Vector3i(at)
+		if voxel.y == origin.y:
+			stack.append(voxel)
+			seen[voxel] = true
+	# Up is pushed last, so it is searched first.
+	var steps: Array[Vector3i] = [Vector3i.DOWN, Vector3i.LEFT, Vector3i.RIGHT, Vector3i.FORWARD, Vector3i.BACK, Vector3i.UP]
+	while not stack.is_empty():
+		var at: Vector3i = stack.pop_back()
+		if at.y == top:
+			return true
+		for step in steps:
+			var next := at + step
+			if seen.has(next) or not box.has_point(Vector3(next) + HALF):
+				continue
+			if _volume.owner_at(next) != piece:
+				continue
+			seen[next] = true
+			stack.append(next)
+	return false
 
 
-## Takes the blood on the block in [param cell] off the map, as the block
-## leaves it: its overlay is still drawn where the block stood, for the caller
-## to carry on with what the block becomes or to take away. Null if it had none.
-func take_stains(cell: Vector3i) -> VoxelStains:
-	var stains: VoxelStains = _stains.get(cell)
-	if stains != null:
-		_stains.erase(cell)
-		# Whatever the block becomes keeps its voxels from here on: a falling
-		# block what was left, a crate its own.
-		stains.voxels = Callable()
-	return stains
-
-
-## Carries [param stains], the blood on a block that has just broken into the
-## pieces [param bodies] in [param frame] (where the block's voxels stood), on
-## to them: each piece holding a stained voxel of the block is taken on as a
-## loose model ([method _model_of]) and stained where the block was. The
-## block's overlay goes. A piece that does not wear away is left clean.
-func carry_stains(stains: VoxelStains, frame: Transform3D, bodies: Array[RigidBody3D]) -> void:
-	if stains == null:
+## Carries the blood on [param taken], what a piece of kind [param kind]
+## standing in [param slot] turned [param turn] left of itself, on to the
+## pieces [param bodies] it has just broken into in [param frame] (where its
+## voxels stood, as its kind's own model has them, unturned): every voxel of a
+## piece that sat in a voxel blood had recoloured is recoloured too, the piece
+## taken on as a loose model ([method _model_of]) if it was not yet. A piece
+## that does not wear away is left clean.
+func carry_blood(taken: Taken, kind: int, slot: Vector3i, turn: int, frame: Transform3D, bodies: Array[RigidBody3D]) -> void:
+	var shape: VoxelShape = _volume.shapes[kind] if kind >= 0 and kind < _volume.shapes.size() else null
+	if shape == null:
 		return
-	stains.detach()
-	# Where each stained voxel was, to find the pieces it went to.
-	var stained := PackedVector3Array()
-	for index: int in stains.faces:
-		stained.append(frame * stains.shape.center_of(index))
-	if stained.is_empty():
+	var origin := LevelData.voxel_origin(slot)
+	# Each bloodied voxel, as a voxel of the kind's own model, and where it was.
+	var bloodied := {}
+	var points := PackedVector3Array()
+	for index in taken.size():
+		if taken.places[index] != VoxelVolume.BLOOD:
+			continue
+		var own := VoxelVolume.turned(taken.voxel(index) - origin, 4 - posmod(turn, 4))
+		if not shape.holds(own):
+			continue
+		bloodied[own] = true
+		points.append(frame * shape.center_of(shape.index_of(own)))
+	if bloodied.is_empty():
 		return
 	var to_block := frame.affine_inverse()
 	for body in bodies:
@@ -720,134 +766,388 @@ func carry_stains(stains: VoxelStains, frame: Transform3D, bodies: Array[RigidBo
 			continue
 		var box := TerrainDestruction.debris_box(body).grow(VOXEL)
 		var holds := false
-		for point in stained:
+		for point in points:
 			if box.has_point(point):
 				holds = true
 				break
 		if not holds:
 			continue
-		var model := _model_of(body)
-		if model == null:
+		var loose := _model_of(body)
+		if loose == null:
 			continue
-		# From the model's frame to the block's, which turns its faces too.
+		# From the piece's frame to the block's.
+		var model := loose.model
 		var into := to_block * model.frame()
-		var back := into.basis.orthonormalized().inverse()
 		for index in model.shape.length:
-			if model.voxels[index] == 0:
-				continue
-			var at := stains.shape.voxel_under(into * model.shape.center_of(index))
-			if not stains.shape.holds(at):
-				continue
-			var bits := stains.bits_at(stains.shape.index_of(at))
-			if bits == 0:
-				continue
-			var turned := 0
-			for face in 6:
-				if bits & (1 << face) != 0:
-					turned |= VoxelStains.bit(Vector3i((back * Vector3(VoxelStains.FACES[face])).round()))
-			model.stained().stain(index, turned)
+			if model.voxels[index] != 0 and bloodied.has(shape.voxel_under(into * model.shape.center_of(index))):
+				model.recolor(index, VoxelVolume.BLOOD)
 
 
-## The voxels of the block in [param cell]: what is left of it if it is worn,
-## its kind's if not, and none if it does not wear away.
-func _voxels_in(cell: Vector3i) -> PackedByteArray:
-	if _worn.has(cell):
-		return (_worn[cell] as WornBlock).voxels
-	var shape := shape_at(cell)
-	return shape.voxels if shape != null else PackedByteArray()
+## How piece [param piece] wears away, or null if it does not, or is no piece.
+func _wear_of_piece(piece: int) -> VoxelDestruction:
+	if piece < 0 or piece >= _level.data.count():
+		return null
+	return _kind_wear[_level.data.kind_at(piece)]
 
 
-## The rows of the voxels of the block in [param cell], as [method _voxels_in].
-func _rows_in(cell: Vector3i) -> PackedInt64Array:
-	if _worn.has(cell):
-		return (_worn[cell] as WornBlock).rows
-	var shape := shape_at(cell)
-	return shape.rows if shape != null else PackedInt64Array()
+## The box, in the level's space, that [param cells] fill.
+static func _cell_box(cells: Array[Vector3i]) -> AABB:
+	var box := AABB(Vector3(cells[0]), Vector3.ONE)
+	for cell in cells:
+		box = box.merge(AABB(Vector3(cell), Vector3.ONE))
+	return box
 
 
-## The worn block in [param cell], made the first time it is asked for: from
-## then on it draws and collides as what is left, and the cell holds the
-## block's stand-in.
-func _wear(cell: Vector3i) -> WornBlock:
-	if _worn.has(cell):
-		return _worn[cell]
-	var item := _map.get_cell_item(cell)
-	var block := WornBlock.new(_shapes[item])
-	add_child(block)
-	block.global_transform = frame_of(cell)
-	_map.set_cell_item(cell, _stand_ins.get(item, item), _map.get_cell_item_orientation(cell))
-	_worn[cell] = block
-	return block
+## Adds to [param found] every voxel of the level within [param reach] cells
+## of [param center] (in the level's space) that may be worn: a voxel of a
+## piece that wears away, above the floor's [constant FLOOR_DEPTH], each scored
+## by how far it is, roughened, over [param scale]. Distance up and down counts
+## [param squash] times over, for a crater flatter than a ball. One nearer
+## than [param certain] scores nothing at all, however the edge is roughened.
+## One outside [param inside], if it has volume, in the level's space, is left
+## out; and those above the bottom layer if [param layer] is 1, or in it if -1.
+## Given [param damage], a voxel is only worn within its own piece's crater of
+## that damage, as pieces of different kinds blast differently.
+##
+## Only the voxels inside the ball are looked at: each row of a chunk is cut to
+## the run of it inside the ball, and only the voxels there are visited.
+func _gather(
+	center: Vector3, reach: float, scale: float, found: Found, squash := 1.0, certain := -INF,
+	inside := AABB(), layer := 0, damage := -1
+) -> void:
+	var size := float(VoxelVolume.BLOCK)
+	var middle := center * size
+	var far := reach * size
+	var least := Vector3i((middle - Vector3.ONE * far).floor())
+	var most := Vector3i((middle + Vector3.ONE * far).floor())
+	least.y = maxi(least.y, _floor_limit)
+	if layer == 1:
+		most.y = mini(most.y, _floor_top - 1)
+	elif layer == -1:
+		least.y = maxi(least.y, _floor_top)
+	if least.y > most.y:
+		return
+	var limited := inside.has_volume()
+	var flatten := squash * squash
+	var frame := voxel_frame()
+	for key in _volume.chunks_in(least, most):
+		var chunk: VoxelVolume.Chunk = _volume.chunks[key]
+		# Which of the chunk's pieces wear, and how far their craters reach.
+		var wears := PackedByteArray()
+		var radii := PackedFloat32Array()
+		wears.resize(chunk.owners.size() + 1)
+		radii.resize(chunk.owners.size() + 1)
+		for place in chunk.owners.size():
+			var how := _wear_of_piece(chunk.owners[place])
+			if how != null:
+				wears[place + 1] = 1
+				radii[place + 1] = how.crater_radius(damage) if damage >= 0 else reach
+		var origin := chunk.origin
+		var low := (least - origin).clamp(Vector3i.ZERO, Vector3i.ONE * VoxelVolume.MASK)
+		var high := (most - origin).clamp(Vector3i.ZERO, Vector3i.ONE * VoxelVolume.MASK)
+		var rows := chunk.rows_x
+		var slots := chunk.slots
+		for y in range(low.y, high.y + 1):
+			var across_y := origin.y + y + 0.5 - middle.y
+			for z in range(low.z, high.z + 1):
+				var row := rows[z + (y << VoxelVolume.SHIFT)]
+				if row == 0:
+					continue
+				var across_z := origin.z + z + 0.5 - middle.z
+				var left := far * far - across_z * across_z - across_y * across_y * flatten
+				if left < 0.0:
+					continue
+				var half_run := sqrt(left)
+				var first := maxi(ceili(middle.x - half_run - 0.5) - origin.x, low.x)
+				var last := mini(floori(middle.x + half_run - 0.5) - origin.x, high.x)
+				if first > last:
+					continue
+				var run := row & ((1 << (last + 1)) - 1) & ~((1 << first) - 1)
+				var row_at := (z << VoxelVolume.SHIFT) + (y << (VoxelVolume.SHIFT * 2))
+				while run != 0:
+					var low_bit := run & -run
+					run ^= low_bit
+					var x: int = ChunkMesher.BIT[low_bit % 67]
+					var slot := slots[row_at + x]
+					if slot == 0 or wears[slot] == 0:
+						continue
+					var across_x := origin.x + x + 0.5 - middle.x
+					var distance := sqrt(across_x * across_x + across_z * across_z + across_y * across_y * flatten) / size
+					if distance > reach:
+						continue
+					var voxel := origin + Vector3i(x, y, z)
+					if limited and not inside.has_point((Vector3(voxel) + HALF) / size):
+						continue
+					var score := 0.0
+					if damage >= 0:
+						# Each piece is cratered as far as its own kind blasts.
+						var own := radii[slot]
+						if distance > own + _bump_size:
+							continue
+						if distance >= own - _bump_size:
+							score = (distance + _bump(frame * (Vector3(voxel) + HALF))) / own
+					elif distance >= certain:
+						score = (distance + _bump(frame * (Vector3(voxel) + HALF))) / scale
+					found.add(voxel, score)
 
 
-## Breaks off the voxels of [param found] at [param picks], blocks', then
-## everything those leave holding on to nothing, grouped into lumps at most
-## [constant DEBRIS_CLUMP] voxels across added to [param batches]. Each lump
-## sets off as [param motion] says, or, one cut loose, just drops. Says which
-## blocks are worn past standing, and draws what is left of the rest: at once
-## if [param now], else over the next few frames.
+## Breaks off the voxels of [param found] at [param picks], then everything
+## those leave holding on to nothing ([method _drop_loose]), grouped into lumps
+## at most [constant DEBRIS_CLUMP] voxels across added to [param batches]. Each
+## lump sets off as [param motion] says, or, one cut loose, just drops. Says
+## which pieces are worn past standing, and draws what is left of the level: at
+## once if [param now], else over the next few frames.
 func _wear_away(found: Found, picks: PackedInt32Array, motion: Callable, now: bool, batches: Array) -> Wear:
-	# Each block's voxels come one after another, so each block is worn in one
-	# go, noting what it lost.
-	var losses := {}
-	var block: WornBlock = null
-	var lost: Lost = null
-	var owner := -1
-	for pick in picks.size():
-		var place := picks[pick]
-		if found.owners[place] != owner:
-			owner = found.owners[place]
-			block = _wear(found.cells[owner])
-			lost = Lost.new(block.shape)
-			losses[found.cells[owner]] = lost
-		var index := found.indices[place]
-		var held := block.remove(index)
-		if held == 0:
-			continue
-		var at := block.shape.voxel_at(index)
-		lost.add(index, held, at.y + at.z * block.shape.size.y, at.x)
-
-	# What each block lost, and then what that cut loose from it, in lumps.
-	var dropping := _falling_motion(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, LOOSE_SCATTER, CHIP_SPIN * 0.2)
-	for cell: Vector3i in losses:
-		var worn: WornBlock = _worn[cell]
-		var destruction: VoxelDestruction = _destructions[_map.get_cell_item(cell)]
-		var lost_here: Lost = losses[cell]
-		batches.append(_batch(lost_here.indices, lost_here.held, worn.shape, worn.global_transform, DEBRIS_CLUMP, destruction, motion, _stains.get(cell)))
-		var loose := _loose_voxels(cell, worn, lost_here.rows)
-		var loose_held := PackedByteArray()
-		for index in loose:
-			loose_held.append(worn.remove(index))
-		batches.append(_batch(loose, loose_held, worn.shape, worn.global_transform, DEBRIS_CLUMP, destruction, dropping, _stains.get(cell)))
-
 	var wear := Wear.new()
-	wear.worn = not losses.is_empty()
-	var first := true
-	for cell: Vector3i in losses:
-		var left: WornBlock = _worn[cell]
-		var destruction: VoxelDestruction = _destructions[_map.get_cell_item(cell)]
-		var box := AABB(_grid.cell_center(cell) - HALF, Vector3.ONE)
-		wear.box = box if first else wear.box.merge(box)
-		first = false
-		# Stained voxels may have gone, their stains with them.
-		var stains: VoxelStains = _stains.get(cell)
-		if stains != null:
-			stains.changed()
-		# One worn past standing is about to be broken up, as it is now.
-		if cell.y != _bottom and (left.count < destruction.collapse_below * left.shape.count or not _holds_up(cell, left)):
-			wear.broken.append(cell)
-		elif now:
-			_redraw(left)
-		else:
-			_stale[left] = true
+	var by_destruction := {}
+	var lost := {}
+	var removed := PackedInt32Array()
+	var frame := voxel_frame()
+	var wanted := PackedInt32Array()
+	wanted.resize(picks.size() * 3)
+	for at in picks.size():
+		var pick := picks[at]
+		wanted[at * 3] = found.voxels[pick * 3]
+		wanted[at * 3 + 1] = found.voxels[pick * 3 + 1]
+		wanted[at * 3 + 2] = found.voxels[pick * 3 + 2]
+	var places := PackedByteArray()
+	var owners := PackedInt32Array()
+	_volume.remove_many(wanted, places, owners)
+	for at in places.size():
+		var place := places[at]
+		if place == 0:
+			continue
+		var voxel := Vector3i(wanted[at * 3], wanted[at * 3 + 1], wanted[at * 3 + 2])
+		removed.append(voxel.x)
+		removed.append(voxel.y)
+		removed.append(voxel.z)
+		var piece := owners[at]
+		lost[piece] = true
+		var destruction := _wear_of_piece(piece)
+		if destruction == null:
+			destruction = _fallback
+		var batch: VolumeBatch = by_destruction.get(destruction)
+		if batch == null:
+			batch = VolumeBatch.new()
+			batch.frame = frame
+			batch.destruction = destruction
+			batch.motion = motion
+			by_destruction[destruction] = batch
+			batches.append(batch)
+		batch.add(voxel, _volume.palette[place])
+	for batch: VolumeBatch in by_destruction.values():
+		_group(batch, DEBRIS_CLUMP)
+	_volume.lay_bare(removed)
+	var loose_from := batches.size()
+	for piece: int in _drop_loose(removed, batches):
+		lost[piece] = true
+	for index in range(loose_from, batches.size()):
+		_group(batches[index], DEBRIS_CLUMP)
+	if removed.is_empty():
+		return wear
+	wear.worn = true
+	var least := Vector3i.MAX
+	var most := Vector3i.MIN
+	for index in range(0, removed.size(), 3):
+		var at := Vector3i(removed[index], removed[index + 1], removed[index + 2])
+		least = least.min(at)
+		most = most.max(at)
+	wear.box = _level.global_transform * AABB(Vector3(least) * VOXEL, Vector3(most - least + Vector3i.ONE) * VOXEL)
+	for piece: int in lost:
+		if piece < 0 or not _rules.is_standing(piece) or _never_breaks(piece):
+			continue
+		var destruction := _wear_of_piece(piece)
+		if destruction == null:
+			continue
+		if _volume.counts[piece] < destruction.collapse_below * _volume.whole[piece] or not holds_up(piece):
+			wear.broken.append(piece)
+	if now:
+		_level.redraw_now()
 	return wear
 
 
-## Breaks the voxels at [param indices] off the loose model [param model],
+## Breaks off every voxel of the level the voxels at [param removed] (three
+## numbers each) leave holding on to nothing, into lumps that just drop, added
+## to [param batches] a batch for each kind of piece they break off. Returns
+## the pieces that lost voxels so.
+##
+## Each voxel left next to one gone is searched from, through every voxel
+## joined to it face to face, whatever piece, cell or chunk it is in, until the
+## search reaches one that holds on: the floor below its
+## [constant FLOOR_DEPTH], which is never worn, or a piece that does not wear
+## away. A search that grows past [constant HOLD_SEARCH] voxels is taken to be
+## held: what is bigger is a piece the rules bring down whole.
+func _drop_loose(removed: PackedInt32Array, batches: Array) -> Dictionary:
+	var pieces := {}
+	if removed.is_empty():
+		return pieces
+	# 1 held, 2 being searched, 3 loose.
+	var known := {}
+	# Each chunk's pieces that hold whatever touches them, by slot, worked out
+	# once a search first comes into the chunk.
+	var anchors := {}
+	# Down is taken last, so it is searched first: most voxels are held by the
+	# ground under them. Each way's step, and how far it is in a chunk's
+	# arrays; a voxel on a chunk's face asks the volume instead.
+	var steps: Array[Vector3i] = [Vector3i.UP, Vector3i.LEFT, Vector3i.RIGHT, Vector3i.FORWARD, Vector3i.BACK, Vector3i.DOWN]
+	var offsets := PackedInt32Array([VoxelVolume.AREA, -1, 1, -VoxelVolume.SIZE, VoxelVolume.SIZE, -VoxelVolume.AREA])
+	var loose: Array[Vector3i] = []
+	var stack: Array[Vector3i] = []
+	var searched: Array[Vector3i] = []
+	var last := VoxelVolume.MASK
+	for index in range(0, removed.size(), 3):
+		var gone := Vector3i(removed[index], removed[index + 1], removed[index + 2])
+		var chunk := _volume.chunk_of(gone)
+		var lx := gone.x & last
+		var ly := gone.y & last
+		var lz := gone.z & last
+		var at_index := lx + (lz << VoxelVolume.SHIFT) + (ly << (VoxelVolume.SHIFT * 2))
+		var inside := lx > 0 and lx < last and ly > 0 and ly < last and lz > 0 and lz < last
+		for way in 6:
+			var start := gone + steps[way]
+			var solid := false
+			if inside:
+				solid = chunk.colors[at_index + offsets[way]] != 0
+			else:
+				solid = _volume.is_solid(start)
+			if not solid or known.has(start):
+				continue
+			stack.clear()
+			searched.clear()
+			stack.append(start)
+			searched.append(start)
+			known[start] = 2
+			var held := false
+			while not stack.is_empty():
+				var at: Vector3i = stack.pop_back()
+				if at.y < _floor_limit or searched.size() > HOLD_SEARCH or _anchored(at, anchors):
+					held = true
+					break
+				var here := _volume.chunk_of(at)
+				var hx := at.x & last
+				var hy := at.y & last
+				var hz := at.z & last
+				var here_index := hx + (hz << VoxelVolume.SHIFT) + (hy << (VoxelVolume.SHIFT * 2))
+				var within := hx > 0 and hx < last and hy > 0 and hy < last and hz > 0 and hz < last
+				for step in 6:
+					var next := at + steps[step]
+					var state: int = known.get(next, 0)
+					if state == 1:
+						held = true
+						break
+					if state != 0:
+						continue
+					var next_solid := false
+					if within:
+						next_solid = here.colors[here_index + offsets[step]] != 0
+					else:
+						next_solid = _volume.is_solid(next)
+					if not next_solid:
+						continue
+					known[next] = 2
+					stack.append(next)
+					searched.append(next)
+				if held:
+					break
+			var mark := 1 if held else 3
+			for voxel in searched:
+				known[voxel] = mark
+			if not held:
+				loose.append_array(searched)
+	if loose.is_empty():
+		return pieces
+	var frame := voxel_frame()
+	var dropping := _falling_motion(Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, LOOSE_SCATTER, CHIP_SPIN * 0.2)
+	var by_destruction := {}
+	var wanted := PackedInt32Array()
+	wanted.resize(loose.size() * 3)
+	for at in loose.size():
+		wanted[at * 3] = loose[at].x
+		wanted[at * 3 + 1] = loose[at].y
+		wanted[at * 3 + 2] = loose[at].z
+	var places := PackedByteArray()
+	var owners := PackedInt32Array()
+	_volume.remove_many(wanted, places, owners)
+	_volume.lay_bare(wanted)
+	for at in loose.size():
+		var voxel := loose[at]
+		var place := places[at]
+		var piece := owners[at]
+		if place == 0:
+			continue
+		pieces[piece] = true
+		var destruction := _wear_of_piece(piece)
+		if destruction == null:
+			destruction = _fallback
+		var batch: VolumeBatch = by_destruction.get(destruction)
+		if batch == null:
+			batch = VolumeBatch.new()
+			batch.frame = frame
+			batch.destruction = destruction
+			batch.motion = dropping
+			by_destruction[destruction] = batch
+			batches.append(batch)
+		batch.add(voxel, _volume.palette[place])
+	return pieces
+
+
+## Whether [param voxel] is of a piece that holds whatever touches it: one
+## standing that does not wear away, which the rules keep whole. Each chunk's
+## such pieces are worked out once into [param anchors], by the chunk's key, as
+## a flag a slot.
+func _anchored(voxel: Vector3i, anchors: Dictionary) -> bool:
+	var chunk := _volume.chunk_of(voxel)
+	if chunk == null:
+		return false
+	var flags: PackedByteArray = anchors.get(chunk.key, PackedByteArray())
+	if flags.is_empty():
+		flags.resize(chunk.owners.size() + 1)
+		for place in chunk.owners.size():
+			var piece := chunk.owners[place]
+			if piece >= 0 and _wear_of_piece(piece) == null and _rules.is_standing(piece):
+				flags[place + 1] = 1
+		anchors[chunk.key] = flags
+	return flags[chunk.slots[VoxelVolume.index_of(voxel)]] == 1
+
+
+## Whether [param voxel] holds on where it is whatever is cut away round it:
+## the floor below its [constant FLOOR_DEPTH], or a voxel of a piece standing
+## that does not wear away, which the rules keep whole.
+func _holds_on(voxel: Vector3i) -> bool:
+	if voxel.y < _floor_limit:
+		return true
+	var piece := _volume.owner_at(voxel)
+	return piece >= 0 and _wear_of_piece(piece) == null and _rules.is_standing(piece)
+
+
+## Whether piece [param piece] never breaks however worn: a solid piece in the
+## middle of a cell of the bottom layer.
+func _never_breaks(piece: int) -> bool:
+	var slot := _level.data.slot_at(piece)
+	return LevelData.is_centre(slot) and slot.y == _rules.bottom
+
+
+## Wakes the debris lying round the chunk [param key] once it is drawn again,
+## and so collides again, as what is left of it: whatever lay on what wore
+## away would rest on air.
+func _on_chunk_redrawn(key: Vector3i) -> void:
+	var least := Vector3(key * VoxelVolume.SIZE) * VOXEL
+	var box := _level.global_transform * AABB(least, Vector3.ONE * VoxelVolume.SIZE * VOXEL)
+	box = box.grow(VoxelDebris.LYING_ON)
+	_debris.wake(box)
+	if not is_inside_tree():
+		return
+	for body in TerrainDestruction.pieces_in(get_world_3d().direct_space_state, box):
+		if body.sleeping and box.has_point(TerrainDestruction.debris_box(body).get_center()):
+			body.sleeping = false
+
+
+## Breaks the voxels at [param indices] off the loose model [param loose],
 ## grouped into lumps at most [constant DEBRIS_CLUMP] voxels across added to
 ## [param batches], each setting off as [param motion] says, carried on as the
 ## model was moving; then settles what is left of it ([method _settle]).
-func _wear_model(model: VoxelBody, indices: PackedInt32Array, motion: Callable, batches: Array) -> void:
+func _wear_model(loose: VoxelBody, indices: PackedInt32Array, motion: Callable, batches: Array) -> void:
+	var model := loose.model
 	var lost := PackedInt32Array()
 	var held := PackedByteArray()
 	for index in indices:
@@ -857,45 +1157,47 @@ func _wear_model(model: VoxelBody, indices: PackedInt32Array, motion: Callable, 
 			held.append(what)
 	if lost.is_empty():
 		return
-	var moving := model.body.linear_velocity
+	var moving := loose.body.linear_velocity
 	var carried := func(piece: VoxelDebris.Piece) -> void:
 		motion.call(piece)
 		piece.velocity += moving
-	batches.append(_batch(lost, held, model.shape, model.frame(), DEBRIS_CLUMP, model.destruction, carried, model.stains))
-	_settle(model, batches)
+	batches.append(_batch(lost, held, model, DEBRIS_CLUMP, loose.destruction, carried))
+	_settle(loose, batches)
 
 
-## Settles what is left of [param model] after it has lost voxels: crumbles it
+## Settles what is left of [param loose] after it has lost voxels: crumbles it
 ## if it is worn past its share, or too small to stand on its own; else cuts
 ## every part no longer joined to the rest off it, as a model of its own if it
 ## is big enough and as lumps added to [param batches] if not, and draws,
 ## collides and weighs what is left as it is.
-func _settle(model: VoxelBody, batches: Array) -> void:
-	if model.count < SMALLEST_PART or model.count < model.destruction.collapse_below * model.whole:
-		_crumble_model(model, batches)
+func _settle(loose: VoxelBody, batches: Array) -> void:
+	var model := loose.model
+	if model.count < SMALLEST_PART or model.count < loose.destruction.collapse_below * loose.whole:
+		_crumble_model(loose, batches)
 		return
 	var parts := _parts(model)
 	if parts.size() > 1:
-		var from := model.body
+		var from := loose.body
 		var dropping := _falling_motion(from.linear_velocity, from.angular_velocity, from.global_position, LOOSE_SCATTER, CHIP_SPIN * 0.2)
 		for place in range(1, parts.size()):
 			var part := parts[place]
 			if part.size() >= SMALLEST_PART:
-				_split_off(model, part)
+				_split_off(loose, part)
 				continue
 			var held := PackedByteArray()
 			for index in part:
 				held.append(model.remove(index))
-			batches.append(_batch(part, held, model.shape, model.frame(), DEBRIS_CLUMP, model.destruction, dropping, model.stains))
-		model.restart()
-	model.rebuild()
+			batches.append(_batch(part, held, model, DEBRIS_CLUMP, loose.destruction, dropping))
+		loose.restart()
+	loose.rebuild()
 
 
-## Breaks what is left of the loose model [param model] up into lumps
+## Breaks what is left of the loose model [param loose] up into lumps
 ## [member VoxelDestruction.crumble_size] voxels across, carrying on as it was
 ## moving, adds them to [param batches], and takes the model away.
-func _crumble_model(model: VoxelBody, batches: Array) -> void:
-	var from := model.body
+func _crumble_model(loose: VoxelBody, batches: Array) -> void:
+	var model := loose.model
+	var from := loose.body
 	var indices := PackedInt32Array()
 	var held := PackedByteArray()
 	for index in model.shape.length:
@@ -903,7 +1205,7 @@ func _crumble_model(model: VoxelBody, batches: Array) -> void:
 			indices.append(index)
 			held.append(model.voxels[index])
 	var falling := _falling_motion(from.linear_velocity, from.angular_velocity, from.global_position, CRUMBLE_SCATTER, CRUMBLE_SPIN)
-	batches.append(_batch(indices, held, model.shape, model.frame(), model.destruction.crumble_size, model.destruction, falling, model.stains))
+	batches.append(_batch(indices, held, model, loose.destruction.crumble_size, loose.destruction, falling))
 	_forget(from)
 	# Out of the way at once: its lumps are let go at the next physics step.
 	from.hide()
@@ -912,44 +1214,39 @@ func _crumble_model(model: VoxelBody, batches: Array) -> void:
 	from.queue_free()
 
 
-## Cuts the voxels at [param part] off the loose model [param model] as a
-## model of its own: a body of its own beside it, drawing, colliding and
-## weighing as those voxels, flying on as that part of the model was moving.
-## The two start out touching, so they pass through each other, as a crate's
-## pieces cut to overlap do, and the part passes through whatever the model
-## did, which may be lying through it.
-func _split_off(model: VoxelBody, part: PackedInt32Array) -> VoxelBody:
-	var from := model.body
+## Cuts the voxels at [param part] off the loose model [param loose] as a
+## model of its own ([method VoxelModel.split]), blood and all: a body of its
+## own beside it, drawing, colliding and weighing as those voxels, flying on as
+## that part of the model was moving. The two start out touching, so they pass
+## through each other, as a crate's pieces cut to overlap do, and the part
+## passes through whatever the model did, which may be lying through it.
+func _split_off(loose: VoxelBody, part: PackedInt32Array) -> VoxelBody:
+	var from := loose.body
+	var model := loose.model
 	var rigid := RigidBody3D.new()
 	rigid.name = from.name
 	rigid.collision_layer = from.collision_layer
 	rigid.collision_mask = from.collision_mask
 	rigid.continuous_cd = from.continuous_cd
 	rigid.physics_material_override = from.physics_material_override
-	var drawn := MeshInstance3D.new()
-	drawn.name = model.drawn.name
-	drawn.transform = from.global_transform.affine_inverse() * model.drawn.global_transform
-	rigid.add_child(drawn)
+	var cut := model.split(part)
+	cut.drawn.transform = from.global_transform.affine_inverse() * model.drawn.global_transform
+	rigid.add_child(cut.drawn)
 	var collider := CollisionShape3D.new()
 	collider.shape = BoxShape3D.new()
 	rigid.add_child(collider)
-	var left := PackedByteArray()
-	left.resize(model.shape.length)
-	for index in part:
-		left[index] = model.remove(index)
-	var split := VoxelBody.new(model.shape, model.destruction, rigid, drawn, left)
-	split.scale = model.scale
-	split.whole_mass = model.whole_mass * split.count / maxi(model.whole, 1)
+	var split := VoxelBody.new(cut, loose.destruction, rigid)
+	split.whole_mass = loose.whole_mass * cut.count / maxi(loose.whole, 1)
 	rigid.add_child(split)
 	from.get_parent().add_child(rigid)
 	rigid.global_transform = from.global_transform
 	TerrainDestruction.make_piece(rigid)
 	# What either passes through, the other knows of, taken on or not yet.
 	var passes: Array = [from]
-	for other in model.passes:
+	for other in loose.passes:
 		if is_instance_valid(other):
 			passes.append(other)
-	model.passes = passes.slice(1)
+	loose.passes = passes.slice(1)
 	for other in passes:
 		rigid.add_collision_exception_with(other)
 		var theirs: VoxelBody = _loose.get(other)
@@ -958,7 +1255,6 @@ func _split_off(model: VoxelBody, part: PackedInt32Array) -> VoxelBody:
 		elif _wearable.has(other):
 			(_wearable[other] as Wearable).passes.append(rigid)
 	split.passes = passes
-	split.carry_stains(model.stains)
 	rigid.linear_velocity = _moving_at(from, split.world_box().get_center())
 	rigid.angular_velocity = from.angular_velocity
 	_keep(rigid, split)
@@ -968,7 +1264,7 @@ func _split_off(model: VoxelBody, part: PackedInt32Array) -> VoxelBody:
 
 ## The parts of what is left of [param model], each every voxel joined to the
 ## others face to face, as their places in its array, the biggest first.
-func _parts(model: VoxelBody) -> Array[PackedInt32Array]:
+func _parts(model: VoxelModel) -> Array[PackedInt32Array]:
 	var shape := model.shape
 	var voxels := model.voxels
 	var steps := shape.steps()
@@ -982,7 +1278,7 @@ func _parts(model: VoxelBody) -> Array[PackedInt32Array]:
 			while row != 0:
 				var low := row & -row
 				row ^= low
-				var start: int = row_start + VoxelMesher.BIT[low]
+				var start: int = row_start + ChunkMesher.BIT[low % 67]
 				if seen[start] != 0:
 					continue
 				seen[start] = 1
@@ -1095,7 +1391,7 @@ func _scatter(batches: Array, most := -1) -> Array[RID]:
 		for clump: Array in batch.clumps:
 			if chosen[number] != 0:
 				var list: Array = by_destruction.get_or_add(batch.destruction, [])
-				list.append(_make(batch, clump))
+				list.append(batch.make(clump))
 			number += 1
 	var made: Array[RID] = []
 	for destruction: VoxelDestruction in by_destruction:
@@ -1105,33 +1401,25 @@ func _scatter(batches: Array, most := -1) -> Array[RID]:
 	return made
 
 
-## Draws and collides [param block] as what is left of it, and wakes the
-## debris lying round it, which may have been lying on what has gone.
-func _redraw(block: WornBlock) -> void:
-	if not is_instance_valid(block):
-		return
-	block.rebuild()
-	_debris.wake(AABB(block.global_position - HALF, Vector3.ONE).grow(VoxelDebris.LYING_ON))
-
-
-## The voxels at [param indices] in a model of [param shape]'s kind standing in
-## [param frame], which held [param held] each, as a [Batch]: grouped into
-## lumps at most [param size] voxels across, broken off as [param destruction]
-## breaks them, to set off as [param motion] says once made, those
-## [param stains] has stained the colour of blood. They are grouped on a grid
-## set at random, so no two models come apart along the same lines.
+## The voxels at [param indices] in [param model], standing where it stands
+## now, which held [param held] each, as a [ShapeBatch]: grouped into lumps at
+## most [param size] voxels across, broken off as [param destruction] breaks
+## them, to set off as [param motion] says once made, each voxel in the colour
+## it held in the model's palette, blood's included. They are grouped on a
+## grid set at random, so no two models come apart along the same lines.
 func _batch(
-	indices: PackedInt32Array, held: PackedByteArray, shape: VoxelShape, frame: Transform3D, size: int,
-	destruction: VoxelDestruction, motion: Callable, stains: VoxelStains = null
-) -> Batch:
-	var batch := Batch.new()
+	indices: PackedInt32Array, held: PackedByteArray, model: VoxelModel, size: int,
+	destruction: VoxelDestruction, motion: Callable
+) -> ShapeBatch:
+	var batch := ShapeBatch.new()
+	var shape := model.shape
 	batch.shape = shape
-	batch.frame = frame
+	batch.frame = model.frame()
+	batch.palette = model.palette
 	batch.indices = indices
 	batch.held = held
 	batch.destruction = destruction
 	batch.motion = motion
-	batch.stains = stains
 	if indices.is_empty():
 		return batch
 	var shift := Vector3i(_show.randi_range(0, size - 1), _show.randi_range(0, size - 1), _show.randi_range(0, size - 1))
@@ -1144,30 +1432,18 @@ func _batch(
 	return batch
 
 
-## The lump of [param batch] made of the voxels at [param clump], places in
-## its lists: standing where they broke off, and set moving as the batch says.
-func _make(batch: Batch, clump: Array) -> VoxelDebris.Piece:
-	var shape := batch.shape
-	var least := Vector3i.MAX
-	var most := Vector3i.MIN
-	for place: int in clump:
-		var at := shape.voxel_at(batch.indices[place])
-		least = least.min(at)
-		most = most.max(at)
-	var middle := shape.corner + (Vector3(least) + Vector3(most + Vector3i.ONE)) * 0.5 * VOXEL
-	var piece := VoxelDebris.Piece.new()
-	# A body cannot be scaled, so a lump of a model grown a shade (a prop) is
-	# turned as it was but drawn a block's voxels across.
-	piece.transform = Transform3D(batch.frame.basis.orthonormalized(), batch.frame * middle)
-	piece.size = Vector3(most - least + Vector3i.ONE) * VOXEL
-	piece.voxels = PackedVector3Array()
-	piece.colors = PackedColorArray()
-	for place: int in clump:
-		piece.voxels.append(shape.center_of(batch.indices[place]) - middle)
-		var stained := batch.stains != null and batch.stains.bits_at(batch.indices[place]) != 0
-		piece.colors.append(VoxelStains.COLOR if stained else shape.colors[batch.held[place]])
-	batch.motion.call(piece)
-	return piece
+## Groups the voxels of [param batch], broken off the level, into lumps at most
+## [param size] voxels across, on a grid set at random, so no two breaks come
+## apart along the same lines.
+func _group(batch: VolumeBatch, size: int) -> void:
+	var shift := Vector3i(_show.randi_range(0, size - 1), _show.randi_range(0, size - 1), _show.randi_range(0, size - 1))
+	var clumps := {}
+	for place in batch.colors.size():
+		var at := batch.voxel(place) + shift
+		var key := Vector3i(floori(float(at.x) / size), floori(float(at.y) / size), floori(float(at.z) / size))
+		var clump: Array = clumps.get_or_add(key, [])
+		clump.append(place)
+	batch.clumps = clumps.values()
 
 
 ## How the lumps a round breaks off set off: out of [param outward], the face
@@ -1216,23 +1492,6 @@ static func _bite_radius(budget: int) -> float:
 	return pow(3.0 * budget / TAU, 1.0 / 3.0) * VOXEL
 
 
-## Adds to [param found] every voxel of the block in [param cell], if it wears
-## away, within [param reach] of [param center] that may be worn, as
-## [method _gather_voxels] does. The bottom of the map is only worn
-## [constant FLOOR_DEPTH] deep.
-func _gather(cell: Vector3i, center: Vector3, reach: float, scale: float, found: Found, squash := 1.0, certain := -INF) -> void:
-	var shape := shape_at(cell)
-	if shape == null:
-		return
-	var lowest := -INF
-	if cell.y == _bottom:
-		lowest = _grid.cell_center(cell).y + 0.5 - FLOOR_DEPTH * VOXEL
-	var before := found.indices.size()
-	_gather_voxels(shape, _voxels_in(cell), _rows_in(cell), frame_of(cell), center, reach, scale, found, found.cells.size(), squash, certain, lowest)
-	if found.indices.size() > before:
-		found.cells.append(cell)
-
-
 ## Adds to [param found], as [param owner]'s, every one of [param voxels] -
 ## laid out as [param shape]'s, with [param rows], standing in [param frame] -
 ## within [param reach] of [param center], scored by how far it is, roughened,
@@ -1240,13 +1499,14 @@ func _gather(cell: Vector3i, center: Vector3, reach: float, scale: float, found:
 ## for a crater flatter than a ball. One nearer than [param certain] scores
 ## nothing at all, however the edge is roughened. One lower than
 ## [param lowest], in the world, or, if [param inside] has volume, outside it,
-## is left out.
+## is left out. For loose models: the level's voxels are gathered by
+## [method _gather].
 ##
 ## Only the voxels inside the ball are looked at: each row of the model is
 ## cut to the run of it inside the ball, and only the voxels there are visited.
 func _gather_voxels(
 	shape: VoxelShape, voxels: PackedByteArray, rows: PackedInt64Array, frame: Transform3D, center: Vector3,
-	reach: float, scale: float, found: Found, owner: int, squash := 1.0, certain := -INF, lowest := -INF,
+	reach: float, scale: float, found: ModelFound, owner: int, squash := 1.0, certain := -INF, lowest := -INF,
 	inside := AABB()
 ) -> void:
 	var local := frame.affine_inverse() * center
@@ -1286,7 +1546,7 @@ func _gather_voxels(
 			while run != 0:
 				var low := run & -run
 				run ^= low
-				var x: int = VoxelMesher.BIT[low]
+				var x: int = ChunkMesher.BIT[low % 67]
 				var offset := Vector3(x + 0.5 - middle.x, across_y, across_z) * VOXEL
 				var rise := offset.dot(up)
 				var distance := sqrt(offset.length_squared() + rise * rise * stretch)
@@ -1388,164 +1648,6 @@ func _roughen(size: float, seed: int) -> void:
 ## [param point], in cells.
 func _bump(point: Vector3) -> float:
 	return _noise.get_noise_3dv(point * _bump_scale) * _bump_size
-
-
-## Every cell a ball of [param reach] round [param center] reaches into.
-func _cells_round(center: Vector3, reach: float) -> Array[Vector3i]:
-	var least := _map.local_to_map(_map.to_local(center - Vector3.ONE * reach))
-	var most := _map.local_to_map(_map.to_local(center + Vector3.ONE * reach))
-	var cells: Array[Vector3i] = []
-	for x in range(mini(least.x, most.x), maxi(least.x, most.x) + 1):
-		for y in range(mini(least.y, most.y), maxi(least.y, most.y) + 1):
-			for z in range(mini(least.z, most.z), maxi(least.z, most.z) + 1):
-				cells.append(Vector3i(x, y, z))
-	return cells
-
-
-## The box, in the world, that [param cells] fill.
-func _box_round(cells: Array[Vector3i]) -> AABB:
-	var box := AABB(_grid.cell_center(cells[0]), Vector3.ZERO)
-	for cell in cells:
-		box = box.expand(_grid.cell_center(cell))
-	return box.grow(0.5)
-
-
-## The voxels of [param block], in [param cell], left holding on to nothing
-## once the voxels in [param gone] (rows of what it has just lost, as
-## [method VoxelShape.rows_of]) have gone. Each voxel left next to one gone is
-## searched from, until the search reaches a voxel that holds on to something,
-## or turns out to be cut off with everything it reaches.
-func _loose_voxels(cell: Vector3i, block: WornBlock, gone: PackedInt64Array) -> PackedInt32Array:
-	var shape := block.shape
-	var voxels := block.voxels
-	var rows := block.rows
-	var size := shape.size
-	var frame := frame_of(cell)
-	var on_bottom := cell.y == _bottom
-	# Every voxel left next to one gone: along its row, or in the rows round it.
-	var starts := PackedInt32Array()
-	for z in size.z:
-		for y in size.y:
-			var row := rows[y + z * size.y]
-			if row == 0:
-				continue
-			var near := (gone[y + z * size.y] << 1) | (gone[y + z * size.y] >> 1)
-			if y > 0:
-				near |= gone[y - 1 + z * size.y]
-			if y < size.y - 1:
-				near |= gone[y + 1 + z * size.y]
-			if z > 0:
-				near |= gone[y + (z - 1) * size.y]
-			if z < size.z - 1:
-				near |= gone[y + (z + 1) * size.y]
-			var edge := row & near
-			var row_start := shape.origin + y * shape.stride_y + z * shape.stride_z
-			while edge != 0:
-				var low := edge & -edge
-				edge ^= low
-				starts.append(row_start + VoxelMesher.BIT[low])
-	var steps := shape.steps()
-	# 0 not yet known, 1 held, 2 being searched, 3 loose.
-	var known := PackedByteArray()
-	known.resize(shape.length)
-	var loose := PackedInt32Array()
-	var stack := PackedInt32Array()
-	var searched := PackedInt32Array()
-	for start in starts:
-		if known[start] != 0:
-			continue
-		stack.clear()
-		searched.clear()
-		stack.append(start)
-		searched.append(start)
-		known[start] = 2
-		var held := false
-		while not stack.is_empty() and not held:
-			var at := stack[stack.size() - 1]
-			stack.resize(stack.size() - 1)
-			if _holds_on(shape, frame, at, on_bottom):
-				held = true
-				break
-			for step in steps:
-				var next := at + step
-				if voxels[next] == 0:
-					continue
-				if known[next] == 1:
-					held = true
-					break
-				if known[next] == 0:
-					known[next] = 2
-					stack.append(next)
-					searched.append(next)
-		for index in searched:
-			known[index] = 1 if held else 3
-		if not held:
-			loose.append_array(searched)
-	return loose
-
-
-## Whether what is left of [param block], in [param cell], can still hold up
-## whatever stands on it: nothing does, or some run of its voxels still joins
-## the bottom of its cell to the top. A tree's trunk shot through holds up its
-## crown no longer, however much of the rest of it is left. Searched from every
-## voxel along the bottom, upward first, until one reaches the top. A block
-## lying on its side is taken to hold up what is on it.
-func _holds_up(cell: Vector3i, block: WornBlock) -> bool:
-	if not _grid.is_solid(cell + Vector3i.UP):
-		return true
-	var up := frame_of(cell).basis.inverse() * Vector3.UP
-	if absf(up.y) < 0.999:
-		return true
-	var shape := block.shape
-	var voxels := block.voxels
-	var rising := shape.stride_y if up.y > 0.0 else -shape.stride_y
-	var bottom := 0 if up.y > 0.0 else shape.size.y - 1
-	var top := shape.size.y - 1 - bottom
-	# Up is pushed last, so it is searched first.
-	var steps: Array[int] = [-rising, 1, -1, shape.stride_z, -shape.stride_z, rising]
-	var seen := PackedByteArray()
-	seen.resize(shape.length)
-	var stack := PackedInt32Array()
-	for z in shape.size.z:
-		for x in shape.size.x:
-			var index := shape.index_of(Vector3i(x, bottom, z))
-			if voxels[index] != 0:
-				stack.append(index)
-				seen[index] = 1
-	while not stack.is_empty():
-		var at := stack[stack.size() - 1]
-		stack.resize(stack.size() - 1)
-		if shape.voxel_at(at).y == top:
-			return true
-		for step in steps:
-			var next := at + step
-			if voxels[next] != 0 and seen[next] == 0:
-				seen[next] = 1
-				stack.append(next)
-	return false
-
-
-## Whether the voxel at [param index], of a block of [param shape]'s kind
-## standing in [param frame], holds on to something outside its cell: a voxel,
-## or any other block, across a face of the cell it is on, or the ground under
-## the bottom of the map, [param on_bottom] saying the block is there.
-func _holds_on(shape: VoxelShape, frame: Transform3D, index: int, on_bottom: bool) -> bool:
-	var at := shape.voxel_at(index)
-	for axis in 3:
-		var side := 0
-		if at[axis] == 0:
-			side = -1
-		elif at[axis] == shape.size[axis] - 1:
-			side = 1
-		else:
-			continue
-		var out := Vector3.ZERO
-		out[axis] = side
-		if on_bottom and (frame.basis * out).y < -0.5:
-			return true
-		if is_solid_at(frame * (shape.center_of(index) + out * VOXEL)):
-			return true
-	return false
 
 
 ## A point drawn at random from the ball of radius one.

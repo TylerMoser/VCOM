@@ -6,7 +6,9 @@
 ## block and never bends or stretches: the action-figure look of segmented
 ## voxel characters. Each bone is meshed on its own, keeping the faces where it
 ## meets another bone, so a joint that bends shows the ends of the blocks it
-## joins rather than a hole.
+## joins rather than a hole. The mesh is coloured as every voxel model is, by
+## the voxel shader from a texture of the figure's voxels ([VoxelModel]), so a
+## unit paints it in its colour and blood recolours it voxel by voxel.
 ##
 ## A model's [i]layout[/i] says, for each bone, the joint it turns about and the
 ## voxels that are its. Joints are in rig voxels: Godot's axes, one unit a
@@ -103,17 +105,19 @@ const LAYOUTS := {
 	"res://Characters/BaseCharacter.vox": BASE_CHARACTER,
 }
 
-## The six faces of a cell, as the way each looks out.
-const FACES: Array[Vector3i] = [
-	Vector3i.RIGHT, Vector3i.LEFT, Vector3i.UP, Vector3i.DOWN, Vector3i.BACK, Vector3i.FORWARD,
-]
-
 ## The layout this rig was made from.
 var layout: Dictionary
 ## Godot units a voxel.
 var scale := 1.0
-## Bone name -> rig cell (Vector3i) -> colour: the voxels that move with it.
+## Bone name -> rig cell (Vector3i) -> the place of its colour in
+## [member colors]: the voxels that move with it.
 var cells := {}
+## The model's palette, each colour at the place its voxels hold, as a
+## [VoxelShape] keeps one.
+var colors := PackedColorArray()
+## The least and most rig cells of any voxel.
+var least := Vector3i.ZERO
+var most := Vector3i.ZERO
 ## Bone name -> where its joint is, in rig voxels.
 var joints := {}
 
@@ -136,11 +140,14 @@ func load_vox(vox_path: String, rig_layout: Dictionary) -> bool:
 	if vox.models.is_empty() or vox.models[0].voxels.is_empty():
 		push_error("VoxelRig: '%s' has no voxels." % vox_path)
 		return false
+	# Each voxel's place, as VoxelShape counts them: its colour's in the file,
+	# one up, 0 being none.
 	var voxels := {}
 	for at: Vector3 in vox.models[0].voxels:
-		var index: int = vox.models[0].voxels[at]
-		var color: Color = vox.colors[index] if index < vox.colors.size() else Color.WHITE
-		voxels[Vector3i(at)] = color
+		voxels[Vector3i(at)] = int(vox.models[0].voxels[at]) + 1
+	colors.resize(256)
+	for index in mini(vox.colors.size(), 255):
+		colors[index + 1] = vox.colors[index]
 
 	layout = rig_layout
 	scale = rig_layout["scale"]
@@ -177,46 +184,88 @@ func make_skeleton() -> Skeleton3D:
 	return skeleton
 
 
+## The figure as drawn, standing, as one voxel model ([VoxelShape]): its rig
+## cells from the least, each holding the place of its colour, in the
+## figure's space shrunk to a block's voxels ([member VoxelShape.scale]). What
+## its body is coloured from, as it is baked ([method make_mesh]) and while the
+## game runs ([FigureVoxels]).
+func make_shape() -> VoxelShape:
+	var shape := VoxelShape.new(most - least + Vector3i.ONE, (Vector3(least) + _corner) * VoxelShape.SCALE)
+	shape.scale = scale / VoxelShape.SCALE
+	shape.colors = colors.duplicate()
+	for bone: StringName in cells:
+		var bone_cells: Dictionary = cells[bone]
+		for cell: Vector3i in bone_cells:
+			shape.voxels[shape.index_of(cell - least)] = bone_cells[cell]
+			shape.count += 1
+	shape.reserve_blood()
+	shape.rows = shape.rows_of(shape.voxels)
+	return shape
+
+
 ## The model as one mesh skinned to [param skeleton], every vertex weighted
-## wholly to the bone its voxel belongs to. Faces between voxels of the same
-## bone are left out and runs of them merged, as the plain importer does;
-## faces between two bones are kept, since a joint that bends opens them up.
-## Coloured by vertex, as the importer's meshes are.
+## wholly to the bone its voxel belongs to. Each bone is meshed on its own, as
+## a level's chunk is ([ChunkMesher]): faces between voxels of the same bone
+## left out and the rest merged by shape alone, faces between two bones kept,
+## since a joint that bends opens them up. It is coloured by the voxel shader
+## from the figure's voxels ([method make_shape]): each corner carries its
+## voxel ([method ChunkMesher.arrays]), so the figure is coloured however it is
+## posed. A unit draws it in its own colours ([VoxelModel]); its surface's
+## material, which only the editor shows, is the model's commonest colour,
+## flat, as no texture can be saved from a bake run headless, where the
+## textures it made never reach a GPU to be read back.
 func make_mesh(skeleton: Skeleton3D) -> ArrayMesh:
+	var shape := make_shape()
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
-	var colors := PackedColorArray()
+	var places := PackedFloat32Array()
+	var extents := PackedFloat32Array()
 	var bones := PackedInt32Array()
 	var weights := PackedFloat32Array()
-	var indices := PackedInt32Array()
+	var offset := (Vector3(least) + _corner) * scale
 	for bone: StringName in cells:
+		var bone_cells: Dictionary = cells[bone]
+		if bone_cells.is_empty():
+			continue
+		var own := PackedByteArray()
+		own.resize(shape.length)
+		for cell: Vector3i in bone_cells:
+			own[shape.index_of(cell - least)] = 1
+		var made := ChunkMesher.arrays(VoxelModel.rectangles_of(shape, shape.rows_of(own)), Vector3i.ZERO, 0, scale, offset)
+		var corners: PackedVector3Array = made[Mesh.ARRAY_VERTEX]
+		vertices.append_array(corners)
+		normals.append_array(made[Mesh.ARRAY_NORMAL])
+		places.append_array(made[Mesh.ARRAY_CUSTOM0])
+		extents.append_array(made[Mesh.ARRAY_CUSTOM1])
 		var index := skeleton.find_bone(bone)
-		for face in FACES:
-			for quad: Array in _quads(cells[bone], face):
-				var first := vertices.size()
-				for corner: Vector3 in quad[0]:
-					vertices.append((corner + _corner) * scale)
-					normals.append(Vector3(face))
-					colors.append(quad[1])
-					bones.append_array([index, 0, 0, 0])
-					weights.append_array([1.0, 0.0, 0.0, 0.0])
-				indices.append_array([first, first + 1, first + 2, first, first + 2, first + 3])
+		for corner in corners.size():
+			bones.append_array([index, 0, 0, 0])
+			weights.append_array([1.0, 0.0, 0.0, 0.0])
 
 	var arrays := []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_NORMAL] = normals
-	arrays[Mesh.ARRAY_COLOR] = colors
+	arrays[Mesh.ARRAY_CUSTOM0] = places
+	arrays[Mesh.ARRAY_CUSTOM1] = extents
 	arrays[Mesh.ARRAY_BONES] = bones
 	arrays[Mesh.ARRAY_WEIGHTS] = weights
-	arrays[Mesh.ARRAY_INDEX] = indices
+	@warning_ignore("integer_division")
+	arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(vertices.size() / 4)
 	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	var material := StandardMaterial3D.new()
-	material.vertex_color_use_as_albedo = true
-	material.vertex_color_is_srgb = true
-	material.roughness = 1.0
-	mesh.surface_set_material(0, material)
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
+	var counts := PackedInt32Array()
+	counts.resize(256)
+	for held in shape.voxels:
+		counts[held] += 1
+	var commonest := 1
+	for place in range(1, 256):
+		if counts[place] > counts[commonest]:
+			commonest = place
+	var flat := StandardMaterial3D.new()
+	flat.albedo_color = shape.colors[commonest]
+	flat.roughness = 1.0
+	mesh.surface_set_material(0, flat)
 	return mesh
 
 
@@ -253,6 +302,8 @@ func _share_out(voxels: Dictionary) -> void:
 	# Model voxel (x, y, z) spans x..x+1, and so on; as a rig cell (x, z, -y) it
 	# spans -y-1..-y along z once turned, which the -1 here accounts for.
 	_corner = Vector3(-center_x, -low.z, center_y - 1.0)
+	least = Vector3i(low.x, low.z, -high.y)
+	most = Vector3i(high.x, high.z, -low.y)
 
 	for entry: Array in BONES:
 		cells[entry[0]] = {}
@@ -286,69 +337,3 @@ func _nearest_joint(point: Vector3) -> StringName:
 			best = bone
 			best_distance = distance
 	return best
-
-
-## The faces of [param bone_cells] looking out along [param face] that no cell
-## of the same bone covers, merged into rectangles of one colour, as
-## [code][corners, colour][/code] with the corners in rig voxels (less
-## [member _corner]) and wound for Godot, clockwise seen from outside.
-func _quads(bone_cells: Dictionary, face: Vector3i) -> Array:
-	var axis := 0 if face.x != 0 else (1 if face.y != 0 else 2)
-	var across := (axis + 1) % 3
-	var up := (axis + 2) % 3
-	# Slice (position along the axis, and colour) -> exposed (across, up) set.
-	var slices := {}
-	for cell: Vector3i in bone_cells:
-		if bone_cells.has(cell + face):
-			continue
-		var key := [cell[axis], bone_cells[cell]]
-		if not slices.has(key):
-			slices[key] = {}
-		slices[key][Vector2i(cell[across], cell[up])] = true
-
-	var quads := []
-	for key: Array in slices:
-		var open: Dictionary = slices[key]
-		var keys := open.keys()
-		keys.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return a.y < b.y or (a.y == b.y and a.x < b.x))
-		for start: Vector2i in keys:
-			if not open.has(start):
-				continue
-			var width := 1
-			while open.has(start + Vector2i(width, 0)):
-				width += 1
-			var height := 1
-			while true:
-				var row_full := true
-				for step in width:
-					if not open.has(start + Vector2i(step, height)):
-						row_full = false
-						break
-				if not row_full:
-					break
-				height += 1
-			for dy in height:
-				for dx in width:
-					open.erase(start + Vector2i(dx, dy))
-			quads.append([_corners(axis, across, up, key[0] + (1 if face[axis] > 0 else 0), start, width, height, face), key[1]])
-	return quads
-
-
-## The four corners of the rectangle at [param depth] along [param axis],
-## from [param start] [param width] across by [param height] up, in the order
-## that makes it face [param face] in Godot.
-func _corners(axis: int, across: int, up: int, depth: int, start: Vector2i, width: int, height: int, face: Vector3i) -> Array:
-	var corners := []
-	for offset: Vector2i in [Vector2i(0, 0), Vector2i(width, 0), Vector2i(width, height), Vector2i(0, height)]:
-		var corner := Vector3.ZERO
-		corner[axis] = depth
-		corner[across] = start.x + offset.x
-		corner[up] = start.y + offset.y
-		corners.append(corner)
-	# Godot draws a triangle's front where its corners run clockwise, which is
-	# where the right-hand normal of the first two edges points away.
-	var first: Vector3 = corners[0]
-	var normal := (corners[1] - first).cross(corners[2] - first) as Vector3
-	if normal.dot(Vector3(face)) > 0.0:
-		corners.reverse()
-	return corners

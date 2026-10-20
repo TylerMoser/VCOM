@@ -271,7 +271,7 @@ func stain(body: RID, point: Vector3) -> bool:
 		if distance < nearest_distance:
 			nearest = voxel
 			nearest_distance = distance
-	_chunks[_chunk_of[piece]].set_instance_color(_first[piece] + nearest, VoxelStains.COLOR)
+	_chunks[_chunk_of[piece]].set_instance_color(_first[piece] + nearest, VoxelShape.BLOOD_COLOR)
 	return true
 
 

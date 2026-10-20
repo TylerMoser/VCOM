@@ -28,7 +28,7 @@ The sections below cover all of that. To undo an applied style, see [REVERT.md](
 2. **Preview the style** with the harness (below) on the current code.
    - The screenshots predate the figures and the current camera, so judge the terrain and the light rather than expecting a match.
    - The harness no longer previews the toon styles' units (section 4).
-3. **Settle the open decisions with the user** (see the end of this file). The biggest one is how block materials get onto the GridMap.
+3. **Settle the open decisions with the user** (see the end of this file). The biggest one was how block materials get onto the GridMap; on a level they go into its one shader (section 3).
 
 ## What each style is made of
 
@@ -73,46 +73,26 @@ Set them in the editor, or with `ProjectSettings.set_setting()` + `ProjectSettin
 
 ## 3. Block materials (07, 15, 19, 22, 28)
 
-The blocks are `vcom/Blocks/*.vox`. The MagicaVoxel addon imports them into meshes that carry their own StandardMaterial3D, built in `vcom/addons/MagicaVoxel_Importer_with_Extensions/MeshGenerators/GreedyMeshGenerator.gd`: vertex colour as albedo, sRGB, roughness 1.
+**Since 2026-10-20 the combat maps are levels, and one shader draws them, and every other voxel model too** (`Docs/LEVELS.md`, `Docs/VOXELS.md`). The blocks are still `vcom/Blocks/*.vox`, imported by the MagicaVoxel addon into meshes carrying their own StandardMaterial3D (`vcom/addons/MagicaVoxel_Importer_with_Extensions/MeshGenerators/GreedyMeshGenerator.gd`: vertex colour as albedo, sRGB, roughness 1), but the battlefield is no longer drawn by those meshes. Every piece is stamped into one grid of voxels, meshed a chunk at a time by shape alone, and drawn with one `ShaderMaterial`, `vcom/Scripts/Terrain/Voxels.gdshader` (`LevelRenderer.material`), which reads each voxel's colour from a `Texture2DArray` and the level's palette. The same shader draws the figures, the props they carry and drop, a crate's boards once taken on, and blocks falling whole, each through its `VoxelModel` (a texture of its own voxels' colours, its own palette). It keeps `render_mode diffuse_burley, specular_schlick_ggx`, so it lights as the importer's material did (Godot 4.7's defaults light a shader differently); it blends colour edges inside a face (`neighbour_share()`, so they stay as smooth as MSAA'd geometry), and draws the player's tile grid (the `tile_grid` global, on colours flagged `FLAG_GRID`) and wet blood (`FLAG_WET`). `BlockLibrary.tres`, `SceneryLibrary.tres` and `TileGrid.gdshader` are gone.
 
-Two libraries point at those imported meshes, and they are the same mesh resources, so a material set on a mesh reaches both:
+So a block style goes into that shader, once, and reaches every piece of every map, worn or not, and every other voxel model with them; there is no MeshLibrary or GridMap to hook, and no hookup to order before `TerrainDestruction`:
 
-- `BlockLibrary.tres`, the battlefield;
-- `SceneryLibrary.tres`, BoundaryMap's forest ring: the same blocks with shadows off.
-
-Neither MeshLibrary nor GridMap has a material override, so a new material needs a hookup. The harness used option **a**: once the map was ready, it called `mesh.surface_set_material()` on every MeshLibrary item mesh (`Variants._apply_blocks`).
-
-**The grass already has a hookup: the tile grid (since 2026-10-01).** `TileGrid`, a node in each combat map, puts `vcom/Scripts/Combat/TileGrid.gdshader` on the `BrightGrass1` mesh as the map loads, before `TerrainDestruction`. It's the player's optional grid lines, style 19's grid alone, toggled with `G` or on the System tab, and with the grid off it draws exactly as the importer's material. So a style that changes the grass must keep the grid working:
-
-- For the grass, **build on `TileGrid.gdshader`** (add the style's effect to it), and `TileGrid` stays the hookup.
-- **Or** give the style's own shader the grid's code: the `global uniform float tile_grid` and the line block in its `fragment()`. Then have `TileGrid` assign that shader instead.
-- Keep `render_mode diffuse_burley, specular_schlick_ggx` wherever the standard lighting is meant to stay. Godot 4.7's defaults light a shader differently from `StandardMaterial3D`.
-- `voxel_block.gdshader` has a grid of its own (`edge_darken`), which would double up with the player's. Drop it, or drive it from `tile_grid`.
-- Other blocks (crates, trees) still have no hookup.
-
-Pick one with the user:
-
-- **a. Runtime hookup:** a small script that assigns the materials in `_ready()`. It's the least invasive option and matches the harness. Make it `@tool` so the editor viewport shows the style too.
-  - Put it **on the `GridMap` node, or on a node before `TerrainDestruction` in the tree**, so it runs first. A node's children and its earlier siblings are ready before it.
-  - **Why the order matters:** `TerrainDestruction`'s `_ready` has `VoxelShape.read()` copy each wearable block's surface material, and every `WornBlock` is drawn with that copy. A hookup that runs later, as the harness's does, leaves worn blocks in the old look the first time they're hit. The screenshots don't show this, because nothing breaks in them.
-- **b. Importer option:** add a "material" import option to the addon so imported meshes use the material directly. The editor and game match with no runtime code, but it modifies a third-party addon, and every `.vox` must be re-imported (`--headless --path . --import`).
-- Avoid saving baked copies of the meshes with the material swapped in. That breaks the `.vox` → mesh pipeline.
-
-**Breakable terrain draws blocks in more places than the GridMap.** Terrain didn't break when the styles were rendered. Now each of these needs the style as well:
-
-- **Worn blocks** (grass, trees) take their material from the block's mesh, read when the map loads. The hookup's position covers them (option **a** above). With option **b** they're covered anyway.
-- **Falling blocks** draw the library's own mesh, so they follow the hookup with no extra work.
+- **Add the style's effect to `Voxels.gdshader`'s `fragment()`** (or a `light()`), after the voxel's colour is found, keeping the tile grid's lines and the wet flag's specular and roughness.
+- **It reaches the figures and props too.** A style meant for the blocks alone needs a way to tell them apart: a uniform set only on the level's and the scenery's materials (`LevelRenderer.material`, `SceneryRenderer.material`), off by default, does it.
+- **What it knows of a voxel:** its colour and palette flags, the face's normal, and `local_voxel` (where it is in its box, a chunk or a model, in voxels, interpolated from what each corner carries in `CUSTOM0`). A style that treats a kind apart (crates without grid lines, as `crate_params` asks) needs a palette flag for it, set per kind as the palette is built (`VoxelVolume._map()`, as `FLAG_GRID` comes from `PieceKind.tile_grid`).
+- **Faces are merged.** One quad can span many cells (a field's top is a few large quads), and wear leaves faces every 1/16 m. A shader that keys off a face's UVs or one quad a block face (`voxel_block.gdshader`'s `edge_darken`, contact AO, skirt darkening) must work from world or voxel coordinates instead, as the tile grid's lines do.
+- **The scenery** (`SceneryRenderer`) draws with its own copy of the shader, its colours a layer a kind: give it the style too, and keep its shadows off.
+- **Falling blocks** are drawn by the shader (a `VoxelModel` of their voxels, `TerrainDestruction._drop_whole()`), so they take the style with it.
 - **Broken crates.**
-  - When a crate breaks, it's swapped for `Scenes/Destruct_BrightCrate1.tscn`. That scene's meshes come from importing `Blocks/Destruct_BrightCrate1.vox` as a scene, so they're separate meshes carrying the importer's material, and the MeshLibrary hookup doesn't reach them.
-  - Set their material as well. One way is through the pieces scene's mesh resources, once, before any crate breaks (`ScriptedDestruction.prepare()` runs as the map loads).
-  - Set it on the mesh (`surface_set_material`), not as a node's `material_override`. When a piece starts wearing, `VoxelBody` redraws it with its mesh's surface material (`VoxelTerrain._model_of()`), so an override would vanish at the first hit.
+  - When a crate breaks, it's swapped for `Scenes/Destruct_BrightCrate1.tscn`. That scene's meshes come from importing `Blocks/Destruct_BrightCrate1.vox` as a scene, so they're separate meshes carrying the importer's material until each is taken on (its first round, blast or blood), when it is drawn by the shader (`VoxelModel.take_over()`).
+  - For them all to take the style at once, take every piece over as the crate breaks (`VoxelModel.take_over_all(broken, source)` in `ScriptedDestruction.shatter()`, with `source` from `VoxelShape.source_of(pieces)`), rather than giving the importer's meshes a material of their own.
 - **Debris.** `VoxelDebris` draws every voxel broken off with a material of its own: vertex colour, sRGB, roughness 1, set where it builds `_cube`. It needs the style too.
   - For the shader styles, turn grid lines off on it, as `crate_params` does for crates. Its cubes are 6 cm across, not 1 m.
-- **Not blocks:** props (rifle, sword, grenade) and coins keep the importer's material. Ask whether they should match (they're small on screen).
+- **Not blocks:** the props (rifle, sword, grenade, medkit) are drawn by the shader; coins and a grenade in flight keep the importer's material. Ask whether they should match (they're small on screen).
 
-**Shader styles (07, 19, 28):** copy [`harness/shaders/voxel_block.gdshader`](harness/shaders/voxel_block.gdshader) into the project, for example as `vcom/Scripts/Rendering/VoxelBlock.gdshader` (existing shaders sit beside scripts, like `Scripts/Combat/TileHighlight.gdshader`). Set the parameters from the catalog; unset ones default to "off".
+**Shader styles (07, 19, 28):** merge what [`harness/shaders/voxel_block.gdshader`](harness/shaders/voxel_block.gdshader) does into `Voxels.gdshader`, its parameters as uniforms set from the catalog (unset ones default to "off"), and a copy for the debris if it is to match. The harness (`Variants._block_meshes()`) only warns on a level, so it no longer previews a block style: to preview one again, set the shader on `LevelRenderer.material` (and `SceneryRenderer.material`) once the map is ready.
 
-- **Crates:** they need their own ShaderMaterial instance when `crate_params` is listed (19 turns grid lines off for them). The crate mesh isn't aligned to the block grid; its MeshLibrary transform is offset 1.3125 in z. The harness matched items whose name contains "crate".
+- **Crates:** on a level they are drawn by the same material as everything else, so `crate_params` (19 turns grid lines off for them) needs a palette flag for crates (above). The crate model isn't aligned to its box; it sits 1.3125 in z (`PieceKind.model_transform`).
 - **Assumptions to revisit:**
   - The shader assumes 1 m blocks with faces on integer world coordinates, and the walkable floor surface at y = 1 (`floor_y`). Contact AO, skirt darkening and `height_gain` all key off `floor_y`.
   - The terrain has already moved past the first assumption. Worn blocks and craters have faces every 1/16 m inside a cell, and a crater digs up to 4 voxels into the bottom layer, below `floor_y`.
@@ -120,24 +100,23 @@ Pick one with the user:
   - Multi-storey terrain (on the todo list) would need another look at the three `floor_y` effects as well.
 - **Lighting:** the shader defines its own `light()`, which replaces Godot's diffuse for every light type. Future omni or spot lights will go through its banding and wrap settings too.
 
-**Built-in toon (15, 22):** blocks keep a StandardMaterial3D. Duplicate the importer's material, which keeps `vertex_color_use_as_albedo` and `vertex_color_is_srgb`, then set `diffuse_mode` Toon, `specular_mode` Disabled and `roughness` 0.15, using the same hookup. The same goes for the crate pieces and the debris above.
+**Built-in toon (15, 22):** on a level there is no StandardMaterial3D to duplicate: give `Voxels.gdshader` `render_mode diffuse_toon, specular_disabled` and a roughness of 0.15, which every voxel model then takes. For the crate pieces not yet taken on and the debris above, duplicate their StandardMaterial3D, which keeps `vertex_color_use_as_albedo` and `vertex_color_is_srgb`, then set `diffuse_mode` Toon, `specular_mode` Disabled and `roughness` 0.15.
 
 ## 4. Unit materials (15, 22)
 
-The units are no longer capsules. Each wears the rigged figure `Scenes/BaseCharacter.tscn`, painted one flat colour through its `CharacterModel.body_material`, a plain StandardMaterial3D.
+The units are no longer capsules. Each wears the rigged figure `Scenes/BaseCharacter.tscn`, drawn since 2026-10-20 by `Voxels.gdshader` through its `VoxelModel` (`FigureVoxels.body`, the `Body`'s `material_override`), painted one flat colour, its `CharacterModel.tint`, into that model's palette. There is no StandardMaterial3D on a unit any more.
 
-Set the toon values on these materials:
+So a unit style goes into the shader as well:
 
-- **Values:** `diffuse_mode` 3 (Toon), `specular_mode` 1 (Toon), `roughness` 0.3, `rim_enabled` true, `rim` 0.5, `rim_tint` 0.3.
-- **`Mat_unit` in `vcom/Scenes/SquadUnit.tscn`**, which every squad member starts from. `Unit._paint()` hands the character's colour to `CharacterModel.paint()`, which duplicates the material and sets only `albedo_color`, so the toon settings carry to every member.
-- **`Mat_enemy1`** in `BoundaryMap.tscn`, `CombatMap.tscn` and `LineOfSightTest.tscn`. Its albedo is slate grey, `Color(0.32, 0.35, 0.4)`, so blood shows on the enemies; leave it, and keep any style's unit colours off red for the same reason.
-- **`Mat_player1`–`Mat_player8`** in `LineOfSightTest.tscn`, if it is to match.
+- **Values** for a toon look (as StandardMaterial3D had them): Toon diffuse and specular, roughness 0.3, a rim of 0.5 tinted 0.3. In the shader: `render_mode diffuse_toon, specular_toon`, and `RIM` / `RIM_TINT` in `fragment()`.
+- **Units alone:** a uniform, off by default, set on every figure's material, which `VoxelModel.paint()` makes for each figure (every unit has its own, for its colour); set it there, or after `paint()` in `CharacterModel._paint_body()`.
+- **Colours:** the squad's are their characters' `color`; the enemies' `tint` is slate grey, `Color(0.32, 0.35, 0.4)`, set on each enemy's `Model` in `BoundaryMap.tscn`, `CombatMap.tscn` and `LineOfSightTest.tscn`, so blood shows on them: leave it, and keep any style's unit colours off red for the same reason. LineOfSightTest's eight squad units have a `tint` each.
 
-Blood is drawn with a material of its own, `VoxelStains.material` in `Scripts/Terrain/VoxelStains.gd`, on every stain overlay and every drop in flight. A style that changes how units or blocks are shaded does not reach it: give it the same treatment there (toon diffuse, say) if blood should match, and check its stains, which sit 2 mm off the faces they cover, under any outline pass.
+Blood is a voxel's colour, place 255 of every palette (`VoxelShape.BLOOD_COLOR`), drawn wet by the shader (roughness 0.55, specular 0.35), so a style in the shader reaches it. The drops in flight have a material of their own (`Blood._make_drops()`): give it the same treatment if they should match.
 
-`Unit.color` reads `albedo_color` back through `CharacterModel.tint()`, and that doesn't change. Don't edit `BaseCharacter.tscn` or the figure's own vertex-colour material (`VoxelRig`): every unit covers it with `body_material`, and the scene is regenerated by `BakeCharacter.gd`.
+`Unit.color` reads `CharacterModel.tint`. Don't edit `BaseCharacter.tscn` or the flat material its baked mesh carries (`VoxelRig.make_mesh()`, the editor's view only): the scene is regenerated by `BakeCharacter.gd`.
 
-**The harness no longer previews this.** `Variants._apply_units` looks for each unit's `Mesh` child, which the figures don't have, so it changes nothing. Rendering 15 or 22 today shows the figures in their usual shading, and the screenshots for 15 and 22 show the old capsules. To preview the toon units, `_apply_units` would have to set the toon values on each `Units/*/Model`'s `body_material`, a duplicate per unit.
+**The harness no longer previews this.** `Variants._apply_units` looks for each unit's `Mesh` child, which the figures don't have, so it changes nothing. Rendering 15 or 22 today shows the figures in their usual shading, and the screenshots for 15 and 22 show the old capsules. To preview toon units, `_apply_units` would have to set the style's uniform on each `Units/*/Model/Skeleton3D/Body`'s `material_override`.
 
 ## 5. Outline pass (21, 22, 23, 28)
 
@@ -192,7 +171,7 @@ Both styles set `adjustment_enabled` true and assign `adjustment_color_correctio
 ## 9. Global illumination (04, 05)
 
 - **04 (SDFGI):** the `sdfgi_*` properties, a soft PCSS sun (`light_angular_distance` 3) and the studio-grey sky.
-  - **Verified:** the GridMap blocks feed SDFGI. In a sun-only render, shadowed faces went pure black with SDFGI off and filled with coloured bounce with it on.
+  - **Verified** with the maps still GridMaps (2026-09-26): the blocks fed SDFGI. In a sun-only render, shadowed faces went pure black with SDFGI off and filled with coloured bounce with it on. The levels' meshes (since 2026-10-20) have not been tried with it.
   - The heaviest option here.
   - **Untested:** how SDFGI copes with the terrain changing. Blocks now break, wear away voxel by voxel, and scatter thousands of debris lumps. Test a grenade crater, a broken crate stack and a felled tree before relying on it.
 - **05 (SSIL):** the `ssil_*` properties. It's screen-space, so it only bounces light from what's on screen. It's also cheaper.
@@ -230,7 +209,7 @@ The script copies the harness into `vcom/_probe/`, runs Godot with a window (`--
 
 ## Open decisions (ask when applying)
 
-1. The block-material hookup: a runtime `@tool` script or an importer option (section 3).
+1. The block-material hookup: settled by the levels (section 3): a block style goes into `Voxels.gdshader`, which draws every voxel model since 2026-10-20. Still open: whether the figures, props and debris follow it, or a uniform keeps it to the blocks.
 2. Whether `LineOfSightTest.tscn` should get the same look (recommended: yes). `BoundaryMap.tscn` always should.
 3. For 11: should the focus follow zoom (section 7), and how much blur is acceptable during play?
 4. For 27: is the camera change wanted? It changes how zoom feels, not just the art.

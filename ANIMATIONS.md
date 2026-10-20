@@ -420,13 +420,20 @@ where the legs, torso, arms and head are.
 - Each bone is meshed on its own. A face between two voxels of the **same** bone is left out, as
   the plain importer does; a face between voxels of **different** bones is **kept**, since a joint
   that bends opens it up. So a bent elbow shows the end of each block rather than a hole.
-- Faces are merged greedily into rectangles of one colour (per bone, per face direction, per slice).
+- Faces are merged greedily by shape alone (`ChunkMesher`, the level's mesher, on each bone's voxels
+  in the whole figure's box), since the colours come from a texture: the figure is drawn by the
+  voxel shader, as every voxel model is (`Docs/VOXELS.md`).
+- Every corner carries its voxel: its place in the figure's box and the way its face looks
+  (`CUSTOM0`), and its face's extent (`CUSTOM1`), so the shader finds the voxel behind each pixel
+  from what the mesh was made with, never from where the skeleton has moved the corner. The figure's
+  box and colours are `VoxelRig.make_shape()`, the same at run time (`FigureVoxels`).
 - Every vertex has bone weights `[bone, 0, 0, 0]` / `[1, 0, 0, 0]`: wholly one bone. Nothing ever
   stretches.
-- Winding is clockwise seen from outside (Godot's front face), checked per quad.
-- The vertex colours are the model's palette, on a vertex-colour material. In play every unit puts a
-  flat-colour `body_material` over it (section 9), so the vertex colours only show in the editor
-  and the preview tool (the base character is all one grey anyway).
+- Winding is clockwise seen from outside (Godot's front face), as `ChunkMesher.arrays()` lays it.
+- The surface's material is a flat `StandardMaterial3D` in the model's commonest colour, which only
+  the editor shows: a texture made by a bake run headless has no data to save. In play the figure's
+  `VoxelModel` draws it (`FigureVoxels.body`, `material_override`), in its unit's colour
+  (`CharacterModel.tint`, section 9).
 
 The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.
@@ -874,8 +881,8 @@ unit's `Model` child, so `Unit.model`. It is presentational: the rules never rea
 
 On `_ready()` it finds its `Skeleton3D`, `Body`, `AnimationTree` and `Aim` (errors and stops if the
 first three are missing: rebake), and loads `crumbles_as` and `gear_wears_as` if the scene sets none
-(section 9.8). It puts `body_material` on the body, reads the run's `speed` meta, and sends the tree
-its first state.
+(section 9.8). It reads its voxels (`voxels()`, `FigureVoxels`), which draw its body, paints them its
+`tint` if it has one, reads the run's `speed` meta, and sends the tree its first state.
 
 ### 9.2 What it reads from its unit every frame
 
@@ -888,6 +895,7 @@ frame's:
 | moving, and not keeping its facing | turns toward the way it goes, at `TURN_PER_TILE` (600°) per tile walked, so a slowed walk turns slowly too |
 | moving while keeping its facing (a step out) | keeps facing; feeds the direction of travel, in its own space, to `run_rifle`'s blend position (so it sidesteps or backs up with the rifle up) |
 | a step of the walk that climbs or drops | lifts the figure (its own `position.y`, never the unit's) by `along × (1 - along) × (rise + 4 × HOP_UP)` going up, or `× (4 × HOP_DOWN - rise)` going down, and blends in the hop pose by `sin(π along)` |
+| a level step over a piece across the edge on the way (a fence: the walk's `vaults`, from `CombatGrid.vaults_along()`) | lifts the figure by `along × (1 - along) × 4 × (vault + HOP_UP)`, up and over the fence's top in the middle of the step and down the far side, the hop pose blended in by `sin(π along)` as for a climb |
 | the unit no longer moving | drops the walk; if it was falling, plays `land` |
 | an aim point set | turns toward it |
 | otherwise | turns toward the yaw `Postures` or `face()` gave it, at `TURN_SPEED` (600° a second), never slower than 150° a second |
@@ -895,7 +903,10 @@ frame's:
 The hop lives on the figure, so the unit still moves in a straight line between tiles and
 `tile_at()` (which reactions read mid-walk) never sees it. Up, the arc rises early and clears the
 block's edge (`HOP_UP` 0.35 puts the feet about 0.1 over it at the edge); down, it stays up and drops
-late (`HOP_DOWN` 0.15).
+late (`HOP_DOWN` 0.15). Over a fence a level high (`vault` 1), the arc peaks at the step's middle, where the edge is,
+`1 + HOP_UP` over the ground, so the feet clear even a piece a full level high by `HOP_UP`; it was
+added with the level's edge pieces (2026-10-20, `Docs/LEVELS.md`), reusing the hop rather than a
+vault clip of its own (a gap: no hands on the rail, no stride change).
 
 ### 9.3 Readiness, cover and the base pose
 
@@ -957,7 +968,7 @@ without one.
 | `dodge()` | `Unit.dodge()` | `Unit.shoot_at()` and `Unit.strike()` on a miss | plays `dodge` on the target |
 | `equip(gun, melee, grenades, kits)` | `Unit._dress()` | `Unit._ready()`, `Unit.use_up()` | shows the gear (9.6) |
 | `break_apart()` | `TerrainDestruction.break_figure()`, and `Unit.die()` | every death, once its voxels and gear are taken | marks it `dead`, hides it, stops its tree and aim (9.8) |
-| `paint(color)` / `tint()` | `Unit._paint()` / `Unit.color` | `Unit._take_character()` / UI | the flat body colour |
+| `paint(color)` / `tint` | `Unit._paint()` / `Unit.color` | `Unit._take_character()` / UI | the flat body colour, every voxel but blood's (`VoxelModel.paint()`) |
 | `body_box()` | — | `Unit._add_bodies()` | the rest box |
 
 **Standing easy waits for the end of the frame.** An action that ends and begins again at once (Shoot
@@ -1047,9 +1058,9 @@ dropping whole beside them. Nothing is animated: the pose it died in is what bre
    spawned) and calls `break_figure(model, from, blasted, at, sweep)`:
    - `FigureVoxels.crumble()` cuts each bone's voxels, posed as they are, into lumps
      `crumbles_as.crumble_size` (3, `Resources/Destruction/Figure.tres`) across, on a grid shifted at
-     random for each bone, so a lump is one bone's, turned as its bone is. A voxel is the unit's
-     `tint()`, or blood red if blood stained any of its faces. The base figure's 536 voxels make some
-     60 to 90 lumps, about 39 kg in all (`density` 300).
+     random for each bone, so a lump is one bone's, turned as its bone is. A voxel is its colour on
+     the figure (`FigureVoxels.body`): the unit's `tint`, or blood red where blood recoloured it. The
+     base figure's 536 voxels make some 60 to 90 lumps, about 39 kg in all (`density` 300).
    - `_figure_knock()` sets each lump moving: along a round's way or a blade's swing at
      `FIGURE_KNOCK` (2 cells a second), or away from a blast at `FIGURE_BLAST_KNOCK` (1), lifted by
      `FIGURE_LIFT` of that and shared out by height, from `FIGURE_FEET_SHARE` of it at the feet to all
@@ -1060,12 +1071,12 @@ dropping whole beside them. Nothing is animated: the pose it died in is what bre
    - `VoxelDebris.add()` makes the lumps, held until the next physics step as all new debris is; a
      blast that killed the unit pushes them then (`VoxelDebris.burst()`), as it pushes all its debris.
    - `_drop_gear()` drops each prop shown in its sockets (`gear()`) whole: a `RigidBody3D` named
-     `Dropped<prop>` under `TerrainDestruction`, the prop's mesh moved into it with any blood on it, a
-     box round it 3.5% small, weighing `gear_wears_as.density` (`Gear.tres`, a crate board's) a cubic
-     cell of its voxels (the rifle 4 kg), knocked as the lumps round it are. It passes through the rest
-     of the gear and the lumps it starts inside (a hand round a grip), and wears away as a crate's
-     boards do once a round or a blast first reaches it (`VoxelTerrain.take_on_later()`;
-     `VoxelBody.scale` is 1.008, the props' 0.063 over the blocks' 0.0625).
+     `Dropped<prop>` under `TerrainDestruction`, the prop's mesh moved into it with its `VoxelModel`,
+     blood and all, a box round it 3.5% small, weighing `gear_wears_as.density` (`Gear.tres`, a crate
+     board's) a cubic cell of its voxels (the rifle 4 kg), knocked as the lumps round it are. It passes
+     through the rest of the gear and the lumps it starts inside (a hand round a grip), and wears away
+     as a crate's boards do once a round or a blast first reaches it (`VoxelTerrain.take_on_later()`;
+     its shape's `scale` is 1.008, the props' 0.063 over the blocks' 0.0625).
    - `CharacterModel.break_apart()` marks it `dead`, hides it and stops its tree and aim modifier.
 3. `Unit.die()` leaves its groups and frees itself, the hidden figure with it.
 
@@ -1141,10 +1152,9 @@ target, 9.13).
 
 ### 9.12 Blood on the figure
 
-Blood (`Scripts/Blood/`, described in full in `Docs/BLOOD.md`) is the one thing besides the animations that
-reads the figure's voxels while the game runs. It does so through **`FigureVoxels`**
-(`Scripts/Characters/FigureVoxels.gd`), which `CharacterModel.voxels()` makes the first time it is
-asked (the combat map's `Blood` node asks for every figure as the map loads):
+Blood (`Scripts/Blood/`, described in full in `Docs/BLOOD.md`) is the one thing besides drawing the
+figure that reads its voxels while the game runs. Both go through **`FigureVoxels`**
+(`Scripts/Characters/FigureVoxels.gd`), which `CharacterModel.voxels()` makes as the figure readies:
 
 - **The rig, read again at run time.** `FigureVoxels` reads the `.vox` the figure was baked from
   (`CharacterModel.voxel_model`, which the bake sets) with the layout in `VoxelRig.LAYOUTS`, once per
@@ -1153,15 +1163,19 @@ asked (the combat map's `Blood` node asks for every figure as the map loads):
   the bone, less its joint (bones rest unrotated at their joints, section 5), grown from 0.0625 to
   0.063 a voxel. That is what drops of blood and wounds are traced against (`FigureVoxels.march()`),
   so they meet the figure as it is drawn this frame: aiming, crouched or mid-stride.
-- **Stains are skinned like the body.** The blood on a figure is drawn by a second skinned mesh,
-  `Skeleton3D/Stains`, with the body's own `Skin`, each red square weighted wholly to the bone its
-  voxel follows, so it moves with every pose. This is one more thing that relies on the rig being
-  rigid, one bone a voxel (section 12, decision 1). As the figure breaks apart (9.8), every voxel
-  with a stained face goes into its lump blood red.
+- **Blood is the voxels' colour.** The figure's body is a `VoxelModel` (`FigureVoxels.body`, of the
+  figure as drawn, standing: `VoxelRig.make_shape()`), which colours its baked skinned mesh from a
+  texture of its voxels' places in its palette: painted its unit's colour, blood at place 255. Blood
+  recolours a voxel (`VoxelModel.recolor()`), a write to that texture, and since every corner of the
+  mesh carries its voxel (7, "The mesh") the red goes with every pose with nothing drawn over it. This
+  is one more thing that relies on the rig being rigid, one bone a voxel (section 12, decision 1): a
+  face's voxels are one bone's. As the figure breaks apart (9.8), every voxel goes into its lump in its
+  colour, blood red where blood reached it. Until 2026-10-20 blood on a figure was a second skinned
+  mesh of red squares over the faces it stained (`FigureStains`); `Docs/VOXELS.md` has why it went.
 - **The calls blood makes:** `pick_wound(from)` (a point on the side facing `from`, mostly the
   torso; a shot's tracer is drawn to it), `swing()` (the way the blade moves as `strike_sword`
-  lands) and `gear()` (the props it carries, which blood stains as models of their own, and which
-  drop whole when it dies). None of them change what the figure does.
+  lands) and `gear()` (the props it carries, each a `VoxelModel` of its own that blood recolours, and
+  which drop whole when it dies). None of them change what the figure does.
 
 `swing()` is written for `strike_sword` as it is: at the `impact` key the blade sweeps down across the
 figure's front, from its right to its left (`Vector3(0.75, -0.45, 0.3)` in its own space). Re-author
@@ -2217,7 +2231,7 @@ Example: `pistol`, held one-handed.
      foregrip, or give the model its own placements);
    - hands inside a wider head (the cheer, the guard);
    - hip heights (`_crouch` puts the hips at y 5, written for these legs).
-7. **Use it:** make it a unit's `Model` child (instance the new scene, set `body_material`), or point
+7. **Use it:** make it a unit's `Model` child (instance the new scene, set its `tint`), or point
    `Scenes/SquadUnit.tscn` at it. The animations were made for its proportions; the tree, the props
    and `CharacterModel` are shared.
 
@@ -2559,10 +2573,10 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 | `vcom/Scripts/Characters/AimModifier.gd` | aim pitch and head look (`SkeletonModifier3D`) |
 | `vcom/Scripts/Characters/Postures.gd` | the cover and facing map node (`class_name Postures`) |
 | `vcom/Scripts/Characters/PreviewAnimations.gd` | the preview tool |
-| `vcom/Scripts/Characters/FigureVoxels.gd` | the figure's voxels at run time, for blood and breaking apart (sections 9.12, 9.8) |
+| `vcom/Scripts/Characters/FigureVoxels.gd` | the figure's voxels at run time, which draw its body and which blood and breaking apart read (sections 9.12, 9.8) |
 | `vcom/Resources/Destruction/Figure.tres`, `Gear.tres` | how a figure breaks apart, and how the gear it drops wears (9.8) |
 | `vcom/Scripts/Combat/MuzzleFlash.gd` | a gun's flash (`class_name MuzzleFlash`) |
-| `vcom/Characters/BaseCharacterBody.res` | **generated**: the skinned mesh |
+| `vcom/Characters/BaseCharacterBody.res` | **generated**: the skinned mesh, each corner carrying its voxel |
 | `vcom/Characters/BaseCharacterAnimations.res` | **generated**: the animation library |
 | `vcom/Items/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` (+ `.import`) | the props, imported at 0.063 (they replaced the placeholders `Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox`) |
 | `MagicaVoxel/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` | the props' source copies |
@@ -2794,6 +2808,28 @@ Files: `Scripts/Combat/LineOfSight.gd`, `Ballistics.gd`, `ShotPlayback.gd`, `Scr
 `HumanoidAnimations.gd`, `Scripts/Blood/Blood.gd`; the generated `Scenes/BaseCharacter.tscn` and
 `Characters/BaseCharacterAnimations.res`; `CLAUDE.md`, `README.md` and this file.
 
+### Later: drawn as a voxel model (2026-10-20)
+
+Asked for every voxel model to be recoloured as the level is, by texture writes, "instead of
+utilizing overlays" (`Docs/VOXELS.md` has the whole of it):
+
+1. **The bake** meshes each bone by the level's mesher, by shape alone, every corner carrying its
+   voxel in the figure's box, and saves the mesh with a flat material of the model's commonest colour
+   for the editor (7, "The mesh"). The base figure is still 552 vertices.
+2. **The figure** is drawn by a `VoxelModel` of its voxels as it readies (`FigureVoxels.body`), its
+   unit's colour painted into its palette: `CharacterModel.body_material` became `tint`, a colour, and
+   the scenes' materials for it went. `Unit.color` reads it.
+3. **Its props** are taken over as voxel models as it makes them (`_make_prop()`), and `gear()`
+   returns those models. A prop dropped as it dies keeps its model, blood and all.
+4. **Blood** recolours its voxels and its props', spending one for each face it turns red, so a wound
+   shows as much red as before; the overlay that drew blood over its faces (`FigureStains`) is gone.
+5. **Checked** against the old way rendered on the same frames (a figure and its rifle, 0.01-0.08% of
+   pixels apart, along edges), and by probes of blood on the figure, its props, its lumps and the
+   gear it drops; the animation preview draws it in its own grey.
+
+Files: `Scripts/Characters/VoxelRig.gd`, `FigureVoxels.gd`, `CharacterModel.gd`, `Scripts/Unit.gd`;
+the scenes with units; the generated `Scenes/BaseCharacter.tscn` and `Characters/BaseCharacterBody.res`.
+
 ---
 
 ## 20. Glossary
@@ -2804,7 +2840,7 @@ Files: `Scripts/Combat/LineOfSight.gd`, `Ballistics.gd`, `ShotPlayback.gd`, `Scr
 | **Additive** | a clip that is a change from the rest, added on top of other animation (`react`) |
 | **Bake** | running `BakeCharacter.gd`: `.vox` → rigged, animated scene |
 | **Base pose** | a looping clip held between actions, picked by `stance` (31 of them) |
-| **Body material** | the flat-colour material a unit puts over its figure (`CharacterModel.body_material`) |
+| **Body material** | the flat-colour material a unit put over its figure (`CharacterModel.body_material`), until 2026-10-20: now its `tint`, painted into the figure's palette |
 | **Cell / tile** | one Godot unit: a tile is a cell a unit can stand in; about 15.87 voxels |
 | **Chest space** | the `Chest` bone's own frame, turning with the torso; where rifle and sword poses are placed |
 | **Lumps** | what a dead unit's figure breaks into, voxel debris (9.8); the dead were ragdolls before |

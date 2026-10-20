@@ -209,11 +209,11 @@ var hit_blasted := false
 var hit_at := Vector3.INF
 var hit_sweep := Vector3.ZERO
 
-## Placeholder identity colour, taken from the Model child's material.
+## Placeholder identity colour, the one the Model child's body is painted.
 var color: Color:
 	get:
 		var body := model if model != null else get_node_or_null(^"Model") as CharacterModel
-		return body.tint() if body != null else Color.WHITE
+		return body.tint if body != null and body.tint.a > 0.0 else Color.WHITE
 
 
 func _ready() -> void:
@@ -601,9 +601,12 @@ func die() -> void:
 ## way it goes, unless [param keep_facing], as a unit stepping out of cover
 ## to shoot keeps facing its target. Any other walk is a move, and stands a
 ## hunkered unit up ([member hunkered]); a step out and back to shoot does
-## not.
-func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> void:
-	var tween := start_walk(points, seconds_per_step, keep_facing)
+## not. [param vaults] says, for each point, how high the step to it climbs
+## over a piece standing across the edge on the way, in levels
+## ([method CombatGrid.vaults_along]), which the figure hops over: only for
+## show, as the unit moves in a straight line regardless.
+func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false, vaults := PackedFloat32Array()) -> void:
+	var tween := start_walk(points, seconds_per_step, keep_facing, vaults)
 	if tween != null:
 		await tween.finished
 
@@ -615,7 +618,7 @@ func walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false)
 ##
 ## The tween dies with the unit, without ever finishing, so a caller whose
 ## walker might be killed on the way must not wait on [signal Tween.finished].
-func start_walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false) -> Tween:
+func start_walk(points: Array[Vector3], seconds_per_step: float, keep_facing := false, vaults := PackedFloat32Array()) -> Tween:
 	if points.is_empty():
 		return null
 	# Only a step out of cover to shoot keeps its facing, and it comes back to
@@ -627,7 +630,7 @@ func start_walk(points: Array[Vector3], seconds_per_step: float, keep_facing := 
 		tween.tween_property(self, ^"global_position", point, seconds_per_step)
 	_motion = tween
 	if model != null:
-		model.begin_walk(points, keep_facing)
+		model.begin_walk(points, keep_facing, vaults)
 	return tween
 
 
@@ -840,8 +843,7 @@ func _first_grenade() -> Grenade:
 	return null
 
 
-## Colours the Model child [param tint], on a copy of its material so a
-## material another unit shares is left alone.
+## Paints the Model child's body [param tint].
 func _paint(tint: Color) -> void:
 	if model != null:
 		model.paint(tint)

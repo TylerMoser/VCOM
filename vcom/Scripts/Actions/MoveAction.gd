@@ -152,13 +152,15 @@ func _stop_preview() -> void:
 func _move_to(tile: Vector3i) -> void:
 	var unit := _unit
 	var points: Array[Vector3] = []
-	for step in _reach.path_to(tile):
+	var path := _reach.path_to(tile)
+	for step in path:
 		points.append(controller.grid.tile_position(step))
+	var vaults: PackedFloat32Array = controller.grid.vaults_along(controller.grid.tile_at(unit.global_position), path)
 	unit.spend_actions(_cost(_reach.steps[tile]))
 	controller.highlights.clear_layer(HIGHLIGHT_LAYER)
 	controller.busy = true
 
-	await unit.walk(points, seconds_per_step)
+	await unit.walk(points, seconds_per_step, false, vaults)
 	completed.emit()
 
 

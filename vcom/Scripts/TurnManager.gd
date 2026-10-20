@@ -229,13 +229,14 @@ func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
 	var points: Array[Vector3] = []
 	for tile in walked:
 		points.append(_grid.tile_position(tile))
+	var vaults := _grid.vaults_along(_grid.tile_at(enemy.global_position), walked)
 	# Keep the camera with the enemy, unless a reaction view is holding it.
 	if not _camera_rig.is_framing():
 		_camera_rig.focus_on(points[-1])
 	if _reactions != null:
-		await _reactions.walk(enemy, points, seconds_per_enemy_step)
+		await _reactions.walk(enemy, points, seconds_per_enemy_step, vaults)
 	else:
-		await enemy.walk(points, seconds_per_enemy_step)
+		await enemy.walk(points, seconds_per_enemy_step, false, vaults)
 
 
 ## Whether the battle has been decided, one way or the other.

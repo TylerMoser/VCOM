@@ -1,8 +1,10 @@
 # Shapes
 
 Basic voxel models, one to a `.vox`, each 16 x 16 x 16 voxels: a block's size, as the game imports
-blocks (Scale 0.0625, one cell to sixteen voxels). `Preview.png` shows them all. Nothing in the game
-uses them yet; they are a starting point to edit in MagicaVoxel or to bring in as blocks.
+blocks (Scale 0.0625, one cell to sixteen voxels). `Preview.png` shows them all but StoneWall, made
+after it. Three are in the game, copied into `vcom/Blocks/` as kinds of level piece (2026-10-20):
+FenceStraight and StoneWall, placed on the edges between cells, and TallGrass, as decoration. The
+rest are a starting point to edit in MagicaVoxel or to bring in as pieces.
 
 ![Every shape](Preview.png)
 
@@ -63,6 +65,7 @@ Extents are in voxels, MagicaVoxel's axes, from 0.
 | **Brick** | Red brick, the same courses, pale mortar set back | full |
 | **WoodWall** | Horizontal boards round dark corner posts, nailed | full |
 | **RuinedWall** | StoneBrick broken off stone by stone, falling from one corner to the other, stones knocked out of its faces, moss on top | full |
+| **StoneWall** | StoneBrick's courses a quarter of a block thick along x through the middle, the full height, mortar set back on both faces and the top: a wall for an edge, as a fence is | 0-15 / 6-9 / 0-15 |
 | **Boulder** | A boulder the full height of the block (full cover, where Rock is low) | 0-15 / 0-14 / 0-15 |
 | **Sandbags** | Sandbags four high along x, staggered, so a wall of them runs on | 0-15 / 4-11 / 0-11 |
 | **HayBale** | A square bale of straw tied with two loops of twine | 1-14 / 3-12 / 0-8 |
@@ -80,25 +83,31 @@ Extents are in voxels, MagicaVoxel's axes, from 0.
 
 ## Bringing one into the game
 
-As a block, the way `BrightGrass1` and `BrightCrate1` are:
+As a kind of level piece, the way the fence and the stone wall came in (`Docs/LEVEL_EDITOR.md`,
+"Adding kinds and brushes", has it in full, and how to paint it):
 
 1. Copy the `.vox` into `vcom/Blocks/`.
 2. Import it as **MagicaVoxel Mesh** at **Scale 0.0625** (the Import dock; the default scale is 0.1).
-3. Add it to `vcom/Blocks/BlockLibrary.tres` as an item, with the others' `mesh_transform`
-   (`y` -0.5). If the scenery round a battle should use it too, add it to `SceneryLibrary.tres` as
-   well, with the same id and shadows off.
-4. To have it break or wear away, give it a `Destruction` in `Resources/Destruction/Catalog.tres`
-   (`CLAUDE.md`, "Breakable blocks are data").
+3. Add a `PieceKind` for it to `vcom/Blocks/Pieces.tres`: its `id`, its `model`, the default
+   `model_transform` (`y` -0.5, for a model standing on the ground). Tick `edge_piece` for one that
+   runs along x through the middle, as the fences, Hedge, Sandbags and StoneWall do, so the level
+   editor puts it on the edge between two cells when it is chosen; untick `solid` for decoration the
+   rules should not see, as TallGrass is. The editor's palette shows the new kind once the editor is
+   restarted, or the plugin turned off and on.
+4. To have it break or wear away, give it a `Destruction` from `Resources/Destruction/` as its
+   `destruction` (`Docs/DESTRUCTION.md` has both recipes). The scenery round a battle can use any kind
+   at once.
 
 Two things to know first:
 
-- **The rules know only solid cells.** Any block in a cell fills it, whatever its shape: a fence,
-  flowers or a ladder placed as a block is half cover that units stand on top of, and two stacked are
-  full cover. Climbing, stairs, water, crossing a fence and rough ground (all on `todo.txt`'s list of
-  terrain types) would each need rules of their own.
-- **Blood reads every block in the library drawn from a `.vox` as a map loads**, used on the map or
-  not (`Docs/BLOOD.md`, Known gaps). That is fine for a handful more. With all of these in the library it
-  would be worth reading only the blocks a map uses.
+- **The rules know only where a piece stands.** A piece in a cell fills it, whatever its shape, and
+  one on an edge stands across it, a level high: flowers or a ladder placed in a cell are half cover
+  that units stand on top of, two stacked are full cover, and a fence on an edge is half cover that
+  units step over. Climbing, stairs, water and rough ground (all on `todo.txt`'s list of terrain
+  types) would each need rules of their own.
+- **FenceCorner, FenceT and FenceCross join rails at the middle of their box,** so they suit a fence
+  run through cells' middles, not along edges: a run on the edges between cells turns a corner as two
+  runs meeting end to end, a cell's corner being no slot (only cells' middles and edges are).
 
 ## Building them again
 

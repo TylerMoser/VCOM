@@ -1,0 +1,94 @@
+[gd_resource type="Resource" script_class="PieceLibrary" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Level/PieceBrush.gd" id="1_m5it7"]
+[ext_resource type="Script" path="res://Scripts/Level/PieceKind.gd" id="2_gan5t"]
+[ext_resource type="Resource" path="res://Resources/Destruction/BrightGrass1.tres" id="3_8q4o1"]
+[ext_resource type="ArrayMesh" path="res://Blocks/BrightGrass1.vox" id="4_xh3ah"]
+[ext_resource type="Resource" path="res://Resources/Destruction/BrightCrate1.tres" id="5_7oivu"]
+[ext_resource type="ArrayMesh" path="res://Blocks/BrightCrate1.vox" id="6_1hji8"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Bottom.tres" id="7_lyu25"]
+[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Bottom.vox" id="8_mxfqa"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Top.tres" id="9_1obmr"]
+[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Top.vox" id="10_7h860"]
+[ext_resource type="Script" path="res://Scripts/Level/PieceLibrary.gd" id="11_fcufj"]
+[ext_resource type="Resource" path="res://Resources/Destruction/FenceStraight.tres" id="11_lyu25"]
+[ext_resource type="ArrayMesh" path="res://Blocks/FenceStraight.vox" id="12_mxfqa"]
+[ext_resource type="Resource" path="res://Resources/Destruction/StoneWall.tres" id="13_1obmr"]
+[ext_resource type="ArrayMesh" path="res://Blocks/StoneWall.vox" id="14_7h860"]
+[ext_resource type="Resource" path="res://Resources/Destruction/TallGrass.tres" id="15_fcufj"]
+[ext_resource type="ArrayMesh" path="res://Blocks/TallGrass.vox" id="16_spagj"]
+
+[sub_resource type="Resource" id="Resource_spagj"]
+resource_name = "SkinnyTree1"
+script = ExtResource("1_m5it7")
+display_name = "SkinnyTree1"
+kinds = Array[StringName]([&"SkinnyTree1Bottom", &"SkinnyTree1Top"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_xjtj7"]
+resource_name = "StoneWall2"
+script = ExtResource("1_m5it7")
+display_name = "StoneWall2"
+kinds = Array[StringName]([&"StoneWall", &"StoneWall"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_pigci"]
+resource_name = "BrightGrass1"
+script = ExtResource("2_gan5t")
+id = &"BrightGrass1"
+model = ExtResource("4_xh3ah")
+destruction = ExtResource("3_8q4o1")
+tile_grid = true
+
+[sub_resource type="Resource" id="Resource_vmsv4"]
+resource_name = "BrightCrate1"
+script = ExtResource("2_gan5t")
+id = &"BrightCrate1"
+model = ExtResource("6_1hji8")
+model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
+destruction = ExtResource("5_7oivu")
+
+[sub_resource type="Resource" id="Resource_nqi74"]
+resource_name = "SkinnyTree1Bottom"
+script = ExtResource("2_gan5t")
+id = &"SkinnyTree1Bottom"
+model = ExtResource("8_mxfqa")
+destruction = ExtResource("7_lyu25")
+
+[sub_resource type="Resource" id="Resource_q76kx"]
+resource_name = "SkinnyTree1Top"
+script = ExtResource("2_gan5t")
+id = &"SkinnyTree1Top"
+model = ExtResource("10_7h860")
+destruction = ExtResource("9_1obmr")
+
+[sub_resource type="Resource" id="Resource_7qhhg"]
+resource_name = "FenceStraight"
+script = ExtResource("2_gan5t")
+id = &"FenceStraight"
+model = ExtResource("12_mxfqa")
+destruction = ExtResource("11_lyu25")
+edge_piece = true
+
+[sub_resource type="Resource" id="Resource_rxsbc"]
+resource_name = "StoneWall"
+script = ExtResource("2_gan5t")
+id = &"StoneWall"
+model = ExtResource("14_7h860")
+destruction = ExtResource("13_1obmr")
+edge_piece = true
+
+[sub_resource type="Resource" id="Resource_fgki2"]
+resource_name = "TallGrass"
+script = ExtResource("2_gan5t")
+id = &"TallGrass"
+model = ExtResource("16_spagj")
+destruction = ExtResource("15_fcufj")
+solid = false
+
+[resource]
+script = ExtResource("11_fcufj")
+kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2")])
+brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7")])

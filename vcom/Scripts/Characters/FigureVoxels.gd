@@ -1,24 +1,25 @@
-## The voxels of a [CharacterModel]'s figure, as blood and breaking apart need
-## them: where each one is now, the figure posed as it is, which of their
-## faces blood has stained, and what its gear is made of. [Blood] traces its
-## drops against them ([method march]), wounds them ([method pick_wound],
-## [method bleed]), and lets blood spread over them; as its unit dies, the
-## figure breaks apart into lumps of them ([method crumble]).
+## The voxels of a [CharacterModel]'s figure, as drawing it, blood and
+## breaking apart need them: their colours, where each one is now, the figure
+## posed as it is, and what its gear is made of. Its body is drawn as a
+## [VoxelModel] ([member body]), its baked mesh coloured by the voxel shader
+## from a texture of these voxels, painted in its unit's colour. [Blood] traces
+## its drops against them ([method march]), wounds them ([method pick_wound],
+## [method bleed]), and lets blood spread over them, recolouring each voxel it
+## reaches; as its unit dies, the figure breaks apart into lumps of them
+## ([method crumble]), in their colours.
 ##
 ## The figure is rigid, one bone to a voxel ([code]VoxelRig.gd[/code]), so a
 ## voxel is wherever its bone has put it: each bone's voxels are a little model
 ## of their own, a part, standing in the bone's frame ([member _frames]). Blood
 ## spreads over the figure as it was drawn, standing, every bone's voxels side
-## by side ([member Rig.shape]), so a stain can cross from the chest on to the
-## hips as it would on a body, however the bones have turned since; which way
-## is down is still the world's, through each voxel's bone. On a figure this
-## small the even splash round a wound ([constant WOUND_SPLAT]) takes most of
-## the stain, so a wound leans a little downward rather than running down.
+## by side ([member Rig.shape]), so it can cross from the chest on to the hips
+## as it would on a body, however the bones have turned since; which way is
+## down is still the world's, through each voxel's bone. On a figure this small
+## the even splash round a wound ([constant WOUND_SPLAT]) takes most of the
+## blood, so a wound leans a little downward rather than running down.
 ##
-## The stains are drawn over the figure by a mesh skinned to its skeleton as
-## its body is ([FigureStains]), so they move with it, and go into the lumps it
-## breaks into as its unit dies ([method crumble]). Gear is stained as any prop
-## is ([method VoxelStains.on]), and keeps its stains when it is dropped.
+## Gear is a [VoxelModel] of its own, in its socket ([method CharacterModel.gear]),
+## and keeps its blood when it is dropped.
 ##
 ## Like the figure itself, only for show: the rules never read it.
 class_name FigureVoxels
@@ -48,8 +49,11 @@ const THROUGH := 2.0
 ## A figure model's voxels, read once from its .vox and shared by every figure
 ## of it.
 class Rig:
-	## The figure as drawn, standing: each voxel holds its bone's number, 1 up.
+	## The figure as drawn, standing, as one voxel model: each voxel holds the
+	## place of its colour ([method VoxelRig.make_shape]).
 	var shape: VoxelShape
+	## Each voxel's bone's number, 1 up, laid out as [member shape]'s array.
+	var bones_of := PackedByteArray()
 	## Every bone, by number, in [constant VoxelRig.BONES]' order.
 	var bones: Array[StringName] = []
 	## Each bone's voxels alone, cut to their box, each holding 1 (null for a
@@ -81,8 +85,8 @@ class Rig:
 ## Where a line first meets the figure: the point and the way the face it met
 ## looks, in the world, and how far along the line it is; the voxel and face,
 ## by number. On the body, the voxel is counted in [member Rig.shape] and
-## [member bone] is its bone's number; on gear, [member gear] is what draws it,
-## and the voxel is counted in its shape, standing in [member frame].
+## [member bone] is its bone's number; on gear, [member gear] is the prop's
+## model, and the voxel is counted in its shape.
 class Hit:
 	var point := Vector3.ZERO
 	var normal := Vector3.ZERO
@@ -90,68 +94,33 @@ class Hit:
 	var voxel := Vector3i.ZERO
 	var face := 0
 	var bone := -1
-	var gear: MeshInstance3D
-	var frame := Transform3D.IDENTITY
-
-
-## The stains of a figure's body, drawn by a mesh skinned to its skeleton, each
-## stained face weighted wholly to its voxel's bone, as the body's are.
-class FigureStains extends VoxelStains:
-	## The skeleton's index of each bone, by number.
-	var bone_index := PackedInt32Array()
-
-	func _arrays() -> Variant:
-		var arrays: Variant = super()
-		if arrays == null:
-			return null
-		var corners := _drawn_voxels.size() * 4
-		var bones := PackedInt32Array()
-		var weights := PackedFloat32Array()
-		bones.resize(corners * 4)
-		weights.resize(corners * 4)
-		for quad in _drawn_voxels.size():
-			var bone := bone_index[shape.voxels[_drawn_voxels[quad]] - 1]
-			for corner in 4:
-				bones[(quad * 4 + corner) * 4] = bone
-				weights[(quad * 4 + corner) * 4] = 1.0
-		arrays[Mesh.ARRAY_BONES] = bones
-		arrays[Mesh.ARRAY_WEIGHTS] = weights
-		return arrays
+	var gear: VoxelModel
 
 
 ## A figure as blood runs over it: standing as drawn, which way is down taken
-## from each voxel's bone as it is posed now.
-class FigureSurface extends BloodFlow.Surface:
+## from each voxel's bone as it is posed now. Blood recolours its voxels, as on
+## any voxel model.
+class FigureSurface extends BloodFlow.ModelSurface:
 	var figure: FigureVoxels
 
 	func _init(on: FigureVoxels) -> void:
+		super(on.body)
 		figure = on
 
 	func refresh() -> void:
 		figure._pose()
 
-	func is_solid(voxel: Vector3i) -> bool:
-		var shape := figure.rig.shape
-		return shape.holds(voxel) and shape.voxels[shape.index_of(voxel)] != 0
-
 	func height(voxel: Vector3i, face: int) -> float:
-		var shape := figure.rig.shape
-		var frame := figure._frames[shape.voxels[shape.index_of(voxel)] - 1]
+		var shape := model.shape
+		var frame := figure._frames[figure.rig.bones_of[shape.index_of(voxel)] - 1]
 		return (frame * (shape.corner + (Vector3(voxel) + BloodFlow.HALF + Vector3(BloodFlow.FACES[face]) * 0.5) * VoxelShape.SCALE)).y
 
 	func slope(voxel: Vector3i, face: int) -> float:
-		var shape := figure.rig.shape
-		var frame := figure._frames[shape.voxels[shape.index_of(voxel)] - 1]
+		var frame := figure._frames[figure.rig.bones_of[model.shape.index_of(voxel)] - 1]
 		return (frame.basis * Vector3(BloodFlow.FACES[face])).normalized().y
 
 	func voxel_size() -> float:
 		return figure.rig.scale * VoxelShape.SCALE
-
-	func is_stained(voxel: Vector3i, face: int) -> bool:
-		return figure.stains != null and figure.stains.bits_at(figure.rig.shape.index_of(voxel)) & (1 << face) != 0
-
-	func stain(voxel: Vector3i, face: int) -> void:
-		figure.stained().stain(figure.rig.shape.index_of(voxel), 1 << face)
 
 
 ## Every figure model's rig, by the path of its .vox.
@@ -159,12 +128,11 @@ static var _rigs := {}
 
 ## The figure's model's voxels.
 var rig: Rig
-## The blood on its body, null until some lands there ([method stained]).
-var stains: FigureStains
+## Its body as it is drawn and coloured, on its baked mesh.
+var body: VoxelModel
 
 var _model: CharacterModel
 var _skeleton: Skeleton3D
-var _body: MeshInstance3D
 ## The skeleton's index of each bone, by number.
 var _bone_index := PackedInt32Array()
 ## Each bone's part's frame in the world, as the figure was posed when last
@@ -172,30 +140,32 @@ var _bone_index := PackedInt32Array()
 var _frames: Array[Transform3D] = []
 var _middles := PackedVector3Array()
 var _posed_at := -1
-## The gear it carries, as posed when last asked: what draws each, its voxels,
-## their frame in the world, and the middle and reach of the ball round them.
-var _gear: Array[MeshInstance3D] = []
-var _gear_shapes: Array[VoxelShape] = []
+## The gear it carries, as posed when last asked: each prop's model, its
+## frame in the world, and the middle and reach of the ball round it.
+var _gear: Array[VoxelModel] = []
 var _gear_frames: Array[Transform3D] = []
 var _gear_middles := PackedVector3Array()
 var _gear_radii := PackedFloat32Array()
 
 
 ## The voxels of [param model], whose figure is drawn from the .vox at
-## [param path]. Check [member rig]: null if the model has no layout, or its
-## voxels cannot be read.
+## [param path], and its body drawn as them. Check [member rig]: null if the
+## model has no layout, or its voxels cannot be read.
 func _init(model: CharacterModel, path: String) -> void:
 	_model = model
 	_skeleton = model.get_node_or_null(^"Skeleton3D") as Skeleton3D
-	_body = model.get_node_or_null(^"Skeleton3D/Body") as MeshInstance3D
+	var drawn := model.get_node_or_null(^"Skeleton3D/Body") as MeshInstance3D
 	rig = _rig_of(path)
-	if rig == null or _skeleton == null:
+	if rig == null or _skeleton == null or drawn == null:
 		rig = null
 		return
 	for bone in rig.bones:
 		_bone_index.append(_skeleton.find_bone(bone))
 	_frames.resize(rig.bones.size())
 	_middles.resize(rig.bones.size())
+	# Its mesh is baked from the same voxels, skinned to the skeleton.
+	body = VoxelModel.new(rig.shape)
+	body.show_on(drawn, true)
 
 
 ## Whether the figure is still there to bleed: it is gone once it has broken
@@ -226,15 +196,14 @@ func march(origin: Vector3, heading: Vector3, max_distance: float, with_gear := 
 		for item in _gear.size():
 			if not _passes_near(origin, heading, reach, _gear_middles[item], _gear_radii[item]):
 				continue
-			var shape := _gear_shapes[item]
-			var met := VoxelTerrain.march(shape, shape.voxels, _gear_frames[item], origin, heading, reach)
+			var prop := _gear[item]
+			var met := VoxelTerrain.march(prop.shape, prop.voxels, _gear_frames[item], origin, heading, reach)
 			if met == null or met.face == Vector3i.ZERO:
 				continue
 			reach = met.distance
 			best = _hit(met)
-			best.gear = _gear[item]
-			best.frame = _gear_frames[item]
-			best.voxel = shape.voxel_at(met.index)
+			best.gear = prop
+			best.voxel = prop.shape.voxel_at(met.index)
 	return best
 
 
@@ -278,26 +247,26 @@ func exit(entry: Vector3, heading: Vector3) -> Hit:
 	return march(entry + heading * THROUGH, -heading, THROUGH, false)
 
 
-## Stains [param faces] faces round where [param hit] landed on the figure, or
-## the gear it met, leaning downward. [param rng] roughens it.
-func bleed(hit: Hit, faces: int, rng: RandomNumberGenerator) -> void:
+## Lets [param volume] of blood run from where [param hit] landed on the
+## figure, or the gear it met, leaning downward, recolouring each voxel it
+## reaches. [param rng] roughens it.
+func bleed(hit: Hit, volume: int, rng: RandomNumberGenerator) -> void:
 	var surface: BloodFlow.Surface
 	if hit.gear != null:
-		var on := VoxelStains.on(hit.gear)
-		if on == null:
+		if not is_instance_valid(hit.gear):
 			return
-		surface = BloodFlow.ModelSurface.new(on, on.shape.voxels, hit.frame)
+		surface = BloodFlow.ModelSurface.new(hit.gear)
 	else:
 		surface = FigureSurface.new(self)
-	BloodFlow.new(surface, hit.voxel, hit.face, faces, rng, WOUND_SPLAT).spread(faces)
+	BloodFlow.new(surface, hit.voxel, hit.face, volume, rng, WOUND_SPLAT).spread(volume)
 
 
 ## The figure as it stands now, broken up into lumps at most [param size]
 ## voxels across, as [VoxelDebris.Piece]s not yet moving: as a block crumbles,
 ## each bone's voxels cut on a grid set at random by [param rng], so a lump is
 ## always the voxels of one bone, standing as that bone is posed. A voxel is
-## [param tint], or blood's colour if any of its faces is stained.
-func crumble(size: int, tint: Color, rng: RandomNumberGenerator) -> Array[VoxelDebris.Piece]:
+## the colour it is drawn: its unit's, or blood's where blood recoloured it.
+func crumble(size: int, rng: RandomNumberGenerator) -> Array[VoxelDebris.Piece]:
 	_pose()
 	var pieces: Array[VoxelDebris.Piece] = []
 	for bone in rig.parts.size():
@@ -333,33 +302,9 @@ func crumble(size: int, tint: Color, rng: RandomNumberGenerator) -> Array[VoxelD
 			for at in clump.size():
 				var voxel: int = clump[at]
 				piece.voxels[at] = centers[voxel] - middle
-				var bled := stains != null and stains.bits_at(wholes[voxel]) != 0
-				piece.colors[at] = VoxelStains.COLOR if bled else tint
+				piece.colors[at] = body.color_of(wholes[voxel])
 			pieces.append(piece)
 	return pieces
-
-
-## The blood on the figure's body, made the first time it is asked for, drawn
-## over it by a mesh skinned to its skeleton.
-func stained() -> FigureStains:
-	if stains == null:
-		stains = FigureStains.new(rig.shape, rig.scale)
-		stains.bone_index = _bone_index
-		stains.attach(_skeleton)
-		stains.overlay.skeleton = NodePath("..")
-		if _body != null:
-			stains.overlay.skin = _body.skin
-		# Its mesh's bounds are those of the stains on the figure standing as
-		# drawn; posed, they may lie a way off them.
-		stains.overlay.extra_cull_margin = 2.0
-	return stains
-
-
-## Reads the voxels of the gear it carries now, which would otherwise be read
-## from their .vox the first time a drop of blood came near it.
-func prepare() -> void:
-	for drawn in _model.gear():
-		VoxelStains.shape_of(drawn)
 
 
 ## Works out where each bone's voxels are now, and its gear's, once a frame.
@@ -377,18 +322,14 @@ func _pose() -> void:
 		_frames[bone] = skeleton_frame * pose * Transform3D(Basis.IDENTITY, -rig.joints[bone]) * grow
 		_middles[bone] = _frames[bone] * rig.middles[bone]
 	_gear.clear()
-	_gear_shapes.clear()
 	_gear_frames.clear()
 	_gear_middles.clear()
 	_gear_radii.clear()
-	for drawn in _model.gear():
-		var shape := VoxelStains.shape_of(drawn)
-		if shape == null:
-			continue
-		var frame := drawn.global_transform * Transform3D(Basis.from_scale(Vector3.ONE * VoxelStains.scale_of(drawn, shape)), Vector3.ZERO)
+	for prop: VoxelModel in _model.gear():
+		var shape := prop.shape
+		var frame := prop.frame()
 		var span := Vector3(shape.size) * VoxelShape.SCALE
-		_gear.append(drawn)
-		_gear_shapes.append(shape)
+		_gear.append(prop)
 		_gear_frames.append(frame)
 		_gear_middles.append(frame * (shape.corner + span * 0.5))
 		_gear_radii.append((frame.basis * span).length() * 0.5 + VoxelShape.SCALE)
@@ -406,7 +347,7 @@ func _hit(met: VoxelTerrain.Met) -> Hit:
 	hit.point = met.point
 	hit.normal = met.normal
 	hit.distance = met.distance
-	hit.face = VoxelStains.FACES.find(met.face)
+	hit.face = BloodFlow.FACES.find(met.face)
 	return hit
 
 
@@ -417,7 +358,7 @@ static func _rig_of(path: String) -> Rig:
 		return _rigs[path]
 	var rig: Rig = null
 	if not VoxelRig.LAYOUTS.has(path):
-		push_error("FigureVoxels: no layout for '%s' in VoxelRig.LAYOUTS, so it never bleeds." % path)
+		push_error("FigureVoxels: no layout for '%s' in VoxelRig.LAYOUTS, so it is drawn in its baked colours and never bleeds." % path)
 	else:
 		var source := VoxelRig.new()
 		if source.load_vox(path, VoxelRig.LAYOUTS[path]):
@@ -430,15 +371,11 @@ static func _rig_of(path: String) -> Rig:
 static func _read(source: VoxelRig) -> Rig:
 	var rig := Rig.new()
 	rig.scale = source.scale / VoxelShape.SCALE
-	var least := Vector3i.MAX
-	var most := Vector3i.MIN
-	for bone: StringName in source.cells:
-		for cell: Vector3i in source.cells[bone]:
-			least = least.min(cell)
-			most = most.max(cell)
-	# The shape's frame is the figure's space shrunk by its scale.
+	var least := source.least
+	rig.shape = source.make_shape()
+	rig.bones_of.resize(rig.shape.length)
+	# A part's frame is the figure's space shrunk by its scale.
 	var to_shape := VoxelShape.SCALE / source.scale
-	rig.shape = VoxelShape.new(most - least + Vector3i.ONE, source.voxel_corner(least) * to_shape)
 	var total := 0.0
 	for entry: Array in VoxelRig.BONES:
 		var bone: StringName = entry[0]
@@ -475,9 +412,9 @@ static func _read(source: VoxelRig) -> Rig:
 			places.append(place)
 			at.append(cell - low)
 			centers.append(part.center_of(place))
-			wholes.append(rig.shape.index_of(cell - least))
-			rig.shape.voxels[rig.shape.index_of(cell - least)] = number + 1
-			rig.shape.count += 1
+			var whole := rig.shape.index_of(cell - least)
+			wholes.append(whole)
+			rig.bones_of[whole] = number + 1
 		rig.cells.append(at)
 		rig.centers.append(centers)
 		rig.wholes.append(wholes)
@@ -490,7 +427,6 @@ static func _read(source: VoxelRig) -> Rig:
 		rig.places.append(places)
 		rig.weights.append(weight)
 		total += weight
-	rig.shape.rows = rig.shape.rows_of(rig.shape.voxels)
 	if total > 0.0:
 		for bone in rig.weights.size():
 			rig.weights[bone] /= total

@@ -2,9 +2,9 @@
 ## round that strikes it breaks off the voxels round where it struck, a blast
 ## the voxels round where it goes off, and each falls away on its own, a cube a
 ## sixteenth of a cell across in the colour it was (see [VoxelDebris]). Any
-## block drawn by a MagicaVoxel model can break so, since its voxels are read
-## from the model (see [VoxelShape]); giving it one of these in the
-## [DestructionCatalog] is all it takes.
+## kind of piece drawn by a MagicaVoxel model can break so, since its voxels
+## are read from the model (see [VoxelShape]); giving its [PieceKind] one of
+## these as its destruction is all it takes.
 ##
 ## What is left of a block stands, worn, and still counts as the whole block to
 ## the rules: sight, cover and paths are read off whole cells, and a block is

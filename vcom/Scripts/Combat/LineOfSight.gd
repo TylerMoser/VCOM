@@ -3,9 +3,10 @@
 ##
 ## A unit fills two cells, the tile it stands on and the one above, and it
 ## sights from the centre of that upper cell. Cover is whatever is solid
-## beside a tile: one cell tall and it is low cover, which a sight line
-## passes clean over; two cells or more and it is high cover, which stops the
-## line dead.
+## beside a tile: a solid cell, or a piece standing across the edge between
+## them, a fence or a wall, which is cover to both sides of it. One cell tall
+## and it is low cover, which a sight line passes clean over; two cells or more
+## and it is high cover, which stops the line dead.
 ##
 ## A unit behind cover leans out to either side of it to shoot around it, so
 ## high cover only denies a shot when the step out does not clear it either.
@@ -91,9 +92,10 @@ func cover_at(tile: Vector3i) -> Dictionary:
 	var sides := {}
 	for direction in COVER_DIRECTIONS:
 		var beside := tile + Vector3i(direction.x, 0, direction.y)
-		if not _grid.is_solid(beside):
+		if not (_grid.is_solid(beside) or _grid.has_edge(tile, direction)):
 			continue
-		sides[direction] = Cover.HIGH if _grid.is_solid(beside + Vector3i.UP) else Cover.LOW
+		var high := _grid.is_solid(beside + Vector3i.UP) or _grid.has_edge(tile + Vector3i.UP, direction)
+		sides[direction] = Cover.HIGH if high else Cover.LOW
 	return sides
 
 
@@ -123,7 +125,9 @@ func firing_positions(unit: Unit) -> Array[Vector3i]:
 
 ## The tiles beside its cover that [param unit] can lean out to: where it
 ## shoots round its cover from, and where it can be seen and shot at in turn.
-## Cover is what makes the lean possible, so a unit in the open has none.
+## Cover is what makes the lean possible, so a unit in the open has none, and
+## it never leans out across a piece standing on the edge it would lean
+## through.
 func lean_tiles(unit: Unit) -> Array[Vector3i]:
 	var tile := _grid.tile_at(unit.global_position)
 	var leans: Array[Vector3i] = []
@@ -135,6 +139,8 @@ func lean_tiles(unit: Unit) -> Array[Vector3i]:
 		]:
 			var peek := tile + Vector3i(side.x, 0, side.y)
 			if peek in leans or occupied.has(peek) or not _grid.is_tile(peek):
+				continue
+			if _grid.has_edge(tile, side) or _grid.has_edge(tile + Vector3i.UP, side):
 				continue
 			leans.append(peek)
 	return leans

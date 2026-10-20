@@ -29,8 +29,12 @@ extends Node3D
 
 @export_group("Nodes")
 @export var camera_path: NodePath = ^"Camera3D"
-## GridMap the pan bounds are derived from. Leave empty to pan without limits.
-@export var grid_map_path: NodePath = ^"../GridMap"
+## The level ([VoxelLevel]) the pan bounds are derived from. Leave empty to pan
+## without limits.
+@export var level_path: NodePath = ^"../Level"
+## The grid ([CombatGrid]) a drag takes hold of the ground through. Leave empty
+## to take hold of whatever collides on [member drag_layers] instead.
+@export var grid_path: NodePath = ^"../CombatGrid"
 
 @export_group("Pan")
 ## Units per second at full zoom-out; scaled down as the camera moves in.
@@ -41,9 +45,9 @@ extends Node3D
 @export var edge_pan_margin := 16
 ## How far past the edge of the map the pivot may travel, in units.
 @export var pan_margin := 1.0
-## What a drag can take hold of: the terrain's physics layer. A drag begun
-## over anything else, or over nothing, slides the ground at the pivot's
-## height.
+## What a drag can take hold of with no grid ([member grid_path]): the
+## terrain's physics layer. A drag begun over anything else, or over nothing,
+## slides the ground at the pivot's height.
 @export_flags_3d_physics var drag_layers := 1
 
 @export_group("Rotate")
@@ -302,7 +306,18 @@ func _start_drag(mouse: Vector2) -> void:
 	_drag_mouse = mouse
 	_drag_height = _pivot.y
 	var from := _camera.project_ray_origin(mouse)
-	var to := from + _camera.project_ray_normal(mouse) * _camera.far
+	var heading := _camera.project_ray_normal(mouse)
+	# The grid's cells are all there from the first frame of a battle, where the
+	# level's collision is given it over the first few seconds
+	# (LevelRenderer.stream_collision), and they change the moment a block
+	# breaks.
+	var grid := get_node_or_null(grid_path) as CombatGrid
+	if grid != null:
+		var met: Variant = grid.cast(from, heading, _camera.far)
+		if met != null:
+			_drag_height = (met as CombatGrid.RayHit).point.y
+		return
+	var to := from + heading * _camera.far
 	var query := PhysicsRayQueryParameters3D.create(from, to, drag_layers)
 	var hit := get_world_3d().direct_space_state.intersect_ray(query)
 	if not hit.is_empty():
@@ -385,22 +400,14 @@ func _clamp_to_bounds(point: Vector3) -> Vector3:
 
 
 func _compute_pan_bounds() -> Rect2:
-	var grid := get_node_or_null(grid_map_path) as GridMap
-	if grid == null:
+	var level := get_node_or_null(level_path) as VoxelLevel
+	if level == null or level.rules == null:
 		return Rect2()
 
-	var cells := grid.get_used_cells()
-	if cells.is_empty():
-		return Rect2()
-
-	var low := cells[0]
-	var high := cells[0]
-	for cell in cells:
-		low = Vector3i(mini(low.x, cell.x), mini(low.y, cell.y), mini(low.z, cell.z))
-		high = Vector3i(maxi(high.x, cell.x), maxi(high.y, cell.y), maxi(high.z, cell.z))
-
-	var a := grid.to_global(grid.map_to_local(low))
-	var b := grid.to_global(grid.map_to_local(high))
+	# From the middle of the least cell any piece stands in to the middle of
+	# the greatest, as the grid's cells were counted.
+	var a := level.cell_center(level.rules.bounds_min)
+	var b := level.cell_center(level.rules.bounds_max)
 	var rect := Rect2(Vector2(minf(a.x, b.x), minf(a.z, b.z)), Vector2.ZERO)
 	rect.end = Vector2(maxf(a.x, b.x), maxf(a.z, b.z))
 	return rect.grow(pan_margin)

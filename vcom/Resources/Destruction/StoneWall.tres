@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VoxelDestruction" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Terrain/VoxelDestruction.gd" id="1_xxtog"]
+
+[resource]
+script = ExtResource("1_xxtog")
+voxels_per_damage = 6.0
+crater_per_damage = 0.35
+density = 2400.0
+block = "StoneWall"
+mass = 900.0

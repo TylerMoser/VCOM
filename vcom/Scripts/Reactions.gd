@@ -147,8 +147,8 @@ func _unhandled_input(event: InputEvent) -> void:
 ## once the walk is over, or once the mover has fallen to a reaction and the
 ## shot that felled it has played out. One walk at a time, which is how the
 ## [TurnManager] moves its enemies.
-func walk(mover: Unit, points: Array[Vector3], seconds_per_step: float) -> void:
-	var tween := mover.start_walk(points, seconds_per_step)
+func walk(mover: Unit, points: Array[Vector3], seconds_per_step: float, vaults := PackedFloat32Array()) -> void:
+	var tween := mover.start_walk(points, seconds_per_step, false, vaults)
 	if tween == null:
 		return
 	if _squad == null:

@@ -1317,8 +1317,9 @@ world map": its tables of colours and widths) and the summary in `CLAUDE.md`.
 
 ### Shaders
 
-Copy them from `harness/shaders/` beside the map's scripts (as `TileGrid.gdshader` sits beside its
-script), for example as `vcom/Scripts/WorldMap/MapLine.gdshader`:
+Copy them from `harness/shaders/` into `vcom/Scripts/WorldMap/`, beside the map's scripts and the two
+shaders of the look as it is (`MapLine.gdshader`, `MapGround.gdshader`), named as the game names its
+own (`map_line.gdshader` became `MapLine.gdshader`):
 
 | Shader | Does | Used by |
 |---|---|---|

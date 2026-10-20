@@ -142,6 +142,29 @@ closes it again.
 | Show or hide the tile grid | `R3` (press the right stick) |
 | Open the pause menu | `Menu` |
 
+### Level editor
+
+Combat maps are painted in Godot's own editor, with the **Level Editor** plugin (enabled in the
+project): select a map's `Level` node and its panel opens beside the 3D view, with every kind of
+piece and every brush (a whole tree, a wall two courses high). These keys and clicks are the level
+editor's while a level is selected and the mouse is over the 3D view, in place of what Godot does
+with them there (selecting, freelook, its Select and Rotate tools on `Q` and `E`);
+[Docs/LEVEL_EDITOR.md](Docs/LEVEL_EDITOR.md) has the rest: how painting behaves, making a new map,
+adding pieces.
+
+| To | Do |
+|---|---|
+| Paint the selected piece or brush | Left click, or drag to paint more |
+| Erase the last piece placed in a slot | Right click or drag, or `Shift` + left, or the panel's Erase |
+| See what an erase would take out | Hold `Shift` |
+| Pick the kind under the cursor | `Alt` + left click |
+| Go down or up a floor | `Q` / `E` |
+| Turn what is placed | `S` / `Shift` + `S` |
+| Place in the middle of a cell, or on the edge between two | `T` |
+| Paint a smaller or bigger square | `[` / `]` |
+| Undo or redo a stroke | `Ctrl` + `Z` / `Ctrl` + `Shift` + `Z` |
+| Save the level's pieces | `Ctrl` + `S`, with the scene, or the panel's Save |
+
 ## The campaign
 
 The game opens on the world map. Send the party anywhere on land, and open the village it is
@@ -329,10 +352,14 @@ tops up a part-spent magazine. Its reload plays as the squad's does.
 
 ### The grid
 
-The map is a `GridMap` of 1×1×1 cells. A tile is an empty cell with solid ground beneath it and two
-cells of headroom — a unit fills its tile and the cell above. Units step to any of the eight
-neighbours, climbing at most 1 level and dropping at most 2. Diagonal steps cost the same as
-straight ones but cannot cut a corner. `G` draws the tiles' edges on the ground, for counting them.
+The map is a level of 1×1×1 cells, built of voxel blocks 16 voxels to a side: in the middles of
+cells, as the ground, crates and trees are, and on the edges between them, as fences and walls are.
+A tile is an empty cell with solid ground beneath it and two cells of headroom — a unit fills its
+tile and the cell above. Units step to any of the eight neighbours, climbing at most 1 level and
+dropping at most 2. Diagonal steps cost the same as straight ones but cannot cut a corner. A fence,
+or a wall a cell high, on the edge between two tiles is stepped over (the soldier hops it), as a
+climb of a level is; a taller wall is not, and nobody steps diagonally past either. `G` draws the
+tiles' edges on the ground, for counting them.
 
 ### Line of sight and cover
 
@@ -342,6 +369,9 @@ Cover is whatever is solid beside a tile, on any of its four cardinal sides:
   sight lines pass clean over anything only one cell high. Half cover costs the shooter aim but
   never blocks the shot.
 - **2+ cells tall → full cover.** Tall enough to sit in the sight line and stop it dead.
+- **Fences and walls on the edges between tiles** are cover the same way, to both sides of them: a
+  fence or a wall a cell high is half cover, a wall two cells high full cover, and they block sight
+  as a block does. Nobody leans out through one.
 
 **Stepping out.** A unit behind cover leans out to either side of it to shoot around it, exactly as
 in XCOM, and the tile it leans to is marked on the map while you aim. The lean is played out: the
@@ -520,8 +550,9 @@ boards a cell or two, and further when a grenade did it.
   within its reach. A board shot in two becomes two boards, a splinter too small to stand on its own
   falls as lumps, and a board worn below half of itself crumbles.
 
-**Grass and trees wear away, a few voxels at a time.** Every block is 16 voxels to a side, and these
-come apart into them:
+**Grass, trees, fences and stone walls wear away, a few voxels at a time.** Every block is 16 voxels
+to a side, and these come apart into them, across blocks as if they were one: a crater or a bite
+that reaches several blocks is one round hole, with no seam where the blocks met.
 
 - **A round takes a bite** where it strikes: about a dozen voxels for each point of the weapon's
   environmental damage (60 for a rifle), knocked out of the face it hit in small lumps that fall and
@@ -531,13 +562,14 @@ come apart into them:
   blast. Its earth is thrown up and out round the crater.
 - **Worn is not gone.** However chewed up it looks, a block still counts as the whole block for sight,
   cover and movement until it is **worn below half** of its voxels. Then it collapses: it is gone from
-  the fight at once, what is left of it crumbles into lumps, blocks stacked on it fall, and anyone on
-  it drops.
+  the fight at once, what is left of it crumbles into lumps, the edges of the hole it leaves crumble a
+  little too, blocks stacked on it (and walls standing on it) fall, and anyone on it drops.
 - **Cut through, it falls.** A block holding something up collapses as soon as nothing joins its bottom
   to its top: a tree's thin trunk, shot through, brings its crown down with it.
 - **The ground never gives way.** The bottom of the map only craters, and only a quarter of a tile
   deep. Soldiers still stand at the ground's full height, so they float a little over a crater.
-- **What falls off hanging** - a lump of earth left holding on to nothing - drops with the rest.
+- **What falls off hanging** - a lump of earth left holding on to nothing, even through several
+  blocks - drops with the rest.
 
 As with crates, the debris is only for show and stays for the rest of the fight. After a great deal of
 destruction, the debris furthest from where the camera is looking stops moving, though it stays where
@@ -575,9 +607,8 @@ a battle; a battle keeps whatever it began with.
   crates, debris, other soldiers and the guns they carry, and what the dead broke into.
 - **Coins stay clean.** They are the one exception: blood flies straight through a coin, and never
   stains it.
-- **Pools.** Blood runs where it lands, a voxel face at a time: it pools on flat ground, runs over an
-  edge and down the wall below, and fills the bottom of a crater. Blood landing in a pool makes it
-  bigger.
+- **Pools.** Blood runs where it lands, voxel by voxel: it pools on flat ground, runs over an edge
+  and down the wall below, and fills the bottom of a crater. Blood landing in a pool makes it bigger.
 - **The dead bleed out.** A second after someone dies, once their chunks have mostly landed, a pool
   about two tiles across spreads out over a few seconds where they stood.
 - **Blood goes with what it is on.** A bloody crate breaks into bloody boards, a bloody block falling
@@ -588,10 +619,12 @@ Enemies are slate grey, so their wounds show.
 
 ## Notable decisions
 
-**Cover is read off whole cells, not thin walls.** XCOM puts cover on tile edges; here every
-obstacle is a full voxel. Mapping "1 cell tall" to half cover and "2+ cells" to full cover means the
+**Cover is read off what stands, in cells and on their edges.** XCOM puts cover on tile edges; here
+most obstacles are whole cells, and fences and walls stand on the edges between them, each a 16³
+block offset half a cell. Mapping "1 cell tall" to half cover and "2+ cells" to full cover means the
 eye-height sight line reproduces XCOM's behaviour for free, with no separate cover data to author —
-build terrain and the cover falls out of it.
+build terrain and the cover falls out of it. A fence or a wall is cover to both sides and blocks
+sight as a block does, and is stepped over only if a cell high.
 
 **Sight lines are symmetric by construction.** Where a shot crosses two cell boundaries at once — a
 diagonal — it cuts the corner rather than clipping the cells to either side. This is verified across
@@ -648,9 +681,10 @@ Here an arc that meets anything before its target cannot be thrown at all, so th
 shows is always where the grenade goes. The arc is traced through the same voxel grid as a round, and
 the preview and the blast ask the same question of who is caught, so the two cannot disagree.
 
-**Blood is painted on voxel faces, not into the voxels.** Each face of each voxel is stained or not,
-and the stains are drawn as red squares just proud of the faces they cover. So blood keeps exactly
-to the voxel grid, landing never rebuilds a block, a board or a body, and the rules never see it.
+**Blood is written into the voxels.** Every voxel model, the ground, a crate's board, a rifle, a
+soldier, is drawn one way, from a texture of its voxels' colours, and blood changes a voxel's colour
+there. So blood keeps exactly to the voxel grid, nothing is drawn over anything, landing never
+rebuilds a block, a board or a body, wherever a voxel goes its blood goes, and the rules never see it.
 Where it lands it runs like a liquid, cheapest way first and downhill cheapest, so a pool fills a
 crater and drips over a ledge with no fluid simulation.
 
@@ -1104,11 +1138,14 @@ vcom/                     the Godot project
     CameraRig.gd          orbiting tactical camera, and the framed reaction view
     InputDevice.gd        which the player is using, the gamepad or the keyboard and mouse
     Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins,
-                          the tile grid's lines, the gamepad's tile cursor
+                          the tile grid's switch, the gamepad's tile cursor
     AI/                   enemy AI: the base, the assault AI, and the queries they share
-    Terrain/              destructible terrain: what breaks, how, and what it brings down; blocks and
-                          loose models (a crate's boards) that wear away voxel by voxel, and the voxels
-                          broken off them; the blood stained on voxel faces
+    Level/                combat maps as levels of voxel pieces: the pieces, the voxels they add up
+                          to, how those are drawn, what the rules see, and what an editor click does
+    Terrain/              destructible terrain: what breaks, how, and what it brings down; the
+                          level's voxels and loose models (a crate's boards) worn away voxel by voxel,
+                          and the voxels broken off them; how every voxel model is drawn and
+                          recoloured (VoxelModel and its shader)
     Blood/                blood: wounds, the spray, and the pools it runs into
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Reload, Hunker
                           Down, Throw Grenade, Use Medkit
@@ -1121,7 +1158,10 @@ vcom/                     the Godot project
     UI/                   HUD and menus, built in code rather than scenes, and the gamepad's prompts
   Resources/              shared resources: weapons and items, characters and their skills, AI,
                           villages' locations, the new map's look (MapLines/, MapGround.tres)
-    Destruction/          what breaks and how: one resource per breakable block, and the catalog
+    Destruction/          what breaks and how: one resource per breakable kind of block
+  Blocks/                 the level's pieces: their .vox models, and Pieces.tres, every kind and brush
+  Levels/                 each combat map's pieces, as the level editor leaves them
+  addons/level_editor/    the level editor, a plugin for Godot's own editor
   Scenes/
     WorldMap.tscn         the campaign map, where the game opens
     Map.tscn              the new world map, drawn with shapes; not in the game yet
@@ -1140,14 +1180,18 @@ MapCreation/              the new world map as it was drawn: its pictures, the d
                           (SourceData/), Features.md, which describes them, and the programs that
                           made them and Map.tscn (Scripts/)
 MagicaVoxel/              source .vox art
-  Shapes/                 basic 16x16x16 models (terrain, walls, props, plants) not yet in the game,
-                          the script that makes them, and a preview of them all
-Images/                   screenshots: the world map, the menus, and battles just begun and long fought,
-                          clean and with blood
+  Shapes/                 basic 16x16x16 models (terrain, walls, props, plants), the script that
+                          makes them, and a preview of them all; three are in the game (the fence,
+                          the stone wall, tall grass)
+Images/                   screenshots: the world map, the menus, battles just begun and long fought,
+                          clean and with blood, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
 MapStyles/                proposals for the new world map's look (02, 04, 05, 10's forests, 10b, 14b,
                           19a and 12b are applied), pictures of the look as it is, 12 and 20 explored
                           with variants, the harness that renders them, and how to apply one
+Docs/                     each subsystem in full, split out of CLAUDE.md: blood, destruction, the
+                          gamepad, levels, the level editor, the new world map, medkits, skills and
+                          voxel models
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

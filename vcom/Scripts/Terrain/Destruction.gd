@@ -1,19 +1,20 @@
-## How a kind of block comes apart once it breaks.
+## How a kind of piece comes apart once it breaks.
 ##
 ## Each way of breaking is a subclass - [ScriptedDestruction] swaps in pieces
-## cut in advance and lets them fall - and each breakable block gets a
-## resource of one of them, naming the block and holding what it breaks into.
-## The resources are listed in a [DestructionCatalog], which is how
-## [TerrainDestruction] knows what breaks.
+## cut in advance and lets them fall - and each breakable kind of piece
+## ([PieceKind]) holds a resource of one of them, as its
+## [member PieceKind.destruction], which is how [TerrainDestruction] knows what
+## breaks and how.
 ##
-## By the time a destruction is asked to break a block, the block is already
-## gone from the grid: sight, cover and paths have moved on. A destruction
-## only plays out what is left of it. One resource serves every block of its
+## By the time a destruction is asked to break a piece, the piece is already
+## gone from the rules: sight, cover and paths have moved on. A destruction
+## only plays out what is left of it. One resource serves every piece of its
 ## kind, so, like a [Weapon], it must not keep anything between calls.
 class_name Destruction
 extends Resource
 
-## The block this breaks, by its name in the map's MeshLibrary.
+## The kind of piece this breaks, by its [member PieceKind.id]: only named in
+## what is reported of it.
 @export var block := ""
 ## How heavy the block is whole, in kilograms: what it weighs as it falls when
 ## the block under it breaks, and so how hard it shoves the debris it meets on

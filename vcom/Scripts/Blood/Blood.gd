@@ -11,10 +11,10 @@
 ## side facing it. The more damage, the more blood.
 ##
 ## Each drop is a voxel of blood flying under gravity, all of them drawn by one
-## MultiMesh, and it stains the first voxel face it meets, whatever that
-## belongs to: a block (traced voxel by voxel, [method CombatGrid.cast]), a
-## crate's piece or a lump of debris (found by the physics, then traced through
-## the piece's voxels), a figure, or the gear one carries.
+## MultiMesh, and it stains the first voxel it meets, whatever that belongs
+## to: the level (traced voxel by voxel, [method CombatGrid.cast]), a crate's
+## piece or a lump of debris (found by the physics, then traced through the
+## piece's voxels), a figure, or the gear one carries.
 ## Coins are the exception: blood never touches them, and a drop flies through
 ## a coin as if it were not there. Where it lands it runs as blood would
 ## ([BloodFlow]): it pools on flat ground, runs over an edge and down the wall,
@@ -23,10 +23,16 @@
 ## lumps, and a moment later a pool spreads out over a few seconds on the
 ## ground where it stood.
 ##
-## Stains are on the faces of voxels, and stay for the rest of the battle,
-## going wherever their voxels go ([VoxelStains]). All of it is only for show:
-## nothing in the rules reads blood, and it draws only on a random generator of
-## its own, never the global one, so a seeded fight replays the same.
+## Everywhere, blood recolours the voxels themselves: a voxel it reaches takes
+## blood's place in its palette ([constant VoxelShape.BLOOD]), written to the
+## texture of colours it is drawn from - the level's ([VoxelVolume]), or the
+## model's own ([VoxelModel]): a figure's, a prop's, a crate's board's - so
+## nothing is drawn over it and no mesh is built again. A lump of debris is
+## recoloured the same way, its voxel's colour in the MultiMesh that draws it.
+## Blood stays for the rest of the battle, going wherever its voxels go. All of
+## it is only for show: nothing in the rules reads blood, and it draws only on
+## a random generator of its own, never the global one, so a seeded fight
+## replays the same.
 ##
 ## The player can turn it off, to play clean ([member enabled]); a battle
 ## begun with it off has none at all.
@@ -37,7 +43,9 @@ extends Node3D
 ## what any weapon does bleeds no more than this.
 const MOST_DAMAGE := 10
 ## How many faces a hit stains on the body: so many, and so many more for each
-## point of damage taken. An exit wound stains half as many.
+## point of damage taken. An exit wound stains half as many. Blood recolours
+## whole voxels, and spends one for each face of a voxel that turns red
+## ([member BloodFlow.left]).
 const WOUND_FACES := 8
 const WOUND_FACES_PER_DAMAGE := 4
 ## How many drops a hit sprays: so many, and so many more for each point of
@@ -109,7 +117,7 @@ const POOL_DELAY := 1.0
 const POOL_ABOVE := 0.25
 const POOL_BELOW := 3.0
 
-const FACES := VoxelStains.FACES
+const FACES := BloodFlow.FACES
 
 ## Whether there is blood at all. Off, battles are fought clean: no wounds,
 ## drops, stains or pools, on anything. Set from the pause menu's System tab
@@ -125,7 +133,7 @@ static var enabled := true
 
 var _grid: CombatGrid
 var _destruction: TerrainDestruction
-var _terrain: BloodFlow.TerrainSurface
+var _terrain: BloodFlow.VolumeSurface
 ## Everything here draws on this, so the global generator is left alone.
 var _rng := RandomNumberGenerator.new()
 
@@ -159,7 +167,7 @@ class Landing:
 	var block: CombatGrid.RayHit
 	var figure: FigureVoxels
 	var on_figure: FigureVoxels.Hit
-	var model: VoxelBody
+	var model: VoxelModel
 	## For a loose model: the voxel and face met, counted in its shape.
 	var voxel := Vector3i.ZERO
 	var face := 0
@@ -171,29 +179,19 @@ class Landing:
 func _ready() -> void:
 	_grid = get_node_or_null(grid_path) as CombatGrid
 	_destruction = get_node_or_null(destruction_path) as TerrainDestruction
-	if _grid == null or _destruction == null or _destruction.voxels == null:
+	if _grid == null or _grid.level == null or _destruction == null or _destruction.voxels == null:
 		push_error("Blood: missing CombatGrid or TerrainDestruction, so no blood.")
 		set_process(false)
 		set_physics_process(false)
 		return
-	# Every figure's voxels are read now, as the map loads, rather than on the
-	# first hit, which would catch on them: about 10 ms for the base figure,
-	# more for its gear. Even with no blood, as a shot still uses them to draw
-	# its tracer on to the body ([method CharacterModel.pick_wound]).
-	for node in get_tree().get_nodes_in_group(Unit.GROUP):
-		var unit := node as Unit
-		var figure: FigureVoxels = unit.model.voxels() if unit.model != null else null
-		if figure != null:
-			figure.prepare()
+	# Every figure's voxels, and its gear's, were read as its unit readied, to
+	# draw it by ([CharacterModel]).
 	if not enabled:
 		set_process(false)
 		set_physics_process(false)
 		return
 	_rng.randomize()
-	var map := _destruction.get_node_or_null(_destruction.grid_map_path) as GridMap
-	var map_frame := map.global_transform if map != null else Transform3D.IDENTITY
-	var cell_size := map.cell_size if map != null else Vector3.ONE
-	_terrain = BloodFlow.TerrainSurface.new(_destruction.voxels, map_frame, cell_size)
+	_terrain = BloodFlow.VolumeSurface.new(_grid.level.volume, _grid.level.global_transform)
 	_ray.collision_mask = TerrainDestruction.DEBRIS_LAYER
 	_ray.collide_with_areas = false
 	_make_drops()
@@ -276,7 +274,7 @@ func pools_to_come() -> int:
 func _on_hurt(taken: int, from: Vector3, at: Vector3, blasted: bool, sweep: Vector3, unit: Unit) -> void:
 	var killing := taken >= unit.health
 	taken = mini(taken, MOST_DAMAGE)
-	var faces := WOUND_FACES + taken * WOUND_FACES_PER_DAMAGE
+	var volume := WOUND_FACES + taken * WOUND_FACES_PER_DAMAGE
 	var drops := DROPS + taken * DROPS_PER_DAMAGE
 	var middle := _middle_of(unit)
 	if not from.is_finite():
@@ -286,13 +284,13 @@ func _on_hurt(taken: int, from: Vector3, at: Vector3, blasted: bool, sweep: Vect
 		_spray(middle, middle - from, drops, EXIT_SPEED, EXIT_SCATTER, null)
 		return
 	if blasted:
-		_blast_wounds(figure, from, faces, drops, clampi(1 + taken / 3, BLAST_WOUNDS.x, BLAST_WOUNDS.y), middle, killing)
+		_blast_wounds(figure, from, volume, drops, clampi(1 + taken / 3, BLAST_WOUNDS.x, BLAST_WOUNDS.y), middle, killing)
 		return
 	var hit: FigureVoxels.Hit = figure.hit_near(at, from, _rng) if at.is_finite() else figure.pick_wound(from, _rng)
 	if hit == null:
 		_spray(middle, middle - from, drops, EXIT_SPEED, EXIT_SCATTER, figure)
 		return
-	_wound(figure, hit, faces, killing)
+	_wound(figure, hit, volume, killing)
 	var heading := (hit.point - from).normalized()
 	if not sweep.is_zero_approx():
 		_spray(hit.point, sweep.normalized() * SWEEP_ALONG + heading * SWEEP_ON, drops, SWEEP_SPEED, SWEEP_SCATTER, figure)
@@ -302,23 +300,23 @@ func _on_hurt(taken: int, from: Vector3, at: Vector3, blasted: bool, sweep: Vect
 	var exit_point := hit.point + heading * VoxelShape.SCALE
 	if exit != null:
 		exit_point = exit.point
-		_wound(figure, exit, faces / 2, killing)
+		_wound(figure, exit, volume / 2, killing)
 	var forward := roundi(drops * EXIT_SHARE)
 	_spray(exit_point, heading, forward, EXIT_SPEED, EXIT_SCATTER, figure)
 	_spray(hit.point, -heading, drops - forward, BACK_SPEED, BACK_SCATTER, figure)
 
 
 ## Wounds [param figure] [param wounds] times on the side facing a blast at
-## [param from], sharing [param faces] and [param drops] out between them, each
+## [param from], sharing [param volume] and [param drops] out between them, each
 ## spraying away from it; at once if [param now].
 @warning_ignore("integer_division")
-func _blast_wounds(figure: FigureVoxels, from: Vector3, faces: int, drops: int, wounds: int, middle: Vector3, now := false) -> void:
+func _blast_wounds(figure: FigureVoxels, from: Vector3, volume: int, drops: int, wounds: int, middle: Vector3, now := false) -> void:
 	var sprayed := 0
 	for wound in wounds:
 		var hit := figure.pick_wound(from, _rng)
 		if hit == null:
 			continue
-		_wound(figure, hit, maxi(faces / wounds, 1), now)
+		_wound(figure, hit, maxi(volume / wounds, 1), now)
 		var away := hit.point - from
 		away.y = maxf(away.y, 0.0)
 		_spray(hit.point, away.normalized() + Vector3.UP * 0.4, drops / wounds, BLAST_SPEED, BLAST_SCATTER, figure)
@@ -328,16 +326,16 @@ func _blast_wounds(figure: FigureVoxels, from: Vector3, faces: int, drops: int, 
 		_spray(middle, Vector3.UP, drops, BLAST_SPEED, 1.0, figure)
 
 
-## Stains [param faces] faces of [param figure] round [param hit], with the
+## Stains [param volume] faces of [param figure] round [param hit], with the
 ## landings, so it waits its turn as they do; or at once if [param now].
-func _wound(figure: FigureVoxels, hit: FigureVoxels.Hit, faces: int, now := false) -> void:
+func _wound(figure: FigureVoxels, hit: FigureVoxels.Hit, volume: int, now := false) -> void:
 	if now:
-		figure.bleed(hit, faces, _rng)
+		figure.bleed(hit, volume, _rng)
 		return
 	var landing := Landing.new()
 	landing.figure = figure
 	landing.on_figure = hit
-	landing.volume = faces
+	landing.volume = volume
 	_landings.append(landing)
 
 
@@ -426,8 +424,9 @@ func _debris_met(from: Vector3, heading: Vector3, reach: float) -> Landing:
 			landing.distance = from.distance_to(met.position)
 			return landing
 		if body is RigidBody3D and not body is FallingBlock:
-			var model := _destruction.voxels.model_of(body)
-			if model != null:
+			var loose := _destruction.voxels.model_of(body)
+			if loose != null:
+				var model := loose.model
 				var hit := VoxelTerrain.march(model.shape, model.voxels, model.frame(), from, heading, reach)
 				if hit != null and hit.face != Vector3i.ZERO:
 					var landing := Landing.new()
@@ -441,27 +440,25 @@ func _debris_met(from: Vector3, heading: Vector3, reach: float) -> Landing:
 
 
 ## Stains what [param landing] met, and lets the blood run. What it met may
-## have gone since, or worn: the flow only stains faces still there.
+## have gone since, or worn: the flow only stains voxels still there.
 func _splash(landing: Landing) -> void:
 	var volume := landing.volume
 	if landing.block != null:
 		var hit := landing.block
-		if hit.index < 0 or hit.face == Vector3i.ZERO:
+		if not hit.has_voxel() or hit.face == Vector3i.ZERO:
 			return
-		# The block may have broken or fallen while the landing waited its turn,
-		# as the cover of someone hit leaning out of it does to the next round.
-		if _destruction.voxels.kind_of(hit.cell) == null:
+		# The voxel may have gone while the landing waited its turn, as the cover
+		# of someone hit leaning out of it does to the next round.
+		if not _terrain.is_solid(hit.voxel):
 			return
-		var start := _terrain.voxel_of(hit.cell, hit.index)
-		BloodFlow.new(_terrain, start, FACES.find(hit.face), volume, _rng, LANDING_SPLAT).spread(volume)
+		BloodFlow.new(_terrain, hit.voxel, FACES.find(hit.face), volume, _rng, LANDING_SPLAT).spread(volume)
 	elif landing.figure != null:
 		if landing.figure.is_valid():
 			landing.figure.bleed(landing.on_figure, volume, _rng)
 	elif landing.model != null:
 		if not is_instance_valid(landing.model):
 			return
-		var model := landing.model
-		var surface := BloodFlow.ModelSurface.new(model.stained(), model.voxels, model.frame())
+		var surface := BloodFlow.ModelSurface.new(landing.model)
 		BloodFlow.new(surface, landing.voxel, landing.face, volume, _rng, LANDING_SPLAT).spread(volume)
 	elif landing.lump.is_valid():
 		_destruction.voxel_debris.stain(landing.lump, landing.point)
@@ -486,9 +483,9 @@ func _start_pool(stood: Vector3) -> void:
 	if met == null:
 		return
 	var hit := met as CombatGrid.RayHit
-	if hit.index < 0 or hit.face == Vector3i.ZERO:
+	if not hit.has_voxel() or hit.face == Vector3i.ZERO:
 		return
-	var flow := BloodFlow.new(_terrain, _terrain.voxel_of(hit.cell, hit.index), FACES.find(hit.face), DEATH_FACES, _rng)
+	var flow := BloodFlow.new(_terrain, hit.voxel, FACES.find(hit.face), DEATH_FACES, _rng)
 	_pools.append([flow, 0.0])
 
 
@@ -556,7 +553,13 @@ func _remove(drop: int) -> void:
 func _make_drops() -> void:
 	var cube := BoxMesh.new()
 	cube.size = Vector3.ONE * VoxelShape.SCALE
-	cube.material = VoxelStains.material
+	# A little glossy, so a drop catches the light as wet blood does, as a
+	# voxel it recolours is (the voxel shader's wet flag).
+	var wet := StandardMaterial3D.new()
+	wet.albedo_color = VoxelShape.BLOOD_COLOR
+	wet.roughness = 0.55
+	wet.metallic_specular = 0.35
+	cube.material = wet
 	_drawn = MultiMesh.new()
 	_drawn.transform_format = MultiMesh.TRANSFORM_3D
 	_drawn.mesh = cube
