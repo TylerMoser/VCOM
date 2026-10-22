@@ -11,7 +11,9 @@ What is spliced in is the scene m2_scene.gd makes with "villages" (from v2_shape
   the lanes and the bridges on them are drawn with, Lane.tres and LaneBridge.tres (the map's look,
   Docs/MAP.md "Its look", which m2_scene.gd draws them in).
 Nothing else in the scene changes, a byte. A node's unique_id or a resource's id that the scene
-already uses is given a new one.
+already uses is given a new one. The channels carry the water's script, MapWater.gd, as every node of
+water in the scene does (Docs/MAP.md, "Navigation"): the scene's own resource for it is used, and is
+never taken out, the sea, the lakes and the rivers having it too.
 
 With --replace, what was spliced in before is taken out first: every node under the hamlets' and
 the villages' groups, the Lanes groups under Roads and Bridges and the Channels group with
@@ -32,6 +34,8 @@ UID = re.compile(r"unique_id=(\d+)")
 USES = re.compile(r'ExtResource\("([^"]+)"\)')
 OURS = ("res://Scenes/Village.tscn", "res://Scenes/Hamlet.tscn", "res://Resources/MapLines/Lane.tres",
         "res://Resources/MapLines/LaneBridge.tres")
+# Shared with the rest of the scene's water: used as the scene has it, never taken out.
+WATER = "res://Scripts/WorldMap/MapWater.gd"
 GROUPS = ("Settlements", "Settlements/Hamlets", "Settlements/Villages")
 
 
@@ -92,12 +96,16 @@ taken_ids = set(EXT.match(b).group(3) for b in scene if EXT.match(b))
 rng = random.Random(20261017)
 rename = {}
 exts = []
+scene_water = next((EXT.match(b).group(3) for b in scene if EXT.match(b) and EXT.match(b).group(2) == WATER), None)
 for b in alone[1:]:
     m = EXT.match(b)
     if not m:
         continue
     kind, where, rid = m.groups()
-    assert where in OURS, "not expected among the villages' resources: %s" % where
+    if where == WATER and scene_water is not None:
+        rename[rid] = scene_water
+        continue
+    assert where in OURS or where == WATER, "not expected among the villages' resources: %s" % where
     wanted = "%d_%s" % (len(taken_ids) + 1, where.rsplit("/", 1)[1].split(".")[0].lower())
     while wanted in taken_ids:
         wanted = "%s_%s" % (wanted, "".join(rng.choice("abcdefghijklmnopqrstuvwxyz0123456789") for _ in range(3)))
@@ -160,8 +168,8 @@ def place_of(p):
     return next(i for i, b in enumerate(scene) if path(b) == p)
 
 
-def last_under(group):
-    return max(i for i, b in enumerate(scene) if under(path(b), group))
+def last_under(group, but_not=None):
+    return max(i for i, b in enumerate(scene) if under(path(b), group) and not (but_not and under(path(b), but_not)))
 
 
 inserts = []                          # (after which block, the blocks)
@@ -170,7 +178,8 @@ inserts.append((last_ext, exts))
 inserts.append((place_of("Settlements/Hamlets"), coming["Settlements/Hamlets"]))
 inserts.append((place_of("Settlements/Villages"), coming["Settlements/Villages"]))
 inserts.append((place_of("Roads"), coming["Roads/Lanes"]))
-inserts.append((last_under("Bridges"), coming["Bridges/Lanes"]))
+# Before Bridges/Hamlets, the hand-made bridges to the hamlets' islands, which come after the lanes'.
+inserts.append((last_under("Bridges", but_not="Bridges/Hamlets"), coming["Bridges/Lanes"]))
 inserts.append((place_of("BordersOverLakes") - 1, coming["Channels"]))
 for after, new_blocks in sorted(inserts, key=lambda x: -x[0]):
     if not new_blocks:

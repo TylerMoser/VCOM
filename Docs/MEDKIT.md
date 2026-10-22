@@ -10,7 +10,7 @@ notes) is `CLAUDE.md`'s.
 
 **A medkit heals an ally next to the unit, or the unit itself, once a battle for each one carried,
 and the squad members beside its carrier can draw on its uses.** `Medkit.tres` is a
-`Medkit` (`BattleItem`, tagged `medkit`, `heal` 4, price 10, one in `Village1Market.tres`'s stock), so it
+`Medkit` (`BattleItem`, tagged `medkit`, `heal` 4, price 10, one in `County115Market.tres`'s stock), so it
 goes in an item slot and gives `UseMedkitAction`. It is never used up, unlike a grenade: what a battle
 spends is `Unit.medkits`, the `Medkit`s the unit can still use, filled from its equipment as it enters
 the map (one per medkit carried, so two give two uses) and popped by `Unit.use_medkit()`; the item stays

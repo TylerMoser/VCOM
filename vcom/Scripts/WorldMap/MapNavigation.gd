@@ -215,11 +215,6 @@ func is_passable(point: Vector2) -> bool:
 	return _lookup == null or _lookup.is_passable(_to_map(point))
 
 
-## Miles a day over the ground at [param point]: 0 where the party cannot go.
-func miles_per_day_at(point: Vector2) -> float:
-	return 0.0 if _lookup == null else _lookup.miles_per_day_at(_to_map(point))
-
-
 ## The way from [param from] to [param to], in global coordinates, found
 ## while the caller waits; null when there is none. For probes: the party
 ## asks [method request_route].

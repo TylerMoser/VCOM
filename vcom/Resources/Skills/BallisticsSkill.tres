@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Skill" format=3]
+[gd_resource type="Resource" script_class="Skill" format=3 uid="uid://boxifcbl4vdlb"]
 
-[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_wwxh2"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_wpgp0"]
-[ext_resource type="Script" path="res://Scripts/Skills/StatBonus.gd" id="3_137hl"]
-[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="4_u6rii"]
+[ext_resource type="Script" uid="uid://b8me0aie4y0gi" path="res://Scripts/Skills/SkillLevel.gd" id="1_wwxh2"]
+[ext_resource type="Script" uid="uid://j3a7fifobbcw" path="res://Scripts/Skills/SkillEffect.gd" id="2_wpgp0"]
+[ext_resource type="Script" uid="uid://dppatrsp1ha60" path="res://Scripts/Skills/StatBonus.gd" id="3_137hl"]
+[ext_resource type="Script" uid="uid://7npv470wurqc" path="res://Scripts/Skills/Skill.gd" id="4_u6rii"]
 
 [sub_resource type="Resource" id="Resource_mhqrf"]
 script = ExtResource("3_137hl")

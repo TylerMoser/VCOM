@@ -539,7 +539,20 @@ points, numbers and kinds alike). The scene's `Detail` node shows them by the zo
   (`-- <shapes> res://Scenes/MapAgain.tscn`) to make one to look at.
 - **`villages/v3_splice.py --replace` takes out every village, hamlet, lane and channel** before
   it splices them in again, so a village moved, renamed or given a market by hand is lost. Do
-  such things after the villages are placed for good, or carry them over.
+  such things after the villages are placed for good, or carry them over. The one change carried
+  over so far: on 2026-10-21, 23 villages of the Swamp were moved off the first point of their own
+  channel, on to the land beside it, for the map's navigation, in the scene and in
+  `SourceData/Villages.json` alike, so spliced again they stay where they are. Made afresh by
+  `v1_villages.py`, they would stand on their channels again, which the navigation's bake reports.
+  The channels come with the `MapWater` script every node of water in the scene has (`m2_scene.gd`
+  gives it them, and `v3_splice.py` uses the scene's own resource for it), and the groups'
+  descriptions `m2_scene.gd` writes are the scene's as it is, the Settlements', the Channels' and the
+  Forests' included: spliced afresh from the scene's own villages, the 2,808 nodes came out the same
+  as the scene's (2026-10-22), resource ids apart.
+- **After any splice, bake the map's navigation again** (`vcom/Scripts/WorldMap/BakeMapNavigation.gd`,
+  or the Bake Navigation button on the scene's `Navigation` node: `Docs/MAP.md`, "Navigation"), and
+  mend what its report names: a settlement standing on water, or a road crossing water with no
+  bridge. Until then the game warns as the map opens, and routes follow the map as it was.
 - **Two programs write into the repository themselves**: `water/w5_finish.py` and
   `water/w6_water_only.py`. Every other writes where it is told.
 - **`water/w0_grids.py` reads the kingdoms' first lines from a picture named `Kingdoms.png`**:

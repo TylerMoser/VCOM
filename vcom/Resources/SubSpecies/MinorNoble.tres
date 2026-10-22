@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="SubSpecies" format=3]
+[gd_resource type="Resource" script_class="SubSpecies" format=3 uid="uid://dicls3ejtfpe4"]
 
-[ext_resource type="Script" path="res://Scripts/Roster/SubSpecies.gd" id="1_stbm6"]
-[ext_resource type="Resource" path="res://Resources/Species/Human.tres" id="2_vbfku"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="3_frb3b"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="5_5acnm"]
-[ext_resource type="Resource" path="res://Resources/Skills/MoneyGrubbing.tres" id="6_money_grubbing"]
-[ext_resource type="Resource" path="res://Resources/Skills/BallisticsSkill.tres" id="7_ballistics_skill"]
-[ext_resource type="Resource" path="res://Resources/Skills/WeaponSkill.tres" id="8_weapon_skill"]
-[ext_resource type="Resource" path="res://Resources/Skills/RichBlood.tres" id="9_rich_blood"]
+[ext_resource type="Script" uid="uid://ceah00rhl3253" path="res://Scripts/Roster/SubSpecies.gd" id="1_stbm6"]
+[ext_resource type="Resource" uid="uid://boolev5y0joc4" path="res://Resources/Species/Human.tres" id="2_vbfku"]
+[ext_resource type="Script" uid="uid://bma3xercegy4t" path="res://Scripts/Skills/SkillTreeNode.gd" id="3_frb3b"]
+[ext_resource type="Script" uid="uid://dqsl2aio68dnv" path="res://Scripts/Skills/SkillTree.gd" id="5_5acnm"]
+[ext_resource type="Resource" uid="uid://euiyktjwfc0p" path="res://Resources/Skills/MoneyGrubbing.tres" id="6_money_grubbing"]
+[ext_resource type="Resource" uid="uid://boxifcbl4vdlb" path="res://Resources/Skills/BallisticsSkill.tres" id="7_ballistics_skill"]
+[ext_resource type="Resource" uid="uid://vtq7l5asqu0k" path="res://Resources/Skills/WeaponSkill.tres" id="8_weapon_skill"]
+[ext_resource type="Resource" uid="uid://b8736l1enlccr" path="res://Resources/Skills/RichBlood.tres" id="9_rich_blood"]
 
 [sub_resource type="Resource" id="Resource_3t08i"]
 script = ExtResource("3_frb3b")

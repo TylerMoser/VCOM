@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="Species" format=3]
+[gd_resource type="Resource" script_class="Species" format=3 uid="uid://boolev5y0joc4"]
 
-[ext_resource type="Script" path="res://Scripts/Roster/Species.gd" id="1_yya5g"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
-[ext_resource type="Resource" path="res://Resources/Skills/Ambition.tres" id="5_ambition"]
-[ext_resource type="Resource" path="res://Resources/Skills/Hardiness.tres" id="6_hardiness"]
-[ext_resource type="Resource" path="res://Resources/Skills/Dexterity.tres" id="7_dexterity"]
-[ext_resource type="Resource" path="res://Resources/Skills/Adaptability.tres" id="8_adaptability"]
+[ext_resource type="Script" uid="uid://b4st0sa1d5cgy" path="res://Scripts/Roster/Species.gd" id="1_yya5g"]
+[ext_resource type="Script" uid="uid://bma3xercegy4t" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
+[ext_resource type="Script" uid="uid://dqsl2aio68dnv" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
+[ext_resource type="Resource" uid="uid://ke8tri7pqbyx" path="res://Resources/Skills/Ambition.tres" id="5_ambition"]
+[ext_resource type="Resource" uid="uid://b24kohgx4eajr" path="res://Resources/Skills/Hardiness.tres" id="6_hardiness"]
+[ext_resource type="Resource" uid="uid://de6w00cwucnm2" path="res://Resources/Skills/Dexterity.tres" id="7_dexterity"]
+[ext_resource type="Resource" uid="uid://civ04iudp41vm" path="res://Resources/Skills/Adaptability.tres" id="8_adaptability"]
 
 [sub_resource type="Resource" id="Resource_gp4wy"]
 script = ExtResource("2_cvdgw")

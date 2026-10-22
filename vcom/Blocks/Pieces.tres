@@ -1,22 +1,28 @@
-[gd_resource type="Resource" script_class="PieceLibrary" format=3]
+[gd_resource type="Resource" script_class="PieceLibrary" format=3 uid="uid://2lwj8p6vil4o"]
 
-[ext_resource type="Script" path="res://Scripts/Level/PieceBrush.gd" id="1_m5it7"]
-[ext_resource type="Script" path="res://Scripts/Level/PieceKind.gd" id="2_gan5t"]
+[ext_resource type="Script" uid="uid://3j4hb4i8lqmk" path="res://Scripts/Level/PieceBrush.gd" id="1_m5it7"]
+[ext_resource type="Script" uid="uid://ceaghxyk57clp" path="res://Scripts/Level/PieceKind.gd" id="2_gan5t"]
 [ext_resource type="Resource" path="res://Resources/Destruction/BrightGrass1.tres" id="3_8q4o1"]
-[ext_resource type="ArrayMesh" path="res://Blocks/BrightGrass1.vox" id="4_xh3ah"]
-[ext_resource type="Resource" path="res://Resources/Destruction/BrightCrate1.tres" id="5_7oivu"]
-[ext_resource type="ArrayMesh" path="res://Blocks/BrightCrate1.vox" id="6_1hji8"]
+[ext_resource type="ArrayMesh" uid="uid://b32tejrd82h2l" path="res://Blocks/BrightGrass1.vox" id="4_xh3ah"]
+[ext_resource type="Resource" uid="uid://diuhwotcrxbq7" path="res://Resources/Destruction/BrightCrate1.tres" id="5_7oivu"]
+[ext_resource type="ArrayMesh" uid="uid://bii7daxc74i0m" path="res://Blocks/BrightCrate1.vox" id="6_1hji8"]
 [ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Bottom.tres" id="7_lyu25"]
-[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Bottom.vox" id="8_mxfqa"]
+[ext_resource type="ArrayMesh" uid="uid://bdlp02yotd55l" path="res://Blocks/SkinnyTree1Bottom.vox" id="8_mxfqa"]
 [ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Top.tres" id="9_1obmr"]
-[ext_resource type="ArrayMesh" path="res://Blocks/SkinnyTree1Top.vox" id="10_7h860"]
-[ext_resource type="Script" path="res://Scripts/Level/PieceLibrary.gd" id="11_fcufj"]
+[ext_resource type="ArrayMesh" uid="uid://c4pxhehin4eod" path="res://Blocks/SkinnyTree1Top.vox" id="10_7h860"]
+[ext_resource type="Script" uid="uid://dfq7mkk8xy741" path="res://Scripts/Level/PieceLibrary.gd" id="11_fcufj"]
 [ext_resource type="Resource" path="res://Resources/Destruction/FenceStraight.tres" id="11_lyu25"]
-[ext_resource type="ArrayMesh" path="res://Blocks/FenceStraight.vox" id="12_mxfqa"]
+[ext_resource type="ArrayMesh" uid="uid://dd57ct6a3348x" path="res://Blocks/FenceStraight.vox" id="12_mxfqa"]
 [ext_resource type="Resource" path="res://Resources/Destruction/StoneWall.tres" id="13_1obmr"]
-[ext_resource type="ArrayMesh" path="res://Blocks/StoneWall.vox" id="14_7h860"]
+[ext_resource type="ArrayMesh" uid="uid://bgq5vycn3tb1r" path="res://Blocks/StoneWall.vox" id="14_7h860"]
 [ext_resource type="Resource" path="res://Resources/Destruction/TallGrass.tres" id="15_fcufj"]
-[ext_resource type="ArrayMesh" path="res://Blocks/TallGrass.vox" id="16_spagj"]
+[ext_resource type="ArrayMesh" uid="uid://frnxckldlypi" path="res://Blocks/TallGrass.vox" id="16_spagj"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleWall1.tres" id="17_swall"]
+[ext_resource type="ArrayMesh" uid="uid://m1d3ijsymfif" path="res://Blocks/SimpleWall1.vox" id="18_swall"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleTruss1.tres" id="19_struss"]
+[ext_resource type="ArrayMesh" uid="uid://bvwmyr1tkjfw6" path="res://Blocks/SimpleTruss1.vox" id="20_struss"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleRoof1.tres" id="21_sroof"]
+[ext_resource type="ArrayMesh" uid="uid://cutcv0vgqk6v5" path="res://Blocks/SimpleRoof1.vox" id="22_sroof"]
 
 [sub_resource type="Resource" id="Resource_spagj"]
 resource_name = "SkinnyTree1"
@@ -31,6 +37,14 @@ resource_name = "StoneWall2"
 script = ExtResource("1_m5it7")
 display_name = "StoneWall2"
 kinds = Array[StringName]([&"StoneWall", &"StoneWall"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_swall2"]
+resource_name = "SimpleWall2"
+script = ExtResource("1_m5it7")
+display_name = "SimpleWall2"
+kinds = Array[StringName]([&"SimpleWall1", &"SimpleWall1"])
 offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
 turns = PackedInt32Array(0, 0)
 
@@ -88,7 +102,33 @@ model = ExtResource("16_spagj")
 destruction = ExtResource("15_fcufj")
 solid = false
 
+[sub_resource type="Resource" id="Resource_swall1"]
+resource_name = "SimpleWall1"
+script = ExtResource("2_gan5t")
+id = &"SimpleWall1"
+model = ExtResource("18_swall")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("17_swall")
+edge_piece = true
+
+[sub_resource type="Resource" id="Resource_struss1"]
+resource_name = "SimpleTruss1"
+script = ExtResource("2_gan5t")
+id = &"SimpleTruss1"
+model = ExtResource("20_struss")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("19_struss")
+edge_piece = true
+
+[sub_resource type="Resource" id="Resource_sroof1"]
+resource_name = "SimpleRoof1"
+script = ExtResource("2_gan5t")
+id = &"SimpleRoof1"
+model = ExtResource("22_sroof")
+model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
+destruction = ExtResource("21_sroof")
+
 [resource]
 script = ExtResource("11_fcufj")
-kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2")])
-brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7")])
+kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2"), SubResource("Resource_swall1"), SubResource("Resource_struss1"), SubResource("Resource_sroof1")])
+brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7"), SubResource("Resource_swall2")])

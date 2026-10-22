@@ -63,8 +63,12 @@ The library as it is (2026-10-20):
 | FenceStraight (edge) | a split-rail fence, three quarters of a block high, stepped over | an edge |
 | StoneWall (edge) | a course of masonry a block high | an edge |
 | TallGrass (decoration) | tufts of grass, which the rules never see | a cell's middle |
+| SimpleWall1 (edge) | a plain wall a level high, for buildings (2026-10-22) | an edge |
+| SimpleTruss1 (edge) | a gable's triangle, under SimpleRoof1 | an edge |
+| SimpleRoof1 | one slope of a roof, rising a level across the cell | a cell's middle |
 | Brush: SkinnyTree1 (2) | a whole tree: the trunk, and the crown a level above it | a cell's middle |
 | Brush: StoneWall2 (2) | two courses of wall, one on the other: full cover | an edge |
+| Brush: SimpleWall2 (2) | two SimpleWall1, one on the other: full cover, a storey | an edge |
 
 **A slot is the middle of a cell, or the edge between two.** A cell is one unit across (a metre,
 sixteen voxels). A piece in the middle of a cell fills that cell, as a block did; a piece on an edge
@@ -231,6 +235,11 @@ Top to bottom:
   trunk through and the crown comes down.
 - **Decoration:** TallGrass on floor 1, over the ground: drawn, stained by blood, blown away by a
   blast, but never cover and never in anyone's way.
+- **A house:** **SimpleWall2** on floor 1 along the edges round its footprint (leave a gap for a door,
+  or paint SimpleWall1 on floor 2 over it); on floor 3, **SimpleRoof1** over each cell, turn 0 on the
+  near (-z) row and 180° on the far one for a ridge along x; and **SimpleTruss1** on floor 3 at each
+  gable, on the edges at the house's two ends, turn 0 beside the turn-0 roofs and 180° beside the
+  others. Turn the lot a quarter for a ridge along z. `Docs/LEVELS.md` has how the three are set up.
 - **Replacing a piece:** erase it (right click), then paint the new one.
 - **Finding out what is in a slot:** `Alt` + click picks the kind of its last piece. Pieces are no
   nodes, so the Inspector shows only the level as a whole.

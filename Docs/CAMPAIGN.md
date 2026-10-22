@@ -6,26 +6,27 @@ locations, and the hiring boards and markets that spend the party's gold: `Party
 `SquadMenu`, `VillageMenu`, `Location` and its kinds, the shop tabs, and the parts of `Campaign` (the
 autoload holding what outlives a scene) that they use. It was split out of `CLAUDE.md`, which keeps
 a summary. The roster the party is made of, their equipment and the items the shops sell are
-`Docs/ROSTER.md`'s; the new world map's scene, `Scenes/Map.tscn`, is `Docs/MAP.md`'s, which has the
-same party, forests and menus. A section named here that is not in this file (Gotchas,
+`Docs/ROSTER.md`'s; the world map's scene, `Scenes/Map.tscn`, is `Docs/MAP.md`'s: its land, look,
+forests, settlements, clock and navigation. A section named here that is not in this file (Gotchas,
 Verification, Known gaps, another subsystem's notes) is `CLAUDE.md`'s.
 
 ## How it works
 
-The campaign is played on `Scenes/WorldMap.tscn`, the main scene. What outlives a scene is
+The campaign is played on `Scenes/Map.tscn`, the main scene. The old world map,
+`Scenes/WorldMap.tscn` (a painted picture, one village, one forest), is kept only as a reference: it
+still runs by itself (F6) with the same party, forest and menus, but nothing leads to it, and its
+village has nothing in it any more. What outlives a scene is
 `Campaign`'s, an autoload: the roster, the inventory and the gold, who is still on each hiring board
 and what is left in each market, who fought last, and whether a battle is on (`in_mission`).
 
 ### Travelling, and being set upon
 
-**Forests are shapes where the party may be set upon.** On the old map each is an instance of
-`Scenes/Forest.tscn`, a light-green, half-transparent `Polygon2D` drawn in the editor, under
-`WorldMap.tscn`'s `Forests` node, in world coordinates like the destinations (not under the rotated
-`Map`). Its outline is its `polygon`, reshaped with the editor's polygon tools and saved as an
-override on that instance; the colour is set once in `Forest.tscn`. `Forests` sits before
-`Destinations` and `Party` so they draw on top. The new map's were made by program (`Docs/MAP.md`,
-"Forests"), each piece an instance of its kind's scene, which inherits `Forest.tscn`: its odds and its
-battle are both maps' at once.
+**Forests are shapes where the party may be set upon.** Each is a `Forest`, a half-transparent
+`Polygon2D`: on `Map.tscn` 2,459 pieces made by program (`Docs/MAP.md`, "Forests"), each an
+instance of its kind's scene, which inherits `Scenes/Forest.tscn`, so its odds and its battle are
+set once there, for every forest. Its outline is its `polygon`, which the editor's polygon tools
+reshape. `Forests` sits before the settlements and `Party` so they draw on top. (On the old map the
+one forest is a plain instance of `Forest.tscn`, drawn by hand.)
 
 **Random encounters are rolled per step and fought on a battle scene.** The party counts the distance
 it travels in steps of `Party.step_length` map pixels; at the end of each it asks `Forest.find_at()`
@@ -44,14 +45,14 @@ empty roster on its first frame back: it pauses the tree, shows "Game Over" in i
 and quits on the banner's `fading` signal, the moment its fade-out starts. Nothing on the map is saved
 or restored: its `_ready`s do not run again, so the party is on the spot it was set upon, still on its
 route, and the camera is where it was. Anything on the map that must notice a battle has passed (the
-navigation map re-registering, for one) sees only `_exit_tree` / `_enter_tree`. `WorldMap.tscn` is the
+navigation map re-registering, for one) sees only `_exit_tree` / `_enter_tree`. `Map.tscn` is the
 main scene; a battle opened on its own (F6, the harness) has nothing to go back to, so it is left over
 and idle after "Victory".
 
 ### Choosing who fights
 
 **Who fights is chosen as the battle starts, on a menu that cannot be closed.** `SquadMenu` is a
-`TabbedMenu` in `WorldMap.tscn` that `Party.encountered` opens (a party is its `party_path`). Its one
+`TabbedMenu` in `Map.tscn` that `Party.encountered` opens (a party is its `party_path`). Its one
 tab, titled Roster, is a `SquadTab`: the pause menu's `CharacterBrowser` over `Campaign.roster` (pages
 and equipment work as there, the battle not having begun) above a footer laid out as `PurchaseBar`'s,
 the hint and count on the left and a "Start" `HoldButton` on the right. A `CharacterButton` emits
@@ -73,7 +74,9 @@ this menu's clicks in a windowed run.
 The pause menu's frame is `TabbedMenu`, which the world map's **`VillageMenu`** shares. A left click
 (`select_unit`) on the icon of the `Destination` the party stands on (`Party.is_at()`: a trip there
 ends exactly on its position) opens it with one tab per entry in that destination's `locations`,
-rebuilt each time, titled by `Location.display_name`; a destination with none does not open. It is in
+rebuilt each time, titled by `Location.display_name`; a destination with none does not open. Only one
+has any yet: county 115's capital, the town nearest where the party starts, with a hiring board and
+a market (until 2026-10-22 the old map's village's, moved there for good). It is in
 the scene, so it sees Esc (`cancel_action`) before the pause menu and takes it, and the gamepad's
 `Menu` too, which closes it rather than open the pause menu over it. Being `PROCESS_MODE_ALWAYS` like
 every menu, it opens on nothing while the tree is paused, or A on the pause menu's tab row would open
@@ -83,8 +86,8 @@ one.
 **Locations are data; their tabs are what they do.** A `Location` is a stateless `.tres` like an
 `Item`, and `make_tab()` gives its tab: a placeholder `LocationTab` unless a subclass overrides it. A
 new kind of location is a `Location` subclass plus its tab, as `HiringBoard` + `HiringBoardTab` and
-`Market` + `MarketTab`. A kind whose content differs has a `.tres` per village
-(`Village1HiringBoard.tres`, `Village1Market.tres`); one the same everywhere could be one shared
+`Market` + `MarketTab`. A kind whose content differs has a `.tres` per settlement, named for it
+(`County115HiringBoard.tres`, `County115Market.tres`); one the same everywhere could be one shared
 `.tres`. What changes in play lives in `Campaign`, keyed by the resource, and the resource is never
 changed:
 
@@ -111,7 +114,8 @@ The bar rechecks the party's gold whenever it is shown, since the other tab may 
 
 ## Traps
 
-Two of Godot's limits met on the old map's land, and what is done instead:
+Two of Godot's limits met on the old map's land, and what is done instead (the new map's navigation
+is its own bake and meets neither: `Docs/MAP.md`, "Navigation"):
 
 **The 2D navigation server cannot handle long sliver polygons.** Baked whole, the pixel coastline gave
 polygons thousands of pixels long and a few wide, and the server found no polygon under points inside
@@ -130,11 +134,11 @@ row instead. Do not use the built-in for land tests.
 `CLAUDE.md`'s Layout lists every script in a line or two; here are this subsystem's in full.
 
 ```
-  WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
+  WorldMap/            the campaign map, Scenes/Map.tscn (2D; the old Scenes/WorldMap.tscn kept as a reference)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions; the left stick pans, the right zooms;
                        its limits the map sprite's, behind _has_map(), _map_rect(), _max_zoom() and
                        _clamp_to_map(point, zoom), which MapCamera overrides
-    MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen and its
+    MapReticle.gd      CanvasLayer in Map.tscn: the gamepad's reticle in the middle of the screen and its
                        prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
@@ -157,9 +161,9 @@ row instead. Do not use the built-in for land tests.
     HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
     Market.gd          Location: an Inventory of stock for sale at one village; one .tres per village
   UI/
-    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in;
-                       enterable() (the village a click or A opens)
-    SquadMenu.gd       TabbedMenu in WorldMap.tscn, opened by Party.encountered, cannot be closed: one SquadTab
+    VillageMenu.gd     TabbedMenu in Map.tscn: a LocationTab per location of the settlement the party is in;
+                       enterable() (the settlement a click or A opens)
+    SquadMenu.gd       TabbedMenu in Map.tscn, opened by Party.encountered, cannot be closed: one SquadTab
     SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton;
                        focus_start() (the gamepad's Menu)
     LocationTab.gd     placeholder tab for one Location: its description in the middle
@@ -186,7 +190,8 @@ menus have to be driven in a window (`CLAUDE.md`'s Gotchas, "Headless quirks").
 
 ## Known gaps
 
-- The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
-  land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates the
-  mask from the art and overwrites any edits to it.
+- Of the 2,220 settlements only county 115's capital has anything in it.
 - Every encounter is the same `BoundaryMap.tscn`, fresh each time, with its four enemies.
+- The old map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
+  land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates the
+  mask from the art and overwrites any edits to it. Its village opens nothing now.

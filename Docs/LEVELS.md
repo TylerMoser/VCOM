@@ -93,10 +93,27 @@ cells across, cells up) and a turn, placed together in one click and turned toge
 | `FenceStraight` | a two-rail fence | `FenceStraight.tres`: wears, mass 60, density 600, 8 voxels a point, crumbles in 2s | edge piece |
 | `StoneWall` | a course of masonry, 4 voxels thick | `StoneWall.tres`: wears, mass 900, density 2400, 6 voxels a point, crater 0.35 | edge piece, from `make_shapes.py`'s `stone_wall()` |
 | `TallGrass` | tufts of grass | `TallGrass.tres` | not solid: decoration |
+| `SimpleWall1` | a plain wall, 2 voxels thick, a level high | `SimpleWall1.tres`: wears, mass 75, density 600, 8 voxels a point, crumbles in 2s | edge piece; `model_transform` turned a quarter and moved (below) |
+| `SimpleTruss1` | a gable: a right triangle, 2 voxels thick, 15 high and 15 along, which fills a gable under `SimpleRoof1` | `SimpleTruss1.tres`: as the wall, mass 35 | edge piece; `model_transform` as the wall's |
+| `SimpleRoof1` | one slope of a roof: a diagonal a voxel thick, rising a whole level across its cell, toward +z at turn 0 | `SimpleRoof1.tres`: as the wall, mass 40 | `model_transform` z 1.3125, as the crate's |
 
-and two brushes: **SkinnyTree1** (trunk at (0, 0, 0), crown at (0, 1, 0)) and **StoneWall2** (two
-courses, one over the other). `FenceStraight`, `StoneWall` and `TallGrass` are copies of
-`MagicaVoxel/Shapes/`' models in `vcom/Blocks/`, imported at 0.0625.
+and three brushes: **SkinnyTree1** (trunk at (0, 0, 0), crown at (0, 1, 0)), **StoneWall2** (two
+courses, one over the other) and **SimpleWall2** (the same of `SimpleWall1`: full cover). `FenceStraight`,
+`StoneWall` and `TallGrass` are copies of `MagicaVoxel/Shapes/`' models in `vcom/Blocks/`, imported at
+0.0625; the three `Simple...1` kinds (added 2026-10-22) are copies of `MagicaVoxel/Buildings/`' the same
+way.
+
+**The `Simple...1` kinds' models are not where a block's usually are.** Each was moved 21 voxels along
+MagicaVoxel's y in its scene (its `nTRN` is `0 21 8`, a block's `0 0 8`), which the importer keeps, as
+the crate's model was; so each `model_transform` moves it back 1.3125 along z. The wall and the truss
+are drawn running along MagicaVoxel's y, across the convention that an edge piece runs along x, so
+theirs also turns them a quarter clockwise seen from above (`Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0,
+-1.3125, -0.5, 0)`): at turn 0 they run along whatever edge they are painted on, as the fence does, and
+a truss on an edge running along z (a gable at turn 0) rises toward +z, as `SimpleRoof1` does at turn 0.
+A house two cells deep is walls on floors 1 and 2 round it (or the **SimpleWall2** brush), on floor 3
+a row of roofs at turn 0 on the near cells and at 180° on the far ones, and a truss at each gable on
+floor 3, turned with the roof beside it. The roof is a voxel thick on the diagonal, so its rows of
+voxels along x touch only edge to edge: what holds a worn roof up is its rows' ends meeting a truss.
 
 `Levels/` holds `BoundaryMap.tres` (2,084 pieces), `BoundaryMapScenery.tres` (37,118),
 `CombatMap.tres` (562) and `LineOfSightTest.tres` (634, 30 of them on edges: the edge lanes, see

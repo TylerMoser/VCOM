@@ -20,7 +20,7 @@ The game plays with the keyboard and mouse or with a gamepad, whichever was touc
 so `WASD` is `ZQSD` on an AZERTY keyboard. `Enter` and the number keys work on the number pad too.
 
 `Esc` backs out one step at a time, on the world map and in combat alike: a path being previewed,
-then the action that is up, then a village's menu. Only once there is nothing left to back out of
+then the action that is up, then a settlement's menu. Only once there is nothing left to back out of
 does it open the pause menu, and pressed again it closes it.
 
 ### World map
@@ -30,19 +30,19 @@ does it open the pause menu, and pressed again it closes it.
 | Pan the map | `WASD`, push the cursor to a screen edge, or drag with the middle mouse button |
 | Zoom | Mouse wheel, toward the point under the cursor |
 | Send the party | Right-click anywhere on land. Right-click again on the way to send it somewhere else instead |
-| Go to a village | Right-click its icon. The party goes to the village itself, wherever on the icon was clicked |
-| See what is in a village | Hover over its icon |
-| Use a village | Left-click its icon once the party is there, to open its menu |
-| Show or hide the borders | `B`, on the new map: every border, the kingdoms', the duchies' and the counties'. They start shown |
+| Go to a settlement | Right-click its icon (a city, town, village or hamlet). The party goes to the settlement itself, wherever on the icon was clicked |
+| See what is in a settlement | Hover over its icon |
+| Use a settlement | Left-click its icon once the party is there, to open its menu. Only the town nearest where the party starts has anything in it yet |
+| Show or hide the borders | `B`: every border, the kingdoms', the duchies' and the counties'. They start shown |
 | Open the pause menu | `Esc` |
 
 The party is the only thing on the map that moves, so there is nothing to select first. A right-click
-on the sea, or on land the party cannot reach, does nothing. The party has only arrived at a village
+on water, or on land the party cannot reach, does nothing. The party has only arrived at a settlement
 when it was sent there by a right-click on the icon, not somewhere near it.
 
 #### Menus
 
-The pause menu (its Campaign, Roster, Inventory and System tabs), a village's menu (a tab for each
+The pause menu (its Campaign, Roster, Inventory and System tabs), a settlement's menu (a tab for each
 place in it, such as the Hiring Board and the Market) and the roster that comes up before a battle
 all pause the game behind them, and all work the same way.
 
@@ -109,11 +109,11 @@ closes it again.
 |---|---|
 | Move the map | Left stick: the map slides under the reticle in the middle of the screen |
 | Zoom | Right stick up / down, or the d-pad's up / down a step at a time, toward the reticle |
-| Send the party | `A` with the reticle on land, or on a village's icon to go to the village. The prompt says which, and there is none over the sea |
-| See what is in a village | Put the reticle on its icon |
-| Use a village | `A` with the reticle on the village the party is in |
+| Send the party | `A` with the reticle on land, or on a settlement's icon to go to the settlement. The prompt says which, and there is none over water |
+| See what is in a settlement | Put the reticle on its icon |
+| Use a settlement | `A` with the reticle on the settlement the party is in |
 | Find the party | `L3` (press the left stick) brings it back to the middle of the screen |
-| Show or hide the borders | `R3` (press the right stick), on the new map, as `B` on the keyboard |
+| Show or hide the borders | `R3` (press the right stick), as `B` on the keyboard |
 | Open the pause menu | `Menu` |
 
 **Menus**
@@ -171,18 +171,23 @@ adding pieces.
 
 ## The campaign
 
-The game opens on the world map. Send the party anywhere on land, and open the village it is
-standing in to use it (see [Controls](#world-map)). A village's Hiring Board has fighters for hire,
-who join the end of the roster, and its Market sells its stock and, on its Sell tab, buys anything
-in the inventory (not equipped) for half its price, rounded down. Every hire, purchase and sale
-takes holding its button for two seconds, so a stray click never spends anything. Travelling
-through a forest (the green areas) risks an ambush: every short stretch of the way has a chance to
-start a battle.
+The game opens on the world map, an island of nine kingdoms (see [The new world
+map](#the-new-world-map)), with the whole land in view. Zoom in, send the party anywhere on land, by
+road where it can (it takes the fastest way, keeping off the water but for the bridges), and open
+the settlement it is standing in to use it (see [Controls](#world-map)). For now only one has
+anything in it: the town 9 km from where the party starts, the capital of its county, whose Hiring
+Board has fighters for hire, who join the end of the roster, and whose Market sells its stock and,
+on its Sell tab, buys anything in the inventory (not equipped) for half its price, rounded down.
+Every hire, purchase and sale takes holding its button for two seconds, so a stray click never
+spends anything. Travelling through a forest (the green areas) risks an ambush: every short
+stretch of the way has a chance to start a battle. The clock in the top left corner counts the
+days left, and runs only while the party travels; nothing happens yet when it runs out.
 
-![The world map: the party on its way through a forest, with a village to the south-east](Images/worldmap-03-travelling.png)
+![The world map: the party setting off for a city, by way of the town near where it starts](Images/map-01-travelling.png)
 
-*The world map: the party, the red dot, on its way through a forest to the cross it was sent to, and a
-village to the south-east.*
+*The world map: the party, the red dot, just set off for the city to the south-east. Its dashed
+line crosses open ground to the road at the town with the hiring board and market, then follows
+the road, faster than the fields, along the river.*
 
 Before it starts, the roster comes up to choose who fights: tick up to four, then hold **Start** for
 two seconds (see [Menus](#menus)). It opens with the last battle's squad ticked, less anyone who
@@ -486,7 +491,7 @@ The throw range is the same for every squad member and every grenade (`Throwing.
 
 ### Medkits
 
-A **Medkit** costs 10 gold; the village's Market has one. Equipped in an item slot, it gives the
+A **Medkit** costs 10 gold; the town's Market has one. Equipped in an item slot, it gives the
 squad member **Use Medkit**: for one action, heal themselves, or a wounded ally standing on one of the
 eight tiles around them, up to a level above or below (a strike's reach), by **4 HP**, never above
 the most. Lined up as a strike is, it draws a green line and reticle to the ally, and the panel over
@@ -706,15 +711,17 @@ routine and nothing else.
 
 ## The new world map
 
-`vcom/Scenes/Map.tscn` is the island the campaign is moving to: nine kingdoms, 44 duchies and 220
+`vcom/Scenes/Map.tscn` is the island the campaign is played on: nine kingdoms, 44 duchies and 220
 counties, with their coast, lakes, rivers, roads, bridges and settlements, down to some 2,000
 villages and hamlets and the lanes and channels that reach them, and forests over half the land.
 It is drawn with shapes
 and not as a picture, so it stays sharp however far the view goes in, and every part of it can be
-reshaped by hand in the Godot editor. The game does not use it yet: it still opens on the old map.
-To look it over, open the scene and run it by itself (F6). It pans and zooms with the world map's
-controls (see [Controls](#world-map)), within limits of its own, given below, and its party is
-sent as the world map's is.
+reshaped by hand in the Godot editor. It is the main scene, where the game opens, since 2026-10-22.
+The old world map, `vcom/Scenes/WorldMap.tscn` (a painted picture with one village and one forest),
+is kept only as a reference: nothing leads to it, though it still runs by itself (F6), and its
+village has nothing in it any more. The new map pans and zooms with the world map's controls (see
+[Controls](#world-map)), within limits of its own, given below, and its party is sent as the old
+map's was.
 
 It was made from the pictures and data in [`MapCreation/`](MapCreation), which
 [`MapCreation/Features.md`](MapCreation/Features.md) describes, by the programs in
@@ -987,19 +994,19 @@ view back to it. The old map keeps a party of its own.
   where it is going are red, which since 2026-10-18 nothing else on the map is.
 
 **One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
-the party starts, has what the old map's village has, and is used as that village is (see
-[Controls](#world-map)): its tooltip lists the two under its name, and once the party is in the
-town, sent there by a right-click on its icon, a left-click on the icon opens its menu, a tab for
-each. With the gamepad both are `A` with the reticle on the town. The menu is the
-scene's `VillageMenu` node, the old map's, and opens for any settlement that has something in it;
-the other 219 have nothing, so a click on one of them does nothing.
+the party starts, has a hiring board and a market (see [Controls](#world-map)): its tooltip lists
+the two under its name, and once the party is in the town, sent there by a right-click on its icon,
+a left-click on the icon opens its menu, a tab for each. With the gamepad both are `A` with the
+reticle on the town. The menu is the scene's `VillageMenu` node, the old map's, and opens for any
+settlement that has something in it; the other 2,219 have nothing, so a click on one of them does
+nothing.
 
-- **They are the village's own board and market**, `Village1HiringBoard.tres` and
-  `Village1Market.tres` in `vcom/Resources/Locations/`, not copies: the same fighter for hire and
-  the same stock, on the node's `locations`. A fighter belongs on one board only, and a second
-  board with the same name on it would let them be hired twice. Who is still for hire and what
-  is still in stock are kept for each board and market, so if both maps were ever in one game
-  the village and the town would be one shop; a town of its own needs its own two files there.
+- **They were the old map's village's**, moved here for good as the game moved to this map:
+  `County115HiringBoard.tres` and `County115Market.tres` in `vcom/Resources/Locations/`, on the
+  node's `locations`, the old village left with none. A fighter belongs on one board only, and a
+  second board with the same name on it would let them be hired twice. Who is still for hire and
+  what is still in stock are kept for each board and market; another settlement with a board or a
+  market of its own needs its own files there, named for it.
 - **The town has to be in view.** A county's capital shows once the view is under 240 miles tall
   (six steps of the wheel in from all the way out), and one that does not show cannot be pointed
   at: further out, the town can be neither sent to nor entered.
@@ -1024,10 +1031,10 @@ comes up in the battles' banner, over any menu that is open, and the game quits 
 starts to fade.
 
 - **In a forest, 10% a step**, the old map's forest's odds, which every forest here inherits
-  (`Scenes/Forest.tscn`). A step is 5 km, about eight a day, so a day's travel through forest
-  meets a battle more often than not (57%), and a step in a clearing or on open land meets
-  nothing: the rainforests are the most dangerous, the Desert and the Grassland the least. A lake
-  inside a forest counts as the forest, the party keeping to no land yet.
+  (`Scenes/Forest.tscn`). A step is 5 km, eight a day on a road and about five in a forest, at 15
+  miles a day, so a day's travel through forest meets a battle two times in five (40%), and a step
+  in a clearing or on open land meets nothing: the rainforests are the most dangerous, the Desert
+  and the Grassland the least.
 
 **The camera keeps to the land.** It is the world map's camera with three limits of its own
 (`Scripts/WorldMap/MapCamera.gd`):
@@ -1183,8 +1190,8 @@ vcom/                     the Godot project
   Levels/                 each combat map's pieces, as the level editor leaves them
   addons/level_editor/    the level editor, a plugin for Godot's own editor
   Scenes/
-    WorldMap.tscn         the campaign map, where the game opens
-    Map.tscn              the new world map, drawn with shapes; not in the game yet
+    Map.tscn              the campaign's world map, drawn with shapes, where the game opens
+    WorldMap.tscn         the old world map, a painted picture, kept only as a reference
     City.tscn, Town.tscn, Village.tscn, Hamlet.tscn
                           its settlements' icons, each a destination; Village.tscn is the old
                           map's village too

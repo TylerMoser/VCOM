@@ -80,11 +80,6 @@ func is_passable(point: Vector2) -> bool:
 	return _weights[ground_at(point)] > 0.0
 
 
-## Miles a day over the ground at [param point]: 0 where the party cannot go.
-func miles_per_day_at(point: Vector2) -> float:
-	return _speeds[ground_at(point)]
-
-
 ## The way from [param from] to [param to], or null when [param to] is
 ## somewhere the party cannot stand or cannot reach from [param from].
 func find_route(from: Vector2, to: Vector2) -> MapRoute:

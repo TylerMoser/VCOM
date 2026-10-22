@@ -47,7 +47,8 @@ reasons.
 ## How to read the pictures
 
 Every variant but `a` shows the same moment of a campaign: the party has travelled from its start,
-county 115's town, by straight lines (as the Party travels) through the towns of counties 112 (a
+county 115's town, by straight lines (as the Party travelled when these were drawn; it has kept to
+the land and taken the roads since 2026-10-21, `Docs/MAP.md`, "Navigation") through the towns of counties 112 (a
 duchy's capital), 116, 113 and 121 to county 69's (a duchy's capital), some 160 miles in 6 counties,
 seeing 20 miles about it as it went; it is at county 69's town now, heading north for county 72's.
 

@@ -4,6 +4,7 @@ Map: fog of war on unvisited areas
 Classes/Skills
 More Items, Weapon Types, Armors, Shields, Medicines, Stat Buff Equipment, etc
 Noble: Rich Blood skill (new tier of market goods)
+Encounters/Quest items on the map, instead of just random encounters
 Story/Tutorials/In-game documentation for player/etc.
 Saving/Loading, Main Menu
 Give experience for more things than just participation
@@ -12,26 +13,26 @@ Controls page in pause menu
 --TODO TACTICAL:
 Use level editor and make tweaks
 Houses
+Height/layers to terrain (Buildings with interiors)
 Better Ground Blocks, Ridges
 Trees, Ladders, fences, stairs, water, difficult ground, impassible tiles, etc.
-Character models
-Height/layers to terrain (Buildings with interiors)
-Action cam
 Action economy fleshing-out: second shot costs 2 actions? Lower hit chance on subsequent attacks?
+Drop weapons/items on death: Enemy loot drops
 Status conditions
 Damage types: Resistances/Weaknesses
-Drop weapons/items on death: Enemy loot drops
+Character models
 
 --DEFECTS:
 
 --LOW PRIORITY:
+Battle map generation
+Add pre-scripted destruction to more terrain: Skinny trees
+Team/faction abilities. Command-point-like structure?
+Action cam
 Fog of war in tactical combat? Maybe make it sections of the map, and obvious.
 Replace GenAI: Animations (Mixamo? Blender?), UI
 Music/Ambiance, Sound Effects
 Enemy AI
-Battle map generation
-Add pre-scripted destruction to more terrain: Skinny trees
-Team/faction abilities. Command-point-like structure? 
 
 --ARCHITECTURAL IMPROVEMENT:
 C++ via GDExtension for more-demanding operations, especially terrain manipulation and destruction. Also identify other areas that could benefit from C++, and optimize them too.

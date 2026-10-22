@@ -10,8 +10,9 @@ The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where comma
 `MagicaVoxel/` holds source `.vox` art outside the project; `MagicaVoxel/Shapes/` holds basic
 block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants), made by its
 `make_shapes.py` (`Shapes/README.md`), three of them in the game (`vcom/Blocks/`: the fence, the stone
-wall, tall grass). `Images/` holds screenshots of the game
-(the world map, the menus, battles just begun and long fought, clean and with blood, the level
+wall, tall grass); `MagicaVoxel/Buildings/` the building pieces drawn by hand, all three in the game
+(`SimpleWall1`, `SimpleTruss1`, `SimpleRoof1`: `Docs/LEVELS.md` has their offset and turn). `Images/` holds screenshots of the game
+(the old world map and the new, the menus, battles just begun and long fought, clean and with blood, the level
 editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
@@ -196,8 +197,8 @@ vcom/Scripts/
     ControlHints.gd    a panel of [buttons, words] rows, a column or a row, shown only with the gamepad; compact
                        (smaller, no box) for the menus' row
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
-    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a tab per location of the village the party is in (Docs/CAMPAIGN.md)
-    SquadMenu.gd       TabbedMenu in WorldMap.tscn, opened by Party.encountered, cannot be closed: one SquadTab
+    VillageMenu.gd     TabbedMenu in Map.tscn: a tab per location of the settlement the party is in (Docs/CAMPAIGN.md)
+    SquadMenu.gd       TabbedMenu in Map.tscn, opened by Party.encountered, cannot be closed: one SquadTab
     SquadTab.gd        its Roster tab: a CharacterBrowser with ticks and a Start HoldButton
     LocationTab.gd     placeholder tab for one Location
     HiringBoardTab.gd  a HiringBoard's tab: who is for hire, a PurchaseBar
@@ -229,7 +230,8 @@ vcom/Scripts/
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
     SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
                        note), Save / Load (not yet), Exit to Desktop
-  WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D; Docs/CAMPAIGN.md), and the new map's (Docs/MAP.md)
+  WorldMap/            the campaign map, Scenes/Map.tscn (2D; Docs/CAMPAIGN.md, Docs/MAP.md), and the old
+                       map's, Scenes/WorldMap.tscn, kept as a reference (WorldMapTerrain, BakeLand)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions and the sticks; limits MapCamera overrides
     MapCamera.gd       WorldMapCamera for Scenes/Map.tscn: the land just fits all the way out, 25 miles all the way in
     MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
@@ -237,7 +239,7 @@ vcom/Scripts/
     MapGround.gdshader Map.tscn's land tinted by its biome (Resources/MapGround.tres; a county's biome on the county)
     BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade the borders out and back
     MapClock.gd        CanvasLayer in Map.tscn: the campaign's time, counted down; advance() while the Party moves
-    MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen, its prompts
+    MapReticle.gd      CanvasLayer in Map.tscn: the gamepad's reticle in the middle of the screen, its prompts
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
     MapNavigation.gd   @tool, Map.tscn's Navigation node: the speeds (constants), the Bake Navigation button,
@@ -423,12 +425,12 @@ something, in a menu. `Docs/GAMEPAD.md` has the rest: every binding, how the cur
 each prompt's words come from, what the HUD swaps for a glyph, how to probe the pad headless, its
 gaps and what was decided without asking the user. Read it before touching input.
 
-**The new world map is a scene of Godot's own nodes, written once by program and changed by hand from
-then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44 duchies, 220
-counties; `MapCreation/` holds the pictures and data it was made from). The game does not use it yet:
-`WorldMap.tscn` is still the main scene. A unit is 100 m. Its tree is its drawing order; its
-settlements are `Destination`s, its party the old map's, and its forests 2,459 `Forest` pieces, each
-an instance of its kind's scene, which inherits `Forest.tscn`. `Detail`, a `MapDetail`, is its level
+**The world map is a scene of Godot's own nodes, written once by program and changed by hand from
+then on.** `Scenes/Map.tscn` is the island the campaign is played on, and the main scene (nine
+kingdoms, 44 duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from). The
+old map, `WorldMap.tscn`, is kept only as a reference: nothing leads to it. A unit is 100 m. Its
+tree is its drawing order; its settlements are `Destination`s, its party the old map's, and its
+forests 2,459 `Forest` pieces, each an instance of its kind's scene, which inherits `Forest.tscn`. `Detail`, a `MapDetail`, is its level
 of detail: four tiers by the view's height in miles, the user's. A layer of lines or polygons that
 comes and goes by the zoom (`MapDetail.SHOWN_FROM`) is only ever faded, never hidden, since a `Line2D`
 shown again is built again and a `Polygon2D` cut into triangles again. Things that share an edge have
@@ -460,7 +462,7 @@ A stale bake is warned of in the editor and as the game opens, and still used. R
 **The campaign is a world map the party travels, set upon in its forests and fighting on a battle
 scene.** The party counts its travel in steps of `Party.step_length` map pixels; each step heals the
 roster (`Campaign.heal(heal_per_step)`) and rolls the `encounter_chance` of the `Forest` it is in
-(`Forest.find_at()`; a forest is a `Polygon2D` drawn in the editor, an instance of
+(`Forest.find_at()`; a forest is a `Polygon2D`, its kind's scene, which inherits
 `Scenes/Forest.tscn`). On a success it emits `encountered(encounter_map)`, which opens the
 `SquadMenu`, a `TabbedMenu` that cannot be closed, over the paused map: the player ticks up to
 `Campaign.SQUAD_SIZE` (4) of the roster, and holding Start calls `Campaign.start_battle(map, chosen)`.
@@ -470,7 +472,8 @@ current, the swap deferred to the end of the frame; as `TurnManager` decides the
 game if the roster is empty. Nothing on the map is saved or restored: its `_ready`s do not run again,
 so anything on it that must notice a battle has passed sees only `_exit_tree` / `_enter_tree`. A
 battle opened on its own (F6, the harness) has nothing to go back to. A left click on the
-`Destination` the party stands on opens its `VillageMenu`, a tab per `Location`. A `Location` is a
+`Destination` the party stands on opens its `VillageMenu`, a tab per `Location` (only county 115's
+capital has any: `Resources/Locations/County115*.tres`). A `Location` is a
 stateless `.tres` like an `Item`, whose `make_tab()` gives its tab (`HiringBoard`, `Market`); what
 changes in play lives in `Campaign`, keyed by the resource, and the resource is never changed.
 `Docs/CAMPAIGN.md` has the rest: travel and encounters, the squad menu, the defeat and Game Over, the

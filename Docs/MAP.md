@@ -1,8 +1,10 @@
 # The new world map
 
 `Scenes/Map.tscn`, the island the campaign is moving to: how its scene is laid out, its look, its
-forests, and its level of detail, `MapDetail` (`Scripts/WorldMap/MapDetail.gd`, the scene's `Detail`
-node), which shows less far out and more close in and holds the lines near a width on the screen.
+forests, its level of detail, `MapDetail` (`Scripts/WorldMap/MapDetail.gd`, the scene's `Detail`
+node), which shows less far out and more close in and holds the lines near a width on the screen,
+and its navigation, `MapNavigation` (the scene's `Navigation` node), which keeps the party off the
+water and finds its fastest way, over a bake of the map's own layers.
 `CLAUDE.md` keeps a summary; `README.md`, "The new world map", has the decisions and what each
 node holds. A section named here that is not in this file (Gotchas, Verification) is `CLAUDE.md`'s.
 
@@ -11,8 +13,8 @@ node holds. A section named here that is not in this file (Gotchas, Verification
 **The new world map is a scene of Godot's own nodes, written once by program and changed by hand
 from then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44
 duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from, and
-`MapCreation/Features.md` describes them). The game does not use it yet: `WorldMap.tscn` is still
-the main scene. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 units, the sheet's
+`MapCreation/Features.md` describes them). It is the game's world map and its main scene since
+2026-10-22; the old one, `WorldMap.tscn`, is kept only as a reference. A unit is 100 m. A pixel of the `MapCreation/` pictures is 3.35 units, the sheet's
 top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Forests` (a `Forest` a piece, under groups by size and kingdom: see
@@ -50,16 +52,16 @@ seconds (`MapClock.seconds_per_day`, on the scene's `Clock`, which the party's `
 so 13.4 units a second on a road. `Party.miles_per_day` (25) is its pace only when the navigation
 is not baked and it goes in straight lines. Time passes only while the party moves: `Party` calls
 `MapClock.advance()` with the seconds it spent travelling, and nothing else moves the clock. The
-clock counts down from `starting_days` (90) in the top left
-corner, as days:hours:minutes, and nothing happens yet when it runs out (the user's: "for now"). A
-step is still every 5 km, by distance (their call), about eight a day, and one that ends in a
-forest rolls that forest's odds of a battle. The old map's party has no clock and keeps
-`travel_speed`.
+clock counts down from `starting_days` (90) in the top left corner, as days:hours:minutes, and
+nothing happens yet when it runs out (the user's: "for now"). A step is still every 5 km, by
+distance (their call): eight a day on a road, about five in a forest. One that ends in a forest rolls
+that forest's odds of a battle. The old map's party has no clock and keeps `travel_speed`.
 
-One settlement has something in it, at the user's request: county 115's capital has the old
-village's hiring board and market, the same two `.tres` and not copies (my call: a character stays
-on one board), and the scene's `VillageMenu` opens them as on the old map, on a left click once the
-party is in the town. A town shows from the Duchy tier, so it is sent to and entered only that far
+One settlement has something in it, at the user's request: county 115's capital has a hiring board
+and a market, `Resources/Locations/County115HiringBoard.tres` and `County115Market.tres`. They were
+the old map's village's, shared with it at first (my call: a character stays on one board), and on
+2026-10-22, as the game moved to this map, renamed and taken off the old village for good (the
+user's). The scene's `VillageMenu` opens them on a left click once the party is in the town. A town shows from the Duchy tier, so it is sent to and entered only that far
 in. `MapReticle`, the gamepad's ring and prompts, is the old map's as well, and so are `SquadMenu`
 and `GameOver`, which the forests set off: a battle met in one opens the squad menu, and a battle
 lost with the last of the roster ends the game.
@@ -237,7 +239,8 @@ it replaced.
 out as the look was applied, and what is left of it draws the lanes, the bridges on them and the
 channels in the map's look, materials and all, so the villages' splice (`v3_splice.py --replace`)
 puts them back as they are: spliced afresh into a copy of the scene, they came out the same as the
-scene's to the last property (2,805 nodes, 2026-10-18). The forests' splice keeps the kinds'
+scene's to the last property (2,805 nodes, 2026-10-18; again on 2026-10-22, 2,808 nodes with the
+channels' `MapWater` and the navigation's moves, resource ids apart). The forests' splice keeps the kinds'
 scenes, and so their look. Neither touches the land, so the ground stays: each keeps every resource
 it does not own, `MapGround.tres` among them, and `f2_shapes.py` reads a county's outline past the
 material's lines in front of it. The harness in `MapStyles/` only draws pictures, and with `BEFORE=1` it
@@ -791,9 +794,8 @@ county.
 
 ## Known gaps
 
-- `Scenes/Map.tscn` is not in the game. Its reticle's white ring is faint on the pale land. Only
-  county 115's capital has anything in it, and it shares the old village's board and market: with both
-  maps in one game they would be one shop. Its settlements are not drawn in the editor (`Destination`
+- Its reticle's white ring is faint on the pale land. Only county 115's capital has anything in it.
+  Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture. It
   is 13.6 MB of text and takes about 2.7 s to open, 1.7 before its 2,459 pieces of forest.
 - For the 0.2 s of a fade, lines of one colour that overlap (roads at a fork) show darker where
@@ -815,9 +817,9 @@ county.
 - The tiers go by the view's height in miles, so in a window taller than the game's 720 the same
   tier has more pixels to a mile.
 - The forests run on under the lakes, so where a small lake is out of its tier the forest shows
-  where it is, and the party crossing a lake within a forest rolls that forest's odds. An island in
-  a lake is drawn over the forests: a forest on one would not show (the one there is, 0.6 km² of
-  marsh, has none).
+  where it is. (The party no longer crosses a lake, and the navigation draws water over the forests,
+  so a lake within a forest stops it there too.) An island in a lake is drawn over the forests: a
+  forest on one would not show (the one there is, 0.6 km² of marsh, has none).
 - A forest's tier is the size of the whole forest when it was made: reshaped by hand, a piece keeps
   its group. Hand edits to the forests are lost when they are made again.
 - 223 slivers under 0.05 km², where a forest's edge runs along a county's border, and one piece of
@@ -870,9 +872,10 @@ county.
   road clips the cells beside it; those slivers take the road's pace in the legs, but the search
   costed them as what they are, so it may pass over such a road by a hair.
 - A settlement standing on a water cell, or a road crossing water with no bridge, is only reported:
-  the bake does not move or mend anything. Re-run, the villages' splice (`v3_splice.py --replace`)
-  puts the Swamp's 23 villages back on their channels and writes the channels without `MapWater`:
-  bake, and mend what the report names.
+  the bake does not move or mend anything. The villages' splice keeps the 23 moved villages where
+  they are and gives the channels their `MapWater` (both carried into `MapCreation/`), but villages
+  made afresh by `v1_villages.py` would stand on their channels again: bake after any splice, and
+  mend what the report names.
 - The bake holds the editor for some 11 s, with no progress shown, and takes over a minute on one
   thread. The editor notices a change up to 15 s late, and the check costs some 40 ms each time. A
   grid of more than 268 million cells (finer than about 70 m) is more than one image holds: the bake

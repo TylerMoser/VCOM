@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="Skill" format=3]
+[gd_resource type="Resource" script_class="Skill" format=3 uid="uid://civ04iudp41vm"]
 
-[ext_resource type="Script" path="res://Scripts/Skills/SkillLevel.gd" id="1_ytp5e"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillEffect.gd" id="2_si7jh"]
-[ext_resource type="Script" path="res://Scripts/Skills/SkillPointGrant.gd" id="3_xoqjx"]
-[ext_resource type="Script" path="res://Scripts/Skills/Skill.gd" id="4_etnlx"]
+[ext_resource type="Script" uid="uid://b8me0aie4y0gi" path="res://Scripts/Skills/SkillLevel.gd" id="1_ytp5e"]
+[ext_resource type="Script" uid="uid://j3a7fifobbcw" path="res://Scripts/Skills/SkillEffect.gd" id="2_si7jh"]
+[ext_resource type="Script" uid="uid://rgffh0dpseba" path="res://Scripts/Skills/SkillPointGrant.gd" id="3_xoqjx"]
+[ext_resource type="Script" uid="uid://7npv470wurqc" path="res://Scripts/Skills/Skill.gd" id="4_etnlx"]
 
 [sub_resource type="Resource" id="Resource_upv2m"]
 script = ExtResource("3_xoqjx")

@@ -1,0 +1,300 @@
+[gd_scene format=3 uid="uid://cteibc0x1igg6"]
+
+[ext_resource type="Script" uid="uid://cu8fl3v3n4717" path="res://Scripts/CameraRig.gd" id="2_q3447"]
+[ext_resource type="Script" uid="uid://bci1llum4d32l" path="res://Scripts/Unit.gd" id="3_esjfs"]
+[ext_resource type="Resource" uid="uid://d2l5k82w4sccd" path="res://Resources/Rifle.tres" id="4_kno35"]
+[ext_resource type="Resource" path="res://Resources/AI/Assault.tres" id="5_a76y3"]
+[ext_resource type="Script" uid="uid://cvjbf5vvw3efo" path="res://Scripts/SquadStart.gd" id="6_uy8py"]
+[ext_resource type="Script" uid="uid://jy3wo1avod6c" path="res://Scripts/Combat/CombatGrid.gd" id="7_j8ysf"]
+[ext_resource type="Script" uid="uid://dhltqnrat70f8" path="res://Scripts/Terrain/TerrainDestruction.gd" id="8_6b0gr"]
+[ext_resource type="Script" uid="uid://dlhqeorkn5vv0" path="res://Scripts/UI/AmmoIndicator.gd" id="9_ammo"]
+[ext_resource type="Script" uid="uid://c8amwo7gf0vgk" path="res://Scripts/Actions/HunkerDownAction.gd" id="9_hunker"]
+[ext_resource type="Script" uid="uid://r360v0mpkxs5" path="res://Scripts/Actions/UseMedkitAction.gd" id="9_medkit"]
+[ext_resource type="Script" uid="uid://c0hgw3p8nbu3v" path="res://Scripts/Actions/ReloadAction.gd" id="9_reload"]
+[ext_resource type="Script" uid="uid://3vbrdug4wc10" path="res://Scripts/Combat/TileHighlights.gd" id="10_icamf"]
+[ext_resource type="Script" uid="uid://fqwua6qridap" path="res://Scripts/PlayerSquad.gd" id="11_dop2q"]
+[ext_resource type="PackedScene" path="res://Scenes/SquadUnit.tscn" id="12_jeiyq"]
+[ext_resource type="Script" uid="uid://dxpofg7eiy3qu" path="res://Scripts/Actions/ActionController.gd" id="13_v0xkd"]
+[ext_resource type="Script" uid="uid://dnyie85ub5gul" path="res://Scripts/Actions/MoveAction.gd" id="14_8qmf2"]
+[ext_resource type="Script" uid="uid://bchyfnuhaufwp" path="res://Scripts/Actions/ShootAction.gd" id="15_75mr8"]
+[ext_resource type="Script" uid="uid://dwgqmm6ad6bst" path="res://Scripts/Actions/OverwatchAction.gd" id="16_6dvqh"]
+[ext_resource type="Script" uid="uid://l6v06k3be4sq" path="res://Scripts/Actions/ThrowGrenadeAction.gd" id="17_xia20"]
+[ext_resource type="Script" uid="uid://buqpwf57t4422" path="res://Scripts/TurnManager.gd" id="18_ecjdo"]
+[ext_resource type="Script" uid="uid://cu0icnp6tlnkk" path="res://Scripts/Actions/StrikeAction.gd" id="18_strike"]
+[ext_resource type="Script" uid="uid://btjt782q87h3" path="res://Scripts/Reactions.gd" id="19_dtf6t"]
+[ext_resource type="Script" uid="uid://bja5100blo2t5" path="res://Scripts/UI/ShotOverlay.gd" id="20_wtm2v"]
+[ext_resource type="Script" uid="uid://1fsp6pxpdo5m" path="res://Scripts/UI/ReactionPrompts.gd" id="21_kb81w"]
+[ext_resource type="Script" uid="uid://bpodq4lcjyqhx" path="res://Scripts/UI/SquadPanel.gd" id="22_fambm"]
+[ext_resource type="Script" uid="uid://cvit6k1o8lx0b" path="res://Scripts/UI/ActionBar.gd" id="23_joe4o"]
+[ext_resource type="Script" uid="uid://0idaq4j8ybgl" path="res://Scripts/UI/EndTurnPrompt.gd" id="24_s3e57"]
+[ext_resource type="Script" uid="uid://dhl74vbchi0oa" path="res://Scripts/UI/TurnBanner.gd" id="25_2ldre"]
+[ext_resource type="Script" uid="uid://kr5wg5s4powd" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
+[ext_resource type="Script" uid="uid://bphoo4bxdrjam" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
+[ext_resource type="Script" uid="uid://cfx266vabtbrd" path="res://Scripts/Blood/Blood.gd" id="32_blood"]
+[ext_resource type="Script" uid="uid://bqf7xd705k01t" path="res://Scripts/Terrain/SceneryGround.gd" id="32_scenery_ground"]
+[ext_resource type="Script" uid="uid://cfobrvabtnyuw" path="res://Scripts/Combat/TileGrid.gd" id="40_tile_grid"]
+[ext_resource type="Script" uid="uid://cpx52sq33sgwk" path="res://Scripts/Level/VoxelLevel.gd" id="50_level_script"]
+[ext_resource type="Resource" uid="uid://2lwj8p6vil4o" path="res://Blocks/Pieces.tres" id="51_pieces"]
+[ext_resource type="Resource" uid="uid://8bifgr30ciex" path="res://Levels/TestMap.tres" id="52_level"]
+[ext_resource type="Resource" path="res://Levels/TestMapScenery.tres" id="53_scenery"]
+[ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h16oa"]
+vertex_color_is_srgb = true
+albedo_color = Color(0.45882353, 0.654902, 0.2627451, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_frw4l"]
+material = SubResource("StandardMaterial3D_h16oa")
+size = Vector2(183, 201)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
+sky_top_color = Color(0.28, 0.5, 0.85, 1)
+sky_horizon_color = Color(0.7, 0.8, 0.92, 1)
+ground_bottom_color = Color(0.32, 0.46, 0.66, 1)
+ground_horizon_color = Color(0.62, 0.72, 0.84, 1)
+ground_curve = 0.1
+
+[sub_resource type="Sky" id="Sky_world"]
+sky_material = SubResource("ProceduralSkyMaterial_sky")
+
+[sub_resource type="Environment" id="Environment_world"]
+background_mode = 2
+background_color = Color(0.53, 0.8, 0.97, 1)
+sky = SubResource("Sky_world")
+ambient_light_source = 3
+ambient_light_energy = 0.6
+tonemap_mode = 2
+ssao_enabled = true
+ssao_radius = 1.2
+ssao_intensity = 1.6
+ssao_power = 1.6
+ssil_enabled = true
+ssil_intensity = 3.0
+
+[node name="CombatMap" type="Node3D" unique_id=1134767484]
+
+[node name="Level" type="Node3D" parent="." unique_id=814540756]
+script = ExtResource("50_level_script")
+data = ExtResource("52_level")
+library = ExtResource("51_pieces")
+
+[node name="Scenery" type="Node3D" parent="." unique_id=851715638]
+script = ExtResource("50_level_script")
+data = ExtResource("53_scenery")
+library = ExtResource("51_pieces")
+scenery = true
+
+[node name="Ground" type="MeshInstance3D" parent="Scenery" unique_id=1244562327]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.98, -24.5)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_frw4l")
+script = ExtResource("32_scenery_ground")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1000001]
+environment = SubResource("Environment_world")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1000002]
+transform = Transform3D(0.81915206, 0.43938506, -0.36868784, 0, 0.64278764, 0.76604444, 0.57357645, -0.62750685, 0.5265408, 10, 20, -10)
+light_color = Color(1, 0.95, 0.86, 1)
+light_energy = 1.6
+shadow_enabled = true
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=1000003]
+transform = Transform3D(0.7071068, -0.4540581, 0.5420621, 0, 0.7665916, 0.6421351, -0.7071068, -0.4540581, 0.5420621, 10, 1, -10)
+script = ExtResource("2_q3447")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=1000004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15)
+current = true
+
+[node name="Units" type="Node3D" parent="." unique_id=1000005]
+
+[node name="Enemy1" type="Node3D" parent="Units" unique_id=1000014 groups=["enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 1, -18.5)
+script = ExtResource("3_esjfs")
+display_name = "Enemy 1"
+weapon = ExtResource("4_kno35")
+ai = ExtResource("5_a76y3")
+
+[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
+tint = Color(0.32, 0.35, 0.4, 1)
+
+[node name="Enemy2" type="Node3D" parent="Units" unique_id=2083987690 groups=["enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 1, -46.5)
+script = ExtResource("3_esjfs")
+display_name = "Enemy 2"
+weapon = ExtResource("4_kno35")
+ai = ExtResource("5_a76y3")
+
+[node name="Model" parent="Units/Enemy2" unique_id=1005904212 instance=ExtResource("90_base_character")]
+tint = Color(0.32, 0.35, 0.4, 1)
+
+[node name="Enemy3" type="Node3D" parent="Units" unique_id=1426418454 groups=["enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 1, -47.5)
+script = ExtResource("3_esjfs")
+display_name = "Enemy 3"
+weapon = ExtResource("4_kno35")
+ai = ExtResource("5_a76y3")
+
+[node name="Model" parent="Units/Enemy3" unique_id=1136463094 instance=ExtResource("90_base_character")]
+tint = Color(0.32, 0.35, 0.4, 1)
+
+[node name="Enemy4" type="Node3D" parent="Units" unique_id=1606010239 groups=["enemies"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.5, 2, -24.5)
+script = ExtResource("3_esjfs")
+display_name = "Enemy 4"
+weapon = ExtResource("4_kno35")
+ai = ExtResource("5_a76y3")
+
+[node name="Model" parent="Units/Enemy4" unique_id=1269855328 instance=ExtResource("90_base_character")]
+tint = Color(0.32, 0.35, 0.4, 1)
+
+[node name="SquadStarts" type="Node3D" parent="." unique_id=1985919296]
+
+[node name="SquadStart1" type="Marker3D" parent="SquadStarts" unique_id=2097062579]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1, -1.5)
+script = ExtResource("6_uy8py")
+
+[node name="SquadStart2" type="Marker3D" parent="SquadStarts" unique_id=700824192]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 1, -1.5)
+script = ExtResource("6_uy8py")
+
+[node name="SquadStart3" type="Marker3D" parent="SquadStarts" unique_id=2097848041]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 1, -1.5)
+script = ExtResource("6_uy8py")
+
+[node name="SquadStart4" type="Marker3D" parent="SquadStarts" unique_id=1136872882]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 1, -1.5)
+script = ExtResource("6_uy8py")
+
+[node name="CombatGrid" type="Node" parent="." unique_id=1000019]
+script = ExtResource("7_j8ysf")
+
+[node name="TileGrid" type="Node" parent="." unique_id=1289296666]
+script = ExtResource("40_tile_grid")
+
+[node name="TerrainDestruction" type="Node3D" parent="." unique_id=1853442426]
+script = ExtResource("8_6b0gr")
+
+[node name="TileHighlights" type="MultiMeshInstance3D" parent="." unique_id=1000020]
+script = ExtResource("10_icamf")
+
+[node name="PlayerSquad" type="Node" parent="." unique_id=1000018]
+script = ExtResource("11_dop2q")
+starts_path = NodePath("../SquadStarts")
+unit_scene = ExtResource("12_jeiyq")
+
+[node name="ActionController" type="Node" parent="." unique_id=1000021]
+script = ExtResource("13_v0xkd")
+
+[node name="Move" type="Node" parent="ActionController" unique_id=1000022]
+script = ExtResource("14_8qmf2")
+
+[node name="Shoot" type="Node" parent="ActionController" unique_id=1000027]
+script = ExtResource("15_75mr8")
+
+[node name="Strike" type="Node" parent="ActionController" unique_id=1000033]
+script = ExtResource("18_strike")
+
+[node name="Overwatch" type="Node" parent="ActionController" unique_id=1000029]
+script = ExtResource("16_6dvqh")
+
+[node name="Reload" type="Node" parent="ActionController" unique_id=1000035]
+script = ExtResource("9_reload")
+
+[node name="HunkerDown" type="Node" parent="ActionController" unique_id=1000034]
+script = ExtResource("9_hunker")
+
+[node name="ThrowGrenade" type="Node" parent="ActionController" unique_id=1000032]
+script = ExtResource("17_xia20")
+
+[node name="UseMedkit" type="Node" parent="ActionController" unique_id=1000037]
+script = ExtResource("9_medkit")
+
+[node name="TurnManager" type="Node" parent="." unique_id=1000024]
+script = ExtResource("18_ecjdo")
+
+[node name="Reactions" type="Node" parent="." unique_id=1000030]
+script = ExtResource("19_dtf6t")
+
+[node name="Postures" type="Node" parent="." unique_id=52607970]
+script = ExtResource("30_postures")
+
+[node name="Coins" type="Node3D" parent="." unique_id=434419855]
+script = ExtResource("31_coins")
+
+[node name="Blood" type="Node3D" parent="." unique_id=257528292]
+script = ExtResource("32_blood")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
+
+[node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_wtm2v")
+
+[node name="ReactionPrompts" type="Control" parent="HUD" unique_id=1000031]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("21_kb81w")
+
+[node name="SquadPanel" type="HBoxContainer" parent="HUD" unique_id=1000017]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = -16.0
+grow_vertical = 0
+theme_override_constants/separation = 8
+script = ExtResource("22_fambm")
+
+[node name="ActionBar" type="HBoxContainer" parent="HUD" unique_id=1000023]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+script = ExtResource("23_joe4o")
+
+[node name="AmmoIndicator" type="Control" parent="HUD" unique_id=1000036]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("9_ammo")
+
+[node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -96.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("24_s3e57")
+
+[node name="TurnBanner" type="PanelContainer" parent="HUD" unique_id=1000026]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_top = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+script = ExtResource("25_2ldre")

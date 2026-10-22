@@ -57,7 +57,7 @@ is the only thing to retune if every blast is too strong or too weak.
 
 **Some pieces wear away instead, a few voxels at a time.** A kind whose destruction is a
 `VoxelDestruction` (`BrightGrass1`, both `SkinnyTree1` kinds, `FenceStraight`, `StoneWall`,
-`TallGrass`) is the second kind of breakable piece: a strike or a blast breaks voxels off it rather
+`TallGrass`, `SimpleWall1`, `SimpleTruss1`, `SimpleRoof1`) is the second kind of breakable piece: a strike or a blast breaks voxels off it rather
 than breaking it whole. Every piece is 16 voxels a side, and its voxels are part of the level's one
 grid of voxels (`VoxelVolume`, see `Docs/LEVELS.md`), stamped from its kind's `.vox` as the level is
 built (`VoxelShape.read()`, with the importer's own reader, so they sit exactly where the imported mesh

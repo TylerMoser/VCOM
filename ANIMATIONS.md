@@ -2295,7 +2295,7 @@ The pattern every existing animation follows:
 - Preview the clips you touched from the side and three-quarters.
 - Run the scenes headless for errors:
   `--headless --path . res://Scenes/BoundaryMap.tscn --quit-after 150` (and `LineOfSightTest.tscn`,
-  `CombatMap.tscn`, `WorldMap.tscn`).
+  `CombatMap.tscn`, `Map.tscn`).
 - Drive the action in a map and look (section 14).
 - If the Godot editor is open, reload `BaseCharacter.tscn` and any open map.
 

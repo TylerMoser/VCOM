@@ -38,14 +38,16 @@ const LANE_MATERIAL := "res://Resources/MapLines/Lane.tres"
 const LANE_BRIDGE_MATERIAL := "res://Resources/MapLines/LaneBridge.tres"
 const LANE_COLOR := Color(1, 1, 1)
 
-const SETTLEMENTS_ABOUT := "The settlements, an icon each, drawn at one size on the screen whatever the zoom, its middle at the node's position. The 220 capitals, one a county, are cities and towns; the villages and hamlets, about 2,000, are drawn under them."
+const SETTLEMENTS_ABOUT := "The settlements, an icon each, drawn at one size on the screen whatever the zoom, its middle at the node's position. The 220 capitals, one a county, are cities and towns; the villages and hamlets, about 2,000, are drawn under them. Each stands off the water, where the party can reach it: one by a river is on one bank, and is reached from that side only. The Navigation node's bake checks every one."
+## Every node of water in the scene has it (Docs/MAP.md, "Navigation"): the channels too.
+const WATER_SCRIPT := "res://Scripts/WorldMap/MapWater.gd"
 ## A forest's piece, by its kind: each scene a Forest (Scripts/WorldMap/Forest.gd), which inherits
 ## Forest.tscn's odds of the party being set upon and sets only its colour.
 const FOREST_SCENE := {
 	"conifer": "res://Scenes/ConiferForest.tscn", "broadleaf": "res://Scenes/BroadleafForest.tscn",
 	"tropical": "res://Scenes/TropicalForest.tscn", "swamp": "res://Scenes/SwampForest.tscn",
 }
-const FORESTS_ABOUT := "The forests (MapCreation/Scripts/forests/f1_forests.py), drawn over the land and under everything else: a Forest for each piece, cut along the counties' borders and the coast and by kind (conifer, broadleaf, tropical, swamp, each a scene of its own colour), named for its county and numbered in it, the largest first. Grouped by the size of the whole forest a piece belongs to (its metadata's forest and forest_km2), so that the Detail node brings the smaller in as the view closes in, and under that by kingdom. Polygon2D draws no holes, so a clearing in a piece is joined to its outline by a cut of no width, there and back. The party may be set upon in any of them, at Forest.tscn's odds."
+const FORESTS_ABOUT := "The forests (MapCreation/Scripts/forests/f1_forests.py), drawn over the land and under everything else: a Forest for each piece, cut along the counties' borders and the coast and by kind (conifer, broadleaf, tropical, swamp, each a scene of its own colour), named for its county and numbered in it, the largest first. Grouped by the size of the whole forest a piece belongs to (its metadata's forest and forest_km2), so that the Detail node brings the smaller in as the view closes in, and under that by kingdom. Polygon2D draws no holes, so a clearing in a piece is joined to its outline by a cut of no width, there and back. The party may be set upon in any of them, at Forest.tscn's odds, and goes 15 miles a day through them, 20 over the open land between (MapNavigation's constants)."
 ## The groups of the forests by the size of the whole forest, the order they are drawn in, and what
 ## each says of itself.
 const FOREST_GROUPS := [
@@ -192,13 +194,16 @@ func _add_lane_bridges(bridges: Node, lane_bridges: Array) -> void:
 
 
 ## The channels dug from the swamp's villages to its rivers, lakes and the sea, after the rivers so
-## that one ends unseen in the water it reaches.
+## that one ends unseen in the water it reaches. Each is water to the map's navigation, so it has
+## the water's script (MapWater: whether the party may cross it, no by default).
 func _add_channels(parent: Node, channels: Array) -> void:
 	if channels.is_empty():
 		return
-	var group := _group(parent, "Channels", "Channels dug from the Swamp's villages that stand away from the water to the nearest river, lake or the sea, named for the village: their way to the rest of the map, in place of a lane. Narrower than any river. They show with the villages, from the County tier in (see the Detail node).")
+	var group := _group(parent, "Channels", "Channels dug from the Swamp's villages that stand away from the water to the nearest river, lake or the sea, named for the village: their way to the rest of the map, in place of a lane. Narrower than any river. They show with the villages, from the County tier in (see the Detail node). Each stops the party as a river does, unless its MapWater script's Navigable box is ticked (off for now), and its village stands on the land by its first point.")
+	var water := load(WATER_SCRIPT) as Script
 	for channel: Dictionary in channels:
 		var line := _line(group, channel["name"], channel["points"], CHANNEL_WIDTH, _river_color)
+		line.set_script(water)
 		line.begin_cap_mode = Line2D.LINE_CAP_ROUND
 		# One that reaches the sea stops at the land's edge.
 		line.end_cap_mode = Line2D.LINE_CAP_NONE if channel["ends_in"] == "sea" else Line2D.LINE_CAP_ROUND

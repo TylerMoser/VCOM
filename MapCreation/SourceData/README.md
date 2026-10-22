@@ -312,7 +312,7 @@ how they were placed). Like `Settlements.json`, it is a table of places, with th
 | `name` | Its node's name in the scene: its county, its kind and its number in the county, the nearest its capital first (`County103Village2`) |
 | `county`, `duchy`, `kingdom` | Where it stands |
 | `terrain` | The kind of country there, as `TerrainMap.png` has it |
-| `x`, `y` | Where it stands. A village on a road stands on the road's line, between pixels |
+| `x`, `y` | Where it stands. A village on a road stands on the road's line, between pixels. The 23 villages joined by a channel stood on its first point until 2026-10-21, when they were moved a cell of the game's navigation grid (100 m) off it, on to the land beside it, in the scene and here alike, so that the party can reach them (`Docs/MAP.md`, "Navigation"); their `x` and `y` are no whole pixels since. Made afresh by `v1_villages.py`, they would stand on their channels again |
 | `height_m` | The ground's height there, from `../Elevation.png` |
 | `from_capital_km` | Straight-line distance to its county's capital |
 | `link` | How a village is joined to the rest: `{"kind": "road", "stretch": ...}` standing on that stretch of `Roads.json`; `{"kind": "lane", "id": ...}` by its lane; `{"kind": "channel", "id": ...}` by its channel; `{"kind": "water"}` standing at a river, a lake or the sea, in the Swamp's country. `null` for a hamlet, which has no road |
