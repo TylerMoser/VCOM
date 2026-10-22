@@ -32,6 +32,8 @@
 [ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
 [ext_resource type="Script" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
 [ext_resource type="Script" path="res://Scripts/Blood/Blood.gd" id="32_blood"]
+[ext_resource type="Script" path="res://Scripts/Combat/Cutaway.gd" id="60_cutaway"]
+[ext_resource type="Script" path="res://Scripts/UI/FloorSelector.gd" id="61_floors"]
 [ext_resource type="Script" uid="uid://bqf7xd705k01t" path="res://Scripts/Terrain/SceneryGround.gd" id="32_scenery_ground"]
 [ext_resource type="Script" path="res://Scripts/Combat/TileGrid.gd" id="40_tile_grid"]
 [ext_resource type="Script" path="res://Scripts/Level/VoxelLevel.gd" id="50_level_script"]
@@ -226,6 +228,9 @@ script = ExtResource("31_coins")
 [node name="Blood" type="Node3D" parent="."]
 script = ExtResource("32_blood")
 
+[node name="Cutaway" type="Node" parent="."]
+script = ExtResource("60_cutaway")
+
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 
 [node name="ShotOverlay" type="Control" parent="HUD" unique_id=1000028]
@@ -275,6 +280,11 @@ script = ExtResource("23_joe4o")
 
 [node name="AmmoIndicator" type="Control" parent="HUD" unique_id=1000036]
 script = ExtResource("9_ammo")
+
+[node name="FloorSelector" type="Control" parent="HUD"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("61_floors")
 
 [node name="EndTurnPrompt" type="VBoxContainer" parent="HUD" unique_id=1000025]
 anchors_preset = 7

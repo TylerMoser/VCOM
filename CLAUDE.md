@@ -27,7 +27,8 @@ from, every clip, every decision and gap, and recipes for adding more. Read it b
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
 subsystem a file, each with how it works in full, how to probe it and its known gaps: `AMMO.md` (a
 gun's magazine and reloading), `BLOOD.md`, `CAMERA.md` (how the combat camera moves), `CAMPAIGN.md`
-(the world map's party, encounters, the squad menu, villages and shops), `DESTRUCTION.md` (adding a
+(the world map's party, encounters, the squad menu, villages and shops), `CUTAWAY.md` (seeing inside
+buildings: the floor selector, cutting the level away from the view), `DESTRUCTION.md` (adding a
 breakable block, voxel wear, loose models, the physics of debris), `GAMEPAD.md`, `GRENADES.md`,
 `HUNKER.md`, `LEVELS.md` (combat maps as levels of voxel pieces: the volume, drawing it, edges),
 `LEVEL_EDITOR.md` (the level editor that paints them: every control, making a map, adding pieces),
@@ -84,7 +85,8 @@ vcom/Scripts/
                        (redone round what breaks: Docs/LEVELS.md); edges: has_edge(), stepped over a level high
                        (vault_height(), vaults_along()); is_line_clear(), cast() (by_voxel: through the voxels of
                        pieces that wear away, for rounds; every_block too: of every piece, for blood; RayHit.voxel /
-                       piece / on_edge), pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() ->
+                       piece / on_edge; passing: pieces passed by), cast_seen() and pick_tile() (passing what is
+                       cut away from the view), terrain_struck, blast() -> terrain_blasted, fly() ->
                        round_flown (every round's line, for the loose models it tears through); voxels
     LineOfSight.gd     cover, step-out, find_shots() -> Shot (where it is fired from, where the target is
                        seen: its own tile or one it leans out to), watched_tiles() (Docs/SHOOTING.md)
@@ -99,6 +101,8 @@ vcom/Scripts/
                        tile's when its ground goes, pays for those on any squad member's tile; count(), sweep()
     Coin.gd            one coin as it is seen (Items/Coin2.vox, as drawn): spins, bobs, pops in, drop_to(),
                        take(); for show
+    Cutaway.gd         map node: hides what rests on what the level has cut away from the view (units, loose
+                       pieces, falling blocks, coins; debris through VoxelDebris.hides) (Docs/CUTAWAY.md)
     ShotPlayback.gd    shots not taken from the action bar (reactions, the enemies'): aim, step out, shoot_at(), back
     Weapon.gd          Item: damage, environment_damage; magazine (shots, 0 for none) and reload (actions), for a
                        gun; has_magazine(); stateless, the rounds left are the unit's
@@ -116,12 +120,15 @@ vcom/Scripts/
     Tactics.gd         shared queries: adjacent_foes, shots_at (none with no round), best_shot, reload(), advance,
                        paths
   Level/               combat maps as levels of voxel pieces (Docs/LEVELS.md, its scripts in full)
-    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove()
+    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove();
+                       cutaway_heights, cut_away() -> cut_changed, is_cut_away() (Docs/CUTAWAY.md)
+    LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them
     LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle or an edge), a turn
     PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres)
     LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
     VoxelVolume.gd     every voxel, 32^3 chunks; ChunkMesher.gd (faces by shape, none hidden)
-    LevelRenderer.gd   draws the volume a chunk at a time, collision a trimesh a chunk; SceneryRenderer.gd
+    LevelRenderer.gd   draws the volume a chunk at a time, collision a trimesh a chunk; cut() (pieces cut away
+                       from the view, their shadows still cast); SceneryRenderer.gd
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does)
   Terrain/             breaking and wearing pieces, and debris (Docs/DESTRUCTION.md, its scripts in full)
     TerrainDestruction.gd  breaks struck and blasted pieces, drops what they held and units left on nothing;
@@ -192,6 +199,8 @@ vcom/Scripts/
                        LB / RB tabs, LT / RT sub-tabs (_sub_tabs()), the gamepad's prompts in the strip under
                        the frame (_gamepad_hints(), _accept_hint() over gamepad_hint(focused), _close_hints())
     AmmoIndicator.gd   HUD node, bottom-right: the selected squad member's magazine (Docs/AMMO.md)
+    FloorSelector.gd   HUD node, left edge: the map's floors as a stack of sheets (UI/floor_top.svg,
+                       UI/floor_level.svg); a click, PageUp / PageDown or the d-pad cuts the level away (Docs/CUTAWAY.md)
     ButtonGlyph.gd     a gamepad button drawn from shapes (the font has none): A / B / X / Y, LB ... RT, LS / RS,
                        L3 / R3, View, Menu, the d-pad's arms; draw_glyph() on any canvas; any height (24 unless said)
     ControlHints.gd    a panel of [buttons, words] rows, a column or a row, shown only with the gamepad; compact
@@ -269,7 +278,8 @@ for each prop: its mesh, placed so the grip is on the scene's origin, with marke
 and where it is held. `vcom/Blocks/` holds the level pieces' `.vox` and `Pieces.tres` (every kind and
 brush), `vcom/Levels/` each map's pieces, and `vcom/addons/level_editor/` the level editor, a Godot
 editor plugin (`LevelEditorPlugin.gd`, its panel `LevelEditorDock.gd`, `LevelCursor.gd`;
-`Docs/LEVEL_EDITOR.md`).
+`Docs/LEVEL_EDITOR.md`). `vcom/UI/` holds the HUD's few pictures: the ticks and the floor selector's
+two sheets, white SVGs it tints (`Docs/CUTAWAY.md`, "The art").
 
 ## Architecture
 
@@ -738,6 +748,25 @@ framing distance, pitch, FOV, window, `pan_margin`) needs it deepened, which is 
 shadows, a `MultiMesh` a kind a region, coarser copies further out by `SceneryRenderer`'s constants, a
 ground plane, trunks only near the battlefield) and how 75 was found are `Docs/LEVELS.md`'s ("Scenery").
 
+**The view can be cut away to see inside buildings, and only the view.** A kind marked
+`PieceKind.cutaway` (the walls, gables and roofs) is a building piece, and a map's `Level` lists the
+heights it can be cut away from (`VoxelLevel.cutaway_heights`, cell y). Each is a floor on the
+`FloorSelector`, a HUD node halfway down the left edge drawn as a stack of sheets (`UI/floor_top.svg`
+on top, which shows everything, `UI/floor_level.svg` for each floor, highest first): a click on one,
+`PageUp` / `PageDown` (`floor_up` / `floor_down`) or the d-pad's up / down calls
+`VoxelLevel.cut_away(height)`. That makes a `LevelCutaway` (every building piece at that height or
+above, and every piece resting on one by column or edge) and has `LevelRenderer.cut()` mesh the
+chunks they are in, and those beside them, again without their voxels, each such section's whole mesh
+kept under it `SHADOWS_ONLY`, so every shadow falls as before; the collision stays whole. The map's
+`Cutaway` node hides whatever stands over a piece cut away (units, which take no clicks then, loose
+pieces, falling blocks, coins, and debris through `VoxelDebris.hides`); `CombatGrid.pick_tile()` and
+the camera's drag pass the cut pieces by (`cast_seen()`), and the tile highlights and the gamepad's
+cursor skip tiles over them. On a map with floors the selector takes the d-pad's up / down before the
+camera, which zooms on them elsewhere. Every combat map has both nodes, hidden without heights.
+`Docs/CUTAWAY.md` has the rest: the user's decisions, how a cut is worked out and drawn, the art and
+the constants tied to it, why meshes and not the shader, how to probe it, its gaps and what was
+decided without asking. Read it before touching the floor selector or anything a cut hides.
+
 ## Conventions
 
 - `##` doc comments on every class and non-obvious method, written in plain prose explaining *why*,
@@ -857,6 +886,10 @@ ground plane, trunks only near the battlefield) and how 75 was found are `Docs/L
   window (not leaning out to shoot). Keys `1`-`4` follow `PlayerSquad.members`, which is the squad
   panel's order; `0` passes on the current move only, and the next move is a new trigger.
 - Units never block line of sight. Only terrain does.
+- **Cutting the view away is only for show.** A piece cut away from the view is whole to the rules:
+  it blocks sight, rounds and throws, gives cover, holds up what is on it and can be shot and worn;
+  a unit hidden on it sees, shoots and is shot as ever. Only the pointer (`CombatGrid.cast_seen()`)
+  passes what is cut away; sight, shots, throws and blood use `cast()`, which meets every piece.
 - **A coin is on a tile, and only the squad takes it.** Whether a coin is there, and who takes it,
   is `Coins`' tiles and units' `tile_at()`, never the `Coin` node; enemies pass coins by. Its gold
   goes into `Campaign.gold` the moment it is taken, not at the end, and a win pays for the rest.

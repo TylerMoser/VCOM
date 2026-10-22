@@ -631,10 +631,11 @@ func _start_drag(mouse: Vector2) -> void:
 	# The grid's cells are all there from the first frame of a battle, where the
 	# level's collision is given it over the first few seconds
 	# (LevelRenderer.stream_collision), and they change the moment a block
-	# breaks.
+	# breaks. What is cut away from the view to see into a building is passed
+	# by: the ground taken hold of is the ground seen.
 	var grid := get_node_or_null(grid_path) as CombatGrid
 	if grid != null:
-		var met: Variant = grid.cast(from, heading, _camera.far)
+		var met: Variant = grid.cast_seen(from, heading, _camera.far)
 		if met != null:
 			_drag_height = (met as CombatGrid.RayHit).point.y
 		return

@@ -11,7 +11,9 @@
 ## held. Each step goes to the next column of the grid that way with a tile in
 ## it, the tile nearest the cursor's height there, skipping up to
 ## [constant MOST_SKIPPED] columns with none (a tree, a wall), and goes nowhere
-## past the map's edge.
+## past the map's edge. A tile hidden with what is cut away from the view
+## ([method VoxelLevel.cut_away]) counts as none: the cursor stays on what is
+## seen, and comes down off a roof as it is cut away.
 ##
 ## Over the tile a small pyramid points down at it, bobbing, so the cursor
 ## stands out from the move range's squares of much the same blue: just above
@@ -91,6 +93,8 @@ func _ready() -> void:
 	_marker.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	_marker.visible = false
 	add_child(_marker)
+	if grid != null and grid.level != null:
+		grid.level.cut_changed.connect(_on_cut_changed)
 
 
 func _process(delta: float) -> void:
@@ -130,7 +134,7 @@ func current() -> Variant:
 	if tile == null:
 		return null
 	var at: Vector3i = tile
-	if grid.is_tile(at):
+	if grid.is_tile(at) and not grid.level.is_tile_cut_away(at):
 		return at
 	var found: Variant = _tile_in_column(at.x, at.z, at.y)
 	if found != null:
@@ -175,16 +179,32 @@ func _ground_step(stick: Vector2) -> Vector2i:
 
 
 ## The tile in column ([param x], [param z]) nearest height [param near_y], the
-## higher of two as near, or null when the column has none.
+## higher of two as near, or null when the column has none. A tile hidden with
+## what is cut away from the view is passed by.
 func _tile_in_column(x: int, z: int, near_y: int) -> Variant:
 	var best: Variant = null
 	for y in range(near_y + HIGHEST_STEP, -1, -1):
 		var candidate := Vector3i(x, y, z)
-		if not grid.is_tile(candidate):
+		if not grid.is_tile(candidate) or grid.level.is_tile_cut_away(candidate):
 			continue
 		if best == null or absi(y - near_y) < absi((best as Vector3i).y - near_y):
 			best = candidate
 	return best
+
+
+## The view has been cut away from another height: a cursor left on a tile
+## now hidden comes down to the nearest one shown in its column, the camera
+## left where it is, and is marked again.
+func _on_cut_changed() -> void:
+	if tile == null:
+		return
+	var at: Vector3i = tile
+	if grid.level.is_tile_cut_away(at):
+		var found: Variant = _tile_in_column(at.x, at.z, at.y)
+		if found != null:
+			snap_to(found, false)
+			return
+	_mark()
 
 
 ## Bobs and turns the marker over the tile, or hides it.

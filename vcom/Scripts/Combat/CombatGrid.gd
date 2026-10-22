@@ -326,9 +326,10 @@ func is_line_clear(from: Vector3i, to: Vector3i) -> bool:
 
 
 ## The tile whose floor a ray first lands on, or null if the ray hits the side
-## of a block or nothing at all.
+## of a block or nothing at all. The pieces cut away from the view are passed
+## by ([method cast_seen]): what is clicked is what is seen.
 func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant:
-	var hit: Variant = cast(origin, direction, max_distance)
+	var hit: Variant = cast_seen(origin, direction, max_distance)
 	if hit == null:
 		return null
 	var landed := hit as RayHit
@@ -355,8 +356,13 @@ func pick_tile(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Va
 ## a piece is its whole cell, or its whole edge, however worn. With
 ## [param every_block] as well, every piece is traced so, a crate's slats and
 ## gaps included, and pieces that are only decoration too: only for blood
-## ([Blood]), which stains the voxel it meets and touches no rule.
-func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel := false, every_block := false) -> Variant:
+## ([Blood]), which stains the voxel it meets and touches no rule. A cell or an
+## edge whose pieces are all in [param passing], a set of their indices, is
+## passed by as if empty: only for the pointer ([method cast_seen]).
+func cast(
+	origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel := false, every_block := false,
+	passing := {}
+) -> Variant:
 	if level == null:
 		return null
 	# Work in cell units, where cell c spans [c, c + 1) on each axis: the
@@ -389,14 +395,17 @@ func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel :
 			var behind := cell
 			behind[entered_axis] -= step[entered_axis]
 			var across := _rules.pieces_across(LevelData.edge_slot(behind, came))
-			if not across.is_empty() and not (by_voxel and (every_block or _all_wear(across))):
+			if (
+				not across.is_empty() and not _all_passed(across, passing)
+				and not (by_voxel and (every_block or _all_wear(across)))
+			):
 				var face := Vector3i.ZERO
 				face[entered_axis] = -step[entered_axis]
 				return _whole_hit(cell, face, across[across.size() - 1], from + dir * t, direction, origin, true)
 		if is_solid(cell):
 			var standing := _rules.pieces_in(cell)
 			var traced := by_voxel and (every_block or _all_wear(standing))
-			if not traced:
+			if not traced and not _all_passed(standing, passing):
 				var face := Vector3i.ZERO
 				if entered_axis >= 0:
 					face[entered_axis] = -step[entered_axis]
@@ -413,6 +422,16 @@ func cast(origin: Vector3, direction: Vector3, max_distance := 500.0, by_voxel :
 		cell[entered_axis] += step[entered_axis]
 		t_max[entered_axis] += t_delta[entered_axis]
 	return null
+
+
+## The first solid thing a ray runs into that the view shows, as [method cast]
+## finds it, but passing by every piece cut away from the view
+## ([method VoxelLevel.cut_away]), as if it were not there. Only for the
+## pointer, a click or the camera taking hold of the ground: sight, shots,
+## throws and blood still meet every piece.
+func cast_seen(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Variant:
+	var passing: Dictionary = level.cutaway.pieces if level != null and level.cutaway != null else {}
+	return cast(origin, direction, max_distance, false, false, passing)
 
 
 ## The box every cell on the map lies within, in world space.
@@ -438,6 +457,17 @@ func blast(origin: Vector3, cells: Array[Vector3i], damage: int, force: float) -
 ## environmental damage behind it, as [signal round_flown].
 func fly(from: Vector3, to: Vector3, damage: int) -> void:
 	round_flown.emit(from, to, damage)
+
+
+## Whether every piece in [param pieces] is in [param passing], a set; false
+## with none passed.
+func _all_passed(pieces: PackedInt32Array, passing: Dictionary) -> bool:
+	if passing.is_empty():
+		return false
+	for piece in pieces:
+		if not passing.has(piece):
+			return false
+	return true
 
 
 ## Whether every piece in [param pieces] wears away.

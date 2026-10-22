@@ -83,6 +83,7 @@ all pause the game behind them, and all work the same way.
 | React | During a reaction window, `1`–`4` fires the squad member with that number beside them (their place on the squad panel), and `0` lets the move carry on |
 | End the turn early | Hold `Shift` for a second. Letting go, or pressing any other key, calls it off |
 | Show or hide the tile grid | `G`, or **Tile Grid** on the pause menu's System tab: faint lines along the edges of the ground's tiles. Off until turned on |
+| See inside a building | On a map with floors, a stack of sheets halfway down the left edge: click a sheet, or press `PageUp` / `PageDown` to go up or down a floor. The top sheet shows everything; a floor under it hides every wall, gable and roof at that height and above, and whatever stands on them, units included. Only the view changes: the hidden units still see, shoot and can be shot |
 | Open the pause menu | `Esc`, with no action up |
 
 While Shoot, Strike or Use Medkit is up, `Tab` cycles targets rather than squad members. During the enemies'
@@ -133,7 +134,8 @@ closes it again.
 | | |
 |---|---|
 | Point at a tile | Left stick: the tile cursor, a bright square with a marker bobbing over it, steps a tile at a time the way the stick is pushed on screen, and the camera follows it. `L3` puts it back on the selected squad member |
-| Turn and zoom the camera | Right stick: left / right turns it, up / down zooms. The d-pad's up / down zoom a step at a time |
+| Turn and zoom the camera | Right stick: left / right turns it, up / down zooms. On a map without floors, the d-pad's up / down zoom a step at a time |
+| See inside a building | D-pad up / down, on a map with floors: up or down a floor on the stack at the left edge |
 | Select a squad member | `LB` / `RB`, or the cursor on them and `A` while **Move** is up |
 | Choose an action | D-pad left / right, through the actions the squad member can take now. `B` puts it away |
 | Move | The path to the cursor is shown as it moves; `A` walks it |
@@ -341,6 +343,20 @@ A reload plays over whatever the squad member is doing with their legs, so they 
 hunkered behind cover: the rifle comes up across the chest, the spent magazine is dropped, and a
 fresh one is taken from the belt and slapped home. Nothing is called over their head: the reload
 itself is the sign.
+
+### Seeing inside buildings
+
+A map with buildings can have **floors**, set on the map (its `Level` node's **Cutaway Heights**). It
+then shows a stack of sheets halfway down the left edge of the screen: a whole sheet on top, and the
+edge of a sheet under it for each floor, the highest first. The top is chosen as the battle starts,
+and everything shows. Choosing a floor hides every wall, gable and roof from that height up, and
+whatever stands on them (a unit, a coin, a crate's pieces, debris), so you can see in. The sheet
+chosen is gold and those above it, hidden, faint. Choose the top to see it all again.
+
+Only the view changes. A hidden roof still casts its shadow, so the inside is lit as before, and
+everything hidden is still there to the rules: it blocks sight and rounds, gives cover, and a unit
+standing on a hidden roof still sees, shoots and can be shot. A click goes through what is hidden to
+the floor you can see, and the gamepad's tile cursor keeps to tiles that are shown.
 
 ### Enemies
 

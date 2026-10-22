@@ -31,6 +31,10 @@
 ## A voxel broken off a stained face is blood red from the start, and a drop
 ## of blood landing on a lump colours the voxel it met ([method stain]): a
 ## whole voxel, as a lump draws each voxel as one cube of one colour.
+##
+## A lump over something cut away from the view ([Cutaway]) is not drawn while
+## it is ([member hides]), though it moves and collides as ever: looked at as
+## it moves, and for every lump as the view is cut again ([method rehide]).
 class_name VoxelDebris
 extends Node3D
 
@@ -87,6 +91,12 @@ class Piece:
 ## stilled to make room: the furthest from it go first. Unset, they are
 ## measured from the map's origin.
 var focus: Callable
+## Whether a lump with its middle at a point in the world is hidden, cut away
+## from the view with what it lies on; asked only of lumps at or above
+## [member hide_above], the lowest height anything is cut away from, in the
+## world. Unset, nothing is hidden ([Cutaway]).
+var hides: Callable
+var hide_above := INF
 
 var _space := RID()
 var _cube: BoxMesh
@@ -114,6 +124,8 @@ var _first := PackedInt32Array()
 var _voxel_count := PackedInt32Array()
 var _offset_start := PackedInt32Array()
 var _offsets := PackedVector3Array()
+## Whether each lump is hidden, cut away from the view ([member hides]).
+var _cut := PackedByteArray()
 ## Lumps held but not let go yet, with the physics frame each was made in, and
 ## how each is to move once it is.
 var _waiting := PackedInt32Array()
@@ -244,6 +256,10 @@ func add(pieces: Array[Piece], destruction: VoxelDestruction) -> Array[RID]:
 		_cells.append(Vector3i.ZERO)
 		_file(index, Vector3i(piece.transform.origin.floor()))
 		_place_voxels(index, piece)
+		_cut.append(0)
+		if _is_hidden(piece.transform.origin):
+			_cut[index] = 1
+			_draw_lump(index, piece.transform)
 		var body := _make_body(index)
 		_bodies[index] = body
 		_by_body[body] = index
@@ -296,6 +312,23 @@ func burst(origin: Vector3, box: AABB, force: float) -> void:
 			continue
 		var contact := origin.clamp(center - half, center + half)
 		PhysicsServer3D.body_apply_impulse(_bodies[piece], impulse, contact - center)
+
+
+## Hides every lump over what is cut away from the view now, and draws again
+## every lump hidden before and not now, where it lies: for the view cut away
+## from another height, or whole again ([member hides]).
+func rehide() -> void:
+	for piece in _state.size():
+		if _state[piece] == State.GONE:
+			continue
+		var hidden := _is_hidden(_centers[piece])
+		if hidden == (_cut[piece] == 1):
+			continue
+		_cut[piece] = 1 if hidden else 0
+		var placed: Transform3D = _poses[piece]
+		if _state[piece] == State.LIVE:
+			placed = PhysicsServer3D.body_get_state(_bodies[piece], PhysicsServer3D.BODY_STATE_TRANSFORM)
+		_draw_lump(piece, placed)
 
 
 ## Wakes every lump with its middle inside [param box], for one left lying on
@@ -472,8 +505,28 @@ func _on_moved(state: PhysicsDirectBodyState3D, piece: int) -> void:
 	if cell != _cells[piece]:
 		_unfile(piece)
 		_file(piece, cell)
+	var hidden := _is_hidden(placed.origin)
+	if hidden and _cut[piece] == 1:
+		return
+	_cut[piece] = 1 if hidden else 0
+	_draw_lump(piece, placed)
+
+
+## Whether a lump with its middle at [param center], in the world, is hidden,
+## cut away from the view ([member hides]).
+func _is_hidden(center: Vector3) -> bool:
+	return center.y >= hide_above and hides.is_valid() and hides.call(center)
+
+
+## Draws the voxels of the lump [param piece] lying as [param placed] says,
+## or shrunk to nothing while it is hidden, cut away from the view.
+func _draw_lump(piece: int, placed: Transform3D) -> void:
 	var multimesh := _chunks[_chunk_of[piece]]
 	var first := _first[piece]
+	if _cut[piece] == 1:
+		for voxel in _voxel_count[piece]:
+			multimesh.set_instance_transform(first + voxel, HIDDEN)
+		return
 	var start := _offset_start[piece]
 	for voxel in _voxel_count[piece]:
 		multimesh.set_instance_transform(first + voxel, Transform3D(placed.basis, placed * _offsets[start + voxel]))

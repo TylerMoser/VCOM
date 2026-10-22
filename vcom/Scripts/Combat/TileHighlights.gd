@@ -4,6 +4,10 @@
 ## can each be replaced without touching the other. The layer set most
 ## recently draws on top, except that a layer set [code]on_top[/code] (the
 ## gamepad's tile cursor) draws over every other whenever they were set.
+##
+## A tile over something cut away from the view ([method VoxelLevel.cut_away])
+## shows none of its squares while it is, as a unit standing there is hidden:
+## each layer keeps it, and it shows again as the view is whole.
 class_name TileHighlights
 extends MultiMeshInstance3D
 
@@ -29,6 +33,8 @@ func _ready() -> void:
 	_grid = get_node_or_null(grid_path) as CombatGrid
 	if _grid == null:
 		push_error("TileHighlights: no CombatGrid at '%s'." % grid_path)
+	elif _grid.level != null:
+		_grid.level.cut_changed.connect(_rebuild)
 
 	var square := PlaneMesh.new()
 	square.size = Vector2(SQUARE_SIZE, SQUARE_SIZE)
@@ -68,9 +74,16 @@ func clear_layer(layer: StringName) -> void:
 
 
 func _rebuild() -> void:
+	var level := _grid.level if _grid != null else null
+	var cut := level != null and level.cutaway != null
 	var count := 0
 	for tiles: Dictionary in _layers.values():
-		count += tiles.size()
+		if not cut:
+			count += tiles.size()
+			continue
+		for tile: Vector3i in tiles:
+			if not level.is_tile_cut_away(tile):
+				count += 1
 	multimesh.instance_count = count
 
 	var index := 0
@@ -80,6 +93,8 @@ func _rebuild() -> void:
 		var tiles: Dictionary = _layers[layer]
 		var custom := Color(_fills[layer], 0.0, 0.0, 0.0)
 		for tile: Vector3i in tiles:
+			if cut and level.is_tile_cut_away(tile):
+				continue
 			var position := to_local(_grid.tile_position(tile)) + Vector3.UP * LIFT
 			multimesh.set_instance_transform(index, Transform3D(Basis.IDENTITY, position))
 			multimesh.set_instance_color(index, tiles[tile])

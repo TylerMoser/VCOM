@@ -245,6 +245,16 @@ func _process(_delta: float) -> void:
 		_pick.position = lean()
 
 
+## Hides the unit, or shows it again, while it stands over something cut away
+## from the view ([Cutaway]): its figure and its gear, and the body clicks land
+## on, so a click goes through to what is seen. Only for show: to the rules it
+## is where it was, and is seen, shot at and shoots as ever.
+func set_cut_away(hidden: bool) -> void:
+	visible = not hidden
+	if _pick != null:
+		_pick.collision_layer = 0 if hidden else PICK_LAYER
+
+
 ## Refills the action budget and the reaction at the start of this unit's
 ## turn, and stands down any overwatch or hunkering left over from the last
 ## one. A squad member's turn starts with the player's, so hunkering down lasts

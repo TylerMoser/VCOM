@@ -22,7 +22,9 @@ actions gained a button (A `confirm_action` and `ui_accept`, B `cancel_action`, 
 `reaction_continue`, Menu `pause_menu`, View `end_turn`, LB / RB the squad and the targets, LT
 `show_shot_details`, R3 `toggle_grid` in combat and `toggle_borders` on the new map (`BorderSwitch`,
 whose state `MapReticle._rows()` words as "Hide borders" or "Show borders"), the right stick's x `camera_rotate_*`, the d-pad's up / down
-`camera_zoom_*`), and the pad has actions of its own: `cursor_*` (the left stick), `next_action` /
+`camera_zoom_*`, and `floor_up` / `floor_down` as PageUp / PageDown, the user's choice: on a combat map with floors
+the `FloorSelector` takes the d-pad's up / down first, marking them handled, so there they change the floor and do
+not zoom, and on any other map, and the world map, they zoom as before; `Docs/CUTAWAY.md`), and the pad has actions of its own: `cursor_*` (the left stick), `next_action` /
 `previous_action` (d-pad right / left), `recenter` (L3), `camera_zoom_stick_*` (the right stick's y),
 `menu_next_tab` / `menu_previous_tab` (RB / LB), `menu_next_subtab` / `menu_previous_subtab` (RT / LT),
 and `reaction_fire` / `reaction_next` / `reaction_previous` (A, RB, LB). Godot's own `ui_*` already
@@ -33,7 +35,9 @@ Where the mouse points, the gamepad has a pointer of its own. In combat it is th
 `ActionController` makes and shows on the player's turn, not busy, with someone selected, and puts on
 whoever is selected as the selection changes, the turn starts, or L3 is pressed: the left stick steps
 it a tile at a time in eight ways relative to the camera (up the screen is away from it), finding
-the tile nearest its height in the next column with one, and the camera follows it: easing after a step,
+the tile nearest its height in the next column with one (a tile hidden with what the floor selector
+has cut away counts as none, and a cursor left on one as it is cut comes down to the nearest shown in
+its column), and the camera follows it: easing after a step,
 as the player's own panning does, and gliding to wherever it is put, on the player's turn only
 (`Docs/CAMERA.md`). Actions ask
 `ActionController.pointed_tile()` (the cursor's tile with the gamepad, the mouse's tile without),
@@ -48,7 +52,8 @@ hover, `Party`'s sending and `VillageMenu`'s opening take one path for both, and
 slides under it on the left stick and zooms toward it.
 
 The prompts are `ControlHints` panels of rows, a `ButtonGlyph` or two and the words: down the right in
-combat (`ActionController._show_hints()`, A's words from the active action's `confirm_hint()`) and on
+combat (`ActionController._show_hints()`, A's words from the active action's `confirm_hint()`, and a
+"Floor" row for the d-pad's up / down on a map with floors) and on
 the map (`MapReticle._rows()`), along the bottom of every `TabbedMenu` (`_gamepad_hints()`), shown only
 with the gamepad. A menu's row is compact (`ControlHints.new(false, true)`), as its frame leaves it a
 strip only 3.8% of the window high under it (`TabbedMenu.MARGIN`), 27 px at the least, a window 720
@@ -97,8 +102,10 @@ cursor, render in a window as for any frame.
   The world map's reticle does not snap to a village: it has to be put on the icon. The move path is
   drawn only a shade bluer than the range round it, with the pad as with the mouse.
 - With the gamepad a reaction window's prompts lose their numbers (one has an A, the others none), so
-  the numbers' order is not shown, and the combat prompts' ten rows are a tall column: a player who
-  knows the pad has no way to hide them.
+  the numbers' order is not shown, and the combat prompts' ten rows (eleven on a map with floors) are
+  a tall column: a player who knows the pad has no way to hide them.
+- On a map with floors the d-pad's up / down change the floor and no longer zoom a step at a time
+  (the right stick still zooms); on a map without, they zoom. The same buttons do two things by map.
 - A menu's row of prompts is small, its glyphs' letters 11 px and Menu's and View's 9, and it fits
   under the frame only while `TabbedMenu.MARGIN.y` leaves 20 px or more there: a frame grown further,
   or rows of prompts made taller, would run them over its edge again.

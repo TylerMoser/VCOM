@@ -14,11 +14,23 @@
 ## Its space is the grid's: cell (x, y, z) runs from (x, y, z) to
 ## (x + 1, y + 1, z + 1), sixteen voxels a side, as a GridMap's cells did with
 ## cells a metre across and centred.
+##
+## A battlefield can be cut away from the view from one of its
+## [member cutaway_heights] up, to see into its buildings ([method cut_away]):
+## its building pieces there and above, and whatever rests on them, are not
+## drawn, though they still cast their shadows ([LevelCutaway],
+## [LevelRenderer]). Only for show: the rules see every piece as ever.
 class_name VoxelLevel
 extends Node3D
 
 ## Emitted once it has been built afresh.
 signal built
+## Emitted as the view is cut away from another height, or shown whole again
+## ([method cut_away]); and as a piece breaking changes what is cut away.
+signal cut_changed
+
+## The height [method cut_away] takes for nothing cut away.
+const UNCUT := -1
 
 ## The pieces it is built of. A level's [LevelData] is its own file, shared
 ## with nothing else.
@@ -64,10 +76,16 @@ var build_times := Vector2i.ZERO
 ## waiting for, after the level is built.
 var redraw_budget := 4000
 var collision_budget := 2000
+## What is cut away from the view to see into its buildings, or null with
+## nothing cut away ([method cut_away]).
+var cutaway: LevelCutaway
 ## How deep edits are batched ([method begin_edit]), and the slots they have
 ## changed meanwhile, as a set.
 var _batching := 0
 var _pending := {}
+## Whether a piece has left the rules since what is cut away was worked out,
+## which works it out again at the end of the frame.
+var _recut_pending := false
 
 
 func _ready() -> void:
@@ -115,6 +133,7 @@ func build() -> void:
 		scenery_renderer = null
 	rules = null
 	volume = null
+	cutaway = null
 	if data == null or library == null:
 		return
 	if scenery:
@@ -131,12 +150,64 @@ func build() -> void:
 		built.emit()
 		return
 	rules = LevelRules.new(data, library)
+	rules.removed.connect(_on_piece_removed)
 	volume = VoxelVolume.new(data, library)
 	var voxels_took := volume.build()
 	renderer = LevelRenderer.new(volume, not Engine.is_editor_hint())
 	add_child(renderer, false, Node.INTERNAL_MODE_FRONT)
 	build_times = Vector2i(voxels_took, renderer.build())
 	built.emit()
+
+
+## Cuts the view away from [param from_level] up, to see into the buildings:
+## every building piece ([member PieceKind.cutaway]) at that height or above,
+## and whatever rests on them, is no longer drawn, though each still casts its
+## shadow ([LevelCutaway]). [constant UNCUT] shows it all again. Only for show:
+## the rules, the grid and every shot see the level whole, as ever. Meant for
+## the heights in [member cutaway_heights], though any height cuts.
+func cut_away(from_level: int) -> void:
+	if rules == null or renderer == null:
+		return
+	cutaway = null if from_level == UNCUT else LevelCutaway.new(data, volume.kinds, rules, from_level)
+	renderer.cut(cutaway.pieces if cutaway != null else {})
+	cut_changed.emit()
+
+
+## The height the view is cut away from, or [constant UNCUT].
+func cut_level() -> int:
+	return cutaway.from_level if cutaway != null else UNCUT
+
+
+## Whether something at [param world] is hidden with what is cut away: over a
+## piece cut away, in its column or across an edge ([LevelCutaway]).
+func is_cut_away(world: Vector3) -> bool:
+	return cutaway != null and cutaway.covers_point(to_local(world))
+
+
+## Whether a unit standing on [param tile] would be hidden with what is cut
+## away: over a piece cut away in its column.
+func is_tile_cut_away(tile: Vector3i) -> bool:
+	return cutaway != null and cutaway.covers_cell(tile)
+
+
+## A piece has left the rules: once the frame's breaking is done, what is cut
+## away is worked out again, as a roof shot through no longer hides what falls
+## in.
+func _on_piece_removed(_index: int, _slot: Vector3i) -> void:
+	if cutaway != null and not _recut_pending:
+		_recut_pending = true
+		_recut.call_deferred()
+
+
+func _recut() -> void:
+	_recut_pending = false
+	if cutaway == null or rules == null:
+		return
+	var again := LevelCutaway.new(data, volume.kinds, rules, cutaway.from_level)
+	if not again.same_pieces(cutaway):
+		renderer.cut(again.pieces)
+	cutaway = again
+	cut_changed.emit()
 
 
 ## Draws again, now, whatever has worn since it was last drawn: for a round's

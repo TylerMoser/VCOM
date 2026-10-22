@@ -19,6 +19,13 @@
 ## a few chunks a frame ([method stream_collision]); anything about to put
 ## debris somewhere has the chunks round it given theirs first
 ## ([method ensure_collision]), and a chunk worn away is given its at once.
+##
+## Pieces can be cut away from the view, to see into buildings ([method cut]):
+## the chunks they are in, and those beside them, are meshed again as if those
+## pieces' voxels were not there, so what they hid has faces, and those meshes
+## are drawn in place of the whole ones. The whole meshes still cast every
+## shadow, unseen, so the light is as it was; and the collision is always the
+## whole level's.
 class_name LevelRenderer
 extends Node3D
 
@@ -59,6 +66,21 @@ var _layers := 0
 ## How many triangles are drawn, for probes.
 var triangles := 0
 
+## The pieces cut away from the view, by their index in the level, as a set
+## ([method cut]); empty with nothing cut away.
+var _cut := {}
+## The rows of each chunk holding voxels of a piece cut away, without them,
+## by key: [rows along x, rows along z].
+var _cut_rows := {}
+## Each chunk drawn otherwise while pieces are cut away, its own voxels cut or
+## a neighbour's against it: its rectangles, and its mesh arrays (none for no
+## rectangles), as so drawn, by key.
+var _cut_quads := {}
+var _cut_arrays := {}
+## The whole mesh of each section drawn cut away, casting its shadow unseen,
+## by section key.
+var _shadows := {}
+
 
 func _init(drawn: VoxelVolume, with_collision := true) -> void:
 	name = &"Voxels"
@@ -78,6 +100,13 @@ func build() -> int:
 	for body: StaticBody3D in _bodies.values():
 		body.queue_free()
 	_bodies.clear()
+	for shadow: MeshInstance3D in _shadows.values():
+		shadow.queue_free()
+	_shadows.clear()
+	_cut.clear()
+	_cut_rows.clear()
+	_cut_quads.clear()
+	_cut_arrays.clear()
 	_quads.clear()
 	_arrays.clear()
 	_uncollided.clear()
@@ -124,11 +153,19 @@ func refresh(budget := -1) -> bool:
 		volume.dirty_colors.clear()
 	if volume.dirty.is_empty():
 		return false
+	# Every chunk changed loses what it holds of the pieces cut away before any
+	# is meshed: a chunk's faces against its neighbour read the neighbour's
+	# rows as drawn.
+	if not _cut.is_empty():
+		for key: Vector3i in volume.dirty:
+			_cut_chunk(key)
 	var redrawn: Array[Vector3i] = []
 	for key: Vector3i in volume.dirty.keys():
 		volume.dirty.erase(key)
 		if volume.chunks.has(key):
 			_mesh_chunk(key)
+			if not _cut.is_empty():
+				_mesh_cut(key)
 			redrawn.append(key)
 		elif _quads.has(key):
 			_forget(key)
@@ -145,6 +182,126 @@ func refresh(budget := -1) -> bool:
 ## Whether a chunk is waiting to be drawn again.
 func is_stale() -> bool:
 	return not volume.dirty.is_empty()
+
+
+## Draws the level with [param pieces], a set of their indices in the level,
+## cut away, so as to see past them ([LevelCutaway]); with none, whole again.
+## The chunks they are in are meshed again without them, and the chunks beside
+## those, whose faces against them now show; the chunks cut away before and
+## not now are drawn whole again. Their sections draw what is left, and the
+## whole level casts the shadows, unseen. Returns how long it took, in
+## microseconds.
+func cut(pieces: Dictionary) -> int:
+	var start := Time.get_ticks_usec()
+	var redraw := {}
+	for key: Vector3i in _cut_quads:
+		redraw[key] = true
+	_cut = pieces.duplicate()
+	_cut_rows.clear()
+	var reached := {}
+	for piece: int in _cut:
+		for key in VoxelVolume.keys_of(volume.data.slot_at(piece)):
+			reached[key] = true
+	for key: Vector3i in reached:
+		_cut_chunk(key)
+	for key: Vector3i in _cut_rows:
+		redraw[key] = true
+		for step in VoxelVolume.STEPS:
+			redraw[key + step] = true
+	for key: Vector3i in redraw:
+		_mesh_cut(key)
+	for key: Vector3i in _stale_sections.keys():
+		_build_section(key)
+	_stale_sections.clear()
+	return Time.get_ticks_usec() - start
+
+
+## Works out the rows of the chunk keyed [param key] without the voxels of the
+## pieces cut away, into [member _cut_rows], or forgets them if it holds none.
+## Only the voxels each such piece still owns are taken out, a row of bits at a
+## time across its box: a later piece's voxels over it stay.
+func _cut_chunk(key: Vector3i) -> void:
+	_cut_rows.erase(key)
+	var chunk: VoxelVolume.Chunk = volume.chunks.get(key)
+	if chunk == null:
+		return
+	var size := VoxelVolume.SIZE
+	var block := VoxelVolume.BLOCK
+	var rows_x := PackedInt64Array()
+	var rows_z := PackedInt64Array()
+	for at in chunk.owners.size():
+		var piece := chunk.owners[at]
+		if not _cut.has(piece):
+			continue
+		var slot_number := at + 1
+		var least := LevelData.voxel_origin(volume.data.slot_at(piece)) - chunk.origin
+		var x_from := maxi(least.x, 0)
+		var x_to := mini(least.x + block, size)
+		if x_from >= x_to:
+			continue
+		var x_bits := ((1 << (x_to - x_from)) - 1) << x_from
+		for y in range(maxi(least.y, 0), mini(least.y + block, size)):
+			for z in range(maxi(least.z, 0), mini(least.z + block, size)):
+				var row := z + y * size
+				var bits := chunk.rows_x[row] & x_bits
+				while bits != 0:
+					var low := bits & -bits
+					bits &= bits - 1
+					var x: int = ChunkMesher.BIT[low % 67]
+					if chunk.slots[x + row * size] != slot_number:
+						continue
+					if rows_x.is_empty():
+						rows_x = chunk.rows_x.duplicate()
+						rows_z = chunk.rows_z.duplicate()
+					rows_x[row] &= ~low
+					rows_z[x + y * size] &= ~(1 << z)
+	if not rows_x.is_empty():
+		_cut_rows[key] = [rows_x, rows_z]
+
+
+## Meshes the chunk keyed [param key] as it is drawn with the pieces cut away,
+## if it is drawn otherwise so - its own voxels cut, or a neighbour's against
+## it - and marks its section to be built again; else forgets how it was.
+func _mesh_cut(key: Vector3i) -> void:
+	var chunk: VoxelVolume.Chunk = volume.chunks.get(key)
+	var affected := chunk != null and _cut_rows.has(key)
+	if chunk != null and not affected:
+		for step in VoxelVolume.STEPS:
+			if _cut_rows.has(key + step):
+				affected = true
+				break
+	if not affected:
+		if _cut_quads.erase(key):
+			_cut_arrays.erase(key)
+			_stale_sections[_section_of(key)] = true
+		return
+	var near := ChunkMesher.Near.new()
+	near.east = _shown_rows(key + Vector3i.RIGHT, false)
+	near.west = _shown_rows(key + Vector3i.LEFT, false)
+	near.up = _shown_rows(key + Vector3i.UP, true)
+	near.down = _shown_rows(key + Vector3i.DOWN, true)
+	near.north = _shown_rows(key + Vector3i.BACK, true)
+	near.south = _shown_rows(key + Vector3i.FORWARD, true)
+	var floor_slice := volume.floor_y - chunk.origin.y
+	var quads := ChunkMesher.rectangles(
+		VoxelVolume.SIZE, _shown_rows(key, true), _shown_rows(key, false), near, floor_slice
+	)
+	_cut_quads[key] = quads
+	if quads.is_empty():
+		_cut_arrays.erase(key)
+	else:
+		_cut_arrays[key] = ChunkMesher.arrays(quads, chunk.origin, chunk.layer, 1.0 / VoxelVolume.BLOCK)
+	_stale_sections[_section_of(key)] = true
+
+
+## The rows of the chunk keyed [param key] as they are drawn, without the
+## pieces cut away, along x if [param along_x] else along z; empty if there is
+## no chunk there.
+func _shown_rows(key: Vector3i, along_x: bool) -> PackedInt64Array:
+	var rows: Array = _cut_rows.get(key, [])
+	if rows.is_empty():
+		return _rows(key, along_x)
+	return rows[0] if along_x else rows[1]
 
 
 ## Makes the texture of every voxel's colour, a layer for each chunk, and gives
@@ -271,6 +428,9 @@ func is_collided() -> bool:
 func _forget(key: Vector3i) -> void:
 	_quads.erase(key)
 	_arrays.erase(key)
+	_cut_rows.erase(key)
+	_cut_quads.erase(key)
+	_cut_arrays.erase(key)
 	_uncollided.erase(key)
 	_recollide.erase(key)
 	_stale_sections[_section_of(key)] = true
@@ -293,8 +453,59 @@ static func _section_of(key: Vector3i) -> Vector3i:
 	return Vector3i(key.x >> SECTION_SHIFT, key.y >> SECTION_SHIFT, key.z >> SECTION_SHIFT)
 
 
-## Builds the mesh of the section keyed [param key] afresh from its chunks'.
+## Builds the mesh of the section keyed [param key] afresh from its chunks':
+## as they are drawn, with any pieces cut away, and then, if any chunk of it is
+## drawn cut away, its whole mesh as well, casting the shadow in its place.
 func _build_section(key: Vector3i) -> void:
+	var cut := false
+	var first := key * SECTION
+	for x in SECTION:
+		for y in SECTION:
+			for z in SECTION:
+				if _cut_quads.has(first + Vector3i(x, y, z)):
+					cut = true
+	var drawn: MeshInstance3D = _sections.get(key)
+	var old_quads := 0
+	if drawn != null and drawn.mesh != null:
+		old_quads = drawn.get_meta(&"quads", 0)
+	var made := _section_mesh(key, cut)
+	var quads: int = made[1]
+	triangles += (quads - old_quads) * 2
+	if quads == 0:
+		if drawn != null:
+			drawn.queue_free()
+			_sections.erase(key)
+	else:
+		if drawn == null:
+			drawn = MeshInstance3D.new()
+			drawn.name = &"Section"
+			add_child(drawn)
+			_sections[key] = drawn
+		drawn.mesh = made[0]
+		drawn.set_meta(&"quads", quads)
+		drawn.cast_shadow = (
+			GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if cut else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+		)
+	var shadow: MeshInstance3D = _shadows.get(key)
+	var whole: Mesh = _section_mesh(key, false)[0] if cut else null
+	if whole == null:
+		if shadow != null:
+			shadow.queue_free()
+			_shadows.erase(key)
+		return
+	if shadow == null:
+		shadow = MeshInstance3D.new()
+		shadow.name = &"Shadow"
+		shadow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
+		add_child(shadow)
+		_shadows[key] = shadow
+	shadow.mesh = whole
+
+
+## The mesh of the section keyed [param key], from its chunks as drawn with the
+## pieces cut away if [param cut], else whole, and how many rectangles it has:
+## [mesh, rectangles], the mesh null for none.
+func _section_mesh(key: Vector3i, cut: bool) -> Array:
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
 	var custom0 := PackedFloat32Array()
@@ -305,7 +516,8 @@ func _build_section(key: Vector3i) -> void:
 		for y in SECTION:
 			for z in SECTION:
 				var chunk_key := first + Vector3i(x, y, z)
-				var made: Variant = _arrays.get(chunk_key)
+				var is_cut := cut and _cut_quads.has(chunk_key)
+				var made: Variant = (_cut_arrays if is_cut else _arrays).get(chunk_key)
 				if made == null:
 					continue
 				vertices.append_array(made[Mesh.ARRAY_VERTEX])
@@ -313,17 +525,9 @@ func _build_section(key: Vector3i) -> void:
 				custom0.append_array(made[Mesh.ARRAY_CUSTOM0])
 				custom1.append_array(made[Mesh.ARRAY_CUSTOM1])
 				@warning_ignore("integer_division")
-				quads += (_quads[chunk_key] as PackedInt32Array).size() / ChunkMesher.FIELDS
-	var drawn: MeshInstance3D = _sections.get(key)
-	var old_quads := 0
-	if drawn != null and drawn.mesh != null:
-		old_quads = drawn.get_meta(&"quads", 0)
-	triangles += (quads - old_quads) * 2
+				quads += ((_cut_quads if is_cut else _quads)[chunk_key] as PackedInt32Array).size() / ChunkMesher.FIELDS
 	if quads == 0:
-		if drawn != null:
-			drawn.queue_free()
-			_sections.erase(key)
-		return
+		return [null, 0]
 	var arrays := []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
@@ -334,13 +538,7 @@ func _build_section(key: Vector3i) -> void:
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
 	mesh.surface_set_material(0, material)
-	if drawn == null:
-		drawn = MeshInstance3D.new()
-		drawn.name = &"Section"
-		add_child(drawn)
-		_sections[key] = drawn
-	drawn.mesh = mesh
-	drawn.set_meta(&"quads", quads)
+	return [mesh, quads]
 
 
 ## Gives the chunk keyed [param key] collision as its faces are now: a trimesh
@@ -377,3 +575,9 @@ func _collide(key: Vector3i) -> void:
 ## How many sections are drawn, for probes.
 func section_count() -> int:
 	return _sections.size()
+
+
+## How many chunks are drawn cut away, and how many sections cast their shadow
+## from a whole mesh drawn unseen, for probes.
+func cut_counts() -> Vector2i:
+	return Vector2i(_cut_quads.size(), _shadows.size())

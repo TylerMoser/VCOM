@@ -53,7 +53,8 @@ a `@tool` `Node3D`) where its `GridMap` was, with five exports: `data`, a `Level
 its own `.tres` in `Levels/`), `library`, the `PieceLibrary` every map shares (`Blocks/Pieces.tres`),
 `scenery`, and, for scenery, `battlefield_path` (the battlefield it surrounds, `../Level` by
 default); and `cutaway_heights`, the tile heights (cell y) the view may be cut away below to see into
-buildings (`PieceKind.cutaway`): only `TestMap.tscn`'s `Level` has any (5), and nothing reads it yet. It builds itself afresh every time it enters the tree, in the editor as in the game:
+buildings (`PieceKind.cutaway`), each a floor on the floor selector: only `TestMap.tscn`'s `Level` has
+any (5). `cut_away()` cuts the view away from one of them, only for show (`Docs/CUTAWAY.md`). It builds itself afresh every time it enters the tree, in the editor as in the game:
 `LevelRules` (what the rules see), `VoxelVolume` (every voxel) and a `LevelRenderer` (what draws it),
 both renderers as internal children so they are never saved. BoundaryMap's forest is a second level,
 `Scenery`, with `scenery` ticked: drawn by a `SceneryRenderer`, coarser further from the battlefield,
@@ -81,7 +82,7 @@ the mesh sits in the box, what a MeshLibrary item's mesh transform was: down hal
 none to never break), `solid` (off for decoration the rules never see), `tile_grid` (the optional
 grid is drawn on its voxels), `edge_piece` (the editor puts it on an edge to begin with) and
 `cutaway` (part of a building, which may be cut away to see inside: the three `Simple...1` kinds;
-only for show, nothing reads it yet).
+only for show, `Docs/CUTAWAY.md`).
 
 **A brush is a `PieceBrush`** (in `PieceLibrary.brushes`): a few kinds, each with a slot offset (half
 cells across, cells up) and a turn, placed together in one click and turned together.
@@ -236,7 +237,11 @@ ahead of the next physics step and of `VoxelDebris`, which lets new lumps go in 
 `_physics_process` later in the tree: so the collision is off the bite's frame, and no lump starts out
 inside the voxels it was (without that, 6 bites in 12 let their lumps go into the old collision). The
 rules never wait on collision, nor does the camera's drag, which takes hold of the ground through
-`CombatGrid.cast()` (`CameraRig.grid_path`).
+`CombatGrid.cast_seen()` (`CameraRig.grid_path`), `cast()` passing what is cut away from the view.
+
+**What is cut away from the view is meshed again** (`LevelRenderer.cut()`): the chunks a cut piece is
+in, and those beside them, drawn without its voxels, each such section's whole mesh kept under it
+casting the shadows, the collision always whole. `Docs/CUTAWAY.md` has it in full.
 
 **The look matches the GridMap's.** Rendered from the same cameras, the units and HUD hidden:
 BoundaryMap's start view differs in 3.7% of pixels, all along colour edges, and four fixed views in
@@ -603,15 +608,18 @@ scenery's ground plane.
 ```
   Level/               combat maps as levels of voxel pieces
     VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove() /
-                       begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of()
+                       begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of();
+                       cutaway_heights, cut_away() -> cut_changed, is_cut_away(), is_tile_cut_away()
+    LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them (Docs/CUTAWAY.md)
     LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
-    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece; PieceBrush.gd
+    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece, cutaway; PieceBrush.gd
                        (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
     LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
     VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows), palette (BLOOD 255); remove_many(),
                        recolor(), lay_bare() (dug ground as earth), counts; ChunkMesher.gd (faces by shape, none hidden)
     LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader);
-                       collision a trimesh a chunk, streamed; SceneryRenderer.gd (a MultiMesh a kind, coarseness and region)
+                       collision a trimesh a chunk, streamed; cut() (pieces cut away from the view, their shadows
+                       still cast); SceneryRenderer.gd (a MultiMesh a kind, coarseness and region)
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
   Terrain/
     SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it

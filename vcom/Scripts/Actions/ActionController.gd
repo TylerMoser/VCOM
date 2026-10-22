@@ -312,6 +312,9 @@ func _show_hints() -> void:
 	rows.append([[&"LS"], "Move cursor"])
 	rows.append([[&"L3"], "Cursor to squad member"])
 	rows.append([[&"RS"], "Turn and zoom"])
+	# The floor selector takes the d-pad's up / down on a map with floors.
+	if grid.level != null and not grid.level.cutaway_heights.is_empty():
+		rows.append([[&"dpad_vertical"], "Floor"])
 	rows.append([[&"R3"], "Tile grid"])
 	rows.append([[&"View"], "Hold: end turn"])
 	rows.append([[&"Menu"], "Menu"])
