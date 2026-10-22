@@ -953,24 +953,36 @@ stopping at a slope, so that the open land runs along the valleys and the forest
   program, the forests are taken out and put in afresh, and any change made to them by hand is
   lost, but nothing else.
 
-**The party is on the map, and goes in straight lines.** The `Party` node is the old map's party,
-the red dot, drawn over the settlements. It starts near the middle of county 115, at (7302, 7381):
-the middle of the county's area, 9 km from its capital. It is sent as on the old map (see
-[Controls](#world-map)): a right-click anywhere, or on a settlement's icon to go to the settlement
-itself, and with the gamepad `A` for what is under the reticle and `L3` to bring the view back to
-it. The old map keeps a party of its own.
+**The party is on the map, and takes the fastest way, off the water.** The `Party` node is the old
+map's party, the red dot, drawn over the settlements. It starts near the middle of county 115, at
+(7302, 7381): the middle of the county's area, 9 km from its capital. It is sent as on the old map
+(see [Controls](#world-map)): a right-click anywhere, or on a settlement's icon to go to the
+settlement itself, and with the gamepad `A` for what is under the reticle and `L3` to bring the
+view back to it. The old map keeps a party of its own.
 
-- **It keeps to no land yet.** The old map's party asks that map's land, traced from a picture,
-  where it may go and the way there round the coast. This map has no such land, so its party goes
-  wherever it is sent in a straight line, over the sea and the lakes as over the land, and off the
-  sheet if sent there. That is `terrain_path` on the node, left empty.
-- **Speed and time.** It covers 25 miles a day (`miles_per_day` on the `Party` node), and a day
-  takes 30 seconds of real time (`seconds_per_day` on the `Clock` node), so it goes about 13.4
-  units a second and the sheet's 833 miles from north to south take 33 days, some 17 minutes.
-  Time passes only while the party is moving. The `Clock` counts down from 90 days
-  (`starting_days`) in the top left corner, as days:hours:minutes; nothing happens yet when it
-  runs out. A step is still every 50 units, which is 5 km, each healing the roster as on the old
-  map: about eight a day. The old map has no clock and keeps its own speed.
+- **It keeps off the water.** The sea, the lakes, the rivers and the channels stop it, and it
+  crosses water only by a bridge. A click on water, or on land it cannot reach, is ignored, as on
+  the old map. Every piece of water has a **Navigable** box (its `MapWater` script), off on all of
+  it for now, which lets the party cross it at a forest's pace. A town on a river is no crossing: it
+  stands on one bank, and is reached from that side only.
+- **It takes the fastest way.** It goes 25 miles a day on a road (any road, highway or lane), 20
+  over open ground and 15 through a forest (constants in `MapNavigation.gd`), and the way it takes
+  is the quickest, a few in a hundred at most from the best there is: along the roads, and off them
+  where that is quicker. Its dashed line shows the way, which it works out as it is sent, waiting
+  where it is meanwhile, a fifth of a second at the most.
+- **The way is baked from the map.** The scene's `Navigation` node reads the map's own land,
+  forests, roads, bridges and water and bakes them into `vcom/WorldMap/MapNavigation.res`. After
+  changing any of those, press **Bake Navigation** in that node's inspector (some 11 seconds), or run
+  `Scripts/WorldMap/BakeMapNavigation.gd` from the command line; until then the node carries a
+  warning, and so does the game as the map opens. The bake's report, in the Output, names anything
+  to mend: a settlement standing on water or cut off, or a road crossing water with no bridge. See
+  `Docs/MAP.md`, "Navigation".
+- **Speed and time.** A day takes 30 seconds of real time (`seconds_per_day` on the `Clock` node),
+  so on a road it goes about 13.4 units a second and the sheet's 833 miles from north to south take
+  some 33 days, 17 minutes. Time passes only while the party is moving, at whatever pace its ground
+  allows. The `Clock` counts down from 90 days (`starting_days`) in the top left corner, as
+  days:hours:minutes; nothing happens yet when it runs out. A step is still every 50 units, which is
+  5 km, each healing the roster as on the old map. The old map has no clock and keeps its own speed.
 - A step that ends in a forest may meet a battle there (below). The dot and the dashed line to
   where it is going are red, which since 2026-10-18 nothing else on the map is.
 
@@ -998,8 +1010,7 @@ left stick moves the map under, and in the bottom right corner what each button 
 those says what `A` does with the ring where it is: "Enter" the settlement the party is in, "Go to"
 a settlement, or "Go here". It is hidden while a menu is up, and with the mouse.
 
-- On the old map there is no prompt for `A` over the sea, where the party cannot be sent. Here
-  it says "Go here" there too, since the party keeps to no land yet and goes.
+- There is no prompt for `A` over water, where the party cannot be sent, here as on the old map.
 - The ring is white with a dark edge, made for the old map's art. On this map's pale land it
   shows by its edge alone, and is faint.
 
@@ -1162,7 +1173,8 @@ vcom/                     the Godot project
     Roster/               characters and the roster
     WorldMap/             the campaign maps: their cameras, land, party, forests and villages, the
                           gamepad's reticle; the new map's level of detail, clock and border switch,
-                          and the shaders of its look (its lines, its ground)
+                          the shaders of its look (its lines, its ground), and its navigation (the
+                          bake, the routes, the water's navigable flag)
     UI/                   HUD and menus, built in code rather than scenes, and the gamepad's prompts
   Resources/              shared resources: weapons and items, characters and their skills, AI,
                           villages' locations, the new map's look (MapLines/, MapGround.tres)

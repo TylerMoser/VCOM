@@ -11,9 +11,16 @@
 ## the new point instead. The left button is left free for other things, such
 ## as a left click on the village the party is in opening its [VillageMenu].
 ##
-## With no terrain ([member terrain_path] left empty, as on the new map,
-## [code]Scenes/Map.tscn[/code], which has no land to ask yet) it goes wherever
-## it is sent in a straight line, over the sea as over the land.
+## On the new map, [code]Scenes/Map.tscn[/code], the terrain is a
+## [MapNavigation] instead: the party keeps off the water, crossing it only by
+## a bridge, and takes the fastest way, which it works out on a thread of its
+## own while the party waits where it is (a fifth of a second at the most).
+## Its pace on each leg is the ground's ([constant MapNavigation.ROAD_MILES_PER_DAY]
+## and the rest), and the clock counts the time it takes. A right click on
+## water, or on land it cannot reach, is ignored, as on the old map.
+##
+## With no terrain ([member terrain_path] left empty) it goes wherever it is
+## sent in a straight line, over the sea as over the land.
 ##
 ## With the gamepad, A does what the right click does, at the [MapReticle] in
 ## the middle of the screen, and L3 (recenter) brings the party back into the
@@ -37,7 +44,8 @@ extends Node2D
 ## A random encounter came up: a battle on [param map] is to be fought.
 signal encountered(map: PackedScene)
 
-## Finds the way over land. Leave empty to go anywhere, in a straight line.
+## Finds the way over land: the old map's [WorldMapTerrain], or the new map's
+## [MapNavigation]. Leave empty to go anywhere, in a straight line.
 @export var terrain_path: NodePath = ^"../Terrain"
 ## Map pixels per second, on a map with no clock. The map is about 9000
 ## across.
@@ -48,7 +56,7 @@ signal encountered(map: PackedScene)
 @export var clock_path: NodePath
 ## Miles the party covers in a day of the clock's, a mile being
 ## [constant MapCamera.UNITS_A_MILE] of the map's units. Read only with a
-## clock.
+## clock, and only where no [MapNavigation] gives each leg its own pace.
 @export_range(0.0, 200.0, 0.5, "or_greater") var miles_per_day := 25.0
 ## How far the party goes, in map pixels, from one chance of a random
 ## encounter to the next. The chance itself is each forest's.
@@ -64,10 +72,16 @@ signal encountered(map: PackedScene)
 @export var destination_color := Color(0.85, 0.1, 0.1, 0.8)
 
 var _terrain: WorldMapTerrain
+var _navigation: MapNavigation
 var _clock: MapClock
 ## The points still to head for, in order, the destination last. Empty when
 ## the party is not travelling.
 var _route := PackedVector2Array()
+## Miles a day on the leg to each point of [member _route], from a
+## [MapNavigation]; empty when every leg goes at [method speed].
+var _paces := PackedFloat32Array()
+## Whether a route is being worked out, which the party waits for where it is.
+var _planning := false
 ## Where the party was sent before the terrain could find routes, to set off
 ## for once it can; null when there is none.
 var _waiting_for: Variant = null
@@ -83,16 +97,21 @@ func _ready() -> void:
 		if _clock == null:
 			push_error("Party: no MapClock at '%s'; travelling at its travel speed, and no time passes." % clock_path)
 	if not terrain_path.is_empty():
-		_terrain = get_node_or_null(terrain_path) as WorldMapTerrain
-		if _terrain == null:
-			push_error("Party: no WorldMapTerrain at '%s'; travelling in straight lines." % terrain_path)
-	if _terrain != null and not _terrain.is_land(global_position):
+		var terrain := get_node_or_null(terrain_path)
+		_terrain = terrain as WorldMapTerrain
+		_navigation = terrain as MapNavigation
+		if _terrain == null and _navigation == null:
+			push_error("Party: no WorldMapTerrain or MapNavigation at '%s'; travelling in straight lines." % terrain_path)
+		elif _navigation != null and not _navigation.is_ready():
+			_navigation = null
+	if _terrain == null and _navigation == null:
+		return
+	if not can_go_to(global_position):
 		push_warning("Party: starts off the land at %s, so it can go nowhere." % global_position)
-	if _terrain != null:
-		for destination in get_tree().get_nodes_in_group(Destination.GROUP):
-			if not _terrain.is_land(destination.global_position):
-				push_warning("Party: destination '%s' is off the land at %s, so it can never be reached." % [
-					destination.name, destination.global_position])
+	for destination in get_tree().get_nodes_in_group(Destination.GROUP):
+		if not can_go_to(destination.global_position):
+			push_warning("Party: destination '%s' is off the land at %s, so it can never be reached." % [
+				destination.name, destination.global_position])
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -115,8 +134,11 @@ func pointed_at() -> Vector2:
 
 
 ## Whether [param point] is somewhere the party could be sent: on land, with
-## land to go by. It may still be cut off from it by the sea.
+## land to go by (off the water, on the new map). It may still be cut off
+## from it by the water.
 func can_go_to(point: Vector2) -> bool:
+	if _navigation != null:
+		return _navigation.is_passable(point)
 	return _terrain == null or _terrain.is_land(point)
 
 
@@ -125,27 +147,34 @@ func _process(delta: float) -> void:
 		var destination: Vector2 = _waiting_for
 		_waiting_for = null
 		_send_to(destination)
-	if not _route.is_empty():
-		# Spend the whole frame's travel, carrying on past a turn reached
-		# part-way through it.
-		var pace := speed()
-		var travel := pace * delta
-		var moved := travel
-		while travel > 0.0 and not _route.is_empty():
+	if not _route.is_empty() and not _planning:
+		# Spend the whole frame travelling, carrying on past a turn reached
+		# part-way through it at the next leg's pace.
+		var time_left := delta
+		var moved := 0.0
+		while time_left > 0.0 and not _route.is_empty():
+			var pace := _pace()
+			if pace <= 0.0:
+				break
 			var leg := global_position.distance_to(_route[0])
-			if leg > travel:
-				global_position = global_position.move_toward(_route[0], travel)
-				travel = 0.0
+			var reach := pace * time_left
+			if leg > reach:
+				global_position = global_position.move_toward(_route[0], reach)
+				moved += reach
+				time_left = 0.0
 				break
 			global_position = _route[0]
-			travel -= leg
+			moved += leg
+			time_left -= leg / pace
 			_route.remove_at(0)
+			if not _paces.is_empty():
+				_paces.remove_at(0)
 		queue_redraw()
 		# Only the part of the frame spent travelling: the trip's last frame
 		# ends early.
-		if _clock != null and pace > 0.0:
-			_clock.advance((moved - travel) / pace)
-		_take_steps(moved - travel)
+		if _clock != null:
+			_clock.advance(delta - time_left)
+		_take_steps(moved)
 	elif not is_equal_approx(_screen_scale(), _drawn_scale):
 		queue_redraw()
 
@@ -158,22 +187,56 @@ func speed() -> float:
 	return miles_per_day * MapCamera.UNITS_A_MILE / _clock.seconds_per_day
 
 
+## How fast the party travels on the leg ahead, in map pixels a second: the
+## leg's own pace where the route gives one, else [method speed].
+func _pace() -> float:
+	if _paces.is_empty() or _clock == null or _clock.seconds_per_day <= 0.0:
+		return speed()
+	return _paces[0] * MapCamera.UNITS_A_MILE / _clock.seconds_per_day
+
+
 func _draw() -> void:
 	_drawn_scale = _screen_scale()
 	# Everything below is sized in screen pixels, so divide by the zoom.
 	var px := 1.0 / _drawn_scale
 
 	if not _route.is_empty():
-		var from := Vector2.ZERO
+		var points := PackedVector2Array([Vector2.ZERO])
 		for point in _route:
-			draw_dashed_line(from, to_local(point), destination_color, 2.0 * px, 8.0 * px)
-			from = to_local(point)
-		var target := from
+			points.append(to_local(point))
+		_draw_dashes(points, destination_color, 2.0 * px, 8.0 * px)
+		var target := points[points.size() - 1]
 		var arm := 5.0 * px
 		draw_line(target + Vector2(-arm, -arm), target + Vector2(arm, arm), destination_color, 2.0 * px)
 		draw_line(target + Vector2(-arm, arm), target + Vector2(arm, -arm), destination_color, 2.0 * px)
 
 	draw_circle(Vector2.ZERO, dot_radius * px, dot_color)
+
+
+## A dashed line through [param points], its dashes and gaps [param dash]
+## long, laid along the whole line rather than started afresh at each turn,
+## which on a route of many short legs would leave it all dash.
+func _draw_dashes(points: PackedVector2Array, color: Color, width: float, dash: float) -> void:
+	var segments := PackedVector2Array()
+	var drawing := true
+	var left := dash
+	for i in points.size() - 1:
+		var a := points[i]
+		var b := points[i + 1]
+		var length := a.distance_to(b)
+		var along := 0.0
+		while along < length:
+			var step := minf(left, length - along)
+			if drawing:
+				segments.append(a.lerp(b, along / length))
+				segments.append(a.lerp(b, (along + step) / length))
+			along += step
+			left -= step
+			if left <= 0.0:
+				drawing = not drawing
+				left = dash
+	if not segments.is_empty():
+		draw_multiline(segments, color, width)
 
 
 ## Whether the party has stopped at [param destination]. A trip there ends
@@ -199,8 +262,15 @@ func _take_steps(distance: float) -> void:
 
 
 ## Sets off for [param destination], if it can be reached over land; if not,
-## carries on as before.
+## carries on as before. On the new map the way is worked out on a thread,
+## and the party waits for it ([method _on_route]).
 func _send_to(destination: Vector2) -> void:
+	if _navigation != null:
+		if not _navigation.is_passable(destination):
+			return
+		_planning = true
+		_navigation.request_route(global_position, destination, _on_route)
+		return
 	var route := PackedVector2Array([destination])
 	if _terrain != null:
 		route = _terrain.find_route(global_position, destination)
@@ -213,6 +283,19 @@ func _send_to(destination: Vector2) -> void:
 		return
 	_waiting_for = null
 	_route = route
+	_paces = PackedFloat32Array()
+	queue_redraw()
+
+
+## The new map's way to where the party was last sent: it sets off along it,
+## or, when there is none, carries on as before.
+func _on_route(route: MapRoute) -> void:
+	_planning = false
+	if route == null or route.points.is_empty():
+		return
+	_waiting_for = null
+	_route = route.points
+	_paces = route.miles_per_day
 	queue_redraw()
 
 

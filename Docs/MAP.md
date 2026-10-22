@@ -17,8 +17,11 @@ top left corner is the origin, and pixel (x, y) is at ((x + 0.5) * 3.35, (y + 0.
 is its drawing order: `Sea`, `Coast`, `Land` (a `Polygon2D` a county, under `Kingdom` and `Duchy`
 nodes), `Forests` (a `Forest` a piece, under groups by size and kingdom: see
 [Forests](#forests)), `Borders`, `Lakes`, `Rivers`, `Channels`, `BordersOverLakes`, `Roads`,
-`Bridges`, `Settlements`, `Party`, `Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene
-runs by itself), `MapReticle`, `VillageMenu`, `SquadMenu`, `GameOver`, `BorderSwitch`, `Detail`.
+`Bridges`, `Settlements`, `Navigation` (a `MapNavigation`: see [Navigation](#navigation)), `Party`,
+`Clock` (a `MapClock`), `Camera` (a `MapCamera`, so the scene runs by itself), `MapReticle`,
+`VillageMenu`, `SquadMenu`, `GameOver`, `BorderSwitch`, `Detail`. Every node of water (`Sea`, each
+lake, river and channel) carries a `MapWater` script, whose one setting says whether the party may
+cross it.
 
 A settlement is a `Destination`, as the old map's village (the user's call): an instance of
 `Scenes/City.tscn` (a kingdom's or a duchy's capital) or `Scenes/Town.tscn` (a county's), the
@@ -38,14 +41,16 @@ the old map's village as well, which keeps its 32 by setting `icon_height` on it
 
 `Party` is the old map's `Party`, brought over at the user's request (the old map keeps its own):
 it starts near the middle of county 115, at (7302, 7381), the outline's centroid, as they asked,
-and is drawn over the settlements. Its `terrain_path` is empty, this map having no land collider or
-navigation mesh, so it goes wherever it is sent in a straight line, over water too; a right click
-on a settlement's icon sends it to the settlement. Keeping it to the land is not built: what stops
-it (lakes, rivers but for their bridges) is the user's to say. Its speed is the user's: 25 miles a
-day (`Party.miles_per_day`), a day taking 30 real seconds (`MapClock.seconds_per_day`, on the
-scene's `Clock`, which the party's `clock_path` names), so 13.4 units a second. Time passes only
-while the party moves: `Party` calls `MapClock.advance()` with the seconds it spent travelling, and
-nothing else moves the clock. The clock counts down from `starting_days` (90) in the top left
+and is drawn over the settlements. Its `terrain_path` names the `Navigation` node, so it takes the
+fastest way wherever it is sent, keeping off the water but for the bridges, and a click on water or
+on land it cannot reach is ignored ([Navigation](#navigation)); a right click on a settlement's icon
+sends it to the settlement. Its pace on each leg is the ground's, the user's: 25 miles a day on a
+road, 20 over open ground, 15 through a forest (`MapNavigation`'s constants), a day taking 30 real
+seconds (`MapClock.seconds_per_day`, on the scene's `Clock`, which the party's `clock_path` names),
+so 13.4 units a second on a road. `Party.miles_per_day` (25) is its pace only when the navigation
+is not baked and it goes in straight lines. Time passes only while the party moves: `Party` calls
+`MapClock.advance()` with the seconds it spent travelling, and nothing else moves the clock. The
+clock counts down from `starting_days` (90) in the top left
 corner, as days:hours:minutes, and nothing happens yet when it runs out (the user's: "for now"). A
 step is still every 5 km, by distance (their call), about eight a day, and one that ends in a
 forest rolls that forest's odds of a battle. The old map's party has no clock and keeps
@@ -436,6 +441,115 @@ again would build each anew, some 50 ms. It starts on, and is not saved.
 **Nothing in the scene as saved changes.** `MapDetail` is no tool script: the editor shows every
 node, at the width it was given, and those widths are the ones the map has at 220 miles tall.
 
+## Navigation
+
+**The party keeps off the water and takes the fastest way there, found over a bake of the map's
+own layers.** Asked for on 2026-10-21, with the user's decisions: the sea, the lakes, the rivers and
+the channels stop the party, which crosses water only by a bridge; it goes 25 miles a day on a road,
+20 over open ground and 15 through a forest, every road, every open ground and every forest alike
+(`MapNavigation.ROAD_MILES_PER_DAY`, `OPEN_MILES_PER_DAY`, `FOREST_MILES_PER_DAY`, constants to be
+tweaked); every piece of water has a flag, **Navigable** (`MapWater.navigable`), off on all of it
+for now, which lets the party cross that water at a forest's pace; a click on water, or on land it
+cannot reach, is ignored as on the old map; and a town on a river is no crossing: it stands on one
+bank and is reached from that side only. The route is the fastest within a few in a hundred
+(below), and nothing about it is kept up by hand: after changing the map, it is baked again.
+
+**The bake draws the map into a grid of 100 m cells, one a unit of the map, and finds a network of
+crossing points over it.** `MapNavigationBaker` reads every node under the layers the `Navigation`
+node names (`Land`, `Forests`, `Roads`, `Bridges`, `Lakes`, `Rivers`, `Channels` and `Sea`, wherever
+in them a node is and however it is moved: its own transform, its parents' and a polygon's offset
+are applied) and draws them into a grid of 10,029 by 13,348 cells, the land's box and two cells of
+sea round it, each one kind of ground (`MapNavigationData.Ground`). In this order: the sea; the land
+as open ground; the forests; the sea again outside the land, so that a forest drawn past the coast
+makes no land; the roads, highways and lanes, as unbroken lines of cells, over land only; the lakes,
+filled and outlined; the rivers and channels as unbroken lines of cells, but not over the sea; an
+island in a lake (a polygon under `Lakes` with "Island" in its name, as `MapDetail` tells them) as
+open ground; and the bridges last, over anything, as roads, their cells joined side to side. Moves
+go eight ways, but a diagonal step only past two open cells, so a river one cell wide whose cells
+touch only at their corners still stops the party, and a bridge joined side to side always gets it
+across. Water whose `MapWater` is navigable is drawn as a navigable kind of its own. The grid is cut
+into blocks of 160 cells (16 km). Along each edge between two blocks, every run of cells the party
+can cross on both sides gets an entrance every 160 cells and one wherever a road crosses, and in
+each block the best path between every two of its entrances is found by `AStarGrid2D` on that block
+alone, on as many threads as the machine has, and kept with its cost and its cells: 17,974
+entrances and 101,268 links. Each block's cells are kept compressed (Zstandard), so a route decodes
+only the blocks it passes. Last the bake checks that every settlement stands on ground the party can
+cross, joined to the main land, and so does the party's start. It writes it all to
+`vcom/WorldMap/MapNavigation.res` (3.3 MB, compressed), the same bytes for the same map.
+
+**Baking is a button, or a command.** Select the `Navigation` node and press **Bake Navigation** in
+its inspector: about 11 seconds on this 16-thread laptop, during which the editor waits, and its
+report goes to the Output. Without the editor, from `vcom/`:
+
+```bash
+godot --headless --path . --script res://Scripts/WorldMap/BakeMapNavigation.gd             # bake Map.tscn as saved
+godot --headless --path . --script res://Scripts/WorldMap/BakeMapNavigation.gd -- --check  # stale? exit 1 if so
+```
+
+The command reads the scene as saved (save it first in the editor), and is the hook for baking it
+on the user's behalf. The report gives the grid, the ground's areas, the speeds, the network, and
+any problem: a settlement on water or cut off ("PROBLEM:" lines, which also raise a warning), water
+cutting a road with no bridge within two cells (a road's own cells beside its bridge may be water,
+the bridge being the way across; one whose last cell is water is only counted), a bridge over no
+water, water with no `MapWater` (it blocks, and cannot be made navigable until it has one), a layer
+missing. On 2026-10-21 it reported nothing to mend:
+
+```
+Navigation baked from Map in 10.4 s (drawing the map 1.8 s, entrances 0.5 s, paths inside blocks 7.2 s, checking settlements 0.7 s, packing 0.1 s).
+Grid: 10029 by 13348 cells of 100 m from (217, 26), in 5292 blocks of 16 km.
+Ground: open 340170 km², forest 319714 km², road 2409 km²; water 33497 km² blocking, 0 km² navigable; the sea blocking.
+Speeds: road 25.0, open 20.0, forest 15.0, navigable water 15.0 miles a day.
+Network: 17974 entrances, 101268 links, in 9 regions.
+Settlements: all 2220 stand on land joined to the rest, and so does the party.
+Roads: none cut by water; the last cell of 1 road is water, which is no matter.
+```
+
+**A stale bake is warned of, but still used.** The bake keeps a hash of everything it read (every
+layer's points, every water's flag, the speeds and its own settings; not the settlements, so moving
+a town asks for no bake). In the editor the `Navigation` node checks it as the scene opens and every
+15 seconds after (some 40 ms), and while it does not match carries a warning (the triangle in the
+Scene dock and the inspector) and says so once in the Output. As the game runs, the map warns as it
+opens, checked before its first frame, since `MapDetail` moves the rivers' ends in the sea as it
+sets their widths. Until baked again, routes follow the map as it was.
+
+**A route is searched over the network, then pulled straight.** `MapRouter` joins the start to the
+entrances of its block and the destination to those of its, each by a search of that block alone;
+searches the network between them (A*, estimating what is left as the straight distance at a road's
+pace, which no route beats); lays the stored cells of each link end to end; then pulls that path
+straight, from each point on to the furthest later one a straight line reaches without meeting water
+or cutting a corner between two water cells and no slower than the path, so the route is never
+slower than the grid's and keeps to the roads wherever leaving them is slower. Each straight stretch
+is cut into legs by the ground under it, a sliver of under 300 m taking the pace of the leg it is in
+(a straight stretch along a road clips the cells beside it), so a leg is always 25, 20 or 15 miles a
+day, and the party slows going into a forest. On 300 trips between settlements chosen at random, none
+was refused and none crossed a river, lake or the sea but on a bridge, checked against the scene's
+own lines, not the grid; checked against a search of the whole grid (at 250 and 500 m, where one fits
+in memory), routes were 1 to 4 per cent slower than the best, 0.8 to 2.8 at 250 m.
+
+**The party waits for its route.** A click sends the request to a worker thread
+(`MapNavigation.request_route()`), and the party stops where it is until the route comes: on this
+laptop 70 ms for the middle one of those 300 trips, 130 ms for nine in ten, 220 ms for the longest
+(1,212 km), so a frame or two for a trip nearby and never a hitch, the map going on drawing
+meanwhile. A second click before then replaces the first, which is dropped. A route that cannot be found leaves the party on its way as it
+was. The gamepad reticle's "Go here" shows only where the party can stand.
+
+**The map was mended where the bake found it wanting.** 25 settlements stood on water: 23 villages of
+the Swamp on the first point of their own channel, and County 20's and County 89's capitals in a
+lake's outline. Each was moved to the middle of the nearest cell of its own bank, the side its roads
+come from or else the side with the most land, 50 to 110 m (the two roads that ended at County 20's
+capital end at it again). And three hamlets were on islands no bridge reached: County 163's Hamlet 6
+on its own island, and County 220's Hamlets 5 and 7 on another. `Bridges/Hamlets`, a group of its own
+that comes in with the hamlets, has a bridge to each island where the sea is narrowest, straight from
+coast to coast and three units on to land at both ends: `County163Hamlet6Bridge`, 9.3 km to the
+peninsula north of it, and `County220HamletsBridge`, 7.8 km to county 220's main island. They are
+drawn as a lane's bridge (11.6 wide, white) but with the road bridges' material, `Bridge.tres`, since
+the lanes' belongs to the villages' splice, which numbers it afresh.
+
+**To change the map,** draw as before, then bake: a river, lake or channel duplicated from one of its
+kind (Ctrl+D) keeps its `MapWater`; a road under `Roads`, a forest as a `Forest` piece under
+`Forests`, land under `Land`. A road that crosses water needs a bridge under `Bridges` (a line along
+it from bank to bank), or the report names the place. A settlement must stand off the water.
+
 ## What it costs
 
 Measured in a window at 60 frames a second (an RTX 3060 laptop). A frame at rest takes about 1 ms
@@ -475,6 +589,15 @@ the frames are as long as before, 3 to 5 ms on average and 7 to 11 at the worst,
 100), every polygon sharing the one material, its biome a value set on the node. Its colour picked
 in each pixel, as it was first written, it took 0.90, 0.68 and 0.59 ms. The scene grew by 17 KB.
 
+**The navigation (2026-10-21)** adds to the scene's opening 16 ms to load the bake (11.8 MB once
+loaded) and, in a debug build, some 40 ms to check it is not stale; each router keeps the blocks it
+has decoded, 25.6 KB each, up to 256 for the worker's (a route from coast to coast decodes some 50)
+and 64 for the others'. A route takes 70 ms on average, 220 at the most, on its worker thread:
+roughly a third finding the grid's path, a half pulling it straight, the rest its legs. The bake
+takes 10.4 s on 16 threads (7.2 of them the paths inside blocks, 67 s on one thread), and some 300 MB
+while it draws the grid. The `MapWater` scripts on the 1,019 nodes of water made the scene 35 KB
+larger.
+
 **The forests (2026-10-17)** made the scene 13.5 MB, from 9.1, and it opens in 2.7 s, from 1.7:
 0.65 s more reading the file, and some 0.35 s more on the first frame, mostly Godot cutting the
 2,459 pieces into triangles (0.22 s; 0.6 s before the larger were cut down to 500 points). A frame
@@ -504,6 +627,19 @@ party, forests, settlements and menus it shares with the old map are `Docs/CAMPA
                        and intensity on it; a county's biome (its kingdom's) set on the county, an instance parameter
     BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
                        nothing and back (shown); MapDetail fades only the ranks under them
+    MapNavigation.gd   @tool, Map.tscn's Navigation node: the speeds (ROAD_ / OPEN_ / FOREST_ /
+                       NAVIGABLE_MILES_PER_DAY), the layers it reads, the Bake Navigation button (bake()), the
+                       baked file (data_path), stale_reason() and the editor's warning; as the game runs
+                       is_passable(), request_route() (a worker thread) and find_route() (waits, for probes)
+    MapNavigationBaker.gd  the bake: reads the layers, draws the grid, finds entrances and links (threads),
+                       checks the settlements, writes the report; signature() for the stale check; VERSION
+    MapNavigationData.gd   Resource, WorldMap/MapNavigation.res: the grid by blocks (Ground, compressed), the
+                       entrances and links with their costs and cells, the speeds baked with, the report
+    MapRouter.gd       a route over the data: start and goal joined to their blocks' entrances, A* over the
+                       network, the links' cells laid end to end, pulled straight, cut into legs by ground
+    MapRoute.gd        a route: points, miles_per_day for the leg to each, days
+    MapWater.gd        on every node of water (sea, lakes, rivers, channels): navigable, off for now
+    BakeMapNavigation.gd   SceneTree script: bakes Map.tscn without the editor; --check says if it is stale
     MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
                        starting_days in the top left as days:hours:minutes; seconds_per_day; advance()
                        (only the Party calls it, while it moves), elapsed, remaining()
@@ -560,6 +696,23 @@ close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
 until the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at
 four views.
 
+The navigation: `BakeMapNavigation.gd -- --check` says whether the bake matches the scene as saved,
+and the bake's report whether anything is cut off. A probe can route without the scene in the tree:
+`load("res://WorldMap/MapNavigation.res")`, then `MapRouter.new(data).find_route(from, to)`, in the
+map's coordinates (a `MapRoute`: `points`, `miles_per_day` for the leg to each, `days`; null when the
+destination is water or out of reach), and `router.ground_at(point)`, a `MapNavigationData.Ground`.
+With the scene in the tree, `Navigation.find_route()` does the same in global coordinates, and the
+party is sent as a click sends it, `party._send_to(point)`: it waits while `party._planning`, then
+`_route` and `_paces` are its route (leave the party untyped: `Party` names an autoload). A route was
+checked against the scene's own lines, not the grid, by intersecting each straight stretch with
+every river, channel, lake shore and coast line and allowing a crossing only within three units of
+a bridge (none failed in 300). `MapNavigationData.decode_block(block)` gives a block's cells, a byte
+of `Ground` each, row by row, `block_rect(block)` where they are, to draw the grid as a picture. The
+Bake Navigation button's callable is `navigation.bake_button`, which a probe `EditorPlugin` can call
+in the editor itself, run on a copy of `vcom/` (`--headless --editor --path <copy>`, with `APPDATA` and
+`LOCALAPPDATA` pointed at scratch folders so that the user's own editor settings are not touched); the
+node's warning is its `_get_configuration_warnings()`.
+
 ## Decided with the user
 
 The four tiers and their heights; bridges with the lesser roads, in the Duchy tier; no fifth,
@@ -575,6 +728,29 @@ balanced where they did; more tweaks to follow. Then (2026-10-19), from 10, 14 a
 that look with variants: 10b, 14b and 19a, the variant recommended in each. And the same day 12b,
 the whisper, from the variants of 12, each biome's colour and intensity to be "easily
 adjustable/configurable", since the user will tune them further.
+
+The navigation (2026-10-21), the user's answers: 25 miles a day on roads, 20 on open ground, 15 in
+forests, "constants so they can be tweaked later", every road, open ground and forest alike; all
+water blocking, with a flag on all of it, `navigable`, crossing it at a forest's pace when on, off
+for now; clicks on water or unreachable land ignored "just as before"; bridges for the three hamlets
+that could not be reached; the hierarchical search at 100 m, as fine as GDScript allows ahead of a
+move to C++; baked on a button, with a stale warning and a hook to bake it on their behalf; and
+towns on rivers no crossings: "Towns should be placed on one bank of the river, and can only be
+accessed from that side."
+
+Without asking, for the navigation: blocks of 16 km and an entrance every 16 km plus one at every
+road crossing; a step's cost half each cell's; a diagonal step only past two open cells; roads drawn
+over land only, rivers and channels not over the sea, bridges over anything as roads; the sea
+redrawn outside the land; islands in lakes told by "Island" in the name, as `MapDetail` tells them;
+water with no `MapWater` blocking, named in the report; the network's search in GDScript, the
+blocks' with `AStarGrid2D`; routes on a worker thread, the party waiting where it is, a newer click
+replacing one still being worked out; pulling straight never slower than the grid's path; slivers
+under 300 m taking the pace of the leg they are in; MD5 for the stale hash, the editor checking every
+15 s, the settlements left out of it; a stale bake still used; the data as one compressed binary
+file; one bridge for County 220's two hamlets, which share an island; the two island bridges drawn as
+a lane's but with `Bridge.tres`, in a group of their own that comes in with the hamlets; the 25
+settlements moved to the nearest cell of the bank their roads come from (else the larger side), and
+the two roads that ended at County 20's capital moved with it.
 
 The forests (2026-10-17), each out of three choices: the wild amount, about half the land, at
 each biome's share; battles met in them as in the old map's forest, 10% a step; a colour for each
@@ -615,9 +791,7 @@ county.
 
 ## Known gaps
 
-- `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
-  navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. Its reticle's
-  prompt says "Go here" over the sea as well, and its white ring is faint on the pale land. Only
+- `Scenes/Map.tscn` is not in the game. Its reticle's white ring is faint on the pale land. Only
   county 115's capital has anything in it, and it shares the old village's board and market: with both
   maps in one game they would be one shop. Its settlements are not drawn in the editor (`Destination`
   is no tool script, so the old map's village is not either): there they are nodes with no picture. It
@@ -687,3 +861,24 @@ county.
   plainer: `MapStyles/harness/render.sh 103` draws it.
 - The look is in the scene, and the splices' lines carry it: a new kind of line written by a
   program has to be given its material, `texture_mode` and colour there too ([Its look](#its-look)).
+- Routes are 1 to 4 per cent slower than the best, from passing through the blocks' entrances:
+  now and then one cuts across open ground beside a road that would have been a hair quicker. More
+  entrances would close it at the cost of a slower search.
+- The grid is 100 m: water narrower than that is a cell wide, a strip of land narrower than a cell or
+  two between waters is closed, and two things within a cell of each other share it, water winning
+  over a road (no road on the map does, but at its crossings). A straight stretch along a slanting
+  road clips the cells beside it; those slivers take the road's pace in the legs, but the search
+  costed them as what they are, so it may pass over such a road by a hair.
+- A settlement standing on a water cell, or a road crossing water with no bridge, is only reported:
+  the bake does not move or mend anything. Re-run, the villages' splice (`v3_splice.py --replace`)
+  puts the Swamp's 23 villages back on their channels and writes the channels without `MapWater`:
+  bake, and mend what the report names.
+- The bake holds the editor for some 11 s, with no progress shown, and takes over a minute on one
+  thread. The editor notices a change up to 15 s late, and the check costs some 40 ms each time. A
+  grid of more than 268 million cells (finer than about 70 m) is more than one image holds: the bake
+  would have to draw it in pieces.
+- Navigable water looks like any other, is crossed anywhere at a forest's pace, and has no boats or
+  landings; a navigable sea reaches only two cells past the land's box.
+- The party waits for its route where it stands, up to a fifth of a second on this laptop (more on
+  the Steam Deck); routes are worked out in GDScript, which C++ would make many times quicker.
+- The bake is read once, as the map opens: a node moved while the game runs is not followed.

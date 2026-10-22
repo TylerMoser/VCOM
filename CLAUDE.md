@@ -240,6 +240,15 @@ vcom/Scripts/
     MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen, its prompts
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
+    MapNavigation.gd   @tool, Map.tscn's Navigation node: the speeds (constants), the Bake Navigation button,
+                       the stale warning; is_passable(), request_route() (a worker thread), find_route()
+    MapNavigationBaker.gd  the bake: the layers into a 100 m grid, entrances and links by 16 km blocks (threads),
+                       the settlements checked, the report; signature() for the stale check
+    MapNavigationData.gd   Resource, WorldMap/MapNavigation.res: the grid by blocks, the network, the speeds
+    MapRouter.gd       a route over the data: A* over the network, the links' cells, pulled straight, legs
+    MapRoute.gd        a route: points, miles_per_day a leg, days
+    MapWater.gd        on every node of water in Map.tscn: navigable (off)
+    BakeMapNavigation.gd   SceneTree script: bakes Map.tscn headless (-- --check: stale?); the hook for baking
     Party.gd           the party dot: sent by a right click or A, travels a route; every step_length heals the
                        roster and rolls a forest's encounter chance; encountered(map)
     Forest.gd          Polygon2D (Scenes/Forest.tscn, and the new map's four kinds): outline, encounter_chance per
@@ -428,9 +437,25 @@ are made by `MapCreation/Scripts/villages/` and `forests/` and spliced in by the
 spliced again they are made afresh, and a hand edit to one is lost.
 `MapCreation/Scripts/scene/m2_scene.gd` now writes only those, its whole-scene part, which would write
 the scene afresh in the old look, having been taken out (git keeps it, at d8b5ec7). `Docs/MAP.md` has
-all of it (settlements, party, clock, camera, look, forests, level of detail, its scripts, how to
-probe it, its gaps) and why; read it before touching the map. `README.md`, "The new world map", has
-the decisions and what each node holds.
+all of it (settlements, party, clock, camera, look, forests, level of detail, navigation, its scripts,
+how to probe it, its gaps) and why; read it before touching the map. `README.md`, "The new world map",
+has the decisions and what each node holds.
+
+**The new map's party keeps off the water and takes the fastest way, over a bake of the map's own
+layers.** The scene's `Navigation` node (`MapNavigation`, `@tool`) is the party's terrain: the sea,
+lakes, rivers and channels stop it but for the lines under `Bridges`, unless that water's `MapWater`
+(a script on every node of water) is navigable, off on all of it for now; it goes
+`MapNavigation.ROAD_MILES_PER_DAY` (25), `OPEN_` (20) and `FOREST_MILES_PER_DAY` (15), the user's,
+constants to tweak; a click on water or on land it cannot reach is ignored; a town on a river is no
+crossing, so every settlement stands off the water, on one bank. Nothing is kept up by hand:
+`MapNavigationBaker` draws the layers into a grid of 100 m cells and finds a network of entrances
+between 16 km blocks, written to `vcom/WorldMap/MapNavigation.res`, which `MapRouter` searches (A*
+over the network, the blocks' own paths, pulled straight, cut into legs by ground) on a worker thread
+while the party waits. **After any change to the land, forests, roads, bridges or water, bake again**:
+the **Bake Navigation** button on the `Navigation` node, or headless
+`--script res://Scripts/WorldMap/BakeMapNavigation.gd` (`-- --check` says whether it is stale, exit 1).
+A stale bake is warned of in the editor and as the game opens, and still used. Read
+`Docs/MAP.md`, "Navigation", before touching it.
 
 **The campaign is a world map the party travels, set upon in its forests and fighting on a battle
 scene.** The party counts its travel in steps of `Party.step_length` map pixels; each step heals the
@@ -894,6 +919,17 @@ says how many have been taken on, `voxels._loose` maps each body to its `VoxelBo
 `voxels._wearable` holds the pieces still waiting to be (`_model_of(body)` takes one on).
 
 How to probe a subsystem split out into `Docs/` is in its file, under "Probing it", where it has one.
+
+The new map's navigation is baked, and checked, headless (a few seconds; a minute on one thread):
+
+```bash
+"$G" --headless --path . --script res://Scripts/WorldMap/BakeMapNavigation.gd             # bake; prints the report
+"$G" --headless --path . --script res://Scripts/WorldMap/BakeMapNavigation.gd -- --check  # exit 1 when stale
+```
+
+Bake after changing the map's land, forests, roads, bridges or water, and read the report: a
+"PROBLEM:" line names a settlement on water or cut off, or water cutting a road. The command reads
+`Map.tscn` as saved, so it bakes for the user only once their changes are saved.
 
 A death is probed headless too, with or without its unit dying: how, and how to read its lumps and
 dropped gear, is `ANIMATIONS.md`'s (14.5).

@@ -139,7 +139,9 @@ row instead. Do not use the built-in for land tests.
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
     Party.gd           the party dot: sent by any right click, or A at the reticle (no selecting), travels a route
-                       (with no terrain_path, as in Map.tscn, a straight line to anywhere);
+                       found by its terrain_path: a WorldMapTerrain on the old map, a MapNavigation on Map.tscn
+                       (worked out on a thread while it waits, each leg at its ground's pace: Docs/MAP.md,
+                       "Navigation"), or with none a straight line to anywhere;
                        is_at(destination); pointed_at(), can_go_to(); L3 centres it;
                        every step_length map pixels heals the roster by heal_per_step, then rolls a forest's
                        encounter chance; encountered(map)

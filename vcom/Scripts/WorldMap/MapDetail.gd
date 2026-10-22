@@ -74,7 +74,7 @@ const SHOWN_FROM := {
 		^"Borders/Counties", ^"BordersOverLakes/Counties", ^"Settlements/Villages", ^"Roads/Lanes",
 		^"Bridges/Lanes", ^"Channels", ^"Forests/Woods",
 	],
-	Tier.HAMLETS: [^"Settlements/Hamlets"],
+	Tier.HAMLETS: [^"Settlements/Hamlets", ^"Bridges/Hamlets"],
 }
 ## The settlements, by their place under the map: the [Destination]s kept
 ## from working while far from the view.
