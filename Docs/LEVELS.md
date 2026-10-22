@@ -49,10 +49,11 @@ The user's decisions for this step (2026-10-19), which the rest of this file fol
 ## What a level is
 
 **A `VoxelLevel` node in place of the GridMap.** Each combat map has a `Level` node (`VoxelLevel`,
-a `@tool` `Node3D`) where its `GridMap` was, with four exports: `data`, a `LevelData` (the pieces,
+a `@tool` `Node3D`) where its `GridMap` was, with five exports: `data`, a `LevelData` (the pieces,
 its own `.tres` in `Levels/`), `library`, the `PieceLibrary` every map shares (`Blocks/Pieces.tres`),
 `scenery`, and, for scenery, `battlefield_path` (the battlefield it surrounds, `../Level` by
-default). It builds itself afresh every time it enters the tree, in the editor as in the game:
+default); and `cutaway_heights`, the tile heights (cell y) the view may be cut away below to see into
+buildings (`PieceKind.cutaway`): only `TestMap.tscn`'s `Level` has any (5), and nothing reads it yet. It builds itself afresh every time it enters the tree, in the editor as in the game:
 `LevelRules` (what the rules see), `VoxelVolume` (every voxel) and a `LevelRenderer` (what draws it),
 both renderers as internal children so they are never saved. BoundaryMap's forest is a second level,
 `Scenery`, with `scenery` ticked: drawn by a `SceneryRenderer`, coarser further from the battlefield,
@@ -78,7 +79,9 @@ always were; its voxels are read from that `.vox`, `VoxelShape.read()`), `model_
 the mesh sits in the box, what a MeshLibrary item's mesh transform was: down half a box by default),
 `destruction` (a `VoxelDestruction` to wear away, a `ScriptedDestruction` to break into cut pieces,
 none to never break), `solid` (off for decoration the rules never see), `tile_grid` (the optional
-grid is drawn on its voxels) and `edge_piece` (the editor puts it on an edge to begin with).
+grid is drawn on its voxels), `edge_piece` (the editor puts it on an edge to begin with) and
+`cutaway` (part of a building, which may be cut away to see inside: the three `Simple...1` kinds;
+only for show, nothing reads it yet).
 
 **A brush is a `PieceBrush`** (in `PieceLibrary.brushes`): a few kinds, each with a slot offset (half
 cells across, cells up) and a turn, placed together in one click and turned together.

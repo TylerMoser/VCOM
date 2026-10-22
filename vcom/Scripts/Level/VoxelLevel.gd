@@ -44,6 +44,10 @@ signal built
 ## detail are counted from ([SceneryRenderer]'s constants say which rows draw
 ## which copy). With none there, every piece is drawn in full detail.
 @export var battlefield_path: NodePath = ^"../Level"
+## The tile heights (cell y) the view may be cut away below, so as to see into
+## its buildings ([member PieceKind.cutaway]). Only for show: none, and nothing
+## is ever cut away.
+@export var cutaway_heights: PackedInt32Array = []
 
 ## What the rules see of it, and every voxel of it: a battlefield's; null for
 ## scenery.

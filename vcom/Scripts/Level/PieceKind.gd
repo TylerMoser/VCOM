@@ -39,6 +39,10 @@ extends Resource
 ## Whether the level editor places it on an edge between two cells to begin
 ## with, rather than in the middle of one: fences and walls.
 @export var edge_piece := false
+## Whether it is part of a building, which may be cut away to see inside:
+## walls, gables and roofs, not the ground, trees or crates. Only for show: the
+## rules see a piece cut away as whole as any other.
+@export var cutaway := false
 
 
 ## What to call it in the level editor.

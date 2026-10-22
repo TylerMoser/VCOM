@@ -110,6 +110,7 @@ model = ExtResource("18_swall")
 model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
 destruction = ExtResource("17_swall")
 edge_piece = true
+cutaway = true
 
 [sub_resource type="Resource" id="Resource_struss1"]
 resource_name = "SimpleTruss1"
@@ -119,6 +120,7 @@ model = ExtResource("20_struss")
 model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
 destruction = ExtResource("19_struss")
 edge_piece = true
+cutaway = true
 
 [sub_resource type="Resource" id="Resource_sroof1"]
 resource_name = "SimpleRoof1"
@@ -127,6 +129,7 @@ id = &"SimpleRoof1"
 model = ExtResource("22_sroof")
 model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
 destruction = ExtResource("21_sroof")
+cutaway = true
 
 [resource]
 script = ExtResource("11_fcufj")
