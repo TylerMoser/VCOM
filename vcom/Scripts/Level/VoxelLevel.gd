@@ -8,7 +8,8 @@
 ## voxel of its pieces as one grid ([member volume]), which it draws a chunk at
 ## a time with every hidden face left out, and which destruction wears and
 ## blood recolours. Scenery ([member scenery]) is only drawn, every piece of a
-## kind one mesh shared by all.
+## kind one mesh shared by all, and coarser copies of them further from the
+## battlefield it surrounds ([member battlefield_path]).
 ##
 ## Its space is the grid's: cell (x, y, z) runs from (x, y, z) to
 ## (x + 1, y + 1, z + 1), sixteen voxels a side, as a GridMap's cells did with
@@ -39,6 +40,10 @@ signal built
 		scenery = value
 		if is_node_ready():
 			build()
+## Scenery only: the battlefield it surrounds, whose edge its rows of level of
+## detail are counted from ([SceneryRenderer]'s constants say which rows draw
+## which copy). With none there, every piece is drawn in full detail.
+@export var battlefield_path: NodePath = ^"../Level"
 
 ## What the rules see of it, and every voxel of it: a battlefield's; null for
 ## scenery.
@@ -110,6 +115,13 @@ func build() -> void:
 		return
 	if scenery:
 		scenery_renderer = SceneryRenderer.new(data, library)
+		var field := get_node_or_null(battlefield_path) as VoxelLevel
+		if field != null and field.rules != null:
+			var low := field.rules.bounds_min
+			var high := field.rules.bounds_max
+			scenery_renderer.battlefield = Rect2i(low.x, low.z, high.x - low.x + 1, high.z - low.z + 1)
+		elif not battlefield_path.is_empty():
+			push_error("VoxelLevel: no battlefield at '%s' for the scenery's level of detail: it is all drawn in full." % battlefield_path)
 		add_child(scenery_renderer, false, Node.INTERNAL_MODE_FRONT)
 		build_times = Vector2i(0, scenery_renderer.build())
 		built.emit()

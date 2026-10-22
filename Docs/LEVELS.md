@@ -49,12 +49,14 @@ The user's decisions for this step (2026-10-19), which the rest of this file fol
 ## What a level is
 
 **A `VoxelLevel` node in place of the GridMap.** Each combat map has a `Level` node (`VoxelLevel`,
-a `@tool` `Node3D`) where its `GridMap` was, with three exports: `data`, a `LevelData` (the pieces,
+a `@tool` `Node3D`) where its `GridMap` was, with four exports: `data`, a `LevelData` (the pieces,
 its own `.tres` in `Levels/`), `library`, the `PieceLibrary` every map shares (`Blocks/Pieces.tres`),
-and `scenery`. It builds itself afresh every time it enters the tree, in the editor as in the game:
+`scenery`, and, for scenery, `battlefield_path` (the battlefield it surrounds, `../Level` by
+default). It builds itself afresh every time it enters the tree, in the editor as in the game:
 `LevelRules` (what the rules see), `VoxelVolume` (every voxel) and a `LevelRenderer` (what draws it),
 both renderers as internal children so they are never saved. BoundaryMap's forest is a second level,
-`Scenery`, with `scenery` ticked: drawn by a `SceneryRenderer`, seen by nothing else (see Scenery).
+`Scenery`, with `scenery` ticked: drawn by a `SceneryRenderer`, coarser further from the battlefield,
+seen by nothing else (see Scenery).
 Its space is the grid's: cell (x, y, z) runs from (x, y, z) to (x + 1, y + 1, z + 1), 16 voxels a
 side, the floor blocks at y 0 and walkable tiles at y 1, as before.
 
@@ -222,25 +224,32 @@ BoundaryMap's start view differs in 3.7% of pixels, all along colour edges, and 
 With the faces grown past their edges, 6.6% and 1.2-12%, the extra pixels on edges, most of them in
 the forest's crowns, each a sample's worth lighter or darker. A frame at the start of a battle draws
 3.75M primitives in 386 draw calls in 3.8 ms of GPU time (an RTX 3060 laptop), against the GridMap's
-5.67M, 417 and 4.7 ms.
+5.67M, 417 and 4.7 ms. Since the scenery's level of detail (2026-10-21) the same view, the HUD
+hidden, takes 3.0 ms where it took 3.9 ([Level of detail](#level-of-detail)).
 
 ### Scenery
 
-**Scenery is instanced, not stamped** (`SceneryRenderer`): nothing breaks it or stains it, and 37,118
-pieces would be some 8,000 chunks. Each kind is meshed once as a 16³ chunk of its own
-(`ChunkMesher.rectangles(16, ..., no_down)`, its downward faces left out, since scenery is only seen
-from above), its colours a layer of a texture of every kind, and drawn by one `MultiMesh` for each
-kind in each 16 x 16-cell region (`REGION`), so the view culls a region at a time as a GridMap's
-octants did, with shadows off as the scenery's library had them (drawn into the sun's shadow map, the
-forest cost more than the rest of a frame). BoundaryMap's forest: 170 regions, 22.8M triangles (29.6M
-as a GridMap), built in about 100 ms.
+**Scenery is instanced, not stamped** (`SceneryRenderer`): nothing breaks it or stains it, and
+37,118 pieces would be some 9,500 chunks. Stamped into the battlefield's volume (measured
+2026-10-20), the forest took 48 s to build and gigabytes of memory, needed more texture layers than
+the GPU allows (2,048), and drew no fewer triangles, its trees barely touching. Each kind is meshed
+once as a 16³ chunk of its own (`ChunkMesher.rectangles(16, ..., no_down)`, its downward faces left
+out, since scenery is only seen from above), its colours a layer of a texture of every kind, and
+drawn by one `MultiMesh` for each kind, level of detail and 8 x 8-cell region (`REGION_SHIFT` 3), so
+the view culls a region at a time, with shadows off, as the scenery's GridMap library had them
+(drawn into the sun's shadow map, the forest cost more than the rest of a frame). Further from the
+battlefield each piece is drawn with a coarser copy of its kind
+([Level of detail](#level-of-detail)). BoundaryMap's forest: 4.87M triangles (22.8M in full detail,
+29.6M as a GridMap) in 821 multimeshes, built in about 160 ms.
 
-It is built to be cheap because it is most of what is drawn: painted like the battlefield, as a
+It is built to be cheap because it is most of what is drawn. Painted like the battlefield, as a
 GridMap, the forest took about 50 ms of GPU time a frame (an RTX 3060 laptop), nearly all of it trees
-drawn into the sun's shadow map, on and off screen, and without shadows about 3 ms at most (not
-measured again since it was instanced). Without their shadows the forest's trees look a little paler
-and flatter than the battlefield's, most visibly zoomed in right beside them; they still receive the
-battlefield's.
+drawn into the sun's shadow map, on and off screen. Instanced without shadows, in full detail, it
+took 0.9 to 6.5 ms at the game's views, 74 to 84% of a zoomed-out frame, and with the level of detail
+0.7 to 3.8 ms (the table below). That cost is in its triangles, not its pixels: at a quarter of the
+pixels the full-detail forest still cost 80 to 99% as much. Without their shadows the forest's trees
+look a little paler and flatter than the battlefield's, most visibly zoomed in right beside them;
+they still receive the battlefield's.
 
 - **It has no ground blocks.** `Scenery/Ground` is one plane in the grass block's top colour, 2 cm
   below the top of the ground blocks and covering the ring's whole outer rectangle; it fills the
@@ -256,8 +265,154 @@ battlefield's.
   the pivot at its pan limit, facing any way. At 72 a sliver of sky shows past a screen corner; 75
   rounds that up. Anything that lets the camera see further (more zoom or framing distance, a lower
   pitch, a wider FOV or window, a larger `pan_margin`) needs the standard deepened to match; that is
-  why `max_frame_distance` is kept to about what the zoomed-out camera sees. Debris thrown over the
+  why `max_frame_distance` is kept to about what the zoomed-out camera sees, and why a frame at
+  `view_pitch` (an enemy's shot) goes no further back than `far_distance`
+  (`CameraRig._furthest_frame()`): at 25 or 28 the sky showed past the ring in half or two thirds of
+  those views (`Docs/CAMERA.md`, "How far it sees"). Debris thrown over the
   ring falls through it, having no collision, and is removed below the map.
+
+#### Level of detail
+
+**Most of the ring was drawn in detail too small to see.** Zoomed out, one voxel of a tree is 1.6
+pixels across at the nearest scenery and half a pixel at the top of the screen, and four pieces in
+five stand more than 20 rows out. So each kind has three meshes, made from its own voxels as the
+scenery is built (`_make_meshes()`, `_make_size()`):
+
+- **in full detail**, as it was drawn before;
+- **twice as coarse**, every 2 x 2 x 2 of its voxels made one (an 8³ box);
+- **four times as coarse**, every 4 x 4 x 4 made one (4³).
+
+A coarse voxel is solid wherever any of the voxels it stands for is, so a thin piece (a fence's rail,
+a tuft of grass) thickens rather than vanishes, and takes the colour most of them have
+(`_coarser()`). Each copy is meshed by the same mesher, its downward faces left out, and drawn by the
+same shader, each coarseness with a material and a texture of its own (`box_size` 8 or 4,
+`voxels_per_unit` to match, a layer a kind). A tree top is 618 triangles in full detail, 178 twice as
+coarse and 26 four times; a trunk 556, 190 and 42; a crate 550, 20 and 20.
+
+**A piece's copy goes by its rows out from the battlefield.** Its row is how many cells it stands
+outside the battlefield's bounding box, the larger of the two ways across, so each band is a square
+ring round the battlefield (`_size_at()`); the battlefield is the level the Scenery level's
+`battlefield_path` names (`../Level` by default, every combat map's battlefield) and its box that
+level's rules' bounds, handed to the renderer as the scenery is built
+(`SceneryRenderer.battlefield`; with no battlefield there, the level errors and draws everything in
+full detail). The camera never leaves the battlefield, its pivot at most `pan_margin` (1) past its
+edge, so a piece's rows stand for how far it is from the camera, and its copy is chosen once, as the
+scenery is built: nothing switches or pops as the camera moves, and the choice costs nothing a
+frame.
+
+**Where each starts is a constant at the top of `SceneryRenderer.gd`:**
+
+| Constant | Set to | What it does |
+|---|---|---|
+| `FULL_DETAIL_TO_ROW` | 15 | The last row drawn in full detail |
+| `COARSE_2X_TO_ROW` | 30 | The last row drawn twice as coarse; four times as coarse beyond it |
+| `RAGGED_2X_ROWS` | 4 | How far, in rows either way, the edge where twice-as-coarse starts wanders |
+| `RAGGED_4X_ROWS` | 4 | The same for the edge where four-times-as-coarse starts |
+| `REGION_SHIFT` | 3 | Regions 8 cells square, as a shift (4 was 16 cells) |
+
+**Ragged edges.** A straight edge running round the ring, the same row all the way, is a line the
+eye catches. So before a piece's copy is chosen its row is moved, by up to `RAGGED_2X_ROWS` either
+way at the first edge and up to `RAGGED_4X_ROWS` at the second, by a number its slot always gives (a
+hash of the slot, `_ragged()`): each edge wanders across a band twice as wide. The same slot always
+moves the same way, so a piece takes the same copy at every load and wherever the editor draws it
+again. On BoundaryMap, full detail reaches out to row 19 and twice-as-coarse copies in to row 12;
+those reach out to row 34 and the four-times-as-coarse in to row 27. Its 37,118 pieces are 5,410 in
+full detail, 5,272 twice as coarse and 26,436 four times.
+
+**Why those rows** (the user's, 2026-10-21, after the setups below were compared side by side):
+
+- **Full detail to row 15.** Zoomed out and looking inward from an edge, the camera stands over the
+  ring at about row 13 and the bottom of the screen looks straight down on it. In full detail to there,
+  the trees under the camera look as they did; with the ragged edge, a few twice-as-coarse ones stand
+  at the very bottom of the screen.
+- **Twice as coarse to row 30.** Twice-as-coarse trees, drawn as small as they are past row 15, look
+  nearly as full detail did: the forest's texture a little blockier, a faint wandering edge.
+- **Four times as coarse beyond.** The biggest saving and the most visible change: a coarser,
+  higher-contrast texture. Past row 30 it shows only along the top of the zoomed-out views, most at a
+  corner facing out.
+- **Ragged edges and 8-cell regions** as well: measured on 2026-10-20, ragged edges cost nothing
+  measurable and 8-cell regions took about a tenth off the forest.
+
+**The comparison it was chosen from** (2026-10-20, the same machine and views as below; the forest's
+GPU time averaged over the seven views, and the share of the picture that changed visibly against full
+detail, averaged and at the view where it changed most):
+
+| Setup | Forest | Picture changed |
+|---|---|---|
+| Full detail everywhere, as before | 4.43 ms | |
+| Full to row 6, 2x to 20, 4x beyond | 1.95 ms | 14%, 33% at most |
+| Full to row 13, 2x to 20, 4x beyond | 2.39 ms | 8%, 24% |
+| Full to row 13, 2x beyond | 2.81 ms | 4%, 13% |
+| The same, with ragged edges | 2.89 ms | 5%, 14% |
+| The same, with ragged edges and 8-cell regions | 2.63 ms | 5%, 14% |
+| Full to row 13, 2x beyond, 8-cell regions | 2.65 ms | 4%, 13% |
+
+The four-times-as-coarse band was most of the saving and most of what changed on screen; full detail
+to row 13 kept the trees under an inward-looking camera as they were (to row 6, they turned boxy).
+
+**Set aside before it,** each built and measured on BoundaryMap (2026-10-20):
+
+- **Smaller regions alone** (8 cells): 13% off the forest, nothing changed on screen; kept, with the
+  level of detail.
+- **Faces no allowed camera can see, baked away** (the forest drawn from 80,000 camera positions the
+  game allows, every face marked that ever showed, each region merged into one mesh of those): 53% of
+  the faces gone but only 7% of the time, for 1.2 GB more video memory. A merged mesh's triangles cost
+  about a third more than an instanced one's, read from video memory rather than from the cache a
+  shared mesh stays in, and most of what it removed the GPU was already discarding cheaply.
+- **A height field of the top surface** (each region's columns filled down to the ground, meshed as
+  the battlefield is): 18% off at full size, for 3 GB of video memory and 87 s to build; downsampled
+  as the coarse copies are, no faster than they are.
+- **Godot's own mesh level of detail** (`ImporterMesh.generate_lods()`): at its usual settings it
+  makes no simpler mesh of these, every quad a loose patch to its simplifier, and at its loosest one
+  42% smaller; and a `MultiMesh` draws all its instances at one level anyway.
+
+**What it bought** (2026-10-21, the RTX 3060 laptop, 1280x720 with the game's 4x MSAA, the HUD hidden;
+the frame's GPU time less the same frame with no forest, each view the mean of two runs of 300
+frames, which differ by at most 0.2 ms):
+
+| View | Forest before | Forest now | Frame before | Frame now |
+|---|---|---|---|---|
+| The battle's opening view | 2.21 ms | 1.27 ms | 3.88 ms | 2.99 ms |
+| Zoomed out over the middle | 4.85 | 2.84 | 6.52 | 4.51 |
+| Zoomed out at a corner, facing out | 5.59 | 2.69 | 6.67 | 3.77 |
+| Zoomed out at an edge, facing out | 5.34 | 2.79 | 6.68 | 4.14 |
+| Zoomed out at an edge, facing in | 5.62 | 3.78 | 7.07 | 5.23 |
+| Zoomed in at an edge, facing out | 0.86 | 0.68 | 2.21 | 2.05 |
+| Reaction framing at its furthest | 6.54 | 3.47 | 7.83 | 4.80 |
+| **Mean** | **4.43** | **2.50 (−44%)** | | |
+
+The slowest frame is now looking inward from an edge (5.2 ms) rather than reaction framing (7.8). The
+forest draws 4.87M triangles in all rather than 22.8M, and at most 2.5M a frame rather than 5.2M.
+Building the scenery takes about 30 ms more (160 ms), the copies of each kind being made as it loads,
+and video memory about 41 MB more: 821 multimeshes, in 8-cell regions, against 170, at about 62 KB
+each. From the game's views 4.5% of the picture changes visibly (8x8-pixel blocks whose average
+colour moves more than 8 of 255), at most 17% at a corner facing out.
+
+**Changing it.** Edit the constants and reload the map (in the editor, reopen the scene or **Rebuild**
+the Scenery level). They are shared by every scenery level.
+
+- **Moving an edge further out** changes less on screen and saves less; nearer, the opposite.
+  `FULL_DETAIL_TO_ROW` past the ring's depth (75) draws every piece in full detail, and
+  `COARSE_2X_TO_ROW` past it draws no four-times-as-coarse copies.
+- **A ragged width of 0** draws a straight edge. Keep each under half the rows between the two edges
+  (here under 7), or a piece moved across both edges could be drawn four times as coarse beside one in
+  full detail.
+- **The edges belong to the camera's rules,** as the ring's depth does: a camera that sees closer
+  (more zoom, a lower pitch) wants them further out, as the 75 rows want deepening for one that sees
+  further.
+- **Smaller regions** (`REGION_SHIFT` 2) skip a little more off-screen forest for many more draw calls
+  and about 62 KB of video memory a region; past 8 cells the gain was small.
+
+**What it does not do:**
+
+- Each piece is still its own instance: where pieces touch, the faces between them are drawn, and
+  overlapping pieces both show, at every level of detail.
+- The coarse copies are made, as the scenery is built, of every kind the level uses, about 14 ms a
+  kind in GDScript; a scenery level of many kinds builds that much slower.
+- A coarse voxel takes the commonest colour of those it stands for, so fine colour detail (a darker
+  rim of leaves, a stripe) goes with the fine shape, and thin pieces thicken.
+- The copy goes by distance from the battlefield, not from the camera. A scenery level round no
+  battlefield, or a camera that leaves it, gets no level of detail fitted to it.
 
 ## What the rules see
 
@@ -275,6 +430,39 @@ through its transform.
 With no piece on an edge, the rules are the GridMap's: every tile, path, cover, sight line and shot
 on the three maps compared line for line with the last GridMap commit (6891af0) came out the same,
 but for 7 lines of BoundaryMap's printed floats differing in their last digit.
+
+**Paths go over a walking graph, worked out as the map loads and kept.** Every search used to work
+out the steps from each tile it reached afresh, about 80 µs a tile in GDScript, and an `AssaultAI`
+decision searches the whole map (`Tactics.SEARCH_STEPS`): 87 ms each, a freeze at every enemy action
+(2026-10-21). Now `CombatGrid._graph` holds, for every tile, the tiles one step from it, in
+`DIRECTIONS`' order, as `_walkable_from()` works them out from the rules, and `find_reachable()` and
+`neighbours()` read it (`_links()`; `neighbours()` hands out a copy).
+
+- **Built as the map loads,** for every tile (`_build_graph()`, from `_ready()`): 59 ms for
+  BoundaryMap's 1,250 tiles, 37 for LineOfSightTest's 576, 19 for CombatMap's 400. Each tile's
+  straight steps are worked out once; the old `neighbours()` worked out a diagonal's two again, up to
+  16 steps a tile against 8, and the steps came to 100 ms for BoundaryMap.
+- **Worked out again only round a piece that goes.** In a battle the rules change only through
+  `LevelRules.remove()`, which emits `removed(index, slot)`; `_on_piece_removed()` forgets the steps
+  from every cell that reads that slot, unless another piece still stands there. A tile's steps read
+  the cells of the nine columns round it, from `STEP_READS_BELOW` (3) levels below it to
+  `STEP_READS_ABOVE` (2) above, and the edges between those columns from its own level to 2 above
+  (`_step()`, `_crossing_top()`, `_is_clear()`, `_corner_blocked()`). So a gone cell's steps are
+  forgotten round its column from 2 levels below it to 3 above, and an edge's round both its columns
+  from 2 levels below it to its own.
+- **Caught up at the end of the frame,** or as the next search begins if one comes first
+  (`_catch_up()`, deferred), so no search reads a step a change has made wrong: after a blast, 54 to
+  72 cells in 0.5 to 0.7 ms. A cell that is no tile (one a falling unit is in) is worked out when
+  asked and kept too, and forgotten the same way. Units are never in it: a search is still handed
+  the occupied tiles as `blocked`.
+- **What it bought** on BoundaryMap (a Ryzen 7 5800H, headless): a search over the whole map from
+  86 ms to 2.1-2.4; a turn's walk (`MoveAction`, 12 steps) from 13-28 ms to 0.3-0.65; an `AssaultAI`
+  decision from 87 ms to 2.0-2.4. The paths are the same (Probing it).
+- **What must not drift:** whatever makes `_walkable_from()` read further than that reach must
+  forget further in `_on_piece_removed()`. The two constants follow `MAX_DROP`, `MAX_CLIMB` and
+  `UNIT_HEIGHT`; a new rule reading other cells does not. Rules made afresh at run time (a probe's
+  `level.place()`) are taken up by readying the grid again (`grid._ready()`), which builds the graph
+  afresh and listens to the new rules instead.
 
 **Edges, by the user's answers:**
 
@@ -387,6 +575,28 @@ the middle of its cell, turned as the block was (all were 0); a script then swap
 `CombatGrid`, `CameraRig`, `TerrainDestruction` and `SceneryGround` at them. The GridMap scenes are in
 git at 6891af0. The editor's **Import GridMap** does the same for any GridMap still about.
 
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are `Level/`'s in full, and the
+scenery's ground plane.
+
+```
+  Level/               combat maps as levels of voxel pieces
+    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove() /
+                       begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of()
+    LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
+    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece; PieceBrush.gd
+                       (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
+    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
+    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows), palette (BLOOD 255); remove_many(),
+                       recolor(), lay_bare() (dug ground as earth), counts; ChunkMesher.gd (faces by shape, none hidden)
+    LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader);
+                       collision a trimesh a chunk, streamed; SceneryRenderer.gd (a MultiMesh a kind, coarseness and region)
+    LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
+  Terrain/
+    SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it
+```
+
 ## Probing it
 
 Everything here runs headless unless it renders (Verification).
@@ -394,9 +604,27 @@ Everything here runs headless unless it renders (Verification).
 - **A level's numbers:** `level.data.count()`, `level.volume.chunks.size()`,
   `level.renderer.section_count()`, `level.renderer.triangles`, `level.build_times` (voxels, drawing,
   in microseconds), `level.renderer.is_collided()`, `level.scenery_renderer.region_count()`.
+- **The scenery's level of detail:** `level.scenery_renderer.triangles` (4,870,862 on BoundaryMap; with
+  `FULL_DETAIL_TO_ROW` past 75, the full detail's 22,840,654), its `battlefield`, `_region_of(i)` (the
+  kind, coarseness, region x and z piece `i` is drawn with), `_meshes[coarseness][kind]` (its mesh and
+  triangles) and the constants (`get_script().get_script_constant_map()`). Placing a piece far out
+  through `level.place()` and taking it away with `level.remove()` should add a four-times-as-coarse
+  copy's triangles (26 for a tree top) and give them back. Its GPU time is measured in a window:
+  `RenderingServer.viewport_set_measure_render_time()` on the root viewport, then
+  `viewport_get_measured_render_time_gpu()` averaged over a few hundred frames at each view (the
+  `CameraRig`'s `_pivot`, `_yaw`, `_framing`, `_frame_distance` and `_frame_pitch` set with their
+  `_current_*`), against the same frames with `scenery_renderer.visible` false (its ground plane
+  kept). Two passes in opposite orders agreed within 0.2 ms.
 - **The rules against a reference:** dump every tile, its neighbours, cover, reachable steps, sight
   and `find_shot()` for a grid of pairs, from this tree and from a checkout of 6891af0, and diff the
   two (how the conversion was checked).
+- **The walking graph against the steps afresh:** after any breaks, blasts and wear,
+  `grid._catch_up()`, then every tile should be a key of `grid._graph` and every key's steps equal
+  those worked out afresh. Checked on the three maps (2026-10-21) through 36 changes each (blocks
+  broken, blasts, rounds worn through a piece, edge pieces broken), read on the change's own frame and
+  after it, against `neighbours()` as it was before the graph, copied word for word, with
+  `find_reachable()` from every unit and AssaultAI's choices against the same from the old search:
+  all identical. `grid._stale` is empty once a frame has passed.
 - **Edges:** LineOfSightTest's lanes, north of the old ones (z -29 to -36): a fence across x 3 to 12
   between z -31 and -30; a wall two courses high between z -35 and -34 with a gap at x 8; a turned
   length of wall between x 13 and 14 at z -33. The checks made there: cover each side, stepping over
@@ -473,6 +701,9 @@ or the shader:
   stains it and a blast's crater blows it away (its kind wears), but a round passes through it, and
   it never breaks whole: not being in the rules, it has nothing to break out of
   (`TerrainDestruction._break()` takes only standing pieces).
+- `find_reachable()` still fills a dictionary of every tile it reaches, in GDScript: about 2.2 ms over
+  BoundaryMap's whole map, which `AssaultAI` asks for at every decision. A search over tile indices in
+  packed arrays measured 0.5-0.8 ms.
 - A crate breaking costs about 9 ms against the GridMap's 2.2 (its voxels taken out of the volume, what it
   lays bare, and its chunks drawn again), and a crater about the same as before, with 8 ms of laying
   bare on the next frame; all are GDScript loops over voxels.
@@ -484,6 +715,10 @@ or the shader:
 - What wear lays bare takes the colour just inside its own block; a kind whose inside is not one
   colour, or two kinds of ground side by side, would want a colour of their own for it.
 - Scenery is never drawn into the volume, so it cannot break or take blood, as before.
+- The scenery's level of detail goes by rows from the battlefield, not by distance from the camera,
+  each piece is still its own instance (touching pieces draw the faces between them, overlapping
+  pieces both show), and its coarse copies are made each time it is built: "Scenery", "What it does
+  not do".
 
 ## Decided without asking
 
@@ -498,6 +733,13 @@ The user's decisions are listed under "Why levels". Made along the way without a
 - Collision as a trimesh a chunk, streamed after the level is drawn, and a worn chunk's made again
   ahead of the next physics step rather than on the bite's frame.
 - Scenery instanced by kind and region rather than stamped, its downward faces dropped.
+- The scenery's level of detail is the user's (2026-10-21: full detail to row 15, twice as coarse to
+  30, four times beyond, ragged edges, 8-cell regions, the rows and widths as constants that are easy
+  to change). Made without asking: a coarse voxel solid where any of its voxels is, in their commonest
+  colour; rows counted outside the battlefield's bounding box, the larger way across; the ragged move
+  a hash of the slot, different bits of it at the two edges, each edge's width its own constant (4);
+  the copies made as the scenery is built rather than baked; one set of constants for every scenery
+  level; `battlefield_path` defaulting to `../Level`.
 - A ragged rim worn round the hole a wearing piece leaves as it breaks, so holes do not show the grid.
 - What holds a voxel up: the floor, or a piece that does not wear, or a search too long to finish.
 - Edge rules beyond the user's: stepping over a fence costs a step, as a climb; no diagonal past any
@@ -520,3 +762,10 @@ The user's decisions are listed under "Why levels". Made along the way without a
   rather than split at every T-junction (more triangles) or grown a fixed size in the mesh.
 - What wear lays bare inside the ground takes the colour inside its own block, for kinds that wear
   away, where the same kind is placed across; queued to the next redraw.
+- The walking graph (the user's, 2026-10-21: built as the map loads, worked out again only where a
+  change affects movement). Made without asking: the steps worked out again at the end of the
+  frame a piece goes in, or as the next search begins, rather than at each piece as it goes (a
+  blast takes many) or only when next read; each tile's straight steps worked out once, where a
+  diagonal worked them out again (the same steps, the build 59 ms rather than 100); a signal on
+  `LevelRules` rather than each caller of `remove()` telling the grid; `neighbours()` handing out a
+  copy.

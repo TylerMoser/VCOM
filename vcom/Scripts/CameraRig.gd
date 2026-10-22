@@ -20,12 +20,70 @@
 ## pitch is not the player's to change: tipped up toward the horizon, the view
 ## would reach past the scenery around the map to its edge.
 ##
-## Something that needs a set of units in view, like a reaction window, can
-## [method frame] them. That sets its own distance and angle until
-## [method release_frame] hands them back to the zoom; the player can still
-## pan, turn and zoom in the meantime.
+## The player's own moves answer at once, eased only by the smoothing below.
+## The game's moves glide, as XCOM 2's camera does (X2Camera_LookAt): looking
+## at a point ([method focus_on], [method bring_into_view]), keeping a unit in
+## view as it walks ([method follow]), and taking up or leaving a framed view,
+## a reaction window's or an enemy's shot's ([method frame],
+## [method release_frame]). A glide starts from rest, speeds
+## up to [member glide_speed] over [member glide_ramp] seconds and brakes in
+## proportion to what is left once it is close, so the camera never jolts into
+## motion or stops dead, and the further it goes the longer it takes: most of
+## the way across 4 tiles in about 0.4 s, across 40 in about 1.3 s. Zooming and
+## tilting glide alike. The player panning or dragging takes the camera back
+## mid-glide, from wherever it has got to.
+##
+## Something that needs a set of units in view, like a reaction window or an
+## enemy's shot, can [method frame] them. That sets its own distance and angle
+## until [method release_frame] hands them back to the zoom; the player can
+## still pan, turn and zoom in the meantime. A framed view never sees further
+## than the camera zoomed all the way out, which is what the scenery around a
+## map is deep enough to hide ([method _furthest_frame]).
 class_name CameraRig
 extends Node3D
+
+## How XCOM 2's glides brake, by what they move: each starts braking once it is
+## closer than its ramp's seconds times its top speed times the first share,
+## and brakes no lower than the second share of its top speed, so it arrives.
+const PAN_BRAKE := 0.4
+const PAN_LEAST := 0.01
+const ZOOM_BRAKE := 0.4
+const ZOOM_LEAST := 0.001
+const TILT_BRAKE := 0.25
+const TILT_LEAST := 0.005
+
+
+## One of the camera's values gliding to where the game sends it, as XCOM 2
+## moves its camera (X2Camera_LookAt.InterpolateLocation and its kin). From
+## rest its speed ramps up to a top speed over the ramp's seconds; once it is
+## closer than [member brake] of the distance that ramp covers at the top
+## speed, it is held to a share of the top speed in proportion to what is left,
+## never below [member least] of it, so it eases to a stop. How far up the ramp
+## it is carries over from step to step while it is on the move, so a goal
+## that moves mid-glide is chased without a jolt; arriving puts it back at rest.
+class Glide:
+	var brake: float
+	var least: float
+	## How far up the ramp it is: 0 at rest, 1 at the top speed.
+	var alpha := 0.0
+
+	func _init(brake_share: float, least_share: float) -> void:
+		brake = brake_share
+		least = least_share
+
+	## How far to move this step toward a goal [param left] away, at most
+	## [param top] a second, reached from rest in [param ramp] seconds: all of
+	## [param left] once it gets there.
+	func step(left: float, delta: float, top: float, ramp: float) -> float:
+		var ramp_seconds := maxf(ramp, 0.001)
+		alpha = minf(alpha + delta / ramp_seconds, 1.0)
+		alpha = minf(alpha, clampf(left / maxf(ramp_seconds * top * brake, 0.001), least, 1.0))
+		var move := top * delta * alpha
+		if move >= left:
+			alpha = 0.0
+			return left
+		return move
+
 
 @export_group("Nodes")
 @export var camera_path: NodePath = ^"Camera3D"
@@ -69,18 +127,45 @@ extends Node3D
 @export var view_pitch := 55.0
 
 @export_group("Framing")
-## Nearest and furthest the camera sits when framing. The near limit keeps a
-## framed view an overview even when everything in it stands close together.
-## The far limit keeps it from seeing further than the camera zoomed all the
-## way out, which is what the scenery around a map is deep enough to hide.
+## Nearest and furthest the camera sits when framing an overview, the reaction
+## view. The near limit keeps a framed view an overview even when everything
+## in it stands close together. The far limit keeps it from seeing further than
+## the camera zoomed all the way out, which is what the scenery around a map is
+## deep enough to hide: it holds for a view looking down more steeply than
+## [member view_pitch] (the reaction view's 62 degrees), and a frame at
+## [member view_pitch] goes no further than [member far_distance] (see
+## [method frame]).
 @export var min_frame_distance := 16.0
 @export var max_frame_distance := 28.0
 ## How far out from the centre of the screen framed points may sit, as a
 ## share of the way to the edge: across, above, and below. Below is tighter
-## because the squad panel and the action bar run along the bottom.
+## because the squad panel and the action bar run along the bottom. A unit
+## counts as in view ([method has_in_view]) inside the same margins.
 @export var frame_margin_x := 0.8
 @export var frame_margin_top := 0.8
 @export var frame_margin_bottom := 0.55
+
+@export_group("Glide")
+## The fastest the camera glides, in tiles a second: XCOM 2's 3000 units a
+## second over its 96-unit tile. It is the same at every zoom, as XCOM 2's is,
+## so a glide takes as long however far in the camera is.
+@export var glide_speed := 31.25
+## Seconds a glide takes to speed up to [member glide_speed] from rest.
+@export var glide_ramp := 0.35
+## The fastest a glide zooms, in shares of the zoom's whole range
+## ([member near_distance] to [member far_distance]) a second, and the seconds
+## it takes to speed up to that from rest.
+@export var glide_zoom_speed := 3.0
+@export var glide_zoom_ramp := 0.25
+## The fastest a glide tilts the camera, in degrees a second, and the seconds
+## it takes to speed up to that from rest.
+@export var glide_tilt_speed := 400.0
+@export var glide_tilt_ramp := 0.4
+
+@export_group("Follow")
+## How far ahead of a unit it follows ([method follow]) the camera looks, in
+## tiles along the unit's way.
+@export var follow_lead := 1.0
 
 var _camera: Camera3D
 
@@ -94,6 +179,21 @@ var _current_pivot := Vector3.ZERO
 var _current_yaw := 0.0
 var _current_distance := 0.0
 var _current_pitch := 0.0
+
+# Set while a glide carries the pivot to [member _pivot], and while one carries
+# the distance to the frame's or the zoom's, in place of easing after them as
+# the player's own moves do. The pitch always glides: only the game tilts it.
+var _gliding := false
+var _zoom_gliding := false
+var _pan_glide := Glide.new(PAN_BRAKE, PAN_LEAST)
+var _zoom_glide := Glide.new(ZOOM_BRAKE, ZOOM_LEAST)
+var _tilt_glide := Glide.new(TILT_BRAKE, TILT_LEAST)
+
+# The unit [method follow] keeps in view, null when following nothing; the way
+# it walks, from where it started; and the stretch of it it is crossing.
+var _follow_unit: Node3D
+var _follow_path := PackedVector3Array()
+var _follow_segment := 0
 
 # Set while [method frame] holds the view, in place of the zoom's.
 var _framing := false
@@ -166,29 +266,121 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	_update_rotation(delta)
+	_update_follow()
 	_update_pan(delta)
 	_update_stick_zoom(delta)
-
-	var distance := _frame_distance if _framing else _zoom_distance()
-	var pitch := _frame_pitch if _framing else view_pitch
-	_current_distance = lerpf(_current_distance, distance, _weight(delta, zoom_smoothing))
-	_current_pitch = lerpf(_current_pitch, pitch, _weight(delta, zoom_smoothing))
+	_update_zoom(delta)
 
 	position = _current_pivot
 	rotation_degrees = Vector3(-_current_pitch, _current_yaw, 0.0)
 	_camera.position = Vector3(0.0, 0.0, _current_distance)
 
 
-## Centres the camera on a world position, keeping the current angle and zoom.
+## Glides to look at a world position, keeping the current angle and zoom. It
+## lets go of any unit [method follow] was keeping in view. A spot the camera
+## is on its way to already, gliding or eased after by the player's own pan,
+## is left to it: the gamepad's cursor stepping on to a target that an action
+## then lines up keeps the stick's easing.
 func focus_on(world_position: Vector3) -> void:
+	_follow_unit = null
+	if _clamp_to_bounds(Vector3(world_position.x, _pivot.y, world_position.z)).is_equal_approx(_pivot):
+		return
+	_glide_to(world_position)
+
+
+## Looks at a world position the way the player's own panning does, easing
+## after it at [member pan_smoothing]: how the gamepad's tile cursor carries the
+## camera as the stick steps it. A glide under way glides on to it instead.
+func pan_to(world_position: Vector3) -> void:
+	_follow_unit = null
 	_pivot = _clamp_to_bounds(Vector3(world_position.x, _pivot.y, world_position.z))
+
+
+## Glides to look at [param unit], as XCOM 2's camera does before a unit acts,
+## unless the view the camera is settling on has the whole of it inside the
+## framing margins already. [method has_in_view] says when it is there.
+func bring_into_view(unit: Node3D) -> void:
+	if not will_be_in_view(standing(unit.global_position)):
+		focus_on(unit.global_position)
+
+
+## Whether the whole of [param unit] is in view now, inside the framing
+## margins: the moment XCOM 2's camera counts as having arrived on it, though
+## it may still be gliding the rest of the way.
+func has_in_view(unit: Node3D) -> bool:
+	return is_in_view(standing(unit.global_position))
+
+
+## Whether every one of [param points] is inside the framing margins now: well
+## in view, clear of the panels along the bottom.
+func is_in_view(points: Array[Vector3]) -> bool:
+	return _holds(points, _current_pivot, _current_pitch, _current_yaw, _current_distance)
+
+
+## Whether every one of [param points] will be inside the framing margins of the
+## view the camera is settling on: where it is gliding to, or easing after the
+## player's pan.
+func will_be_in_view(points: Array[Vector3]) -> bool:
+	return _holds(points, _pivot, _goal_pitch(), _yaw, _goal_distance())
+
+
+## A unit standing at [param feet], as the points that keep the whole of it in
+## view: its feet and the top of its head.
+static func standing(feet: Vector3) -> Array[Vector3]:
+	return [feet, feet + Vector3.UP * CombatGrid.UNIT_HEIGHT]
+
+
+## Whether the camera is still on its way somewhere the game sent it: gliding
+## to a spot, a distance or a pitch.
+func is_gliding() -> bool:
+	return _gliding or _zoom_gliding or _current_pitch != _goal_pitch()
+
+
+## Keeps [param unit] in view as it walks through [param points], as XCOM 2's
+## camera follows a moving unit (X2Camera_FollowMovingUnit): not at all if the
+## whole way, from where it stands, is in the view the camera is settling on
+## already, and otherwise gliding after the point [member follow_lead] tiles
+## ahead of it along its way, so it ends on the last point. Call it as the walk
+## starts. It holds until [method stop_following], [method focus_on], the
+## player panning or the unit leaving the map, and waits while a framed view
+## ([method frame]), a reaction window's, holds the camera.
+func follow(unit: Node3D, points: Array[Vector3]) -> void:
+	_follow_unit = null
+	if points.is_empty():
+		return
+	var path := PackedVector3Array([unit.global_position])
+	path.append_array(PackedVector3Array(points))
+	if not _framing:
+		var whole: Array[Vector3] = []
+		for point in path:
+			whole.append_array(standing(point))
+		if will_be_in_view(whole):
+			return
+	_follow_unit = unit
+	_follow_path = path
+	_follow_segment = 0
+
+
+## Lets go of whatever [method follow] was keeping in view. The camera settles
+## where it was gliding to, the end of the way at the end of a walk.
+func stop_following() -> void:
+	_follow_unit = null
 
 
 ## Looks down on [param points] from [param pitch] degrees below horizontal,
 ## keeping the current heading: pivots over the middle of them and pulls back
-## until every one sits inside the framing margins. Framing again while
-## framed moves the view on; it holds until [method release_frame].
-func frame(points: Array[Vector3], pitch: float) -> void:
+## until every one sits inside the framing margins, gliding there. An
+## [param overview], the reaction view, sits no nearer than
+## [member min_frame_distance] even when everything in it stands close
+## together; otherwise, as for an enemy's shot, it sits no nearer than the
+## player's zoom, pulling back only as far as it must. Looking down no more
+## steeply than [member view_pitch], it goes no further back than
+## [member far_distance], since anything further sees past the scenery around
+## the map; steeper, as the reaction view is, it may go to
+## [member max_frame_distance]. Points that do not fit by then are framed as
+## well as that allows. Framing again while framed moves the view on; it holds
+## until [method release_frame].
+func frame(points: Array[Vector3], pitch: float, overview := true) -> void:
 	if points.is_empty() or _camera == null:
 		return
 	if not _framing:
@@ -199,21 +391,30 @@ func frame(points: Array[Vector3], pitch: float) -> void:
 	for point in points:
 		low = low.min(point)
 		high = high.max(point)
-	var middle := (low + high) * 0.5
-	_pivot = _clamp_to_bounds(Vector3(middle.x, _pivot.y, middle.z))
+	_glide_to((low + high) * 0.5)
 	_frame_pitch = pitch
-	_frame_distance = clampf(
-		_distance_to_fit(points, _pivot, pitch), min_frame_distance, max_frame_distance
-	)
+	var furthest := _furthest_frame(pitch)
+	var nearest := minf(min_frame_distance if overview else _zoom_distance(), furthest)
+	_frame_distance = clampf(_distance_to_fit(points, _pivot, pitch, _yaw), nearest, furthest)
+	_zoom_gliding = true
 
 
-## Gives the height and angle back to the zoom, and looks where the camera
-## was looking before [method frame] took it.
-func release_frame() -> void:
+## Gives the height and angle back to the zoom. With [param back], the camera
+## glides back to what it kept in view before [method frame] took it: the unit
+## it follows, if it is following one, or else where it was looking. Without,
+## it stays over what it framed, as after an enemy's shot, where going back
+## would only be undone by whatever the camera shows next.
+func release_frame(back := true) -> void:
 	if not _framing:
 		return
 	_framing = false
-	_pivot = _unframed_pivot
+	if back and is_instance_valid(_follow_unit):
+		# Where the follow is now, though it may be let go this same frame, at
+		# the end of the walk, before it moves the camera again.
+		_glide_to(_ahead_on_path(_follow_unit.global_position, follow_lead))
+	elif back:
+		_glide_to(_unframed_pivot)
+	_zoom_gliding = true
 
 
 ## Whether [method frame] is holding the view.
@@ -221,11 +422,75 @@ func is_framing() -> bool:
 	return _framing
 
 
-## How far back from [param pivot] the camera has to sit, on the current
-## heading and looking down at [param pitch], to have all of [param points]
-## inside the framing margins.
-func _distance_to_fit(points: Array[Vector3], pivot: Vector3, pitch: float) -> float:
-	var view := Basis.from_euler(Vector3(deg_to_rad(-pitch), deg_to_rad(_yaw), 0.0)).inverse()
+## Sets the pivot gliding to look at [param world_position].
+func _glide_to(world_position: Vector3) -> void:
+	_pivot = _clamp_to_bounds(Vector3(world_position.x, _pivot.y, world_position.z))
+	_gliding = true
+
+
+## The player takes the camera back: a glide stops where it has got to, and
+## nothing is followed any more.
+func _take_back() -> void:
+	_follow_unit = null
+	if _gliding:
+		_gliding = false
+		_pan_glide.alpha = 0.0
+		_pivot = _current_pivot
+
+
+## Moves the glide's goal on with the unit [method follow] keeps in view.
+func _update_follow() -> void:
+	if not is_instance_valid(_follow_unit):
+		_follow_unit = null
+		return
+	if _framing:
+		return
+	_glide_to(_ahead_on_path(_follow_unit.global_position, follow_lead))
+
+
+## The point [param lead] further along the followed way than [param at],
+## where the unit is, or the way's end.
+func _ahead_on_path(at: Vector3, lead: float) -> Vector3:
+	var last := _follow_path.size() - 1
+	# The stretch it is crossing only moves on once it is past the stretch's
+	# end, so a way that doubles back is never read from the wrong stretch.
+	while _follow_segment < last - 1 and _along(at, _follow_segment) >= 1.0:
+		_follow_segment += 1
+	var from := _follow_path[_follow_segment].lerp(
+		_follow_path[_follow_segment + 1], clampf(_along(at, _follow_segment), 0.0, 1.0)
+	)
+	var left := lead
+	for i in range(_follow_segment + 1, last + 1):
+		var stretch := from.distance_to(_follow_path[i])
+		if stretch >= left:
+			return from.move_toward(_follow_path[i], left)
+		left -= stretch
+		from = _follow_path[i]
+	return _follow_path[last]
+
+
+## How far along stretch [param segment] of the followed way [param at] is: 0
+## at its start, 1 at its end.
+func _along(at: Vector3, segment: int) -> float:
+	var start := _follow_path[segment]
+	var way := _follow_path[segment + 1] - start
+	if is_zero_approx(way.length_squared()):
+		return 1.0
+	return (at - start).dot(way) / way.length_squared()
+
+
+## Whether a camera looking at [param pivot] from [param distance] away, down
+## at [param pitch] on heading [param yaw], has every one of [param points]
+## inside the framing margins: well in view, clear of the panels at the bottom.
+func _holds(points: Array[Vector3], pivot: Vector3, pitch: float, yaw: float, distance: float) -> bool:
+	return _distance_to_fit(points, pivot, pitch, yaw) <= distance
+
+
+## How far back from [param pivot] the camera has to sit, looking down at
+## [param pitch] on heading [param yaw], to have all of [param points] inside
+## the framing margins.
+func _distance_to_fit(points: Array[Vector3], pivot: Vector3, pitch: float, yaw: float) -> float:
+	var view := Basis.from_euler(Vector3(deg_to_rad(-pitch), deg_to_rad(yaw), 0.0)).inverse()
 	var screen := get_viewport().get_visible_rect().size
 	var half_height := tan(deg_to_rad(_camera.fov * 0.5))
 	var half_width := half_height * screen.x / screen.y
@@ -241,13 +506,36 @@ func _distance_to_fit(points: Array[Vector3], pivot: Vector3, pitch: float) -> f
 	return distance
 
 
+## The furthest back a framed view looking down at [param pitch] may sit:
+## [member max_frame_distance] for one steeper than [member view_pitch], as the
+## reaction view is, and no further than the zoom goes for one at the usual
+## pitch or shallower, which would otherwise see past the scenery around the
+## map.
+func _furthest_frame(pitch: float) -> float:
+	return max_frame_distance if pitch > view_pitch else far_distance
+
+
+## Where the distance is going: the frame's while framed, else the zoom's.
+func _goal_distance() -> float:
+	return _frame_distance if _framing else _zoom_distance()
+
+
+## Where the pitch is going: the frame's while framed, else [member view_pitch].
+func _goal_pitch() -> float:
+	return _frame_pitch if _framing else view_pitch
+
+
 ## One wheel notch in [param direction], out if positive. While framed it
-## moves the camera by the same distance a notch of zoom would.
+## moves the camera by the same distance a notch of zoom would, no further out
+## than the frame may go. The player's zoom takes the distance back from any
+## glide.
 func _step_zoom(direction: float) -> void:
+	_zoom_gliding = false
+	_zoom_glide.alpha = 0.0
 	if _framing:
 		var step := zoom_step * (far_distance - near_distance)
 		_frame_distance = clampf(
-			_frame_distance + direction * step, near_distance, max_frame_distance
+			_frame_distance + direction * step, near_distance, _furthest_frame(_frame_pitch)
 		)
 	else:
 		_zoom = clampf(_zoom + direction * zoom_step, 0.0, 1.0)
@@ -259,6 +547,27 @@ func _update_stick_zoom(delta: float) -> void:
 	var push := Input.get_axis(&"camera_zoom_stick_in", &"camera_zoom_stick_out")
 	if not is_zero_approx(push):
 		_step_zoom(push * stick_zoom_speed * delta)
+
+
+## Brings the distance and the pitch to where they are going: the player's
+## zoom eases after the wheel, the game's glides, and so does every tilt.
+func _update_zoom(delta: float) -> void:
+	var distance := _goal_distance()
+	if _zoom_gliding:
+		var top := glide_zoom_speed * (far_distance - near_distance)
+		var left := absf(distance - _current_distance)
+		_current_distance = move_toward(
+			_current_distance, distance, _zoom_glide.step(left, delta, top, glide_zoom_ramp)
+		)
+		_zoom_gliding = _current_distance != distance
+	else:
+		_current_distance = lerpf(_current_distance, distance, _weight(delta, zoom_smoothing))
+	var pitch := _goal_pitch()
+	_current_pitch = move_toward(
+		_current_pitch,
+		pitch,
+		_tilt_glide.step(absf(pitch - _current_pitch), delta, glide_tilt_speed, glide_tilt_ramp)
+	)
 
 
 func _update_rotation(delta: float) -> void:
@@ -285,6 +594,7 @@ func _update_pan(delta: float) -> void:
 	input = input.limit_length(1.0)
 
 	if not input.is_zero_approx():
+		_take_back()
 		# Pan relative to where the camera is looking, and scale the rate with
 		# the zoom so the map slides past at a steady speed on screen.
 		var yaw := deg_to_rad(_current_yaw)
@@ -293,7 +603,17 @@ func _update_pan(delta: float) -> void:
 		var speed := pan_speed * (_current_distance / far_distance)
 		_pivot = _clamp_to_bounds(_pivot + (right * input.x + forward * -input.y) * speed * delta)
 
-	_current_pivot = _current_pivot.lerp(_pivot, _weight(delta, pan_smoothing))
+	if _gliding:
+		var gap := _pivot - _current_pivot
+		var left := gap.length()
+		var move := _pan_glide.step(left, delta, glide_speed, glide_ramp)
+		if move >= left:
+			_current_pivot = _pivot
+			_gliding = false
+		else:
+			_current_pivot += gap / left * move
+	else:
+		_current_pivot = _current_pivot.lerp(_pivot, _weight(delta, pan_smoothing))
 
 
 ## Takes hold of the ground under [param mouse]. The drag slides a level
@@ -302,6 +622,7 @@ func _update_pan(delta: float) -> void:
 func _start_drag(mouse: Vector2) -> void:
 	if _camera == null:
 		return
+	_take_back()
 	_dragging = true
 	_drag_mouse = mouse
 	_drag_height = _pivot.y

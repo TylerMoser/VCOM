@@ -2,7 +2,12 @@
 ##
 ## The player's turn ends once every squad member has spent all their
 ## actions, or early by holding Shift for [member end_turn_hold_time]
-## seconds. Enemies then act one at a time with the camera on them.
+## seconds. Enemies then act one at a time, the camera bringing each into
+## view before it acts, keeping it there as it walks, and showing both ends of
+## each of its shots, as XCOM 2's does: it moves only for an enemy, a walk or a
+## shot not in view already ([method CameraRig.bring_into_view],
+## [method CameraRig.follow], [method _show_shot]). A turn that opens with a
+## shot is brought into view by framing the shot, in one move.
 ##
 ## What an enemy does is up to its [member Unit.ai]. The turn manager asks it
 ## for one [AIAction] at a time and carries each out, charging what the squad
@@ -193,13 +198,19 @@ func _take_enemy_turn(enemy: Unit) -> void:
 	if enemy.ai == null:
 		push_warning("TurnManager: '%s' has no ai, so it sits its turn out." % enemy.name)
 		return
-	_camera_rig.focus_on(enemy.global_position)
-	await get_tree().create_timer(enemy_action_pause, false).timeout
+	# Its first action is chosen before the camera moves, so a turn that opens
+	# with a shot is shown by framing the shot, which has the enemy in it: one
+	# camera move, where bringing the enemy into view and then framing its shot
+	# would send the camera toward the enemy and then off to the shot. Nothing
+	# the AI reads changes while the camera moves, so choosing early changes
+	# nothing it does.
+	var action := _next_action(enemy)
+	var opens_with_shot := action != null and action.kind == AIAction.Kind.SHOOT
+	if not opens_with_shot:
+		await _bring_into_view(enemy)
+		await get_tree().create_timer(enemy_action_pause, false).timeout
 
-	while enemy.actions_remaining > 0 and not is_over():
-		var action := enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
-		if action == null or action.kind == AIAction.Kind.END_TURN:
-			return
+	while action != null and action.kind != AIAction.Kind.END_TURN:
 		if action.kind == AIAction.Kind.MOVE:
 			await _move_enemy(enemy, action.path)
 			# A reaction on the way may have finished it, and the node with it.
@@ -211,8 +222,24 @@ func _take_enemy_turn(enemy: Unit) -> void:
 			await enemy.recover()
 		else:
 			enemy.spend_actions(ShootAction.COST)
+			var framed: bool = await _show_shot(enemy, action.shot)
+			if opens_with_shot:
+				# The pause any enemy gets once the camera arrives on it.
+				opens_with_shot = false
+				await get_tree().create_timer(enemy_action_pause, false).timeout
 			await _enemy_fire.play(enemy, action.shot, action.estimate)
+			if framed:
+				_camera_rig.release_frame(false)
 		await get_tree().create_timer(enemy_action_pause, false).timeout
+		action = _next_action(enemy)
+
+
+## What [param enemy]'s AI does next, or null once it has no action left or the
+## battle is decided.
+func _next_action(enemy: Unit) -> AIAction:
+	if enemy.actions_remaining <= 0 or is_over():
+		return null
+	return enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
 
 
 ## Walks [param enemy] along [param path], through [Reactions] so the squad
@@ -230,13 +257,50 @@ func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
 	for tile in walked:
 		points.append(_grid.tile_position(tile))
 	var vaults := _grid.vaults_along(_grid.tile_at(enemy.global_position), walked)
-	# Keep the camera with the enemy, unless a reaction view is holding it.
-	if not _camera_rig.is_framing():
-		_camera_rig.focus_on(points[-1])
+	# The camera stays put if the whole walk is in view, and follows it if
+	# not, unless a reaction view is holding it.
+	_camera_rig.follow(enemy, points)
 	if _reactions != null:
 		await _reactions.walk(enemy, points, seconds_per_enemy_step, vaults)
 	else:
 		await enemy.walk(points, seconds_per_enemy_step, false, vaults)
+	_camera_rig.stop_following()
+
+
+## Has the camera bring [param unit] into view, as XCOM 2's does before a unit
+## acts, and returns once it is in view: inside the framing margins, though the
+## camera may still be gliding the rest of the way. A unit in view already, or
+## in the view the camera is settling on, is not moved to. The player taking
+## the camera back mid-glide ends the wait as well.
+func _bring_into_view(unit: Unit) -> void:
+	_camera_rig.bring_into_view(unit)
+	while is_instance_valid(unit) and _camera_rig.is_gliding() and not _camera_rig.has_in_view(unit):
+		await get_tree().process_frame
+
+
+## Has the camera show [param shooter] taking [param shot], as XCOM 2 frames an
+## enemy's shot (its X2Camera_Midpoint): the shooter, where it steps out to,
+## and the target, where it stands and where it is seen leaning out, all in
+## view. The camera stays put if the view it is settling on holds them all;
+## otherwise it frames them at its usual pitch, no nearer than the player's
+## zoom, and this returns once they are in view. Returns whether it framed
+## them, for the frame to be let go once the shot is over.
+func _show_shot(shooter: Unit, shot: LineOfSight.Shot) -> bool:
+	var feet: Array[Vector3] = [
+		shooter.global_position,
+		_grid.tile_position(shot.from),
+		shot.target.global_position,
+		_grid.tile_position(shot.seen_at),
+	]
+	var points: Array[Vector3] = []
+	for at in feet:
+		points.append_array(CameraRig.standing(at))
+	var framed := not _camera_rig.will_be_in_view(points)
+	if framed:
+		_camera_rig.frame(points, _camera_rig.view_pitch, false)
+	while _camera_rig.is_gliding() and not _camera_rig.is_in_view(points):
+		await get_tree().process_frame
+	return framed
 
 
 ## Whether the battle has been decided, one way or the other.

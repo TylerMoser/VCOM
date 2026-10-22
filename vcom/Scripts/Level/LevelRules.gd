@@ -14,6 +14,11 @@
 class_name LevelRules
 extends RefCounted
 
+## Emitted as piece [param index] leaves the rules from [param slot]
+## ([method remove]), for whatever keeps something worked out from them: the
+## grid's walking graph ([CombatGrid]).
+signal removed(index: int, slot: Vector3i)
+
 ## The pieces standing in each cell and across each edge, by slot
 ## ([LevelData]), in the order placed.
 var _cells := {}
@@ -110,7 +115,8 @@ func is_standing(index: int) -> bool:
 
 
 ## Takes piece [param index], standing in [param slot], out of the rules: it
-## has broken, or fallen with what it stood on. Returns whether it stood.
+## has broken, or fallen with what it stood on. Says so ([signal removed]) if
+## it stood, and returns whether it did.
 func remove(index: int, slot: Vector3i) -> bool:
 	if not is_standing(index):
 		return false
@@ -124,4 +130,5 @@ func remove(index: int, slot: Vector3i) -> bool:
 		table.erase(slot)
 	else:
 		table[slot] = here
+	removed.emit(index, slot)
 	return true

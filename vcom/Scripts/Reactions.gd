@@ -3,9 +3,9 @@
 ## Reactions never go off on their own. While an enemy walks where squad
 ## members on overwatch can see it, a reaction window is open: the walk drops
 ## to [member slow_motion_scale] of its speed, the camera pulls up to look
-## down on everyone who could fire and the enemy they would fire at, and each
-## of them gets a prompt with the odds of their shot. The player picks their
-## moment, or lets it pass:
+## down on the enemy, the rest of its walk and everyone who could fire at it on
+## the way, and each of them with a shot now gets a prompt with the odds of it.
+## The player picks their moment, or lets it pass:
 ##
 ##   Fire     - 1 to 4: the squad member in that place on the squad panel.
 ##   Continue - 0: the walk carries on at normal speed, no one fires.
@@ -24,8 +24,12 @@
 ## by does not let the next go by: the player can hold their fire for a
 ## better moment.
 ##
-## The camera stays on the reaction view between an enemy's moves, until the
-## [TurnManager] calls [method release_view] at the end of that enemy's turn.
+## The view is framed once, as the window opens: who could fire is worked out
+## for every tile left of the walk, so the camera need not move again as the
+## enemy goes. After that it only ever widens, for someone with a shot it could
+## not foresee (cover shot away on the way). Once the window has stayed shut
+## [member release_delay] seconds, or the walk is over, the camera goes back to
+## following the enemy, or to where it was looking ([method release_view]).
 class_name Reactions
 extends Node
 
@@ -41,6 +45,9 @@ const FIRE_ACTIONS: Array[StringName] = [
 ## How far below horizontal the camera looks down while a window is open, in
 ## degrees.
 @export var camera_pitch := 62.0
+## Seconds the view holds after a window shuts while the walk goes on, so a
+## tile out of sight does not send the camera away and straight back.
+@export var release_delay := 0.5
 ## Seconds a squad member takes to lean out of cover to fire, and back.
 @export var step_out_seconds := 0.15
 ## How long a reaction shot's sight line and odds hang before it goes off.
@@ -72,9 +79,11 @@ var _camera_rig: CameraRig
 var _prompts: ReactionPrompts
 var _shots: ShotPlayback
 
-## The enemy walking, and the tween walking it. Null between walks.
+## The enemy walking, the tween walking it and the points it walks through.
+## Null and empty between walks.
 var _mover: Unit
 var _walk: Tween
+var _walk_points: Array[Vector3] = []
 ## Squad member (Unit) -> [Offer], for everyone who could fire at the mover
 ## where it stands right now.
 var _offers := {}
@@ -89,6 +98,11 @@ var _passed := {}
 var _firing := false
 ## Whether the camera is on the reaction view, and so needs handing back.
 var _viewing := false
+## Every point the view has framed since the camera took it up, as a set: it is
+## framed again only when a point is added, so it only ever widens.
+var _framed := {}
+## Seconds the window has been shut while the camera still holds the view.
+var _shut_for := 0.0
 ## The squad member whose prompt the gamepad has picked out: A fires them.
 var _focus: Unit
 
@@ -145,8 +159,8 @@ func _unhandled_input(event: InputEvent) -> void:
 ## Walks [param mover] through [param points], [param seconds_per_step] a
 ## tile, giving the squad the chance to react on the way. Await it: it returns
 ## once the walk is over, or once the mover has fallen to a reaction and the
-## shot that felled it has played out. One walk at a time, which is how the
-## [TurnManager] moves its enemies.
+## shot that felled it has played out, with the camera let go. One walk at a
+## time, which is how the [TurnManager] moves its enemies.
 func walk(mover: Unit, points: Array[Vector3], seconds_per_step: float, vaults := PackedFloat32Array()) -> void:
 	var tween := mover.start_walk(points, seconds_per_step, false, vaults)
 	if tween == null:
@@ -157,6 +171,7 @@ func walk(mover: Unit, points: Array[Vector3], seconds_per_step: float, vaults :
 
 	_mover = mover
 	_walk = tween
+	_walk_points = points
 	_offers_tile = null
 	_passed.clear()
 	# Polled rather than awaited: the tween never finishes if a reaction kills
@@ -164,16 +179,22 @@ func walk(mover: Unit, points: Array[Vector3], seconds_per_step: float, vaults :
 	while _firing or (is_instance_valid(mover) and mover.health > 0 and tween.is_running()):
 		if not _firing:
 			_refresh()
+			_release_when_shut()
 		await get_tree().process_frame
 
 	_set_open(false)
 	_offers.clear()
 	_mover = null
 	_walk = null
+	_walk_points = []
+	release_view()
 
 
-## Puts the camera back the way it was, if a reaction window moved it.
+## Puts the camera back the way it was, if a reaction window moved it: back to
+## following the enemy, or to where it was looking before.
 func release_view() -> void:
+	_framed.clear()
+	_shut_for = 0.0
 	if not _viewing:
 		return
 	_viewing = false
@@ -206,16 +227,24 @@ func _refresh() -> void:
 		_show_offers()
 
 
+## Lets the view go once the window has been shut [member release_delay]
+## seconds with the walk still going, which a tile out of sight is not.
+func _release_when_shut() -> void:
+	if not _viewing or _open:
+		_shut_for = 0.0
+		return
+	_shut_for += get_process_delta_time()
+	if _shut_for >= release_delay:
+		release_view()
+
+
 ## Everyone who could fire at the mover from where they are, holding their
 ## reaction for it. They have to see it where it stands: it is on the move,
 ## not leaning out of anything.
 func _find_offers() -> Dictionary:
 	var offers := {}
 	var line_of_sight := LineOfSight.new(_grid)
-	for index in mini(_squad.members.size(), FIRE_ACTIONS.size()):
-		var member := _squad.members[index]
-		if not member.overwatching or not member.reaction_available or not member.can_fire():
-			continue
+	for member in _ready_to_react():
 		var shot: Variant = line_of_sight.find_shot(member, _mover, false)
 		if shot != null:
 			var aimed := shot as LineOfSight.Shot
@@ -223,10 +252,20 @@ func _find_offers() -> Dictionary:
 	return offers
 
 
+## The squad members who would fire at the mover if they saw it: on overwatch,
+## holding their reaction, with a round, and with a key to fire them.
+func _ready_to_react() -> Array[Unit]:
+	var reacting: Array[Unit] = []
+	for index in mini(_squad.members.size(), FIRE_ACTIONS.size()):
+		var member := _squad.members[index]
+		if member.overwatching and member.reaction_available and member.can_fire():
+			reacting.append(member)
+	return reacting
+
+
 ## Puts up a prompt for every offer, and frames them and the mover.
 func _show_offers() -> void:
 	var prompts: Array[ReactionPrompts.Prompt] = []
-	var framed: Array[Vector3] = []
 	var offered := _offered()
 	# The one picked out may have died since: a typed array will not take it.
 	if not is_instance_valid(_focus) or not offered.has(_focus):
@@ -237,14 +276,64 @@ func _show_offers() -> void:
 		var prompt := ReactionPrompts.Prompt.new(member, key, offer.estimate.chance)
 		prompt.focused = member == _focus
 		prompts.append(prompt)
-		framed.append_array(_body_points(member))
-	framed.append_array(_body_points(_mover))
 
 	if _prompts != null:
 		_prompts.show_prompts(prompts)
-	if _camera_rig != null:
-		_camera_rig.frame(framed, camera_pitch)
-		_viewing = true
+	_frame_view()
+
+
+## Frames the mover, the rest of its walk and everyone who could fire at it
+## on the way, once, as the camera takes up the view; then frames it again only
+## to take in someone with a shot it did not foresee, so it only ever widens.
+func _frame_view() -> void:
+	if _camera_rig == null:
+		return
+	var wanted: Array[Vector3] = []
+	for member: Unit in _offers:
+		wanted.append_array(_body_points(member))
+	if not _viewing:
+		var rest := _rest_of_walk()
+		for point in rest:
+			wanted.append_array(CameraRig.standing(point))
+		for member in _watchers(rest):
+			wanted.append_array(_body_points(member))
+	var grew := false
+	for point in wanted:
+		if not _framed.has(point):
+			_framed[point] = true
+			grew = true
+	if not grew:
+		return
+	var points: Array[Vector3] = []
+	points.assign(_framed.keys())
+	_camera_rig.frame(points, camera_pitch)
+	_viewing = true
+
+
+## Where the mover is, and every point of its walk still ahead of it.
+func _rest_of_walk() -> Array[Vector3]:
+	var rest: Array[Vector3] = [_mover.global_position]
+	var tile := _grid.tile_at(_mover.global_position)
+	var ahead := 0
+	for index in _walk_points.size():
+		if _grid.tile_at(_walk_points[index]) == tile:
+			ahead = index
+			break
+	rest.append_array(_walk_points.slice(ahead))
+	return rest
+
+
+## Everyone ready to react who will see the mover on one of [param rest], the
+## rest of its walk, where [method _find_offers] will find them a shot.
+func _watchers(rest: Array[Vector3]) -> Array[Unit]:
+	var line_of_sight := LineOfSight.new(_grid)
+	var watchers: Array[Unit] = []
+	for member in _ready_to_react():
+		for point in rest:
+			if line_of_sight.watches(member, _grid.tile_at(point)):
+				watchers.append(member)
+				break
+	return watchers
 
 
 ## Everyone with a shot on offer, in squad panel order: the order the gamepad
@@ -322,5 +411,4 @@ func _fire(member: Unit) -> void:
 ## Points spanning [param unit] from its feet to the top of its head, for
 ## framing the whole of it.
 func _body_points(unit: Unit) -> Array[Vector3]:
-	var feet := unit.global_position
-	return [feet, feet + Vector3.UP * CombatGrid.UNIT_HEIGHT]
+	return CameraRig.standing(unit.global_position)

@@ -210,7 +210,7 @@ imported as a Scene at 0.0625. A body made some other way can be taken on direct
 
 A `FallingBlock` has landed once something takes more than half its speed away after it has got
 going (0.5 cells a second), once it has sat still for a quarter of a second, or three seconds after
-it was let go; it reports where it was two physics steps earlier (see `CLAUDE.md`'s Gotchas). Where
+it was let go; it reports where it was two physics steps earlier (see "Its traps" below). Where
 the wreck under a falling block can get out of the way (a stack in the open, blasted apart) the
 blocks fall nearly a whole cell and smash; in a one-cell slot between two columns the columns hold
 the wreck in place, and the blocks drop on to it (see Known gaps). An edge piece left with nothing
@@ -254,6 +254,100 @@ column but units dropping with it. It is 1 cm narrower than its cell on each sid
 (`FallingBlock.CLEARANCE`), cannot turn, and is frictionless, so it slides down between the blocks
 either side of it instead of wedging between them. Debris knocked off the map, or wedged inside a
 block, is removed. The rules never look at debris.
+
+### Its traps
+
+Jolt's and Godot's, each met while the debris was built, and each the reason something above is as
+it is. `CLAUDE.md`'s Gotchas names them, and keeps the one that binds every map: `Level` before
+`TerrainDestruction`.
+
+**`AnimatableBody3D.sync_to_physics` leaves a body behind when its parent moves.** It hands the body's
+transform to the physics server, and a parent moving underneath does not tell it. A unit's body moves
+with the unit's tweens, so it is not synced. Jolt still moves a kinematic body with velocity when its
+transform is set, so it pushes debris properly.
+
+**New debris is held a physics step, and the level's collision catches up ahead of it.** A chunk worn
+since its collision was made gets it again in `VoxelLevel._physics_process`, before `VoxelDebris`
+(after it in the tree) lets that step's new lumps go, and `ScriptedDestruction` holds its pieces
+frozen until the next `physics_frame` the same way. Keep `Level` before `TerrainDestruction` in each
+map, or a bite's lumps start out inside the voxels they were.
+
+**A kinematic body driven into a heap grinds thin pieces into whatever is under them.** That is why a
+unit dropping into its own rubble passes through it (`drop_to`'s `rubble`), and why its body starts
+above its feet.
+
+**A board landing on a round top with friction balances there and never comes to rest.** Jolt has no
+rolling resistance, so a blasted board on top of a unit's capsule kept rocking and turning, and kept
+every piece it touched awake: a whole heap creeping for as long as it was watched. That is why unit
+bodies are frictionless; the board slides off instead.
+
+**Contact is only found within 2 cm, so a fast body can end a step well inside what it hit.** Jolt
+makes contacts within its speculative distance (0.02); a block falling 6 cells a second moves 10 cm a
+step, so the step that reaches the floor can carry it 8 cm in, still at full speed, and only the next
+stops it. That is why a `FallingBlock` reports where it was two steps before it was seen to stop, and
+why its pieces are let go at once with continuous collision rather than held a step.
+
+**Anything cut exactly as wide as a gap wedges in it and shivers for good.** A board one cell long
+lying across the one-cell gap a broken block leaves between two others jams at the slightest turn, and
+Jolt pushes it out of both walls every step, feeding energy into every piece it touches. That is why
+debris boxes are 3.5% smaller than their meshes (`ScriptedDestruction.SLACK`) and a falling block is 1
+cm narrower than its cell.
+
+**Bodies made on the `PhysicsServer3D` outlive their node.** The voxel debris has no nodes, and a
+battle shares the root viewport's `World3D` with the next one, so `VoxelDebris` takes its bodies out
+of the world on `_exit_tree` and frees them (and its box shapes) on `NOTIFICATION_PREDELETE`. Anything
+else made on the server must do the same.
+
+**`get_collision_exceptions()` fails on bodies since freed.** The physics server keeps a freed body in
+the exception list of every body that passed through it, and
+`PhysicsBody3D.get_collision_exceptions()` errors on each (`Parameter "body" is null`) and returns
+null in its place. That is why a `VoxelBody` keeps its own list (`passes`), never read from the
+server: `ScriptedDestruction._pass_overlaps()`, which makes the pairs, hands each piece its list, and
+a cut hands the part its model's.
+
+**Jolt has hard limits.** 10,240 bodies by default, and contact and pair buffers that overflow with a
+few thousand lumps settling at once ("contacts were ignored", lumps sinking into each other).
+`project.godot` raises them, and `VoxelDebris.MOST` keeps the lumps' bodies well under the body limit;
+lumps rather than single voxels (`DEBRIS_CLUMP`, `crumble_size`) keep the count down. Raising the
+contact or pair limits much further needs a bigger `temporary_memory_buffer_size`.
+
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are `Terrain/`'s in full, but for
+`VoxelShape` and `VoxelModel` (`Docs/VOXELS.md`) and `SceneryGround` (`Docs/LEVELS.md`).
+
+```
+  Terrain/
+    TerrainDestruction.gd  breaks struck and blasted pieces (break_piece(), break_block()), drops what they held and
+                           edge pieces and stacks left on nothing, drops stranded units, throws a
+                           blast's debris about, tidies debris; block_broken(cell, destruction); make_piece() /
+                           pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries); hands a
+                           breaking block's blood on to what it becomes (_break, _on_landed, _pieces_since());
+                           break_figure() (a dying unit's figure into lumps, knocked by the killing blow:
+                           FIGURE_*, _figure_knock()), _drop_gear() (its props whole, as pieces that wear)
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); prepare() (as a map loads);
+                           mass; coin_chance; Motion
+    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear (then each piece
+                           wears away as a loose model from the first time something reaches it)
+    FallingBlock.gd        a block whose support broke, falling whole until it lands
+    Blast.gd               a burst from a point: impulse by distance and the area a piece shows
+    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind), or how a
+                           ScriptedDestruction's pieces wear; collapse_below, voxels_per_damage, crater_per_damage /
+                           crater_radius(), density, crumble_size
+    VoxelTerrain.gd        made by TerrainDestruction: wears the level's volume: chip() (a round's bite), crater()
+                           (a blast's), _drop_loose() (cut loose, across pieces), holds_up() (cut through),
+                           take_piece() / crumble() / roughen_hole() (a piece breaking, its ragged rim),
+                           is_solid_at(); loose models: take_on_later() (taken on at the first hit), take_on_body(),
+                           tear() (rounds through them), _settle() (split off, crumble); lumps chosen before they are
+                           made (Batch, _scatter()); carry_blood() (a crate's blood on to its pieces);
+                           march() (a ray through a model's voxels)
+    VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear), a node under its RigidBody3D: its
+                           VoxelModel, box collider and mass; passes (the bodies it passes through)
+    VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
+                           add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
+                           (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed;
+                           stain(body, point) (a drop of blood colours the voxel it met)
+```
 
 ## Known gaps
 

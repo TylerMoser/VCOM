@@ -22,8 +22,11 @@ signal closed
 
 ## Over every HUD in either scene.
 const LAYER := 100
-## How much of the window the menu leaves clear on each side.
-const MARGIN := Vector2(0.06, 0.08)
+## How much of the window the menu leaves clear on each side: it takes 96.8%
+## of it across and 92.4% down, a tenth more each way than the 88% by 84% it
+## first had, for the pages' room. The strip left under it, 27 px at the
+## least (a window 720 high), holds the gamepad's prompts, 20 px high.
+const MARGIN := Vector2(0.016, 0.038)
 
 const DIM_COLOR := Color(0.0, 0.0, 0.0, 0.55)
 const BG_COLOR := Color(0.1, 0.11, 0.15, 0.95)
@@ -31,13 +34,11 @@ const TAB_COLOR := Color(0.14, 0.15, 0.2, 0.95)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const ACCENT_COLOR := Color(1.0, 0.9, 0.55)
 const TEXT_COLOR := Color(0.85, 0.86, 0.9)
-## Pixels between the gamepad's prompts and the bottom of the window.
-const HINTS_MARGIN := 10.0
 
 var tabs: TabContainer
 
 var _root: Control
-## The gamepad's prompts along the bottom.
+## The gamepad's prompts, under the frame.
 var _hints: ControlHints
 
 
@@ -74,12 +75,16 @@ func _init() -> void:
 	tabs.get_tab_bar().gui_input.connect(_on_tab_bar_input)
 	_root.add_child(tabs)
 
-	_hints = ControlHints.new(false)
-	_hints.set_anchors_preset(Control.PRESET_CENTER_BOTTOM)
+	# A compact row, small enough and bare, in the middle of the strip under
+	# the frame and growing every way from there, so it never lies over the
+	# frame.
+	_hints = ControlHints.new(false, true)
+	_hints.anchor_left = 0.5
+	_hints.anchor_right = 0.5
+	_hints.anchor_top = 1.0 - MARGIN.y * 0.5
+	_hints.anchor_bottom = 1.0 - MARGIN.y * 0.5
 	_hints.grow_horizontal = Control.GROW_DIRECTION_BOTH
-	_hints.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	_hints.offset_top = -HINTS_MARGIN
-	_hints.offset_bottom = -HINTS_MARGIN
+	_hints.grow_vertical = Control.GROW_DIRECTION_BOTH
 	_root.add_child(_hints)
 
 

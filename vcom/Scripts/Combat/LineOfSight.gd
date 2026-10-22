@@ -203,6 +203,14 @@ func watched_tiles(unit: Unit) -> Dictionary:
 	return watched
 
 
+## Whether [param unit] could shoot someone standing on [param tile], seen
+## where they stand, as reaction fire must see a target on the move: one tile
+## of [method watched_tiles], and what [method find_shot] with no leans finds.
+func watches(unit: Unit, tile: Vector3i) -> bool:
+	var at := _grid.tile_at(unit.global_position)
+	return tile != at and _sight_tile(at, firing_positions(unit), tile, unit.sight_range) != null
+
+
 ## Every shot [param shooter] has at the living units in [param targets],
 ## nearest first.
 func find_shots(shooter: Unit, targets: Array[Unit]) -> Array[Shot]:

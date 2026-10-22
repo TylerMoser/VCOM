@@ -1,7 +1,6 @@
-Combat level editor
-
 --TODO CAMPAIGN:
-Map: Hand-crafted changes, pathfinding/terrain, background art & styling
+Map: pathfinding and collisions
+Map: Hand-crafted changes, terrain, background art & styling
 Map: fog of war on unvisited areas
 Classes/Skills
 More Items, Weapon Types, Armors, Shields, Medicines, Stat Buff Equipment, etc
@@ -9,8 +8,10 @@ Noble: Rich Blood skill (new tier of market goods)
 Story/Tutorials/In-game documentation for player/etc.
 Saving/Loading, Main Menu
 Give experience for more things than just participation
+Controls page in pause menu
 
 --TODO TACTICAL:
+Use level editor and make tweaks
 Houses
 Better Ground Blocks, Ridges
 Trees, Ladders, fences, stairs, water, difficult ground, impassible tiles, etc.
@@ -18,10 +19,11 @@ Character models
 Height/layers to terrain (Buildings with interiors)
 Action cam
 Action economy fleshing-out: second shot costs 2 actions? Lower hit chance on subsequent attacks?
-Smoother camera following on enemy turn
+Status conditions
+Damage types: Resistances/Weaknesses
+Drop weapons/items on death: Enemy loot drops
 
 --DEFECTS:
-During character selection for combat, the skill trees overflow into the UI footer. Make the skill trees scrollable instead, or the UI window taller.
 
 --LOW PRIORITY:
 Fog of war in tactical combat? Maybe make it sections of the map, and obvious.
@@ -29,14 +31,9 @@ Replace GenAI: Animations (Mixamo? Blender?), UI
 Music/Ambiance, Sound Effects
 Enemy AI
 Battle map generation
-Status conditions
-Drop weapons/items on death: Player physics, enemy loot drops
 Add pre-scripted destruction to more terrain: Skinny trees
-Damage types: Resistances/Weaknesses
 Team/faction abilities. Command-point-like structure? 
 
 --ARCHITECTURAL IMPROVEMENT:
-Performance: 30fps on Steam Deck (Right now, I'm not even getting a stable 30fps on my laptop)
+C++ via GDExtension for more-demanding operations, especially terrain manipulation and destruction. Also identify other areas that could benefit from C++, and optimize them too.
 Claude is pretty good at playing the game: Get it to play the game and spit out defects/concerns/questions about anything it isn't sure is right.
-Triangle optimization everywhere: Hollow tree-tops for extending out to horizon, no internal triangles until broken, reduce unnecessary triangles until broken on voxel models
-Blood splatter staining mechanism: Actually re-color voxels red when hit by blood. Currently, the generated code only applies a red overlay 2mm from the voxel to "re-color" it. I had originally wanted to re-color whole voxels at the voxel level, but this would require re-meshing blocks at runtime. Rebuilding a block takes 1.5 to 3 milliseconds, so Claude did not want to do this because stains would require constantly rebuilding blocks. Maybe do this in C++? It might be worth re-working the "dense voxel" logic, replacing the gridmap layout with individual voxels, in C++ for efficiency. Or just take the performance hit?

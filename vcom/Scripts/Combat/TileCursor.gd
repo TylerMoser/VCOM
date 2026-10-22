@@ -113,12 +113,14 @@ func _process(delta: float) -> void:
 		_step(step)
 
 
-## Puts the cursor on [param to], and the camera on it if [param follow].
+## Puts the cursor on [param to], and the camera on it if [param follow]: the
+## camera glides there ([method CameraRig.focus_on]), as it does to whatever
+## the game puts in front of the player.
 func snap_to(to: Vector3i, follow := true) -> void:
 	tile = to
 	_mark()
-	if follow:
-		_follow()
+	if follow and camera_rig != null:
+		camera_rig.focus_on(grid.tile_position(to))
 	moved.emit(to)
 
 
@@ -138,6 +140,10 @@ func current() -> Variant:
 
 
 ## Moves one step [param step] across the ground, if there is anywhere to go.
+## The stick is the player's own panning, so the camera eases after it
+## ([method CameraRig.pan_to]) rather than gliding, and is sent before the move
+## is told: an action lining up a target the cursor reaches snaps it to the
+## spot the camera is easing to already, which leaves the easing be.
 func _step(step: Vector2i) -> void:
 	var from: Variant = current()
 	if from == null:
@@ -146,7 +152,9 @@ func _step(step: Vector2i) -> void:
 	for reach in range(1, MOST_SKIPPED + 2):
 		var found: Variant = _tile_in_column(at.x + step.x * reach, at.z + step.y * reach, at.y)
 		if found != null:
-			snap_to(found)
+			if camera_rig != null:
+				camera_rig.pan_to(grid.tile_position(found))
+			snap_to(found, false)
 			return
 
 
@@ -207,8 +215,3 @@ func _mark() -> void:
 		highlights.set_layer(LAYER, {tile: COLOR}, FILL, true)
 	else:
 		highlights.clear_layer(LAYER)
-
-
-func _follow() -> void:
-	if camera_rig != null and tile != null:
-		camera_rig.focus_on(grid.tile_position(tile))

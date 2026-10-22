@@ -2,8 +2,8 @@
 
 Skills in full: `Scripts/Skills/`, the trees a `Character` holds and learns from, and the Skills
 page (`SkillsPage`, `SkillTreeView`, `SkillButton`, `SkillTooltip`). It was split out of
-`CLAUDE.md`, which keeps a summary and how a unit takes its character's stats ("Squad units are
-roster characters"). A section named here that is not in this file (Gotchas, Verification, Known
+`CLAUDE.md`, which keeps a summary; how a unit takes its character's stats is
+`Docs/ROSTER.md`'s. A section named here that is not in this file (Gotchas, Verification, Known
 gaps, another subsystem's notes) is `CLAUDE.md`'s.
 
 ## How they work
@@ -138,6 +138,20 @@ to whatever lies under the page: the squad menu's Start, a hiring board's Hire (
 sub-tabs of the Details page reaches them), and nowhere in the pause menu, which has nothing there.
 Up from those buttons goes to the sub-tabs, and Down from the sub-tabs back to the selected node.
 
+**The trees scroll under their headings** (asked for by the user, as the squad menu's footer left
+them too little room). The headings are a row of their own (`_headings`), and the trees another
+(`_columns`) in a `ScrollContainer` (`_scroll`) under it, which scrolls once they run past the
+bottom of the page: with the mouse wheel over them, by the bar beside them, and, being
+`follow_focus`, to bring the node the keyboard or the d-pad moves on to into sight, so every node
+can be reached without a mouse. The bar's room is kept clear beside the trees whether it shows or
+not (`SCROLL_MODE_RESERVE`), and the headings are kept as clear of it, so nothing shifts as it comes
+and goes. The two rows are laid out apart, so each column's heading and tree are both made as wide as
+the wider of the two (`_add_column()`), and the rows then share the width out alike; the gap under a
+heading is part of it (its label's bottom margin), so the dividers between the columns run unbroken
+from the headings down through the trees. A new character's trees start at the top. Decided without
+asking the user: the headings staying put rather than scrolling away, and the bar's look, Godot's
+own.
+
 A node is learned by holding it down, with the mouse or Enter / Space, as a `HoldButton` is held
 (its `HOLD_TIME`, 2 s, its `DRAIN_SPEED` and its fill colour, decided with the user): it fills like a
 clock's face, from the top round clockwise, a sector drawn under its face. That is the first time it
@@ -184,9 +198,50 @@ Whose it is: the node with the keyboard (`_focused`, kept from the buttons' `foc
 the mouse (`_hovered`), else nobody and it hides. The page's `_input()` notes which was used last
 (`_by_keyboard`), before either moves anything, so arrowing about with the mouse left lying on a node
 shows the keyboard's node, and a nudge of the mouse hands it back. It hides once the keyboard goes up
-to the tabs, though the node stays selected. `_show_tooltip()` places it to the node's right, top to
+to the tabs, though the node stays selected, and while its node is scrolled out of sight, as the wheel
+can scroll the one under the mouse. `_show_tooltip()` places it to the node's right, top to
 top, `TOOLTIP_GAP` off, or to its left where that would run off the page, and never below the page's
-bottom; `_show_progress()` calls it again, since a level just taken changes what it says.
+bottom; `_show_progress()` calls it again, since a level just taken changes what it says, and so
+does every move of the trees (`_columns.item_rect_changed`), so it follows its node as they scroll.
+It is a child of the page, not of the scroll, which would cut it off at its edges.
+
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are `Skills/`'s in full, and the
+Skills page's.
+
+```
+  Skills/
+    Skill.gd           Resource: one ability, display_name, flavor, icon, levels (a SkillLevel for each time
+                       it can be taken, at most MOST_LEVELS, 5), takes(), level(), describe(); shared by every
+                       tree placing it
+    SkillLevel.gd      Resource: one level of a skill: description (its words), effects (what it adds)
+    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat) and gold_after_combat() (asked
+                       while the level is had), when_taken(character) (done once, as it is learned); nothing
+                       unless a kind says
+    StatBonus.gd       SkillEffect: amount added to one stat (max_health, defense, move_range, aim, ...)
+    CombatGold.gd      SkillEffect: amount of gold for the party after a combat fought in and survived
+    SkillPointGrant.gd SkillEffect: amount of skill points handed over as the level is taken
+    SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
+    SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
+    SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
+  UI/
+    SkillsPage.gd      a column per Character.TREES entry (SHARES: widths 1:1:3:3), headed by the character's
+                       SkillSource or the plain title, rebuilt per character; the trees scroll under the
+                       headings, following the keyboard; learns a node once it is held;
+                       the selection; arrow keys to the nearest node; the SkillTooltip beside the node under
+                       the mouse or the keyboard, whichever was used last; titles its sub-tab "Skills (N)"
+                       with the character's skill points
+    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell (columns as wide as their
+                       widest, rows as tall as row_heights() says), elbow links to the nodes each requires;
+                       show_learned() restyles both
+    SkillButton.gd     a circle styled locked / available / learned, a ring round it for each time its skill
+                       can be taken again (size_of()); its skill's icon or its rank; held for HOLD_TIME while
+                       learnable, the circle fills like a clock, or once taken the next ring out, and it emits
+                       held; selected (its circle filled a shade lighter)
+    SkillTooltip.gd    the panel beside a node: the skill's name, its flavor, "Current:" the level taken,
+                       "Next:" the level to come; show_skill(skill, taken)
+```
 
 ## Known gaps
 
@@ -199,6 +254,6 @@ bottom; `_show_progress()` calls it again, since a level just taken changes what
   words and its effects are written separately, so nothing keeps them agreeing.
 - A pie's straight edges are not antialiased. A skill's tooltip lies over whatever is beside its
   node, the next tree's nodes among them, for as long as the keyboard is on the node.
-- The Skills page does not scroll: its trees have about 296 px of height, which the two trees as they
-  are fit (280: a row of four rings, a row of one and two plain rows) but a fifth row, or rings on
-  three rows of four, run out of the panel's bottom.
+- The trees scroll only up and down: trees wider than the page's width, which no character's are,
+  would run off its side. The wheel scrolls them only with the mouse over them, not over their
+  headings, and no stick scrolls them on the gamepad: they follow the d-pad's focus alone.

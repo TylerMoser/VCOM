@@ -26,13 +26,16 @@ whose state `MapReticle._rows()` words as "Hide borders" or "Show borders"), the
 `previous_action` (d-pad right / left), `recenter` (L3), `camera_zoom_stick_*` (the right stick's y),
 `menu_next_tab` / `menu_previous_tab` (RB / LB), `menu_next_subtab` / `menu_previous_subtab` (RT / LT),
 and `reaction_fire` / `reaction_next` / `reaction_previous` (A, RB, LB). Godot's own `ui_*` already
-had the d-pad and the left stick, so the menus' focus moves as with the arrow keys.
+had the d-pad and the left stick, so the menus' focus moves as with the arrow keys, and the Skills
+page's trees, where they scroll, scroll to follow it (`Docs/SKILLS.md`).
 
 Where the mouse points, the gamepad has a pointer of its own. In combat it is the `TileCursor`, which
 `ActionController` makes and shows on the player's turn, not busy, with someone selected, and puts on
 whoever is selected as the selection changes, the turn starts, or L3 is pressed: the left stick steps
 it a tile at a time in eight ways relative to the camera (up the screen is away from it), finding
-the tile nearest its height in the next column with one, and the camera follows it. Actions ask
+the tile nearest its height in the next column with one, and the camera follows it: easing after a step,
+as the player's own panning does, and gliding to wherever it is put, on the player's turn only
+(`Docs/CAMERA.md`). Actions ask
 `ActionController.pointed_tile()` (the cursor's tile with the gamepad, the mouse's tile without),
 which is how Move previews and walks and Throw Grenade aims; `cursor_moved()` tells the active action
 it moved, which is how Shoot and Strike line up the target the cursor reaches, and they snap the
@@ -47,7 +50,16 @@ slides under it on the left stick and zooms toward it.
 The prompts are `ControlHints` panels of rows, a `ButtonGlyph` or two and the words: down the right in
 combat (`ActionController._show_hints()`, A's words from the active action's `confirm_hint()`) and on
 the map (`MapReticle._rows()`), along the bottom of every `TabbedMenu` (`_gamepad_hints()`), shown only
-with the gamepad. A menu's A words come from the focused control: its own `gamepad_hint(focused)` if it
+with the gamepad. A menu's row is compact (`ControlHints.new(false, true)`), as its frame leaves it a
+strip only 3.8% of the window high under it (`TabbedMenu.MARGIN`), 27 px at the least, a window 720
+high: its glyphs are drawn 20 px high rather than 24 (`ButtonGlyph`'s height scales its pills, its
+letters and the d-pad's arms, the edge staying 2 px), its words 14 px rather than 15, outlined in the
+box's colour, as it has no box, and it is centred in the strip, clear of the frame and the window's
+edge by 3.7 px at 720 (anchored at the strip's middle, growing every way, as `_collapse()` keeps it).
+Done at the user's request, as the box ran over the frame's edge once the frame grew; the sizes, the
+outline and dropping the box were not asked about.
+
+A menu's A words come from the focused control: its own `gamepad_hint(focused)` if it
 has one (a `SkillButton`: "Hold: Learn" while learnable, else nothing), else the first ancestor's that
 says something (`ItemBrowser`'s action, the shops' "Choose", `SquadTab`'s "Tick" / "Untick"), else
 "Hold" and the caption on a `HoldButton`, the text on any other button A presses, and nothing on a
@@ -87,3 +99,6 @@ cursor, render in a window as for any frame.
 - With the gamepad a reaction window's prompts lose their numbers (one has an A, the others none), so
   the numbers' order is not shown, and the combat prompts' ten rows are a tall column: a player who
   knows the pad has no way to hide them.
+- A menu's row of prompts is small, its glyphs' letters 11 px and Menu's and View's 9, and it fits
+  under the frame only while `TabbedMenu.MARGIN.y` leaves 20 px or more there: a frame grown further,
+  or rows of prompts made taller, would run them over its edge again.

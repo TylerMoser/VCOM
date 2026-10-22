@@ -87,25 +87,26 @@ still: a figure. It is lit as the importer's materials light a model (`diffuse_b
 
 Its uniforms: `voxels` (the texture), `palette` (256 `vec4`, passed as a `PackedVector4Array`: a
 `PackedColorArray` uniform arrives converted to linear), `box_size` (the voxels along each axis of a
-layer's box: 32³ for the level's chunks, 16³ for a scenery kind, a model's own size),
+layer's box: 32³ for the level's chunks, 16³ for a scenery kind (8³ and 4³ for its coarser copies), a
+model's own size),
 `voxels_per_unit` (16 for blocks, a shade fewer for props), and the growth and tile grid's. The
 palette's flags come from `VoxelModel.palette_entries(colors, flags)`: the level passes its own (a
 grass place has the grid), a model none, so blood's place alone is wet.
 
 **One mesher meshes every voxel model** (`ChunkMesher`): faces open to the air found from rows of
 bits and merged greedily by shape alone, since colour comes from the texture. It meshes any cube of
-voxels: a level's chunk, a scenery kind's block, and a model's box set in a cube as wide as its
-widest, at most 62 voxels (`VoxelModel.rectangles_of()`, which turns the model's rows along x into the
-rows along z the mesher also wants). A model's mesh is built in the space its imported mesh was drawn
-in (its shape's frame grown by its `scale`), so a prop scene's `Mesh` keeps the transform it was
-placed with.
+voxels: a level's chunk, a scenery kind's block and its coarser copies (8³ and 4³), and a model's
+box set in a cube as wide as its widest, at most 62 voxels (`VoxelModel.rectangles_of()`, which
+turns the model's rows along x into the rows along z the mesher also wants). A model's mesh is built
+in the space its imported mesh was drawn in (its shape's frame grown by its `scale`), so a prop
+scene's `Mesh` keeps the transform it was placed with.
 
 ## Every voxel model
 
 | Model | What draws it | Its colours | Recoloured by | Handed on |
 |---|---|---|---|---|
 | The level | `LevelRenderer`: sections of 2³ chunks, not `VoxelModel`s | one `Texture2DArray`, a layer a chunk; the level's palette of every kind's colours | `VoxelVolume.recolor()` | a voxel's colour goes wherever the voxel goes |
-| The scenery | `SceneryRenderer`: a `MultiMesh` a kind a region | a layer a kind | nothing | - |
+| The scenery | `SceneryRenderer`: a `MultiMesh` a kind, level of detail and region | a layer a kind, a texture for each level of detail | nothing | - |
 | A figure | its baked skinned `Body`, coloured by `FigureVoxels.body` | the rig's places; painted its unit's `tint` | blood (`FigureVoxels.bleed()`) | its lumps take each voxel's colour (`crumble()`) |
 | A prop in its socket | its `Mesh`, taken over as it is made (`CharacterModel._make_prop()`) | its `.vox`'s | blood landing on it | dropped with its figure, its model goes with its mesh |
 | Dropped gear | the same mesh and model, in a `RigidBody3D` of its own | its `.vox`'s, blood and all | blood, and wear once a round or blast reaches it | `VoxelBody` takes the model it finds (`VoxelModel.of()`) |
@@ -200,6 +201,22 @@ of faces did (see `Docs/BLOOD.md`).
   wears, is a few hundred faces at most.
 - **Blood:** a hit costs 0.2 ms as before; a wound's flow on a figure (24 faces) about 1 ms, in
   blood's budget a physics step; a death with blood about 4.2 ms on its frame (3.8 before).
+
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are the two that hold a voxel model
+in full (the mesher is `Level/`'s, `Docs/LEVELS.md`).
+
+```
+  Terrain/
+    VoxelShape.gd          one model's voxels, read from its .vox with the importer's reader: a block's (read(), 16^3),
+                           one model of a .vox imported as a scene (read_model(), source_of()) or a mesh imported from
+                           one (read_mesh()), cropped to its voxels; a padded array of palette places, a row of bits
+                           per (y, z) (so at most WIDEST, 62, along x), colors (255 BLOOD's), scale, shared
+    VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D: voxels, palette, texture (Texels),
+                           material (Voxels.gdshader, beside it); take_over(), of(), show_on(), recolor(), paint(),
+                           remove() / rebuild(), split(), frame()
+```
 
 ## Probing it
 

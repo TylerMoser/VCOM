@@ -7,7 +7,8 @@
 ##
 ## As a [Control] it is one glyph, sized to fit; [method draw_glyph] draws one
 ## on any canvas, for something that draws its own prompts
-## ([ReactionPrompts]).
+## ([ReactionPrompts]). Either can draw it smaller than [constant HEIGHT], as
+## the menus' prompts do ([ControlHints]), everything in it scaled to match.
 ##
 ## The names: A, B, X, Y; LB, RB, LT, RT; LS, RS (moved), L3, R3 (pressed);
 ## View, Menu; dpad, dpad_left, dpad_right, dpad_up, dpad_down,
@@ -47,31 +48,36 @@ const DPAD_ARMS := {
 }
 
 var button: StringName
+## How tall it is drawn.
+var height := HEIGHT
 
 
-func _init(for_button: StringName = &"A") -> void:
+func _init(for_button: StringName = &"A", drawn_height := HEIGHT) -> void:
 	button = for_button
-	custom_minimum_size = Vector2(width_of(button), HEIGHT)
+	height = drawn_height
+	custom_minimum_size = Vector2(width_of(button, height), height)
 	mouse_filter = MOUSE_FILTER_IGNORE
 
 
 func _draw() -> void:
-	draw_glyph(self, button, Vector2(0.0, (size.y - HEIGHT) * 0.5))
+	draw_glyph(self, button, Vector2(0.0, (size.y - height) * 0.5), height)
 
 
-## How wide [param name]'s glyph is drawn, in pixels.
-static func width_of(name: StringName) -> float:
-	return PILL_WIDTHS.get(name, HEIGHT)
+## How wide [param name]'s glyph is drawn, in pixels, [param tall] high.
+static func width_of(name: StringName, tall := HEIGHT) -> float:
+	return PILL_WIDTHS.get(name, HEIGHT) * tall / HEIGHT
 
 
 ## Draws [param name]'s glyph on [param canvas] with its top-left corner at
-## [param corner], [constant HEIGHT] tall. Returns how wide it was.
-static func draw_glyph(canvas: CanvasItem, name: StringName, corner: Vector2) -> float:
-	var width := width_of(name)
-	var box := Rect2(corner, Vector2(width, HEIGHT))
+## [param corner], [param tall] high: its pill, its letters and the d-pad's
+## arms in proportion, its edge the same 2 px. Returns how wide it was.
+static func draw_glyph(canvas: CanvasItem, name: StringName, corner: Vector2, tall := HEIGHT) -> float:
+	var ratio := tall / HEIGHT
+	var width := width_of(name, tall)
+	var box := Rect2(corner, Vector2(width, tall))
 	var middle := box.get_center()
 	if DPAD_ARMS.has(name):
-		_draw_dpad(canvas, middle, DPAD_ARMS[name])
+		_draw_dpad(canvas, middle, DPAD_ARMS[name], tall)
 		return width
 	var edge: Color = FACE_COLORS.get(name, EDGE_COLOR)
 	if PILL_WIDTHS.has(name):
@@ -79,15 +85,15 @@ static func draw_glyph(canvas: CanvasItem, name: StringName, corner: Vector2) ->
 		pill.bg_color = BG_COLOR
 		pill.border_color = edge
 		pill.set_border_width_all(2)
-		pill.set_corner_radius_all(int(HEIGHT * 0.5) if name in [&"LB", &"RB"] else 5)
+		pill.set_corner_radius_all(int(tall * 0.5) if name in [&"LB", &"RB"] else roundi(5 * ratio))
 		canvas.draw_style_box(pill, box)
 	else:
-		var radius := HEIGHT * 0.5 - 1.0
+		var radius := tall * 0.5 - 1.0
 		canvas.draw_circle(middle, radius, BG_COLOR, true, -1.0, true)
 		canvas.draw_circle(middle, radius, edge, false, 2.0, true)
 	var text := String(name)
 	var font := ThemeDB.fallback_font
-	var size := FONT_SIZE - (2 if text.length() > 2 else 0)
+	var size := roundi((FONT_SIZE - (2 if text.length() > 2 else 0)) * ratio)
 	var text_width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1.0, size).x
 	var baseline := middle.y + (font.get_ascent(size) - font.get_descent(size)) * 0.5
 	var color: Color = FACE_COLORS.get(name, TEXT_COLOR)
@@ -97,10 +103,11 @@ static func draw_glyph(canvas: CanvasItem, name: StringName, corner: Vector2) ->
 	return width
 
 
-## A cross, its arms [constant ARM_COLOR] but the [param lit] ones.
-static func _draw_dpad(canvas: CanvasItem, middle: Vector2, lit: Array) -> void:
-	var arm := HEIGHT * 0.34
-	var reach := HEIGHT * 0.5 - 1.0
+## A cross [param tall] high, its arms [constant ARM_COLOR] but the
+## [param lit] ones.
+static func _draw_dpad(canvas: CanvasItem, middle: Vector2, lit: Array, tall: float) -> void:
+	var arm := tall * 0.34
+	var reach := tall * 0.5 - 1.0
 	var outline := Rect2(middle - Vector2(arm * 0.5 + 1.5, reach + 1.0), Vector2(arm + 3.0, reach * 2.0 + 2.0))
 	canvas.draw_rect(outline, BG_COLOR)
 	canvas.draw_rect(Rect2(middle - Vector2(reach + 1.0, arm * 0.5 + 1.5), Vector2(reach * 2.0 + 2.0, arm + 3.0)), BG_COLOR)

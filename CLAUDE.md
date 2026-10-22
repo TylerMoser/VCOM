@@ -24,15 +24,19 @@ how to apply it, and pictures of the look as it is (`render.sh 0 91` draws them 
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
-subsystem a file, each with how it works in full, how to probe it and its known gaps: `BLOOD.md`,
-`DESTRUCTION.md` (adding a breakable block, voxel wear, loose models), `GAMEPAD.md`, `LEVELS.md`
-(combat maps as levels of voxel pieces: the volume, drawing it, edges), `LEVEL_EDITOR.md` (the level
-editor that paints them: every control, making a map, adding pieces), `MAP.md`
-(the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `SKILLS.md` and `VOXELS.md`
-(every voxel model: how it is drawn and recoloured, and adding one). This file
-keeps a summary of each and every rule that must not drift. Read a subsystem's
-file before touching it, and put new detail about it there, not here; when this file nears the limit
-again, split another subsystem out the same way.
+subsystem a file, each with how it works in full, how to probe it and its known gaps: `AMMO.md` (a
+gun's magazine and reloading), `BLOOD.md`, `CAMERA.md` (how the combat camera moves), `CAMPAIGN.md`
+(the world map's party, encounters, the squad menu, villages and shops), `DESTRUCTION.md` (adding a
+breakable block, voxel wear, loose models, the physics of debris), `GAMEPAD.md`, `GRENADES.md`,
+`HUNKER.md`, `LEVELS.md` (combat maps as levels of voxel pieces: the volume, drawing it, edges),
+`LEVEL_EDITOR.md` (the level editor that paints them: every control, making a map, adding pieces),
+`MAP.md` (the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `ROSTER.md`
+(characters and the units they become, equipment, items and the inventory), `SHOOTING.md` (sight and
+leaning out, lining up, confirming and settling shots and strikes), `SKILLS.md` and `VOXELS.md` (every
+voxel model: how it is drawn and recoloured, and adding one). `ANIMATIONS.md`, beside this file, is
+the figure's in the same way. This file keeps a summary of each and every rule that must not drift.
+Read a subsystem's file before touching it, and put new detail about it there, not here; when this
+file nears the limit again, split another subsystem out the same way.
 
 ```
 vcom/Scripts/
@@ -56,11 +60,14 @@ vcom/Scripts/
                        writes wounds, used-up grenades and deaths back to the characters; award_survivors()
                        (experience, and the gold their skills find -> found_gold)
   SquadStart.gd        @tool Marker3D: where a squad member starts; draws its tile and number in the editor
-  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions; outcome WON / LOST; a win's
+  TurnManager.gd       turn order, end-turn hold, carrying out enemy AI decisions, the camera on them; outcome WON / LOST; a win's
                        victory_gold and Coins.sweep(); calls the survivors' skill gold over their heads
   Reactions.gd         reaction window: slow motion, number prompts, reaction fire; the gamepad's focus on one
                        prompt (_focus: A fires it, LB / RB move it)
-  CameraRig.gd         orbiting tactical camera; frame() / release_frame() for the reaction view; the right stick
+  CameraRig.gd         orbiting tactical camera; the player's moves ease, the game's glide as XCOM 2's do
+                       (Glide): focus_on(), bring_into_view(), follow() (a walk not in view), frame() /
+                       release_frame() (reactions, an enemy's shot); is_in_view() / will_be_in_view();
+                       pan_to() (the cursor's stick steps); the right stick
   InputDevice.gd       autoload InputDevices (first of them): static gamepad, the device touched last, and changed;
                        use_gamepad() (hides the mouse), watch(), pointer_position() / pointer_on_canvas() (the
                        mouse, or the middle of the screen with the gamepad)
@@ -72,31 +79,26 @@ vcom/Scripts/
                        use_up(character, item) (a thrown grenade, off them for good), heal(amount) (the whole
                        roster's wounds)
   Combat/
-    CombatGrid.gd      tiles and pathfinding over the level's LevelRules (level); edges: has_edge(), stepped over a
-                       level high (vault_height(), vaults_along()); is_line_clear(), cast() (by_voxel: through the
-                       voxels of pieces that wear away, for rounds; every_block too: of every piece, for blood;
-                       RayHit.voxel / piece / on_edge), pick_tile(), terrain_struck, blast() -> terrain_blasted,
-                       fly() -> round_flown (every round's line, for the loose models it tears through); voxels
-    LineOfSight.gd     cover, step-out (firing_positions(), lean_tiles()), find_shots() -> Shot (from / stepped_out:
-                       where the shooter fires from; seen_at / leaning: where the target is seen, its own tile or
-                       one it leans out to); find_shot(..., leans false) for a reaction; watched_tiles()
-    HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee); roll();
-                       hunker_penalty() (HUNKER, 20, off a shot at a hunkered target its cover counts against)
-    Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path (wound: where on the
-                       target a hit is drawn landing, for show; drawn_to()); a target seen leaning out is shot at
-                       where it leans to
-    Throwing.gd        RANGE (10, every throw's); plan() -> Throw (the arc, blocked or not), throws_for(unit);
-                       the blast: blast_cells(), is_caught(), caught(), blast_tiles()
-    ThrownGrenade.gd   a grenade in flight along a Throw's arc, from the thrower's hand, as the grenade's
-                       model tumbling about its middle; for show; frees itself as it arrives
-    Explosion.gd       a grenade going off: fireball, flash, smoke, for show; go_off(), frees itself
+    CombatGrid.gd      tiles and pathfinding over the level's LevelRules (level), on a walking graph kept from load
+                       (redone round what breaks: Docs/LEVELS.md); edges: has_edge(), stepped over a level high
+                       (vault_height(), vaults_along()); is_line_clear(), cast() (by_voxel: through the voxels of
+                       pieces that wear away, for rounds; every_block too: of every piece, for blood; RayHit.voxel /
+                       piece / on_edge), pick_tile(), terrain_struck, blast() -> terrain_blasted, fly() ->
+                       round_flown (every round's line, for the loose models it tears through); voxels
+    LineOfSight.gd     cover, step-out, find_shots() -> Shot (where it is fired from, where the target is
+                       seen: its own tile or one it leans out to), watched_tiles() (Docs/SHOOTING.md)
+    HitChance.gd       the to-hit sum (Estimate + Term): for_shot(), for_strike() (melee), hunker_penalty(); roll()
+    Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
+    Throwing.gd        RANGE; plan() -> Throw (the arc, blocked or not), throws_for(unit); the blast's cells and
+                       whom it catches (Docs/GRENADES.md)
+    ThrownGrenade.gd   a grenade in flight along a Throw's arc, for show
+    Explosion.gd       a grenade going off, for show
     MuzzleFlash.gd     a gun's flash as it fires, under its Muzzle marker, for show; frees itself
     Coins.gd           map node: rolls a breaking block's coin_chance, keeps the coins by tile (stacked), drops a
                        tile's when its ground goes, pays for those on any squad member's tile; count(), sweep()
     Coin.gd            one coin as it is seen (Items/Coin2.vox, as drawn): spins, bobs, pops in, drop_to(),
                        take(); for show
-    ShotPlayback.gd    shots not taken from the action bar: aim, step out, show, shoot_at(), step back; the target
-                       leaning out meanwhile if that is where the shot sees it
+    ShotPlayback.gd    shots not taken from the action bar (reactions, the enemies'): aim, step out, shoot_at(), back
     Weapon.gd          Item: damage, environment_damage; magazine (shots, 0 for none) and reload (actions), for a
                        gun; has_magazine(); stateless, the rounds left are the unit's
     TileHighlights.gd  named layers of coloured squares; an on_top layer (the cursor) over every other
@@ -112,63 +114,31 @@ vcom/Scripts/
     AIAction.gd        MOVE (path) / SHOOT (shot + estimate) / RELOAD (reload_gun()) / END_TURN
     Tactics.gd         shared queries: adjacent_foes, shots_at (none with no round), best_shot, reload(), advance,
                        paths
-  Level/               combat maps as levels of voxel pieces (Docs/LEVELS.md)
-    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove() /
-                       begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of()
-    LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
-    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece; PieceBrush.gd
-                       (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
+  Level/               combat maps as levels of voxel pieces (Docs/LEVELS.md, its scripts in full)
+    VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove()
+    LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle or an edge), a turn
+    PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres)
     LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
-    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows), palette (BLOOD 255); remove_many(),
-                       recolor(), lay_bare() (dug ground as earth), counts; ChunkMesher.gd (faces by shape, none hidden)
-    LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader);
-                       collision a trimesh a chunk, streamed; SceneryRenderer.gd (a MultiMesh a kind a region)
-    LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
-  Terrain/
-    TerrainDestruction.gd  breaks struck and blasted pieces (break_piece(), break_block()), drops what they held and
-                           edge pieces and stacks left on nothing, drops stranded units, throws a
-                           blast's debris about, tidies debris; block_broken(cell, destruction); make_piece() /
-                           pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries); hands a
-                           breaking block's blood on to what it becomes (_break, _on_landed, _pieces_since());
-                           break_figure() (a dying unit's figure into lumps, knocked by the killing blow:
-                           FIGURE_*, _figure_knock()), _drop_gear() (its props whole, as pieces that wear)
-    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); prepare() (as a map loads);
-                           mass; coin_chance; Motion
-    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear (then each piece
-                           wears away as a loose model from the first time something reaches it)
+    VoxelVolume.gd     every voxel, 32^3 chunks; ChunkMesher.gd (faces by shape, none hidden)
+    LevelRenderer.gd   draws the volume a chunk at a time, collision a trimesh a chunk; SceneryRenderer.gd
+    LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does)
+  Terrain/             breaking and wearing pieces, and debris (Docs/DESTRUCTION.md, its scripts in full)
+    TerrainDestruction.gd  breaks struck and blasted pieces, drops what they held and units left on nothing;
+                           block_broken; make_piece() / pieces_in(); break_figure() (a dying unit's figure)
+    Destruction.gd         Resource base: how a kind of block comes apart, shatter(); coin_chance
+    ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear
     FallingBlock.gd        a block whose support broke, falling whole until it lands
-    Blast.gd               a burst from a point: impulse by distance and the area a piece shows
-    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time (the second kind), or how a
-                           ScriptedDestruction's pieces wear; collapse_below, voxels_per_damage, crater_per_damage /
-                           crater_radius(), density, crumble_size
-    VoxelShape.gd          one model's voxels, read from its .vox with the importer's reader: a block's (read(), 16^3),
-                           one model of a .vox imported as a scene (read_model(), source_of()) or a mesh imported from
-                           one (read_mesh()), cropped to its voxels; a padded array of palette places, a row of bits
-                           per (y, z) (so at most WIDEST, 62, along x), colors (255 BLOOD's), scale, shared
-    VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D: voxels, palette, texture (Texels),
-                           material (Voxels.gdshader, beside it); take_over(), of(), show_on(), recolor(), paint(),
-                           remove() / rebuild(), split(), frame()
-    VoxelTerrain.gd        made by TerrainDestruction: wears the level's volume: chip() (a round's bite), crater()
-                           (a blast's), _drop_loose() (cut loose, across pieces), holds_up() (cut through),
-                           take_piece() / crumble() / roughen_hole() (a piece breaking, its ragged rim),
-                           is_solid_at(); loose models: take_on_later() (taken on at the first hit), take_on_body(),
-                           tear() (rounds through them), _settle() (split off, crumble); lumps chosen before they are
-                           made (Batch, _scatter()); carry_blood() (a crate's blood on to its pieces);
-                           march() (a ray through a model's voxels)
-    VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear), a node under its RigidBody3D: its
-                           VoxelModel, box collider and mass; passes (the bodies it passes through)
-    VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
-                           add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
-                           (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed;
-                           stain(body, point) (a drop of blood colours the voxel it met)
-    SceneryGround.gd       BoundaryMap's scenery ground plane, with the battlefield's floor cut out of it
-  Blood/
-    Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops the way the blow went; drops (one
-                       MultiMesh) stain the first voxel face they meet and run; a pool under each body once it rests;
-                       landings settled on a budget a physics step; drops_in_flight(), pools_to_come(); static
-                       enabled (the System tab's Blood on / off, read as each map loads)
-    BloodFlow.gd       blood running over voxel faces, cheapest first (downhill cheap, climbing dear, undersides never):
-                       spread(); the Surface it runs over: VolumeSurface (the level's voxels), ModelSurface
+    Blast.gd               a burst from a point
+    VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time
+    VoxelShape.gd          one model's voxels, read from its .vox (Docs/VOXELS.md)
+    VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D (Docs/VOXELS.md)
+    VoxelTerrain.gd        wears the level's volume (chip(), crater()) and the loose models (tear())
+    VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear)
+    VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes
+    SceneryGround.gd       BoundaryMap's scenery ground plane (Docs/LEVELS.md)
+  Blood/               wounds, drops, stains and pools, all for show (Docs/BLOOD.md, its scripts in full)
+    Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops; static enabled
+    BloodFlow.gd       blood running over voxel faces, cheapest first
   Items/
     Item.gd            Resource base: display_name, description, icon, price, sale_price() (half, rounded down),
                        tags / has_tag() (GUN, GRENADE, MELEE, MEDKIT), model (its prop scene); Weapon, Armor,
@@ -179,53 +149,32 @@ vcom/Scripts/
     Medkit.gd          BattleItem: heal (4); never used up, each usable once a battle (Unit.medkits)
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
-  Characters/          the rigged figure every unit wears, and how it is baked
-    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
-                       does, facing, hops, gear in its sockets; lean_out() / lean_back() / leaning / lean_reach()
-                       (out round the end of its cover, standing or on one knee, hunkered or not); hunkered;
-                       reload() (over the arms and head, _act_upper()); use_medkit() (over the left arm,
-                       _act_left(); the medkit from the belt to the hand, or a borrowed one made in it, _borrowed;
-                       given null, pressed to its own middle), attend() (faces and looks at an ally, not idle, until
-                       stand_easy(); given null, keeps its facing and looks down at itself); break_apart() (hides
-                       it once broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); tint /
-                       paint() (its body's colour); voxels() (FigureVoxels), pick_wound(), swing(), gear() (its props'
-                       VoxelModels)
-    FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body (the VoxelModel colouring its baked
-                       mesh); each bone's a part posed as the skeleton is; march() (bones and gear), pick_wound(),
-                       hit_near(), exit(), bleed(); crumble() (the lumps it breaks into)
+  Characters/          the rigged figure every unit wears, and how it is baked (ANIMATIONS.md; its scripts in full in 18)
+    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): its AnimationTree, facing, hops, gear in its
+                       sockets, leaning out, the calls that only show things; break_apart(); tint / paint()
+    FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body, posed bones, pick_wound(), crumble()
     AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
     Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
     BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
-    VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions; LAYOUTS by .vox), per-bone
-                       mesher
-    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree; UPPER_ACTS
-                           (played over ARMS_AND_HEAD alone: the reload), LEFT_ACTS (over LEFT_ARM alone: a medkit)
-    PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them; an
-                           arms-and-head or left-arm clip over a base pose (--over)
-  Roster/
-    Character.gd       Resource: display_name, color, portrait, species / sub_species / main_class / multi_class
-                       (TREES), learned (node ids by SkillSource, one for each time taken), learned_of() /
-                       times_learned() / can_learn() / learn(), skill_effects(), its own stats and total(stat)
-                       (with its skills' bonuses, and armor for defense), combat_gold() (what its skills find
-                       after a battle), wounds / health, total_defense,
-                       experience, skill_points, gain_experience(), equipment slots, hire_cost
+    VoxelRig.gd        the humanoid skeleton, each model's layout (LAYOUTS by .vox), per-bone mesher
+    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree
+    PreviewAnimations.gd   tool: renders clips to images, and a contact sheet of them
+  Roster/              who the characters are (Docs/ROSTER.md, its scripts in full; their trees, Docs/SKILLS.md)
+    Character.gd       Resource: who someone is: name, colour, stats and total(stat), skills learned, wounds,
+                       experience, equipment slots, hire_cost
     Roster.gd          characters in display order
     Species.gd         SkillSource: what someone is born (Human)
     SubSpecies.gd      SkillSource: a kind of one Species (Minor Noble), its species
     CharacterClass.gd  SkillSource: what someone trained as; one tree, as Main Class or Multi-Class
-  Skills/
-    Skill.gd           Resource: one ability, display_name, flavor, icon, levels (a SkillLevel for each time
-                       it can be taken, at most MOST_LEVELS, 5), takes(), level(), describe(); shared by every
-                       tree placing it
-    SkillLevel.gd      Resource: one level of a skill: description (its words), effects (what it adds)
-    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat) and gold_after_combat() (asked
-                       while the level is had), when_taken(character) (done once, as it is learned); nothing
-                       unless a kind says
-    StatBonus.gd       SkillEffect: amount added to one stat (max_health, defense, move_range, aim, ...)
+  Skills/              skills, their levels and effects, the trees placing them (Docs/SKILLS.md, its scripts in full)
+    Skill.gd           Resource: one ability and its levels (at most MOST_LEVELS, 5); shared by every tree placing it
+    SkillLevel.gd      Resource: one level of a skill: its words and its effects
+    SkillEffect.gd     Resource base: one thing a level gives; bonus_to(stat), gold_after_combat(), when_taken()
+    StatBonus.gd       SkillEffect: amount added to one stat
     CombatGold.gd      SkillEffect: amount of gold for the party after a combat fought in and survived
     SkillPointGrant.gd SkillEffect: amount of skill points handed over as the level is taken
-    SkillTreeNode.gd   a place in a tree: id, skill, cell (column, row), requires (ids in the same tree); takes()
-    SkillTree.gd       Resource: nodes; find(), extent(), is_open() (everything it requires learned, once)
+    SkillTreeNode.gd   a place in a tree: id, skill, cell, requires
+    SkillTree.gd       Resource: nodes; find(), extent(), is_open()
     SkillSource.gd     Resource base for whatever gives a character a tree: display_name, tree
   Actions/             UnitAction base (required_tag, is_granted; uses_left() (the count on its button),
                        takes_click_on() (a left click on a squad member as its target, not a selection); for the
@@ -239,24 +188,21 @@ vcom/Scripts/
                        medkit; supplier(): its own uses first, then a squad member's beside it, _lenders())
   UI/                  every HUD widget, built in code
     TabbedMenu.gd      base CanvasLayer for full-window tab menus: dim, styled tabs, open() / close() pause the tree;
-                       LB / RB tabs, LT / RT sub-tabs (_sub_tabs()), the gamepad's prompts along the bottom
-                       (_gamepad_hints(), _accept_hint() over gamepad_hint(focused), _close_hints())
-    AmmoIndicator.gd   HUD node, bottom-right: the selected squad member's magazine, a rectangle a round, filled
-                       while loaded and hollow once fired, edged red when empty; hidden without a magazine
+                       LB / RB tabs, LT / RT sub-tabs (_sub_tabs()), the gamepad's prompts in the strip under
+                       the frame (_gamepad_hints(), _accept_hint() over gamepad_hint(focused), _close_hints())
+    AmmoIndicator.gd   HUD node, bottom-right: the selected squad member's magazine (Docs/AMMO.md)
     ButtonGlyph.gd     a gamepad button drawn from shapes (the font has none): A / B / X / Y, LB ... RT, LS / RS,
-                       L3 / R3, View, Menu, the d-pad's arms; draw_glyph() on any canvas
-    ControlHints.gd    a panel of [buttons, words] rows, a column or a row, shown only with the gamepad
+                       L3 / R3, View, Menu, the d-pad's arms; draw_glyph() on any canvas; any height (24 unless said)
+    ControlHints.gd    a panel of [buttons, words] rows, a column or a row, shown only with the gamepad; compact
+                       (smaller, no box) for the menus' row
     PauseMenu.gd       autoload TabbedMenu: the one menu for both scenes (Campaign, Roster, Inventory, System)
-    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a LocationTab per location of the village the party is in;
-                       enterable() (the village a click or A opens)
+    VillageMenu.gd     TabbedMenu in WorldMap.tscn: a tab per location of the village the party is in (Docs/CAMPAIGN.md)
     SquadMenu.gd       TabbedMenu in WorldMap.tscn, opened by Party.encountered, cannot be closed: one SquadTab
-    SquadTab.gd        its Roster tab: a CharacterBrowser with ticks, a footer of the count and a Start HoldButton;
-                       focus_start() (the gamepad's Menu)
-    LocationTab.gd     placeholder tab for one Location: its description in the middle
-    HiringBoardTab.gd  a HiringBoard's tab: read-only CharacterBrowser of who is for hire, a PurchaseBar
-    MarketTab.gd       a Market's tab: Buy / Sell SubTabs, InventoryTabs over its stock and the party's; a PurchaseBar
-    PurchaseBar.gd     the shop tabs' bottom row: a note, the party's gold, a HoldButton to buy (or sell) the offer;
-                       focus_offer() (where A / Enter on what is offered goes), can_take()
+    SquadTab.gd        its Roster tab: a CharacterBrowser with ticks and a Start HoldButton
+    LocationTab.gd     placeholder tab for one Location
+    HiringBoardTab.gd  a HiringBoard's tab: who is for hire, a PurchaseBar
+    MarketTab.gd       a Market's tab: Buy / Sell, its stock and the party's; a PurchaseBar
+    PurchaseBar.gd     the shop tabs' bottom row: the party's gold, a HoldButton to buy (or sell) the offer
     HoldButton.gd      a button that acts only once held for hold_time (2 s), filling left to right
     CampaignTab.gd     the tab it opens on: a placeholder line, the party's gold bottom-right
     CharacterBrowser.gd strip of CharacterButtons across the top; under it SubTabs of CharacterPages;
@@ -267,20 +213,11 @@ vcom/Scripts/
                        bottom-right
     EquipmentPage.gd   SlotButtons along the top; an ItemBrowser under them to equip into the selected slot
     SlotButton.gd      a slot's name and what is in it
-    SkillsPage.gd      a column per Character.TREES entry (SHARES: widths 1:1:3:3), headed by the character's
-                       SkillSource or the plain title, rebuilt per character; learns a node once it is held;
-                       the selection; arrow keys to the nearest node; the SkillTooltip beside the node under
-                       the mouse or the keyboard, whichever was used last; titles its sub-tab "Skills (N)"
-                       with the character's skill points
-    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell (columns as wide as their
-                       widest, rows as tall as row_heights() says), elbow links to the nodes each requires;
-                       show_learned() restyles both
-    SkillButton.gd     a circle styled locked / available / learned, a ring round it for each time its skill
-                       can be taken again (size_of()); its skill's icon or its rank; held for HOLD_TIME while
-                       learnable, the circle fills like a clock, or once taken the next ring out, and it emits
-                       held; selected (its circle filled a shade lighter)
-    SkillTooltip.gd    the panel beside a node: the skill's name, its flavor, "Current:" the level taken,
-                       "Next:" the level to come; show_skill(skill, taken)
+    SkillsPage.gd      a column per tree, a SkillTreeView each, the trees scrolling under their headings; learns a
+                       node once it is held (Docs/SKILLS.md)
+    SkillTreeView.gd   one SkillSource's tree: a SkillButton on each node's cell, elbow links to what each requires
+    SkillButton.gd     a node: a circle styled locked / available / learned, a ring for each take left
+    SkillTooltip.gd    the panel beside a node: the skill's name, flavor, the level taken and the next
     CharacterButton.gd portrait (or colour swatch) with the name under it; ticked (UI/black_tick.png);
                        activated on a double-click or Enter / Space
     SubTabs.gd         the underlined second-level tab row both tabs above use
@@ -292,46 +229,24 @@ vcom/Scripts/
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
     SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
                        note), Save / Load (not yet), Exit to Desktop
-  WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D)
-    WorldMapCamera.gd  pan / zoom with the combat camera's input actions; the left stick pans, the right zooms;
-                       its limits the map sprite's, behind _has_map(), _map_rect(), _max_zoom() and
-                       _clamp_to_map(point, zoom), which MapCamera overrides
-    MapCamera.gd       WorldMapCamera for Scenes/Map.tscn: all the way out the land just fits (read off the
-                       land's nodes), all the way in the view is closest_view_miles (25) tall, and the view
-                       never leaves what is seen all the way out
+  WorldMap/            the campaign map, Scenes/WorldMap.tscn (2D; Docs/CAMPAIGN.md), and the new map's (Docs/MAP.md)
+    WorldMapCamera.gd  pan / zoom with the combat camera's input actions and the sticks; limits MapCamera overrides
+    MapCamera.gd       WorldMapCamera for Scenes/Map.tscn: the land just fits all the way out, 25 miles all the way in
     MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
-                       (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
-                       factor of the zoom, a few lines a frame, the borders' by a growth of their own too
-                       (border_growth) and the kingdoms' and duchies' fainter closing in (*_border_faintest);
-                       settlements far from the view stopped (in_view);
-                       forests by the size of the whole forest (Forests/Large, Small, Woods), only ever faded
-    MapLine.gdshader   Map.tscn's lines as map symbols: casings (roads, bridges), dashes and dots (borders), a band's
-                       pattern on both banks; a material a kind in Resources/MapLines/, and the line in Texture Mode Tile
-    MapGround.gdshader Map.tscn's land tinted by its biome: one material, Resources/MapGround.tres, each biome's colour
-                       and intensity on it; a county's biome (its kingdom's) set on the county, an instance parameter
-    BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
-                       nothing and back (shown); MapDetail fades only the ranks under them
-    MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
-                       starting_days in the top left as days:hours:minutes; seconds_per_day; advance()
-                       (only the Party calls it, while it moves), elapsed, remaining()
-    MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen and its
-                       prompts (A's words from VillageMenu.enterable() and Party.can_go_to())
+    MapLine.gdshader   Map.tscn's lines as map symbols (casings, dashes, dots, bands); materials in Resources/MapLines/
+    MapGround.gdshader Map.tscn's land tinted by its biome (Resources/MapGround.tres; a county's biome on the county)
+    BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade the borders out and back
+    MapClock.gd        CanvasLayer in Map.tscn: the campaign's time, counted down; advance() while the Party moves
+    MapReticle.gd      CanvasLayer in WorldMap.tscn: the gamepad's reticle in the middle of the screen, its prompts
     WorldMapTerrain.gd is_land() on the baked collider, routes: straight rays, else navmesh pulled straight
     BakeLand.gd        tool: traces WorldMap/<map>LandMask.png into <map>Land.tscn (collider + navmesh)
-    Party.gd           the party dot: sent by any right click, or A at the reticle (no selecting), travels a route
-                       (with no terrain_path, as in Map.tscn, a straight line to anywhere);
-                       is_at(destination); pointed_at(), can_go_to(); L3 centres it;
-                       every step_length map pixels heals the roster by heal_per_step, then rolls a forest's
-                       encounter chance; encountered(map)
-    Forest.gd          Polygon2D (Scenes/Forest.tscn; on Map.tscn its four kinds' scenes, which inherit it): a
-                       forest's outline, encounter_chance per step, encounter_map; find_at() (every forest)
+    Party.gd           the party dot: sent by a right click or A, travels a route; every step_length heals the
+                       roster and rolls a forest's encounter chance; encountered(map)
+    Forest.gd          Polygon2D (Scenes/Forest.tscn, and the new map's four kinds): outline, encounter_chance per
+                       step, encounter_map; find_at()
     GameOver.gd        CanvasLayer: once the roster is empty, pauses, shows "Game Over" in a TurnBanner, quits
-    Destination.gd     a place to send the party (Scenes/Village.tscn; with City, Town and Hamlet.tscn, the
-                       settlements of Map.tscn): icon, hover tooltip listing its locations
-                       (under the pointer: is_under_pointer(), find_under_pointer(); not while paused);
-                       hidden, it stops its _process; out of view (in_view false) it draws nothing too
-    Location.gd        Resource: something to use in a village (Resources/Locations/): display_name,
-                       description, make_tab()
+    Destination.gd     a place to send the party (Village, City, Town and Hamlet.tscn): icon, tooltip of locations
+    Location.gd        Resource: something to use in a village (Resources/Locations/): make_tab()
     HiringBoard.gd     Location: the characters for hire at one village; one .tres per village
     Market.gd          Location: an Inventory of stock for sale at one village; one .tres per village
 ```
@@ -374,73 +289,39 @@ also follows where the unit stands, which a move (and its `changed`) brings. A u
 the harness) carries just its `weapon`, `Rifle.tres` when the scene sets none. Enemies are not gated:
 their AI shoots whatever it carries.
 
-**Strike is a shot at arm's length.** `StrikeAction` is laid out as `ShootAction`: its targets are the
-living enemies next to the unit, as `Tactics.is_next_to()` has it (the AI's point-blank range, so the
-two cannot drift), nearest first; Tab / Shift+Tab cycle them, Enter / Space strikes (or a click, as
-below), Ctrl opens the breakdown, and `ShotOverlay.show_strike()` draws the same line, reticle and
-target panel (its status line reads "Melee" instead of the cover). It costs `StrikeAction.COST` (1, a shot's) and is dimmed
-without an action left or an enemy next to the unit. The odds are `HitChance.for_strike()`, worked out
-once as the target is lined up; `Unit.strike()` rolls them and deals `Unit.melee_weapon`'s damage
-plus the striker's `Unit.strength` through `take_damage()`, so defense comes off that sum as it does
-off a shot's damage. Nothing flies, and the blow touches no terrain. Lining a target up has the
-figure square up to it with its sword out (`Unit.ready_strike()`; a rifleman draws it off his back),
-and `Unit.strike()` is a coroutine: it plays the swing, rolls and deals the damage at the swing's
-`impact` moment (`strike_sword`'s metadata), and returns then, so the result is called as the blade
-lands; `StrikeAction` then awaits `Unit.recover()`, the follow-through, before it completes. It is
-busy throughout, so a kill that wins the battle finds the action mid-play and leaves it to be put
-away as it completes.
+**A shot or a strike is lined up, confirmed, then settled as it is fired.** `ShootAction` lines up a
+target `LineOfSight.find_shots()` finds and works out its odds once (`HitChance.for_shot()`); Enter /
+Space, a click on the target (either button) or the target panel's tick takes the shot, and a click on
+another target only lines that one up, so nothing is ever taken at odds the player has not been shown.
+`StrikeAction` is laid out the same way at arm's length: its targets are the living enemies next to
+the unit, as `Tactics.is_next_to()` has it, its odds `HitChance.for_strike()`, and `Unit.strike()`
+lands the melee weapon's damage plus the striker's `Unit.strength` at the swing's `impact`, touching
+no terrain. `Unit.shoot_at(shot, chance, grid, show_rounds)` has the figure take aim, spends a round,
+rolls, and asks `Ballistics` for the round's `Path` (the sight line for a hit; for a miss, XCOM 2's
+placement round the target or on its cover, traced with `CombatGrid.cast()`); it awaits `show_rounds`,
+the tracer, and only then damages the target and reports any terrain struck (`terrain_struck`). It is
+a coroutine: always `await` it. Shots not taken from the action bar, reaction fire and the enemies',
+play through `ShotPlayback`. A target is also seen on a tile it could lean out to (XCOM 2's rule:
+`LineOfSight.lean_tiles()`), tried only when no firing position sees its own tile; such a shot has
+`Shot.leaning` and `Shot.seen_at`, keeps the target's own cover, and is flown, hit and missed where it
+leans, and the target's figure leans out there for it (`Unit.lean_out()`) while the unit stays on its
+tile. `Docs/SHOOTING.md` has the rest: the clicks, the tick and the hand cursor, how a miss is placed,
+the figure leaning out and hit out there, the harness's lanes for it, its gaps and what was decided
+without asking the user. Read it before touching sight, shots or strikes.
 
-**A shot or a strike is confirmed by a key, a click on the target, or the panel's tick.** Enter / Space
-is as it was. `ShootAction` and `StrikeAction` also read a click on a unit, with either button
-(`UnitAction.clicked_unit()`, over `is_click()`: left, `select_unit`, as the squad is selected;
-right, `execute_action`, as Move is carried out), which reaches them through `handle_input()` once
-`ActionController` has let clicks on the squad go to `PlayerSquad`. A click on the target lined up
-fires or strikes; a click on another target only lines it up (`_click()`), so nothing is ever taken
-at odds the player has not been shown; a click on anything else is left alone. While either is up,
-the cursor is a hand over any of its targets (`UnitAction.hovered_unit()`, `point_at_target()`,
-checked every frame, as the camera moves under a still mouse): `Input.set_default_cursor_shape()`
-is set only when it changes, since setting it sends a mouse motion of its own, and is put back to
-the arrow as the action ends, as the tree pauses and as it leaves the tree. The target panel
-(`TargetPanel`) has a tick box beside the chance, the roster's `UI/black_tick.png` on a pale box
-filled with the menus' accent under the mouse, shown only when `ShotOverlay.show_shot()` /
-`show_strike()` are told `confirmable`, which only the two actions say: reaction fire playing out
-through `ShotPlayback` shows the panel without it. Clicking it emits `TargetPanel.confirmed`, passed
-on as `ShotOverlay.confirmed`, which both actions listen to; the one active and not busy takes its
-shot or strike. The box never takes the keyboard (`FOCUS_NONE`), or Space would press it as well as
-reach the action, and the rest of the panel lets the mouse through, so a target under it can still
-be clicked. Three calls were made without asking the user: both mouse buttons, a click on another
-target lining it up rather than firing, and the hand cursor. With the gamepad the box gives way to an
-A (`TargetPanel._confirm_glyph`, swapped on `InputDevice.changed`), which A, being `confirm_action`,
-already did.
-
-**A throw is planned, then flown.** `ThrowGrenadeAction` aims with the mouse, as Move previews: it
-follows the tile under the cursor every frame (`ActionController.pointed_tile()`, the tile cursor's
-with the gamepad, where A throws), and a click with either button
-(`UnitAction.is_click()`, as a shot's target is clicked; the left as well as the right at the user's
-request) or Enter / Space throws there; there are no targets to Tab through. A left click on a
-squad member's figure is the one click it never sees: `ActionController` hands it to `PlayerSquad`,
-which selects them, as during any action, so a throw at a tile a squad member stands on is a right
-click or the keys. `begin()` works out every throw the unit can make
-(`Throwing.throws_for()`: tiles within `Throwing.RANGE` whose arc is clear, about 16 ms on
-BoundaryMap) and tints them (`throw_range`); the tile under the cursor gets the `throw_blast` layer and
-`ShotOverlay.show_throw()`: the arc's points, a cross where a blocked arc stops, and an outlined
-bracket with the damage (`Unit.damage_from()`) on everyone `Throwing.caught()` names, gold on the
-squad. A `Throwing.Throw` is a parabola from `RELEASE_HEIGHT` over the thrower's floor to the centre of
-the target tile's lower cell, rising `ARC_RISE` per tile (at least `ARC_MIN_HEIGHT`) above the straight
-line, cut into `TRACE_STEP` pieces each cast through the grid with `CombatGrid.cast()`; the first solid
-cell any piece meets blocks it, and `points` then ends there. Those constants decide what a throw
-gets over (half cover in front of the target from the full range, the thrower's own full cover; never
-the tile right behind full cover), so check them with a probe if they change. The throw costs
-`ThrowGrenadeAction.COST` (1) and goes through `Unit.throw_at()`. While the action is up the figure
-holds a grenade ready, turned to the tile under the cursor (`Unit.ready_throw()`). The throw winds up
-and lets go at its `release` moment, where the grenade is used up as it leaves the hand; `_fly` gets
-where the hand was and shows a `ThrownGrenade` from there, easing on to the arc in its first
-`EASE_IN` of the flight (timed as a fall under `ThrownGrenade.GRAVITY`), and an `Explosion` where it
-goes off, and the blast lands as the grenade arrives: `take_damage()` on
-everyone caught, then `CombatGrid.blast()` with the cube's cells. Results are called together
-(`ShotOverlay.flash_results()`, over the heads). The action stays busy `AFTERMATH_SECONDS` and until no
-unit is moving, so anyone the blast dropped has landed before the next throw is worked out. The
-3D effects go under `effects_path`, the map root.
+**A throw is planned, then flown.** `ThrowGrenadeAction` aims at the tile under the pointer
+(`ActionController.pointed_tile()`, the tile cursor's with the gamepad) and throws there on a click
+with either button, Enter / Space or A; `begin()` plans every throw the unit can make
+(`Throwing.throws_for()`) and tints them, and the tile under the pointer shows its arc and whom the
+blast would catch. A `Throwing.Throw` is a parabola from over the thrower's head to the target tile's
+lower cell, cut into pieces each cast through the grid with `CombatGrid.cast()`; the first solid cell
+any piece meets blocks it, and its constants (`RELEASE_HEIGHT`, `ARC_RISE`, `ARC_MIN_HEIGHT`,
+`TRACE_STEP`) decide what a throw gets over, so check them with a probe if they change.
+`Unit.throw_at(throw, grid, show_flight)` uses the grenade up as it leaves the hand, at the throw's
+`release`, and the blast lands as the grenade arrives: `take_damage()` on everyone `Throwing.caught()`
+names, then `CombatGrid.blast()` with the cube's cells. `Docs/GRENADES.md` has the rest: the clicks,
+the preview, the flight and the explosion, what the action waits out, how to probe a throw, and its
+gaps.
 
 **A medkit heals an ally next to the unit, or the unit itself, once a battle for each one carried,
 and the squad members beside its carrier can draw on its uses.** `Medkit.tres` is a `Medkit`
@@ -458,62 +339,28 @@ borrowing, how to probe it, its gaps and what was decided without asking the use
 touching the medkit.
 
 **Hunkering down is a state on the unit that one term of the hit chance reads.** `HunkerDownAction`
-needs no item, so every unit has it, but it is only available in cover (`HunkerDownAction.is_in_cover()`:
-`LineOfSight.cover_at()` of the unit's tile not empty, any side, either height), with an action left
-and not hunkered already; out of cover its button is dimmed. Like Overwatch it shows nothing on the map
-while it is up, and Enter / Space spends `HunkerDownAction.COST` (1, the user's call, in place of
-the rest of the turn it first took) and sets `Unit.hunkered`. The unit carries on with its turn;
-shooting, striking, throwing and overwatch leave it hunkered. Moving ends it, also the user's call:
-`Unit.start_walk()` clears it for every walk but one that keeps its facing, which is only ever a
-step out of cover to shoot and back (`ShootAction`, `ShotPlayback`), and `Unit.drop_to()` clears it
-too, since falling when the ground goes is moving (assumed, not asked). So the rule is in `Unit`,
-where every move goes through, not in `MoveAction`, and a new kind of walk that should not stand a
-unit up has to keep its facing or say so there. `Unit.start_turn()` clears it as well, as it does
-overwatch, and a squad member's turn starts with the player's, so short of a move it lasts through
-the enemies' turn until the player's next. While it holds, `HitChance.for_shot()` adds a
-**Hunkered** term of `-HitChance.HUNKER` (20) just after **Cover**, whenever `Shot.cover` is not
-`NONE` (`HitChance.hunker_penalty()`): flanked, or with its cover shot away, a hunkered unit gets
-nothing for it. Every shot is lined up through `for_shot()` (the action bar's, reaction fire, the
-AI's `Tactics`), so it counts everywhere, and the assault AI's best odds steer it to a target that
-is not hunkered. Two calls were made without asking the user: melee counts no cover, so
-`for_strike()` counts no hunkering either (no enemy strikes yet); and nothing is drawn on the map
-while it is lined up. With nothing to Tab through and nothing to repeat, the action is put away once
-taken, as any action no longer available is, so the player picks the next one from the bar. It is
-seen two ways: `Unit.hunkered` sets `CharacterModel.hunkered`, which holds `hunker_<stance>` over
-every base pose but a readied one (so the figure ducks low behind cover of either height, on
-overwatch too, rises to aim a shot and ducks again, and still cheers a win) and a lean out of its
-cover: a shot that sees it only leaning out is aimed where it leans, so the figure leans out there
-for it, hunkered or not, and ducks again once it draws back (decided in the merge, not asked; the
-sight rule is untouched, so hunkering never hides a unit), and `UnitCard` shows a
-`HunkerBadge`, a blue shield over its portrait's corner, rather than another pip, which would widen
-the card.
+(every unit's, for `HunkerDownAction.COST`, 1, and available only in cover:
+`HunkerDownAction.is_in_cover()`) sets `Unit.hunkered`, and while it holds `HitChance.for_shot()` adds
+a **Hunkered** term of `-HitChance.HUNKER` (20) just after **Cover**, whenever `Shot.cover` is not
+`NONE` (`HitChance.hunker_penalty()`). Moving ends it, and that rule is in `Unit`, where every move
+goes through: `Unit.start_walk()` clears it for every walk but one that keeps its facing, which is
+only ever a step out of cover to shoot and back, and `Unit.drop_to()` clears it too, so a new kind of
+walk that should not stand a unit up has to keep its facing or say so there. `Unit.start_turn()`
+clears it as well, so short of a move it lasts until the player's next turn. `Docs/HUNKER.md` has the
+rest: what the action shows and does, the figure ducking and the card's badge, its gaps and what was
+decided without asking the user.
 
 **A gun counts its rounds, and the unit holds them.** A `Weapon` has a `magazine` (shots, 5 for the
-Rifle; 0 for a gun that never runs dry) and a `reload` (actions, 1 for the Rifle), both the user's
-names for them; `has_magazine()` is a gun with one. The weapon stays a stateless shared resource: the
-rounds left are `Unit.rounds`, filled to `magazine_size()` in `Unit._ready()`, so every battle starts
-full and nothing is kept on the character (the user's call). `Unit.shoot_at()` takes one off as the
-trigger is pulled, after the aim and before the roll, so every shot spends a round, hit or miss, the
-squad's, the enemies' and reaction fire alike, and a magazine never goes below empty. Nothing lines a
-shot up without a round: `Unit.can_fire()` (a round left, or a gun with no magazine) is asked by
-`ShootAction.is_available()`, `OverwatchAction.is_available()`, `Reactions._find_offers()` and
-`Tactics.shots_at()`, so an empty gun gets no Shoot, no Overwatch, no reaction prompt and no AI shot.
-`ReloadAction` is offered to a gun with a magazine (`is_granted`) and available while
-`Unit.can_reload()` (rounds short of full) with `reload_cost()` actions left, dimmed otherwise (the
-user's: "when the magazine is full, the action is disabled"). Like Hunker Down it marks nothing on the
-map; Enter / Space or A spends the cost and plays `Unit.reload()`, a coroutine that awaits the figure's
-`CharacterModel.reload()` and fills the magazine at the clip's `seat` moment, then waits out the clip
-(`Unit.recover()`) before completing; full again, it is put away. Nothing is called over the unit's
-head: a "Reloaded" call came first and was taken out at the user's request, the animation being
-enough for now. Enemies have magazines too (the
-user's call): the assault AI reloads first when empty (`Tactics.reload(true)`), and with nothing to
-shoot and nowhere nearer to go tops up a part-spent one (`Tactics.reload()`) before ending its turn;
-`TurnManager` carries an `AIAction.Kind.RELOAD` out as the action does.
-`AmmoIndicator`, a HUD node in each map, draws the selected squad member's magazine in the
-bottom-right corner, following `PlayerSquad.selection_changed` and the unit's `rounds_changed`;
-`ActionController._place_hints()` stands the gamepad's prompt column on top of it while it shows (the
-user's choice of corner). The action bar refreshes on the controller's `changed`, as for actions: a
-round spent through an action, or on the enemies' turn, is caught then.
+Rifle; 0 for a gun that never runs dry) and a `reload` (actions, 1 for the Rifle); the weapon stays a
+stateless shared resource, and the rounds left are `Unit.rounds`, filled as the unit enters the map,
+so every battle starts full and nothing is kept on the character. `Unit.shoot_at()` takes one off as
+the trigger is pulled, and nothing lines a shot up without a round: `Unit.can_fire()` is asked by
+Shoot, Overwatch, `Reactions` and the AI's `Tactics`. `ReloadAction` (a gun with a magazine; dimmed
+while it is full) plays `Unit.reload()`, which fills it at the clip's `seat`. Enemies reload too, the
+assault AI when empty or with nothing else to do, and `TurnManager` carries an `AIAction.Kind.RELOAD`
+out as the action does. `AmmoIndicator`, a HUD node in each map, draws the selected squad member's
+magazine. `Docs/AMMO.md` has the rest: the action, the AI's reloads, the indicator and the gamepad's
+prompts above it, how to probe it, its gaps and the user's calls.
 
 **Highlights are named layers.** `TileHighlights.set_layer(name, {tile: Color}, fill)` — each caller
 owns a layer, last set draws on top. Current layers: `selected`, `move`, `move_path`,
@@ -543,14 +390,11 @@ is `cancel_action`, and the open menu closes on either. Opening sets `get_tree()
 `PROCESS_MODE_ALWAYS`. A tab is any `Control` added to `PauseMenu.tabs`, titled by its node name.
 The menu refills its tabs from `Campaign` each time it opens (`_refresh()`), so it never holds state of its own.
 
-Its frame is `TabbedMenu`, which the world map's **`VillageMenu`** shares. A left click (`select_unit`)
-on the icon of the `Destination` the party stands on (`Party.is_at()`: a trip there ends exactly on its
-position) opens it with one tab per entry in that destination's `locations`, rebuilt each time, titled by
-`Location.display_name`; a destination with none does not open. It is in the scene, so it sees Esc
-(`cancel_action`) before the pause menu and takes it, and the gamepad's `Menu` too, which closes it
-rather than open the pause menu over it. Being `PROCESS_MODE_ALWAYS` like every menu, it opens on
-nothing while the tree is paused, or A on the pause menu's tab row would open it underneath. Down
-from either menu's tabs goes to the open tab's `focus_selection()` when it has one.
+Its frame is `TabbedMenu`, which the world map's `VillageMenu` and `SquadMenu` share
+(`Docs/CAMPAIGN.md`). Being in the scene, they see Esc (`cancel_action`) and the gamepad's `Menu`
+before the pause menu does, and take them; being `PROCESS_MODE_ALWAYS` like every menu, the village
+menu opens on nothing while the tree is paused, or A on the pause menu's tab row would open it
+underneath. Down from a menu's tabs goes to the open tab's `focus_selection()` when it has one.
 
 **The gamepad plays everything, and the screen says how.** `InputDevice` (the autoload
 `InputDevices`, first of the three so it is there when the pause menu's widgets ready) watches every
@@ -570,333 +414,91 @@ something, in a menu. `Docs/GAMEPAD.md` has the rest: every binding, how the cur
 each prompt's words come from, what the HUD swaps for a glyph, how to probe the pad headless, its
 gaps and what was decided without asking the user. Read it before touching input.
 
-**The new world map is a scene of Godot's own nodes, written once by program and changed by hand
-from then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44
-duchies, 220 counties; `MapCreation/` holds the pictures and data it was made from). The game does
-not use it yet: `WorldMap.tscn` is still the main scene. A unit is 100 m, and pixel (x, y) of the
-`MapCreation/` pictures is at ((x + 0.5) * 3.35, (y + 0.5) * 3.35). Its tree is its drawing order:
-`Sea`, `Coast`, `Land`, `Forests`, `Borders`, `Lakes`, `Rivers`, `Channels`, `BordersOverLakes`,
-`Roads`, `Bridges`, `Settlements`, `Party`, `Clock`, `Camera`, `MapReticle`, `VillageMenu`,
-`SquadMenu`, `GameOver`, `BorderSwitch`, `Detail`. Its settlements are `Destination`s, some 2,000
-villages and hamlets among them, its party the old map's, with a clock and a speed that are the
-user's, and its camera's limits are the user's. Its forests, about half the land at each biome's
-share (the user's), are 2,459 `Forest` pieces cut by county and kind, each an instance of
-`Scenes/ConiferForest.tscn`, `BroadleafForest.tscn`, `TropicalForest.tscn` or `SwampForest.tscn`,
-which inherit `Forest.tscn` and set only a colour, so the party is set upon in them as in the old
-map's forest. A `Polygon2D` draws no holes, so a clearing is joined to its piece's outline by a cut
-of no width, there and back, and every piece is cut into triangles as it is made, as Godot will cut
-it (`MapCreation/Scripts/scene/godotcut.py`), since Godot draws nothing of one it cannot cut.
-`Detail`, a `MapDetail`, is its level of detail: four tiers by the view's height in miles, the
-user's (Realm; Kingdom under 480; Duchy under 240; County under 100, hamlets under 50), faded by
-`modulate`, every line's width scaled by one factor of the zoom (the borders' less, and fainter closing
-in), a few lines a frame. A new layer
-that should come and go by the zoom goes in `MapDetail.SHOWN_FROM`; one of lines or polygons is
-only ever faded, never hidden, since a `Line2D` shown again is built again and a `Polygon2D` cut into
-triangles again (only the settlements are hidden outright, and stop their work, as do those far
-from the view). Things that share an edge have the same points, each its own copy (two counties and
-their border's line; a county and its `CoastOfCounty...`; a border along a river and its
-`...Along...` line; a county and the forest pieces along its border and coast), so a hand edit
-moves the copies too. The villages and the forests are made by `MapCreation/Scripts/villages/` and
-`forests/` and spliced in by their `..._splice.py`; spliced again they are made afresh, and a hand edit
-to one is lost. `MapCreation/Scripts/scene/m2_scene.gd`, which wrote the scene, now writes only the
-villages and the forests alone, in the map's look, for those splices: its whole-scene part, which would
-write the scene afresh in the old look, was taken out (git keeps it, at d8b5ec7). `Docs/MAP.md` has all
-of it (settlements, party, clock, camera, look, forests, level of detail) and why; read it before touching the
-map. `README.md`, "The new world map", has the decisions and what each node holds.
+**The new world map is a scene of Godot's own nodes, written once by program and changed by hand from
+then on.** `Scenes/Map.tscn` is the island the campaign is moving to (nine kingdoms, 44 duchies, 220
+counties; `MapCreation/` holds the pictures and data it was made from). The game does not use it yet:
+`WorldMap.tscn` is still the main scene. A unit is 100 m. Its tree is its drawing order; its
+settlements are `Destination`s, its party the old map's, and its forests 2,459 `Forest` pieces, each
+an instance of its kind's scene, which inherits `Forest.tscn`. `Detail`, a `MapDetail`, is its level
+of detail: four tiers by the view's height in miles, the user's. A layer of lines or polygons that
+comes and goes by the zoom (`MapDetail.SHOWN_FROM`) is only ever faded, never hidden, since a `Line2D`
+shown again is built again and a `Polygon2D` cut into triangles again. Things that share an edge have
+the same points, each its own copy, so a hand edit moves the copies too. The villages and the forests
+are made by `MapCreation/Scripts/villages/` and `forests/` and spliced in by their `..._splice.py`;
+spliced again they are made afresh, and a hand edit to one is lost.
+`MapCreation/Scripts/scene/m2_scene.gd` now writes only those, its whole-scene part, which would write
+the scene afresh in the old look, having been taken out (git keeps it, at d8b5ec7). `Docs/MAP.md` has
+all of it (settlements, party, clock, camera, look, forests, level of detail, its scripts, how to
+probe it, its gaps) and why; read it before touching the map. `README.md`, "The new world map", has
+the decisions and what each node holds.
 
-**Forests are shapes where the party may be set upon.** On the old map each is an instance of
-`Scenes/Forest.tscn`, a light-green, half-transparent `Polygon2D` drawn in the editor, under
-`WorldMap.tscn`'s `Forests` node, in world coordinates like the destinations (not under the rotated
-`Map`). Its outline is its `polygon`, reshaped with the editor's polygon tools and saved as an
-override on that instance; the colour is set once in `Forest.tscn`. `Forests` sits before
-`Destinations` and `Party` so they draw on top. The new map's were made by program (above), each
-piece an instance of its kind's scene, which inherits `Forest.tscn`: its odds and its battle are
-both maps' at once.
+**The campaign is a world map the party travels, set upon in its forests and fighting on a battle
+scene.** The party counts its travel in steps of `Party.step_length` map pixels; each step heals the
+roster (`Campaign.heal(heal_per_step)`) and rolls the `encounter_chance` of the `Forest` it is in
+(`Forest.find_at()`; a forest is a `Polygon2D` drawn in the editor, an instance of
+`Scenes/Forest.tscn`). On a success it emits `encountered(encounter_map)`, which opens the
+`SquadMenu`, a `TabbedMenu` that cannot be closed, over the paused map: the player ticks up to
+`Campaign.SQUAD_SIZE` (4) of the roster, and holding Start calls `Campaign.start_battle(map, chosen)`.
+That takes the world map's scene out of the tree without freeing it and makes a fresh battle scene
+current, the swap deferred to the end of the frame; as `TurnManager` decides the battle, won or lost,
+`Campaign.end_battle()` frees it and puts the same map node back, and the map's `GameOver` ends the
+game if the roster is empty. Nothing on the map is saved or restored: its `_ready`s do not run again,
+so anything on it that must notice a battle has passed sees only `_exit_tree` / `_enter_tree`. A
+battle opened on its own (F6, the harness) has nothing to go back to. A left click on the
+`Destination` the party stands on opens its `VillageMenu`, a tab per `Location`. A `Location` is a
+stateless `.tres` like an `Item`, whose `make_tab()` gives its tab (`HiringBoard`, `Market`); what
+changes in play lives in `Campaign`, keyed by the resource, and the resource is never changed.
+`Docs/CAMPAIGN.md` has the rest: travel and encounters, the squad menu, the defeat and Game Over, the
+village menu, the hiring boards, markets and selling, the old map's land and its traps, how to probe
+it and its gaps. Read it before touching the campaign's flow, the world map's menus or a location.
 
-**Random encounters are rolled per step and fought on a battle scene.** The party counts the
-distance it travels in steps of `Party.step_length` map pixels; at the end of each it asks
-`Forest.find_at()` which forest it is in (the one drawn on top where they overlap) and rolls that
-forest's `encounter_chance`, a percentage per step. On a success it emits `encountered(encounter_map)`,
-which opens the map's `SquadMenu` (see below) over the paused map; holding its Start calls
-`Campaign.start_battle(map, chosen)`, which takes the world map's scene out of the tree, without freeing it, and makes a fresh instance of the
-battle scene (`BoundaryMap.tscn`, the `encounter_map` every forest gets from `Forest.tscn`) the current scene; the swap is deferred to the end of the
-frame. `TurnManager` listens to every enemy's and squad member's `died`, and once either side is gone
-it sets `outcome` (`WON` / `LOST`), disables the `ActionController`, announces "Victory" or "Defeat"
-and calls `Campaign.end_battle()`, which frees the battle and puts the same world map node back. A
-defeat goes back to the map like a win. If it killed the last of the roster, the map's `GameOver`
-layer sees the empty roster on its first frame back: it pauses the tree, shows "Game Over" in its own
-`TurnBanner` (laid out as the combat HUD's, over the menus at `TabbedMenu.LAYER + 1`, running through
-the pause), and quits on the banner's `fading` signal, the moment its fade-out starts.
-Nothing on the map is saved or restored: its `_ready`s do not run
-again, so the party is on the spot it was set upon, still on its route, and the camera is where it was.
-Anything on the map that must notice a battle has passed (the navigation map re-registering, for one)
-sees only `_exit_tree` / `_enter_tree`. `WorldMap.tscn` is the main scene; a battle opened on its own (F6, the harness) has
-nothing to go back to, so it is left over and idle after "Victory".
+**Squad units are roster characters, spawned for each battle; items are shared resources and the
+inventory is state.** A `Character` (`Resources/Characters/*.tres`) is who someone is between battles,
+and `Campaign.roster` is a copy of `Resources/StartingRoster.tres` whose list is its own but whose
+characters are the loaded `.tres`. Unlike an `Item`, a character is state and changes in play: nothing
+writes it back to disk, and save/load will need to store it. A combat map has no squad of its own:
+`PlayerSquad` spawns a `Scenes/SquadUnit.tscn` on each of its `SquadStart` markers for the characters
+`Campaign.squad()` sends, in roster order, setting `Unit.character` before it adds the unit. The unit
+takes its character's name, colour and stats once, as it enters the map, each through
+`Character.total(stat)` (their own, plus what their skills add and, for defense, their armor's): the
+rules read the unit, never the character. What happens in battle goes back as it happens, through
+`PlayerSquad`: health to `Character.wounds`, a thrown grenade off the character for good
+(`Campaign.use_up()`), a death off the roster (`Campaign.lose()`, their gear back to the inventory).
+Experience only goes up through `Character.gain_experience()`, every 100 a skill point; surviving a
+battle is the one way to earn it so far (`PlayerSquad.award_survivors()`, which also adds the gold the
+survivors' skills find). An `Item` (`Weapon`, `Armor`, `BattleItem`) is a stateless `.tres`, the same
+`Rifle.tres` for every unit and the inventory, whose `tags` say what sort of thing it is; how many the
+party holds is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres`:
+change that copy, never the `.tres`. Every item is in the inventory or in one of a character's six
+slots, never both, so equipment changes only through `Campaign.equip()` / `unequip()`, which refuse
+during a battle (`Campaign.in_mission`). `Docs/ROSTER.md` has the rest: the stats a unit takes and how
+to add one, wounds and deaths, experience and the gold a battle pays, the slots and which item a unit
+uses, items and the inventory, the Roster tab, how to probe them and their gaps. Read it before
+touching characters, equipment or items.
 
-**Who fights is chosen as the battle starts, on a menu that cannot be closed.** `SquadMenu` is a
-`TabbedMenu` in `WorldMap.tscn` that `Party.encountered` opens (a party is its `party_path`). Its one tab,
-titled Roster, is a `SquadTab`: the pause menu's `CharacterBrowser` over `Campaign.roster` (pages and
-equipment work as there, the battle not having begun) above a footer laid out as `PurchaseBar`'s, the
-hint and count on the left and a "Start" `HoldButton` on the right. A `CharacterButton` emits `activated`
-on a double-click (seen in its `_gui_input`, which runs before the button's own) or Enter / Space;
-`CharacterBrowser` passes it on as `character_activated`, and the tab toggles that character's tick, up
-to `Campaign.SQUAD_SIZE` (4), refusing another at the cap. A single click only changes whose pages show.
-Start is greyed out with nobody ticked. It opens on `Campaign.squad()`, which is whoever was chosen
-last and is still on the roster (the first four before any battle, or after a whole squad fell), and
-Start passes the ticks to `Campaign.start_battle(map, chosen)`, which keeps them for the battle's
-`PlayerSquad` and the next menu. It swallows Esc (`cancel_action` and `pause_menu`, the same key) so
-the pause menu, which sees it after the scene, does not open over it, and the gamepad's `B`; the
-gamepad's `Menu` takes the keyboard to Start (`SquadTab.focus_start()`). Closing it on Start unpauses the
-tree, and the deferred swap takes the map out of it before it moves again. Mouse input pushed into a
-headless probe does not reach the GUI (see Gotchas): drive this menu's clicks in a windowed run.
-
-**Locations are data; their tabs are what they do.** A `Location` is a stateless `.tres` like an
-`Item`, and `make_tab()` gives its tab: a placeholder `LocationTab` unless a subclass overrides it. A
-new kind of location is a `Location` subclass plus its tab, as `HiringBoard` + `HiringBoardTab` and
-`Market` + `MarketTab`. A kind whose content differs has a `.tres` per village
-(`Village1HiringBoard.tres`, `Village1Market.tres`); one the same everywhere could be one shared
-`.tres`. What changes in play lives in `Campaign`, keyed by the resource, and the resource is never
-changed:
-
-- `Campaign.for_hire(board)` copies the board's `characters` the first time it is asked;
-  `Campaign.hire(board, character)` spends `Character.hire_cost` and moves them to the end of
-  `Campaign.roster`. A character belongs on one board only.
-- `Campaign.stock_of(market)` is a `duplicate_deep()` of the market's `stock` `Inventory`, made the
-  first time it is asked; `Campaign.buy(market, item)` spends `Item.price` and moves one from it to
-  `Campaign.inventory`. Prices are on the items, the same in every market; stock counts are in the
-  market's `.tres`.
-- `Campaign.sell(item)` takes one from `Campaign.inventory` for good and adds `Item.sale_price()`
-  (half the price, rounded down, so a 1-gold item fetches nothing) to the gold. No market keeps what
-  it buys, so it names none. Equipped items are not in the inventory, so they cannot be sold.
-
-The two shop tabs look like the pause menu's tab they mirror: the Hiring Board is the Roster tab's
-`CharacterBrowser` made read-only (`CharacterPage.read_only`: the Equipment page shows just the slots)
-over who is for hire, and the Market is two `InventoryTab`s under Buy / Sell `SubTabs`, one over the
-stock and one over the party's inventory. Both end in a `PurchaseBar` (one under both of the Market's
-sides) whose `HoldButton` buys the selected offer, or on Sell sells it, once held for 2 seconds by
-mouse or Enter / Space. A sale is never greyed out for want of gold. It
-emits `held`, never acts on a click, and empties the moment it is full, then stays empty until it is
-let go and pressed again: one purchase per press, so holding on never buys a second, nor the next
-item or character that comes up. The bar rechecks the party's gold whenever it is shown, since the
-other tab may have spent some.
-
-**Items are shared resources, the inventory is state.** An `Item` (`Weapon`, `BattleItem`) is a
-stateless `.tres`: the same `Rifle.tres` is what units shoot with and what the
-inventory lists. Its `tags` (`StringName`s, the ones the rules read as constants on `Item`) say what
-sort of thing it is, finer than its class: `Rifle.tres` is tagged `gun`, `FragGrenade.tres` (a
-`Grenade`, the `BattleItem` that carries its blast: 5 damage, 3 tiles across) `grenade`, `Shortsword.tres` `melee` (a `Weapon` that is not a gun, so it gives Strike rather than Shoot), `Medkit.tres` (a `Medkit`, the `BattleItem` that carries its `heal`) `medkit`. A new gun is a `Weapon` `.tres` tagged `gun`, and gets Shoot and Overwatch with no code. How many the party holds lives in `ItemStack`s in an `Inventory`, and the live one
-is `Campaign.inventory`, a `duplicate_deep()` of `Resources/StartingInventory.tres` (its stacks are
-copied, its items are not). Change that copy, never the `.tres`. A new kind of item is an `Item`
-subclass plus an `ItemBrowser` sub-tab over `inventory.stacks_of(ThatKind)` in `InventoryTab`, which
-gives it a sub-tab on both sides of every market too.
-
-**Squad units are roster characters, spawned for each battle.** A `Character`
-(`Resources/Characters/*.tres`) is who someone is between battles. `Campaign.roster` is a copy of
-`Resources/StartingRoster.tres` whose list is its own but whose characters are the loaded `.tres`. A
-combat map has no squad of its own: it has `SquadStart` markers under a `SquadStarts` node, and
-`PlayerSquad` (its `starts_path`) spawns a `Scenes/SquadUnit.tscn` (a `Unit` in `players` with a
-`Model`) on the tile under each, for each character `Campaign.squad(markers.size())` sends: those
-chosen on the `SquadMenu`, in roster order. It sets `Unit.character` before adding the unit, then
-gathers `players`, so the squad
-panel, the reaction keys and everything else reading `PlayerSquad.members` follow roster order. It
-does this in its own `_ready`, which runs after `CombatGrid`'s (for `tile_at`) and before anything that
-reads the members. A marker's order among its siblings is its number; in the editor it draws an orange
-square on the tile it counts as over, and nothing in game. So they are linked: a unit takes its
-`display_name`, colour and the character's stats (`max_health`, `defense`, `move_range`, `aim`,
-`melee_accuracy`, `strength`, `evasion`) from its character in `_ready` (painting its figure). Each is `Character.total(stat)`, not the character's own property: their own with
-what their learned skills add (see "Skills are data" below) and, for defense, their armor's
-(`Character.total_defense` is `total(&"defense")`). They are copied once, when
-the unit enters the map: the rules read the unit, never the character. The unit's other stats
-(actions, sight, height bonus, distance penalty) are still its own, set in `SquadUnit.tscn`. A stat
-that should differ per character moves to `Character`, gets copied in `Unit._take_character()` through
-`total()`, gets a row in `DetailsPage.STATS`, and a name in `StatBonus`'s list, so a skill can add to
-it. `Character.experience` (out of `Character.EXPERIENCE_TO_LEVEL`, 100)
-is the character's alone and never copied to the unit. It only goes up through
-`Character.gain_experience()`, where every 100 becomes a `skill_points` and the rest carries over (97 +
-10 is 7 and a point; a big award gives several); any new way to earn experience calls that. So far the
-one way is surviving a battle: as `TurnManager` decides the battle it calls
-`PlayerSquad.award_survivors()`, which gives every member still standing `survival_experience` (50),
-and adds to `Campaign.gold` whatever gold each one's skills find after a combat
-(`Character.combat_gold()`, see "Skills are data" below), emitting `found_gold(unit, gold)`, on
-which `TurnManager` calls "+N Gold" over that unit's head as a coin it picked up would be
-(`ShotOverlay.flash_pickup()`).
-A win also adds `TurnManager.victory_gold` (10) to `Campaign.gold`, at the same moment, and has
-`Coins.sweep()` pay for every coin still lying on the map (see Coins below).
-
-What happens in battle goes the other way, through `PlayerSquad` as it happens, not at the end:
-every change to a member's health is written to `Character.wounds` (health missing, so a character is
-whole by default and stays as hurt if `max_health` grows; `Character.health` is what is left), and a
-unit starts at its character's `health`. A grenade a member throws is gone for good: `Unit.use_up()`
-emits `used_up`, and `PlayerSquad` calls `Campaign.use_up()`, which empties the first slot holding it
-and puts nothing back in the inventory. A member who dies is taken off the roster by
-`Campaign.lose()`, which returns everything they still had equipped to the inventory. Those two are
-the only ways gear leaves a character mid-battle. The gear a dying member is seen to drop on the map
-(see "The dead break apart" below) is only for show: it is in the inventory already. Wounds mend on
-the road: every step the party travels (`Party.step_length`, the same step the encounters are rolled
-on) calls `Campaign.heal(heal_per_step)` (1), which takes that off every roster character's `wounds`,
-down to none, before that step's roll.
-Unlike an `Item`, a character is state and changes in play; nothing writes it back to disk, and
-save/load will need to store it. Enemies and `LineOfSightTest`'s units have no character
-and keep the scene's name and tint; the harness has no `SquadStarts` (`starts_path` is empty), so
-its eight fixed units are its squad and spawn nothing.
-
-**Every unit wears one rigged voxel figure for now.** A unit's `Model` child, squad or enemy, is an
-instance of `Scenes/BaseCharacter.tscn`, which `Scripts/Characters/BakeCharacter.gd` makes from
-`Characters/BaseCharacter.vox`. After editing the `.vox` (or the rig or the animations' scripts) bake
-again: `--headless --path . --script res://Scripts/Characters/BakeCharacter.gd`. It overwrites the scene
-and the two `.res` beside the model, so never edit those by hand or in the editor. The rules never read
-the figure, as they never read debris: shots take a unit's body from `Ballistics`' constants and its
-two cells. Each unit paints its figure one flat colour, its `CharacterModel.tint`, into the palette of
-the `VoxelModel` drawing its body (`FigureVoxels.body`): the scene's for enemies and the harness, the
-character's `color` for the squad (`Unit._paint()` calls `paint()`). The enemies' (set in each combat
-map) is slate grey, `Color(0.32, 0.35, 0.4)`: they were red until blood, which barely showed on them,
-so keep every unit's colour off red. The figure
-shapes the unit's bodies (`Unit._add_bodies()`): an upright cylinder `PICK_RADIUS` round for clicks,
-and the debris capsule as before, as thick as the figure's body; neither turns with it. The click
-body follows the figure out of its tile while it leans out of its cover (`Unit.lean()`, see "A
-target is seen where it leans out" below), so a target is clicked where it is seen.
-
-**The rig is rigid, one bone per voxel.** `VoxelRig` shares the model's voxels out between 18 bones,
-named as Godot's `SkeletonProfileHumanoid` names them, by the layout's regions (boxes in the model's
-own voxel coordinates, first match wins; a voxel in none goes to the nearest joint, with a warning),
-and weights each wholly to its bone, so limbs move as solid blocks and never stretch. Each bone is
-meshed on its own, keeping the faces where two bones meet, so a bent joint shows block ends, not a
-hole. The rest pose is the model as drawn (a T-pose) with every bone unrotated, at 0.063 a voxel, centred on its footprint and stood on its lowest voxel. A new model needs a layout
-(joints in rig voxels: x to the figure's left, y up, z forward) in `VoxelRig` and an entry in
-`VoxelRig.LAYOUTS`, by its `.vox`, or can share `BASE_CHARACTER` if drawn to its proportions. The bake
-reads that table (`BakeCharacter.LAYOUTS` is the same one) and writes the model's path into the figure
-(`CharacterModel.voxel_model`); blood reads the figure's voxels by the two while the game runs
-(`FigureVoxels`), and a model with no entry is drawn in its baked material and never bleeds, with an
-error. Every corner of the baked mesh carries its voxel, so the shader colours it however it is posed.
-
-**Animations are poses written in code and baked.** `HumanoidAnimations` authors all 56 for the rig's
-proportions: a function of time places the feet, the hands and what they hold, and leans the body,
-and two-bone IK solves the limbs between, so a model with other proportions gets animations that fit
-it by baking again. The rifle is held through `rifle_grip` and the rifle scene's `Foregrip` marker:
-these arms reach only 8 voxels to the palm, which is why the aim holds the rifle under the chin and
-the off hand just under the receiver, behind the fore-end. Each is sampled at 30 fps into an `AnimationLibrary`. Every stance
-(`rifle`, `melee`, `unarmed`) has stand, crouch (on one knee behind low cover), wall (up close to
-high cover), a lean out round either end of each of those two (`wall_lean_left` / `_right`,
-`crouch_lean_left` / `_right`: `_wall()` and `_crouch()` with a side), hunker (lower on one knee,
-bent over its weapon, behind either: hunkered down), ready_throw, cheer, run and throw; the rifle has
-aim, overwatch, overwatch_crouch and
-the back / strafe steps a rifleman takes stepping out, still aimed; the sword has ready_melee,
-strike_sword, draw_sword and stow_sword, and reload_rifle, keyed on the arms and head alone so it
-plays over whatever the legs hold; use_medkit and use_medkit_self (the kit held out to an ally, or
-pressed to the figure's own middle) are keyed on the left arm alone, so they play in any stance, the
-right hand keeping its weapon; and there are hop, fall, and the reactions fire_rifle,
-hit_front, hit_back, dodge and land, which key only what they move and are added to the pose. Clips
-carry the moments the game waits on as metadata: `speed` on the runs (5 tiles a second, a stride a
-tile), `impact` on the strike, `release` on the throws, `swap` on the draws, `seat` on the reload,
-`take`, `apply` and `stow` on the medkit's two; and each lean its `reach`, how far out of the
-middle of its tile it puts the head (about 0.7 to 0.76 cells), measured off the pose as it is baked.
-The editor's animation
-panel can play them; a change made there is lost at the next bake.
-
-**`CharacterModel` plays them through one `AnimationTree`.** Its `AnimationNodeBlendTree`
-(`HumanoidAnimations.make_tree()`): `stance` picks the base loop; `move` blends it to `run`, scaled by
-`run_scale`, whose `run_rifle` is a 2D blend of the forward, back and strafe runs; `hop` (legs only)
-and `air` (falling) blend over that; `act` is a one-shot played whole (strike, throw, draw, stow),
-`upper` a one-shot over the arms and head alone, filtered to them (the reload: a kneeling or hunkered
-figure stays down; filtered because the tree blends deterministically, and a bone a clip leaves unkeyed
-would be pulled toward its rest), `left` the same over the left arm alone (the medkit), and `react` a
-one-shot added on top. The tree resource is shared by every figure, so the model sets its
-parameters and never its nodes' properties. Most of what it plays it reads off its unit each frame:
-it runs while `Unit.is_moving()`, as fast as the unit really goes, so a reaction's slow motion slows
-its legs and a held walk freezes them mid-stride; it faces the way it goes, unless the walk keeps its
-facing (`Unit.walk(..., keep_facing)`, a step out to shoot); and a step up or down a level lifts it in
-a hop, as does a step over a fence (the walk's `vaults`, from `CombatGrid.vaults_along()`), on the
-figure's own position, so the unit still moves in a straight line and `tile_at()` never sees it. `Unit.drop_to()` sets it falling until it lands. The rest the unit asks for, through
-presentational calls that do nothing without a figure: `aim_at()` (raise the gun to a point, which
-`AimModifier` bends the spine and chest to, above or below), `ready_strike()`, `ready_throw()`,
-`celebrate()` (the winners, as `TurnManager` decides the battle), `reload()` (through `Unit.reload()`,
-returning at the clip's `seat`), `attend()` (turned to an ally and looking at them, nothing readied,
-which keeps `Postures` off the figure until `stand_easy()`), `use_medkit()` (through
-`Unit.use_medkit()`, returning at the clip's `apply`; both take null for the unit itself: no turn, a
-look down in front of it, `CharacterModel.SELF_LOOK`, and `use_medkit_self`), `stand_easy()` (at the end of the
-frame, called off if something is readied again at once, so a Shoot that begins again never lowers
-the gun), `dodge()`, `take_damage()`'s flinch, and `lean_out()` / `lean_back()` (see "A target is
-seen where it leans out" below). Between actions `Postures`, a node in each combat
-map, moves only figures that are `is_idle()`.
-
-**Gear hangs in the figure's sockets.** `CharacterModel.equip(gun, melee, grenades, kits)` shows each item's
-`Item.model`: a scene whose origin is where the hand grips it, standing along +z with its top up +y;
-a gun's `Muzzle` marker is where it fires from and its `Foregrip` where the off hand holds it. The bake
-makes the sockets: `RightHand/RifleGrip` and `SwordGrip`, `LeftHand/GrenadeGrip`, `Back/RifleSlot` and
-`SwordSlot`, `Belt/Grenade1`..`3`. The gun is in hand; the sword is in hand without a gun, else slung
-on the back and drawn for a strike, swapping with the gun at `draw_sword`'s `swap`; grenades hang on
-the belt, one in the left hand while a throw is lined up; medkits hang on the belt slots the grenades
-leave (three items at most, so there is always one), the first in the left hand from the medkit clip's
-`take` to its `stow`, turned a quarter there (`MEDKIT_IN_HAND`) so its cross faces the ally. `Unit._dress()` calls `equip()` as the unit
-enters the map and as it uses something up. A prop scene's `Mesh` is placed to put the grip on the
-scene's origin: the importer carries where a model sits in MagicaVoxel's world into the mesh (`0 21 2`
-for one left where MagicaVoxel put it), so the `Mesh`'s transform cancels that, and turns a model
-drawn along another axis (`Rifle2.vox` lies along MagicaVoxel's x). Props import at 0.063, as the
-figure does. Belt grenades are tucked in by their handles, the outer two fanned out so the heads stand
-apart. A longer model reaches further than the poses were made for: preview its clips for it going
-into the floor or the body (`ANIMATIONS.md` sections 11 and 13.7). Every prop is a `VoxelModel` of its
-own, taken over as the figure makes it (`_make_prop()`; `CharacterModel.gear()` lists them), which blood
-recolours; since `equip()` builds the belt afresh whenever a grenade is used up, every grenade left on
-it comes back clean.
-
-**The dead break apart, and what they break into stays.** As a unit dies (`Unit.die()` emits `died`),
-`TerrainDestruction`, which watches every unit's `died` (`_watch_units()`, deferred until the squad
-has spawned), breaks its figure apart where it stands (`break_figure()`), as a block that wears away
-crumbles: every voxel of the figure, posed as it was, goes into lumps of `VoxelDebris`
-`crumbles_as.crumble_size` (3) across, cut on a grid set at random within each bone, so a lump is one
-bone's (`FigureVoxels.crumble()`; the base figure's 536 voxels make some 60-90 lumps). A lump is its
-voxels' colours on the figure: the unit's `tint`, blood red where blood recoloured one. Each is knocked the way
-the killing blow went, which `take_damage()` keeps on the unit (`Unit.hit_from`, `hit_blasted`,
-`hit_at`, `hit_sweep`): along a round's way or a blade's swing (`FIGURE_KNOCK`), or away from a blast
-(`FIGURE_BLAST_KNOCK`; the blast's own push then throws the lumps, held until the next physics step as
-all new debris is, as it throws all debris), lifted a little and shared out by height, so the head
-flies furthest and the feet hardly move, harder near where a round or blade landed
-(`FIGURE_WOUND_PUSH`), and every lump bursts out from the body's upright middle, scatters and tumbles
-(`TerrainDestruction.FIGURE_*`, drawn on its own generator, `_show`). The gear drops whole
-(`_drop_gear()`): each prop shown in its sockets (`CharacterModel.gear()`) becomes a `RigidBody3D` piece
-under `TerrainDestruction`, named `Dropped<prop>`, its mesh moved into it with whatever blood is on it,
-colliding as a box round it and weighing `gear_wears_as.density` (`Gear.tres`, a crate board's) a cubic
-cell of its voxels (a rifle is 4 kg), knocked as the lumps round it are. It passes through the rest of
-the gear and the lumps it started out overlapping (a hand round a grip), as a crate's pieces pass
-through those they were cut to overlap, and wears away as a crate's boards do once a round or a blast
-first reaches it (`VoxelTerrain.take_on_later()`; `VoxelBody.scale` is the prop's 0.063 over a block's
-0.0625). Then the figure hides (`CharacterModel.break_apart()`), to be freed with its unit. Lumps and
-gear come to rest in 2-3 s and stay for the battle, debris like any other: blasts throw them, the
-living shove them aside, the tidy takes any that fall off the map, and the rules never see them. With
-blood off it breaks apart the same, with no red. A death costs about 1.6 ms on its frame, about 3.8 with
-blood, which stains a killing wound at once rather than in its turn, so it is on the figure to break
-apart (see Blood below).
-
-Decided with the user, replacing the ragdolls the dead were before (`ANIMATIONS.md` 9.8): lumps like a
-crumbling block's, not a body falling whole or in a few limbs; the same with blood off; gear dropped
-whole as debris that wears, not broken up with the body; the pool under the dead where the unit stood.
-
-**Equipment is on the character, the spares in the inventory.** A character has six typed slots
-(`armor`, `weapon_1`, `weapon_2`, `item_1`..`item_3`), listed with their titles and kinds in
-`Character.slots` (a `static var`: a `const` cannot hold a class). Every item is either in
-`Campaign.inventory` or in one slot, never both, so equipment only changes through
-`Campaign.equip()` / `unequip()`, which move one copy across and put a swapped-out item back. What a
-character starts with is set in their `.tres`, not counted in `StartingInventory.tres`. What is
-equipped decides a squad unit's actions by its tags (see "An action can need an item"): with no gun
-it has only Move. It shoots with the first gun in its slots, Weapon 1 before Weapon 2
-(`Unit.weapon`, null with none), and strikes with the first melee weapon, the same way
-(`Unit.melee_weapon`), which gives it Strike. A grenade in any item slot gives it Throw Grenade,
-which throws the first one, Item 1 before Item 2 before Item 3 (`Unit.grenade`), and uses it up. A
-medkit in any item slot gives it Use Medkit, a use a battle for each, and is never used up.
-Armor adds its `Armor.defense` to the wearer's (`Character.total_defense`),
-which the unit copies as its own; the Details page shows that total and refreshes as it comes into view, since the
-Equipment page may have changed the armor. During a battle `Campaign.in_mission` is true (the `TurnManager` sets it while in the
-tree) and both calls refuse, since a unit took its gear when the map loaded; the Equipment page greys
-its buttons and says why. This is the menu's first read-only-in-combat rule; the System tab's
-**Blood** button is the second (see Blood), and learning a skill the third (see "Skills are data").
-`Campaign.use_up()` and `lose()` do not refuse: they follow what the battle did.
-
-The Roster tab is a `CharacterBrowser`, whose sub-tabs are `CharacterPage`s. Whenever the selection
-in the strip changes, every page (not just the open one) gets `show_character(character)`, so a page
-is never left showing someone else; a page with content overrides `_refresh()`, and
-`focus_selection()` if Down from the sub-tabs should land somewhere in it. Changing character keeps
-the open page; opening the menu goes back to Details. A page that can change the character hides
-the means when `read_only` is set, as it is for characters not on the roster.
+**Every unit wears the one rigged voxel figure for now, and it is only for show.** A unit's `Model`
+child, squad or enemy, is an instance of `Scenes/BaseCharacter.tscn`, which
+`Scripts/Characters/BakeCharacter.gd` makes from `Characters/BaseCharacter.vox`, with its skinned mesh
+and its animation library (the two `.res` beside the model). After editing the `.vox`, the rig
+(`VoxelRig`: rigid, one bone per voxel, a layout per model in `VoxelRig.LAYOUTS`) or the animations
+(`HumanoidAnimations`: all 56 written as IK poses in code), bake again (Verification has the command),
+and never edit the scene or its `.res` by hand or in the editor. `CharacterModel` plays the clips
+through one `AnimationTree`, whose tree resource every figure shares, so it sets only
+`parameters/...`; most of what it plays it reads off its unit each frame (running while
+`Unit.is_moving()`, facing the way it goes, hopping a level), and the rest the unit asks for through
+calls that do nothing without a figure (`aim_at()`, `ready_strike()`, `ready_throw()`, `reload()`,
+`use_medkit()`, `lean_out()`, `celebrate()` and the rest). Clips carry the moments the game waits on
+as metadata (`impact`, `release`, `swap`, `seat`, `take` / `apply` / `stow`, a lean's `reach`). Gear
+hangs in the figure's sockets (`CharacterModel.equip()`): each item's `Item.model`, a scene whose
+origin is where the hand grips it, a gun's `Muzzle` and `Foregrip` markers on it. Each unit paints its
+figure one flat colour (`CharacterModel.tint`), its character's `color` or the enemies' slate grey:
+keep every unit's colour off red, on which blood barely shows. As a unit dies
+`TerrainDestruction.break_figure()` breaks its figure into lumps of `VoxelDebris`, knocked the way the
+killing blow went, and drops its gear whole as pieces that wear; both stay for the battle, debris like
+any other (decided with the user, in place of the ragdolls the dead were). `ANIMATIONS.md` has all of
+it: the rig, every clip and its moments, the tree, the runtime and its calls, the sockets and props,
+breaking apart, recipes for adding more, how to bake, preview and drive them, the figure's gotchas and
+its gaps. Read it before touching the figure.
 
 **Skills are data: a skill's levels, placed in a tree, give effects.** A `Skill`
 (`Resources/Skills/`) is a stateless `.tres` like an `Item`, with a `SkillLevel` for each time it can
@@ -925,9 +527,9 @@ subclass and, if neither sort fits, a new method on the base class and a call wh
 it.
 
 `Docs/SKILLS.md` has the rest: each skill in the two trees and what it gives, the Skills page
-(`SkillsPage`, `SkillTreeView`, `SkillButton`: its columns, links and rings, holding a node to learn
-it, the selection and the arrow keys), the `SkillTooltip`, the skills' gaps and what was decided
-with the user. Read it before touching skills, trees or the Skills page.
+(`SkillsPage`, `SkillTreeView`, `SkillButton`: its columns and their scrolling, links and rings,
+holding a node to learn it, the selection and the arrow keys), the `SkillTooltip`, the skills' gaps
+and what was decided with the user. Read it before touching skills, trees or the Skills page.
 
 **Node wiring is `@export var *_path: NodePath` + `get_node_or_null` + `push_error`.** Keep that
 pattern. Something optional (like `ShotOverlay` in `ShootAction` and `TurnManager`) errors but
@@ -945,60 +547,10 @@ sits its turn out with a warning.
 **Enemies walk through `Reactions.walk()`.** It starts the walk with `Unit.start_walk()` so it holds
 the tween, then polls it each frame: on every new tile it works out who on overwatch could fire
 (`_find_offers`), opens or closes the window, slows the tween (`slow_motion_scale`), and holds it at
-speed 0 while a reaction shot plays out. `TurnManager` calls `release_view()` after each enemy's
-turn to hand the camera back. A window only exists during a walk; nothing else opens one. The
+speed 0 while a reaction shot plays out. It lets the camera go once the window stays shut or the
+walk ends (`Docs/CAMERA.md`). A window only exists during a walk; nothing else opens one. The
 walker's figure runs at whatever speed the tween goes, so it slows with the window and freezes
 mid-stride while held, and nothing here has to tell it.
-
-**A shot is settled when it is fired and lands when it arrives.** `Unit.shoot_at(shot, chance,
-grid, show_rounds)` first has the shooter's figure take aim at the target's eye (turned to it, gun up:
-at once if the shot was lined up with `aim_at()`, as `ShootAction` and `ShotPlayback` both do before
-anything else), then rolls, then asks `Ballistics` for the round's `Path`: the sight line for a hit;
-for a miss, XCOM 2's placement, an aim point on a ring around the target's body (or, `COVER_SHARE`
-of the time, on the target's cover) traced with `CombatGrid.cast()` until something stops it or it
-leaves the map. The figure kicks and flashes, and `Outcome.muzzle` says where its muzzle was, which
-`ShotOverlay` draws the tracer from: only the drawing, as every path is still flown from the eye. For
-a hit the target's figure then picks where the round is seen to land (`Path.wound`, see Blood), which
-the tracer is drawn to (`Path.drawn_to()`). It then awaits `show_rounds` (`ShotOverlay.show_rounds`,
-which draws the tracer and returns as it lands), and only then damages the target (or has it duck a
-miss), the muzzle as where the hit came from and the wound as where it landed, and reports any
-terrain the round struck through `CombatGrid.strike()` as `terrain_struck`. `shoot_at` is a
-coroutine; always `await` it. A step out walks with `keep_facing`, so the shooter sidesteps out and
-back with its gun on the target.
-
-**A target is seen where it leans out, too.** XCOM 2's rule (its visibility record traces "5 source
-locations (default + 4 peeks) to 5 target locations (default + 4 peeks)"): the tiles a unit behind
-cover can lean out to shoot from (`LineOfSight.lean_tiles()`, which `firing_positions()` adds to its
-own tile) are also tiles it can be seen on. `find_shot()` first looks for a firing position that
-sees the target's own tile, as it always did, so every shot there was before is unchanged. Only
-when none does, it takes the first firing position (the shooter's own tile first) that sees one of
-the target's lean tiles, and of those the nearest to it. Such a shot has `Shot.seen_at` on that
-tile and `Shot.leaning` true; its cover, flanking, distance and height are still the target's own
-tile's against `Shot.from`, so a unit behind a pillar is shot at through Full Cover. Sight
-therefore runs both ways: whoever can lean out and shoot can be shot back at. A reaction passes
-`leans` false (`Reactions._find_offers`), since a target on the move leans nowhere (XCOM 2's
-`bDisablePeeksOnMovement`), and `watched_tiles()` is as it was for the same reason. XCOM 2's other
-exceptions (unalerted enemies, units that cannot take cover) have nothing to apply to here.
-
-`Ballistics` shoots at a leaning target where it leans to: a hit flies to the eye over
-`Shot.seen_at`, which is the sight line, and a miss is aimed round the body there and kept clear of
-the target both where it stands and where it leans; the cover a miss can be aimed at is still the
-cover beside its own tile. The rest is for show. The target's figure leans out for as long as the
-shot is lined up, and through the shot, as XCOM 2's targeted units hold their peek until the shooter
-is back in cover: `Unit.lean_out(tile, watch, grid)`, called by `ShootAction` as the target is lined
-up, by `ShotPlayback` as the shooter turns to it, and by `Unit.shoot_at()` itself, which waits until
-the target `has_leaned_out()` before it rolls and, for a shot nobody lined up, has it lean back once
-the round has landed. It leans from the cover standing square to the way it
-leans (of two, the one more toward the shooter), turned to face that cover: `wall_lean_*` at high
-cover, `crouch_lean_*` on one knee at low, its head turned to the shooter. `lean_back()` waits for
-any flinch or duck to play out, so the hit is seen landing on it out there, and is called off if it
-is leaned out again first, so it never bobs back between two shots; walking, falling or readying
-anything stands it back at once. `Unit.lean()` is how far out its head is (the lean's `reach` toward
-the tile), which `aim_point()` adds, so the shooter's aim, the sight line, the reticle and the
-called result all follow the leaning figure, and `Blood` looks for the figure there. A hit on it is
-drawn landing on the part of it that is out (`Unit._wound_on()`: a wound its cover hides from the
-muzzle is picked again, on the figure's own generator). Only the figure moves: the unit never leaves
-its tile, so coins, reactions and everything else that reads `tile_at()` see nothing.
 
 **A combat map is a level of voxel pieces, painted in the level editor.** Its `Level` node
 (`VoxelLevel`, `@tool`) holds a `LevelData` (`Levels/<Map>.tres`: every piece placed, in order, as a
@@ -1145,7 +697,7 @@ the scene:** every piece is made by `TerrainDestruction.make_piece()`, on `PIECE
 `PIECES` group, and whatever looks for pieces in a box asks `pieces_in()`, a shape query. Each unit's
 frictionless capsule shoves debris aside, and a `FallingBlock` never collides with units.
 `Docs/DESTRUCTION.md`, "The physics of debris", has the rest (what each body is, what it costs,
-Jolt's raised limits); read it before touching debris's bodies.
+Jolt's raised limits, its traps); read it before touching debris's bodies.
 
 **Scenery around a combat map is a second level, only drawn.** The rules, the camera and the
 destruction read only the `Level`: the battlefield and the ring of trees walling it in.
@@ -1155,8 +707,8 @@ stains it, and `CameraRig`'s pan bounds stop at the battlefield. Put scenery the
 `Level`. 75 tiles is the standard depth for a ring: anything that lets the camera see further (zoom,
 framing distance, pitch, FOV, window, `pan_margin`) needs it deepened, which is why
 `max_frame_distance` is kept to about what the zoomed-out camera sees. How it is kept cheap (no
-shadows, a `MultiMesh` a kind a region, a ground plane, trunks only near the battlefield) and how 75
-was found are `Docs/LEVELS.md`'s ("Scenery").
+shadows, a `MultiMesh` a kind a region, coarser copies further out by `SceneryRenderer`'s constants, a
+ground plane, trunks only near the battlefield) and how 75 was found are `Docs/LEVELS.md`'s ("Scenery").
 
 ## Conventions
 
@@ -1327,18 +879,8 @@ half cover, step-out around a pillar, and a wall that can only be leaned around 
 Three shot lanes: a target in the open with a crate backstop behind it, a low crate wall running
 under the line of fire into the target's half cover, and a squad member standing right behind the
 target. Its crates break, so a probe that shoots there changes the lanes as it goes. Prefer adding
-a lane there over reasoning about geometry in your head.
-
-The pillar and wall lanes show a target seen leaning out, from the other side: Enemy1 to Enemy5 see
-Player3, and Enemy2 to Enemy4 see Player4, only where they lean out, through Full Cover (35 to
-40%), and Player5 sees Enemy2 only leaning out of its half cover, past the wall lane. To
-watch a squad member take such a shot, swap Player3 and Enemy3's positions in a probe
-(`global_position`), select Player3, activate Shoot and cycle to Enemy3 (`ShootAction._cycle()`):
-`current_shot()` has `leaning` and `seen_at`, `Enemy3.is_leaning()` and `model._base` say what its
-figure is doing (`wall_lean_right_rifle`), and `ShotPlayback.new(grid, overlay).play(enemy, shot,
-estimate)` plays one the other way. The rule itself is cheap to check exhaustively: teleport two
-units to random pairs of tiles and compare `find_shot(a, b)` with `find_shot(b, a)` and with
-`find_shot(a, b, false)`, which is the rule as it was before a target could be seen leaning.
+a lane there over reasoning about geometry in your head. Its lanes for a target seen
+leaning out, and how to watch such a shot, are `Docs/SHOOTING.md`'s.
 
 Physics runs headless, and with `--fixed-fps 60` every physics step is exactly 1/60 s, so debris
 can be tested without rendering: break a block with `terrain.break_block(cell)` (or `break_piece()`),
@@ -1351,56 +893,32 @@ its pieces settle, and fly a round through them with `grid.fly(from, to, 5)`; `v
 says how many have been taken on, `voxels._loose` maps each body to its `VoxelBody`, and
 `voxels._wearable` holds the pieces still waiting to be (`_model_of(body)` takes one on).
 
-The new map's scene is looked at with `MapCreation/Scripts/scene/m3_draw.gd`, in a window: it draws
-the whole map at one screen pixel to a pixel of the pictures (`render_full.png`), times it, and
-draws close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
-`MapCreation/Scripts/scene/m4_compare.py` set it beside `MapCreation/AllSimple.png`, colour by colour, until
-the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at four views.
+How to probe a subsystem split out into `Docs/` is in its file, under "Probing it", where it has one.
 
-How to probe blood, the gamepad, a level and its editor, a medkit and the new map (its look, its forests, its level of
-detail) and a voxel model is in their `Docs/` files (`BLOOD.md`, `GAMEPAD.md`, `LEVELS.md`, `LEVEL_EDITOR.md`, `MEDKIT.md`,
-`MAP.md`, `VOXELS.md`), under "Probing it".
+A death is probed headless too, with or without its unit dying: how, and how to read its lumps and
+dropped gear, is `ANIMATIONS.md`'s (14.5).
 
-A death is probed headless too: `unit.take_damage(100, from, false, unit.model.pick_wound(from))` kills
-with a round (a blast passes `blasted` and no `at`, a blade a `sweep` too), and
-`TerrainDestruction.break_figure()` breaks any figure without its unit dying. Its lumps are the
-`VoxelDebris` entries from `_state.size()` before it to after (`_centers[piece]` where each is now,
-`_moved_at[piece]` the last step it moved, its body asleep once at rest); its gear the `Dropped<prop>`
-bodies under `TerrainDestruction`. Seed the global generator and compare the next `randi()` with a
-fresh seed's: a death draws nothing from it. Whether the lumps are red can only be seen in a window
-(see Gotchas); they come to rest in 2-3 s, a blast's a little later.
-
-Ammo is probed the same way: set `unit.rounds` directly (0 to empty it), read `can_fire()` /
-`can_reload()` and the actions' `is_available()`, fire through `ShootAction._fire()` and reload by
-activating `Reload` and sending Enter (or `ReloadAction._reload()`); `HUD/AmmoIndicator`'s `_rounds`
-and `_magazine` are what it draws. An enemy's choice is `unit.ai.choose_action(Tactics.new(unit, grid,
-squad.members))` (its `kind`), and `TurnManager._take_enemy_turn(enemy)` plays a turn out (await it
-through a lambda, with the dictionary flag above). The reload clip is seen with `PreviewAnimations.gd
--- reload_rifle --over <base pose>`.
+An enemy's choice is `unit.ai.choose_action(Tactics.new(unit, grid, squad.members))` (its `kind`), and
+`TurnManager._take_enemy_turn(enemy)` plays a turn out (await it through a lambda, sharing a
+dictionary flag: see Gotchas). Ammo is probed as `Docs/AMMO.md` has it.
 
 A `--script` probe's scene is not ready during `_initialize()`: its nodes' `_ready` runs once the
 main loop starts, so await a frame after `root.add_child()` before reading anything `_ready` sets up.
 
-The figure is checked the same way, by its frames. Bake it, then look:
+The figure is checked the same way, by its frames. Bake it after any change to its `.vox`, its rig
+or its animations' scripts:
 
 ```bash
 # Rebuild Scenes/BaseCharacter.tscn, its mesh and its animations from the .vox (a few seconds).
 "$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 ```
 
-To see an animation, render it (in a window; `--headless` cannot):
-
-```bash
-"$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- stand_rifle strike_sword --view side
-```
-
-It plays whole clips through the figure's `AnimationPlayer` and adds reactions to a pose through its
-`AnimationTree`, with the stance's props, and saves each frame and a `sheet.png` (a row per clip) to
-`user://animation_preview` (it prints the folder). Look from the side and from three-quarters. In a
-map, drive the actions themselves (`controller.activate()`, then `ShootAction._fire()`,
-`StrikeAction._strike()`, `ThrowGrenadeAction._aim(tile)` + `_throw_lined_up()`, `MoveAction._move_to()`)
-and capture frames as they play: that tests the timing too. The camera rig's `_pivot`, `_yaw`, `_zoom`
-and `view_pitch` can be set directly to frame a close-up.
+`ANIMATIONS.md` has the command that renders its clips to images (section 1) and how to check an
+animation (14). In a map, drive the actions themselves (`controller.activate()`, then
+`ShootAction._fire()`, `StrikeAction._strike()`, `ThrowGrenadeAction._aim(tile)` +
+`_throw_lined_up()`, `MoveAction._move_to()`) and capture frames as they play: that tests the timing
+too. The camera rig's `_pivot`, `_yaw`, `_zoom` and `view_pitch` can be set directly to frame a
+close-up.
 
 ## Gotchas
 
@@ -1472,16 +990,15 @@ camera's `edge_pan_enabled`. On a software renderer (a cloud container's, under 
 the root viewport's `scaling_3d_scale` low, and turning off the environment's SSAO and SSIL, makes
 such a run several times faster.
 
-**`AnimatableBody3D.sync_to_physics` leaves a body behind when its parent moves.** It hands the
-body's transform to the physics server, and a parent moving underneath does not tell it. A unit's
-body moves with the unit's tweens, so it is not synced. Jolt still moves a kinematic body with
-velocity when its transform is set, so it pushes debris properly.
-
-**New debris is held a physics step, and the level's collision catches up ahead of it.** A chunk worn
-since its collision was made gets it again in `VoxelLevel._physics_process`, before `VoxelDebris`
-(after it in the tree) lets that step's new lumps go, and `ScriptedDestruction` holds its pieces
-frozen until the next `physics_frame` the same way. Keep `Level` before `TerrainDestruction` in each
-map, or a bite's lumps start out inside the voxels they were.
+**Debris's bodies have traps of their own, Jolt's and Godot's**: a body synced to physics left behind
+as its parent moves, a kinematic body grinding thin pieces into what is under them, a board balancing
+for good on a round top, contact found only within 2 cm, anything cut exactly as wide as a gap wedging
+there, bodies made on the `PhysicsServer3D` outliving their node, `get_collision_exceptions()` failing
+on freed bodies, and Jolt's limits on bodies, contacts and pairs. `Docs/DESTRUCTION.md`, "Its traps"
+under "The physics of debris", has each and what was done about it; read it before touching debris's
+bodies. One is a rule for every map: new debris is held a physics step while the level's collision
+catches up ahead of it, so keep `Level` before `TerrainDestruction`, or a bite's lumps start out
+inside the voxels they were.
 
 **A `PackedColorArray` shader uniform arrives converted to linear.** The level's palette drew
 everything far too dark that way; `VoxelModel.palette_entries()` passes a `PackedVector4Array`, which
@@ -1491,50 +1008,12 @@ faces by a fraction of a pixel only in perspective, a fixed 0.2 mm in the shadow
 **A texture made by a headless run has nothing to save.** The dummy renderer keeps no texture's data:
 saved, a `Texture2DArray` a `--headless` script made has no layers and fails to load (`img.is_null()`).
 
-**A kinematic body driven into a heap grinds thin pieces into whatever is under them.** That is why
-a unit dropping into its own rubble passes through it (`drop_to`'s `rubble`), and why its body
-starts above its feet.
-
-**A board landing on a round top with friction balances there and never comes to rest.** Jolt has
-no rolling resistance, so a blasted board on top of a unit's capsule kept rocking and turning, and
-kept every piece it touched awake: a whole heap creeping for as long as it was watched. That is why
-unit bodies are frictionless; the board slides off instead.
-
-**Contact is only found within 2 cm, so a fast body can end a step well inside what it hit.** Jolt
-makes contacts within its speculative distance (0.02); a block falling 6 cells a second moves 10 cm
-a step, so the step that reaches the floor can carry it 8 cm in, still at full speed, and only the
-next stops it. That is why a `FallingBlock` reports where it was two steps before it was seen to
-stop, and why its pieces are let go at once with continuous collision rather than held a step.
-
-**Anything cut exactly as wide as a gap wedges in it and shivers for good.** A board one cell long
-lying across the one-cell gap a broken block leaves between two others jams at the slightest turn,
-and Jolt pushes it out of both walls every step, feeding energy into every piece it touches. That
-is why debris boxes are 3.5% smaller than their meshes (`ScriptedDestruction.SLACK`) and a falling
-block is 1 cm narrower than its cell.
-
-**Bodies made on the `PhysicsServer3D` outlive their node.** The voxel debris has no nodes, and a
-battle shares the root viewport's `World3D` with the next one, so `VoxelDebris` takes its bodies out
-of the world on `_exit_tree` and frees them (and its box shapes) on `NOTIFICATION_PREDELETE`.
-Anything else made on the server must do the same.
-
 **A packed array is passed by reference.** A `PackedByteArray` read off an object, out of a
 dictionary or passed to a function is the same array, not a copy, so writing into it writes into the
 original. A `VoxelShape`'s `voxels` and `rows` are shared by every block and model of its kind, which
 is why a `VoxelModel` `duplicate()`s them before it changes anything. `LevelRules.pieces_in()` and
 `pieces_across()` hand out the rules' own arrays: duplicate one before breaking pieces while going
 through it.
-
-**`get_collision_exceptions()` fails on bodies since freed.** The physics server keeps a freed body in
-the exception list of every body that passed through it, and `PhysicsBody3D.get_collision_exceptions()`
-errors on each (`Parameter "body" is null`) and returns null in its place. That is why a `VoxelBody`
-keeps its own list (`passes`), never read from the server: `ScriptedDestruction._pass_overlaps()`,
-which makes the pairs, hands each piece its list, and a cut hands the part its model's.
-
-**Jolt has hard limits.** 10,240 bodies by default, and contact and pair buffers that overflow with a
-few thousand lumps settling at once ("contacts were ignored", lumps sinking into each other).
-`project.godot` raises them, and `VoxelDebris.MOST` keeps the lumps' bodies well under the body limit;
-lumps rather than single voxels (`DEBRIS_CLUMP`, `crumble_size`) keep the count down. Raising the contact or pair
-limits much further needs a bigger `temporary_memory_buffer_size`.
 
 **The MagicaVoxel addon's `.import` files must stay in git.** Its `plugin.gd` preloads
 `framed_mesh_instance.png`, and the editor starts plugins before it scans for files to import, so on
@@ -1552,18 +1031,10 @@ later, and the next run logs none.
 **Probe runs in parallel can log `Jolt Physics job system exceeded the maximum number of jobs`.**
 That is several Godot processes fighting over the CPU, not the scene; it does not appear run alone.
 
-**`Geometry2D.is_point_in_polygon` is wrong near vertices on big outlines.** It casts a slanted ray
-and fudges any crossing within a relative epsilon of a vertex; on the world map's 33k-corner
-coastline it misjudged about one coast pixel in a hundred. `WorldMapTerrain._encloses` counts
-crossings row by row instead. Do not use the built-in for land tests.
-
-**The 2D navigation server cannot handle long sliver polygons.** Baked whole, the pixel coastline
-gave polygons thousands of pixels long and a few wide, and the server found no polygon under
-points inside them. `BakeLand.gd` bakes in 256 px tiles, and adds every corner on a tile line to
-the edges along it on both sides, or the tiles do not join. The world map's navigation also takes
-over a second after the scene opens to be usable (`WorldMapTerrain.is_ready()`), and a
-`NavigationPathQueryParameters2D` gives up after 4096 polygons unless `path_search_max_polygons`
-is set (0 lifts it).
+**The old world map's land met two of Godot's limits**: `Geometry2D.is_point_in_polygon` misjudges
+points near the vertices of a big outline, and the 2D navigation server cannot handle long sliver
+polygons. `Docs/CAMPAIGN.md`, "Traps", has both and what `WorldMapTerrain` and `BakeLand.gd` do
+instead: do not use the built-in for land tests.
 
 **The game's font has no arrows and no shapes.** Open Sans SemiBold, the default, draws `←`, `▲` or
 `⏵` as nothing at all, so a gamepad button is drawn from shapes and its letters (`ButtonGlyph`), and
@@ -1618,50 +1089,24 @@ the `is_instance_valid()` inside the loop never runs. Loop untyped and check fir
 `Levels/LineOfSightTest.tres`, painted like any other (its edge lanes added by another script). Edit
 the scene and the level directly, or write a fresh generator.
 
-**`BaseCharacter.tscn` is generated too**, by `BakeCharacter.gd`, with its mesh and animations. Change
-the scripts and bake; anything edited into the scene or its `.res` is lost at the next bake.
-
-**An `AnimationTree`'s `tree_root` is one resource shared by every figure.** Setting a node's property
-on it (a one-shot's fade, a transition's cross-fade) changes it for all of them; per-figure state goes
-through `tree.set("parameters/...")` only.
-
-**`Vector2.UP` is (0, -1).** It is screen up. A blend space's forward, +y in the figure's own space,
-has to be written `Vector2(0, 1)`.
-
-**A rotation key must be on the same side as the one before it.** A quaternion and its negative are
-the same turn, but a track blended between keys of opposite sign swings the long way round;
-`HumanoidAnimations._sample()` flips each key to match the last.
-
-**A figure's sockets exist only once it is ready.** `CharacterModel.equip()` before its `_ready` finds
-no skeleton and hangs nothing; a probe that instantiates the scene has to add it to the tree and wait a
-frame first, as `Unit._ready()` does by running after its child's.
+**The figure has gotchas of its own**: its scene and both `.res` are made by the bake (edit the
+scripts, never them), an `AnimationTree`'s `tree_root` is shared by every figure (set only
+`parameters/...`), `Vector2.UP` is screen up, a rotation key must be on the same side as the one
+before it, its sockets exist only once it is ready, and a destruction preloaded anywhere
+`CharacterModel` reaches breaks every script after it. `ANIMATIONS.md`, section 16, has each with its
+fix.
 
 **A typed array parameter refuses a plain array literal from untyped code.** A `--script` probe that
 passes `[]` to `CharacterModel.equip()`'s `Array[Item]`, or a literal list of points to
 `Unit.walk()`, fails at run time; declare the array typed (`var points: Array[Vector3] = [...]`) first.
 
-**A `preload()` in a member's default compiles what it loads there and then.** `CharacterModel`
-preloading `Figure.tres` compiled `VoxelDestruction`, whose base `Destruction` names
-`TerrainDestruction`, which reads `CharacterModel`'s members, still mid-compile: "Could not resolve
-external class member", and every script after it failed to load. The figure loads its two
-destructions as it readies instead (`FIGURE_DESTRUCTION`, `GEAR_DESTRUCTION`). Nothing that chain
-reaches may preload a destruction.
-
 ## Known gaps
 
-Blood's, the gamepad's, the levels' and their editor's, the medkit's, the skills' and the new map's forests' and
-level of detail's gaps, and more of voxel wear's and loose models', are in their `Docs/` files, under "Known gaps".
+The gaps of each subsystem split out into `Docs/` are in its file, under "Known gaps", voxel wear's and
+loose models' among them, and the figure's are `ANIMATIONS.md`'s (section 15); the rest are here.
 
 - A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
   in its magazine do (`Unit.rounds`), not on the weapon.
-- There is one kind of magazine and no ammunition to buy, carry or run out of: a reload always fills
-  it. Only the selected squad member's rounds are shown; an enemy's are seen only when it reloads,
-  by the animation. The action bar dims and lights its buttons on the controller's `changed`, not on
-  `Unit.rounds_changed`, so rounds set from outside an action (a probe) leave it stale until the next
-  change. Reload has no key of its own: it is chosen on the bar (or the d-pad) and confirmed, as every
-  action is. The reload is the rifle's alone (a pistol would need its own clip), and the rifle prop has
-  no magazine to pull, so the hand mimes one. The assault AI tops up a part-spent magazine only when it
-  has nothing else to do, never ahead of a fight.
 - Crates break whole on any strike or blast, however weak: only blocks that wear away read
   `Weapon.environment_damage` and `Grenade.environment_damage`.
 - A unit stands at the top of its tile however worn the block under it is, so it floats over a crater:
@@ -1675,63 +1120,14 @@ level of detail's gaps, and more of voxel wear's and loose models', are in their
   changes the number that round or blast draws.
 - Voxels are read from the `.vox` files at `res://` on ready: an exported build must include `*.vox` as
   non-resource files, and there are no export presets yet.
-- `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
-  navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. Its reticle's
-  prompt says "Go here" over the sea as well,
-  and its white ring is faint on the pale land. Only county 115's capital has anything in it, and it
-  shares the old village's board and market: with both maps in one game they would be one shop.
-  Its settlements are not drawn in the editor (`Destination`
-  is no tool script, so the old map's village is not either): there they are nodes with no picture.
-  The rest of its gaps, its forests' and its level of detail's, are in `Docs/MAP.md`. It is 13.6 MB
-  of text and takes about 2.7 s to open, 1.7 before its 2,459 pieces of forest.
-- The world map's land is baked, not live: after editing `WorldMap/WorldMapV1LandMask.png` (white
-  land, black water, same size as the art), rerun `BakeLand.gd`. `-- --mask-from-art` regenerates
-  the mask from the art and overwrites any edits to it.
 - The squad panel does not wrap: past about five members it runs under the action bar, which it does
   in the harness (eight).
-- The only experience is for surviving a battle. There are no classes, and Rich Blood, the Minor
-  Noble tree's last skill, can be learned but does nothing. Grenades are the only items used up in
-  battle. Every encounter is the same `BoundaryMap.tscn`, fresh each time, with its four enemies.
 - Enemies never strike, throw or hunker down: their AI only shoots, so no enemy figure draws a sword,
   readies a grenade or ducks, though the same figure can. Nor do they carry medkits, and their AI never
   heals.
-- The player never sees the Hunkered term at work: an enemy's shot shows its line but not its odds,
-  so only the outcomes tell. Hunker Down marks nothing on the map while it is lined up, and the unit
-  hunkers wherever it stands in cover, whichever way its cover faces.
-- Every unit wears the one figure, and only `BaseCharacter.vox` has a rig layout. Armor does not show
-  on it, and a character's colour is the only thing that tells the squad apart.
-- A figure turns on the spot without stepping, so its feet slide round. Every throw is left-handed,
-  so the right hand keeps its weapon. There is no wounded idle.
-- A target leans out of its cover only for a shot that sees it leaning, while that shot is lined up
-  or played. XCOM 2 has more: a unit in cover leans out for a look every few seconds while it has
-  enemies in sight, and one that is targeted holds its peek even when it is seen where it stands.
-  Neither is here. Nothing but the figure says a target is leaning: the target panel reads its
-  cover alone, and the tile it leans out to is not marked as the shooter's step-out tile is.
-- The lean is the base pose cross-fading (0.22 s), so the figure slides along its cover to the edge
-  rather than stepping there, and its head keeps the tilt of its chest. It leans out about three
-  quarters of a tile, which from straight in front of its cover at long range shows its head, a
-  shoulder and half its chest past the edge and no more; a hit is drawn landing on what shows.
-  The debris capsule stays on its tile; the click body goes out with the figure.
-- The enemy AI gains the shots the rule gives it and nothing else: `Tactics.advance()` still walks
-  toward the nearest foe, and nothing weighs where a move would leave it seen leaning out.
-- Props are posed by kind: the rifle's grip and foregrip, the sword's grip. A gun shaped very
-  differently (a pistol) needs its own poses in `HumanoidAnimations`, not just a model.
-- What the dead break into stays for the rest of the battle, and a living unit can stand in it.
-  Dropped gear is only for show: it cannot be picked up, and a squad member's is back in the inventory
-  already. Armor does not show, so it does not drop.
-- A figure breaks apart from the pose it is in, where a bent joint's two bones share a little room, so
-  their lumps can start overlapping and push apart as they are let go. Dropped gear passes for good
-  through the lumps it started inside. A lump is turned as its bone was but drawn a block's voxels
-  across, 0.0625 against the figure's 0.063, so a heap is a shade smaller than the figure was.
-- There is one kind of grenade, and a unit throws the first it carries: with several kinds there is
-  no way yet to pick which. Grenades do not bounce or roll, and a blocked arc is simply not thrown;
-  walls inside a blast shelter nobody. Only the player sees the throw: no reaction or camera move
-  follows it.
 - `TurnManager._take_enemy_turn()` reads its enemy again after each pause, so anything that kills an
   enemy during its own turn other than a reaction (which it checks for) leaves it reading a freed unit.
   Only a probe does so far.
-- `Throwing.throws_for()` plans every tile in range each time Throw Grenade begins, about 16 ms on
-  BoundaryMap; a bigger range or map may want it spread over frames.
 - Only crates leave coins, each worth 1 gold; enemies drop nothing. A coin in a cell with no ground
   anywhere below it, or under a block that cannot break, floats there out of reach until a win
   sweeps it up. A collapsed stack's coins can sit half buried in its boards. Combat has no gold

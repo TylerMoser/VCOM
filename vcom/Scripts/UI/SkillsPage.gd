@@ -16,6 +16,9 @@
 ## is over, or the one the keyboard is on, whichever of the mouse and the
 ## keyboard was used last.
 ##
+## Trees taller than the page scroll, under headings that stay put: with the
+## mouse wheel or the scroll bar, and to follow the keyboard from node to node.
+##
 ## Rebuilt for each character, since their trees may be shaped nothing like
 ## the last one's: each is drawn from its [SkillTree] by a [SkillTreeView].
 ## Learning only restyles the trees, so the selection and the keyboard stay
@@ -30,9 +33,15 @@ const SHARES := {&"species": 1, &"sub_species": 1, &"main_class": 3, &"multi_cla
 
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TITLE_COLOR := Color(0.7, 0.72, 0.78)
+## Between a column's heading and the top of its tree.
+const HEADING_GAP := 16
 ## Between a node and the tooltip beside it.
 const TOOLTIP_GAP := 10.0
 
+## The columns' headings in a row of their own, and under it the trees,
+## scrolling.
+var _headings: HBoxContainer
+var _scroll: ScrollContainer
 var _columns: HBoxContainer
 var _tooltip: SkillTooltip
 ## The trees shown, left to right; a column with no tree has none here.
@@ -49,11 +58,41 @@ var _by_keyboard := false
 
 func _init() -> void:
 	super(TITLE)
+	var body := VBoxContainer.new()
+	body.set_anchors_preset(PRESET_FULL_RECT)
+	body.add_theme_constant_override(&"separation", 0)
+	add_child(body)
+
+	_scroll = ScrollContainer.new()
+	_scroll.size_flags_vertical = SIZE_EXPAND_FILL
+	_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	# The bar shows only once the trees run past the bottom, but its room is
+	# kept clear beside them either way, so nothing shifts as it comes and
+	# goes.
+	_scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_RESERVE
+	_scroll.follow_focus = true
+
+	# The headings are kept as clear of the bar's room as the trees are, so
+	# each stays over its tree.
+	var over_trees := MarginContainer.new()
+	over_trees.add_theme_constant_override(&"margin_right", ceili(_scroll.get_v_scroll_bar().get_minimum_size().x))
+	_headings = HBoxContainer.new()
+	_headings.add_theme_constant_override(&"separation", 0)
+	over_trees.add_child(_headings)
+	body.add_child(over_trees)
+	body.add_child(_scroll)
+
 	_columns = HBoxContainer.new()
-	_columns.set_anchors_preset(PRESET_FULL_RECT)
+	_columns.size_flags_horizontal = SIZE_EXPAND_FILL
+	# As tall as the scroll at least, so the dividers run all the way down.
+	_columns.size_flags_vertical = SIZE_EXPAND_FILL
 	_columns.add_theme_constant_override(&"separation", 0)
-	add_child(_columns)
-	# After the columns, so it is drawn over the trees.
+	# Scrolling moves the node a tooltip is beside.
+	_columns.item_rect_changed.connect(_show_tooltip)
+	_scroll.add_child(_columns)
+
+	# After the trees, so it is drawn over them, and not in the scroll, which
+	# would cut it off at its edges.
 	_tooltip = SkillTooltip.new()
 	_tooltip.visible = false
 	add_child(_tooltip)
@@ -78,13 +117,14 @@ func _input(event: InputEvent) -> void:
 		_show_tooltip()
 
 
-## Builds the character's columns afresh, with nothing selected. Every tree
-## is given the same row heights, each row as tall as its tallest node in any
-## of them, so the trees' rows stay level across the page.
+## Builds the character's columns afresh, with nothing selected, scrolled to
+## the top. Every tree is given the same row heights, each row as tall as its
+## tallest node in any of them, so the trees' rows stay level across the page.
 func _refresh() -> void:
-	for column in _columns.get_children():
-		_columns.remove_child(column)
-		column.queue_free()
+	for row in [_headings, _columns]:
+		for child in row.get_children():
+			row.remove_child(child)
+			child.queue_free()
 	_trees.clear()
 	_selected = null
 	_hovered = null
@@ -99,9 +139,11 @@ func _refresh() -> void:
 	var heights := SkillTreeView.row_heights(trees)
 	for i in Character.TREES.size():
 		if i > 0:
+			_headings.add_child(_divider())
 			_columns.add_child(_divider())
 		var entry: Array = Character.TREES[i]
-		_columns.add_child(_column(entry[0], sources[i], SHARES.get(entry[1], 1), heights))
+		_add_column(entry[0], sources[i], SHARES.get(entry[1], 1), heights)
+	_scroll.scroll_vertical = 0
 	_show_progress()
 
 
@@ -139,10 +181,11 @@ func _show_progress() -> void:
 
 ## Shows the tooltip beside the node it is for, or hides it with none: the
 ## node with the keyboard when a key was pressed last, else the one under the
-## mouse.
+## mouse. None for a node scrolled out of sight, as the wheel can scroll the
+## one under the mouse.
 func _show_tooltip() -> void:
 	var target := _focused if _by_keyboard and _focused != null else _hovered
-	if target == null or target.tree_node.skill == null:
+	if target == null or target.tree_node.skill == null or not _scroll.get_global_rect().intersects(target.get_global_rect()):
 		_tooltip.visible = false
 		return
 	_tooltip.show_skill(target.tree_node.skill, target.taken)
@@ -157,35 +200,47 @@ func _show_tooltip() -> void:
 	_tooltip.position = at
 
 
-## A column: its heading at the top and, under it, the tree of
-## [param source], centred, its rows [param heights] tall. Just the heading,
-## [param title], without one.
-func _column(title: String, source: SkillSource, share: int, heights: PackedFloat32Array) -> VBoxContainer:
-	var column := VBoxContainer.new()
-	column.size_flags_horizontal = SIZE_EXPAND_FILL
-	column.size_flags_stretch_ratio = share
-	column.add_theme_constant_override(&"separation", 16)
-
+## A column: its heading in the headings' row, [param source]'s name or else
+## [param title], and under it in the trees' row the source's tree, centred,
+## its rows [param heights] tall, or nothing without one.
+##
+## The two rows are laid out apart, so the heading and the tree are each made
+## as wide as the wider of the two: the rows then share their width out
+## alike, and every heading stays over its tree.
+func _add_column(title: String, source: SkillSource, share: int, heights: PackedFloat32Array) -> void:
 	var heading := Label.new()
 	heading.text = source.display_name if source != null and not source.display_name.is_empty() else title
 	heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	heading.size_flags_horizontal = SIZE_EXPAND_FILL
+	heading.size_flags_stretch_ratio = share
 	heading.add_theme_font_size_override(&"font_size", 16)
 	heading.add_theme_color_override(&"font_color", TITLE_COLOR)
-	column.add_child(heading)
+	# The gap under it is part of it, so the dividers beside it run on down
+	# into the trees'.
+	var gap := StyleBoxEmpty.new()
+	gap.content_margin_bottom = HEADING_GAP
+	heading.add_theme_stylebox_override(&"normal", gap)
+	_headings.add_child(heading)
 
-	if source == null or source.tree == null or source.tree.nodes.is_empty():
-		return column
-	var view := SkillTreeView.new(source, heights)
-	view.size_flags_horizontal = SIZE_SHRINK_CENTER
-	for button: SkillButton in view.buttons.values():
-		button.focus_entered.connect(_on_focused.bind(button, view))
-		button.focus_exited.connect(_on_unfocused.bind(button))
-		button.mouse_entered.connect(_on_hovered.bind(button, true))
-		button.mouse_exited.connect(_on_hovered.bind(button, false))
-		button.held.connect(_on_held.bind(button, view))
-	column.add_child(view)
-	_trees.append(view)
-	return column
+	var column := VBoxContainer.new()
+	column.size_flags_horizontal = SIZE_EXPAND_FILL
+	column.size_flags_stretch_ratio = share
+	_columns.add_child(column)
+	var width := heading.get_minimum_size().x
+	if source != null and source.tree != null and not source.tree.nodes.is_empty():
+		var view := SkillTreeView.new(source, heights)
+		view.size_flags_horizontal = SIZE_SHRINK_CENTER
+		for button: SkillButton in view.buttons.values():
+			button.focus_entered.connect(_on_focused.bind(button, view))
+			button.focus_exited.connect(_on_unfocused.bind(button))
+			button.mouse_entered.connect(_on_hovered.bind(button, true))
+			button.mouse_exited.connect(_on_hovered.bind(button, false))
+			button.held.connect(_on_held.bind(button, view))
+		column.add_child(view)
+		_trees.append(view)
+		width = maxf(width, view.custom_minimum_size.x)
+	heading.custom_minimum_size.x = width
+	column.custom_minimum_size.x = width
 
 
 ## Selects [param button], in place of the last one, and points the arrow keys

@@ -6,8 +6,9 @@ decision behind them with its trade-offs, what is missing, and step-by-step reci
 more by hand. It is written for whoever adds the next animation, a person or a future Claude
 session that has none of the context of the session that built this.
 
-`CLAUDE.md` has the short version of the same architecture (search it for "rigged voxel figure");
-this file is the long one. `README.md` has the one paragraph a player needs.
+`CLAUDE.md` has the short version of the same architecture (search it for "rigged voxel figure")
+and the rule that must not drift ("A unit's figure is only for show"); this file is the long one,
+and holds all of the figure that `CLAUDE.md` does not. `README.md` has the one paragraph a player needs.
 
 ---
 
@@ -433,7 +434,9 @@ where the legs, torso, arms and head are.
 - The surface's material is a flat `StandardMaterial3D` in the model's commonest colour, which only
   the editor shows: a texture made by a bake run headless has no data to save. In play the figure's
   `VoxelModel` draws it (`FigureVoxels.body`, `material_override`), in its unit's colour
-  (`CharacterModel.tint`, section 9).
+  (`CharacterModel.tint`, section 9): its character's `color` for a squad member, and for the
+  enemies (set in each combat map) slate grey, `Color(0.32, 0.35, 0.4)`. They were red until blood,
+  which barely showed on them: keep every unit's colour off red.
 
 The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.
@@ -1175,7 +1178,8 @@ figure that reads its voxels while the game runs. Both go through **`FigureVoxel
 - **The calls blood makes:** `pick_wound(from)` (a point on the side facing `from`, mostly the
   torso; a shot's tracer is drawn to it), `swing()` (the way the blade moves as `strike_sword`
   lands) and `gear()` (the props it carries, each a `VoxelModel` of its own that blood recolours, and
-  which drop whole when it dies). None of them change what the figure does.
+  which drop whole when it dies; since `equip()` builds the belt afresh whenever a grenade is used
+  up, every grenade left on it comes back clean). None of them change what the figure does.
 
 `swing()` is written for `strike_sword` as it is: at the `impact` key the blade sweeps down across the
 figure's front, from its right to its left (`Vector3(0.75, -0.45, 0.3)` in its own space). Re-author
@@ -1184,8 +1188,8 @@ the swing and that vector wants changing with it (section 13.11).
 ### 9.13 Leaning out of cover
 
 The rules let a shot see its target on a tile the target could lean out to, when it cannot see it
-where it stands (`LineOfSight.Shot.leaning`, with `Shot.seen_at` the tile; `CLAUDE.md`, "A target is
-seen where it leans out, too"). The figure shows it, as XCOM 2 does: there a unit in cover that is
+where it stands (`LineOfSight.Shot.leaning`, with `Shot.seen_at` the tile; `Docs/SHOOTING.md`, "Seen where
+it leans out"). The figure shows it, as XCOM 2 does: there a unit in cover that is
 being targeted holds a peek out of its cover (`bTargeting` on its idle state machine, set by the
 targeting method) until the shooter has gone back into cover (`X2Action_EnterCover` clears it).
 
@@ -2417,6 +2421,18 @@ shooting, going on overwatch or advancing: seeds 7, 21 and 99 were won in 3, 3 a
 script errors, three of the squad's 14 to 20 shots in each catching Enemy1 leaning out of its half
 cover, and nobody left leaning as a turn began.
 
+### 14.5 A death, headless
+
+A death is probed headless, as the rest is (`CLAUDE.md`'s Verification): `unit.take_damage(100, from,
+false, unit.model.pick_wound(from))` kills with a round (a blast passes `blasted` and no `at`, a blade
+a `sweep` too), and `TerrainDestruction.break_figure()` breaks any figure without its unit dying. Its
+lumps are the `VoxelDebris` entries from `_state.size()` before it to after (`_centers[piece]` where
+each is now, `_moved_at[piece]` the last step it moved, its body asleep once at rest); its gear the
+`Dropped<prop>` bodies under `TerrainDestruction`. Seed the global generator and compare the next
+`randi()` with a fresh seed's: a death draws nothing from it. Whether the lumps are red can only be
+seen in a window (`CLAUDE.md`'s Gotchas: the headless renderer keeps no MultiMesh instance data); they
+come to rest in 2-3 s, a blast's a little later.
+
 ---
 
 ## 15. Known gaps and limitations
@@ -2491,6 +2507,8 @@ cover, and nobody left leaning as a turn began.
   - lumps are drawn a block's voxels across (0.0625), a shade smaller than the figure's (0.063);
   - the lumps and gear stay for the battle and a living unit can stand in them; gear cannot be picked
     up, and armor, which does not show, does not drop;
+  - dropped gear passes for good through the lumps it started inside, and a squad member's is only
+    for show: it is back in the inventory already;
   - some 60 to 90 lumps a death cost physics until they sleep, in 2 to 3 seconds.
 - **The cheer** only plays for the winners while the banner is up, then the battle closes.
 - **The editor** shows units in the tree's first base pose (`stand_rifle`) and without props, since
@@ -2561,6 +2579,37 @@ suspect call with `Time.get_ticks_usec()` before trusting a toggle-it-off compar
 ---
 
 ## 18. Every file involved
+
+### At a glance
+
+What each script of `vcom/Scripts/Characters/` holds (`CLAUDE.md`'s Layout keeps a line or two
+each):
+
+```
+  Characters/          the rigged figure every unit wears, and how it is baked
+    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
+                       does, facing, hops, gear in its sockets; lean_out() / lean_back() / leaning / lean_reach()
+                       (out round the end of its cover, standing or on one knee, hunkered or not); hunkered;
+                       reload() (over the arms and head, _act_upper()); use_medkit() (over the left arm,
+                       _act_left(); the medkit from the belt to the hand, or a borrowed one made in it, _borrowed;
+                       given null, pressed to its own middle), attend() (faces and looks at an ally, not idle, until
+                       stand_easy(); given null, keeps its facing and looks down at itself); break_apart() (hides
+                       it once broken apart on death), crumbles_as / gear_wears_as (Figure.tres, Gear.tres); tint /
+                       paint() (its body's colour); voxels() (FigureVoxels), pick_wound(), swing(), gear() (its props'
+                       VoxelModels)
+    FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body (the VoxelModel colouring its baked
+                       mesh); each bone's a part posed as the skeleton is; march() (bones and gear), pick_wound(),
+                       hit_near(), exit(), bleed(); crumble() (the lumps it breaks into)
+    AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
+    Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
+    BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
+    VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions; LAYOUTS by .vox), per-bone
+                       mesher
+    HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree; UPPER_ACTS
+                           (played over ARMS_AND_HEAD alone: the reload), LEFT_ACTS (over LEFT_ARM alone: a medkit)
+    PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them; an
+                           arms-and-head or left-arm clip over a base pose (--over)
+```
 
 ### New
 
@@ -2776,7 +2825,7 @@ a peek out of it (`X2TargetingMethod_OverTheShoulder.NotifyTargetTargeted` sets 
 target's idle state machine) until the shooter is back in cover (`X2Action_EnterCover` clears it),
 and its overwatch shots leave the target's peeks out (`bDisablePeeksOnMovement`).
 
-1. **The rule** (`LineOfSight`, `Ballistics`, `Reactions`; `CLAUDE.md` has it in full): a target is
+1. **The rule** (`LineOfSight`, `Ballistics`, `Reactions`; `Docs/SHOOTING.md` has it in full): a target is
    seen on its own tile, or failing that on a tile it could lean out to; a round is flown to where
    it leans; a reaction never sees a lean.
 2. **The poses.** `_wall()` and `_crouch()` gained a `side`, and each stance four more base loops

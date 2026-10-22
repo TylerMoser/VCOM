@@ -52,6 +52,7 @@ all pause the game behind them, and all work the same way.
 | Move between rows | `↓` / `↑`: from the tabs to any sub-tabs under them, to what is selected under those, and back |
 | Move within a row or a grid | Arrow keys. Characters, items, slots and skills are selected as the keyboard reaches them. On the Skills page, `↑` / `↓` follow a skill tree and `←` / `→` cross to the trees beside it; the selected skill's circle is filled a shade lighter. `↓` past a tree's last skill goes on to the button under the page, where there is one (**Start**, **Hire**) |
 | See what a skill is | On the Roster's Skills page, hover over it, or move the keyboard on to it: a panel beside it gives its name, a line about it, what the level the character has gives (**Current**) and what the next would (**Next**). It follows whichever of the mouse and the keyboard was used last |
+| Scroll the skill trees | On the Roster's Skills page, once the trees run past the bottom of the page: the mouse wheel over them, or drag the bar beside them. They also scroll to keep the skill the keyboard moves on to in sight. Their headings stay put |
 | Press a button | Click it, or `Enter` / `Space` |
 | Buy, sell, hire, or start a battle | Hold the button for 2 seconds, with the mouse or `Enter` / `Space`. One per press: let go and hold again for the next |
 | Learn a skill | On the Roster's Skills page, hold an available skill (its edge lit) for 2 seconds, with the mouse or `Enter` / `Space`: it fills round like a clock face, from the top. It costs a skill point, and cannot be done during a battle. One per press. A skill with rings round it can be taken again, once for each ring: hold it again and the next ring out fills round the same way, for another skill point |
@@ -85,8 +86,11 @@ all pause the game behind them, and all work the same way.
 | Open the pause menu | `Esc`, with no action up |
 
 While Shoot, Strike or Use Medkit is up, `Tab` cycles targets rather than squad members. During the enemies'
-turn only the camera, the reaction keys and the pause menu answer. The pause menu works as on the
-world map, but equipment cannot be changed, nor skills learned, until the battle is over.
+turn only the camera, the reaction keys and the pause menu answer. The camera moves itself then: to
+each enemy as it acts, unless it is in view already, after any walk that would leave the view, and to
+show both ends of a shot, pulling back if it must; panning it yourself takes it over until it next has
+something to show. The pause menu works as on the world map, but equipment cannot be changed, nor skills learned,
+until the battle is over.
 
 ### Gamepad
 
@@ -116,7 +120,7 @@ closes it again.
 
 | | |
 |---|---|
-| Move | D-pad or left stick, as the arrow keys |
+| Move | D-pad or left stick, as the arrow keys. On the Skills page the trees scroll to keep the skill moved on to in sight |
 | Change tab | `LB` / `RB` |
 | Change sub-tab | `LT` / `RT`: the sub-tabs the selection is in (a character's pages, the kinds of item), or the first under the tabs |
 | Press a button | `A` |
@@ -272,7 +276,8 @@ a pale rim while it is held, and overwatch ends when it fires or when the unit's
 see it, a *reaction window* opens:
 
 - The move drops to **slow motion** (10% speed) and the camera pulls up to an angled top-down view
-  of the enemy and everyone who could fire at it.
+  of the enemy, the rest of its move and everyone who could fire at it on the way, and holds still
+  there while the window is open.
 - Beside each of them is a number, `1`–`4`, their place on the squad panel, and the odds of their
   shot. The odds move as the enemy does; the number shown when the key goes down is the one rolled.
 - Pressing a number fires that squad member: the enemy freezes while the shot plays out, then carries
@@ -282,7 +287,8 @@ see it, a *reaction window* opens:
 Prompts come and go as the enemy moves in and out of sight, and the window closes when no one has a
 shot left or the enemy stops moving; a standing enemy cannot be fired on. Every move is a new
 trigger with the prompts back up, so the player can let an enemy come closer, or out of cover,
-before choosing to fire. The camera goes back to its normal view when that enemy's turn is over.
+before choosing to fire. Half a second after the window closes, or as the enemy stops, the camera
+goes back to following the enemy, or to its normal view.
 
 A reaction shot costs **15 aim** (the **Reaction** term below), for being snapped off at a moving
 target. Only walking sets off a window; leaning out of cover to shoot does not. A reaction has to
@@ -1135,7 +1141,9 @@ vcom/                     the Godot project
     PlayerSquad.gd        the squad spawned from the roster, and which member is selected
     TurnManager.gd        turn order, carrying out what enemy AI decides, victory and defeat
     Reactions.gd          the reaction window: slow motion, prompts, reaction fire
-    CameraRig.gd          orbiting tactical camera, and the framed reaction view
+    CameraRig.gd          orbiting tactical camera: the player's moves ease, the game's glide as XCOM 2's
+                          do, bringing each enemy into view, following its walks, framing its shots
+                          and the reaction view
     InputDevice.gd        which the player is using, the gamepad or the keyboard and mouse
     Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins,
                           the tile grid's switch, the gamepad's tile cursor
@@ -1189,9 +1197,10 @@ Styles/                   visual styles (05 is applied, the rest are candidates)
 MapStyles/                proposals for the new world map's look (02, 04, 05, 10's forests, 10b, 14b,
                           19a and 12b are applied), pictures of the look as it is, 12 and 20 explored
                           with variants, the harness that renders them, and how to apply one
-Docs/                     each subsystem in full, split out of CLAUDE.md: blood, destruction, the
-                          gamepad, levels, the level editor, the new world map, medkits, skills and
-                          voxel models
+Docs/                     each subsystem in full, split out of CLAUDE.md: ammo, blood, the campaign,
+                          the combat camera, destruction, the gamepad, grenades, hunkering down,
+                          levels, the level editor, the new world map, medkits, the roster,
+                          shooting, skills and voxel models
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

@@ -482,6 +482,33 @@ at rest all the way out takes 3.7 ms, from 1.4 to 2.4 (1,715 draw calls, from 53
 view is one), and 1.3 to 2.9 ms from the Duchy tier in. `Forest.find_at()`, which the party asks at
 each step's end, tries every piece: 4 to 5 ms, once every 3.75 s of travel.
 
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are the new map's own in full (the
+party, forests, settlements and menus it shares with the old map are `Docs/CAMPAIGN.md`'s).
+
+```
+  WorldMap/
+    MapCamera.gd       WorldMapCamera for Scenes/Map.tscn: all the way out the land just fits (read off the
+                       land's nodes), all the way in the view is closest_view_miles (25) tall, and the view
+                       never leaves what is seen all the way out
+    MapDetail.gd       Map.tscn's level of detail (its Detail node): four tiers by the view's height in miles
+                       (Tier, SHOWN_FROM), what each brings faded in and out, every line's width scaled by one
+                       factor of the zoom, a few lines a frame, the borders' by a growth of their own too
+                       (border_growth) and the kingdoms' and duchies' fainter closing in (*_border_faintest);
+                       settlements far from the view stopped (in_view);
+                       forests by the size of the whole forest (Forests/Large, Small, Woods), only ever faded
+    MapLine.gdshader   Map.tscn's lines as map symbols: casings (roads, bridges), dashes and dots (borders), a band's
+                       pattern on both banks; a material a kind in Resources/MapLines/, and the line in Texture Mode Tile
+    MapGround.gdshader Map.tscn's land tinted by its biome: one material, Resources/MapGround.tres, each biome's colour
+                       and intensity on it; a county's biome (its kingdom's) set on the county, an instance parameter
+    BorderSwitch.gd    Map.tscn's BorderSwitch: B / R3 (toggle_borders) fade Borders and BordersOverLakes to
+                       nothing and back (shown); MapDetail fades only the ranks under them
+    MapClock.gd        CanvasLayer in Map.tscn (its Clock): the campaign's time, counted down from
+                       starting_days in the top left as days:hours:minutes; seconds_per_day; advance()
+                       (only the Party calls it, while it moves), elapsed, remaining()
+```
+
 ## Probing it
 
 Run the scene in a window (`--fixed-fps 60 --disable-vsync` to time frames) from a `--script`
@@ -525,6 +552,13 @@ shows. On the screen a polygon is its `color` mixed toward its biome's colour by
 `overall_intensity`, which a probe can read back off the viewport's image in a window: all nine came
 out within a shade of that. `MapStyles/harness/render.sh 1200` draws the map without the ground
 (`StyleKit.without_ground()`), at the views 12's variants are pictured at.
+
+The whole scene is looked at with `MapCreation/Scripts/scene/m3_draw.gd`, in a window: it draws the
+whole map at one screen pixel to a pixel of the pictures (`render_full.png`), times it, and draws
+close views given as `x,y,w,h,scale,msaa,name` in the pictures' pixels;
+`MapCreation/Scripts/scene/m4_compare.py` set it beside `MapCreation/AllSimple.png`, colour by colour,
+until the map's look gave its lines colours of their own; `MapStyles/harness/render.sh 0` draws it at
+four views.
 
 ## Decided with the user
 
@@ -581,6 +615,13 @@ county.
 
 ## Known gaps
 
+- `Scenes/Map.tscn` is not in the game. Its party keeps to no land, there being no land test or
+  navigation for it: it crosses the sea and the lakes, and can be sent off the sheet. Its reticle's
+  prompt says "Go here" over the sea as well, and its white ring is faint on the pale land. Only
+  county 115's capital has anything in it, and it shares the old village's board and market: with both
+  maps in one game they would be one shop. Its settlements are not drawn in the editor (`Destination`
+  is no tool script, so the old map's village is not either): there they are nodes with no picture. It
+  is 13.6 MB of text and takes about 2.7 s to open, 1.7 before its 2,459 pieces of forest.
 - For the 0.2 s of a fade, lines of one colour that overlap (roads at a fork) show darker where
   they do, each being blended in by itself.
 - While the zoom moves fast, lines in view are some steps behind (a step is 6% of a width; 7

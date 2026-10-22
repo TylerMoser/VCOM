@@ -254,9 +254,12 @@ func _cycle_action(step: int) -> void:
 	activate(offered[posmod(at + step, offered.size())])
 
 
+## Puts the cursor on whoever is selected, the camera with it on the player's
+## turn: on the enemies' the camera is theirs, and a squad member falling then,
+## which moves the selection on, must not take it away from them.
 func _put_cursor_on_selected() -> void:
 	if cursor != null and squad.selected != null:
-		cursor.snap_to(grid.tile_at(squad.selected.global_position), InputDevice.gamepad)
+		cursor.snap_to(grid.tile_at(squad.selected.global_position), InputDevice.gamepad and enabled)
 
 
 ## Shows the cursor while the gamepad is in use on the player's turn, with

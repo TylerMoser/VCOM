@@ -178,6 +178,20 @@ few kilobytes at most, at the end of the frame it changed in. A death with blood
 its frame. Before the rig was read at load and the gear cached a frame, the first hit took 10 ms and a
 frame of drops near a figure up to 9.
 
+## Its scripts
+
+`CLAUDE.md`'s Layout lists every script in a line or two; here are `Blood/`'s in full.
+
+```
+  Blood/
+    Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops the way the blow went; drops (one
+                       MultiMesh) stain the first voxel face they meet and run; a pool under each body once it rests;
+                       landings settled on a budget a physics step; drops_in_flight(), pools_to_come(); static
+                       enabled (the System tab's Blood on / off, read as each map loads)
+    BloodFlow.gd       blood running over voxel faces, cheapest first (downhill cheap, climbing dear, undersides never):
+                       spread(); the Surface it runs over: VolumeSurface (the level's voxels), ModelSurface
+```
+
 ## Probing it
 
 Blood is probed headless, as debris is (`CLAUDE.md`'s Verification).

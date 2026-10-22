@@ -209,8 +209,10 @@ Top to bottom:
   in a file of its own is saved with the scene. Closing without saving loses the strokes, as any
   unsaved edit in Godot.
 - **The scenery** (BoundaryMap's `Scenery`, a `VoxelLevel` with **Scenery** ticked) is painted the same
-  way: select it instead of `Level`. It is only drawn, by kind and region, and a click draws again the
-  16 x 16-cell regions it reaches. The rules, destruction and blood never see it.
+  way: select it instead of `Level`. It is only drawn, by kind, level of detail and region, and a click
+  draws again the 8 x 8-cell regions it reaches, each piece in the copy its rows out from the
+  battlefield call for: painted far out, a piece shows twice or four times as coarse, as it will in
+  the game (`Docs/LEVELS.md`, "Level of detail"). The rules, destruction and blood never see it.
 
 ## Recipes
 
@@ -255,7 +257,9 @@ Top to bottom:
    `Scenes/Forest.tscn`'s, which is `BoundaryMap.tscn`.
 8. **A ring of scenery** round it, as BoundaryMap has, is a second `VoxelLevel` with **Scenery**
    ticked and a `LevelData` of its own, over a ground plane; `Docs/LEVELS.md`, "Scenery", has how deep
-   it must be and why.
+   it must be and why. Its **Battlefield Path** names the battlefield whose edge its level of detail
+   counts rows from (`../Level` by default, so a sibling of a level named `Level` needs nothing set):
+   further out, its pieces are drawn twice or four times as coarse.
 
 ## Importing a GridMap
 

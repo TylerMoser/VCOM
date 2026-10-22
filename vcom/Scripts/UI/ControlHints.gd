@@ -6,7 +6,8 @@
 ## Whoever owns it says what is on offer with [method show_hints], as often as
 ## it likes; it only rebuilds when that changes. A column, as combat and the
 ## world map have down the right of the screen, or a row, as the menus have
-## along the bottom.
+## along the bottom. Compact, it is smaller and has no box round it: the
+## menus' row, which has to fit the strip their frame leaves under it.
 class_name ControlHints
 extends PanelContainer
 
@@ -14,6 +15,12 @@ const BG_COLOR := Color(0.1, 0.11, 0.15, 0.8)
 const BORDER_COLOR := Color(0.3, 0.32, 0.4)
 const TEXT_COLOR := Color(0.88, 0.89, 0.93)
 const FONT_SIZE := 15
+## Compact, the words' size and how tall the glyphs are drawn
+## ([constant ButtonGlyph.HEIGHT] otherwise): 20 px high in all. The words
+## are outlined, as there is no box behind them.
+const COMPACT_FONT_SIZE := 14
+const COMPACT_GLYPH_HEIGHT := 20.0
+const COMPACT_OUTLINE_SIZE := 4
 ## Between a row's glyphs, between them and the words, and between rows.
 const GLYPH_GAP := 3
 const TEXT_GAP := 7
@@ -23,18 +30,25 @@ const COLUMN_GAP := 18
 var _box: BoxContainer
 ## The rows showing, as given: [code][[buttons...], words][/code].
 var _rows: Array = []
+var _compact := false
 
 
-func _init(vertical := true) -> void:
+## A column, or a row with [param vertical] false; [param compact], smaller
+## and with no box.
+func _init(vertical := true, compact := false) -> void:
 	mouse_filter = MOUSE_FILTER_IGNORE
 	visible = false
-	var style := StyleBoxFlat.new()
-	style.bg_color = BG_COLOR
-	style.border_color = BORDER_COLOR
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(4)
-	style.set_content_margin_all(8)
-	add_theme_stylebox_override(&"panel", style)
+	_compact = compact
+	if compact:
+		add_theme_stylebox_override(&"panel", StyleBoxEmpty.new())
+	else:
+		var style := StyleBoxFlat.new()
+		style.bg_color = BG_COLOR
+		style.border_color = BORDER_COLOR
+		style.set_border_width_all(1)
+		style.set_corner_radius_all(4)
+		style.set_content_margin_all(8)
+		add_theme_stylebox_override(&"panel", style)
 	_box = VBoxContainer.new() if vertical else HBoxContainer.new()
 	_box.mouse_filter = MOUSE_FILTER_IGNORE
 	_box.add_theme_constant_override(&"separation", ROW_GAP if vertical else COLUMN_GAP)
@@ -68,12 +82,17 @@ func show_hints(rows: Array) -> void:
 		line.mouse_filter = MOUSE_FILTER_IGNORE
 		line.add_theme_constant_override(&"separation", GLYPH_GAP)
 		for button: StringName in buttons:
-			line.add_child(ButtonGlyph.new(button))
+			line.add_child(ButtonGlyph.new(button, COMPACT_GLYPH_HEIGHT if _compact else ButtonGlyph.HEIGHT))
 		var label := Label.new()
 		label.text = words
 		label.mouse_filter = MOUSE_FILTER_IGNORE
-		label.add_theme_font_size_override(&"font_size", FONT_SIZE)
+		label.add_theme_font_size_override(&"font_size", COMPACT_FONT_SIZE if _compact else FONT_SIZE)
 		label.add_theme_color_override(&"font_color", TEXT_COLOR)
+		if _compact:
+			# With no box behind them, the words are kept off whatever lies
+			# under the menu by an outline of the box's colour.
+			label.add_theme_constant_override(&"outline_size", COMPACT_OUTLINE_SIZE)
+			label.add_theme_color_override(&"font_outline_color", BG_COLOR)
 		# The words sit a little apart from the buttons, more than the buttons
 		# from each other.
 		var spacer := Control.new()

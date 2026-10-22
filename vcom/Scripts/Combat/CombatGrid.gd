@@ -14,6 +14,11 @@
 ## it stops a round or a throw there. A unit steps over one a level high or
 ## less, as it climbs a level, and never over one taller, nor diagonally past
 ## any.
+##
+## Paths go over a walking graph, the steps from every tile, worked out once as
+## the map loads and kept, rather than at every search. The steps from a tile
+## read nothing but the rules close round it, so as a piece leaves the rules
+## only the steps round it are worked out again ([method _on_piece_removed]).
 class_name CombatGrid
 extends Node
 
@@ -35,6 +40,13 @@ signal round_flown(from: Vector3, to: Vector3, damage: int)
 const UNIT_HEIGHT := 2
 const MAX_CLIMB := 1
 const MAX_DROP := 2
+## How many levels below a tile's own, and above it, the rules its steps are
+## worked out from reach ([method _walkable_from]): down to the ground under
+## the lowest tile it can drop to, up to the head of a unit that has climbed as
+## high as it can. A change further from a tile than that leaves its steps as
+## they were.
+const STEP_READS_BELOW := MAX_DROP + 1
+const STEP_READS_ABOVE := MAX_CLIMB + UNIT_HEIGHT - 1
 ## How close two cell boundaries must be for [method is_line_clear] to treat
 ## a sight line as crossing both at once, rather than one and then the other.
 const BOUNDARY_EPSILON := 1e-6
@@ -66,6 +78,15 @@ var _has_edges := false
 ## out once: cells only ever go from the map, so it never needs to grow.
 var _bounds_min := Vector3i.ZERO
 var _bounds_max := Vector3i.ZERO
+## The walking graph: each tile -> the tiles one step from it, in
+## [constant DIRECTIONS]' order ([method _walkable_from]). Worked out for every
+## tile as the map loads, and kept: only what a piece leaving the rules could
+## change is ever worked out again.
+var _graph := {}
+## The cells round the pieces gone from the rules since, as a set, whose steps
+## are to be worked out again: at the end of the frame they went in, or first
+## thing in the next search, whichever comes first ([method _catch_up]).
+var _stale := {}
 
 
 ## Where a ray cast by [method cast] first runs into something solid.
@@ -125,6 +146,10 @@ func _ready() -> void:
 	if level.rules == null:
 		push_error("CombatGrid: the level at '%s' is scenery, or has no pieces." % level_path)
 		return
+	# Readied again (a probe taking up rules made afresh), it lets go of the
+	# rules it read before.
+	if _rules != null and _rules.removed.is_connected(_on_piece_removed):
+		_rules.removed.disconnect(_on_piece_removed)
 	_rules = level.rules
 	_volume = level.volume
 	_bounds_min = _rules.bounds_min
@@ -134,6 +159,8 @@ func _ready() -> void:
 	for kind in level.data.kinds.size():
 		var piece_kind := level.library.find(StringName(level.data.kinds[kind]))
 		_wears[kind] = 1 if piece_kind != null and piece_kind.destruction is VoxelDestruction else 0
+	_build_graph()
+	_rules.removed.connect(_on_piece_removed)
 
 
 func is_solid(cell: Vector3i) -> bool:
@@ -200,28 +227,18 @@ func occupied_tiles(except: Unit = null) -> Dictionary:
 	return tiles
 
 
-## Tiles one step away from [param tile].
+## Tiles one step away from [param tile], from the walking graph. A copy, to
+## do with as the caller likes.
 func neighbours(tile: Vector3i) -> Array[Vector3i]:
-	var result: Array[Vector3i] = []
-	for direction in DIRECTIONS:
-		var next: Variant = _step(tile, direction)
-		if next == null:
-			continue
-		# A diagonal needs both of the straight steps beside it to be open,
-		# so units cannot squeeze between two blocks that touch at a corner,
-		# and nothing across any edge round the corner it passes.
-		if direction.x != 0 and direction.y != 0:
-			if _step(tile, Vector2i(direction.x, 0)) == null or _step(tile, Vector2i(0, direction.y)) == null:
-				continue
-			if _has_edges and _corner_blocked(tile, next, direction):
-				continue
-		result.append(next)
-	return result
+	_catch_up()
+	return _links(tile).duplicate()
 
 
-## Breadth-first search from [param start], up to [param max_steps] steps.
-## Tiles in [param blocked] (a set of Vector3i keys) cannot be entered.
+## Breadth-first search from [param start], up to [param max_steps] steps,
+## over the walking graph. Tiles in [param blocked] (a set of Vector3i keys)
+## cannot be entered.
 func find_reachable(start: Vector3i, max_steps: int, blocked: Dictionary = {}) -> Reach:
+	_catch_up()
 	var reach := Reach.new()
 	reach.steps[start] = 0
 	var frontier: Array[Vector3i] = [start]
@@ -230,7 +247,7 @@ func find_reachable(start: Vector3i, max_steps: int, blocked: Dictionary = {}) -
 		var steps: int = reach.steps[tile]
 		if steps >= max_steps:
 			continue
-		for next in neighbours(tile):
+		for next in _links(tile):
 			if reach.steps.has(next) or blocked.has(next):
 				continue
 			reach.steps[next] = steps + 1
@@ -523,6 +540,100 @@ func _stops_rounds(piece: int) -> bool:
 	if _wears[kind] == 0:
 		return false
 	return _rules.is_standing(piece)
+
+
+## Works out the steps from every tile on the map afresh: the walking graph, as
+## the map loads.
+func _build_graph() -> void:
+	_graph.clear()
+	_stale.clear()
+	for tile in tiles():
+		_graph[tile] = _walkable_from(tile)
+
+
+## The steps from [param tile], from the walking graph: as they were last
+## worked out, or, for a cell it has none for (one that is no tile, such as
+## one a falling unit is in), worked out now and kept. The graph's own array,
+## never to be changed.
+func _links(tile: Vector3i) -> Array[Vector3i]:
+	var links: Variant = _graph.get(tile)
+	if links == null:
+		links = _walkable_from(tile)
+		_graph[tile] = links
+	return links
+
+
+## The tiles one step away from [param tile], worked out from the rules as they
+## stand: what the walking graph keeps for it. A diagonal needs both of the
+## straight steps beside it to be open, so units cannot squeeze between two
+## blocks that touch at a corner, and nothing across any edge round the corner
+## it passes.
+##
+## The graph is kept by what this reads: the cells of the nine columns round
+## [param tile], its own and the eight beside it, from
+## [constant STEP_READS_BELOW] levels below its own to
+## [constant STEP_READS_ABOVE] above, and the edges between those columns from
+## its own level to [constant STEP_READS_ABOVE] above. Make it read further and
+## [method _on_piece_removed] has to forget further round a change.
+func _walkable_from(tile: Vector3i) -> Array[Vector3i]:
+	# Each step is worked out once, for a diagonal looks again at the straight
+	# steps beside it.
+	var steps := {}
+	for direction in DIRECTIONS:
+		steps[direction] = _step(tile, direction)
+	var result: Array[Vector3i] = []
+	for direction in DIRECTIONS:
+		var next: Variant = steps[direction]
+		if next == null:
+			continue
+		if direction.x != 0 and direction.y != 0:
+			if steps[Vector2i(direction.x, 0)] == null or steps[Vector2i(0, direction.y)] == null:
+				continue
+			if _has_edges and _corner_blocked(tile, next, direction):
+				continue
+		result.append(next)
+	return result
+
+
+## Forgets the steps from every cell whose steps read [param slot], which a
+## piece has just left ([signal LevelRules.removed]), to be worked out again
+## ([method _catch_up]). While another piece still stands there, nothing has
+## changed for them.
+func _on_piece_removed(_piece: int, slot: Vector3i) -> void:
+	var cell := LevelData.cell_of(slot)
+	if LevelData.is_centre(slot):
+		if not _rules.is_solid(cell):
+			_forget(cell, cell, cell.y - STEP_READS_ABOVE, cell.y + STEP_READS_BELOW)
+	elif not _rules.has_edge_slot(slot):
+		# An edge is read from the columns round both of its sides, by the tiles
+		# at its own level and up to STEP_READS_ABOVE below it.
+		_forget(cell, LevelData.other_cell(slot), slot.y - STEP_READS_ABOVE, slot.y)
+
+
+## Takes the steps from every cell of the columns within one of [param a] or
+## [param b], from level [param low] to [param high], out of the walking graph,
+## and marks them to be worked out again.
+func _forget(a: Vector3i, b: Vector3i, low: int, high: int) -> void:
+	if _stale.is_empty():
+		_catch_up.call_deferred()
+	for x in range(mini(a.x, b.x) - 1, maxi(a.x, b.x) + 2):
+		for z in range(mini(a.z, b.z) - 1, maxi(a.z, b.z) + 2):
+			for y in range(low, high + 1):
+				var cell := Vector3i(x, y, z)
+				_graph.erase(cell)
+				_stale[cell] = true
+
+
+## Works the steps out again from every tile among the cells forgotten since it
+## last ran: at the end of the frame the pieces went in, or as the next search
+## begins, so no search reads steps a change has made wrong.
+func _catch_up() -> void:
+	if _stale.is_empty():
+		return
+	for cell: Vector3i in _stale:
+		if is_tile(cell):
+			_graph[cell] = _walkable_from(cell)
+	_stale.clear()
 
 
 ## The tile reached by stepping from [param from] toward [param direction],
