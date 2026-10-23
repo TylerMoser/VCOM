@@ -19,7 +19,11 @@
 ## [member cutaway_heights] up, to see into its buildings ([method cut_away]):
 ## its building pieces there and above, and whatever rests on them, are not
 ## drawn, though they still cast their shadows ([LevelCutaway],
-## [LevelRenderer]). Only for show: the rules see every piece as ever.
+## [LevelRenderer]). Only for show: the rules see every piece as ever. The
+## player chooses the height (the floor selector), and the game changes it when
+## it must show a unit: cutting away less to show one hidden with the cut
+## ([method reveal]), or more to show one inside a building
+## ([method CombatGrid.show_floor_of]).
 class_name VoxelLevel
 extends Node3D
 
@@ -176,6 +180,57 @@ func cut_away(from_level: int) -> void:
 ## The height the view is cut away from, or [constant UNCUT].
 func cut_level() -> int:
 	return cutaway.from_level if cutaway != null else UNCUT
+
+
+## Cuts the view away less, if it must, so that something at [param world]
+## is seen: from the lowest of [member cutaway_heights] above the height cut
+## from now that leaves it shown, or from none at all. The floor it is on, as
+## the floor selector shows it; never more cut away than now. For the game to
+## show what the player has to see: an enemy acting, a target lined up.
+## Returns whether it changed the cut.
+func reveal(world: Vector3) -> bool:
+	if not is_cut_away(world):
+		return false
+	var local := to_local(world)
+	var from := UNCUT
+	for height in floor_heights():
+		if height <= cutaway.from_level:
+			continue
+		if not cutaway_from(height).covers_point(local):
+			from = height
+			break
+	cut_away(from)
+	return true
+
+
+## [member cutaway_heights], each once, lowest first.
+func floor_heights() -> PackedInt32Array:
+	var heights := {}
+	for height in cutaway_heights:
+		heights[height] = true
+	var sorted := PackedInt32Array(heights.keys())
+	sorted.sort()
+	return sorted
+
+
+## What cutting the view away from [param height] up would take away, as
+## things are now, without cutting it ([method cut_away]).
+func cutaway_from(height: int) -> LevelCutaway:
+	return LevelCutaway.new(data, volume.kinds, rules, height)
+
+
+## Whether a building piece ([member PieceKind.cutaway]) still stands above
+## [param tile] in its column, to the rules, cut away from the view or not:
+## whether a unit standing there is inside a building.
+func is_under_building(tile: Vector3i) -> bool:
+	if rules == null:
+		return false
+	for y in range(tile.y, rules.bounds_max.y + 1):
+		for piece in rules.pieces_in(Vector3i(tile.x, y, tile.z)):
+			var kind := volume.kinds[data.kind_at(piece)]
+			if kind != null and kind.cutaway:
+				return true
+	return false
 
 
 ## Whether something at [param world] is hidden with what is cut away: over a

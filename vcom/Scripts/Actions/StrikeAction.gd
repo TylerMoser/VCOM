@@ -17,6 +17,9 @@
 ## it, and the cursor turns to a hand over any target. With the gamepad, as a
 ## shot is lined up: LB / RB, A, LT, and the tile cursor on the target.
 ##
+## A target is seen as it is lined up, and the striker with it, the floor
+## changed if it must, as a shot's is ([method CombatGrid.show_floor_of]).
+##
 ## The odds are [method HitChance.for_strike]'s, worked out once when the
 ## target is lined up, and the blow is [method Unit.strike]'s. While a target
 ## is lined up the unit squares up to it, its weapon drawn; the blow lands as
@@ -201,6 +204,7 @@ func _show_target() -> void:
 		return
 	var target := lined_up as Unit
 	_estimate = HitChance.for_strike(_unit, target)
+	controller.grid.show_floor_of([target.global_position, _unit.global_position])
 	_unit.ready_strike(target.global_position)
 	if InputDevice.gamepad and controller.cursor != null:
 		controller.cursor.snap_to(controller.grid.tile_at(target.global_position))

@@ -7,7 +7,11 @@
 ## each of its shots, as XCOM 2's does: it moves only for an enemy, a walk or a
 ## shot not in view already ([method CameraRig.bring_into_view],
 ## [method CameraRig.follow], [method _show_shot]). A turn that opens with a
-## shot is brought into view by framing the shot, in one move.
+## shot is brought into view by framing the shot, in one move. An enemy is
+## seen before it acts, wherever it walks or steps out to shoot from, and so is
+## the squad member it shoots at, and the one selected as the player's turn
+## starts: the floor changed to show any hidden with what is cut away or lost
+## inside a house ([method CombatGrid.show_floor_of]).
 ##
 ## What an enemy does is up to its [member Unit.ai]. The turn manager asks it
 ## for one [AIAction] at a time and carries each out, charging what the squad
@@ -183,6 +187,9 @@ func _start_player_turn(focus_camera: bool) -> void:
 	side = Side.PLAYER
 	for unit in _squad.members:
 		unit.start_turn()
+	if _squad.selected != null:
+		# The squad member the turn starts on is seen, inside a house or not.
+		_show_floor_of([_squad.selected.global_position])
 	if focus_camera and _squad.selected != null:
 		_camera_rig.focus_on(_squad.selected.global_position)
 	_controller.enabled = true
@@ -206,6 +213,10 @@ func _take_enemy_turn(enemy: Unit) -> void:
 	# nothing it does.
 	var action := _next_action(enemy)
 	var opens_with_shot := action != null and action.kind == AIAction.Kind.SHOOT
+	# An enemy acting is seen before the camera comes to it: on the floor it is
+	# on, if it is hidden with what is cut away or inside a house.
+	if action != null and action.kind != AIAction.Kind.END_TURN:
+		_show_floor_of([enemy.global_position])
 	if not opens_with_shot:
 		await _bring_into_view(enemy)
 		await get_tree().create_timer(enemy_action_pause, false).timeout
@@ -217,11 +228,19 @@ func _take_enemy_turn(enemy: Unit) -> void:
 			if not is_instance_valid(enemy) or enemy.health <= 0:
 				return
 		elif action.kind == AIAction.Kind.RELOAD:
+			_show_floor_of([enemy.global_position])
 			enemy.spend_actions(enemy.reload_cost())
 			await enemy.reload()
 			await enemy.recover()
 		else:
 			enemy.spend_actions(ShootAction.COST)
+			# The enemy, where it steps out to shoot from, and the squad member it
+			# shoots at, all at once, so a floor showing one never hides another.
+			_show_floor_of([
+				enemy.global_position,
+				_grid.tile_position(action.shot.from),
+				action.shot.target.global_position,
+			])
 			var framed: bool = await _show_shot(enemy, action.shot)
 			if opens_with_shot:
 				# The pause any enemy gets once the camera arrives on it.
@@ -256,6 +275,11 @@ func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
 	var points: Array[Vector3] = []
 	for tile in walked:
 		points.append(_grid.tile_position(tile))
+	# Where it stands and every tile it walks are shown before it sets off, so
+	# it is never lost from sight on the way, as far as one floor can show them.
+	var seen: Array[Vector3] = [enemy.global_position]
+	seen.append_array(points)
+	_show_floor_of(seen)
 	var vaults := _grid.vaults_along(_grid.tile_at(enemy.global_position), walked)
 	# The camera stays put if the whole walk is in view, and follows it if
 	# not, unless a reaction view is holding it.
@@ -265,6 +289,13 @@ func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
 	else:
 		await enemy.walk(points, seconds_per_enemy_step, false, vaults)
 	_camera_rig.stop_following()
+
+
+## Changes the floor, if it must, for units standing at [param feet] to be
+## seen: none hidden with what is cut away, none lost inside a house that a
+## floor would show ([method CombatGrid.show_floor_of]).
+func _show_floor_of(feet: Array[Vector3]) -> void:
+	_grid.show_floor_of(feet)
 
 
 ## Has the camera bring [param unit] into view, as XCOM 2's does before a unit

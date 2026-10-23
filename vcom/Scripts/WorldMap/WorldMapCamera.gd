@@ -8,10 +8,10 @@
 ##   Zoom - mouse wheel, toward the point under the cursor.
 ##
 ## With the gamepad the left stick pans (cursor_*, the actions that move the
-## combat map's tile cursor) and the right stick, pushed up or down, zooms, as
-## the d-pad's up and down do a step at a time, toward the middle of the
-## screen, where the [MapReticle] points. Edge panning is off meanwhile, since
-## the mouse is hidden.
+## combat map's tile cursor) and the right stick, pushed up or down, zooms,
+## toward the middle of the screen, where the [MapReticle] points. The d-pad's
+## up and down zoom nothing: in combat they are the floor selector's alone.
+## Edge panning is off meanwhile, since the mouse is hidden.
 ##
 ## Zoomed all the way out the whole map fits on screen; all the way in, one
 ## pixel of the map image is one pixel of the view. The centre of the view

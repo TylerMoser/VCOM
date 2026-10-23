@@ -434,6 +434,78 @@ func cast_seen(origin: Vector3, direction: Vector3, max_distance := 500.0) -> Va
 	return cast(origin, direction, max_distance, false, false, passing)
 
 
+## Changes the floor the view is cut away from, if it must, for the units
+## standing with their feet at [param feet] to be seen, as the game gives them
+## its focus: an enemy acting, a squad member selected, anyone lined up as a
+## target. First none is left hidden with what is cut away
+## ([method VoxelLevel.reveal]). Then each inside a building
+## ([method VoxelLevel.is_under_building]) and out of the camera's sight
+## ([method _is_seen]) has the view cut down to their floor, the lowest of the
+## level's floors above the tile they stand on, or failing that the next floor
+## down, and so on: the first that shows them and hides none of the others. A
+## unit no floor shows, as one behind a tree, leaves it be. Only for show.
+## Returns whether it changed the floor.
+func show_floor_of(feet: Array[Vector3]) -> bool:
+	if level == null or level.rules == null or level.cutaway_heights.is_empty():
+		return false
+	var changed := false
+	for at in feet:
+		changed = level.reveal(at) or changed
+	var camera := get_viewport().get_camera_3d() if is_inside_tree() else null
+	if camera == null:
+		return changed
+	var heights := level.floor_heights()
+	for at in feet:
+		var tile := tile_at(at)
+		if not level.is_under_building(tile) or _is_seen(at, camera, level.cutaway):
+			continue
+		# Their floor first, then each below it.
+		var tries: Array[int] = []
+		for height in heights:
+			if height > tile.y:
+				tries.append(height)
+				break
+		for index in range(heights.size() - 1, -1, -1):
+			if heights[index] <= tile.y:
+				tries.append(heights[index])
+		for height in tries:
+			if height == level.cut_level():
+				continue
+			var cut := level.cutaway_from(height)
+			if _hides_any(cut, feet) or not _is_seen(at, camera, cut):
+				continue
+			level.cut_away(height)
+			changed = true
+			break
+	return changed
+
+
+## Whether a unit standing with its feet at [param feet] is in sight of
+## [param camera] with [param cut] cut away (null for nothing): whether a line
+## from its feet, its middle or its head back along the camera's view, as far
+## as the camera's height, meets no solid piece. The view's way, not the
+## camera's place, as the camera is about to turn its focus there.
+func _is_seen(feet: Vector3, camera: Camera3D, cut: LevelCutaway) -> bool:
+	var passing: Dictionary = cut.pieces if cut != null else {}
+	var toward := camera.global_basis.z
+	for lift in [0.3, 1.0, 1.7]:
+		var point: Vector3 = feet + Vector3.UP * lift
+		var reach := 200.0
+		if toward.y > 0.05:
+			reach = maxf(camera.global_position.y - point.y, 0.0) / toward.y
+		if cast(point, toward, reach, false, false, passing) == null:
+			return true
+	return false
+
+
+## Whether [param cut] would hide a unit standing at any of [param feet].
+func _hides_any(cut: LevelCutaway, feet: Array[Vector3]) -> bool:
+	for at in feet:
+		if cut.covers_point(level.to_local(at)):
+			return true
+	return false
+
+
 ## The box every cell on the map lies within, in world space.
 func map_bounds() -> AABB:
 	var cells := AABB(Vector3(_bounds_min), Vector3(_bounds_max - _bounds_min + Vector3i.ONE))

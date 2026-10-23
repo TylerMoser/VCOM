@@ -609,7 +609,8 @@ scenery's ground plane.
   Level/               combat maps as levels of voxel pieces
     VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove() /
                        begin_edit() (the editor's), ensure_collision(), redraw_now(), frame_of(), kind_of();
-                       cutaway_heights, cut_away() -> cut_changed, is_cut_away(), is_tile_cut_away()
+                       cutaway_heights, cut_away() -> cut_changed, is_cut_away(), is_tile_cut_away(), reveal(),
+                       floor_heights(), cutaway_from(), is_under_building()
     LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them (Docs/CUTAWAY.md)
     LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
     PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece, cutaway; PieceBrush.gd

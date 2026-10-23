@@ -286,6 +286,9 @@ func _show_target() -> void:
 	if lined_up == null:
 		return
 	var target := lined_up as Unit
+	# The ally is seen, and the unit with them, as a target lined up to shoot is
+	# ([method CombatGrid.show_floor_of]).
+	controller.grid.show_floor_of([target.global_position, _unit.global_position])
 	_unit.attend(target)
 	if InputDevice.gamepad and controller.cursor != null:
 		controller.cursor.snap_to(controller.grid.tile_at(target.global_position))

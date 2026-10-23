@@ -10,10 +10,13 @@
 ## The sheet chosen is drawn gold, those above it, cut away, faint, and those
 ## below it grey; the one under the mouse pointer lighter. A click on a sheet
 ## chooses it; PageUp / PageDown (floor_up / floor_down), the d-pad's up / down
-## on the gamepad, go up or down a floor, stopping at either end. On a map with
-## no heights to cut away from it never shows, and leaves those keys and
-## buttons to the rest: the d-pad zooms the camera there, as it does on the
-## world map.
+## on the gamepad, go up or down a floor, stopping at either end; nothing else
+## takes them. On a map with no heights to cut away from it never shows, and
+## they do nothing there.
+##
+## The game changes the floor as well, when it must show a unit it gives its
+## focus to, hidden with the cut or inside a house
+## ([method CombatGrid.show_floor_of]): the sheet chosen follows the cut.
 class_name FloorSelector
 extends Control
 

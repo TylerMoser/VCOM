@@ -4,7 +4,10 @@
 ##
 ## The action children are the actions offered on the action bar, to each
 ## unit those it has ([method UnitAction.is_granted]). The first one is made
-## active whenever a unit is selected, so every unit must have it.
+## active whenever a unit is selected, so every unit must have it. A unit
+## selected is seen: the floor changed to the one it is on if it is hidden with
+## what the floor selector has cut away, or lost inside a house
+## ([method CombatGrid.show_floor_of]).
 ##
 ##   Execute - right-click; e.g. hold to preview a move, release to go.
 ##   Cancel  - Esc puts the active action away.
@@ -204,6 +207,11 @@ func tile_under_cursor(screen_position: Vector2) -> Variant:
 
 
 func _on_selection_changed(unit: Unit) -> void:
+	# A squad member selected is seen, however they were selected: on their floor
+	# if hidden with what is cut away or inside a house
+	# ([method CombatGrid.show_floor_of]).
+	if unit != null:
+		grid.show_floor_of([unit.global_position])
 	deactivate()
 	_mark_selected_tile()
 	_update_cursor()
@@ -312,7 +320,7 @@ func _show_hints() -> void:
 	rows.append([[&"LS"], "Move cursor"])
 	rows.append([[&"L3"], "Cursor to squad member"])
 	rows.append([[&"RS"], "Turn and zoom"])
-	# The floor selector takes the d-pad's up / down on a map with floors.
+	# The d-pad's up / down are the floor selector's, on a map with floors.
 	if grid.level != null and not grid.level.cutaway_heights.is_empty():
 		rows.append([[&"dpad_vertical"], "Floor"])
 	rows.append([[&"R3"], "Tile grid"])

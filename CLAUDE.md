@@ -86,7 +86,8 @@ vcom/Scripts/
                        (vault_height(), vaults_along()); is_line_clear(), cast() (by_voxel: through the voxels of
                        pieces that wear away, for rounds; every_block too: of every piece, for blood; RayHit.voxel /
                        piece / on_edge; passing: pieces passed by), cast_seen() and pick_tile() (passing what is
-                       cut away from the view), terrain_struck, blast() -> terrain_blasted, fly() ->
+                       cut away from the view), show_floor_of() (the floor changed to show units given the focus),
+                       terrain_struck, blast() -> terrain_blasted, fly() ->
                        round_flown (every round's line, for the loose models it tears through); voxels
     LineOfSight.gd     cover, step-out, find_shots() -> Shot (where it is fired from, where the target is
                        seen: its own tile or one it leans out to), watched_tiles() (Docs/SHOOTING.md)
@@ -121,7 +122,8 @@ vcom/Scripts/
                        paths
   Level/               combat maps as levels of voxel pieces (Docs/LEVELS.md, its scripts in full)
     VoxelLevel.gd      @tool map node (Level, Scenery): builds rules, volume and renderer; place() / remove();
-                       cutaway_heights, cut_away() -> cut_changed, is_cut_away() (Docs/CUTAWAY.md)
+                       cutaway_heights, cut_away() -> cut_changed, is_cut_away(), reveal(), is_under_building()
+                       (Docs/CUTAWAY.md)
     LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them
     LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle or an edge), a turn
     PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres)
@@ -761,8 +763,16 @@ kept under it `SHADOWS_ONLY`, so every shadow falls as before; the collision sta
 `Cutaway` node hides whatever stands over a piece cut away (units, which take no clicks then, loose
 pieces, falling blocks, coins, and debris through `VoxelDebris.hides`); `CombatGrid.pick_tile()` and
 the camera's drag pass the cut pieces by (`cast_seen()`), and the tile highlights and the gamepad's
-cursor skip tiles over them. On a map with floors the selector takes the d-pad's up / down before the
-camera, which zooms on them elsewhere. Every combat map has both nodes, hidden without heights.
+cursor skip tiles over them. The d-pad's up / down are the selector's alone: nothing zooms on them,
+the world map included. Every combat map has both nodes, hidden without heights. The game changes
+the floor as it gives a unit its focus, through `CombatGrid.show_floor_of(feet)` (the selector
+follows): it cuts away less for one hidden with the cut (`VoxelLevel.reveal()`, the lowest listed
+height above the cut that shows it), and down to their floor for one inside a house the camera's view
+cannot reach (`is_under_building()`, `_is_seen()`), never hiding another unit given with it.
+`TurnManager` calls it before an enemy acts, for every tile it will walk or step out to, the squad
+member it shoots at, and the one selected as the player's turn starts; `ActionController` for the
+squad member selected, however; and Shoot, Strike and Use Medkit for the target they line up and the
+unit acting.
 `Docs/CUTAWAY.md` has the rest: the user's decisions, how a cut is worked out and drawn, the art and
 the constants tied to it, why meshes and not the shader, how to probe it, its gaps and what was
 decided without asking. Read it before touching the floor selector or anything a cut hides.

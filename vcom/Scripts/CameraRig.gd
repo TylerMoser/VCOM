@@ -9,9 +9,10 @@
 ##            with the middle mouse button, which takes hold of the ground
 ##            under the cursor and slides it, as it does the world map.
 ##   Rotate - hold Q / E, or the right stick left and right.
-##   Zoom   - mouse wheel, the d-pad up and down a notch at a time, or the
-##            right stick up and down. The camera slides in and out along its
-##            line of sight, looking down at [member view_pitch] at every zoom.
+##   Zoom   - mouse wheel, or the right stick up and down. The camera slides
+##            in and out along its line of sight, looking down at
+##            [member view_pitch] at every zoom. The d-pad's up and down are
+##            the floor selector's alone ([FloorSelector]).
 ##
 ## With the gamepad it pans by following the tile cursor ([TileCursor]), which
 ## the left stick moves, and the mouse's edge of the screen pans nothing.

@@ -23,6 +23,10 @@
 ## camera with it, and moving the cursor on to another target lines that one
 ## up.
 ##
+## A target is seen as it is lined up, however it is, and the shooter with it:
+## the floor changed to the one it is on if it is hidden with what the floor
+## selector has cut away, or lost inside a house ([method CombatGrid.show_floor_of]).
+##
 ## A shot that needs a step out plays it: the unit leans out to the tile it
 ## found the shot from, fires, and settles back into its cover. Whether the
 ## shot lands is [HitChance]'s business, and where the round goes is
@@ -224,6 +228,9 @@ func _show_shot() -> void:
 		return
 	var aimed := shot as LineOfSight.Shot
 	_estimate = HitChance.for_shot(_unit, aimed)
+	# The target is seen, on its floor if it is hidden with what is cut away or
+	# inside a house, and the shooter with it: the player sees what they aim at.
+	controller.grid.show_floor_of([aimed.target.global_position, _unit.global_position])
 
 	if aimed.stepped_out:
 		controller.highlights.set_layer(STEP_OUT_LAYER, {aimed.from: STEP_OUT_COLOR})

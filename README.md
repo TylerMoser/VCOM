@@ -109,7 +109,7 @@ closes it again.
 | | |
 |---|---|
 | Move the map | Left stick: the map slides under the reticle in the middle of the screen |
-| Zoom | Right stick up / down, or the d-pad's up / down a step at a time, toward the reticle |
+| Zoom | Right stick up / down, toward the reticle |
 | Send the party | `A` with the reticle on land, or on a settlement's icon to go to the settlement. The prompt says which, and there is none over water |
 | See what is in a settlement | Put the reticle on its icon |
 | Use a settlement | `A` with the reticle on the settlement the party is in |
@@ -134,8 +134,8 @@ closes it again.
 | | |
 |---|---|
 | Point at a tile | Left stick: the tile cursor, a bright square with a marker bobbing over it, steps a tile at a time the way the stick is pushed on screen, and the camera follows it. `L3` puts it back on the selected squad member |
-| Turn and zoom the camera | Right stick: left / right turns it, up / down zooms. On a map without floors, the d-pad's up / down zoom a step at a time |
-| See inside a building | D-pad up / down, on a map with floors: up or down a floor on the stack at the left edge |
+| Turn and zoom the camera | Right stick: left / right turns it, up / down zooms |
+| See inside a building | D-pad up / down, on a map with floors: up or down a floor on the stack at the left edge. They do nothing else |
 | Select a squad member | `LB` / `RB`, or the cursor on them and `A` while **Move** is up |
 | Choose an action | D-pad left / right, through the actions the squad member can take now. `B` puts it away |
 | Move | The path to the cursor is shown as it moves; `A` walks it |
@@ -352,6 +352,13 @@ edge of a sheet under it for each floor, the highest first. The top is chosen as
 and everything shows. Choosing a floor hides every wall, gable and roof from that height up, and
 whatever stands on them (a unit, a coin, a crate's pieces, debris), so you can see in. The sheet
 chosen is gold and those above it, hidden, faint. Choose the top to see it all again.
+
+The game changes the floor too, so you never lose sight of anyone who matters: when an enemy acts,
+when you line up an enemy to shoot or strike, when you select a squad member (or your turn starts on
+one), when you line one up for a medkit, or when an enemy shoots at one. If they are hidden this way,
+the floor comes up to the one they are on; if they are inside a house, out of sight under its roof,
+it goes down to their floor, as long as that shows them. It never hides one of the others in the same
+moment (a shooter for their target), and it stays where it was put until you choose again.
 
 Only the view changes. A hidden roof still casts its shadow, so the inside is lit as before, and
 everything hidden is still there to the rules: it blocks sight and rounds, gives cover, and a unit
