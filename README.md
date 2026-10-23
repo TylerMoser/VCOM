@@ -358,7 +358,10 @@ when you line up an enemy to shoot or strike, when you select a squad member (or
 one), when you line one up for a medkit, or when an enemy shoots at one. If they are hidden this way,
 the floor comes up to the one they are on; if they are inside a house, out of sight under its roof,
 it goes down to their floor, as long as that shows them. It never hides one of the others in the same
-moment (a shooter for their target), and it stays where it was put until you choose again.
+moment (a shooter for their target), and it stays where it was put until you choose again. In a
+reaction window it shows the enemy and everyone who could fire at it, and every shot, yours, the
+enemies' and reactions', shows both the shooter and the target as it is fired, even if you changed
+the floor after lining it up.
 
 Only the view changes. A hidden roof still casts its shadow, so the inside is lit as before, and
 everything hidden is still there to the rules: it blocks sight and rounds, gives cover, and a unit

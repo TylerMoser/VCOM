@@ -145,6 +145,9 @@ func _fire() -> void:
 	# the map, and the sight line is drawn from where the unit was.
 	_clear_aim()
 	controller.busy = true
+	# Both ends seen as it fires, whatever floor was chosen since it was lined
+	# up: where the unit steps out to, and where the target leans out.
+	controller.grid.show_shot(unit, aimed)
 
 	if aimed.stepped_out:
 		await unit.walk([controller.grid.tile_position(aimed.from)], step_out_seconds, true)

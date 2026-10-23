@@ -4,7 +4,8 @@ Seeing inside buildings, in full: the floor selector (`Scripts/UI/FloorSelector.
 `vcom/UI/`), what a cut takes away (`Scripts/Level/LevelCutaway.gd`), how the level draws it
 (`LevelRenderer.cut()`), what is hidden with it (`Scripts/Combat/Cutaway.gd`, `VoxelDebris`), and the
 parts of `VoxelLevel`, `CombatGrid`, `TileHighlights`, `TileCursor`, `Unit`, `CameraRig`,
-`ActionController`, `TurnManager`, `ShootAction`, `StrikeAction` and `UseMedkitAction` that know of it. Written as it was built (2026-10-22); `CLAUDE.md` keeps a summary
+`ActionController`, `TurnManager`, `Reactions`, `ShotPlayback`, `ShootAction`, `StrikeAction` and
+`UseMedkitAction` that know of it. Written as it was built (2026-10-22); `CLAUDE.md` keeps a summary
 ("The view can be cut away") and the rule that must not drift. A section named here that is not in this
 file (Gotchas, Verification, another subsystem's notes) is `CLAUDE.md`'s.
 
@@ -31,6 +32,8 @@ file (Gotchas, Verification, another subsystem's notes) is `CLAUDE.md`'s.
 11. Whenever an enemy or a squad member is given the focus (all of the above), and they cannot be
     seen because they are inside a house, and changing the floor would show them, the floor changes
     to theirs.
+12. A best effort to show everyone during a reaction shot, squad and enemies, and to show both the
+    shooter and the target whenever a shot is fired.
 
 The approach, rebuilding the chunks' meshes rather than discarding pixels in the shader, was proposed
 before building and not objected to (see "Why meshes, not the shader").
@@ -109,9 +112,17 @@ from there.
   leave the floor be.
 
 `TurnManager._take_enemy_turn()` shows an enemy before the camera comes to it, for any turn it does
-more than end; `_move_enemy()` the enemy and every tile it will walk, before it sets off; a shot the
-enemy, the tile it steps out to and the squad member it is aimed at, before the camera frames it; a
-reload the enemy; and `_start_player_turn()` the squad member selected. `ShootAction._show_shot()`,
+more than end; `_move_enemy()` the enemy and every tile it will walk, before it sets off; a shot both
+its ends, before the camera frames it; a reload the enemy; and `_start_player_turn()` the squad
+member selected. Every shot fired shows both its ends as it is fired, through
+`CombatGrid.show_shot(shooter, shot)`: the shooter where it stands and where it steps out to, the
+target where it stands and where the shot sees it leaning out, all at once. `ShotPlayback.play()`
+asks it for the enemies' shots and reactions, and `ShootAction._fire()` for the squad's, so a floor
+the player chose between lining a shot up and taking it is changed back if it hides either end;
+`StrikeAction._strike()` does the same for the striker and the target. `Reactions._show_offers()`,
+as the window's prompts go up or change, shows the enemy walking, everyone with a prompt and, as the
+view first opens, whoever could fire further along the walk (`_watchers()`): everyone the reaction
+view frames. `ShootAction._show_shot()`,
 `StrikeAction._show_target()` and `UseMedkitAction._show_target()` show the one each lines up, and
 the unit acting with it, however a target is lined up: as the action begins, cycled, clicked or
 reached by the cursor. `ActionController._on_selection_changed()` shows the squad member selected,
@@ -180,7 +191,14 @@ loads; `grid._is_seen(feet, camera, level.cutaway)` says whether the camera's vi
 camera being `get_viewport().get_camera_3d()` once the rig has run a few frames. A tile outside out
 of sight behind the house (one `_is_seen()` with null says is not seen, not `is_under_building()`)
 changes nothing; `grid.show_floor_of([roof_tile_feet, inside_feet])` (a typed `Array[Vector3]`)
-leaves the view whole. An enemy's turn can kill the squad members a probe goes on to select: load
+leaves the view whole. For a reaction, put a squad member on overwatch on the roof
+(`start_turn()`, `overwatching`, `reaction_available`), cut from 5, walk an enemy past through
+`reactions.walk(enemy, points, 0.4)` (two ground tiles in its sight, found with
+`LineOfSight.find_shot(member, enemy, false)`), and once `reactions.is_open()` read the cut, cut
+again, and push the member's key (`KEY_2` for the second): it is shown again as it fires. For a shot
+taken after the player cuts again, `controller.activate()` Shoot, `selector.choose(1)`, then
+`_fire()`; Strike set up by hand completes into a controller with no action up, which errors in a
+probe only. An enemy's turn can kill the squad members a probe goes on to select: load
 the map afresh for each.
 To see it, render in a window: set the camera rig's `_pivot`,
 `_current_pivot`, `_yaw`, `_current_yaw` and `_zoom` on the house, move a unit there by its
@@ -217,14 +235,19 @@ whole and cut.
   floor" is the lowest floor above the tile they stand on, and failing that the floors below it,
   most first. The unit acting stays seen with its target (Shoot, Strike and Use Medkit pass both),
   and an enemy with its whole walk or its shot.
+- "Everyone during a reaction shot" is everyone the reaction view frames: the enemy walking, the
+  squad members with a prompt, and those who could fire further along the walk, not every unit on
+  the map. "A shot fired" counts a strike as it lands too, and both ends of a shot include where the
+  shooter steps out to and where the target is seen leaning out.
 
 ## Known gaps
 
 - The game changes the floor only as it gives a unit its focus, and never back to the floor the
-  player had. A squad member firing a reaction shot from a roof cut away, or from inside a house,
-  does so unseen, as one stepping out on to a hidden tile to shoot does; nothing follows the cursor,
-  the camera turning or a unit walking once the walk has begun; and a grenade's target tile is not
-  shown. An enemy's walk in and out of a house is shown as far as one floor can show all of it.
+  player had. Nothing follows the cursor, the camera turning or a unit walking once the walk has
+  begun; a grenade's target tile, its thrower and those its blast catches are not shown; and a
+  medkit used is shown only as it is lined up. Everything is best effort: where no one floor shows
+  everyone given (a shooter on a roof and a target inside under it), the floor that hides none of
+  them is kept, and one of them may be out of sight inside a house.
 - Whether a unit can be seen is judged along the camera's view, not from where the camera will
   stop, and through whole cells: a roof's cell blocks the line even where its slope would not, and
   a camera so close that it is lower than the roof is taken to see under it.

@@ -87,6 +87,7 @@ vcom/Scripts/
                        pieces that wear away, for rounds; every_block too: of every piece, for blood; RayHit.voxel /
                        piece / on_edge; passing: pieces passed by), cast_seen() and pick_tile() (passing what is
                        cut away from the view), show_floor_of() (the floor changed to show units given the focus),
+                       show_shot() (both ends of a shot as it is fired),
                        terrain_struck, blast() -> terrain_blasted, fly() ->
                        round_flown (every round's line, for the loose models it tears through); voxels
     LineOfSight.gd     cover, step-out, find_shots() -> Shot (where it is fired from, where the target is
@@ -769,10 +770,12 @@ the floor as it gives a unit its focus, through `CombatGrid.show_floor_of(feet)`
 follows): it cuts away less for one hidden with the cut (`VoxelLevel.reveal()`, the lowest listed
 height above the cut that shows it), and down to their floor for one inside a house the camera's view
 cannot reach (`is_under_building()`, `_is_seen()`), never hiding another unit given with it.
-`TurnManager` calls it before an enemy acts, for every tile it will walk or step out to, the squad
-member it shoots at, and the one selected as the player's turn starts; `ActionController` for the
-squad member selected, however; and Shoot, Strike and Use Medkit for the target they line up and the
-unit acting.
+`TurnManager` calls it before an enemy acts, for every tile it will walk or step out to, and the one
+selected as the player's turn starts; `ActionController` for the squad member selected, however;
+Shoot, Strike and Use Medkit for the target they line up and the unit acting; `Reactions` for the
+enemy walking and everyone the reaction view frames; and every shot as it is fired, the squad's,
+the enemies' and reactions', for both its ends (`CombatGrid.show_shot()`, from `ShootAction._fire()`
+and `ShotPlayback.play()`), a strike as it lands likewise.
 `Docs/CUTAWAY.md` has the rest: the user's decisions, how a cut is worked out and drawn, the art and
 the constants tied to it, why meshes and not the shader, how to probe it, its gaps and what was
 decided without asking. Read it before touching the floor selector or anything a cut hides.

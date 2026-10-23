@@ -30,6 +30,12 @@
 ## not foresee (cover shot away on the way). Once the window has stayed shut
 ## [member release_delay] seconds, or the walk is over, the camera goes back to
 ## following the enemy, or to where it was looking ([method release_view]).
+##
+## Whoever the view frames is seen as far as the floor allows: as the prompts
+## go up or change, the floor changes if it must for the enemy and everyone who
+## could fire to be seen, none hidden with what the floor selector has cut away
+## or lost inside a house, and again for both ends of each shot as it is fired
+## ([method CombatGrid.show_floor_of], [method CombatGrid.show_shot]).
 class_name Reactions
 extends Node
 
@@ -279,6 +285,16 @@ func _show_offers() -> void:
 
 	if _prompts != null:
 		_prompts.show_prompts(prompts)
+	# Everyone in it seen, as far as one floor can show them all: the mover,
+	# everyone with a prompt, and, as the view first opens, whoever could fire
+	# further along the walk ([method CombatGrid.show_floor_of]).
+	var seen: Array[Vector3] = [_mover.global_position]
+	for member: Unit in _offers:
+		seen.append(member.global_position)
+	if not _viewing:
+		for member in _watchers(_rest_of_walk()):
+			seen.append(member.global_position)
+	_grid.show_floor_of(seen)
 	_frame_view()
 
 

@@ -8,7 +8,9 @@
 ## from the moment the shooter turns to it until the shooter is back in cover.
 ##
 ## The shot itself is [method Unit.shoot_at], so a shot played out here means
-## the same as one taken from the action bar.
+## the same as one taken from the action bar. As the shooter turns to its
+## target, the floor changes if it must for both of them to be seen, as for
+## every shot ([method CombatGrid.show_shot]).
 class_name ShotPlayback
 extends RefCounted
 
@@ -35,6 +37,7 @@ func _init(grid: CombatGrid, overlay: ShotOverlay) -> void:
 ## Await it to wait until the shooter is back in cover. Returns whether the
 ## shot hit.
 func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -> bool:
+	_grid.show_shot(shooter, shot)
 	var cover := shooter.global_position
 	var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
 	# Before the aim, which is taken at where the target leans out to.

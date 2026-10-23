@@ -124,6 +124,8 @@ func _strike() -> void:
 	var mark := grid.cell_center(LineOfSight.eye_cell(grid.tile_at(target.global_position)))
 
 	unit.spend_actions(COST)
+	# Both seen as the blow is struck, as both ends of a shot are as it fires.
+	grid.show_floor_of([unit.global_position, target.global_position])
 	if _overlay != null:
 		_overlay.clear()
 	# Busy while the swing plays out, as a shot is while its round flies: a

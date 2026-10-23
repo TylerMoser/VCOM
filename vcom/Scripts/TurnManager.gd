@@ -235,12 +235,9 @@ func _take_enemy_turn(enemy: Unit) -> void:
 		else:
 			enemy.spend_actions(ShootAction.COST)
 			# The enemy, where it steps out to shoot from, and the squad member it
-			# shoots at, all at once, so a floor showing one never hides another.
-			_show_floor_of([
-				enemy.global_position,
-				_grid.tile_position(action.shot.from),
-				action.shot.target.global_position,
-			])
+			# shoots at, all at once, so a floor showing one never hides another:
+			# before the camera frames them.
+			_grid.show_shot(enemy, action.shot)
 			var framed: bool = await _show_shot(enemy, action.shot)
 			if opens_with_shot:
 				# The pause any enemy gets once the camera arrives on it.

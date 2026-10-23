@@ -480,6 +480,21 @@ func show_floor_of(feet: Array[Vector3]) -> bool:
 	return changed
 
 
+## Changes the floor, if it must, for both ends of [param shot] to be seen as
+## [param shooter] takes it ([method show_floor_of]): the shooter where it
+## stands and where it steps out to, and the target where it stands and where
+## the shot sees it leaning out. Every shot fired asks it, the squad's, the
+## enemies' and reactions'.
+func show_shot(shooter: Unit, shot: LineOfSight.Shot) -> bool:
+	var feet: Array[Vector3] = [
+		shooter.global_position,
+		tile_position(shot.from),
+		shot.target.global_position,
+		tile_position(shot.seen_at),
+	]
+	return show_floor_of(feet)
+
+
 ## Whether a unit standing with its feet at [param feet] is in sight of
 ## [param camera] with [param cut] cut away (null for nothing): whether a line
 ## from its feet, its middle or its head back along the camera's view, as far
