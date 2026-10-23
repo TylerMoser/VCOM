@@ -675,21 +675,37 @@ func swing() -> Vector3:
 	return (global_basis * Vector3(0.75, -0.45, 0.3)).normalized()
 
 
-## The voxel model of each thing it carries, those shown: what blood can land
-## on, and what it drops as it breaks apart.
+## The voxel model of each thing it carries, those shown on the figure
+## ([method _is_shown_on_figure]): what blood can land on, and what it drops as
+## it breaks apart.
 func gear() -> Array[VoxelModel]:
 	var models: Array[VoxelModel] = []
 	var props: Array = [_gun, _sword]
 	props.append_array(_grenades)
 	props.append_array(_medkits)
 	for held in props:
-		if held == null or not is_instance_valid(held) or not (held as Node3D).is_visible_in_tree():
+		if held == null or not is_instance_valid(held) or not _is_shown_on_figure(held as Node3D):
 			continue
 		for node in (held as Node3D).find_children("*", "MeshInstance3D", true, false):
 			var model := VoxelModel.of(node)
 			if model != null:
 				models.append(model)
 	return models
+
+
+## Whether [param prop] is shown on the figure: it, everything between it and
+## the figure, and the figure itself visible. What is above the figure does not
+## count, so a unit hidden with a floor cut away over it
+## ([method Unit.set_cut_away]) still has its gear to drop and to bleed on.
+func _is_shown_on_figure(prop: Node3D) -> bool:
+	var at: Node = prop
+	while at != null:
+		if at is Node3D and not (at as Node3D).visible:
+			return false
+		if at == self:
+			return true
+		at = at.get_parent()
+	return true
 
 
 ## Goes to pieces as its unit dies, once whatever breaks it apart has taken

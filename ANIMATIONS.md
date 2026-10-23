@@ -1073,7 +1073,9 @@ dropping whole beside them. Nothing is animated: the pose it died in is what bre
      on `TerrainDestruction._show`, never the global generator.
    - `VoxelDebris.add()` makes the lumps, held until the next physics step as all new debris is; a
      blast that killed the unit pushes them then (`VoxelDebris.burst()`), as it pushes all its debris.
-   - `_drop_gear()` drops each prop shown in its sockets (`gear()`) whole: a `RigidBody3D` named
+   - `_drop_gear()` drops each prop shown in its sockets (`gear()`: shown on the figure, what is
+     above the figure not counting, so a unit hidden with a floor cut away still drops its gear;
+     `Docs/CUTAWAY.md`) whole: a `RigidBody3D` named
      `Dropped<prop>` under `TerrainDestruction`, the prop's mesh moved into it with its `VoxelModel`,
      blood and all, a box round it 3.5% small, weighing `gear_wears_as.density` (`Gear.tres`, a crate
      board's) a cubic cell of its voxels (the rifle 4 kg), knocked as the lumps round it are. It passes

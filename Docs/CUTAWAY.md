@@ -78,6 +78,10 @@ loose piece (`TerrainDestruction.PIECES`: a crate's pieces, parts cut off them, 
 `is_cut_away()`, showing it again once it is not. A unit is hidden by `Unit.set_cut_away()`, which
 also takes its pick body off the click layer, so a click goes through it to what is seen; anything
 else by `visible`. It only ever shows what it hid itself, so a node something else hid stays hidden.
+A hidden unit's figure still counts what it carries as shown: `CharacterModel.gear()` reads a prop's
+visibility only as far up as the figure (`_is_shown_on_figure()`), so blood still lands on its gear
+and a unit dying hidden still drops it, where it hides in turn while over what is cut away (as
+`is_visible_in_tree()` had it, a unit hidden dropped nothing and its gear went with it).
 The lumps of debris have no nodes: `VoxelDebris.hides` (the level's `is_cut_away`) and `hide_above`
 (the world height of the cut, below which no lump is asked) are set from `Cutaway`, a lump hidden
 draws its voxels shrunk to nothing (`_draw_lump()`), it is asked again each time the physics moves
