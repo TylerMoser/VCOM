@@ -27,9 +27,12 @@ as the other files do.
   along the ground, Ladder up and down, and either stairs a cell up and a cell along (toward +y),
   carrying the flight on.
 - **Materials:** every material is plain (diffuse), as in the other files. Water, Ice and Lava are
-  opaque colours. The importer does read MagicaVoxel's glass and emissive materials (`_glass`,
-  `_emit`; a glass one becomes transparent), so marking their colours so in MagicaVoxel would carry
-  over.
+  opaque colours. A colour given MagicaVoxel's Glass material is glass in the game: see-through,
+  tinted by its colour, as clear as its Transparency (`Docs/GLASS.md`), so Ice, or Water, could be
+  made glass in MagicaVoxel. Other materials (emissive, metal) are read only by the importer, for the
+  meshes it still draws (coins, a grenade in flight, the editor's previews): blocks, props and figures
+  draw them as plain colours. (Until 2026-10-27 this said the importer already read glass and emissive
+  materials; it did not, stopping on a script error instead, which is now mended.)
 
 ## The shapes
 
@@ -106,8 +109,9 @@ Two things to know first:
   units step over. Climbing, stairs, water and rough ground (all on `todo.txt`'s list of terrain
   types) would each need rules of their own.
 - **FenceCorner, FenceT and FenceCross join rails at the middle of their box,** so they suit a fence
-  run through cells' middles, not along edges: a run on the edges between cells turns a corner as two
-  runs meeting end to end, a cell's corner being no slot (only cells' middles and edges are).
+  run through cells' middles, or the corner where lengths of fence on the edges between cells meet:
+  the level editor places pieces on corners too since 2026-10-27, a corner piece's box centred on the
+  corner, its rails then reaching half a cell along each edge. None is in the game yet.
 
 ## Building them again
 

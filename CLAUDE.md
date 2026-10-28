@@ -10,8 +10,9 @@ The git root is `VoxelXCOM/`; the Godot project is `vcom/`, which is where comma
 `MagicaVoxel/` holds source `.vox` art outside the project; `MagicaVoxel/Shapes/` holds basic
 block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants), made by its
 `make_shapes.py` (`Shapes/README.md`), three of them in the game (`vcom/Blocks/`: the fence, the stone
-wall, tall grass); `MagicaVoxel/Buildings/` the building pieces drawn by hand, all three in the game
-(`SimpleWall1`, `SimpleTruss1`, `SimpleRoof1`: `Docs/LEVELS.md` has their offset and turn). `Images/` holds screenshots of the game
+wall, tall grass); `MagicaVoxel/Buildings/` the building pieces, all four in the game (`SimpleWall1`,
+`SimpleTruss1`, `SimpleRoof1`, drawn by hand, and `SimpleWindow1`, made from the wall by its
+`make_windows.py`: `Docs/LEVELS.md` has their offset and turn). `Images/` holds screenshots of the game
 (the old world map and the new, the menus, battles just begun and long fought, clean and with blood, the level
 editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
@@ -29,7 +30,9 @@ subsystem a file, each with how it works in full, how to probe it and its known 
 gun's magazine and reloading), `BLOOD.md`, `CAMERA.md` (how the combat camera moves), `CAMPAIGN.md`
 (the world map's party, encounters, the squad menu, villages and shops), `CUTAWAY.md` (seeing inside
 buildings: the floor selector, cutting the level away from the view), `DESTRUCTION.md` (adding a
-breakable block, voxel wear, loose models, the physics of debris), `GAMEPAD.md`, `GRENADES.md`,
+breakable block, voxel wear, loose models, the physics of debris), `GAMEPAD.md`, `GLASS.md` (glass
+in voxel models and windows: how it is drawn, what a window is to the rules, shattering and its
+shards, the window piece, the importer's part), `GRENADES.md`,
 `HUNKER.md`, `LEVELS.md` (combat maps as levels of voxel pieces: the volume, drawing it, edges),
 `LEVEL_EDITOR.md` (the level editor that paints them: every control, making a map, adding pieces),
 `MAP.md` (the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `ROSTER.md`
@@ -96,7 +99,7 @@ vcom/Scripts/
     Ballistics.gd      where a round goes: hits along the sight line, XCOM 2 misses -> Path
     Throwing.gd        RANGE; plan() -> Throw (the arc, blocked or not), throws_for(unit); the blast's cells and
                        whom it catches (Docs/GRENADES.md)
-    ThrownGrenade.gd   a grenade in flight along a Throw's arc, for show
+    ThrownGrenade.gd   a grenade in flight along a Throw's arc, for show; in GROUP, for the glass it passes through
     Explosion.gd       a grenade going off, for show
     MuzzleFlash.gd     a gun's flash as it fires, under its Muzzle marker, for show; frees itself
     Coins.gd           map node: rolls a breaking block's coin_chance, keeps the coins by tile (stacked), drops a
@@ -126,10 +129,12 @@ vcom/Scripts/
                        cutaway_heights, cut_away() -> cut_changed, is_cut_away(), reveal(), is_under_building()
                        (Docs/CUTAWAY.md)
     LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them
-    LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle or an edge), a turn
+    LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle, an edge or a corner), a turn
     PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres)
-    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
-    VoxelVolume.gd     every voxel, 32^3 chunks; ChunkMesher.gd (faces by shape, none hidden)
+    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge;
+                       those on corners and windows kept apart, for what holds pieces up alone
+    VoxelVolume.gd     every voxel, 32^3 chunks, glass kept apart; ChunkMesher.gd (faces by shape, none hidden;
+                       glass meshed apart, Docs/GLASS.md)
     LevelRenderer.gd   draws the volume a chunk at a time, collision a trimesh a chunk; cut() (pieces cut away
                        from the view, their shadows still cast); SceneryRenderer.gd
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does)
@@ -143,9 +148,13 @@ vcom/Scripts/
     VoxelDestruction.gd    Destruction: a block that wears away a few voxels at a time
     VoxelShape.gd          one model's voxels, read from its .vox (Docs/VOXELS.md)
     VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D (Docs/VOXELS.md)
-    VoxelTerrain.gd        wears the level's volume (chip(), crater()) and the loose models (tear())
+    VoxelTerrain.gd        wears the level's volume (chip(), crater()) and the loose models (tear()); shatters
+                           glass (shatter(), shatter_along(), shatter_near(), shatter_passing(): Docs/GLASS.md)
     VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear)
     VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes
+    GlassShards.gd         every shard of broken glass: MultiMesh instances, no bodies, falling and lying for good
+                           (Docs/GLASS.md); VoxelGlass / VoxelGlassShine.gdshader a pane's two passes, GlassShard /
+                           GlassShardShine.gdshader a shard's, Voxels.gdshaderinc what the voxel shaders share
     SceneryGround.gd       BoundaryMap's scenery ground plane (Docs/LEVELS.md)
   Blood/               wounds, drops, stains and pools, all for show (Docs/BLOOD.md, its scripts in full)
     Blood.gd           map node: on every Unit.hurt wounds the figure and sprays drops; static enabled
@@ -597,7 +606,8 @@ mid-stride while held, and nothing here has to tell it.
 (`VoxelLevel`, `@tool`) holds a `LevelData` (`Levels/<Map>.tres`: every piece placed, in order, as a
 kind, a slot and a turn) and the `PieceLibrary` every map shares (`Blocks/Pieces.tres`: the kinds, each
 a 16³ `.vox` model at 0.0625 with its destruction, and the brushes). A slot is the middle of a cell,
-where a block stood, or the edge between two cells side by side, where a fence or a wall stands. As
+where a block stood, the edge between two cells side by side, where a fence or a wall stands, or the
+corner where four cells meet, where a post stands, only decoration to the fight. As
 the map loads, the level stamps every piece into one grid of voxels (`VoxelVolume`, 32³ chunks, a
 later piece winning voxel by voxel), draws it a chunk at a time with every hidden face left out,
 across chunks too, its colours from a texture (`LevelRenderer`: BoundaryMap's battlefield is 269k
@@ -629,7 +639,7 @@ later, `Blast.burst()` throws every loose piece inside the blast (new and old, n
 from the grenade's centre with its `blast_force`, on top of the crate's own burst.
 
 **Stacks fall, then break.** Every breakable piece stacked on a broken one, up to the first that
-cannot break, and every edge piece left with nothing under either side of it, leaves the rules in
+cannot break, and every edge or corner piece left with nothing under it, leaves the rules in
 the same moment but does not break yet: it becomes a `FallingBlock` (a mesh of what is left of its
 voxels, and collision, as heavy as its destruction's `mass`) that drops
 straight down its column and breaks where it lands, calling `shatter` with a `Destruction.Motion`
@@ -694,10 +704,32 @@ the code has to know of wear:
 
 **Every voxel model is drawn and recoloured one way** (`Docs/VOXELS.md`, the user's call): faces
 merged by shape alone (`ChunkMesher`), each pixel its voxel's colour, read by one shader
-(`Voxels.gdshader`) from a texture of the voxels' palette places, 255 blood's. The level is drawn so a
-chunk at a time; every other model by a `VoxelModel` under its `MeshInstance3D` (a figure, a prop, a
-crate's board, a part cut off, a block falling whole), sharing its shape's mesh, texture and material
-until it changes. Coins and a grenade in flight stay the importer's.
+(`Voxels.gdshader`; glass by two of its own, below) from a texture of the voxels' palette places, 255
+blood's. The level is drawn so a chunk at a time; every other model by a `VoxelModel` under its
+`MeshInstance3D` (a figure, a prop, a crate's board, a part cut off, a block falling whole), sharing
+its shape's mesh, texture and material until it changes. Coins and a grenade in flight stay the
+importer's.
+
+**Glass is a colour MagicaVoxel draws as glass, drawn apart and only for show; a window is seen,
+shot, thrown and vaulted through** (the user's, 2026-10-27). A palette entry whose material is Glass
+flags its place glass (`VoxelShape.FLAG_GLASS`, its Transparency the clarity, in the flags' top
+bits), and a voxel stays glass whatever colour it is given (`VoxelShape.glass_rows`, a chunk's
+`glass_x` / `glass_z`), so blood on glass is opaque red on the pane. `ChunkMesher.faces()` meshes it
+apart: any other face shows through glass, a face of glass only against nothing. Every drawer makes it
+a second surface named `glass` (`VoxelModel.GLASS_SURFACE`), drawn in two passes: what is behind
+multiplied by its colour (`VoxelGlass.gdshader`), then its shine added after every pane's tint
+(`VoxelGlassShine.gdshader`, `render_priority` 1), so no two panes ever sort wrong; it casts no
+shadow, and the sun falls through. A kind marked `PieceKind.window` is decoration to the fight as a
+piece on a corner is: seen, shot, thrown and clicked through, no cover itself (the piece under it,
+its sill, is), and vaulted through over its sill, every vault now needing only the level above the
+low piece open (`CombatGrid._crossing()`). A pane shatters whole, all its piece's glass at once, when a
+round's line crosses it, a unit or a grenade in flight passes it, a blast goes off within
+`VoxelTerrain.GLASS_BLAST_REACH` (3) cells, or any of its glass is worn away; glass holds nothing up,
+and its shards (`GlassShards`, no bodies, their own generator) fall and lie for good. `Docs/GLASS.md`
+has it all: the drawing and why, the rules, shattering and the shards, the window piece
+(`SimpleWindow1`, its brush, `make_windows.py`), the importer's fixes, what it costs, how to probe it,
+its gaps and what was decided without asking. Read it before touching glass, a window or the voxel
+shaders.
 
 **Blood recolours voxels, and is only for show.**
 `Unit.take_damage()` emits `hurt(taken, from, at, blasted, sweep)` for every hit that takes health
@@ -731,9 +763,10 @@ others.
 (`TerrainDestruction.PIECE_LAYER`: debris that is a body with a node of its own, a broken block's
 pieces and the parts cut from them, and dropped gear, which are on 3 as well; nothing collides with 5,
 it is only searched). Blood's drops are no bodies: they find debris with a ray on 3 and meet figures
-by their voxels, never by a unit's bodies. A dead unit's lumps and gear are debris among debris. The
-level collides as a trimesh a chunk on layer 1 (`LevelRenderer`). Debris stays live for good and
-sleeps when still; the rules never look at it. **Pieces are found by the physics, never by walking
+by their voxels, never by a unit's bodies; nor are shards of glass (`GlassShards`, `Docs/GLASS.md`).
+A dead unit's lumps and gear are debris among debris. The level collides as a trimesh a chunk on
+layer 1 (`LevelRenderer`). Debris stays live for good and sleeps when still; the rules never look at
+it. **Pieces are found by the physics, never by walking
 the scene:** every piece is made by `TerrainDestruction.make_piece()`, on `PIECE_LAYER` and in the
 `PIECES` group, and whatever looks for pieces in a box asks `pieces_in()`, a shape query. Each unit's
 frictionless capsule shoves debris aside, and a `FallingBlock` never collides with units.
@@ -752,17 +785,18 @@ shadows, a `MultiMesh` a kind a region, coarser copies further out by `SceneryRe
 ground plane, trunks only near the battlefield) and how 75 was found are `Docs/LEVELS.md`'s ("Scenery").
 
 **The view can be cut away to see inside buildings, and only the view.** A kind marked
-`PieceKind.cutaway` (the walls, gables and roofs) is a building piece, and a map's `Level` lists the
-heights it can be cut away from (`VoxelLevel.cutaway_heights`, cell y). Each is a floor on the
+`PieceKind.cutaway` (the walls, windows, gables and roofs) is a building piece, and a map's `Level`
+lists the heights it can be cut away from (`VoxelLevel.cutaway_heights`, cell y). Each is a floor on the
 `FloorSelector`, a HUD node halfway down the left edge drawn as a stack of sheets (`UI/floor_top.svg`
 on top, which shows everything, `UI/floor_level.svg` for each floor, highest first): a click on one,
 `PageUp` / `PageDown` (`floor_up` / `floor_down`) or the d-pad's up / down calls
 `VoxelLevel.cut_away(height)`. That makes a `LevelCutaway` (every building piece at that height or
-above, and every piece resting on one by column or edge) and has `LevelRenderer.cut()` mesh the
+above, and every piece resting on one by column, edge or corner) and has `LevelRenderer.cut()` mesh the
 chunks they are in, and those beside them, again without their voxels, each such section's whole mesh
 kept under it `SHADOWS_ONLY`, so every shadow falls as before; the collision stays whole. The map's
 `Cutaway` node hides whatever stands over a piece cut away (units, which take no clicks then, loose
-pieces, falling blocks, coins, and debris through `VoxelDebris.hides`); `CombatGrid.pick_tile()` and
+pieces, falling blocks, coins, debris through `VoxelDebris.hides` and shards of glass through
+`GlassShards.hides`); `CombatGrid.pick_tile()` and
 the camera's drag pass the cut pieces by (`cast_seen()`), and the tile highlights and the gamepad's
 cursor skip tiles over them. The d-pad's up / down are the selector's alone: nothing zooms on them,
 the world map included. Every combat map has both nodes, hidden without heights. The game changes
@@ -803,8 +837,23 @@ decided without asking. Read it before touching the floor selector or anything a
   level up, full (`LineOfSight.cover_at()`); it **blocks a sight line crossing that edge at its level**
   (one through a corner only if blocked whichever way round it went), a throw's arc and a whole
   cast; and a unit **steps over it only if it is a level high or less**, as it climbs a level,
-  never diagonally past it and never leaning out through it. Like a block, it is whole until it
-  breaks (`LevelRules`).
+  never diagonally past it and never leaning out through it. Vaulting it needs only the level above
+  it open, across the edge and in both columns (the user's, 2026-10-27: `CombatGrid._crossing()`).
+  Like a block, it is whole until it breaks (`LevelRules`). A window is the exception (below).
+- **A piece on a corner, where four cells meet, is decoration to the fight**, whatever its kind: no
+  sight line, step, cover, lean, throw, click or round meets it (the user's, 2026-10-27).
+  `LevelRules` keeps solid ones apart, which `is_solid()` and `has_edge()` never read, and
+  `CombatGrid._stops_rounds()` passes their voxels. Only what holds pieces up sees it: it stands on
+  its four cells, the four edges or the corner below, holds up the corner above and an edge piece
+  resting on it by an end, falls when nothing is under it, and breaks in a blast with any of its
+  cells inside (`Docs/LEVELS.md`, "Corners").
+- **A window is decoration to the fight, and its glass only for show** (the user's, 2026-10-27). A
+  piece of a kind with `PieceKind.window`, wherever it stands, is no cell or edge to the fight: sight
+  lines, shots, throws and clicks pass it, it gives no cover (the piece under it, its sill, does),
+  and a unit vaults through it over its sill. As a corner's, only what holds pieces up sees it
+  (`LevelRules.pieces_at()`, `has_slot()`). A round traced voxel by voxel meets its frame and passes
+  its glass; blood meets glass. Nothing in the rules reads glass, whole or shattered, nor its shards,
+  which draw on their own generator (`Docs/GLASS.md`).
 - **Step-out requires cover.** A unit in the open fires from its own tile only.
 - **A target is seen on its own tile, or on a tile it could lean out to** (`LineOfSight.lean_tiles()`,
   the same tiles it could step out to shoot from), as in XCOM 2, so sight runs both ways: with the
@@ -880,8 +929,8 @@ decided without asking. Read it before touching the floor selector or anything a
   sight, cover, paths or throws, and the bottom layer never leaves them.
 - **Rounds alone are traced voxel by voxel**, and only through pieces that wear away
   (`CombatGrid.cast(..., by_voxel)`): a miss strikes the voxel it meets, or flies on through the
-  empty part of the cell, between a fence's rails. Sight lines, throw arcs and clicks read whole cells
-  and edges.
+  empty part of the cell, between a fence's rails, through glass and through a piece on a corner.
+  Sight lines, throw arcs and clicks read whole cells and edges.
 - **Rounds tear through loose models and fly on.** Where a round goes is still decided against the
   grid alone; `round_flown` reports its line only once it has landed, and the loose models along it
   lose voxels. No loose model, nor any lump, ever stops a round or shelters anyone.
@@ -1098,7 +1147,9 @@ dictionary or passed to a function is the same array, not a copy, so writing int
 original. A `VoxelShape`'s `voxels` and `rows` are shared by every block and model of its kind, which
 is why a `VoxelModel` `duplicate()`s them before it changes anything. `LevelRules.pieces_in()` and
 `pieces_across()` hand out the rules' own arrays: duplicate one before breaking pieces while going
-through it.
+through it. A cast is the exception: `(held[key] as PackedVector3Array).append_array(more)` appends to
+a copy, which is lost. Assign it to a typed variable first, or keep packed arrays in a typed array
+(`Array[PackedVector3Array]`, whose `[i]` is the array itself), as `VoxelRig.make_mesh()` does.
 
 **The MagicaVoxel addon's `.import` files must stay in git.** Its `plugin.gd` preloads
 `framed_mesh_instance.png`, and the editor starts plugins before it scans for files to import, so on

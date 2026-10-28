@@ -38,7 +38,8 @@ The user's decisions for this step (2026-10-19), which the rest of this file fol
 7. Destruction in this step, smooth across chunks, with no visible artefact of the tile grid.
 8. Recolouring (blood) in this step, by texture writes rather than more textures or overlay meshes.
 9. Edge elements are 16³; the editor places on block centres and block edges only; where two
-   overlap, the later wins, voxel by voxel.
+   overlap, the later wins, voxel by voxel. (Corners came later, on 2026-10-27: see
+   [Corners](#corners).)
 10. No auto-tiling yet.
 11. Hidden faces removed aggressively, between chunks too: triangles matter, as maps will grow.
 12. No multi-model `.vox` files for the editor: those stay for pieces that break apart.
@@ -66,9 +67,10 @@ side, the floor blocks at y 0 and walkable tiles at y 1, as before.
 place in `kinds`, the slot's x, y and z, the turn). A slot counts across the ground in half cells and
 up in cells: x and z both even is the middle of cell (x / 2, y, z / 2), where a block stood; one of
 them odd is the edge between two cells side by side, x odd the edge between cells x / 2 and x / 2 + 1
-along x, z odd the same along z; both odd, a corner, is no slot. A piece's 16³ box has its least
-corner at voxel (sx * 8, y * 16, sz * 8) (`LevelData.voxel_origin()`), so a piece on an edge stands
-half in each cell. A turn is quarter turns about up, counterclockwise from above, about the box's
+along x, z odd the same along z; both odd is the corner where four cells meet (since 2026-10-27,
+[Corners](#corners)). A piece's 16³ box has its least corner at voxel (sx * 8, y * 16, sz * 8)
+(`LevelData.voxel_origin()`), so a piece on an edge stands half in each cell, and one on a corner a
+quarter in each of four. A turn is quarter turns about up, counterclockwise from above, about the box's
 middle (`VoxelVolume.turned()`: one turn takes (x, z) to (z, 15 - x)). Pieces are kept in the order
 placed, and may share a slot or overlap: stamped in order, a later piece's voxels replace an
 earlier's wherever both have one, and its empty voxels leave what is there. Nothing in play changes a
@@ -80,9 +82,10 @@ always were; its voxels are read from that `.vox`, `VoxelShape.read()`), `model_
 the mesh sits in the box, what a MeshLibrary item's mesh transform was: down half a box by default),
 `destruction` (a `VoxelDestruction` to wear away, a `ScriptedDestruction` to break into cut pieces,
 none to never break), `solid` (off for decoration the rules never see), `tile_grid` (the optional
-grid is drawn on its voxels), `edge_piece` (the editor puts it on an edge to begin with) and
-`cutaway` (part of a building, which may be cut away to see inside: the three `Simple...1` kinds;
-only for show, `Docs/CUTAWAY.md`).
+grid is drawn on its voxels), `edge_piece` (the editor puts it on an edge to begin with),
+`corner_piece` (on a corner to begin with, over `edge_piece`; no kind has it yet) and `cutaway`
+(part of a building, which may be cut away to see inside: the three `Simple...1` kinds; only for
+show, `Docs/CUTAWAY.md`).
 
 **A brush is a `PieceBrush`** (in `PieceLibrary.brushes`): a few kinds, each with a slot offset (half
 cells across, cells up) and a turn, placed together in one click and turned together.
@@ -130,8 +133,9 @@ Probing it). They are text resources holding packed arrays: BoundaryMap.tscn wen
 only where a piece puts voxels. A chunk keeps two bytes a voxel, at `x + z * 32 + y * 1024`:
 `colors`, the voxel's place in the level's palette (0 for none), and `slots`, 1 + its owner's place in
 the chunk's `owners` (the pieces with voxels there); and the same voxels as rows of bits, `rows_x`
-(bit x, at `z + y * 32`) and `rows_z` (bit z, at `x + y * 32`), which the mesher works from. That is
-80 KB a chunk: BoundaryMap's 470 chunks are 36.7 MB, CombatMap's 109 8.5 MB, LineOfSightTest's 162
+(bit x, at `z + y * 32`) and `rows_z` (bit z, at `x + y * 32`), which the mesher works from. A chunk
+with glass keeps which of its voxels are glass as rows of their own too (`glass_x`, `glass_z`, made the
+first time it has any: `Docs/GLASS.md`). That is 80 KB a chunk: BoundaryMap's 470 chunks are 36.7 MB, CombatMap's 109 8.5 MB, LineOfSightTest's 162
 12.7 MB.
 
 **Pieces are stamped as images.** Each kind is read once (`VoxelShape.read()`) and turned into a
@@ -144,11 +148,14 @@ piece out or puts one back in the middle of the order.
 **The palette** (`palette`, `flags`) is the level's: every colour its kinds' models use, a place a
 colour and set of flags, shared across kinds, at most 254 (BoundaryMap uses 15). Place 255 is
 `BLOOD`, `VoxelShape.BLOOD_COLOR`, flagged `FLAG_WET` (glossier), as in every voxel model's palette. `FLAG_GRID` marks a colour of a kind
-with `tile_grid`. Past 254 colours, the nearest there is stands in, with an error.
+with `tile_grid`, and `FLAG_GLASS` a colour its model's `.vox` draws as glass, its clarity in the
+flags' top bits. Past 254 colours, the nearest there is stands in, with an error.
 
 Queries: `is_solid()`, `color_at()`, `owner_at()`, `voxels_of(piece)`, `counts[piece]` (voxels left;
 `whole[piece]`, voxels once stamped), `cell_has_voxels()` (a count per cell made as it is built, never
-fewer than are there), `voxel_under()` / `center_of()`. Changes: `remove()` and `remove_many()` (wear),
+fewer than are there), `voxel_under()` / `center_of()`; and for glass `is_glass()`, `is_opaque()`,
+`glass_of(piece)`, `glass_counts[piece]` (`glass_whole`), `pieces_with_glass()`, and `held_count()`,
+a piece's voxels but its glass, which holds nothing up. Changes: `remove()` and `remove_many()` (wear),
 `recolor()` (blood); each marks the chunks it touched `dirty` (and the neighbours across a face it
 touched) or `dirty_colors`.
 
@@ -188,6 +195,13 @@ against 0.27, about 40 ms on BoundaryMap's 520 ms build.
 BoundaryMap's battlefield is 268,772 triangles, 71% fewer than the GridMap's 924k (CombatMap 5,668,
 LineOfSightTest 19,362).
 
+**Glass is meshed and drawn apart** (`ChunkMesher.faces()`, for a chunk with glass): a face of
+anything else shows against glass as against air, and a face of glass shows only against nothing, so
+the wall behind a pane is drawn and a pane in its frame is two broad faces. A section's glass is a
+second surface of its mesh, named `glass`, drawn by the glass shaders' two passes, a tint multiplied
+over what is behind and a shine added on top, which cast no shadow. A chunk with none is meshed by
+`rectangles()` exactly as before. `Docs/GLASS.md` has it in full.
+
 **One material draws every chunk** (`Scripts/Terrain/Voxels.gdshader`, which draws every voxel
 model, `Docs/VOXELS.md`; `render_mode diffuse_burley`, as the importer's materials drew). Every
 chunk's colours are one layer of a `Texture2DArray` (32 x 1024 R8, point sampled; `box_size` 32³),
@@ -226,8 +240,8 @@ arrays, 0.45 to merge its section. Recolouring uploads only the chunks' layers, 
 editor keeps `SPARE_LAYERS` (32) layers free so painting into new chunks does not remake the
 texture.
 
-**Collision is a trimesh a chunk** on the terrain layer (1), as exact as what is drawn, made only in
-the game, never in the editor. It is the dearest part (1.43 ms a chunk, the physics working each
+**Collision is a trimesh a chunk** on the terrain layer (1), as exact as what is drawn, glass
+included (debris bounces off a whole pane), made only in the game, never in the editor. It is the dearest part (1.43 ms a chunk, the physics working each
 trimesh out as it gets it), so a level is drawn at once and given its collision over the frames
 after, `collision_budget` (2 ms) a frame (`stream_collision()`), BoundaryMap's in about 670 ms of work,
 5-6 s at 60 fps. Anything about to put debris somewhere has the chunks round it given theirs first
@@ -472,7 +486,7 @@ decision searches the whole map (`Tactics.SEARCH_STEPS`): 87 ms each, a freeze a
   from every cell that reads that slot, unless another piece still stands there. A tile's steps read
   the cells of the nine columns round it, from `STEP_READS_BELOW` (3) levels below it to
   `STEP_READS_ABOVE` (2) above, and the edges between those columns from its own level to 2 above
-  (`_step()`, `_crossing_top()`, `_is_clear()`, `_corner_blocked()`). So a gone cell's steps are
+  (`_step()`, `_crossing()`, `_is_clear()`, `_corner_blocked()`). So a gone cell's steps are
   forgotten round its column from 2 levels below it to 3 above, and an edge's round both its columns
   from 2 levels below it to its own.
 - **Caught up at the end of the frame,** or as the next search begins if one comes first
@@ -494,10 +508,15 @@ decision searches the whole map (`Tactics.SEARCH_STEPS`): 87 ms each, a freeze a
 - **Cover to both sides.** `LineOfSight.cover_at()` counts a side covered if the cell beside is solid
   or a piece stands across that edge, and high if there is more of either a level up: a fence is
   low cover, a wall two courses high is full cover, on either side.
-- **Stepped over a level high, never taller.** `CombatGrid._step()` / `_crossing_top()`: crossing an
+- **Stepped over a level high, never taller.** `CombatGrid._step()` / `_crossing()`: crossing an
   edge, a unit's feet are on the higher of the two tiles, a level higher still for a piece a level
-  high across the edge there, which only a unit climbing no more than `MAX_CLIMB` can; a piece at
-  any level from there to the top of the unit blocks the edge. It costs a step, as a climb does. No
+  high across the edge there, which only a unit climbing no more than `MAX_CLIMB` can. A plain step
+  is blocked by a piece across the edge at either level the unit fills; a vault, since 2026-10-27 (the
+  user's "Relax every vault", asked as windows came in), only by one at the level it crosses at, the
+  one over the low piece, and `_is_clear()` asks both columns to be open only up to that level
+  (`_crossing()` gives it as `Vector2i(level, highest)`), so a unit vaults through a window with wall
+  over it into a room as low as itself. Before, a vault needed the level over that one open as well;
+  no step on the four maps changed. It costs a step, as a climb does. No
   diagonal step passes a piece across any of the four edges round the corner it goes through
   (`_corner_blocked()`). The figure hops over it: `vault_height()` / `vaults_along()` give each step's
   height, which `Unit.walk(..., vaults)` hands `CharacterModel.begin_walk()`, whose `_hop` rises
@@ -506,7 +525,7 @@ decision searches the whole map (`Tactics.SEARCH_STEPS`): 87 ms each, a freeze a
 - **Blocks sight.** `is_line_clear()` blocks a line crossing an edge at a level a piece stands across
   it. A line through a corner, or exactly along a boundary, could have gone either side, so it is
   blocked only if every order of its crossings is (`_edges_block()`, `_orders()`): it slips past the
-  end of a wall, not through the joint between two lengths of one.
+  end of a wall, not through the joint between two lengths of one. A window blocks nothing (below).
 - **Whole until it breaks.** `cast()` meets an edge piece whole, at the edge (`RayHit.on_edge`),
   unless the ray is a round's (`by_voxel`) and every piece there wears away, when the cell's voxels
   are traced and a round can pass between a fence's rails or through a hole; a cell is traced only if
@@ -518,7 +537,67 @@ decision searches the whole map (`Tactics.SEARCH_STEPS`): 87 ms each, a freeze a
   that piece (`RayHit.piece`).
 - **Blasts** break every breakable piece in the blast's cells and on edges with either side inside.
 - **An edge piece stands** while the cell below it on either side is solid or the edge below has a
-  piece (`TerrainDestruction._unsupported()`), and falls as a stack does otherwise.
+  piece (`TerrainDestruction._unsupported()`), and falls as a stack does otherwise. Since corners came
+  in, a piece on the corner below either end of it holds it up too (below).
+
+### Corners
+
+**A slot on the corner where four cells meet** (x and z both odd, `LevelData.is_corner()`), added on
+2026-10-27 at the user's asking ("Update the level editor to allow placing voxel models on the corners
+of tiles. This should continue to follow all pre-existing rules."), for posts: where two lengths of
+fence or wall meet, a pillar, a lamp post. A piece there is any kind, 16³ like every other, its box
+centred on the corner, a quarter in each of the four cells (`LevelData.cells_of()`), stamped, drawn,
+worn and stained as any piece is; later wins, voxel by voxel, as ever. `cell_of()` of a corner is the
+least of its four cells and `other_cell()` the one across from it; `edges_at()` gives the four edges
+meeting at a corner, `ends_of()` the two corners at an edge's ends. The volume counts a corner piece's
+voxels into all four of its cells (`Stamp.quarters`), so a round's or blood's trace looks in each.
+
+The user's answers (2026-10-27), asked as the work began:
+
+- **To the fight, a piece on a corner is decoration**: whatever its kind's `solid`, no sight line,
+  step, cover, lean, throw, click or round meets it. `LevelRules` keeps solid corner pieces in a table
+  of their own (`has_corner_slot()`, `pieces_on_corner()`, `corner_slots()`; `pieces_at()` and
+  `has_slot()` for any slot), which `is_solid()` and `has_edge()` never read; `CombatGrid._stops_rounds()`
+  passes their voxels, and the walking graph forgets nothing as one goes. A unit walks through a post's
+  voxels as it walks through tall grass. Blood's trace (`every_block`) meets and stains them, as it does
+  every piece's.
+- **To what holds pieces up, it is a piece like any other.** A solid piece on a corner stands while
+  anything solid is under it: any of its four cells below, any of the four edges meeting below it, or
+  the corner below; it holds up the corner piece above it; and **it holds up edges**: an edge piece
+  also stands while a piece is on the corner below either end of it, so a beam (a course of wall)
+  across two posts stands while either does. When what holds it up goes it falls whole and breaks
+  where it lands, as an edge piece does (`TerrainDestruction._above()` and `_unsupported()`).
+- **It breaks as a piece does.** A blast breaks a piece on a corner that does not wear when any of its
+  four cells is in the blast; one that wears is cratered there and breaks once worn past standing,
+  as every wearing piece does. A bite of a round striking something beside it can wear it too, a bite
+  being one ball across pieces. Worn, it holds up what is on it only while a run of its voxels joins
+  its box's foot to its top, the corner above or an edge whose end rests on it counting as on it
+  (`VoxelTerrain.holds_up()`, `_holds_edge_end()`). A piece on a corner of a kind that is not solid is
+  in no table at all: decoration as tall grass is, which never breaks whole.
+- **It is cut away with buildings** (`LevelCutaway`, its own table of corners): a building piece on a
+  corner is cut away from its height up, and what rests on one goes with it, by column as the rest:
+  a piece on a corner, if a cut piece is on that corner at its level or below, in any of the four
+  columns round it at its level or below, or across any of the four edges meeting there below it; an
+  edge piece, besides what it was before, if a cut piece is on the corner below either end of it. A
+  piece beside a cut corner at its own level, touching it (a fence run up to a house's corner post),
+  is not on it. A point within `STRIP` of a cut corner both ways is hidden (`covers_point()`).
+
+### Windows
+
+**A kind marked `PieceKind.window`** (`SimpleWindow1`, added on 2026-10-27 with glass; `Docs/GLASS.md`
+has it in full) is decoration to the fight wherever it stands, as a piece on a corner is. The user's
+calls: units see and shoot through windows, cover at a window is low, from the sill only, units vault
+through them, breaking the glass, and grenades are thrown through them; the glass is only for show.
+`LevelRules` keeps solid windows in a table of their own (`is_window()`, `window_slots()`;
+`pieces_at()` and `has_slot()` for any slot), which `is_solid()`, `has_edge()`, `pieces_in()` and
+`pieces_across()` never read: no sight line, step, cover, lean, throw or click meets one, and the
+walking graph forgets nothing as one goes. A round traced voxel by voxel meets its frame
+(`_stops_rounds()`) and passes its glass (`_trace_cell()`), and blood's trace meets both. To what
+holds pieces up it is a piece like any other: it stands on what is under it, holds up the course of
+wall over it (`TerrainDestruction._unsupported()` reads `has_slot()`), breaks in a blast with a side
+of it in the blast's cells and wears away as the wall it was made from. It is a building piece
+(`cutaway`), cut away with the walls. Its sill, the `SimpleWall1` under it (the brush
+**SimpleWindowWall2** places both), is what gives the cover and what a unit vaults over.
 
 ## Destruction on the level
 
@@ -540,9 +619,10 @@ How a piece wears and breaks is `Docs/DESTRUCTION.md`'s; what changed with the v
   the hole, wandering by `RIM_WANDER` (1.2), so a broken block leaves a ragged hole, not a clean cube.
   A crate (`ScriptedDestruction`) shatters at `frame_of(piece) * model_transform`, where its model
   was drawn.
-- **Stacks and edges fall.** A piece left on nothing falls whole as a `FallingBlock` built from what
-  is left of its voxels (a `VoxelModel` of them in the level's palette, `_drop_whole()`), and breaks
-  where it lands (`_on_landed()`).
+- **Stacks, edges and corners fall.** A piece left on nothing falls whole as a `FallingBlock` built
+  from what is left of its voxels (a `VoxelModel` of them in the level's palette, `_drop_whole()`), and
+  breaks where it lands (`_on_landed()`); what holds a piece on a corner up is under
+  [Corners](#corners).
 - **Lumps wake.** `LevelRenderer.chunk_redrawn` wakes the debris lying on a chunk drawn again.
 - **What wear lays bare is the inside of the ground.** A kind's model is coloured as a block standing
   alone: the grass's turf hangs down all four of its sides (darker rows 11 to 14 of its edge columns).
@@ -584,8 +664,8 @@ props on figures and the figures themselves no longer have overlays.
 ## The level editor
 
 The level editor is a Godot editor plugin (`addons/level_editor/`): select a map's `Level` (or
-`Scenery`) and paint pieces from the **Level** panel beside the 3D view, in the middles of cells and on
-the edges between them, a stroke one undo step, the pieces saved to the level's own file with the
+`Scenery`) and paint pieces from the **Level** panel beside the 3D view, in the middles of cells, on
+the edges between them and on the corners where they meet, a stroke one undo step, the pieces saved to the level's own file with the
 scene. It goes through the level's own edits (`VoxelLevel.place()`, `insert()`, `remove()`, batched by
 `begin_edit()` / `end_edit()`), which draw again only the chunks the changed pieces reach, by way of
 `LevelEditing`, which holds what a click does apart from the editor, so a probe can do the same.
@@ -612,13 +692,18 @@ scenery's ground plane.
                        cutaway_heights, cut_away() -> cut_changed, is_cut_away(), is_tile_cut_away(), reveal(),
                        floor_heights(), cutaway_from(), is_under_building()
     LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them (Docs/CUTAWAY.md)
-    LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle or an edge), a turn
-    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece, cutaway; PieceBrush.gd
-                       (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
-    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge
-    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows), palette (BLOOD 255); remove_many(),
-                       recolor(), lay_bare() (dug ground as earth), counts; ChunkMesher.gd (faces by shape, none hidden)
-    LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader);
+    LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle, an edge or a
+                       corner), a turn; is_corner(), cells_of(), edges_at(), ends_of()
+    PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece, corner_piece,
+                       cutaway, window; PieceBrush.gd (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres:
+                       kinds and brushes)
+    LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge; those on
+                       corners and windows kept apart, for what holds pieces up alone (pieces_at(), has_slot())
+    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows, glass rows), palette (BLOOD 255);
+                       remove_many(), recolor(), lay_bare() (dug ground as earth), counts, glass_counts, glass_of();
+                       ChunkMesher.gd (faces by shape, none hidden; faces(): glass apart)
+    LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader; glass a
+                       second surface, glass_material);
                        collision a trimesh a chunk, streamed; cut() (pieces cut away from the view, their shadows
                        still cast); SceneryRenderer.gd (a MultiMesh a kind, coarseness and region)
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
@@ -666,6 +751,20 @@ Everything here runs headless unless it renders (Verification).
 - **Edits:** apply random edits through `LevelEditing.apply()` to a level and undo and redo some, then
   compare every chunk's `colors`, `slots` and rows with a level built afresh from the same
   `LevelData`: 96 edits, none differing.
+- **Corners** (2026-10-27, LineOfSightTest, headless; a piece is put on a corner with
+  `data.add(id, slot, turn)` on a copy of the level's `LevelData`, set as the level's `data` before the
+  map enters the tree): every tile and its steps and cover, 6,000 sight lines, 40 searches, every
+  unit's shot at every other, 3,000 rays whole and by voxel, 1,500 throws and 1,500 clicks, with and
+  without a piece on every corner of floor 1 with room for one (410, trunks, crates, courses of wall
+  and tufts in turn): 15,826 lines, none differing. Blood's trace meets a post and a round's passes it.
+  On a patch of ground of its own past the map's edge, each piece found by `rules.is_standing()`: a
+  post on the corner of a raised block falls as the block breaks; a course of wall across two posts
+  stands while either does and falls with the second; a post on a fence's end falls with the fence; a
+  post on a post falls with it, and a post cut through by a layer holds up the one on it no longer; a
+  blast in one of a corner crate's cells breaks it and leaves one away from it. `LevelCutaway` built
+  over a small level of its own: a building piece on a corner cut, what rests on it with it, a fence
+  touching it at its own level not. 60 random edits, half on corners, undone and redone: every chunk
+  as a fresh build has it.
 - **The editor** is probed headless through `LevelEditing`, and in a running editor through the
   plugin's own hook for a probe (`VCOM_LEVEL_EDITOR_PROBE`): `Docs/LEVEL_EDITOR.md`, "Probing it".
 - **Wear and blood** are probed as before (`CLAUDE.md`'s Verification, `Docs/BLOOD.md`): a hit from
@@ -711,10 +810,23 @@ or the shader:
 
 ## Known gaps
 
+Glass's and windows' are `Docs/GLASS.md`'s.
+
 - Maps are still whole, painted levels: plots and parcels (the user's next step) are not built, and
   nothing yet places a level's pieces at load from parts.
-- No auto-tiling: a fence's or a wall's ends, corners and joints are placed piece by piece, and a
-  corner, which is no slot, is two lengths meeting end to end, with no post of its own.
+- No auto-tiling: a fence's or a wall's ends, corners and joints are placed piece by piece; a post
+  can stand on the corner where two lengths meet, but nothing places it.
+- No kind is made for corners yet, by the user's choice (2026-10-27: the slot alone, they model the
+  posts); `MagicaVoxel/Shapes/`' `FenceCorner`, `FenceT` and `FenceCross`, a post with rails half a cell
+  each way, would suit one. Until a kind has `corner_piece`, the editor's Corner is chosen by hand.
+- A piece on a corner is decoration to the fight however big it is: a stone pillar a cell across
+  stops no sight line, round or throw, gives no cover and is walked through, and a shot that hits
+  flies through its voxels. Only what holds pieces up, blasts, bites and blood see it.
+- A piece on a corner that does not wear (a crate there) is never struck by a round, which passes it,
+  so only a blast or what holds it up going brings it down; a crate on a corner rolls its coin into
+  the least of its four cells (`block_broken`'s cell).
+- A blast's crater keeps to its cells, so a blast beside a post cuts the quarter of it in the blast's
+  cell away square, as it cuts an edge piece's half.
 - A piece stands a whole level; nothing is half a level. The rules know only where a piece stands,
   never its shape: a fence is low cover however open its rails, and a wall worn through is still a
   wall until it breaks.
@@ -791,6 +903,14 @@ The user's decisions are listed under "Why levels". Made along the way without a
   rather than split at every T-junction (more triangles) or grown a fixed size in the mesh.
 - What wear lays bare inside the ground takes the colour inside its own block, for kinds that wear
   away, where the same kind is placed across; queued to the next redraw.
+- Corners (the user's, 2026-10-27, under [Corners](#corners): decoration to the fight; standing on
+  cells, edges or a corner below; holding up the corner above and edges by their ends; breaking in a
+  blast with a cell inside it). Made without asking: solid corner pieces in a table of their own in
+  `LevelRules` rather than among the edges; the volume counting a corner piece's voxels a quarter to
+  each cell; a bite beside a post wearing it, a bite being one ball across pieces; what holds up a
+  worn post (the corner above, or an edge whose end rests on it, counting as on it); the cutaway's
+  rules for corners, a piece touching a cut corner at its own level not resting on it; a crate on a
+  corner leaving its coin in the least of its cells.
 - The walking graph (the user's, 2026-10-21: built as the map loads, worked out again only where a
   change affects movement). Made without asking: the steps worked out again at the end of the
   frame a piece goes in, or as the next search begins, rather than at each piece as it goes (a

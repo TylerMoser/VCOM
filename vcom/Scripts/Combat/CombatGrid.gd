@@ -13,7 +13,14 @@
 ## ([LineOfSight]), it blocks a sight line crossing the edge at its level, and
 ## it stops a round or a throw there. A unit steps over one a level high or
 ## less, as it climbs a level, and never over one taller, nor diagonally past
-## any.
+## any: it vaults through the level above it, which must be open across the
+## edge, but needs no more room than that, so it vaults through a window with
+## wall above it into a room as low as itself.
+##
+## A window ([member PieceKind.window]) is decoration to the fight, as a piece
+## on a corner is: the rules this reads never see it ([LevelRules]). A round
+## traced voxel by voxel still meets its frame, as it meets any piece that
+## wears away, and passes through glass wherever it is.
 ##
 ## Paths go over a walking graph, the steps from every tile, worked out once as
 ## the map loads and kept, rather than at every search. The steps from a tile
@@ -583,9 +590,10 @@ func _whole_hit(cell: Vector3i, face: Vector3i, piece: int, local: Vector3, dire
 ## first meets a voxel in [param cell], between [param enter] and
 ## [param leave] along it, as a [RayHit]; null if it meets none, or one further
 ## than [param max_distance]. The voxels of a piece that does not wear away,
-## and of one that is only decoration, are passed by, unless
-## [param every_block]: the first is met whole, at its cell or edge, and the
-## second stops nothing.
+## and of one that is only decoration (not solid, or on a corner), are passed
+## by, unless [param every_block]: the first is met whole, at its cell or edge,
+## and the second stops nothing. Glass stops nothing but [param every_block]:
+## a round passes through it (Docs/GLASS.md), and blood stains it.
 func _trace_cell(
 	cell: Vector3i, from: Vector3, dir: Vector3, enter: float, leave: float, max_distance: float,
 	every_block: bool, origin: Vector3, direction: Vector3
@@ -623,7 +631,7 @@ func _trace_cell(
 	while true:
 		if _volume.is_solid(voxel):
 			var piece := _volume.owner_at(voxel)
-			if every_block or _stops_rounds(piece):
+			if every_block or (_stops_rounds(piece) and not _volume.is_glass(voxel)):
 				var hit := RayHit.new()
 				hit.cell = cell
 				hit.voxel = voxel
@@ -649,14 +657,15 @@ func _trace_cell(
 
 
 ## Whether a round stops on a voxel of [param piece]: a solid one that wears
-## away. The voxels of one that does not are met whole, at its cell or edge.
+## away. The voxels of one that does not are met whole, at its cell or edge,
+## and those of a piece on a corner, only decoration to the fight, never.
 func _stops_rounds(piece: int) -> bool:
 	if piece < 0:
 		return false
 	var kind := level.data.kind_at(piece)
 	if _wears[kind] == 0:
 		return false
-	return _rules.is_standing(piece)
+	return _rules.is_standing(piece) and not LevelData.is_corner(level.data.slot_at(piece))
 
 
 ## Works out the steps from every tile on the map afresh: the walking graph, as
@@ -715,8 +724,10 @@ func _walkable_from(tile: Vector3i) -> Array[Vector3i]:
 ## Forgets the steps from every cell whose steps read [param slot], which a
 ## piece has just left ([signal LevelRules.removed]), to be worked out again
 ## ([method _catch_up]). While another piece still stands there, nothing has
-## changed for them.
-func _on_piece_removed(_piece: int, slot: Vector3i) -> void:
+## changed for them; and no step reads a corner, nor a window.
+func _on_piece_removed(piece: int, slot: Vector3i) -> void:
+	if LevelData.is_corner(slot) or _rules.is_window(piece):
+		return
 	var cell := LevelData.cell_of(slot)
 	if LevelData.is_centre(slot):
 		if not _rules.is_solid(cell):
@@ -760,32 +771,39 @@ func _step(from: Vector3i, direction: Vector2i) -> Variant:
 		var to := from + Vector3i(direction.x, rise, direction.y)
 		if not is_tile(to):
 			continue
-		var top: Variant = _crossing_top(from, to, direction)
-		if top != null and _is_clear(from, to, top):
+		var crossing: Variant = _crossing(from, to, direction)
+		if crossing != null and _is_clear(from, to, (crossing as Vector2i).y):
 			return to
 	return null
 
 
-## The level a unit stepping from [param from] to [param to] crosses the edge
-## between their columns at, its feet there: the higher of the two tiles, a
-## level higher still to step over a piece a level high standing across the
-## edge there, which only one stepping no higher than [constant MAX_CLIMB]
-## above where it stands can. Null if the edge is blocked: a piece standing
-## anywhere across it from there up to the top of the unit. A diagonal crosses
-## no single edge ([method _corner_blocked]).
-func _crossing_top(from: Vector3i, to: Vector3i, direction: Vector2i) -> Variant:
+## How a unit stepping from [param from] to [param to] crosses the edge
+## between their columns, as [code]Vector2i(level, highest)[/code]: the level
+## its feet cross at, and the highest level it fills while it does. It crosses
+## at the higher of the two tiles, filling that level and the one above it, its
+## height. Over a piece a level high standing across the edge there, which
+## only one stepping no higher than [constant MAX_CLIMB] above where it stands
+## can, it vaults, through the level above the piece: that level must be open
+## across the edge, and it fills nothing higher, so it vaults through a window
+## with wall above it. Null if the edge is blocked: anything else standing
+## across it in the levels it fills. A diagonal crosses no single edge
+## ([method _corner_blocked]).
+func _crossing(from: Vector3i, to: Vector3i, direction: Vector2i) -> Variant:
 	var top := maxi(from.y, to.y)
 	if not _has_edges or (direction.x != 0 and direction.y != 0):
-		return top
+		return Vector2i(top, top + UNIT_HEIGHT - 1)
 	var column := Vector3i(from.x, 0, from.z)
 	if _rules.has_edge(column + Vector3i.UP * top, direction):
 		top += 1
 		if top - from.y > MAX_CLIMB:
 			return null
+		if _rules.has_edge(column + Vector3i.UP * top, direction):
+			return null
+		return Vector2i(top, top)
 	for y in range(top, top + UNIT_HEIGHT):
 		if _rules.has_edge(column + Vector3i.UP * y, direction):
 			return null
-	return top
+	return Vector2i(top, top + UNIT_HEIGHT - 1)
 
 
 ## Whether a diagonal step from [param from] to [param to] toward
@@ -858,10 +876,9 @@ func _is_leaving_map(cell: Vector3i, step: Vector3i) -> bool:
 
 
 ## Whether both columns are open for the whole climb or drop between
-## [param from] and [param to], including headroom over [param top], the level
-## the unit crosses between them at ([method _crossing_top]).
-func _is_clear(from: Vector3i, to: Vector3i, top: int) -> bool:
-	var highest := top + UNIT_HEIGHT - 1
+## [param from] and [param to], up to [param highest], the highest level the
+## unit fills crossing between them ([method _crossing]).
+func _is_clear(from: Vector3i, to: Vector3i, highest: int) -> bool:
 	for y in range(from.y, highest + 1):
 		if is_solid(Vector3i(from.x, y, from.z)):
 			return false

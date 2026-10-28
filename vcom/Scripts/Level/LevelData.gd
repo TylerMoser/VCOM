@@ -7,11 +7,13 @@
 ## can stand, counted across the ground in half cells and up in cells: x and z
 ## both even is the middle of cell (x / 2, y, z / 2); one of them odd is the
 ## edge between two cells side by side, x odd the edge between cells x / 2 and
-## x / 2 + 1 (rounded down) along x, z odd the same along z. Both odd, a cell's
-## corner, is no slot. A piece's box, 16 voxels a side, has its least corner
-## at voxel ([method voxel_origin]): a piece on an edge stands half in each
-## cell. Its turn is in quarter turns about up, counterclockwise seen from
-## above, about the middle of its box.
+## x / 2 + 1 (rounded down) along x, z odd the same along z. Both odd is the
+## corner where four cells meet, the corner between cells x / 2 and x / 2 + 1
+## along x and z / 2 and z / 2 + 1 along z. A piece's box, 16 voxels a side,
+## has its least corner at voxel ([method voxel_origin]): a piece on an edge
+## stands half in each cell, and one on a corner a quarter in each of four.
+## Its turn is in quarter turns about up, counterclockwise seen from above,
+## about the middle of its box.
 ##
 ## Pieces can share a slot or overlap: the later one wins voxel by voxel
 ## ([VoxelVolume]). Nothing here changes in play: what breaks is the
@@ -115,6 +117,11 @@ static func is_edge(slot: Vector3i) -> bool:
 	return (slot.x & 1) + (slot.z & 1) == 1
 
 
+## Whether [param slot] is the corner where four cells meet.
+static func is_corner(slot: Vector3i) -> bool:
+	return slot.x & 1 == 1 and slot.z & 1 == 1
+
+
 ## The slot in the middle of [param cell].
 static func centre_slot(cell: Vector3i) -> Vector3i:
 	return Vector3i(cell.x * 2, cell.y, cell.z * 2)
@@ -126,19 +133,63 @@ static func edge_slot(cell: Vector3i, direction: Vector2i) -> Vector3i:
 	return Vector3i(cell.x * 2 + direction.x, cell.y, cell.z * 2 + direction.y)
 
 
+## The slot on the corner of [param cell] toward [param direction], one of the
+## four ways diagonally across the ground: (1, 1) is its corner toward +x and +z.
+static func corner_slot(cell: Vector3i, direction: Vector2i) -> Vector3i:
+	return Vector3i(cell.x * 2 + direction.x, cell.y, cell.z * 2 + direction.y)
+
+
 ## The cell [param slot] is the middle of; for an edge, the cell on its least
-## side ([method other_cell] is the one on its far side).
+## side ([method other_cell] is the one on its far side); for a corner, the
+## least of its four cells, toward -x and -z.
 static func cell_of(slot: Vector3i) -> Vector3i:
 	return Vector3i(slot.x >> 1, slot.y, slot.z >> 1)
 
 
-## For an edge, the cell on its far side; for the middle of a cell, that cell.
+## For an edge, the cell on its far side; for a corner, the cell of its four
+## across from [method cell_of], toward +x and +z; for the middle of a cell,
+## that cell.
 static func other_cell(slot: Vector3i) -> Vector3i:
 	return Vector3i((slot.x + 1) >> 1, slot.y, (slot.z + 1) >> 1)
 
 
+## The cells the box of a piece in [param slot] stands in, at its level: the
+## cell it is the middle of, the two either side of an edge, or the four round
+## a corner.
+static func cells_of(slot: Vector3i) -> Array[Vector3i]:
+	var low := cell_of(slot)
+	var high := other_cell(slot)
+	var cells: Array[Vector3i] = []
+	for x in range(low.x, high.x + 1):
+		for z in range(low.z, high.z + 1):
+			cells.append(Vector3i(x, slot.y, z))
+	return cells
+
+
+## The four edges that meet at the corner in [param slot], at its level; none
+## for any other slot.
+static func edges_at(slot: Vector3i) -> Array[Vector3i]:
+	var edges: Array[Vector3i] = []
+	if is_corner(slot):
+		for way: Vector3i in [Vector3i(-1, 0, 0), Vector3i(1, 0, 0), Vector3i(0, 0, -1), Vector3i(0, 0, 1)]:
+			edges.append(slot + way)
+	return edges
+
+
+## The two corners at the ends of the edge in [param slot], at its level; none
+## for any other slot.
+static func ends_of(slot: Vector3i) -> Array[Vector3i]:
+	var ends: Array[Vector3i] = []
+	if is_edge(slot):
+		# An edge across x runs along z, and the other way about.
+		var along := Vector3i(0, 0, 1) if slot.x & 1 == 1 else Vector3i(1, 0, 0)
+		ends.append(slot - along)
+		ends.append(slot + along)
+	return ends
+
+
 ## The way across the ground from [method cell_of] to [method other_cell] for
-## an edge; none for the middle of a cell.
+## an edge, or diagonally for a corner; none for the middle of a cell.
 static func edge_direction(slot: Vector3i) -> Vector2i:
 	return Vector2i(slot.x & 1, slot.z & 1)
 

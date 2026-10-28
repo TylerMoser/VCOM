@@ -24,6 +24,13 @@
 ## Built fresh as the level loads, from pieces stamped as images
 ## ([method Image.blit_rect_mask]) so the work is the engine's, not the
 ## script's. The rules never read it: they read whole pieces ([LevelRules]).
+##
+## Glass is kept apart as rows of its own in each chunk that has any
+## ([member Chunk.glass_x]): a voxel of a colour MagicaVoxel draws as glass
+## ([constant FLAG_GLASS]) as its piece is stamped, until it goes. It is drawn
+## apart ([ChunkMesher]), never counts toward what holds a piece up or keeps it
+## standing ([member glass_counts]), and stays glass whatever it is recoloured,
+## so blood on glass is drawn on the glass (Docs/GLASS.md).
 class_name VoxelVolume
 extends RefCounted
 
@@ -38,10 +45,12 @@ const BLOCK := 16
 ## every voxel model's ([constant VoxelShape.BLOOD]).
 const BLOOD := VoxelShape.BLOOD
 ## What a palette entry says beyond its colour, in its flags
-## ([constant VoxelModel.FLAG_GRID]): the tile grid is drawn over it; it is
-## wet, and glossier for it, as blood is.
-const FLAG_GRID := VoxelModel.FLAG_GRID
-const FLAG_WET := VoxelModel.FLAG_WET
+## ([constant VoxelShape.FLAG_GRID]): the tile grid is drawn over it; it is
+## wet, and glossier for it, as blood is; it is glass, as clear as the rest of
+## its flags say.
+const FLAG_GRID := VoxelShape.FLAG_GRID
+const FLAG_WET := VoxelShape.FLAG_WET
+const FLAG_GLASS := VoxelShape.FLAG_GLASS
 ## The bits of a whole row.
 const FULL_ROW := (1 << SIZE) - 1
 ## The six ways out of a voxel.
@@ -66,6 +75,10 @@ class Chunk:
 	## along z, bit z, at [code]x + y * SIZE[/code].
 	var rows_x := PackedInt64Array()
 	var rows_z := PackedInt64Array()
+	## The glass among them, as rows laid out as those: empty until the chunk
+	## first has glass ([method make_glass]).
+	var glass_x := PackedInt64Array()
+	var glass_z := PackedInt64Array()
 	## Its layer of the level's colour texture ([LevelRenderer]).
 	var layer := -1
 
@@ -97,17 +110,38 @@ class Chunk:
 				return false
 		return true
 
+	## Whether it has rows for glass: it has had glass, if none is left.
+	func has_glass() -> bool:
+		return not glass_x.is_empty()
+
+	## Gives it rows for glass, empty, if it has none yet.
+	func make_glass() -> void:
+		if glass_x.is_empty():
+			glass_x.resize(AREA)
+			glass_z.resize(AREA)
+
+	## Whether the voxel at [param voxel], its place within the chunk, is glass.
+	func is_glass_at(voxel: Vector3i) -> bool:
+		return not glass_x.is_empty() and (glass_x[voxel.z + (voxel.y << SHIFT)] >> voxel.x) & 1 == 1
+
 
 ## One kind's voxels, turned one of four ways, made ready to stamp: as rows,
 ## along x at [code]z + y * 16[/code] and along z at [code]x + y * 16[/code];
 ## as an image of colours a voxel a pixel, [code]x[/code] across and
 ## [code]z + y * 16[/code] down, places in the level's palette, with a mask of
-## which pixels are voxels; and how many voxels it has, in all and in each half
+## which pixels are voxels; and how many voxels it has, in all, in each half
 ## of its box (x below 8, x from 8, z below 8, z from 8) for a piece on an edge
-## to share between the two cells it stands across.
+## to share between the two cells it stands across, and in each quarter (x
+## below 8 and z below 8, x from 8 and z below 8, x below 8 and z from 8, both
+## from 8) for one on a corner to share between its four.
 class Stamp:
 	var rows_x := PackedInt64Array()
 	var rows_z := PackedInt64Array()
+	## Its glass, as rows laid out as those, and how much: empty, and 0, for a
+	## kind with none.
+	var glass_x := PackedInt64Array()
+	var glass_z := PackedInt64Array()
+	var glass_count := 0
 	## Each voxel's place in the level's palette, laid out as [member colors]
 	## is: x across, z and y down, a row of 16 for each.
 	var places := PackedByteArray()
@@ -115,6 +149,7 @@ class Stamp:
 	var mask: Image
 	var count := 0
 	var halves := PackedInt32Array([0, 0, 0, 0])
+	var quarters := PackedInt32Array([0, 0, 0, 0])
 
 
 ## What it is the voxels of.
@@ -133,9 +168,12 @@ var chunks := {}
 var palette := PackedColorArray()
 var flags := PackedByteArray()
 ## How many voxels each piece had once every piece was stamped, and how many it
-## has left now.
+## has left now, its glass among them; and how many of each were glass. What
+## holds a piece up is the rest: glass holds nothing.
 var whole := PackedInt32Array()
 var counts := PackedInt32Array()
+var glass_whole := PackedInt32Array()
+var glass_counts := PackedInt32Array()
 ## The lowest layer of voxels: the underside of the floor, which nothing ever
 ## sees.
 var floor_y := 0
@@ -214,6 +252,8 @@ func build(only := PackedInt32Array()) -> int:
 	var count := data.count()
 	whole.resize(count)
 	whole.fill(0)
+	glass_whole.resize(count)
+	glass_whole.fill(0)
 	var images := {}
 	var overlapped := {}
 	var lowest := INF
@@ -235,6 +275,7 @@ func build(only := PackedInt32Array()) -> int:
 	for key: Vector3i in overlapped:
 		_recount(chunks[key])
 	counts = whole.duplicate()
+	glass_counts = glass_whole.duplicate()
 	dirty.clear()
 	for key in chunks:
 		dirty[key] = true
@@ -252,6 +293,8 @@ func restamp(keys: Array[Vector3i]) -> void:
 	var count := data.count()
 	whole.resize(count)
 	counts.resize(count)
+	glass_whole.resize(count)
+	glass_counts.resize(count)
 	var limit := {}
 	var images := {}
 	for key in keys:
@@ -295,6 +338,7 @@ func restamp(keys: Array[Vector3i]) -> void:
 			dirty[key + step] = true
 		for index in chunk.owners:
 			counts[index] = whole[index]
+			glass_counts[index] = glass_whole[index]
 
 
 ## Notes that piece [param index] has been taken out of the level, every piece
@@ -312,6 +356,10 @@ func piece_removed(index: int) -> void:
 		whole.remove_at(index)
 	if index < counts.size():
 		counts.remove_at(index)
+	if index < glass_whole.size():
+		glass_whole.remove_at(index)
+	if index < glass_counts.size():
+		glass_counts.remove_at(index)
 
 
 ## Notes that a piece has been put in the level at [param index], every piece
@@ -325,6 +373,8 @@ func piece_inserted(index: int) -> void:
 				chunk.owners[place] += 1
 	whole.insert(index, 0)
 	counts.insert(index, 0)
+	glass_whole.insert(index, 0)
+	glass_counts.insert(index, 0)
 
 
 ## The keys of the chunks the box of a piece in [param slot] reaches.
@@ -363,6 +413,42 @@ func color_at(voxel: Vector3i) -> int:
 func is_solid(voxel: Vector3i) -> bool:
 	var chunk := chunk_of(voxel)
 	return chunk != null and chunk.colors[index_of(voxel)] != 0
+
+
+## The height of the first voxel at or below [param voxel], straight down its
+## column, no lower than [param lowest]; [param lowest] less one if there is
+## none. Read a row of bits at a time, skipping chunks there are none of: what
+## a shard of glass falls to ([GlassShards]).
+func solid_below(voxel: Vector3i, lowest: int) -> int:
+	var x := voxel.x & MASK
+	var z := voxel.z & MASK
+	var y := voxel.y
+	while y >= lowest:
+		var key := Vector3i(voxel.x >> SHIFT, y >> SHIFT, voxel.z >> SHIFT)
+		var bottom := key.y << SHIFT
+		var chunk: Chunk = chunks.get(key)
+		if chunk != null:
+			var rows := chunk.rows_x
+			for at in range(y - bottom, maxi(lowest - bottom, 0) - 1, -1):
+				if (rows[z + (at << SHIFT)] >> x) & 1 == 1:
+					return bottom + at
+		y = bottom - 1
+	return lowest - 1
+
+
+## Whether there is a voxel of glass at [param voxel].
+func is_glass(voxel: Vector3i) -> bool:
+	var chunk := chunk_of(voxel)
+	return chunk != null and chunk.is_glass_at(Vector3i(voxel.x & MASK, voxel.y & MASK, voxel.z & MASK))
+
+
+## Whether there is a voxel at [param voxel] that is not glass: one a face
+## shows against, and that holds whatever is joined to it.
+func is_opaque(voxel: Vector3i) -> bool:
+	var chunk := chunk_of(voxel)
+	if chunk == null or chunk.colors[index_of(voxel)] == 0:
+		return false
+	return not chunk.is_glass_at(Vector3i(voxel.x & MASK, voxel.y & MASK, voxel.z & MASK))
 
 
 ## The piece [param voxel] belongs to, by its index in the level; -1 if none.
@@ -413,6 +499,11 @@ func remove(voxel: Vector3i) -> int:
 	var z := voxel.z & MASK
 	chunk.rows_x[z + (y << SHIFT)] &= ~(1 << x)
 	chunk.rows_z[x + (y << SHIFT)] &= ~(1 << z)
+	if chunk.has_glass() and (chunk.glass_x[z + (y << SHIFT)] >> x) & 1 == 1:
+		chunk.glass_x[z + (y << SHIFT)] &= ~(1 << x)
+		chunk.glass_z[x + (y << SHIFT)] &= ~(1 << z)
+		if piece >= 0:
+			glass_counts[piece] -= 1
 	if piece >= 0:
 		counts[piece] -= 1
 	# A cell's count is left as it was: it need only never be too few.
@@ -434,18 +525,22 @@ func remove(voxel: Vector3i) -> int:
 
 ## Takes away every voxel of [param voxels] (three numbers each), as
 ## [method remove] does one, and puts in [param places] the place of each one's
-## colour, 0 where there was none, and in [param owners] its piece, -1 for
-## none. Quicker than one at a time: a blast takes thousands.
-func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: PackedInt32Array) -> void:
+## colour, 0 where there was none, in [param owners] its piece, -1 for none,
+## and in [param glass], if given, 1 for each that was glass. Quicker than one
+## at a time: a blast takes thousands.
+func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: PackedInt32Array, glass := PackedByteArray()) -> void:
 	var count := voxels.size() / 3
 	places.resize(count)
 	owners.resize(count)
+	glass.resize(count)
 	var last_key := Vector3i.MAX
 	var chunk: Chunk = null
 	var colors := PackedByteArray()
 	var slots := PackedByteArray()
 	var rows_x := PackedInt64Array()
 	var rows_z := PackedInt64Array()
+	var glass_x := PackedInt64Array()
+	var glass_z := PackedInt64Array()
 	var chunk_owners := PackedInt32Array()
 	for at in count:
 		var x := voxels[at * 3]
@@ -460,10 +555,13 @@ func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: Pack
 				slots = chunk.slots
 				rows_x = chunk.rows_x
 				rows_z = chunk.rows_z
+				glass_x = chunk.glass_x
+				glass_z = chunk.glass_z
 				chunk_owners = chunk.owners
 				dirty[key] = true
 		places[at] = 0
 		owners[at] = -1
+		glass[at] = 0
 		if chunk == null:
 			continue
 		var lx := x & MASK
@@ -479,6 +577,12 @@ func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: Pack
 		slots[index] = 0
 		rows_x[lz + (ly << SHIFT)] &= ~(1 << lx)
 		rows_z[lx + (ly << SHIFT)] &= ~(1 << lz)
+		if not glass_x.is_empty() and (glass_x[lz + (ly << SHIFT)] >> lx) & 1 == 1:
+			glass_x[lz + (ly << SHIFT)] &= ~(1 << lx)
+			glass_z[lx + (ly << SHIFT)] &= ~(1 << lz)
+			glass[at] = 1
+			if piece >= 0:
+				glass_counts[piece] -= 1
 		if piece >= 0:
 			counts[piece] -= 1
 		places[at] = place
@@ -562,7 +666,7 @@ func flush_bare() -> int:
 			var by := y + step.y
 			var bz := z + step.z
 			# Only a voxel on the edge of a box can be laid bare so: a cell's
-			# boundary, or with pieces on edges, the middle of one too.
+			# boundary, or with pieces on edges or corners, the middle of one too.
 			var mx := bx & (BLOCK - 1)
 			var mz := bz & (BLOCK - 1)
 			var my := by & (BLOCK - 1)
@@ -580,6 +684,9 @@ func flush_bare() -> int:
 				continue
 			var place := colors[(bx & MASK) + ((bz & MASK) << SHIFT) + ((by & MASK) << (SHIFT * 2))]
 			if place == 0 or place == BLOOD:
+				continue
+			# Glass is never the inside of the ground.
+			if is_glass(Vector3i(bx, by, bz)):
 				continue
 			changed += _lay_bare_one(Vector3i(bx, by, bz), gone)
 	for slot in _bare_boxes:
@@ -616,7 +723,8 @@ func _ready_to_lay_bare() -> void:
 
 ## [method flush_bare] for one voxel, [param bare], next to some of those in
 ## [param gone], every voxel just taken away, as a set. Returns 1 if it was
-## recoloured.
+## recoloured. Glass is never recoloured so, and never buries anything: what
+## was behind it could be seen.
 func _lay_bare_one(bare: Vector3i, gone: Dictionary) -> int:
 	var chunk := chunk_of(bare)
 	if chunk == null:
@@ -624,6 +732,8 @@ func _lay_bare_one(bare: Vector3i, gone: Dictionary) -> int:
 	var index := index_of(bare)
 	var place := chunk.colors[index]
 	if place == 0 or place == BLOOD:
+		return 0
+	if chunk.is_glass_at(Vector3i(bare.x & MASK, bare.y & MASK, bare.z & MASK)):
 		return 0
 	var owned := chunk.slots[index]
 	if owned == 0:
@@ -652,13 +762,16 @@ func _lay_bare_one(bare: Vector3i, gone: Dictionary) -> int:
 	if inward == Vector3i.ZERO:
 		return 0
 	var inner := local + inward
-	var inside := _stamp(kind, data.turn_at(piece)).places[inner.x + inner.z * BLOCK + inner.y * BLOCK * BLOCK]
+	var stamp := _stamp(kind, data.turn_at(piece))
+	var inside := stamp.places[inner.x + inner.z * BLOCK + inner.y * BLOCK * BLOCK]
 	if inside == 0 or inside == place:
 		return 0
-	# Buried on every side until now.
+	if not stamp.glass_x.is_empty() and (stamp.glass_x[inner.z + inner.y * BLOCK] >> inner.x) & 1 == 1:
+		return 0
+	# Buried on every side until now: glass buries nothing.
 	for around in STEPS:
 		var next := bare + around
-		if not gone.has(next) and not is_solid(next):
+		if not gone.has(next) and not is_opaque(next):
 			return 0
 	chunk = chunk_of(bare)
 	chunk.colors[index] = inside
@@ -680,6 +793,52 @@ func recolor(voxel: Vector3i, place: int) -> bool:
 	chunk.colors[index] = place
 	dirty_colors[chunk.key] = true
 	return true
+
+
+## The glass voxels piece [param piece] still has, as places in the volume.
+func glass_of(piece: int) -> PackedVector3Array:
+	var found := PackedVector3Array()
+	if piece < 0 or piece >= data.count() or piece >= glass_counts.size() or glass_counts[piece] <= 0:
+		return found
+	var origin := LevelData.voxel_origin(data.slot_at(piece))
+	for key in _chunks_round(origin, origin + Vector3i.ONE * (BLOCK - 1)):
+		var chunk: Chunk = chunks.get(key)
+		if chunk == null or not chunk.has_glass():
+			continue
+		var owned := chunk.owners.find(piece) + 1
+		if owned == 0:
+			continue
+		var least := (origin - chunk.origin).clamp(Vector3i.ZERO, Vector3i.ONE * MASK)
+		var most := (origin + Vector3i.ONE * (BLOCK - 1) - chunk.origin).clamp(Vector3i.ZERO, Vector3i.ONE * MASK)
+		for y in range(least.y, most.y + 1):
+			for z in range(least.z, most.z + 1):
+				var row := chunk.glass_x[z + (y << SHIFT)]
+				if row == 0:
+					continue
+				var at := (z << SHIFT) + (y << (SHIFT * 2))
+				for x in range(least.x, most.x + 1):
+					if row & (1 << x) != 0 and chunk.slots[at + x] == owned:
+						found.append(Vector3(chunk.origin + Vector3i(x, y, z)))
+	return found
+
+
+## Every piece with glass left, by its index in the level.
+func pieces_with_glass() -> PackedInt32Array:
+	var found := PackedInt32Array()
+	for piece in glass_counts.size():
+		if glass_counts[piece] > 0:
+			found.append(piece)
+	return found
+
+
+## How many of piece [param piece]'s voxels that hold it up are left, and how
+## many it had: its voxels but its glass.
+func held_count(piece: int) -> int:
+	return counts[piece] - glass_counts[piece]
+
+
+func held_whole(piece: int) -> int:
+	return whole[piece] - glass_whole[piece]
 
 
 ## The voxels piece [param piece] still has, as places in the volume.
@@ -797,6 +956,12 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 					into_z[to + x] |= from_z[x + stamp_y] >> -shift_z
 		if clash != 0:
 			overlapped[key] = true
+		# Glass, as the voxels: where this piece has a voxel, the voxel is
+		# glass if its is, whatever was there.
+		if not stamp.glass_x.is_empty():
+			chunk.make_glass()
+		if chunk.has_glass():
+			_place_glass(chunk, stamp, local, x0, x1, z0, z1)
 		slot_image.fill(Color8(owned, 0, 0))
 		var made: Array = images[key]
 		for y in BLOCK:
@@ -805,9 +970,14 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 			(made[0] as Image).blit_rect_mask(stamp.colors, stamp.mask, source, to)
 			(made[1] as Image).blit_rect_mask(slot_image, stamp.mask, source, to)
 	whole[index] = stamp.count
+	glass_whole[index] = stamp.glass_count
 	var low := LevelData.cell_of(slot)
 	if LevelData.is_centre(slot):
 		_cell_counts[low] = _cell_counts.get(low, 0) + stamp.count
+	elif LevelData.is_corner(slot):
+		for quarter in 4:
+			var cell := low + Vector3i(quarter & 1, 0, quarter >> 1)
+			_cell_counts[cell] = _cell_counts.get(cell, 0) + stamp.quarters[quarter]
 	else:
 		var high := LevelData.other_cell(slot)
 		var along := 0 if slot.x & 1 == 1 else 2
@@ -815,31 +985,86 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 		_cell_counts[high] = _cell_counts.get(high, 0) + stamp.halves[along + 1]
 
 
-## Counts afresh how many voxels each piece in [param chunk] has, for a chunk
-## where pieces overlapped: the earlier piece lost what the later took.
+## Writes [param stamp]'s glass into [param chunk]'s, the stamp's box at
+## [param local] in the chunk, from [param x0] to [param x1] and [param z0] to
+## [param z1] of its own across: every voxel the stamp has there is glass if
+## the stamp's is and no glass if not, whatever was there before.
+func _place_glass(chunk: Chunk, stamp: Stamp, local: Vector3i, x0: int, x1: int, z0: int, z1: int) -> void:
+	var into_x := chunk.glass_x
+	var into_z := chunk.glass_z
+	var from_x := stamp.rows_x
+	var from_z := stamp.rows_z
+	var glassy := not stamp.glass_x.is_empty()
+	var glass_x := stamp.glass_x
+	var glass_z := stamp.glass_z
+	for y in BLOCK:
+		var row_y := (local.y + y) << SHIFT
+		var stamp_y := y * BLOCK
+		var to := local.z + row_y
+		for z in range(z0, z1):
+			var bits := from_x[z + stamp_y]
+			var glass := glass_x[z + stamp_y] if glassy else 0
+			if local.x >= 0:
+				bits = (bits << local.x) & FULL_ROW
+				glass = (glass << local.x) & FULL_ROW
+			else:
+				bits = bits >> -local.x
+				glass = glass >> -local.x
+			into_x[to + z] = (into_x[to + z] & ~bits) | glass
+		to = local.x + row_y
+		for x in range(x0, x1):
+			var bits := from_z[x + stamp_y]
+			var glass := glass_z[x + stamp_y] if glassy else 0
+			if local.z >= 0:
+				bits = (bits << local.z) & FULL_ROW
+				glass = (glass << local.z) & FULL_ROW
+			else:
+				bits = bits >> -local.z
+				glass = glass >> -local.z
+			into_z[to + x] = (into_z[to + x] & ~bits) | glass
+
+
+## Counts afresh how many voxels each piece in [param chunk] has, and how many
+## of them glass, for a chunk where pieces overlapped: the earlier piece lost
+## what the later took.
 func _recount(chunk: Chunk) -> void:
 	var here := PackedInt32Array()
 	here.resize(chunk.owners.size() + 1)
 	for index in LENGTH:
 		here[chunk.slots[index]] += 1
+	var glass_here := PackedInt32Array()
+	glass_here.resize(chunk.owners.size() + 1)
+	if chunk.has_glass():
+		for row_at in AREA:
+			var row := chunk.glass_x[row_at]
+			# Row z + y * SIZE: voxel x of it is at x + z * SIZE + y * AREA.
+			var start := (row_at & MASK) * SIZE + (row_at >> SHIFT) * AREA
+			while row != 0:
+				var low := row & -row
+				row ^= low
+				glass_here[chunk.slots[start + ChunkMesher.BIT[low % 67]]] += 1
 	for place in chunk.owners.size():
 		var piece := chunk.owners[place]
 		var stamp := _stamp(data.kind_at(piece), data.turn_at(piece))
 		# What the piece would have had here, less what it kept.
-		var meant := _stamp_count_in(piece, stamp, chunk)
+		var meant := _stamp_count_in(piece, stamp.rows_x, chunk)
 		whole[piece] -= meant - here[place + 1]
+		if not stamp.glass_x.is_empty():
+			glass_whole[piece] -= _stamp_count_in(piece, stamp.glass_x, chunk) - glass_here[place + 1]
 
 
-## How many of [param stamp]'s voxels piece [param piece] would put in
-## [param chunk] with nothing over it.
-func _stamp_count_in(piece: int, stamp: Stamp, chunk: Chunk) -> int:
+## How many voxels of [param stamp_rows], a stamp's rows along x, piece
+## [param piece] would put in [param chunk] with nothing over it.
+func _stamp_count_in(piece: int, stamp_rows: PackedInt64Array, chunk: Chunk) -> int:
 	var local := LevelData.voxel_origin(data.slot_at(piece)) - chunk.origin
 	var total := 0
 	for y in BLOCK:
+		if local.y + y < 0 or local.y + y >= SIZE:
+			continue
 		for z in BLOCK:
 			if local.z + z < 0 or local.z + z >= SIZE:
 				continue
-			var bits := stamp.rows_x[z + y * BLOCK]
+			var bits := stamp_rows[z + y * BLOCK]
 			bits = (bits << local.x) & FULL_ROW if local.x >= 0 else bits >> -local.x
 			while bits != 0:
 				bits &= bits - 1
@@ -862,10 +1087,15 @@ func _stamp(kind: int, turn: int) -> Stamp:
 	alpha.resize(BLOCK * BLOCK * BLOCK * 2)
 	var shape := shapes[kind]
 	var grid := FLAG_GRID if kinds[kind] != null and kinds[kind].tile_grid else 0
+	var glassy := shape.has_glass()
+	if glassy:
+		stamp.glass_x.resize(BLOCK * BLOCK)
+		stamp.glass_z.resize(BLOCK * BLOCK)
 	for y in BLOCK:
 		for z in BLOCK:
 			for x in BLOCK:
-				var place := shape.voxels[shape.index_of(Vector3i(x, y, z))]
+				var index := shape.index_of(Vector3i(x, y, z))
+				var place := shape.voxels[index]
 				if place == 0:
 					continue
 				var to := turned(Vector3i(x, y, z), turn)
@@ -875,9 +1105,14 @@ func _stamp(kind: int, turn: int) -> Stamp:
 				alpha[at * 2 + 1] = 255
 				stamp.rows_x[to.z + to.y * BLOCK] |= 1 << to.x
 				stamp.rows_z[to.x + to.y * BLOCK] |= 1 << to.z
+				if glassy and shape.glass[index] != 0:
+					stamp.glass_x[to.z + to.y * BLOCK] |= 1 << to.x
+					stamp.glass_z[to.x + to.y * BLOCK] |= 1 << to.z
+					stamp.glass_count += 1
 				stamp.count += 1
 				stamp.halves[0 if to.x < 8 else 1] += 1
 				stamp.halves[2 if to.z < 8 else 3] += 1
+				stamp.quarters[(0 if to.x < 8 else 1) + (0 if to.z < 8 else 2)] += 1
 	stamp.places = colors
 	stamp.colors = Image.create_from_data(BLOCK, BLOCK * BLOCK, false, Image.FORMAT_R8, colors)
 	stamp.mask = Image.create_from_data(BLOCK, BLOCK * BLOCK, false, Image.FORMAT_LA8, alpha)
@@ -900,13 +1135,15 @@ static func turned(at: Vector3i, turn: int) -> Vector3i:
 
 
 ## The place in the level's palette of place [param place] of kind
-## [param kind]'s model palette, given [param flags]: the same colour with the
-## same flags shares a place across kinds. Past 254 colours, the nearest there
-## is stands in, with an error.
+## [param kind]'s model palette, given [param flag_bits] and the model's own
+## flags for it (glass): the same colour with the same flags shares a place
+## across kinds. Past 254 colours, the nearest there is stands in, with an
+## error.
 func _map(kind: int, place: int, shape: VoxelShape, flag_bits: int) -> int:
 	var key := kind * 256 + place
 	if _mapped.has(key):
 		return _mapped[key]
+	flag_bits |= shape.flags[place]
 	var color := shape.colors[place]
 	var color_key := _place_key(color, flag_bits)
 	var mapped: int = _places.get(color_key, 0)

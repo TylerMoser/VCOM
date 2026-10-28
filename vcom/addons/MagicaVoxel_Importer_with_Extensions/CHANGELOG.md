@@ -2,6 +2,26 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.3.1] - 2026-10-27
+
+Modified for VCOM.
+
+### Fixed
+
+- Read MagicaVoxel's extended materials by their keys as it saves them, with a leading underscore (`_rough`,
+  `_spec`, `_metal`, `_trans`, `_emit`, `_flux`, `_ior` / `_ri`), falling back to the old `_weight`. Reading
+  `rough`, `flux` and `ior` stopped a glass or emissive material with a script error.
+- Make a glass material see-through with Godot 4's `transparency` (the Godot 3 `flags_transparent` did
+  nothing), its alpha from MagicaVoxel's Transparency (`_trans`), its colour from its voxels' vertex colours.
+- Draw an emissive material in its voxels' colour, as bright as its emission and power (`_emit`, `_flux`).
+- Draw a palette entry with no `MATL` chunk as diffuse in the culled mesh generator rather than failing.
+
+### Changed
+
+- The greedy mesh generator meshes glass voxels as a second, see-through surface (the commonest glass
+  entry's material): another voxel's face shows through glass, and a glass face shows only against nothing.
+  A model without glass is meshed exactly as before.
+
 ## [1.3.0] - 2026-08-02
 
 Modified by bakacandy.

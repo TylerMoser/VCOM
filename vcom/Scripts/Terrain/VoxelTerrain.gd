@@ -51,6 +51,17 @@
 ## broken off a bloodied voxel is blood red, and a part cut off a model keeps
 ## its blood. A crate breaking hands its blood on to its pieces voxel by voxel
 ## ([method carry_blood]), since its pieces are models of their own.
+##
+## Glass ([member VoxelVolume.glass_counts]) is only for show. It holds nothing
+## up: a piece's glass never counts toward keeping it standing, and no search
+## for what holds a voxel on passes through glass. It never breaks off as a
+## lump: once a piece loses a voxel of its glass, to a bite, a crater, its own
+## collapse or anything else, all its glass shatters at once into
+## [GlassShards] ([method shatter]), as a loose model's does. A round flying
+## through it, a blast near it or a unit passing through a window shatter it
+## too ([method shatter_along], [method shatter_near],
+## [method shatter_passing]). None of it draws on the global generator, and
+## the rules never wait on it: a window is the same to them whole or broken.
 class_name VoxelTerrain
 extends Node3D
 
@@ -123,6 +134,14 @@ const CRUMBLE_SCATTER := 0.6
 const CRUMBLE_SPIN := 4.0
 const CRUMBLE_PUSH := 1.5
 const CRUMBLE_REACH := 1.0
+## How far from where a blast goes off, in cells, it shatters every pane of
+## glass, beyond what its cells reach: XCOM 2's three tiles.
+const GLASS_BLAST_REACH := 3.0
+## How fast the shards of a pane a round flies through set off along its
+## flight, and of one a unit passes through, the way it goes, in cells a
+## second.
+const SHARD_ROUND_SPEED := 2.5
+const SHARD_PASS_SPEED := 1.5
 
 
 ## What wearing the level did: whether any voxel went, the pieces now worn
@@ -205,17 +224,21 @@ class ModelFound:
 
 
 ## What a piece left of itself as it went from the level: each voxel, by its
-## place in the grid, three numbers each, and the place of its colour in the
-## level's palette.
+## place in the grid, three numbers each, the place of its colour in the
+## level's palette, and whether it was glass.
 class Taken:
 	var voxels := PackedInt32Array()
 	var places := PackedByteArray()
+	var glass := PackedByteArray()
 
 	func size() -> int:
 		return places.size()
 
 	func voxel(index: int) -> Vector3i:
 		return Vector3i(voxels[index * 3], voxels[index * 3 + 1], voxels[index * 3 + 2])
+
+	func is_glass(index: int) -> bool:
+		return index < glass.size() and glass[index] != 0
 
 
 ## Where a ray first meets a voxel of a model: the point, in the world; the
@@ -332,6 +355,8 @@ var _level: VoxelLevel
 var _volume: VoxelVolume
 var _rules: LevelRules
 var _debris: VoxelDebris
+## Where broken glass goes: null, and it goes nowhere to be seen.
+var _shards: GlassShards
 ## Voxels lower than this in the level's grid are never worn: the bottom
 ## layer's, below [constant FLOOR_DEPTH] of its top.
 var _floor_limit := 0
@@ -355,13 +380,17 @@ var _bump_size := 0.0
 var _show := RandomNumberGenerator.new()
 
 
-func _init(grid: CombatGrid, level: VoxelLevel, debris: VoxelDebris) -> void:
+func _init(grid: CombatGrid, level: VoxelLevel, debris: VoxelDebris, shards: GlassShards = null) -> void:
 	name = &"VoxelTerrain"
 	_grid = grid
 	_level = level
 	_volume = level.volume
 	_rules = level.rules
 	_debris = debris
+	_shards = shards
+	if _shards != null:
+		_shards.floor_under = floor_under
+		_shards.lowest = _level.to_global(Vector3(0.0, _rules.bounds_min.y - TerrainDestruction.FALL_LIMIT, 0.0)).y
 	_floor_top = (_rules.bottom + 1) * VoxelVolume.BLOCK
 	_floor_limit = _floor_top - FLOOR_DEPTH
 	for id in level.data.kinds:
@@ -508,6 +537,16 @@ func tear(from: Vector3, to: Vector3, damage: int) -> void:
 		var met := march(model.shape, model.voxels, model.frame(), from, heading, length)
 		if met == null:
 			continue
+		# A round goes through glass, shattering it, and on to what is behind.
+		if model.is_glass(met.index):
+			_shatter_model(loose, _as_shard_motion(_chip_motion(heading, heading)), batches)
+			# Crumbled for what it lost, it is gone from the loose models.
+			if not is_instance_valid(loose) or not _loose.has(loose.body):
+				continue
+			model = loose.model
+			met = march(model.shape, model.voxels, model.frame(), from, heading, length)
+			if met == null:
+				continue
 		var budget := roundi(damage * loose.destruction.voxels_per_damage)
 		if budget <= 0:
 			continue
@@ -520,6 +559,261 @@ func tear(from: Vector3, to: Vector3, damage: int) -> void:
 		var outward := met.normal if met.face != Vector3i.ZERO else -heading
 		_wear_model(loose, found.voxels_at(found.least(budget)), _chip_motion(outward, heading), batches)
 	_scatter(batches)
+
+
+## Shatters the glass of every piece of the level among [param pieces] that
+## has any left ([member VoxelVolume.glass_counts]): all of it at once, taken
+## from the level and flying off as shards ([GlassShards]), each setting off as
+## [param motion] says (called with a shard's middle, in the world, it gives
+## its speed). Drawn so at once if [param now], else over the next few frames.
+## Only for show: nothing the rules see changes. Returns how many voxels of
+## glass it broke.
+func shatter(pieces: PackedInt32Array, motion: Callable, now := true) -> int:
+	var broke := _shatter(pieces, motion)
+	if broke > 0 and now:
+		_level.redraw_now()
+	return broke
+
+
+## Shatters the glass a line from [param from] to [param to], in the world,
+## passes ([method shatter]): every window ([member PieceKind.window]) it
+## crosses, across the edge or through the cell it stands in at the window's
+## own level, and every other piece whose glass it goes through, voxel by
+## voxel. A round's flight, hit or miss, and a grenade's; its shards fly on
+## the way it went. Returns how many voxels of glass it broke.
+func shatter_along(from: Vector3, to: Vector3) -> int:
+	if from.is_equal_approx(to):
+		return 0
+	var pieces := _glass_along(_level.to_local(from), _level.to_local(to))
+	if pieces.is_empty():
+		return 0
+	var heading := from.direction_to(to)
+	var motion := func(_at: Vector3) -> Vector3:
+		return heading * SHARD_ROUND_SPEED + Vector3.UP * 0.5
+	return shatter(pieces, motion)
+
+
+## Shatters every pane of glass within [param reach] cells of [param origin],
+## in the world, as a blast going off there does ([method shatter]): whatever
+## stands between. Its shards are thrown away from it as a crater's lumps are.
+## Drawn over the next few frames, as the craters are. Returns how many voxels
+## of glass it broke.
+func shatter_near(origin: Vector3, reach: float) -> int:
+	var local := _level.to_local(origin)
+	var pieces := PackedInt32Array()
+	for piece in _volume.pieces_with_glass():
+		var box := AABB(Vector3(LevelData.voxel_origin(_level.data.slot_at(piece))) * VOXEL, Vector3.ONE)
+		if local.distance_to(local.clamp(box.position, box.end)) <= reach:
+			pieces.append(piece)
+	return shatter(pieces, _as_shard_motion(_crater_motion(origin, reach)), false)
+
+
+## Shatters the glass of every window a unit stepping from tile [param from]
+## to tile [param to] passes through ([method shatter]): those across the edge
+## between their columns, or round the corner a diagonal step passes, from the
+## lower tile's level up to a level over the higher one's head, as a vault
+## goes; and one standing in a cell of [param to]'s column it walks into. Its
+## shards fly on the way it went. Returns how many voxels of glass it broke.
+func shatter_passing(from: Vector3i, to: Vector3i) -> int:
+	var dx := to.x - from.x
+	var dz := to.z - from.z
+	if (dx == 0 and dz == 0) or absi(dx) > 1 or absi(dz) > 1 or _volume.pieces_with_glass().is_empty():
+		return 0
+	var slots: Array[Vector3i] = []
+	var low := mini(from.y, to.y)
+	var high := maxi(from.y, to.y) + CombatGrid.UNIT_HEIGHT
+	for y in range(low, high + 1):
+		var here := Vector3i(from.x, y, from.z)
+		if dx != 0 and dz != 0:
+			slots.append(LevelData.edge_slot(here, Vector2i(dx, 0)))
+			slots.append(LevelData.edge_slot(here, Vector2i(0, dz)))
+			slots.append(LevelData.edge_slot(here + Vector3i(dx, 0, 0), Vector2i(0, dz)))
+			slots.append(LevelData.edge_slot(here + Vector3i(0, 0, dz), Vector2i(dx, 0)))
+		else:
+			slots.append(LevelData.edge_slot(here, Vector2i(dx, dz)))
+	for height in CombatGrid.UNIT_HEIGHT:
+		slots.append(LevelData.centre_slot(to + Vector3i.UP * height))
+	var pieces := PackedInt32Array()
+	for slot in slots:
+		for piece in _rules.pieces_at(slot):
+			if _rules.is_window(piece) and _volume.glass_counts[piece] > 0 and not pieces.has(piece):
+				pieces.append(piece)
+	if pieces.is_empty():
+		return 0
+	var heading := Vector3(dx, 0.0, dz).normalized()
+	var motion := func(_at: Vector3) -> Vector3:
+		return heading * SHARD_PASS_SPEED + Vector3.UP * 0.5
+	return shatter(pieces, motion)
+
+
+## How high the floor is under [param point], in the world: the top of the
+## first voxel of the level straight below it, in the world's y, or -INF if
+## there is none. Where a shard of glass comes to rest ([GlassShards]).
+func floor_under(point: Vector3) -> float:
+	var local := _level.to_local(point)
+	var voxel := VoxelVolume.voxel_under(local)
+	var bottom := _rules.bounds_min.y * VoxelVolume.BLOCK
+	var y := _volume.solid_below(voxel, bottom)
+	if y < bottom:
+		return -INF
+	return _level.to_global(Vector3(local.x, float(y + 1) * VOXEL, local.z)).y
+
+
+## Takes every voxel of glass the pieces of the level among [param pieces]
+## have left out of the level, and breaks them into shards setting off as
+## [param motion] says. Returns how many it took.
+func _shatter(pieces: PackedInt32Array, motion: Callable) -> int:
+	var wanted := PackedInt32Array()
+	for piece in pieces:
+		if piece < 0 or piece >= _volume.glass_counts.size() or _volume.glass_counts[piece] <= 0:
+			continue
+		for at in _volume.glass_of(piece):
+			wanted.append(int(at.x))
+			wanted.append(int(at.y))
+			wanted.append(int(at.z))
+	if wanted.is_empty():
+		return 0
+	var places := PackedByteArray()
+	var owners := PackedInt32Array()
+	var glass := PackedByteArray()
+	_volume.remove_many(wanted, places, owners, glass)
+	return _burst_glass(wanted, places, voxel_frame(), motion)
+
+
+## Breaks the voxels of glass [param voxels] (three numbers each), counted in
+## voxels in [param frame], which takes them to the world, into shards, each
+## in the colour of its place in the level's palette in [param places] (none
+## for 0) and as clear as that colour is, setting off as [param motion] says.
+## Returns how many voxels it broke.
+func _burst_glass(voxels: PackedInt32Array, places: PackedByteArray, frame: Transform3D, motion: Callable) -> int:
+	var points := PackedVector3Array()
+	var colors := PackedColorArray()
+	var clarities := PackedFloat32Array()
+	for at in places.size():
+		var place := places[at]
+		if place == 0:
+			continue
+		points.append(frame * (Vector3(voxels[at * 3], voxels[at * 3 + 1], voxels[at * 3 + 2]) + HALF))
+		colors.append(_volume.palette[place])
+		clarities.append(VoxelShape.clarity_of(_volume.flags[place]))
+	if _shards != null:
+		_shards.burst(points, colors, clarities, motion)
+	return points.size()
+
+
+## Every piece of the level with glass left that a line from [param from] to
+## [param to], in the level's space, passes: a window whose edge or cell it
+## crosses at the window's level, or any piece whose glass voxels it goes
+## through.
+func _glass_along(from: Vector3, to: Vector3) -> PackedInt32Array:
+	var found := PackedInt32Array()
+	var data := _level.data
+	for piece in _volume.pieces_with_glass():
+		var slot := data.slot_at(piece)
+		var box := AABB(Vector3(LevelData.voxel_origin(slot)) * VOXEL, Vector3.ONE)
+		if not _segment_meets(from, to, box):
+			continue
+		if _rules.is_window(piece) and _crosses_slot(from, to, slot):
+			found.append(piece)
+		elif _meets_glass(from, to, piece, box):
+			found.append(piece)
+	return found
+
+
+## Whether a line from [param from] to [param to], in the level's space,
+## crosses [param slot] where a piece in it stands to the rules: the face
+## between the two cells of an edge, at its level, or into the cell of a
+## middle. A corner is never crossed.
+static func _crosses_slot(from: Vector3, to: Vector3, slot: Vector3i) -> bool:
+	if LevelData.is_corner(slot):
+		return false
+	var cell := LevelData.cell_of(slot)
+	if LevelData.is_centre(slot):
+		return _segment_meets(from, to, AABB(Vector3(cell), Vector3.ONE))
+	# The face between the edge's two cells, a level high.
+	var axis := 0 if slot.x & 1 == 1 else 2
+	var plane := float(cell[axis] + 1)
+	var along := to[axis] - from[axis]
+	if is_zero_approx(along):
+		return false
+	var t := (plane - from[axis]) / along
+	if t < 0.0 or t > 1.0:
+		return false
+	var at := from.lerp(to, t)
+	var other := 2 if axis == 0 else 0
+	return at.y >= cell.y and at.y <= cell.y + 1 and at[other] >= cell[other] and at[other] <= cell[other] + 1
+
+
+## Whether a line from [param from] to [param to] meets [param box].
+static func _segment_meets(from: Vector3, to: Vector3, box: AABB) -> bool:
+	if box.has_point(from) or box.has_point(to):
+		return true
+	return box.intersects_segment(from, to) != null
+
+
+## Whether a line from [param from] to [param to], in the level's space, goes
+## through a voxel of glass of [param piece], whose box is [param box]:
+## traced voxel by voxel across the box.
+func _meets_glass(from: Vector3, to: Vector3, piece: int, box: AABB) -> bool:
+	var size := float(VoxelVolume.BLOCK)
+	var start := from * size
+	var end := to * size
+	var direction := end - start
+	var length := direction.length()
+	if length < 1e-6:
+		return false
+	direction /= length
+	# Only the part of the line inside the box.
+	var least := box.position * size
+	var most := box.end * size
+	var enter := 0.0
+	var leave := length
+	for axis in 3:
+		if is_zero_approx(direction[axis]):
+			if start[axis] < least[axis] or start[axis] > most[axis]:
+				return false
+			continue
+		var near := (least[axis] - start[axis]) / direction[axis]
+		var far := (most[axis] - start[axis]) / direction[axis]
+		if near > far:
+			var swap := near
+			near = far
+			far = swap
+		enter = maxf(enter, near)
+		leave = minf(leave, far)
+	if enter > leave:
+		return false
+	var voxel := Vector3i((start + direction * (enter + 1e-4)).floor())
+	var step := Vector3i.ZERO
+	var next_cross := Vector3(INF, INF, INF)
+	var cross_spacing := Vector3(INF, INF, INF)
+	for axis in 3:
+		if is_zero_approx(direction[axis]):
+			continue
+		step[axis] = int(signf(direction[axis]))
+		var boundary := voxel[axis] + (1 if step[axis] > 0 else 0)
+		next_cross[axis] = (boundary - start[axis]) / direction[axis]
+		cross_spacing[axis] = absf(1.0 / direction[axis])
+	var t := enter
+	while t <= leave:
+		if _volume.is_glass(voxel) and _volume.owner_at(voxel) == piece:
+			return true
+		var axis := next_cross.min_axis_index()
+		t = next_cross[axis]
+		voxel[axis] += step[axis]
+		next_cross[axis] += cross_spacing[axis]
+	return false
+
+
+## A motion for lumps ([VoxelDebris.Piece]: [method _chip_motion] and the
+## rest) as one for shards: a callable taking a shard's middle, in the world,
+## and giving the speed a lump there would set off at.
+static func _as_shard_motion(motion: Callable) -> Callable:
+	return func(at: Vector3) -> Vector3:
+		var piece := VoxelDebris.Piece.new()
+		piece.transform = Transform3D(Basis.IDENTITY, at)
+		motion.call(piece)
+		return piece.velocity
 
 
 ## Blows a crater round [param origin], where a blast doing [param damage]
@@ -593,8 +887,10 @@ func take_piece(piece: int) -> Taken:
 		wanted[at * 3 + 2] = int(voxels[at].z)
 	var places := PackedByteArray()
 	var owners := PackedInt32Array()
-	_volume.remove_many(wanted, places, owners)
-	_volume.lay_bare_box(_level.data.slot_at(piece), wanted)
+	var glass := PackedByteArray()
+	_volume.remove_many(wanted, places, owners, glass)
+	# Glass buries nothing, so nothing it touched is laid bare by its going.
+	var bare := PackedInt32Array()
 	for at in places.size():
 		if places[at] == 0:
 			continue
@@ -602,6 +898,12 @@ func take_piece(piece: int) -> Taken:
 		taken.voxels.append(wanted[at * 3 + 1])
 		taken.voxels.append(wanted[at * 3 + 2])
 		taken.places.append(places[at])
+		taken.glass.append(glass[at])
+		if glass[at] == 0:
+			bare.append(wanted[at * 3])
+			bare.append(wanted[at * 3 + 1])
+			bare.append(wanted[at * 3 + 2])
+	_volume.lay_bare_box(_level.data.slot_at(piece), bare)
 	if not taken.places.is_empty():
 		var origin := LevelData.voxel_origin(_level.data.slot_at(piece))
 		_level.ensure_collision(_level.global_transform * AABB(Vector3(origin) * VOXEL, Vector3.ONE))
@@ -619,7 +921,15 @@ func take_piece(piece: int) -> Taken:
 func crumble(taken: Taken, frame: Transform3D, destruction: VoxelDestruction, hit: CombatGrid.RayHit = null, motion: Destruction.Motion = null) -> Array[RID]:
 	var batch := VolumeBatch.new()
 	batch.frame = frame
+	# Its glass shatters, as its own.
+	var glass_voxels := PackedInt32Array()
+	var glass_places := PackedByteArray()
 	for index in taken.size():
+		if taken.is_glass(index):
+			var at := taken.voxel(index)
+			glass_voxels.append_array(PackedInt32Array([at.x, at.y, at.z]))
+			glass_places.append(taken.places[index])
+			continue
 		batch.add(taken.voxel(index), _volume.palette[taken.places[index]])
 	batch.destruction = destruction if destruction != null else _fallback
 	batch.motion = func(piece: VoxelDebris.Piece) -> void:
@@ -632,6 +942,10 @@ func crumble(taken: Taken, frame: Transform3D, destruction: VoxelDestruction, hi
 		if motion != null:
 			piece.velocity += motion.at(center)
 			piece.spin += motion.angular_velocity
+	if not glass_voxels.is_empty():
+		_burst_glass(glass_voxels, glass_places, frame, _as_shard_motion(batch.motion))
+	if batch.colors.is_empty():
+		return []
 	_group(batch, batch.destruction.crumble_size)
 	return _scatter([batch])
 
@@ -666,7 +980,8 @@ func roughen_hole(slot: Vector3i) -> Array[RID]:
 				var distance := middle.distance_to(middle.clamp(hole.position, hole.end))
 				if distance > RIM_DEPTH + RIM_WANDER:
 					continue
-				if not _volume.is_solid(voxel):
+				# Glass is never worn ragged: it holds nothing to be roughened.
+				if not _volume.is_opaque(voxel):
 					continue
 				var piece := _volume.owner_at(voxel)
 				var how := _wear_of_piece(piece)
@@ -696,17 +1011,16 @@ func roughen_hole(slot: Vector3i) -> Array[RID]:
 
 
 ## Whether what is left of piece [param piece] can still hold up whatever
-## stands on it: nothing does, or some run of its own voxels still joins the
-## bottom of its box to the top. A tree's trunk shot through holds up its crown
+## stands on it: nothing does, or some run of its own voxels, never glass,
+## still joins the bottom of its box to the top. A tree's trunk shot through holds up its crown
 ## no longer, however much of the rest of it is left. Searched from every voxel
-## along the bottom, upward first, until one reaches the top.
+## along the bottom, upward first, until one reaches the top. What stands on a
+## piece in a cell's middle is the cell above; on an edge, the edge above; on a
+## corner, the corner above or an edge above whose end rests on it.
 func holds_up(piece: int) -> bool:
 	var slot := _level.data.slot_at(piece)
 	var above := slot + Vector3i.UP
-	if LevelData.is_centre(slot):
-		if not _rules.is_solid(LevelData.cell_of(above)):
-			return true
-	elif not _rules.has_edge_slot(above):
+	if not _rules.has_slot(above) and not _holds_edge_end(slot):
 		return true
 	var origin := LevelData.voxel_origin(slot)
 	var top := origin.y + VoxelVolume.BLOCK - 1
@@ -715,7 +1029,7 @@ func holds_up(piece: int) -> bool:
 	var stack: Array[Vector3i] = []
 	for at in _volume.voxels_of(piece):
 		var voxel := Vector3i(at)
-		if voxel.y == origin.y:
+		if voxel.y == origin.y and not _volume.is_glass(voxel):
 			stack.append(voxel)
 			seen[voxel] = true
 	# Up is pushed last, so it is searched first.
@@ -728,10 +1042,20 @@ func holds_up(piece: int) -> bool:
 			var next := at + step
 			if seen.has(next) or not box.has_point(Vector3(next) + HALF):
 				continue
-			if _volume.owner_at(next) != piece:
+			if _volume.owner_at(next) != piece or _volume.is_glass(next):
 				continue
 			seen[next] = true
 			stack.append(next)
+	return false
+
+
+## Whether a piece on the corner in [param slot] has the end of an edge piece
+## resting on it: one across any of the four edges meeting over it, a window
+## among them.
+func _holds_edge_end(slot: Vector3i) -> bool:
+	for edge in LevelData.edges_at(slot + Vector3i.UP):
+		if _rules.has_slot(edge):
+			return true
 	return false
 
 
@@ -912,16 +1236,27 @@ func _wear_away(found: Found, picks: PackedInt32Array, motion: Callable, now: bo
 		wanted[at * 3 + 2] = found.voxels[pick * 3 + 2]
 	var places := PackedByteArray()
 	var owners := PackedInt32Array()
-	_volume.remove_many(wanted, places, owners)
+	var glass := PackedByteArray()
+	_volume.remove_many(wanted, places, owners, glass)
+	# The glass it takes shatters, and the rest of its pieces' glass with it.
+	var glass_voxels := PackedInt32Array()
+	var glass_places := PackedByteArray()
+	var shattered := {}
 	for at in places.size():
 		var place := places[at]
 		if place == 0:
 			continue
 		var voxel := Vector3i(wanted[at * 3], wanted[at * 3 + 1], wanted[at * 3 + 2])
+		var piece := owners[at]
+		if glass[at] != 0:
+			glass_voxels.append_array(PackedInt32Array([voxel.x, voxel.y, voxel.z]))
+			glass_places.append(place)
+			if piece >= 0:
+				shattered[piece] = true
+			continue
 		removed.append(voxel.x)
 		removed.append(voxel.y)
 		removed.append(voxel.z)
-		var piece := owners[at]
 		lost[piece] = true
 		var destruction := _wear_of_piece(piece)
 		if destruction == null:
@@ -943,15 +1278,23 @@ func _wear_away(found: Found, picks: PackedInt32Array, motion: Callable, now: bo
 		lost[piece] = true
 	for index in range(loose_from, batches.size()):
 		_group(batches[index], DEBRIS_CLUMP)
-	if removed.is_empty():
+	if not glass_voxels.is_empty():
+		var shard_motion := _as_shard_motion(motion)
+		_burst_glass(glass_voxels, glass_places, frame, shard_motion)
+		var pieces := PackedInt32Array()
+		for piece: int in shattered:
+			pieces.append(piece)
+		_shatter(pieces, shard_motion)
+	if removed.is_empty() and glass_voxels.is_empty():
 		return wear
 	wear.worn = true
 	var least := Vector3i.MAX
 	var most := Vector3i.MIN
-	for index in range(0, removed.size(), 3):
-		var at := Vector3i(removed[index], removed[index + 1], removed[index + 2])
-		least = least.min(at)
-		most = most.max(at)
+	for list in [removed, glass_voxels]:
+		for index in range(0, list.size(), 3):
+			var at := Vector3i(list[index], list[index + 1], list[index + 2])
+			least = least.min(at)
+			most = most.max(at)
 	wear.box = _level.global_transform * AABB(Vector3(least) * VOXEL, Vector3(most - least + Vector3i.ONE) * VOXEL)
 	for piece: int in lost:
 		if piece < 0 or not _rules.is_standing(piece) or _never_breaks(piece):
@@ -959,7 +1302,8 @@ func _wear_away(found: Found, picks: PackedInt32Array, motion: Callable, now: bo
 		var destruction := _wear_of_piece(piece)
 		if destruction == null:
 			continue
-		if _volume.counts[piece] < destruction.collapse_below * _volume.whole[piece] or not holds_up(piece):
+		# Glass holds nothing up: only the rest of it counts.
+		if _volume.held_count(piece) < destruction.collapse_below * _volume.held_whole(piece) or not holds_up(piece):
 			wear.broken.append(piece)
 	if now:
 		_level.redraw_now()
@@ -976,7 +1320,9 @@ func _wear_away(found: Found, picks: PackedInt32Array, motion: Callable, now: bo
 ## search reaches one that holds on: the floor below its
 ## [constant FLOOR_DEPTH], which is never worn, or a piece that does not wear
 ## away. A search that grows past [constant HOLD_SEARCH] voxels is taken to be
-## held: what is bigger is a piece the rules bring down whole.
+## held: what is bigger is a piece the rules bring down whole. Glass is never
+## searched from or through: it holds nothing on, and goes only by shattering
+## ([method shatter]).
 func _drop_loose(removed: PackedInt32Array, batches: Array) -> Dictionary:
 	var pieces := {}
 	if removed.is_empty():
@@ -1008,8 +1354,10 @@ func _drop_loose(removed: PackedInt32Array, batches: Array) -> Dictionary:
 			var solid := false
 			if inside:
 				solid = chunk.colors[at_index + offsets[way]] != 0
+				if solid and chunk.has_glass():
+					solid = not chunk.is_glass_at(Vector3i(lx, ly, lz) + steps[way])
 			else:
-				solid = _volume.is_solid(start)
+				solid = _volume.is_opaque(start)
 			if not solid or known.has(start):
 				continue
 			stack.clear()
@@ -1029,6 +1377,7 @@ func _drop_loose(removed: PackedInt32Array, batches: Array) -> Dictionary:
 				var hz := at.z & last
 				var here_index := hx + (hz << VoxelVolume.SHIFT) + (hy << (VoxelVolume.SHIFT * 2))
 				var within := hx > 0 and hx < last and hy > 0 and hy < last and hz > 0 and hz < last
+				var here_glass := here.has_glass()
 				for step in 6:
 					var next := at + steps[step]
 					var state: int = known.get(next, 0)
@@ -1040,8 +1389,10 @@ func _drop_loose(removed: PackedInt32Array, batches: Array) -> Dictionary:
 					var next_solid := false
 					if within:
 						next_solid = here.colors[here_index + offsets[step]] != 0
+						if next_solid and here_glass:
+							next_solid = not here.is_glass_at(Vector3i(hx, hy, hz) + steps[step])
 					else:
-						next_solid = _volume.is_solid(next)
+						next_solid = _volume.is_opaque(next)
 					if not next_solid:
 						continue
 					known[next] = 2
@@ -1135,6 +1486,8 @@ func _on_chunk_redrawn(key: Vector3i) -> void:
 	var box := _level.global_transform * AABB(least, Vector3.ONE * VoxelVolume.SIZE * VOXEL)
 	box = box.grow(VoxelDebris.LYING_ON)
 	_debris.wake(box)
+	if _shards != null:
+		_shards.wake(box)
 	if not is_inside_tree():
 		return
 	for body in TerrainDestruction.pieces_in(get_world_3d().direct_space_state, box):
@@ -1150,19 +1503,71 @@ func _wear_model(loose: VoxelBody, indices: PackedInt32Array, motion: Callable, 
 	var model := loose.model
 	var lost := PackedInt32Array()
 	var held := PackedByteArray()
+	var glass := PackedInt32Array()
+	var glass_held := PackedByteArray()
 	for index in indices:
+		var was_glass := model.is_glass(index)
 		var what := model.remove(index)
-		if what != 0:
+		if what == 0:
+			continue
+		if was_glass:
+			glass.append(index)
+			glass_held.append(what)
+		else:
 			lost.append(index)
 			held.append(what)
-	if lost.is_empty():
+	if lost.is_empty() and glass.is_empty():
 		return
 	var moving := loose.body.linear_velocity
 	var carried := func(piece: VoxelDebris.Piece) -> void:
 		motion.call(piece)
 		piece.velocity += moving
-	batches.append(_batch(lost, held, model, DEBRIS_CLUMP, loose.destruction, carried))
+	if not lost.is_empty():
+		batches.append(_batch(lost, held, model, DEBRIS_CLUMP, loose.destruction, carried))
+	if not glass.is_empty():
+		# The glass it loses shatters, and the rest of its glass with it.
+		for index in model.glass_indices():
+			glass_held.append(model.remove(index))
+			glass.append(index)
+		_model_shards(model, glass, glass_held, _as_shard_motion(carried))
 	_settle(loose, batches)
+
+
+## Shatters all the glass loose model [param loose] has left into shards
+## setting off as [param motion] says, carried on as it was moving, then
+## settles what is left of it ([method _settle]).
+func _shatter_model(loose: VoxelBody, motion: Callable, batches: Array) -> void:
+	var model := loose.model
+	if model.glass_count == 0:
+		return
+	var glass := PackedInt32Array()
+	var held := PackedByteArray()
+	for index in model.glass_indices():
+		glass.append(index)
+		held.append(model.remove(index))
+	var moving := loose.body.linear_velocity
+	var carried := func(at: Vector3) -> Vector3:
+		return motion.call(at) + moving
+	_model_shards(model, glass, held, carried)
+	_settle(loose, batches)
+
+
+## Breaks the voxels at [param indices] in [param model], just taken from it,
+## which held [param held] each, into shards ([GlassShards]) where they were,
+## setting off as [param motion] says: each in the colour it held in the
+## model's palette, as clear as its shape's flags say that colour is.
+func _model_shards(model: VoxelModel, indices: PackedInt32Array, held: PackedByteArray, motion: Callable) -> void:
+	if _shards == null or indices.is_empty():
+		return
+	var frame := model.frame()
+	var points := PackedVector3Array()
+	var colors := PackedColorArray()
+	var clarities := PackedFloat32Array()
+	for at in indices.size():
+		points.append(frame * model.shape.center_of(indices[at]))
+		colors.append(model.palette[held[at]])
+		clarities.append(VoxelShape.clarity_of(model.shape.flags[held[at]]))
+	_shards.burst(points, colors, clarities, motion)
 
 
 ## Settles what is left of [param loose] after it has lost voxels: crumbles it
@@ -1184,10 +1589,7 @@ func _settle(loose: VoxelBody, batches: Array) -> void:
 			if part.size() >= SMALLEST_PART:
 				_split_off(loose, part)
 				continue
-			var held := PackedByteArray()
-			for index in part:
-				held.append(model.remove(index))
-			batches.append(_batch(part, held, model, DEBRIS_CLUMP, loose.destruction, dropping))
+			_break_up(model, part, DEBRIS_CLUMP, loose.destruction, dropping, batches)
 		loose.restart()
 	loose.rebuild()
 
@@ -1200,12 +1602,21 @@ func _crumble_model(loose: VoxelBody, batches: Array) -> void:
 	var from := loose.body
 	var indices := PackedInt32Array()
 	var held := PackedByteArray()
+	var glass := PackedInt32Array()
+	var glass_held := PackedByteArray()
 	for index in model.shape.length:
-		if model.voxels[index] != 0:
+		if model.voxels[index] == 0:
+			continue
+		if model.is_glass(index):
+			glass.append(index)
+			glass_held.append(model.voxels[index])
+		else:
 			indices.append(index)
 			held.append(model.voxels[index])
 	var falling := _falling_motion(from.linear_velocity, from.angular_velocity, from.global_position, CRUMBLE_SCATTER, CRUMBLE_SPIN)
-	batches.append(_batch(indices, held, model, loose.destruction.crumble_size, loose.destruction, falling))
+	if not indices.is_empty():
+		batches.append(_batch(indices, held, model, loose.destruction.crumble_size, loose.destruction, falling))
+	_model_shards(model, glass, glass_held, _as_shard_motion(falling))
 	_forget(from)
 	# Out of the way at once: its lumps are let go at the next physics step.
 	from.hide()
@@ -1260,6 +1671,35 @@ func _split_off(loose: VoxelBody, part: PackedInt32Array) -> VoxelBody:
 	_keep(rigid, split)
 	split.rebuild()
 	return split
+
+
+## Takes the voxels at [param indices] off [param model] and breaks them up:
+## its glass among them into shards ([method _model_shards]), the rest into
+## lumps at most [param size] voxels across added to [param batches], broken
+## off as [param destruction] breaks them. Each sets off as [param motion]
+## says.
+func _break_up(
+	model: VoxelModel, indices: PackedInt32Array, size: int, destruction: VoxelDestruction, motion: Callable,
+	batches: Array
+) -> void:
+	var lumps := PackedInt32Array()
+	var held := PackedByteArray()
+	var glass := PackedInt32Array()
+	var glass_held := PackedByteArray()
+	for index in indices:
+		var was_glass := model.is_glass(index)
+		var what := model.remove(index)
+		if what == 0:
+			continue
+		if was_glass:
+			glass.append(index)
+			glass_held.append(what)
+		else:
+			lumps.append(index)
+			held.append(what)
+	if not lumps.is_empty():
+		batches.append(_batch(lumps, held, model, size, destruction, motion))
+	_model_shards(model, glass, glass_held, _as_shard_motion(motion))
 
 
 ## The parts of what is left of [param model], each every voxel joined to the

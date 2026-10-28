@@ -221,12 +221,12 @@ func cutaway_from(height: int) -> LevelCutaway:
 
 ## Whether a building piece ([member PieceKind.cutaway]) still stands above
 ## [param tile] in its column, to the rules, cut away from the view or not:
-## whether a unit standing there is inside a building.
+## whether a unit standing there is inside a building, under a glass roof too.
 func is_under_building(tile: Vector3i) -> bool:
 	if rules == null:
 		return false
 	for y in range(tile.y, rules.bounds_max.y + 1):
-		for piece in rules.pieces_in(Vector3i(tile.x, y, tile.z)):
+		for piece in rules.pieces_at(LevelData.centre_slot(Vector3i(tile.x, y, tile.z))):
 			var kind := volume.kinds[data.kind_at(piece)]
 			if kind != null and kind.cutaway:
 				return true
@@ -234,7 +234,8 @@ func is_under_building(tile: Vector3i) -> bool:
 
 
 ## Whether something at [param world] is hidden with what is cut away: over a
-## piece cut away, in its column or across an edge ([LevelCutaway]).
+## piece cut away, in its column, across an edge or on a corner
+## ([LevelCutaway]).
 func is_cut_away(world: Vector3) -> bool:
 	return cutaway != null and cutaway.covers_point(to_local(world))
 

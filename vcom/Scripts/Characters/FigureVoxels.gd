@@ -266,6 +266,7 @@ func bleed(hit: Hit, volume: int, rng: RandomNumberGenerator) -> void:
 ## each bone's voxels cut on a grid set at random by [param rng], so a lump is
 ## always the voxels of one bone, standing as that bone is posed. A voxel is
 ## the colour it is drawn: its unit's, or blood's where blood recoloured it.
+## Its glass is left out: it shatters ([method glass_points]).
 func crumble(size: int, rng: RandomNumberGenerator) -> Array[VoxelDebris.Piece]:
 	_pose()
 	var pieces: Array[VoxelDebris.Piece] = []
@@ -283,6 +284,8 @@ func crumble(size: int, rng: RandomNumberGenerator) -> Array[VoxelDebris.Piece]:
 		var shift := Vector3i(rng.randi_range(0, size - 1), rng.randi_range(0, size - 1), rng.randi_range(0, size - 1))
 		var clumps := {}
 		for voxel in cells.size():
+			if body.is_glass(wholes[voxel]):
+				continue
 			var clump: Array = clumps.get_or_add((cells[voxel] + shift) / size, [])
 			clump.append(voxel)
 		for clump: Array in clumps.values():
@@ -305,6 +308,32 @@ func crumble(size: int, rng: RandomNumberGenerator) -> Array[VoxelDebris.Piece]:
 				piece.colors[at] = body.color_of(wholes[voxel])
 			pieces.append(piece)
 	return pieces
+
+
+## The figure's glass, a visor, posed as it is now, to shatter as the figure
+## breaks apart ([GlassShards]): [code][the middle of each voxel of glass in
+## the world, its colour (sRGB), its clarity][/code]. Empty lists for a figure
+## with none.
+func glass_points() -> Array:
+	var points := PackedVector3Array()
+	var colors := PackedColorArray()
+	var clarities := PackedFloat32Array()
+	if body.glass_count > 0:
+		_pose()
+		for bone in rig.parts.size():
+			if rig.parts[bone] == null:
+				continue
+			var frame := _frames[bone]
+			var centers := rig.centers[bone]
+			var wholes := rig.wholes[bone]
+			for voxel in wholes.size():
+				var whole := wholes[voxel]
+				if not body.is_glass(whole):
+					continue
+				points.append(frame * centers[voxel])
+				colors.append(body.color_of(whole))
+				clarities.append(VoxelShape.clarity_of(rig.shape.flags[body.voxels[whole]]))
+	return [points, colors, clarities]
 
 
 ## Works out where each bone's voxels are now, and its gear's, once a frame.

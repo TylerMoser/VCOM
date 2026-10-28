@@ -416,7 +416,7 @@ where the legs, torso, arms and head are.
 
 ### The mesh
 
-`VoxelRig.make_mesh()` writes one `ArrayMesh`, one surface:
+`VoxelRig.make_mesh()` writes one `ArrayMesh`, one surface (two, for a figure with glass: below):
 
 - Each bone is meshed on its own. A face between two voxels of the **same** bone is left out, as
   the plain importer does; a face between voxels of **different** bones is **kept**, since a joint
@@ -437,6 +437,15 @@ where the legs, torso, arms and head are.
   (`CharacterModel.tint`, section 9): its character's `color` for a squad member, and for the
   enemies (set in each combat map) slate grey, `Color(0.32, 0.35, 0.4)`. They were red until blood,
   which barely showed on them: keep every unit's colour off red.
+- **Glass**, a colour the `.vox` paints with MagicaVoxel's Glass material (a visor, say), is a
+  second surface, the last, named `glass` (`VoxelModel.GLASS_SURFACE`): `VoxelRig.load_vox()` reads
+  each colour's material into the rig's `flags`, `make_shape()` hands them to the figure's shape
+  (`VoxelShape.find_glass()`), and each bone is meshed with its glass apart (`VoxelModel.faces_of()`:
+  any other face shows through glass, a glass face only against nothing). In the editor it shows a
+  pale see-through `StandardMaterial3D`; in play the figure's `VoxelModel` gives each surface its
+  material, the glass drawn by the glass shaders, and `paint()` leaves a glass colour its own, so a
+  visor stays clear in any unit's colour. A figure without glass bakes exactly as it did, and the base
+  figure has none. `Docs/GLASS.md` has glass in full.
 
 The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.
@@ -1063,7 +1072,9 @@ dropping whole beside them. Nothing is animated: the pose it died in is what bre
      `crumbles_as.crumble_size` (3, `Resources/Destruction/Figure.tres`) across, on a grid shifted at
      random for each bone, so a lump is one bone's, turned as its bone is. A voxel is its colour on
      the figure (`FigureVoxels.body`): the unit's `tint`, or blood red where blood recoloured it. The
-     base figure's 536 voxels make some 60 to 90 lumps, about 39 kg in all (`density` 300).
+     base figure's 536 voxels make some 60 to 90 lumps, about 39 kg in all (`density` 300). Its
+     glass, if it has any, is left out of the lumps and shatters into shards instead, knocked as the
+     lumps are (`FigureVoxels.glass_points()` -> `GlassShards.burst()`, `Docs/GLASS.md`).
    - `_figure_knock()` sets each lump moving: along a round's way or a blade's swing at
      `FIGURE_KNOCK` (2 cells a second), or away from a blast at `FIGURE_BLAST_KNOCK` (1), lifted by
      `FIGURE_LIFT` of that and shared out by height, from `FIGURE_FEET_SHARE` of it at the feet to all
@@ -2601,12 +2612,13 @@ each):
                        VoxelModels)
     FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body (the VoxelModel colouring its baked
                        mesh); each bone's a part posed as the skeleton is; march() (bones and gear), pick_wound(),
-                       hit_near(), exit(), bleed(); crumble() (the lumps it breaks into)
+                       hit_near(), exit(), bleed(); crumble() (the lumps it breaks into, its glass left out);
+                       glass_points() (its glass, to shatter)
     AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
     Postures.gd        map node: idle figures kneel behind low cover / brace at high, facing their nearest foe
     BakeCharacter.gd   tool: a .vox -> Scenes/<model>.tscn (skeleton, skinned body, sockets, animations)
     VoxelRig.gd        the humanoid skeleton, each model's layout (joints, voxel regions; LAYOUTS by .vox), per-bone
-                       mesher
+                       mesher (its glass a second surface); flags (each colour's, glass from the .vox's materials)
     HumanoidAnimations.gd  every animation, authored as IK poses in code, and the AnimationNodeBlendTree; UPPER_ACTS
                            (played over ARMS_AND_HEAD alone: the reload), LEFT_ACTS (over LEFT_ARM alone: a medkit)
     PreviewAnimations.gd   tool: renders clips to images, holding the right props, and a contact sheet of them; an

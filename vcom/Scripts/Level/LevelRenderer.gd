@@ -26,6 +26,11 @@
 ## are drawn in place of the whole ones. The whole meshes still cast every
 ## shadow, unseen, so the light is as it was; and the collision is always the
 ## whole level's.
+##
+## Glass is meshed apart ([method ChunkMesher.faces]) and drawn as a second
+## surface of its section's mesh, named [constant VoxelModel.GLASS_SURFACE],
+## by [member glass_material]: see-through, casting no shadow. It collides as
+## the rest does, for debris to lie on until it shatters (Docs/GLASS.md).
 class_name LevelRenderer
 extends Node3D
 
@@ -46,13 +51,18 @@ var volume: VoxelVolume
 ## Whether chunks get collision.
 var collides := true
 ## The material every section is drawn with, and the texture of every voxel's
-## colour it reads.
+## colour it reads; and the material its glass is drawn with, which reads the
+## same, its shine its next pass ([method VoxelModel.glass_material]).
 var material: ShaderMaterial
+var glass_material: ShaderMaterial
 var texture: Texture2DArray
 
-## Each chunk's rectangles and mesh arrays, by key, as last built.
+## Each chunk's rectangles and mesh arrays, by key, as last built, and its
+## glass's, for a chunk with glass that shows.
 var _quads := {}
 var _arrays := {}
+var _glass_quads := {}
+var _glass_arrays := {}
 ## Each section's mesh, by section key, and the sections to build again.
 var _sections := {}
 var _stale_sections := {}
@@ -70,13 +80,16 @@ var triangles := 0
 ## ([method cut]); empty with nothing cut away.
 var _cut := {}
 ## The rows of each chunk holding voxels of a piece cut away, without them,
-## by key: [rows along x, rows along z].
+## by key: [rows along x, rows along z, glass along x, glass along z], the
+## glass's empty for a chunk with none.
 var _cut_rows := {}
 ## Each chunk drawn otherwise while pieces are cut away, its own voxels cut or
 ## a neighbour's against it: its rectangles, and its mesh arrays (none for no
-## rectangles), as so drawn, by key.
+## rectangles), as so drawn, by key; and its glass's.
 var _cut_quads := {}
 var _cut_arrays := {}
+var _cut_glass_quads := {}
+var _cut_glass_arrays := {}
 ## The whole mesh of each section drawn cut away, casting its shadow unseen,
 ## by section key.
 var _shadows := {}
@@ -88,6 +101,7 @@ func _init(drawn: VoxelVolume, with_collision := true) -> void:
 	collides = with_collision
 	material = ShaderMaterial.new()
 	material.shader = VoxelModel.SHADER
+	glass_material = VoxelModel.glass_material()
 
 
 ## Builds everything afresh: every chunk's mesh, collision and layer of
@@ -107,8 +121,12 @@ func build() -> int:
 	_cut_rows.clear()
 	_cut_quads.clear()
 	_cut_arrays.clear()
+	_cut_glass_quads.clear()
+	_cut_glass_arrays.clear()
 	_quads.clear()
 	_arrays.clear()
+	_glass_quads.clear()
+	_glass_arrays.clear()
 	_uncollided.clear()
 	_recollide.clear()
 	_make_texture()
@@ -125,11 +143,13 @@ func build() -> int:
 	return Time.get_ticks_usec() - start
 
 
-## Hands the volume's palette to the material: each place's colour, its flags
+## Hands the volume's palette to the materials: each place's colour, its flags
 ## in the alpha.
 func set_palette() -> void:
-	material.set_shader_parameter(&"palette", palette_of(volume))
-	material.set_shader_parameter(&"box_size", Vector3i.ONE * VoxelVolume.SIZE)
+	var palette := palette_of(volume)
+	for each: ShaderMaterial in [material, glass_material]:
+		VoxelModel.set_parameter(each, &"palette", palette)
+		VoxelModel.set_parameter(each, &"box_size", Vector3i.ONE * VoxelVolume.SIZE)
 
 
 ## [param of]'s palette as the shader takes it: each place's colour, and its
@@ -229,6 +249,8 @@ func _cut_chunk(key: Vector3i) -> void:
 	var block := VoxelVolume.BLOCK
 	var rows_x := PackedInt64Array()
 	var rows_z := PackedInt64Array()
+	var glass_x := PackedInt64Array()
+	var glass_z := PackedInt64Array()
 	for at in chunk.owners.size():
 		var piece := chunk.owners[at]
 		if not _cut.has(piece):
@@ -253,10 +275,16 @@ func _cut_chunk(key: Vector3i) -> void:
 					if rows_x.is_empty():
 						rows_x = chunk.rows_x.duplicate()
 						rows_z = chunk.rows_z.duplicate()
+						if chunk.has_glass():
+							glass_x = chunk.glass_x.duplicate()
+							glass_z = chunk.glass_z.duplicate()
 					rows_x[row] &= ~low
 					rows_z[x + y * size] &= ~(1 << z)
+					if not glass_x.is_empty():
+						glass_x[row] &= ~low
+						glass_z[x + y * size] &= ~(1 << z)
 	if not rows_x.is_empty():
-		_cut_rows[key] = [rows_x, rows_z]
+		_cut_rows[key] = [rows_x, rows_z, glass_x, glass_z]
 
 
 ## Meshes the chunk keyed [param key] as it is drawn with the pieces cut away,
@@ -273,25 +301,56 @@ func _mesh_cut(key: Vector3i) -> void:
 	if not affected:
 		if _cut_quads.erase(key):
 			_cut_arrays.erase(key)
+			_cut_glass_quads.erase(key)
+			_cut_glass_arrays.erase(key)
 			_stale_sections[_section_of(key)] = true
 		return
-	var near := ChunkMesher.Near.new()
-	near.east = _shown_rows(key + Vector3i.RIGHT, false)
-	near.west = _shown_rows(key + Vector3i.LEFT, false)
-	near.up = _shown_rows(key + Vector3i.UP, true)
-	near.down = _shown_rows(key + Vector3i.DOWN, true)
-	near.north = _shown_rows(key + Vector3i.BACK, true)
-	near.south = _shown_rows(key + Vector3i.FORWARD, true)
+	var near := _near(key, true)
 	var floor_slice := volume.floor_y - chunk.origin.y
-	var quads := ChunkMesher.rectangles(
-		VoxelVolume.SIZE, _shown_rows(key, true), _shown_rows(key, false), near, floor_slice
+	var found := ChunkMesher.faces(
+		VoxelVolume.SIZE, _shown_rows(key, true), _shown_rows(key, false), _shown_glass(key, true),
+		_shown_glass(key, false), near, floor_slice
 	)
-	_cut_quads[key] = quads
-	if quads.is_empty():
-		_cut_arrays.erase(key)
-	else:
-		_cut_arrays[key] = ChunkMesher.arrays(quads, chunk.origin, chunk.layer, 1.0 / VoxelVolume.BLOCK)
+	_keep_quads(key, found, chunk, _cut_quads, _cut_arrays, _cut_glass_quads, _cut_glass_arrays)
 	_stale_sections[_section_of(key)] = true
+
+
+## The neighbours of the chunk keyed [param key], for the mesher: their rows
+## and glass as drawn, with the pieces cut away if [param cut], else whole.
+func _near(key: Vector3i, cut: bool) -> ChunkMesher.Near:
+	var near := ChunkMesher.Near.new()
+	var sides := {
+		&"east": [Vector3i.RIGHT, false], &"west": [Vector3i.LEFT, false],
+		&"up": [Vector3i.UP, true], &"down": [Vector3i.DOWN, true],
+		&"north": [Vector3i.BACK, true], &"south": [Vector3i.FORWARD, true],
+	}
+	for side: StringName in sides:
+		var at: Vector3i = key + sides[side][0]
+		var along_x: bool = sides[side][1]
+		near.set(side, _shown_rows(at, along_x) if cut else _rows(at, along_x))
+		near.set(StringName(String(side) + "_glass"), _shown_glass(at, along_x) if cut else _glass(at, along_x))
+	return near
+
+
+## Keeps [param found], the chunk keyed [param key]'s rectangles and its
+## glass's ([method ChunkMesher.faces]), and the mesh arrays of each, in
+## [param quads] and [param arrays] and in [param glass_quads] and
+## [param glass_arrays]; none of the glass's for a chunk with none showing.
+func _keep_quads(
+	key: Vector3i, found: Array[PackedInt32Array], chunk: VoxelVolume.Chunk, quads: Dictionary,
+	arrays: Dictionary, glass_quads: Dictionary, glass_arrays: Dictionary
+) -> void:
+	quads[key] = found[0]
+	if found[0].is_empty():
+		arrays.erase(key)
+	else:
+		arrays[key] = ChunkMesher.arrays(found[0], chunk.origin, chunk.layer, 1.0 / VoxelVolume.BLOCK)
+	if found[1].is_empty():
+		glass_quads.erase(key)
+		glass_arrays.erase(key)
+	else:
+		glass_quads[key] = found[1]
+		glass_arrays[key] = ChunkMesher.arrays(found[1], chunk.origin, chunk.layer, 1.0 / VoxelVolume.BLOCK)
 
 
 ## The rows of the chunk keyed [param key] as they are drawn, without the
@@ -302,6 +361,15 @@ func _shown_rows(key: Vector3i, along_x: bool) -> PackedInt64Array:
 	if rows.is_empty():
 		return _rows(key, along_x)
 	return rows[0] if along_x else rows[1]
+
+
+## The glass of the chunk keyed [param key] as it is drawn, as
+## [method _shown_rows] has its rows: empty if it has none.
+func _shown_glass(key: Vector3i, along_x: bool) -> PackedInt64Array:
+	var rows: Array = _cut_rows.get(key, [])
+	if rows.is_empty():
+		return _glass(key, along_x)
+	return rows[2] if along_x else rows[3]
 
 
 ## Makes the texture of every voxel's colour, a layer for each chunk, and gives
@@ -321,6 +389,7 @@ func _make_texture() -> void:
 	texture = Texture2DArray.new()
 	texture.create_from_images(images)
 	material.set_shader_parameter(&"voxels", texture)
+	VoxelModel.set_parameter(glass_material, &"voxels", texture)
 
 
 ## The image of [param chunk]'s colours, as its layer holds them.
@@ -354,20 +423,10 @@ func _mesh_chunk(key: Vector3i) -> void:
 	var chunk: VoxelVolume.Chunk = volume.chunks[key]
 	if chunk.layer < 0:
 		_upload(key)
-	var near := ChunkMesher.Near.new()
-	near.east = _rows(key + Vector3i.RIGHT, false)
-	near.west = _rows(key + Vector3i.LEFT, false)
-	near.up = _rows(key + Vector3i.UP, true)
-	near.down = _rows(key + Vector3i.DOWN, true)
-	near.north = _rows(key + Vector3i.BACK, true)
-	near.south = _rows(key + Vector3i.FORWARD, true)
+	var near := _near(key, false)
 	var floor_slice := volume.floor_y - chunk.origin.y
-	var quads := ChunkMesher.rectangles(VoxelVolume.SIZE, chunk.rows_x, chunk.rows_z, near, floor_slice)
-	_quads[key] = quads
-	if quads.is_empty():
-		_arrays.erase(key)
-	else:
-		_arrays[key] = ChunkMesher.arrays(quads, chunk.origin, chunk.layer, 1.0 / VoxelVolume.BLOCK)
+	var found := ChunkMesher.faces(VoxelVolume.SIZE, chunk.rows_x, chunk.rows_z, chunk.glass_x, chunk.glass_z, near, floor_slice)
+	_keep_quads(key, found, chunk, _quads, _arrays, _glass_quads, _glass_arrays)
 	_stale_sections[_section_of(key)] = true
 	# The collision is made again ahead of the next physics step
 	# (VoxelLevel._physics_process), not here: it is the dearest part of drawing
@@ -428,9 +487,13 @@ func is_collided() -> bool:
 func _forget(key: Vector3i) -> void:
 	_quads.erase(key)
 	_arrays.erase(key)
+	_glass_quads.erase(key)
+	_glass_arrays.erase(key)
 	_cut_rows.erase(key)
 	_cut_quads.erase(key)
 	_cut_arrays.erase(key)
+	_cut_glass_quads.erase(key)
+	_cut_glass_arrays.erase(key)
 	_uncollided.erase(key)
 	_recollide.erase(key)
 	_stale_sections[_section_of(key)] = true
@@ -447,6 +510,15 @@ func _rows(key: Vector3i, along_x: bool) -> PackedInt64Array:
 	if chunk == null:
 		return PackedInt64Array()
 	return chunk.rows_x if along_x else chunk.rows_z
+
+
+## The glass of the chunk keyed [param key], as [method _rows] has its rows;
+## empty if there is no chunk there or it has no glass.
+func _glass(key: Vector3i, along_x: bool) -> PackedInt64Array:
+	var chunk: VoxelVolume.Chunk = volume.chunks.get(key)
+	if chunk == null:
+		return PackedInt64Array()
+	return chunk.glass_x if along_x else chunk.glass_z
 
 
 static func _section_of(key: Vector3i) -> Vector3i:
@@ -504,8 +576,33 @@ func _build_section(key: Vector3i) -> void:
 
 ## The mesh of the section keyed [param key], from its chunks as drawn with the
 ## pieces cut away if [param cut], else whole, and how many rectangles it has:
-## [mesh, rectangles], the mesh null for none.
+## [mesh, rectangles], the mesh null for none. Its glass, if any shows, is a
+## second surface, the last, named [constant VoxelModel.GLASS_SURFACE].
 func _section_mesh(key: Vector3i, cut: bool) -> Array:
+	var mesh: ArrayMesh = null
+	var quads := 0
+	for glass: bool in [false, true]:
+		var part := _section_part(key, cut, glass)
+		var count: int = part[1]
+		if count == 0:
+			continue
+		quads += count
+		if mesh == null:
+			mesh = ArrayMesh.new()
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, part[0], [], {}, ChunkMesher.format())
+		var surface := mesh.get_surface_count() - 1
+		mesh.surface_set_material(surface, glass_material if glass else material)
+		if glass:
+			mesh.surface_set_name(surface, VoxelModel.GLASS_SURFACE)
+	if quads == 0:
+		return [null, 0]
+	return [mesh, quads]
+
+
+## The arrays of one surface of the section keyed [param key], as
+## [method _section_mesh] makes it: its chunks' glass if [param glass], else
+## the rest of them, and how many rectangles that is: [arrays, rectangles].
+func _section_part(key: Vector3i, cut: bool, glass: bool) -> Array:
 	var vertices := PackedVector3Array()
 	var normals := PackedVector3Array()
 	var custom0 := PackedFloat32Array()
@@ -517,7 +614,15 @@ func _section_mesh(key: Vector3i, cut: bool) -> Array:
 			for z in SECTION:
 				var chunk_key := first + Vector3i(x, y, z)
 				var is_cut := cut and _cut_quads.has(chunk_key)
-				var made: Variant = (_cut_arrays if is_cut else _arrays).get(chunk_key)
+				var from_arrays: Dictionary
+				var from_quads: Dictionary
+				if glass:
+					from_arrays = _cut_glass_arrays if is_cut else _glass_arrays
+					from_quads = _cut_glass_quads if is_cut else _glass_quads
+				else:
+					from_arrays = _cut_arrays if is_cut else _arrays
+					from_quads = _cut_quads if is_cut else _quads
+				var made: Variant = from_arrays.get(chunk_key)
 				if made == null:
 					continue
 				vertices.append_array(made[Mesh.ARRAY_VERTEX])
@@ -525,9 +630,9 @@ func _section_mesh(key: Vector3i, cut: bool) -> Array:
 				custom0.append_array(made[Mesh.ARRAY_CUSTOM0])
 				custom1.append_array(made[Mesh.ARRAY_CUSTOM1])
 				@warning_ignore("integer_division")
-				quads += ((_cut_quads if is_cut else _quads)[chunk_key] as PackedInt32Array).size() / ChunkMesher.FIELDS
+				quads += (from_quads[chunk_key] as PackedInt32Array).size() / ChunkMesher.FIELDS
 	if quads == 0:
-		return [null, 0]
+		return [[], 0]
 	var arrays := []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX] = vertices
@@ -535,27 +640,33 @@ func _section_mesh(key: Vector3i, cut: bool) -> Array:
 	arrays[Mesh.ARRAY_CUSTOM0] = custom0
 	arrays[Mesh.ARRAY_CUSTOM1] = custom1
 	arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(quads)
-	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
-	mesh.surface_set_material(0, material)
-	return [mesh, quads]
+	return [arrays, quads]
 
 
 ## Gives the chunk keyed [param key] collision as its faces are now: a trimesh
-## of the same rectangles it is drawn with.
+## of the same rectangles it is drawn with, its glass's among them.
 func _collide(key: Vector3i) -> void:
 	var made: Variant = _arrays.get(key)
+	var glass_made: Variant = _glass_arrays.get(key)
 	var body: StaticBody3D = _bodies.get(key)
-	if made == null:
+	if made == null and glass_made == null:
 		if body != null:
 			body.queue_free()
 			_bodies.erase(key)
 		return
-	@warning_ignore("integer_division")
-	var quads := (_quads[key] as PackedInt32Array).size() / ChunkMesher.FIELDS
+	var vertices := PackedVector3Array()
+	var quads := 0
+	if made != null:
+		vertices.append_array(made[Mesh.ARRAY_VERTEX])
+		@warning_ignore("integer_division")
+		quads += (_quads[key] as PackedInt32Array).size() / ChunkMesher.FIELDS
+	if glass_made != null:
+		vertices.append_array(glass_made[Mesh.ARRAY_VERTEX])
+		@warning_ignore("integer_division")
+		quads += (_glass_quads[key] as PackedInt32Array).size() / ChunkMesher.FIELDS
 	var arrays := []
 	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = made[Mesh.ARRAY_VERTEX]
+	arrays[Mesh.ARRAY_VERTEX] = vertices
 	arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(quads)
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)

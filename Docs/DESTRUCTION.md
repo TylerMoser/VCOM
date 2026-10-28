@@ -57,7 +57,7 @@ is the only thing to retune if every blast is too strong or too weak.
 
 **Some pieces wear away instead, a few voxels at a time.** A kind whose destruction is a
 `VoxelDestruction` (`BrightGrass1`, both `SkinnyTree1` kinds, `FenceStraight`, `StoneWall`,
-`TallGrass`, `SimpleWall1`, `SimpleTruss1`, `SimpleRoof1`) is the second kind of breakable piece: a strike or a blast breaks voxels off it rather
+`TallGrass`, `SimpleWall1`, `SimpleTruss1`, `SimpleRoof1`, `SimpleWindow1`) is the second kind of breakable piece: a strike or a blast breaks voxels off it rather
 than breaking it whole. Every piece is 16 voxels a side, and its voxels are part of the level's one
 grid of voxels (`VoxelVolume`, see `Docs/LEVELS.md`), stamped from its kind's `.vox` as the level is
 built (`VoxelShape.read()`, with the importer's own reader, so they sit exactly where the imported mesh
@@ -99,6 +99,12 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
   wearing piece round the hole, wandering by `RIM_WANDER`, so the hole is ragged, not a clean cube of
   the grid. One that fell whole (`_drop_whole()`, a `FallingBlock` built from what is left of its
   voxels, coloured as they were) crumbles where it lands.
+- **Glass holds nothing up, and shatters whole.** A piece's glass (a window's panes) never counts
+  toward `collapse_below` (`VoxelVolume.held_count()`), `holds_up()` and `_drop_loose()` never run
+  through it, and it is never laid bare nor roughened. Nor does it ever break off as lumps: once a
+  bite, a crater or a collapse takes any of a piece's glass, all of it shatters into shards
+  (`GlassShards`), as it does when a round's line crosses a window, a unit or a grenade in flight
+  passes one, or a blast goes off within three cells. Only for show (`Docs/GLASS.md`).
 - **What it lays bare is earth.** A voxel of a kind that wears away, buried until the wear and on
   the edge of its own block with a block of its kind across, takes the colour just inside its block
   (`VoxelVolume.lay_bare()`, queued to the next redraw), so a crater never shows the turf the grass
@@ -110,7 +116,8 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
   `Ballistics` passes, traces the level's voxels (`_trace_cell()`) in each cell whose standing pieces
   all wear away, and across an edge whose pieces do, and carries on if the ray meets none of them; the
   hit's `point` and `face` are then the voxel's, `voxel` the voxel in the level's grid and `piece` the
-  piece it is of. A piece that does not wear (a crate) is met whole. Sight (`is_line_clear()`), throws
+  piece it is of. A round passes glass wherever it is. A piece that does not wear (a crate) is met
+  whole. Sight (`is_line_clear()`), throws
   (`Throwing.plan()`) and clicks (`pick_tile()`) stop at whole cells and edges. Blood passes
   `every_block` as well, which traces every piece so, crates and decoration included; rounds never do.
 - **The debris is lean.** `VoxelDebris` makes each lump a rigid body straight on the `PhysicsServer3D`,
@@ -137,7 +144,8 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
 - **It is deterministic.** Which voxels go, and so which pieces break, comes from the global random
   generator, one number a round, blast or broken piece's rim, so a seeded fight replays exactly, as
   long as no piece falls whole (see Known gaps). How the lumps fly, and which a blast keeps, draws on
-  `VoxelTerrain`'s own generator, and how they fall is physics: only for show.
+  `VoxelTerrain`'s own generator, and how they fall is physics: only for show. So does shattering
+  glass: its shards draw on `GlassShards`' own.
 
 To make another kind of piece wear away, give its `PieceKind` (in `Blocks/Pieces.tres`) a
 `VoxelDestruction` `.tres` from `Resources/Destruction/`, with its `mass` whole (what it weighs
@@ -192,6 +200,9 @@ drops.
   a part passes through the model it came from, everything that model passed through (a crate's
   pieces cut to overlap), and every part cut from it since; `VoxelBody.passes` keeps the list on both
   sides, and a piece not yet taken on keeps its own in its `Wearable` (see Gotchas).
+- **Its glass shatters whole**, as a pane's does: a round tearing through it, a crater reaching it or
+  the model crumbling sends all of it off as shards (`_shatter_model()`, `_crumble_model()`,
+  `_break_up()`; `Docs/GLASS.md`).
 - **It does not touch the rules.** A loose model blocks nothing (sight, cover, rounds, throws), and
   everything random about wearing one draws on `VoxelTerrain`'s own generator (`_show`), never the
   global one, so tearing boards never changes what a seeded fight rolls next. Blocks still take one
@@ -214,7 +225,9 @@ it was let go; it reports where it was two physics steps earlier (see "Its traps
 the wreck under a falling block can get out of the way (a stack in the open, blasted apart) the
 blocks fall nearly a whole cell and smash; in a one-cell slot between two columns the columns hold
 the wreck in place, and the blocks drop on to it (see Known gaps). An edge piece left with nothing
-under either side of it falls the same way, as heavy as its destruction's `mass`.
+under either side of it, nor on the corner below either end, falls the same way, as heavy as its
+destruction's `mass`, and so does a piece on a corner left with nothing in the four cells below it,
+across the four edges meeting below it or on the corner below (`Docs/LEVELS.md`, "Corners").
 
 ## Coins
 
@@ -324,7 +337,8 @@ contact or pair limits much further needs a bigger `temporary_memory_buffer_size
                            pieces_in() (pieces: PIECE_LAYER, the PIECES group, found by physics queries); hands a
                            breaking block's blood on to what it becomes (_break, _on_landed, _pieces_since());
                            break_figure() (a dying unit's figure into lumps, knocked by the killing blow:
-                           FIGURE_*, _figure_knock()), _drop_gear() (its props whole, as pieces that wear)
+                           FIGURE_*, _figure_knock()), _drop_gear() (its props whole, as pieces that wear);
+                           glass_shards, _shatter_passing() (a unit or a grenade in flight passing a window)
     Destruction.gd         Resource base: how a kind of block comes apart, shatter(); prepare() (as a map loads);
                            mass; coin_chance; Motion
     ScriptedDestruction.gd pieces cut in advance, swapped in and left to fall or blasted apart; wear (then each piece
@@ -340,20 +354,23 @@ contact or pair limits much further needs a bigger `temporary_memory_buffer_size
                            is_solid_at(); loose models: take_on_later() (taken on at the first hit), take_on_body(),
                            tear() (rounds through them), _settle() (split off, crumble); lumps chosen before they are
                            made (Batch, _scatter()); carry_blood() (a crate's blood on to its pieces);
-                           march() (a ray through a model's voxels)
+                           march() (a ray through a model's voxels); glass: shatter(), shatter_along(),
+                           shatter_near(), shatter_passing(), floor_under() (Docs/GLASS.md)
     VoxelBody.gd           a loose model as a body (a crate's piece, dropped gear), a node under its RigidBody3D: its
                            VoxelModel, box collider and mass; passes (the bodies it passes through)
     VoxelDebris.gd         every voxel broken off: lumps as PhysicsServer bodies with no nodes, drawn by MultiMeshes;
                            add(), burst(), wake(), tidy(); at MOST bodies, stills those at rest furthest from focus
                            (the tile the camera looks at) down to KEEP, drawn but bodiless until disturbed;
                            stain(body, point) (a drop of blood colours the voxel it met)
+    GlassShards.gd         every shard of broken glass, MultiMesh instances with no bodies: burst(), wake(), rehide()
+                           (Docs/GLASS.md)
 ```
 
 ## Known gaps
 
 `CLAUDE.md`'s Known gaps keeps those a rule or a probe meets: crates breaking whole on any hit, a unit
 floating over a crater, a worn block's full cover, what a seeded fight replays, and what an export
-needs.
+needs. Glass's are `Docs/GLASS.md`'s.
 
 - Rounds fly straight through debris: the trace only sees the level's pieces, and the voxels of those
   that wear away. They tear the loose models they pass through, but are never stopped by one.

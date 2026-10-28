@@ -113,8 +113,10 @@ var scale := 1.0
 ## [member colors]: the voxels that move with it.
 var cells := {}
 ## The model's palette, each colour at the place its voxels hold, as a
-## [VoxelShape] keeps one.
+## [VoxelShape] keeps one, and each colour's flags: a colour MagicaVoxel draws
+## as glass is glass ([constant VoxelShape.FLAG_GLASS]), a visor.
 var colors := PackedColorArray()
+var flags := PackedByteArray()
 ## The least and most rig cells of any voxel.
 var least := Vector3i.ZERO
 var most := Vector3i.ZERO
@@ -148,6 +150,12 @@ func load_vox(vox_path: String, rig_layout: Dictionary) -> bool:
 	colors.resize(256)
 	for index in mini(vox.colors.size(), 255):
 		colors[index + 1] = vox.colors[index]
+	flags.resize(256)
+	flags[VoxelShape.BLOOD] = VoxelShape.FLAG_WET
+	for place in range(1, VoxelShape.BLOOD):
+		var material: Variant = vox.materials.get(place - 1)
+		if material != null and material.is_glass():
+			flags[place] = VoxelShape.glass_flags(material.transparency)
 
 	layout = rig_layout
 	scale = rig_layout["scale"]
@@ -193,6 +201,8 @@ func make_shape() -> VoxelShape:
 	var shape := VoxelShape.new(most - least + Vector3i.ONE, (Vector3(least) + _corner) * VoxelShape.SCALE)
 	shape.scale = scale / VoxelShape.SCALE
 	shape.colors = colors.duplicate()
+	if not flags.is_empty():
+		shape.flags = flags.duplicate()
 	for bone: StringName in cells:
 		var bone_cells: Dictionary = cells[bone]
 		for cell: Vector3i in bone_cells:
@@ -200,6 +210,7 @@ func make_shape() -> VoxelShape:
 			shape.count += 1
 	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
+	shape.find_glass()
 	return shape
 
 
@@ -213,15 +224,21 @@ func make_shape() -> VoxelShape:
 ## posed. A unit draws it in its own colours ([VoxelModel]); its surface's
 ## material, which only the editor shows, is the model's commonest colour,
 ## flat, as no texture can be saved from a bake run headless, where the
-## textures it made never reach a GPU to be read back.
+## textures it made never reach a GPU to be read back. Its glass, if it has any
+## (a visor), is a second surface, named [constant VoxelModel.GLASS_SURFACE],
+## each bone's faces of glass showing only against nothing ([method
+## ChunkMesher.faces]); a model with none bakes to the one surface it always
+## did.
 func make_mesh(skeleton: Skeleton3D) -> ArrayMesh:
 	var shape := make_shape()
-	var vertices := PackedVector3Array()
-	var normals := PackedVector3Array()
-	var places := PackedFloat32Array()
-	var extents := PackedFloat32Array()
-	var bones := PackedInt32Array()
-	var weights := PackedFloat32Array()
+	# Each surface's arrays, by surface: what is not glass, and the glass. Typed
+	# arrays of packed arrays, so appending to one appends to it, not a copy.
+	var vertices: Array[PackedVector3Array] = [PackedVector3Array(), PackedVector3Array()]
+	var normals: Array[PackedVector3Array] = [PackedVector3Array(), PackedVector3Array()]
+	var places: Array[PackedFloat32Array] = [PackedFloat32Array(), PackedFloat32Array()]
+	var extents: Array[PackedFloat32Array] = [PackedFloat32Array(), PackedFloat32Array()]
+	var bones: Array[PackedInt32Array] = [PackedInt32Array(), PackedInt32Array()]
+	var weights: Array[PackedFloat32Array] = [PackedFloat32Array(), PackedFloat32Array()]
 	var offset := (Vector3(least) + _corner) * scale
 	for bone: StringName in cells:
 		var bone_cells: Dictionary = cells[bone]
@@ -229,31 +246,47 @@ func make_mesh(skeleton: Skeleton3D) -> ArrayMesh:
 			continue
 		var own := PackedByteArray()
 		own.resize(shape.length)
+		var glassy := PackedByteArray()
+		if shape.has_glass():
+			glassy.resize(shape.length)
 		for cell: Vector3i in bone_cells:
-			own[shape.index_of(cell - least)] = 1
-		var made := ChunkMesher.arrays(VoxelModel.rectangles_of(shape, shape.rows_of(own)), Vector3i.ZERO, 0, scale, offset)
-		var corners: PackedVector3Array = made[Mesh.ARRAY_VERTEX]
-		vertices.append_array(corners)
-		normals.append_array(made[Mesh.ARRAY_NORMAL])
-		places.append_array(made[Mesh.ARRAY_CUSTOM0])
-		extents.append_array(made[Mesh.ARRAY_CUSTOM1])
+			var at := shape.index_of(cell - least)
+			own[at] = 1
+			if not glassy.is_empty() and shape.glass[at] != 0:
+				glassy[at] = 1
+		var own_glass := shape.rows_of(glassy) if not glassy.is_empty() else PackedInt64Array()
+		var found := VoxelModel.faces_of(shape, shape.rows_of(own), own_glass)
 		var index := skeleton.find_bone(bone)
-		for corner in corners.size():
-			bones.append_array([index, 0, 0, 0])
-			weights.append_array([1.0, 0.0, 0.0, 0.0])
+		for part in 2:
+			if found[part].is_empty():
+				continue
+			var made := ChunkMesher.arrays(found[part], Vector3i.ZERO, 0, scale, offset)
+			var corners: PackedVector3Array = made[Mesh.ARRAY_VERTEX]
+			vertices[part].append_array(corners)
+			normals[part].append_array(made[Mesh.ARRAY_NORMAL])
+			places[part].append_array(made[Mesh.ARRAY_CUSTOM0])
+			extents[part].append_array(made[Mesh.ARRAY_CUSTOM1])
+			for corner in corners.size():
+				bones[part].append_array([index, 0, 0, 0])
+				weights[part].append_array([1.0, 0.0, 0.0, 0.0])
 
-	var arrays := []
-	arrays.resize(Mesh.ARRAY_MAX)
-	arrays[Mesh.ARRAY_VERTEX] = vertices
-	arrays[Mesh.ARRAY_NORMAL] = normals
-	arrays[Mesh.ARRAY_CUSTOM0] = places
-	arrays[Mesh.ARRAY_CUSTOM1] = extents
-	arrays[Mesh.ARRAY_BONES] = bones
-	arrays[Mesh.ARRAY_WEIGHTS] = weights
-	@warning_ignore("integer_division")
-	arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(vertices.size() / 4)
 	var mesh := ArrayMesh.new()
-	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
+	for part in 2:
+		if vertices[part].is_empty():
+			continue
+		var arrays := []
+		arrays.resize(Mesh.ARRAY_MAX)
+		arrays[Mesh.ARRAY_VERTEX] = vertices[part]
+		arrays[Mesh.ARRAY_NORMAL] = normals[part]
+		arrays[Mesh.ARRAY_CUSTOM0] = places[part]
+		arrays[Mesh.ARRAY_CUSTOM1] = extents[part]
+		arrays[Mesh.ARRAY_BONES] = bones[part]
+		arrays[Mesh.ARRAY_WEIGHTS] = weights[part]
+		@warning_ignore("integer_division")
+		arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(vertices[part].size() / 4)
+		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
+		if part == 1:
+			mesh.surface_set_name(mesh.get_surface_count() - 1, VoxelModel.GLASS_SURFACE)
 	var counts := PackedInt32Array()
 	counts.resize(256)
 	for held in shape.voxels:
@@ -265,7 +298,16 @@ func make_mesh(skeleton: Skeleton3D) -> ArrayMesh:
 	var flat := StandardMaterial3D.new()
 	flat.albedo_color = shape.colors[commonest]
 	flat.roughness = 1.0
-	mesh.surface_set_material(0, flat)
+	for surface in mesh.get_surface_count():
+		if mesh.surface_get_name(surface) == VoxelModel.GLASS_SURFACE:
+			# The editor's glass: see-through, a pale blue.
+			var clear := StandardMaterial3D.new()
+			clear.albedo_color = Color(0.85, 0.93, 0.97, 0.3)
+			clear.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			clear.roughness = 0.05
+			mesh.surface_set_material(surface, clear)
+		else:
+			mesh.surface_set_material(surface, flat)
 	return mesh
 
 

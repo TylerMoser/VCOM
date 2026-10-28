@@ -106,6 +106,14 @@ func generate(vox :VoxData, voxel_data :Dictionary, scale :float, snaptoground :
 	if voxel_data.size() == 0:
 		return st.commit()
 	
+	# Voxels of MagicaVoxel's Glass material, by the palette entry each holds:
+	# meshed as a surface of their own, drawn see-through.
+	var glass := {}
+	for v in voxel_data:
+		var vox_material = vox.materials.get(voxel_data[v])
+		if vox_material != null and vox_material.is_glass():
+			glass[v] = voxel_data[v]
+	
 	# Convert voxel data to raw color values
 	for v in voxel_data:
 		voxel_data[v] = vox.colors[voxel_data[v]]
@@ -116,30 +124,65 @@ func generate(vox :VoxData, voxel_data :Dictionary, scale :float, snaptoground :
 		mins.y = min(mins.y, v.y)
 		mins.z = min(mins.z, v.z)
 	
-	# Itterate over all face orientations to reduce problem to 3 dimensions
-	for o in face_orientations:
-		generate_geometry_for_orientation(voxel_data, o, scale, snaptoground)
+	if glass.is_empty():
+		# Itterate over all face orientations to reduce problem to 3 dimensions
+		for o in face_orientations:
+			generate_geometry_for_orientation(voxel_data, voxel_data, o, scale, snaptoground)
 
-	# Finish the mesh and material and return
+		# Finish the mesh and material and return
+		st.set_material(_opaque_material())
+		return st.commit()
+
+	# A face of any other voxel shows through glass, so the rest are meshed as if
+	# the glass were not there; a face of glass shows only against nothing.
+	var mesh: ArrayMesh = null
+	var solid := {}
+	for v in voxel_data:
+		if not glass.has(v):
+			solid[v] = voxel_data[v]
+	if not solid.is_empty():
+		for o in face_orientations:
+			generate_geometry_for_orientation(solid, solid, o, scale, snaptoground)
+		st.set_material(_opaque_material())
+		mesh = st.commit()
+	# One material for all of its glass: the commonest glass entry's.
+	var tally := {}
+	var commonest = -1
+	for v in glass:
+		tally[glass[v]] = tally.get(glass[v], 0) + 1
+		if commonest < 0 or tally[glass[v]] > tally[commonest]:
+			commonest = glass[v]
+	var see_through := {}
+	for v in glass:
+		see_through[v] = voxel_data[v]
+	st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for o in face_orientations:
+		generate_geometry_for_orientation(see_through, voxel_data, o, scale, snaptoground)
+	st.set_material(vox.materials[commonest].get_material(vox.colors[commonest]))
+	return st.commit(mesh)
+
+# The material every voxel but glass is drawn with: its vertex colour, matte.
+func _opaque_material() -> StandardMaterial3D:
 	var material = StandardMaterial3D.new()
 	material.vertex_color_is_srgb = true
 	material.vertex_color_use_as_albedo = true
 	material.roughness = 1
-	st.set_material(material)
-	return st.commit()
+	return material
 
-# Generates all of the geometry for a given face orientation
-func generate_geometry_for_orientation(voxel_data :Dictionary, o :int, scale :float, snaptoground :bool) -> void:
+# Generates all of the geometry for a given face orientation: the faces of the
+# voxels in faces_from, each showing unless a voxel of occluders is against it
+func generate_geometry_for_orientation(faces_from :Dictionary, occluders :Dictionary, o :int, scale :float, snaptoground :bool) -> void:
 	var da :int = depth_axis[o]
 	var faces_by_slice := {}
 	# 방향마다 복셀을 한 번만 훑어 보이는 면을 깊이별로 분류합니다.
-	for v in voxel_data:
-		if voxel_data.has(v + face_checks[o]):
+	for v in faces_from:
+		if occluders.has(v + face_checks[o]):
 			continue
 		var slice = int(v[da])
 		if not faces_by_slice.has(slice):
 			faces_by_slice[slice] = {}
-		faces_by_slice[slice][v] = voxel_data[v]
+		faces_by_slice[slice][v] = faces_from[v]
 
 	var slices = faces_by_slice.keys()
 	slices.sort()

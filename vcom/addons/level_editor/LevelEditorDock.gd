@@ -1,9 +1,10 @@
 @tool
 ## The level editor's dock: the palette of every kind of piece and every brush
 ## in the level's library, and how a click paints - paint or erase, in the
-## middle of a cell or on an edge, which floor, which way turned, how big a
-## square. It holds the choices; the plugin (LevelEditorPlugin.gd) reads them,
-## and works the 3D view. Built in code, as the game's own menus are.
+## middle of a cell, on an edge or on a corner, which floor, which way turned,
+## how big a square. It holds the choices; the plugin (LevelEditorPlugin.gd)
+## reads them, and works the 3D view. Built in code, as the game's own menus
+## are.
 extends VBoxContainer
 
 signal changed
@@ -20,9 +21,9 @@ const FLOORS := Vector2i(-8, 32)
 const SIZES := Vector2i(1, 15)
 
 var mode := Mode.PAINT
-## Whether a click goes on the edge between two cells rather than in the middle
-## of one.
-var on_edge := false
+## Where a click goes: the middle of a cell, the edge between two, or the
+## corner where four meet.
+var place := LevelEditing.Place.MIDDLE
 ## The level a click paints, in cells up from the level's own origin.
 var floor_level := 1
 ## Quarter turns about up, counterclockwise seen from above.
@@ -36,8 +37,8 @@ var _counts: Label
 var _palette: ItemList
 var _paint: Button
 var _erase: Button
-var _middle: Button
-var _edge: Button
+## The Middle, Edge and Corner buttons, in [enum LevelEditing.Place]'s order.
+var _places: Array[Button] = []
 var _floor: SpinBox
 var _turn: OptionButton
 var _size: SpinBox
@@ -69,11 +70,14 @@ func _init() -> void:
 	var places := HBoxContainer.new()
 	add_child(places)
 	var place_group := ButtonGroup.new()
-	_middle = _toggle(places, "Middle", place_group, "Place in the middle of a cell, as a block (T toggles).")
-	_edge = _toggle(places, "Edge", place_group, "Place on the edge between two cells, as a fence or a wall (T toggles).")
-	_middle.button_pressed = true
-	_middle.toggled.connect(func(on: bool) -> void: if on: set_on_edge(false))
-	_edge.toggled.connect(func(on: bool) -> void: if on: set_on_edge(true))
+	for entry in [[LevelEditing.Place.MIDDLE, "Middle", "Place in the middle of a cell, as a block (T: middle, edge, corner)."],
+			[LevelEditing.Place.EDGE, "Edge", "Place on the edge between two cells, as a fence or a wall (T: middle, edge, corner)."],
+			[LevelEditing.Place.CORNER, "Corner", "Place on the corner where four cells meet, as a post: only decoration to the fight (T: middle, edge, corner)."]]:
+		var button := _toggle(places, entry[1], place_group, entry[2])
+		var where: LevelEditing.Place = entry[0]
+		button.toggled.connect(func(on: bool) -> void: if on: set_place(where))
+		_places.append(button)
+	_places[place].set_pressed_no_signal(true)
 
 	var grid := GridContainer.new()
 	grid.columns = 2
@@ -120,7 +124,7 @@ func _init() -> void:
 	help.text = (
 		"Left click / drag: paint (Shift: erase). Right click / drag: erase. "
 		+ "Alt + click: pick the piece under the cursor. Q / E: floor down / up. "
-		+ "S / Shift+S: turn. T: middle or edge. [ / ]: size. Ctrl+Z: undo."
+		+ "S / Shift+S: turn. T: middle, edge or corner. [ / ]: size. Ctrl+Z: undo."
 	)
 	add_child(help)
 
@@ -184,10 +188,16 @@ func step_size(by: int) -> void:
 	_sync()
 
 
-## Puts a click on the edge between cells, or in the middle of one.
-func set_on_edge(edge: bool) -> void:
-	on_edge = edge
+## Puts a click in the middle of a cell, on an edge or on a corner.
+func set_place(where: LevelEditing.Place) -> void:
+	place = where
 	_sync()
+
+
+## Puts a click in the next of the three places: middle, edge, corner, and
+## round again.
+func next_place() -> void:
+	set_place(posmod(place + 1, LevelEditing.Place.size()) as LevelEditing.Place)
 
 
 func _set_mode(to: Mode) -> void:
@@ -200,8 +210,8 @@ func _sync() -> void:
 	_floor.value = floor_level
 	_turn.select(turn)
 	_size.value = brush_size
-	_middle.set_pressed_no_signal(not on_edge)
-	_edge.set_pressed_no_signal(on_edge)
+	for where in _places.size():
+		_places[where].set_pressed_no_signal(where == place)
 	_paint.set_pressed_no_signal(mode == Mode.PAINT)
 	_erase.set_pressed_no_signal(mode == Mode.ERASE)
 	_updating = false
@@ -209,16 +219,23 @@ func _sync() -> void:
 
 
 func _on_selected(index: int) -> void:
-	# A fence or a wall goes on an edge to begin with.
+	# A fence or a wall goes on an edge to begin with, a post on a corner.
 	var entry := _entries[index] if index < _entries.size() else null
 	if entry is PieceKind:
-		set_on_edge((entry as PieceKind).edge_piece)
+		set_place(_place_of(entry as PieceKind))
 	elif entry is PieceBrush:
 		var brush := entry as PieceBrush
 		var first: PieceKind = _library.find(brush.kinds[0]) if brush.size() > 0 and _library != null else null
 		if first != null:
-			set_on_edge(first.edge_piece)
+			set_place(_place_of(first))
 	changed.emit()
+
+
+## Where [param kind] goes to begin with.
+static func _place_of(kind: PieceKind) -> LevelEditing.Place:
+	if kind.corner_piece:
+		return LevelEditing.Place.CORNER
+	return LevelEditing.Place.EDGE if kind.edge_piece else LevelEditing.Place.MIDDLE
 
 
 func _fill_palette() -> void:
@@ -229,7 +246,7 @@ func _fill_palette() -> void:
 	for kind in _library.kinds:
 		if kind == null:
 			continue
-		var at := _palette.add_item("%s%s" % [kind.display_name(), "  (edge)" if kind.edge_piece else ("  (decoration)" if not kind.solid else "")])
+		var at := _palette.add_item("%s%s" % [kind.display_name(), _note_of(kind)])
 		_entries.append(kind)
 		_preview(kind.model, at)
 	for brush in _library.brushes:
@@ -242,6 +259,22 @@ func _fill_palette() -> void:
 			_preview(first.model, at)
 	if _palette.item_count > 0:
 		_palette.select(0)
+
+
+## What the palette says after [param kind]'s name: where it goes to begin
+## with, if not in a cell's middle, or that the rules never see it; and that
+## it is a window, which the fight sees through ([member PieceKind.window]).
+static func _note_of(kind: PieceKind) -> String:
+	var note := ""
+	if kind.corner_piece:
+		note = "corner"
+	elif kind.edge_piece:
+		note = "edge"
+	elif not kind.solid:
+		note = "decoration"
+	if kind.window and kind.solid:
+		note = "window" if note.is_empty() else note + ", window"
+	return "  (%s)" % note if not note.is_empty() else ""
 
 
 ## Fetches a picture of [param model] for the palette's entry [param at].

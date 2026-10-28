@@ -6,8 +6,10 @@
 ## in half cells, y in cells, as [LevelData] counts slots) and a turn, in
 ## quarter turns about up. The editor turns the whole brush with its own turn,
 ## offsets and pieces alike, and an offset is always kept a whole cell in each
-## direction or half of one (a piece on an edge), so the brush stays on the
-## grid wherever it is placed. Pieces are placed in order, so a later one wins
+## direction or half of one, so the brush stays on the grid wherever it is
+## placed: an odd offset one way moves a piece between a cell's middle and an
+## edge, and odd both ways between a cell's middle and a corner, or an edge and
+## the corners at its ends. Pieces are placed in order, so a later one wins
 ## where two overlap.
 class_name PieceBrush
 extends Resource

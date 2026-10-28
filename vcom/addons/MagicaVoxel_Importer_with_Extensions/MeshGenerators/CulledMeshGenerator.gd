@@ -1,4 +1,5 @@
 const Faces = preload("./Faces.gd");
+const VoxMaterial = preload("../VoxFormat/VoxMaterial.gd");
 const vox_to_godot = Basis(Vector3.RIGHT, Vector3.FORWARD, Vector3.UP);
 
 func generate(vox, voxel_data, scale, snaptoground):
@@ -48,8 +49,14 @@ class VoxelMeshGenerator:
 		self.snaptoground = snaptoground;
 
 	func get_material(voxel):
-		var surface_index = voxel_data[voxel];
-		return vox.materials[surface_index]
+		return material_of(voxel_data[voxel]);
+
+	# The material of palette entry [index]: a file with no MATL chunk for it
+	# (older ones have none) draws it diffuse.
+	func material_of(index):
+		if not vox.materials.has(index):
+			vox.materials[index] = VoxMaterial.new({});
+		return vox.materials[index];
 
 	func face_is_visible(voxel, face):
 		if (not voxel_data.has(voxel + face)):
@@ -90,7 +97,7 @@ class VoxelMeshGenerator:
 
 			var surface_index = voxel_data[voxel];
 			var color = vox.colors[surface_index];
-			var material = vox.materials[surface_index].get_material(color);
+			var material = material_of(surface_index).get_material(color);
 			gen.ensure_surface_exists(surface_index, color, material);
 
 			for t in voxelSides:

@@ -2,8 +2,8 @@
 
 The level editor paints combat maps. It is a plugin for Godot's own editor
 (`vcom/addons/level_editor/`) that places pieces of voxel terrain - the ground, crates, trees,
-fences, stone walls, tall grass - into a map's `Level` node, in the middles of cells and on the edges
-between them, as Godot's GridMap editor once painted blocks. This file is all of it: how to use it,
+fences, stone walls, tall grass - into a map's `Level` node, in the middles of cells, on the edges
+between them and on the corners where they meet, as Godot's GridMap editor once painted blocks. This file is all of it: how to use it,
 every control, how painting behaves, making a map, adding pieces, how it works inside, how to probe
 it, what it does not do yet and what was decided. What a level is once painted (its pieces, the
 voxels they add up to, how it is drawn, what the rules see of it, how it wears) is
@@ -19,8 +19,8 @@ boxed in blue under the mouse, and the grid of the floor being painted round it.
 ## In short
 
 - Select a map's `Level` node in the Scene dock: the **Level** panel opens beside the 3D view.
-- Choose a piece or a brush in its palette, and a floor, a turn, the middle of a cell or its edge,
-  and a size.
+- Choose a piece or a brush in its palette, and a floor, a turn, the middle of a cell, its edge or
+  its corner, and a size.
 - In the 3D view, **left click** or drag to paint, **right click** or drag to erase.
 - Every stroke is one step of Godot's undo. Saving the scene saves the level's pieces to their own
   file in `vcom/Levels/`.
@@ -66,25 +66,28 @@ The library as it is (2026-10-20):
 | SimpleWall1 (edge) | a plain wall a level high, for buildings (2026-10-22) | an edge |
 | SimpleTruss1 (edge) | a gable's triangle, under SimpleRoof1 | an edge |
 | SimpleRoof1 | one slope of a roof, rising a level across the cell | a cell's middle |
+| SimpleWindow1 (edge, window) | SimpleWall1 with a four-pane window in it (2026-10-27): seen, shot, thrown and vaulted through, its glass only for show (`Docs/GLASS.md`) | an edge |
 | Brush: SkinnyTree1 (2) | a whole tree: the trunk, and the crown a level above it | a cell's middle |
 | Brush: StoneWall2 (2) | two courses of wall, one on the other: full cover | an edge |
 | Brush: SimpleWall2 (2) | two SimpleWall1, one on the other: full cover, a storey | an edge |
+| Brush: SimpleWindowWall2 (2) | a SimpleWall1, its sill, with a SimpleWindow1 on it: half cover, a window at a unit's eye | an edge |
 
-**A slot is the middle of a cell, or the edge between two.** A cell is one unit across (a metre,
-sixteen voxels). A piece in the middle of a cell fills that cell, as a block did; a piece on an edge
-stands half in each of the two cells it lies between, as a fence or a wall does. A cell's corner is
-no slot. Seen from above, -z up the page and +x to the right:
+**A slot is the middle of a cell, the edge between two, or the corner where four meet.** A cell is
+one unit across (a metre, sixteen voxels). A piece in the middle of a cell fills that cell, as a block
+did; a piece on an edge stands half in each of the two cells it lies between, as a fence or a wall
+does; a piece on a corner (since 2026-10-27) stands a quarter in each of the four cells round it, as a
+post would where two lengths of fence meet. Seen from above, -z up the page and +x to the right:
 
 ```
-        +-----------+-----------+
+        C-----B-----C-----B-----C
         |           |           |      M   the middle of a cell
         |     M     A     M     |      A   the edge between two cells side by side
         |           |           |          along x: it runs along z
-        +-----B-----+-----B-----+      B   the edge between two cells side by side
+        C-----B-----C-----B-----C      B   the edge between two cells side by side
         |           |           |          along z: it runs along x
-        |     M     A     M     |      +   a cell's corner: no slot
+        |     M     A     M     |      C   the corner where four cells meet
         |           |           |
-        +-----------+-----------+
+        C-----B-----C-----B-----C
 ```
 
 **A floor is a level of cells**, counted up from the level's origin: floor 0 is the ground blocks'
@@ -96,7 +99,8 @@ ground's top), and a click goes to the slot the mouse points at on that floor.
 **A turn is quarter turns about up**, counterclockwise seen from above: 0°, 90°, 180° or 270°. A
 piece never tips over on to its side. On an edge that runs along z (between cells side by side along
 x), a piece is turned a quarter more than the panel says, because a fence or a wall is drawn running
-along x: so at turn 0 a fence always runs along the edge it is on, whichever way the edge runs.
+along x: so at turn 0 a fence always runs along the edge it is on, whichever way the edge runs. On a
+corner, as in a cell's middle, a piece is turned as the panel says.
 
 **Pieces can share a slot or overlap, and the later wins, voxel by voxel.** A piece painted where
 another stands is laid over it: wherever both have a voxel, the later one's is drawn, worn and
@@ -108,8 +112,13 @@ and erasing takes the last of them.
 in a cell fills the cell, one on an edge stands across the edge and is cover to both sides of it, and
 a unit steps over an edge piece a level high or less, never a taller one (`Docs/LEVELS.md`, "What the
 rules see"). A kind that is not solid (marked "(decoration)" in the palette) is only drawn: nothing in
-the rules sees it. The battlefield's bounds are wherever its solid pieces are, so painting more ground
-grows its tiles and the camera's pan limits with it.
+the rules sees it. **A piece on a corner is decoration to the fight**, whatever its kind: no sight
+line, step, cover, throw or round meets it, and units walk through it. But a solid one stands on
+what is under it (any of its four cells, the four edges meeting there, or the corner below), falls
+when that goes, breaks in a blast, and holds up the corner piece above it and an edge piece resting
+on it by its end: a beam across two posts stands while either does (`Docs/LEVELS.md`, "Corners"). The
+battlefield's bounds are wherever its solid pieces are, so painting more ground grows its tiles and the
+camera's pan limits with it.
 
 ## Controls
 
@@ -124,10 +133,10 @@ These are the level editor's while a `VoxelLevel` node is selected and the mouse
 | Right click, or drag | Erase: take the last piece placed out of each slot |
 | `Shift` + left click, or drag | Erase, as the right button does |
 | `Shift` held while the mouse moves | Show, in red, what an erase would take out |
-| `Alt` + left click | Pick the kind of the last piece in the slot under the cursor: on the floor being painted, in a cell's middle or on an edge as the panel has it; the kind alone, never a brush nor its turn |
+| `Alt` + left click | Pick the kind of the last piece in the slot under the cursor: on the floor being painted, in a cell's middle, on an edge or on a corner as the panel has it; the kind alone, never a brush nor its turn, and the panel stays on the middle, edge or corner it was picked from |
 | `Q` / `E` | Go down / up a floor |
 | `S` / `Shift` + `S` | Turn a quarter counterclockwise / clockwise, seen from above |
-| `T` | Between the middle of a cell and its edge |
+| `T` | From the middle of a cell to its edge, to its corner, and back to the middle |
 | `[` / `]` | Paint a smaller / bigger square, 1 to 15 cells a side |
 | `Ctrl` + `Z` / `Ctrl` + `Shift` + `Z` | Undo / redo a stroke: Godot's own Undo and Redo |
 | `Ctrl` + `S` | Save the scene, and the level's pieces with it |
@@ -163,11 +172,11 @@ Top to bottom:
 | Title | The selected level's node name, "(scenery)" after a scenery level's |
 | Count | How many pieces the level has, and its file (`BoundaryMap.tres`); "No level data" when it has none, and what to do |
 | **Paint** / **Erase** | What the left button does. In Erase the left button erases too; the right always erases |
-| **Middle** / **Edge** | Where a click goes: the middle of the cell under the cursor, or the edge of it nearest the cursor (`T`) |
+| **Middle** / **Edge** / **Corner** | Where a click goes: the middle of the cell under the cursor, the edge of it nearest the cursor, or the corner nearest the cursor (`T` goes from one to the next) |
 | **Floor (Q / E)** | The floor painted, -8 to 32 |
 | **Turn (S)** | 0°, 90°, 180° or 270°, counterclockwise seen from above |
 | **Size ([ / ])** | The square a click paints, 1 to 15 cells a side |
-| **Pieces and brushes** | The palette: every kind in the library with a picture of it (the editor's own previews, which can take a moment to appear), "(edge)" after a fence or a wall and "(decoration)" after one the rules never see; then every brush, "Brush: name (pieces)". Choosing a kind meant for edges, or a brush whose first piece is one, switches to Edge; any other switches to Middle. The first entry is chosen to begin with |
+| **Pieces and brushes** | The palette: every kind in the library with a picture of it (the editor's own previews, which can take a moment to appear), "(corner)" after a kind meant for corners, "(edge)" after a fence or a wall and "(decoration)" after one the rules never see, with "window" beside it for a window ("(edge, window)"); then every brush, "Brush: name (pieces)". Choosing a kind meant for corners, or a brush whose first piece is one, switches to Corner; one meant for edges, to Edge; any other, to Middle. No kind is meant for corners yet: choose Corner by hand. The first entry is chosen to begin with |
 | **Import GridMap** | Makes the level from the first GridMap in the scene ("Importing a GridMap") |
 | **Rebuild** | Builds the level afresh from its pieces |
 | **Save** | Saves now every level's pieces painted since they were last saved |
@@ -191,7 +200,7 @@ Top to bottom:
 - **A square is the size across**, round the slot under the cursor: odd sizes centred on it, even
   ones reaching a cell further toward +x and +z. On an edge it is a square of edges all running the
   same way: size 3 paints three lengths end to end along the edge, and the same along the parallel
-  edges a cell to either side.
+  edges a cell to either side. On a corner it is a square of corners, a cell apart.
 - **A brush places all its pieces at every slot of the square**, turned together, their offsets
   turned with them. With a brush chosen, erasing takes the last piece out of every slot its pieces
   would stand in: a tree's trunk and its crown.
@@ -199,9 +208,10 @@ Top to bottom:
   so dragging a fence along a row of cells past their corners never turns it across them. To paint
   the other way, start a new stroke.
 - **Where the cursor is.** The mouse's ray meets the plane at the foot of the floor being painted, in
-  the level's own space, in front of the camera; the slot is the cell there, or the edge of that cell
-  nearest the point. A ray that meets that plane nowhere in front of the camera (the view looking up
-  past it, or along it) shows nothing, and a click there paints nothing and selects nothing.
+  the level's own space, in front of the camera; the slot is the cell there, the edge of that cell
+  nearest the point, or the corner nearest it. A ray that meets that plane nowhere in front of the
+  camera (the view looking up past it, or along it) shows nothing, and a click there paints nothing
+  and selects nothing.
 - **The cursor shows what a click would do:** a ghost of every piece a click would place, in its own
   colours, and a blue box round each slot it would fill; erasing (`Shift` held, the right button down,
   or Erase mode), a red box round each slot it would take a piece from. It belongs to no scene and is
@@ -229,8 +239,13 @@ Top to bottom:
 - **Fences and walls:** choose FenceStraight or StoneWall (the panel switches to Edge), set the floor
   to 1, and drag along the edges between cells. A fence, or one course of wall, is half cover and is
   stepped over; the **StoneWall2** brush paints two courses, full cover, which nobody steps over. A
-  corner is two lengths at right angles meeting at the corner's point, which is no slot: there is no
-  post there.
+  corner is two lengths at right angles meeting at the corner's point.
+- **Posts:** choose the post's kind, press `T` (or the panel's **Corner**) until the panel is on
+  Corner, and click on the corner, where lengths of fence or wall meet or at their ends. A post is
+  decoration to the fight, never cover nor in anyone's way, but a beam (a course of wall, a fence) a
+  floor up, on the edge running from one post to the next, stands on them while either stands. No
+  kind is drawn for corners yet; a kind with **Corner Piece** ticked switches the panel to Corner by
+  itself.
 - **Trees:** the **SkinnyTree1** brush on floor 1: its trunk there, its crown on floor 2. Shoot the
   trunk through and the crown comes down.
 - **Decoration:** TallGrass on floor 1, over the ground: drawn, stained by blood, blown away by a
@@ -240,6 +255,9 @@ Top to bottom:
   near (-z) row and 180° on the far one for a ridge along x; and **SimpleTruss1** on floor 3 at each
   gable, on the edges at the house's two ends, turn 0 beside the turn-0 roofs and 180° beside the
   others. Turn the lot a quarter for a ridge along z. `Docs/LEVELS.md` has how the three are set up.
+  For a window, paint **SimpleWindowWall2** on floor 1 in place of a length of SimpleWall2, or a
+  **SimpleWindow1** on floor 2 over a SimpleWall1; a SimpleWindow1 on floor 1 with another over it is a
+  glass door.
 - **Replacing a piece:** erase it (right click), then paint the new one.
 - **Finding out what is in a slot:** `Alt` + click picks the kind of its last piece. Pieces are no
   nodes, so the Inspector shows only the level as a whole.
@@ -293,24 +311,36 @@ from elsewhere.
   - **Model Transform**: where the mesh sits in the piece's box. The default, down half a box, suits
     a model standing on MagicaVoxel's ground; one drawn elsewhere in its box needs its own (the
     crate's is moved 1.3125 along z as well). A piece for edges is drawn running along x, centred
-    across z, so that it stands across its edge.
+    across z, so that it stands across its edge; one for corners is centred both ways, its middle on
+    the corner.
   - **Destruction**: a `VoxelDestruction` to wear away a few voxels at a time, a `ScriptedDestruction`
     to break into pieces cut in advance, or none, never to break (`Docs/DESTRUCTION.md`'s recipes).
   - **Solid**: off for decoration, which the rules never see.
   - **Tile Grid**: the optional grid (`G`) drawn on its voxels: the ground.
   - **Edge Piece**: the panel switches to Edge when it is chosen.
+  - **Corner Piece**: the panel switches to Corner when it is chosen, over **Edge Piece**. Any kind can
+    go on a corner whatever this says; it only chooses where the panel starts.
+  - **Cutaway**: a building piece, cut away from the view to see inside (`Docs/CUTAWAY.md`).
+  - **Window**: decoration to the fight wherever it stands, as a piece on a corner is: seen, shot,
+    thrown, clicked and vaulted through, no cover itself; what holds pieces up sees it as any piece
+    (`Docs/GLASS.md`). "(window)" in the palette. Its glass is whatever its model paints with
+    MagicaVoxel's Glass material, the one thing a model needs for glass, window or not.
 - **A brush.** Add a `PieceBrush` to **Brushes**: its **Display Name**, and for each of its pieces a
   kind (**Kinds**, by id), a slot offset from the slot clicked (**Offsets**: x and z in half cells, y
   in cells, so 2 is a cell along and 1 a cell up) and a turn (**Turns**, quarter turns, 0 if left out).
-  Even offsets across keep a piece in the same kind of slot as the click, a cell's middle or an edge;
-  an odd one moves it between the two, and one that makes both of a slot's x and z odd puts it on a
-  cell's corner, which is no slot. Its pieces are placed in that order, a later one winning where two
-  overlap, and the whole brush turns with the panel's turn, offsets and all.
+  Even offsets across keep a piece in the same kind of slot as the click; an odd one moves it between
+  a cell's middle and an edge, or an edge and a corner, and one that makes both of a slot's x and z
+  odd puts it on a corner: a fence with posts at its ends is the fence at (0, 0, 0) and posts at
+  (-1, 0, 0) and (1, 0, 0), painted on an edge. Its pieces are placed in that order, a later one
+  winning where two overlap, and the whole brush turns with the panel's turn, offsets and all: turned
+  a quarter on an edge, that fence and its posts stand across the edge, the posts in the middles of
+  the cells either side, where the turned fence's ends are.
 - **The palette shows them once the editor is restarted**, or the plugin turned off and on (Project
   Settings > Plugins): the panel fills its palette once for each library it is shown.
 - **Models to start from:** `MagicaVoxel/Shapes/` holds basic block-sized models made by a script
   (`make_shapes.py`; its `README.md` has each and how to bring one in), of which the fence, the stone
-  wall and the tall grass are in the game.
+  wall and the tall grass are in the game; `MagicaVoxel/Buildings/` the building pieces, the window
+  made from the wall by `make_windows.py`.
 
 ## How it works
 
@@ -334,8 +364,9 @@ from elsewhere.
    marks handled (`set_input_as_handled()`), or it would go on to Godot's shortcuts.
 2. **Aiming.** `_aim()` meets the camera's ray through the mouse with the plane at the floor's foot, in
    the level's own space (so a moved or turned level paints true), and `LevelEditing.slot_at()` turns
-   the point into a slot: the cell under it, or the nearest of that cell's four edges, only those
-   running the stroke's way once a stroke has begun on an edge.
+   the point into a slot, by the panel's `place` (a `LevelEditing.Place`: `MIDDLE`, `EDGE` or
+   `CORNER`): the cell under it, the nearest of that cell's four edges, only those running the
+   stroke's way once a stroke has begun on an edge, or the nearest of its four corners.
 3. **What to do.** `LevelEditing.placements()` lists the pieces the selection makes there, as a kind,
    a slot and a turn each, over the square; or `erasures()` the slots to take a piece from. `_paint()`
    leaves out the slots the stroke has already been to.
@@ -365,8 +396,8 @@ the whole texture again.
 **The file.** A `LevelData` `.tres` holds `kinds`, the ids of the kinds the level uses (a
 `PackedStringArray`; pieces name a kind by its place here, so the library can grow or be reordered
 under it), and `pieces`, a `PackedInt32Array` of five numbers a piece, in the order placed: the kind's
-place, the slot's x, y and z (x and z in half cells: both even, a cell's middle; one odd, an edge), and
-the turn, 0 to 3. BoundaryMap's 2,084 pieces are 37 KB of text, its forest's 37,118 about 700 KB.
+place, the slot's x, y and z (x and z in half cells: both even, a cell's middle; one odd, an edge;
+both odd, a corner), and the turn, 0 to 3. BoundaryMap's 2,084 pieces are 37 KB of text, its forest's 37,118 about 700 KB.
 Nothing in a battle changes it: what breaks is the battle's to keep.
 
 ## Why a plugin
@@ -447,6 +478,21 @@ click does apart from the editor, and `LevelData` is a plain resource.
   The last two found three faults, mended then: an erasing drag took a second piece where its squares
   overlapped; `Q` and `E` went past the floors the panel shows; and the keys reached Godot's
   shortcuts as well (`E` chose its Rotate tool, `Q` Select, `T` local space).
+- **The probes made for corners** (2026-10-27), all passing:
+  - headless, on `LevelData`, `LevelEditing` and the panel (61 checks): the corner slot's cells, box,
+    edges and ends; `slot_at()` finding the nearest corner from every side, negative cells too; no
+    quarter more on a corner, one on an edge along z; squares of corners; a brush of a fence and posts
+    at its ends, on edges both ways at every turn; `T` going middle, edge, corner, middle; a kind with
+    **Corner Piece** choosing Corner over **Edge Piece**; the three buttons following;
+  - in the editor, on LineOfSightTest (17 checks): `T` three times, each taken; a kind for the middle
+    choosing Middle and the **Corner** button then choosing Corner; a click on an empty corner
+    painting a trunk there, turned as the panel says, its voxels drawn; `Alt` + click on it picking the
+    trunk, painting nothing and keeping to Corner; a size-2 drag over three corners painting 8 pieces,
+    all on corners; undo and redo of both strokes.
+
+  The second found that picking switched the panel to the kind's own place, so a kind picked off a
+  corner, no kind being meant for corners, sent the panel back to Middle: picking now keeps to the
+  slot it picked from.
 - Every probe's editor logs `Can't use get_node() with absolute paths from outside the active scene
   tree` once as it quits; no script of the project uses an absolute path, so it is not the level
   editor's. In a copy kept deep in a temporary folder, the editor also logs that it cannot make its
@@ -462,8 +508,9 @@ click does apart from the editor, and `LevelData` is a plain resource.
 
 ## What it does
 
-- Paint any kind or brush in the middles of cells and on the edges between them, on any floor from -8
-  to 32, turned in quarter turns about up, in squares 1 to 15 cells a side, by click and by drag.
+- Paint any kind or brush in the middles of cells, on the edges between them and on the corners where
+  they meet, on any floor from -8 to 32, turned in quarter turns about up, in squares 1 to 15 cells a
+  side, by click and by drag.
 - Erase, a piece a slot a stroke, by the right button, `Shift` or Erase mode; a brush erases every
   slot it would fill.
 - Layer pieces in one slot, the later winning voxel by voxel.
@@ -479,10 +526,12 @@ click does apart from the editor, and `LevelData` is a plain resource.
 - Build maps from plots and parcels, the user's next step ("In a subsequent step, we will allow
   creating separate maps with our level editor that serve as plots or parcels."): a map is one painted
   level.
-- Auto-tile: a fence's or a wall's ends, corners and joints are placed piece by piece, and a corner is
-  no slot, so there are no corner posts.
-- Place anything but a whole piece in a cell's middle or on an edge: no free placement, no half
-  levels, no tilting.
+- Auto-tile: a fence's or a wall's ends, corners and joints are placed piece by piece, and so is a
+  post on the corner where two lengths meet.
+- Offer a kind drawn for corners: none is yet (the user's choice, 2026-10-27), so Corner is chosen by
+  hand; `MagicaVoxel/Shapes/`' `FenceCorner`, `FenceT` and `FenceCross` would suit one.
+- Place anything but a whole piece in a cell's middle, on an edge or on a corner: no free placement,
+  no half levels, no tilting.
 - Fill, draw lines, select a box, copy and paste, move pieces, replace in place, or pick a piece's
   turn or a brush from the view: the square is the only brush shape.
 - Show single pieces: they are no nodes, so the Inspector shows the level alone, and what a slot holds
@@ -539,14 +588,20 @@ click does apart from the editor, and `LevelData` is a plain resource.
   a full tree)"
 - "For now we are going to stick with whole maps. In a subsequent step, we will allow creating
   separate maps with our level editor that serve as plots or parcels."
+- 2026-10-27: "Update the level editor to allow placing voxel models on the corners of tiles. This
+  should continue to follow all pre-existing rules." Asked how, they chose: to the fight a piece on a
+  corner is decoration only; it stands on what is under it, holds up the corner above, and holds up
+  an edge piece resting on it by its end; no new kinds, the slot alone; `T` going middle, edge,
+  corner, with a **Corner** button and a **Corner Piece** flag that chooses Corner, as **Edge Piece**
+  chooses Edge (`Docs/LEVELS.md`, "Corners", has what each means for the rules).
 
 **Without asking:**
 
 - A Godot editor plugin rather than a standalone application ("Why a plugin").
 - The panel beside the 3D view, as the GridMap editor's palette was, rather than a dock tab.
 - The controls: left paints, right, `Shift` or Erase mode erases, `Alt` picks; `Q` / `E` floors, `S`
-  turns, `T` between middle and edge, `[` / `]` the size, as Godot's GridMap editor and common voxel
-  editors use keys near them; and those keys the level editor's alone while a level is selected, over
+  turns, `T` between middle and edge (and corner, the user's, 2026-10-27), `[` / `]` the size, as
+  Godot's GridMap editor and common voxel editors use keys near them; and those keys the level editor's alone while a level is selected, over
   Godot's own shortcuts on `Q`, `E` and `T`.
 - A stroke is one undo step and touches each slot once, however its squares overlap; painting the
   same kind at the same turn again does nothing; erasing takes the last piece in a slot; an edge stroke
@@ -556,3 +611,8 @@ click does apart from the editor, and `LevelData` is a plain resource.
 - A square brush, 1 to 15 cells a side; floors from -8 to 32, the keys stopping where the panel does.
 - Import GridMap, Rebuild and Save on the panel.
 - The cursor's grid, ghosts and blue and red boxes; picking the kind alone, not its turn.
+- For corners (2026-10-27): a corner piece turned as the panel says, with no quarter more; the click
+  going to the corner nearest the cursor; a square of corners a cell apart; picking keeping the panel
+  on the middle, edge or corner it picked from (a change for every slot: before, picking a kind
+  switched to the kind's own place, as choosing it in the palette does); **Corner Piece** winning over
+  **Edge Piece** on a kind that has both; "(corner)" in the palette.

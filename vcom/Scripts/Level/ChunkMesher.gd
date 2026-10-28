@@ -21,6 +21,13 @@
 ## piece's own box ([VoxelVolume.Stamp]) for the scenery, which is drawn a kind
 ## at a time, or the box of any other voxel model ([VoxelModel]): a figure, a
 ## prop, a crate's board.
+##
+## Glass is meshed apart ([method faces]): the glass voxels' own faces as a
+## second set of rectangles, drawn see-through ([constant VoxelModel.GLASS_SHADER]).
+## A face of any other voxel shows through glass, so to the rest glass is air;
+## a face of glass shows only against nothing, so glass beside glass, or beside
+## anything else, hides its face there. Without glass the faces are found
+## exactly as they always were.
 class_name ChunkMesher
 extends RefCounted
 
@@ -48,7 +55,9 @@ static var _indices := PackedInt32Array()
 
 ## The neighbours of a chunk, for [method rectangles]: the rows of the chunk
 ## on each side that the faces on that side are against, empty where there is
-## none.
+## none; and the glass among them, as rows laid out the same way, empty for a
+## neighbour with none. A face of anything but glass shows against a
+## neighbour's glass as against air.
 class Near:
 	var east := PackedInt64Array()
 	var west := PackedInt64Array()
@@ -56,6 +65,12 @@ class Near:
 	var down := PackedInt64Array()
 	var north := PackedInt64Array()
 	var south := PackedInt64Array()
+	var east_glass := PackedInt64Array()
+	var west_glass := PackedInt64Array()
+	var up_glass := PackedInt64Array()
+	var down_glass := PackedInt64Array()
+	var north_glass := PackedInt64Array()
+	var south_glass := PackedInt64Array()
 
 
 ## Every face of the voxels of an [param n]-sided cube whose rows are
@@ -64,26 +79,83 @@ class Near:
 ## [constant FIELDS] numbers each. Faces looking down on the slice
 ## [param floor_slice] are left out, the underside of the floor; all faces
 ## looking down are, with [param no_down], for scenery only ever seen from
-## above.
+## above. A neighbour's glass ([member Near.east_glass] and the rest) is air to
+## them: for a cube with glass of its own, [method faces].
 static func rectangles(n: int, rows_x: PackedInt64Array, rows_z: PackedInt64Array, near: Near, floor_slice := -1, no_down := false) -> PackedInt32Array:
+	return _faces(n, rows_x, rows_z, rows_x, rows_z, near, true, floor_slice, no_down)
+
+
+## The faces of the voxels of an [param n]-sided cube as [method rectangles]
+## finds them, its glass apart: [code][the rest's, the glass's][/code]. Its
+## voxels are [param rows_x] and [param rows_z], every one, and its glass
+## [param glass_x] and [param glass_z], laid out the same way, or empty for
+## none. A face of anything but glass shows against glass as against air, in
+## the cube or beside it; a face of glass shows only against nothing.
+static func faces(
+	n: int, rows_x: PackedInt64Array, rows_z: PackedInt64Array, glass_x: PackedInt64Array,
+	glass_z: PackedInt64Array, near: Near, floor_slice := -1, no_down := false
+) -> Array[PackedInt32Array]:
+	var found: Array[PackedInt32Array] = []
+	if glass_x.is_empty():
+		found.append(rectangles(n, rows_x, rows_z, near, floor_slice, no_down))
+		found.append(PackedInt32Array())
+		return found
+	var solid_x := without(rows_x, glass_x)
+	var solid_z := without(rows_z, glass_z)
+	found.append(_faces(n, solid_x, solid_z, solid_x, solid_z, near, true, floor_slice, no_down))
+	found.append(glass_rectangles(n, glass_x, glass_z, rows_x, rows_z, near, floor_slice, no_down))
+	return found
+
+
+## The faces of the glass of an [param n]-sided cube, [param glass_x] and
+## [param glass_z], that open on to nothing: no voxel of the cube's, all of
+## them [param rows_x] and [param rows_z], nor of the neighbours in
+## [param near], glass or not. The second set [method faces] gives.
+static func glass_rectangles(
+	n: int, glass_x: PackedInt64Array, glass_z: PackedInt64Array, rows_x: PackedInt64Array,
+	rows_z: PackedInt64Array, near: Near, floor_slice := -1, no_down := false
+) -> PackedInt32Array:
+	return _faces(n, glass_x, glass_z, rows_x, rows_z, near, false, floor_slice, no_down)
+
+
+## [param rows] without the bits of [param glass], row by row: [param rows]
+## itself if [param glass] is empty.
+static func without(rows: PackedInt64Array, glass: PackedInt64Array) -> PackedInt64Array:
+	if glass.is_empty():
+		return rows
+	var left := rows.duplicate()
+	for at in left.size():
+		left[at] &= ~glass[at]
+	return left
+
+
+## The faces of the voxels in [param from_x] / [param from_z] that open on to
+## no voxel of [param against_x] / [param against_z], the same cube's, or of
+## the neighbours in [param near], whose glass is air if [param glass_is_air]
+## and a voxel like any other if not.
+static func _faces(
+	n: int, from_x: PackedInt64Array, from_z: PackedInt64Array, against_x: PackedInt64Array,
+	against_z: PackedInt64Array, near: Near, glass_is_air: bool, floor_slice: int, no_down: bool
+) -> PackedInt32Array:
 	var quads := PackedInt32Array()
 	var rows := PackedInt64Array()
 	rows.resize(n)
 	var last := n - 1
+	var none := PackedInt64Array()
 	# Up and down: slice y, a row for each z, bits along x, the rows of a
 	# slice side by side and the slices a chunk's area apart. Past the top or
 	# bottom slice, the row against it is the chunk above's bottom slice or the
 	# one below's top.
-	_slices(n, rows_x, near.up, 0, n, 1, 1, 1, rows, quads, -1)
+	_slices(n, from_x, against_x, near.up, near.up_glass if glass_is_air else none, 0, n, 1, 1, 1, rows, quads, -1)
 	if not no_down:
-		_slices(n, rows_x, near.down, last * n, n, 1, 1, -1, rows, quads, floor_slice)
+		_slices(n, from_x, against_x, near.down, near.down_glass if glass_is_air else none, last * n, n, 1, 1, -1, rows, quads, floor_slice)
 	# North and south: slice z, a row for each y, bits along x, the slices side
 	# by side and the rows a chunk's width apart.
-	_slices(n, rows_x, near.north, 0, 1, n, 2, 1, rows, quads, -1)
-	_slices(n, rows_x, near.south, last, 1, n, 2, -1, rows, quads, -1)
+	_slices(n, from_x, against_x, near.north, near.north_glass if glass_is_air else none, 0, 1, n, 2, 1, rows, quads, -1)
+	_slices(n, from_x, against_x, near.south, near.south_glass if glass_is_air else none, last, 1, n, 2, -1, rows, quads, -1)
 	# East and west: slice x, a row for each y, bits along z, laid out alike.
-	_slices(n, rows_z, near.east, 0, 1, n, 0, 1, rows, quads, -1)
-	_slices(n, rows_z, near.west, last, 1, n, 0, -1, rows, quads, -1)
+	_slices(n, from_z, against_z, near.east, near.east_glass if glass_is_air else none, 0, 1, n, 0, 1, rows, quads, -1)
+	_slices(n, from_z, against_z, near.west, near.west_glass if glass_is_air else none, last, 1, n, 0, -1, rows, quads, -1)
 	return quads
 
 
@@ -91,17 +163,18 @@ static func rectangles(n: int, rows_x: PackedInt64Array, rows_z: PackedInt64Arra
 ## [param axis], a slice at a time, merged into [param quads]. Row
 ## [code]r[/code] of slice [code]s[/code] is at
 ## [code]s * slice_stride + r * row_stride[/code], and the row a face is
-## against is the same row of the next slice that way, or, past the last
-## slice, the row of [param beyond] at
-## [code]beyond_start + r * row_stride[/code]: none if [param beyond] is
-## empty, so every face there shows. Faces on the slice [param skip] are left
-## out.
+## against is the same row of the next slice that way in
+## [param against_rows], or, past the last slice, the row of [param beyond] at
+## [code]beyond_start + r * row_stride[/code], less [param beyond_glass]'s
+## there if it is not empty: none if [param beyond] is empty, so every face
+## there shows. Faces on the slice [param skip] are left out.
 static func _slices(
-	n: int, source: PackedInt64Array, beyond: PackedInt64Array, beyond_start: int,
-	slice_stride: int, row_stride: int, axis: int, side: int, rows: PackedInt64Array,
-	quads: PackedInt32Array, skip: int
+	n: int, source: PackedInt64Array, against_rows: PackedInt64Array, beyond: PackedInt64Array,
+	beyond_glass: PackedInt64Array, beyond_start: int, slice_stride: int, row_stride: int, axis: int, side: int,
+	rows: PackedInt64Array, quads: PackedInt32Array, skip: int
 ) -> void:
 	var has_beyond := not beyond.is_empty()
+	var glass_beyond := has_beyond and not beyond_glass.is_empty()
 	var last := n - 1
 	var edge := last if side > 0 else 0
 	for slice in n:
@@ -112,7 +185,13 @@ static func _slices(
 		if slice != edge:
 			var against := start + side * slice_stride
 			for r in n:
-				var shown := source[start + r * row_stride] & ~source[against + r * row_stride]
+				var shown := source[start + r * row_stride] & ~against_rows[against + r * row_stride]
+				rows[r] = shown
+				any |= shown
+		elif glass_beyond:
+			for r in n:
+				var at := beyond_start + r * row_stride
+				var shown := source[start + r * row_stride] & ~(beyond[at] & ~beyond_glass[at])
 				rows[r] = shown
 				any |= shown
 		elif has_beyond:

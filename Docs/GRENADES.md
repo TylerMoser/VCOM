@@ -37,6 +37,15 @@ are called together (`ShotOverlay.flash_results()`, over the heads). The action 
 `AFTERMATH_SECONDS` and until no unit is moving, so anyone the blast dropped has landed before the
 next throw is worked out. The 3D effects go under `effects_path`, the map root.
 
+**Windows are thrown through, and a blast shatters glass round it** (`Docs/GLASS.md`). A window
+(`PieceKind.window`) is no cell or edge to the rules, so an arc's casts pass it, and only the wall
+round it can stop one: a throw through a window under a lintel clears only where the arc crosses at
+the window's height, coming down steeply from across a room. The grenade in flight shatters every pane
+it passes through (`ThrownGrenade.GROUP`, traced each frame by `TerrainDestruction._shatter_passing()`),
+and its blast every pane within `VoxelTerrain.GLASS_BLAST_REACH` (3) cells of where it goes off,
+whatever stands between (XCOM 2's three tiles), besides breaking any window with a side in its cells.
+None of it changes what the blast catches.
+
 A grenade is a `Grenade` (`Items/Grenade.gd`, a `BattleItem`): its `damage`, `blast_size` (odd, tiles
 across), `environment_damage` and `blast_force`. `FragGrenade.tres` is the one there is: 5 damage, 3
 tiles across.

@@ -99,6 +99,18 @@ out (`Unit._wound_on()`: a wound its cover hides from the muzzle is picked again
 generator). Only the figure moves: the unit never leaves its tile, so coins, reactions and everything
 else that reads `tile_at()` see nothing.
 
+### Through a window
+
+**A window is no obstacle to a shot.** A kind with `PieceKind.window` is no cell or edge to the rules
+(`Docs/GLASS.md`, the user's 2026-10-27), so `LineOfSight` sees through one, both ways, and a target
+behind it is lined up as one in the open would be, but for its cover: the piece under the window, its
+sill, a cell high, is half cover to both sides, as a fence is, and the window adds none. A round traced
+voxel by voxel meets the window's frame and passes its glass, so a miss can bite the frame or fly on
+through a pane; a miss is never aimed at a window (`Ballistics._cover_faces()` reads edges), only at
+its sill. Every round's line, hit or miss, shatters the panes of any window it crosses, once it has
+landed (`round_flown` -> `VoxelTerrain.shatter_along()`): nothing the shot rolled, nor anything the
+rules read, changes.
+
 ### A strike
 
 **Strike is a shot at arm's length.** `StrikeAction` is laid out as `ShootAction`: its targets are the

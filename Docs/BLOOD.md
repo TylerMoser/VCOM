@@ -94,8 +94,10 @@ write: on the level `VolumeSurface.stain()` is `VoxelVolume.recolor(voxel, BLOOD
 layer of the level's texture is uploaded once that frame (`LevelRenderer.refresh()`); on any other
 model `ModelSurface.stain()` is `VoxelModel.recolor(index, BLOOD)`, which gives the model a texture of
 its own the first time (its shape's is every such model's) and uploads it at the end of the frame.
-Nothing is rebuilt, nothing more is drawn, and every open face of the voxel shows red. A spreading
-pool under a body costs about 0.06 ms a frame in uploads (0.15 at worst), a figure's texture 4 KB.
+Nothing is rebuilt, nothing more is drawn, and every open face of the voxel shows red. On glass too:
+a voxel stays glass whatever its colour, and blood's place has no clarity, so the glass shaders draw
+a stained pane's voxel opaque, wet and red, a smear on the glass, and its shard red when the pane
+shatters (`Docs/GLASS.md`). A spreading pool under a body costs about 0.06 ms a frame in uploads (0.15 at worst), a figure's texture 4 KB.
 The user chose texture writes on 2026-10-19 for the level, rather than more textures or overlay
 meshes, and on 2026-10-20 asked for every voxel model to be recoloured so "instead of utilizing
 overlays": figures, props and crate boards had faces stained by an overlay of red squares 2 mm proud
@@ -165,8 +167,10 @@ Adding things blood should stain:
   the level, figures and their gear, debris taken on as loose models, and lumps. As debris, a
   `RigidBody3D` on the debris layer taken on with `VoxelTerrain.take_on_body()`, it needs nothing
   more; anything else, a branch in `_first_met()`.
-- **A material that should take blood differently** (water, glass, sand) has nowhere to say so: every
-  surface takes it alike, and only breakable blocks have a resource to put a setting on.
+- **A material that should take blood differently** (water, sand) has nowhere to say so: every
+  surface takes it alike, and only breakable blocks have a resource to put a setting on. Glass is the
+  one that does: its voxels stay glass under blood, drawn opaque on the pane (`Docs/GLASS.md`); blood
+  translucent on glass would want blood's place to carry a clarity, which only the glass shaders read.
 - **A turned piece** is stamped turned, so its blood is its voxels' like anything else's; only a
   turned crate's hand-off turns voxels back to its model (`carry_blood()`), and no map has one yet, so
   probe the first.
@@ -231,7 +235,8 @@ Three checks blood was made with, worth repeating after changing it:
   with the tile grid off. It cannot be changed in a battle, so a battle opened on its own (F6, the
   harness) always has blood unless a probe sets `Blood.enabled` before the map loads.
 - Drops pass through what has no voxels to them or no body: stilled lumps, pieces that do not wear,
-  blocks falling whole, and the scenery beyond the battlefield (lost below the map). Everything is
+  blocks falling whole, shards of glass, and the scenery beyond the battlefield (lost below the map).
+  Blood on glass casts no shadow, as the glass does not. Everything is
   stained a whole voxel at a time, every face of it, an open underside too.
 - A crate whose `ScriptedDestruction` has no `wear` loses its blood as it breaks: only pieces taken on
   as loose models can carry it.

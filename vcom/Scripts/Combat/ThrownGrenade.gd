@@ -11,6 +11,10 @@
 class_name ThrownGrenade
 extends MeshInstance3D
 
+## The group every grenade in flight is in: what it passes through on its way
+## shatters, if it is glass ([TerrainDestruction]).
+const GROUP := &"thrown_grenades"
+
 ## How fast a thrown grenade falls, in cells a second per second, which is
 ## what sets how long a throw is in the air. Stronger than real gravity, so a
 ## long throw does not keep the turn waiting.
@@ -33,6 +37,7 @@ var _model: Node3D
 
 
 func _init() -> void:
+	add_to_group(GROUP)
 	var sphere := SphereMesh.new()
 	sphere.radius = RADIUS
 	sphere.height = RADIUS * 2.0

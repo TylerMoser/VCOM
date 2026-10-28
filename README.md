@@ -163,10 +163,10 @@ adding pieces.
 | Paint the selected piece or brush | Left click, or drag to paint more |
 | Erase the last piece placed in a slot | Right click or drag, or `Shift` + left, or the panel's Erase |
 | See what an erase would take out | Hold `Shift` |
-| Pick the kind under the cursor | `Alt` + left click |
+| Pick the kind under the cursor | `Alt` + left click, keeping to the middle, edge or corner it was picked from |
 | Go down or up a floor | `Q` / `E` |
 | Turn what is placed | `S` / `Shift` + `S` |
-| Place in the middle of a cell, or on the edge between two | `T` |
+| Place in the middle of a cell, on the edge between two, or on the corner where four meet | `T`, from one to the next, or the panel's Middle, Edge and Corner |
 | Paint a smaller or bigger square | `[` / `]` |
 | Undo or redo a stroke | `Ctrl` + `Z` / `Ctrl` + `Shift` + `Z` |
 | Save the level's pieces | `Ctrl` + `S`, with the scene, or the panel's Save |
@@ -349,9 +349,9 @@ itself is the sign.
 A map with buildings can have **floors**, set on the map (its `Level` node's **Cutaway Heights**). It
 then shows a stack of sheets halfway down the left edge of the screen: a whole sheet on top, and the
 edge of a sheet under it for each floor, the highest first. The top is chosen as the battle starts,
-and everything shows. Choosing a floor hides every wall, gable and roof from that height up, and
-whatever stands on them (a unit, a coin, a crate's pieces, debris), so you can see in. The sheet
-chosen is gold and those above it, hidden, faint. Choose the top to see it all again.
+and everything shows. Choosing a floor hides every wall, window, gable and roof from that height up,
+and whatever stands on them (a unit, a coin, a crate's pieces, debris, broken glass), so you can see
+in. The sheet chosen is gold and those above it, hidden, faint. Choose the top to see it all again.
 
 The game changes the floor too, so you never lose sight of anyone who matters: when an enemy acts,
 when you line up an enemy to shoot or strike, when you select a squad member (or your turn starts on
@@ -395,8 +395,13 @@ A tile is an empty cell with solid ground beneath it and two cells of headroom â
 tile and the cell above. Units step to any of the eight neighbours, climbing at most 1 level and
 dropping at most 2. Diagonal steps cost the same as straight ones but cannot cut a corner. A fence,
 or a wall a cell high, on the edge between two tiles is stepped over (the soldier hops it), as a
-climb of a level is; a taller wall is not, and nobody steps diagonally past either. `G` draws the
-tiles' edges on the ground, for counting them.
+climb of a level is; a taller wall is not, and nobody steps diagonally past either. Stepping over
+one needs only the level above it to be open, so a soldier vaults through a window over its sill even
+with wall above the window, breaking the glass as they go; a glass door, a window on the ground, is
+walked through. A piece on the corner where four cells meet, a post, is only decoration in a fight:
+it blocks no step, sight line, shot or throw and gives no cover, though it holds up a beam laid
+across it and falls with what is under it. `G` draws the tiles' edges on the ground, for counting
+them.
 
 ### Line of sight and cover
 
@@ -409,6 +414,10 @@ Cover is whatever is solid beside a tile, on any of its four cardinal sides:
 - **Fences and walls on the edges between tiles** are cover the same way, to both sides of them: a
   fence or a wall a cell high is half cover, a wall two cells high full cover, and they block sight
   as a block does. Nobody leans out through one.
+- **Windows are seen, shot and thrown through.** A window gives no cover itself: what a soldier
+  crouches behind is the wall under it, its sill, a cell high, so half cover to both sides. Its glass
+  is only for show: whole or broken, a window is the same in the fight, and nobody hides behind a
+  pane.
 
 **Stepping out.** A unit behind cover leans out to either side of it to shoot around it, exactly as
 in XCOM, and the tile it leans to is marked on the map while you aim. The lean is played out: the
@@ -499,7 +508,8 @@ throw at a tile one of them stands on, right-click it or use the keys.
   is stopped, with a cross there, and the throw cannot be made. Units never block it. It clears the
   thrower's own full cover, and drops behind half cover from the full 10 tiles, but it can never land
   right behind full cover: throw it a tile past whoever is hiding there and the blast still catches
-  them.
+  them. A window is no obstacle: the grenade flies through it, breaking the glass, though the wall
+  round the window stops the arc as any wall does.
 - **Nothing is rolled.** A grenade always goes off where it is thrown.
 - **The blast catches everyone in it**, friend or foe, the thrower included. It is a cube as tall as
   it is wide, centred on the target: the Frag Grenade's is **3Ã—3** tiles across and reaches from the
@@ -508,7 +518,8 @@ throw at a tile one of them stands on, right-click it or use the keys.
   from a shot. Walls inside the blast shelter nobody.
 - **It breaks every crate in the blast**, blows a crater in the grass and the trees there (see
   [Destructible terrain](#destructible-terrain)), and throws the debris there about. Crates stacked
-  above the blast fall, and anyone left standing on nothing drops.
+  above the blast fall, and anyone left standing on nothing drops. Every pane of glass within 3
+  tiles of it shatters, walls between or not.
 - **It is gone for good.** A thrown grenade is used up for the rest of the campaign; the Market
   sells more. With none left, the button leaves the action bar.
 
@@ -608,6 +619,12 @@ that reaches several blocks is one round hole, with no seam where the blocks met
 - **What falls off hanging** - a lump of earth left holding on to nothing, even through several
   blocks - drops with the rest.
 
+**Glass shatters.** A window's panes break, all of them at once, when a round flies through the
+window or its frame, hit or miss, when a soldier vaults through it or a grenade flies through it, when
+a grenade goes off within 3 tiles of it, or when a bite takes any of its glass. The glass falls in
+shards that tumble, bounce and lie where they land for the rest of the fight. It is only for show: a
+window is seen and shot through whole or broken, and its frame wears away like any wall.
+
 As with crates, the debris is only for show and stays for the rest of the fight. After a great deal of
 destruction, the debris furthest from where the camera is looking stops moving, though it stays where
 it lies; a blast, the ground going from under it, or a soldier walking into it sets it moving again.
@@ -641,7 +658,8 @@ a battle; a battle keeps whatever it began with.
   a little back toward the gun. A sword's sprays along its swing, a grenade's away from the blast.
   The more damage, the more blood, and a hit armor stops entirely draws none.
 - **Spray.** Each drop flies as a voxel of blood, and stains whatever it lands on: the ground, walls,
-  crates, debris, other soldiers and the guns they carry, and what the dead broke into.
+  the glass of windows (an opaque red smear on the pane), crates, debris, other soldiers and the guns
+  they carry, and what the dead broke into.
 - **Coins stay clean.** They are the one exception: blood flies straight through a coin, and never
   stains it.
 - **Pools.** Blood runs where it lands, voxel by voxel: it pools on flat ground, runs over an edge
@@ -724,6 +742,14 @@ there. So blood keeps exactly to the voxel grid, nothing is drawn over anything,
 rebuilds a block, a board or a body, wherever a voxel goes its blood goes, and the rules never see it.
 Where it lands it runs like a liquid, cheapest way first and downhill cheapest, so a pool fills a
 crater and drips over a ledge with no fluid simulation.
+
+**Glass is for show; a window is not.** As in XCOM 2, soldiers see, shoot, throw and vault through
+windows, and any of it breaks the glass. A window is a piece the fight looks through, the wall under
+it the cover, and its glass only for show, so the fight reads the same whether a pane is whole or
+broken. Glass is MagicaVoxel's own Glass material, painted with the rest of a model, and it is drawn
+as a tint multiplied over whatever is behind it with the sky's reflection added on top: multiplying
+and adding give the same result in any order, so panes seen through panes never sort wrong, and the
+sun falls through on to the floor inside.
 
 **Death removes a unit at once.** A fallen unit leaves its groups immediately rather than when the
 node is freed, so nothing shoots at it or paths around it in the meantime. Its figure breaks apart into
@@ -1196,8 +1222,9 @@ vcom/                     the Godot project
                           to, how those are drawn, what the rules see, and what an editor click does
     Terrain/              destructible terrain: what breaks, how, and what it brings down; the
                           level's voxels and loose models (a crate's boards) worn away voxel by voxel,
-                          and the voxels broken off them; how every voxel model is drawn and
-                          recoloured (VoxelModel and its shader)
+                          and the voxels broken off them; glass shattering, and its shards; how every
+                          voxel model is drawn and recoloured (VoxelModel and its shaders, glass's
+                          among them)
     Blood/                blood: wounds, the spray, and the pools it runs into
     Actions/              the action bar's actions: Move, Shoot, Strike, Overwatch, Reload, Hunker
                           Down, Throw Grenade, Use Medkit
@@ -1236,6 +1263,8 @@ MagicaVoxel/              source .vox art
   Shapes/                 basic 16x16x16 models (terrain, walls, props, plants), the script that
                           makes them, and a preview of them all; three are in the game (the fence,
                           the stone wall, tall grass)
+  Buildings/              the building pieces: a wall, a truss and a roof drawn by hand, and a window
+                          made from the wall by make_windows.py
 Images/                   screenshots: the world map, the menus, battles just begun and long fought,
                           clean and with blood, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
@@ -1243,9 +1272,9 @@ MapStyles/                proposals for the new world map's look (02, 04, 05, 10
                           19a and 12b are applied), pictures of the look as it is, 12 and 20 explored
                           with variants, the harness that renders them, and how to apply one
 Docs/                     each subsystem in full, split out of CLAUDE.md: ammo, blood, the campaign,
-                          the combat camera, destruction, the gamepad, grenades, hunkering down,
-                          levels, the level editor, the new world map, medkits, the roster,
-                          shooting, skills and voxel models
+                          the combat camera, destruction, the gamepad, glass and windows, grenades,
+                          hunkering down, levels, the level editor, the new world map, medkits, the
+                          roster, shooting, skills and voxel models
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

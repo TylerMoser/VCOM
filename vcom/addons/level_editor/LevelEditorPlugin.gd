@@ -1,8 +1,8 @@
 @tool
 ## The level editor: paints a combat map's [VoxelLevel] in Godot's own 3D view,
 ## as the GridMap editor painted its blocks, with kinds of piece and brushes of
-## several from the level's [PieceLibrary], in the middles of cells and on the
-## edges between them.
+## several from the level's [PieceLibrary], in the middles of cells, on the
+## edges between them and on the corners where they meet.
 ##
 ## Select a VoxelLevel node and the Level panel beside the 3D view shows its
 ## palette. With the
@@ -10,8 +10,9 @@
 ## pieces a click would place; left click places them, dragging places more,
 ## right click (or Shift, or the dock's Erase) takes out the last piece placed
 ## in each slot. Q and E go down and up a floor, S and Shift+S turn, T moves
-## between the middle of a cell and its edge, [ and ] shrink and grow the
-## square a click paints, Alt and a click picks the kind under the cursor.
+## from the middle of a cell to its edge, to its corner and back, [ and ]
+## shrink and grow the square a click paints, Alt and a click picks the kind
+## under the cursor.
 ## Those keys are the level editor's alone while a level is selected, over
 ## Godot's own shortcuts on them.
 ## Every stroke, press to release, is one step of the scene's undo history.
@@ -154,7 +155,7 @@ func _forward_3d_gui_input(camera: Camera3D, event: InputEvent) -> int:
 			KEY_S:
 				_dock.step_turn(-1 if key.shift_pressed else 1)
 			KEY_T:
-				_dock.set_on_edge(not _dock.on_edge)
+				_dock.next_place()
 			KEY_BRACKETLEFT:
 				_dock.step_size(-1)
 			KEY_BRACKETRIGHT:
@@ -203,7 +204,7 @@ func _refresh_cursor() -> void:
 	if not _has_hit:
 		_cursor.visible = false
 		return
-	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.on_edge, _stroke_axis if _stroking else -1)
+	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.place, _stroke_axis if _stroking else -1)
 	var erasing := _stroke_erases if _stroking else (_shift or _dock.mode == Dock.Mode.ERASE)
 	var selection := _dock.selection()
 	var placed := LevelEditing.placements(selection, slot, _dock.turn, _dock.brush_size)
@@ -227,7 +228,7 @@ func _begin_stroke(erases: bool) -> void:
 func _paint() -> void:
 	if not _stroking or not _has_hit:
 		return
-	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.on_edge, _stroke_axis)
+	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.place, _stroke_axis)
 	if _stroke_axis < 0:
 		_stroke_axis = LevelEditing.edge_axis(slot)
 	var selection := _dock.selection()
@@ -287,14 +288,18 @@ func _touched(level: VoxelLevel) -> void:
 	_refresh_cursor()
 
 
-## Selects the kind of the last piece placed in the slot under the cursor.
+## Selects the kind of the last piece placed in the slot under the cursor,
+## keeping to the kind of slot it was picked from: a kind picked off a corner
+## goes on corners, whatever it would go on chosen in the palette.
 func _pick() -> void:
 	if not _has_hit:
 		return
-	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.on_edge)
+	var slot := LevelEditing.slot_at(Vector3(_hit.x, _dock.floor_level, _hit.z), _dock.place)
 	var here := _level.data.indices_at(slot)
 	if not here.is_empty():
+		var picked_from: LevelEditing.Place = _dock.place
 		_dock.select_kind(_level.data.kind_id(here[here.size() - 1]))
+		_dock.set_place(picked_from)
 		_refresh_cursor()
 
 

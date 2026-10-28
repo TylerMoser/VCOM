@@ -6,8 +6,8 @@ Every voxel model the game draws, and how each is coloured, in full: `VoxelShape
 `BloodFlow` that make or recolour one. It was written as every model came to be drawn one way
 (2026-10-20); `CLAUDE.md` keeps a summary ("Every voxel model is drawn and recoloured one way").
 `Docs/LEVELS.md` has the level's own side of it (its volume, its chunks, the mesher's search for
-faces, the shader's growth past edges), and `Docs/BLOOD.md` what blood does with it. A section named
-here that is not in this file (Gotchas, Verification, Known gaps, another subsystem's notes) is
+faces, the shader's growth past edges), `Docs/BLOOD.md` what blood does with it, and `Docs/GLASS.md`
+glass, which every model draws apart. A section named here that is not in this file (Gotchas, Verification, Known gaps, another subsystem's notes) is
 `CLAUDE.md`'s.
 
 ## Why one way
@@ -41,7 +41,10 @@ never changed: a block (`read()`, 16³ in its cell), a mesh imported straight fr
 (`read_mesh()`, which also measures `scale`, how much bigger the mesh draws a voxel than a block's: a
 prop is imported at 0.063 a voxel, a block at 0.0625), or one model of a `.vox` imported as a scene
 (`read_model()`, cut down to its voxels; a crate's boards). A figure's is made from its rig
-(`VoxelRig.make_shape()`), and a block falling whole's from what it left in the level.
+(`VoxelRig.make_shape()`), and a block falling whole's from what it left in the level. Beside each
+colour are its flags (`flags`), from the `.vox`'s materials: a colour MagicaVoxel draws as glass is
+glass, as clear as its Transparency, and the shape's glass voxels are kept apart (`glass`,
+`glass_rows`: `Docs/GLASS.md`).
 
 **A model is drawn by a `VoxelModel`**, a node under the `MeshInstance3D` that draws it, which goes
 wherever that goes. It holds the model's voxels, its palette (its shape's, or painted one colour,
@@ -68,8 +71,11 @@ What it shares and what it owns:
   shares its source's texture and material: each writes only its own voxels, never the same ones,
   so they can share one texture for good. Neither's material is its own to change from then on; a
   change makes one.
-- **Painted** (`paint(color)`), every place but blood's is that colour, on a material of its own: a
-  figure in its unit's colour.
+- **Painted** (`paint(color)`), every place but blood's and glass's is that colour, on a material of
+  its own: a figure in its unit's colour, a visor still clear.
+- **With glass**, its glass is a second surface of its mesh (`GLASS_SURFACE`) with a material of its
+  own, the glass shaders' two passes reading the same texture and palette (`_apply_materials()`); a
+  voxel stays glass whatever it is recoloured (`glass_rows`). `Docs/GLASS.md` has it.
 
 **One shader draws every voxel model** (`Scripts/Terrain/Voxels.gdshader`, moved from
 `Scripts/Level/LevelVoxels.gdshader` and renamed as it came to draw more than the level). Each corner
@@ -79,7 +85,9 @@ face's extent across its two axes (`ChunkMesher.arrays()`). A pixel's voxel is h
 the face, from those alone, kept within the face's extent, and read with `texelFetch` at
 `(x, z + y * box_size.z, layer)`; its palette entry is its colour (sRGB, turned linear unless the
 output is sRGB) and flags (1 the tile grid's lines, 2 wet: specular 0.35, roughness 0.55, against 0.5
-and 1). Colour edges inside a merged face are blended over about a pixel (`neighbour_share()`), and
+and 1; 4 glass, which this shader never draws, and a glass colour's clarity in the top five bits).
+What it shares with the glass shaders, the uniforms, the vertex function and the lookups, is in
+`Voxels.gdshaderinc`. Colour edges inside a merged face are blended over about a pixel (`neighbour_share()`), and
 faces are drawn a fiftieth of a pixel past their edges, as `Docs/LEVELS.md` describes. Since nothing
 is read from where a corner is drawn, a mesh skinned to a skeleton is coloured as one standing
 still: a figure. It is lit as the importer's materials light a model (`diffuse_burley`,
@@ -94,7 +102,8 @@ palette's flags come from `VoxelModel.palette_entries(colors, flags)`: the level
 grass place has the grid), a model none, so blood's place alone is wet.
 
 **One mesher meshes every voxel model** (`ChunkMesher`): faces open to the air found from rows of
-bits and merged greedily by shape alone, since colour comes from the texture. It meshes any cube of
+bits and merged greedily by shape alone, since colour comes from the texture; glass apart, a face of
+anything else showing through it and a face of glass only against nothing (`faces()`). It meshes any cube of
 voxels: a level's chunk, a scenery kind's block and its coarser copies (8³ and 4³), and a model's
 box set in a cube as wide as its widest, at most 62 voxels (`VoxelModel.rectangles_of()`, which
 turns the model's rows along x into the rows along z the mesher also wants). A model's mesh is built
@@ -165,7 +174,8 @@ of faces did (see `Docs/BLOOD.md`).
 
 1. **Draw it in MagicaVoxel and import it** as a Mesh (one model) or a Scene (several, each its own
    `MeshInstance3D` marked with its `magica_voxel_model_id`), at a block's 0.0625 a voxel or a prop's
-   0.063. At most 62 voxels along any axis.
+   0.063. At most 62 voxels along any axis. Glass is a colour painted with MagicaVoxel's Glass
+   material, its Transparency how clear it is (`Docs/GLASS.md`).
 2. **A prop an item shows** (`Item.model`, a scene placing the mesh so its grip is on the origin):
    nothing more. `CharacterModel` takes it over as it makes it.
 3. **Anything else shown by a `MeshInstance3D`:** `VoxelModel.take_over(mesh_instance, source)` once
@@ -199,6 +209,8 @@ of faces did (see `Docs/BLOOD.md`).
   once for the whole chunk: 0.35 ms a chunk against 0.27, about 40 ms more on BoundaryMap's 520 ms
   build, and a round's bite redraws in about 2.7 ms against 2.2. A model's own mesh, built as it
   wears, is a few hundred faces at most.
+- **Glass:** a model or a section of the level with glass has a second surface, drawn in two passes,
+  two draw calls more; one with none, nothing (`Docs/GLASS.md`).
 - **Blood:** a hit costs 0.2 ms as before; a wound's flow on a figure (24 faces) about 1 ms, in
   blood's budget a physics step; a death with blood about 4.2 ms on its frame (3.8 before).
 
@@ -212,10 +224,12 @@ in full (the mesher is `Level/`'s, `Docs/LEVELS.md`).
     VoxelShape.gd          one model's voxels, read from its .vox with the importer's reader: a block's (read(), 16^3),
                            one model of a .vox imported as a scene (read_model(), source_of()) or a mesh imported from
                            one (read_mesh()), cropped to its voxels; a padded array of palette places, a row of bits
-                           per (y, z) (so at most WIDEST, 62, along x), colors (255 BLOOD's), scale, shared
+                           per (y, z) (so at most WIDEST, 62, along x), colors (255 BLOOD's) and their flags
+                           (FLAG_GLASS: glass, glass_rows, find_glass()), scale, shared
     VoxelModel.gd          a voxel model as drawn, a node under its MeshInstance3D: voxels, palette, texture (Texels),
-                           material (Voxels.gdshader, beside it); take_over(), of(), show_on(), recolor(), paint(),
-                           remove() / rebuild(), split(), frame()
+                           material (Voxels.gdshader, beside it), its glass a second surface with a material of its
+                           own (VoxelGlass and VoxelGlassShine.gdshader); take_over(), of(), show_on(), recolor(),
+                           paint(), remove() / rebuild(), split(), frame()
 ```
 
 ## Probing it
@@ -250,7 +264,8 @@ its `material_override` set to a flat `StandardMaterial3D` (a figure) or its `me
 - On a figure the faces grow past their edges along their axes as they rest, so on a turned bone
   part of that is out of the face's plane: a fiftieth of a pixel either way.
 - The figure's baked mesh shows a flat material of its model's commonest colour in the editor, not
-  its colours, since the bake runs headless; the base figure is one grey, so it shows as it is.
+  its colours, since the bake runs headless (its glass, if any, a pale see-through one); the base
+  figure is one grey, so it shows as it is.
 - A figure is painted all one colour, its unit's: a model drawn in colours of its own with only some
   of them its unit's (a uniform's trim) would want a palette with some places painted and some not.
 - A lump keeps the colour its voxel had as it broke off, and is no `VoxelModel`: a voxel recoloured

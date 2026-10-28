@@ -22,6 +22,12 @@
 ## there are, as the bits of one number, bit x for voxel x, so a model can be
 ## at most [constant WIDEST] voxels along x.
 ##
+## Each colour has flags beside it ([member flags]), as the voxel shader reads
+## them from its palette: a colour drawn in MagicaVoxel with its Glass material
+## is glass, and how clear its material is rides along with it. The model's
+## glass voxels are kept apart too ([member glass], [member glass_rows]), as
+## glass is drawn and broken apart from the rest ([ChunkMesher], Docs/GLASS.md).
+##
 ## What a model is whole never changes, so each is read once and shared: a
 ## model wearing away or recoloured ([VoxelModel]) changes a copy of the
 ## arrays, never these.
@@ -38,6 +44,18 @@ const WIDEST := 62
 ## bright red, as Fat Princess has it.
 const BLOOD := 255
 const BLOOD_COLOR := Color(0.78, 0.02, 0.03)
+## What a palette entry says beyond its colour, in its flags, a byte, the
+## fourth number of each of the voxel shader's palette entries: the tile grid
+## is drawn over it ([TileGrid]); it is wet, and glossier for it, as blood is;
+## it is glass, see-through ([VoxelModel.GLASS_SHADER]). A glass colour's
+## clarity, how much of the light it lets through, is the flags' top
+## [constant CLARITY_STEPS] steps from [constant CLARITY_SHIFT] up
+## ([method glass_flags], [method clarity_of]).
+const FLAG_GRID := 1
+const FLAG_WET := 2
+const FLAG_GLASS := 4
+const CLARITY_SHIFT := 3
+const CLARITY_STEPS := 31
 
 ## The reader the MagicaVoxel importer uses, and how it turns the model's axes
 ## (z up) into Godot's (y up).
@@ -58,8 +76,18 @@ var corner := Vector3.ZERO
 var voxels := PackedByteArray()
 var rows := PackedInt64Array()
 ## The model's palette, each colour at the place its voxels hold. The first,
-## 0, is no colour; the last, [constant BLOOD], blood's.
+## 0, is no colour; the last, [constant BLOOD], blood's. Beside each, its
+## flags ([constant FLAG_GLASS] and the rest): what the .vox's material for it
+## says. Blood's are wet.
 var colors := PackedColorArray()
+var flags := PackedByteArray()
+## Which voxels are glass, laid out as [member voxels] are, 1 for glass, and
+## the same as rows, laid out as [member rows]: both empty if none is. A voxel
+## keeps being glass whatever colour it is given later: blood on glass is
+## drawn on the glass.
+var glass := PackedByteArray()
+var glass_rows := PackedInt64Array()
+var glass_count := 0
 ## How many voxels the model has whole.
 var count := 0
 ## How much bigger the mesh the model was read from draws its voxels than a
@@ -89,6 +117,8 @@ func _init(dimensions: Vector3i, least_corner: Vector3) -> void:
 	voxels.resize(length)
 	rows.resize(size.y * size.z)
 	colors.resize(256)
+	flags.resize(256)
+	flags[BLOOD] = FLAG_WET
 
 
 ## The voxels of the block [param mesh] draws, standing in its cell as
@@ -99,7 +129,7 @@ static func read(mesh: Mesh, mesh_transform: Transform3D) -> VoxelShape:
 	if frame == null:
 		return null
 	var shape := VoxelShape.new(Vector3i.ONE * BLOCK, -Vector3.ONE * 0.5)
-	shape._paint(_files[mesh.resource_path].colors)
+	shape._paint(_files[mesh.resource_path])
 	var outside := 0
 	var half := Vector3.ONE * 0.5
 	for voxel: Vector3 in frame:
@@ -116,6 +146,7 @@ static func read(mesh: Mesh, mesh_transform: Transform3D) -> VoxelShape:
 		push_warning("VoxelShape: %d voxels of '%s' lie outside its cell, and are left out." % [outside, mesh.resource_path])
 	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
+	shape.find_glass()
 	return shape
 
 
@@ -140,7 +171,7 @@ static func read_mesh(mesh: Mesh) -> VoxelShape:
 	if shape.size.x > WIDEST:
 		push_error("VoxelShape: '%s' is %d voxels along x, more than the %d a model can be." % [mesh.resource_path, shape.size.x, WIDEST])
 		return null
-	shape._paint(_files[mesh.resource_path].colors)
+	shape._paint(_files[mesh.resource_path])
 	# What the mesh measures over what the voxels do: a prop is imported at 0.063
 	# a voxel.
 	shape.scale = mesh.get_aabb().size.x / (shape.size.x * SCALE)
@@ -149,6 +180,7 @@ static func read_mesh(mesh: Mesh) -> VoxelShape:
 		shape.count += 1
 	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
+	shape.find_glass()
 	_models[mesh.resource_path] = shape
 	return shape
 
@@ -190,13 +222,14 @@ static func read_model(path: String, model_id: int) -> VoxelShape:
 		return null
 	var base := Vector3(-middle.x, -middle.z, middle.y - drawn.y)
 	var shape := VoxelShape.new(size, (base + Vector3(least)) * SCALE)
-	shape._paint(vox.colors)
+	shape._paint(vox)
 	for voxel: Vector3 in model.voxels:
 		var at := Vector3i(int(voxel.x), int(voxel.z), drawn.y - 1 - int(voxel.y))
 		shape.voxels[shape.index_of(at - least)] = int(model.voxels[voxel]) + 1
 		shape.count += 1
 	shape.reserve_blood()
 	shape.rows = shape.rows_of(shape.voxels)
+	shape.find_glass()
 	_models[key] = shape
 	return shape
 
@@ -220,7 +253,8 @@ func is_full() -> bool:
 
 ## Keeps [constant BLOOD] free for blood, and gives it blood's colour: a model
 ## with a colour of its own there has it moved to a place none of its voxels
-## use. Call once its voxels are in, as every reading of a .vox does.
+## use, flags and all. Call once its voxels are in, as every reading of a .vox
+## does.
 func reserve_blood() -> void:
 	if voxels.has(BLOOD):
 		var used := PackedByteArray()
@@ -232,10 +266,58 @@ func reserve_blood() -> void:
 			push_error("VoxelShape: a model uses all %d colours, so one is drawn as blood." % BLOOD)
 		else:
 			colors[free] = colors[BLOOD]
+			flags[free] = flags[BLOOD]
 			for index in voxels.size():
 				if voxels[index] == BLOOD:
 					voxels[index] = free
 	colors[BLOOD] = BLOOD_COLOR
+	flags[BLOOD] = FLAG_WET
+
+
+## Works out which of its voxels are glass, from its colours' flags: every
+## voxel holding a glass colour ([constant FLAG_GLASS]). Call once its voxels
+## and flags are in and blood's place is free ([method reserve_blood]).
+func find_glass() -> void:
+	glass = PackedByteArray()
+	glass_rows = PackedInt64Array()
+	glass_count = 0
+	var glassy := false
+	for place in range(1, BLOOD):
+		if flags[place] & FLAG_GLASS != 0:
+			glassy = true
+			break
+	if not glassy:
+		return
+	glass.resize(length)
+	for index in length:
+		var held := voxels[index]
+		if held != 0 and flags[held] & FLAG_GLASS != 0:
+			glass[index] = 1
+			glass_count += 1
+	if glass_count == 0:
+		glass = PackedByteArray()
+		return
+	glass_rows = rows_of(glass)
+
+
+## Whether any of its voxels is glass.
+func has_glass() -> bool:
+	return glass_count > 0
+
+
+## The flags of a glass colour [param clarity] clear: 1 lets all the light
+## through, tinted by its colour, and 0 none, drawn as an opaque colour would
+## be ([VoxelModel.GLASS_SHADER]).
+static func glass_flags(clarity: float) -> int:
+	return FLAG_GLASS | (roundi(clampf(clarity, 0.0, 1.0) * CLARITY_STEPS) << CLARITY_SHIFT)
+
+
+## How clear a colour with [param of_flags] is: [method glass_flags]'
+## clarity, 0 for one that is no glass.
+static func clarity_of(of_flags: int) -> float:
+	if of_flags & FLAG_GLASS == 0:
+		return 0.0
+	return float((of_flags >> CLARITY_SHIFT) & CLARITY_STEPS) / CLARITY_STEPS
 
 
 ## Whether [param at], counted from voxel (0, 0, 0), is one of the model's.
@@ -314,10 +396,19 @@ func bounds_of(of_rows: PackedInt64Array) -> AABB:
 	return AABB(corner + Vector3(least) * SCALE, Vector3(most - least + Vector3i.ONE) * SCALE)
 
 
-## Fills [member colors] from [param palette], a .vox's.
-func _paint(palette: Array) -> void:
+## Fills [member colors] from [param vox]'s palette, and [member flags] from
+## its materials: each colour's material, in the importer's reader, is at the
+## place of the colour, one down. A colour MagicaVoxel draws as glass is glass,
+## as clear as its Transparency says.
+func _paint(vox: Variant) -> void:
+	var palette: Array = vox.colors
 	for index in mini(palette.size(), 255):
 		colors[index + 1] = palette[index]
+	var materials: Dictionary = vox.materials
+	for place in range(1, BLOOD):
+		var material: Variant = materials.get(place - 1)
+		if material != null and material.is_glass():
+			flags[place] = glass_flags(material.transparency)
 
 
 ## Where the importer draws the least corner of [param voxel], a voxel of a

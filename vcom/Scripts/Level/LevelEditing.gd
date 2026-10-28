@@ -3,14 +3,19 @@
 ## click, worked out apart from the editor itself, so probes can do exactly
 ## what a click does.
 ##
-## A click is in a slot ([LevelData]): the middle of a cell, or the edge
-## between two cells. What it places is a kind of piece ([PieceKind]) or a
-## brush of several ([PieceBrush]), turned the editor's turn, repeated over a
-## square of cells the brush size across. A piece placed on an edge running
-## along z is turned a quarter more, so a model drawn running along x, as a
-## fence is, always runs along its edge.
+## A click is in a slot ([LevelData]): the middle of a cell, the edge between
+## two cells, or the corner where four meet. What it places is a kind of piece
+## ([PieceKind]) or a brush of several ([PieceBrush]), turned the editor's
+## turn, repeated over a square of cells the brush size across. A piece placed
+## on an edge running along z is turned a quarter more, so a model drawn
+## running along x, as a fence is, always runs along its edge; one on a corner
+## is turned as the editor says.
 class_name LevelEditing
 extends RefCounted
+
+## Where a click goes: the middle of the cell under the cursor, the edge of it
+## nearest the cursor, or the corner of it nearest the cursor.
+enum Place { MIDDLE, EDGE, CORNER }
 
 
 ## Every piece one click places, as [code][kind id, slot, turn][/code], in the
@@ -22,7 +27,7 @@ static func placements(selection: Resource, slot: Vector3i, turn: int, size: int
 	if selection == null:
 		return placed
 	for base in square(slot, size):
-		var along := turn + (1 if base.x & 1 == 1 else 0)
+		var along := turn + (1 if base.x & 1 == 1 and base.z & 1 == 0 else 0)
 		if selection is PieceKind:
 			placed.append([(selection as PieceKind).id, base, posmod(along, 4)])
 		elif selection is PieceBrush:
@@ -72,16 +77,18 @@ static func turned_offset(offset: Vector3i, turn: int) -> Vector3i:
 
 
 ## The slot a point at [param at] on the floor, in the level's own space, falls
-## in: the middle of the cell under it, or with [param on_edge] the edge of
-## that cell nearest it. Given [param axis], 0 or 2, only edges across that
-## axis are taken: a stroke begun on an edge running along z keeps to such
-## edges, so dragging a fence along a row of cells past their corners never
-## turns it across them.
-static func slot_at(at: Vector3, on_edge: bool, axis := -1) -> Vector3i:
+## in, by [param place] (a [enum Place]): the middle of the cell under it, the
+## edge of that cell nearest it, or the corner nearest it. Given [param axis],
+## 0 or 2, only edges across that axis are taken: a stroke begun on an edge
+## running along z keeps to such edges, so dragging a fence along a row of
+## cells past their corners never turns it across them.
+static func slot_at(at: Vector3, place: Place, axis := -1) -> Vector3i:
 	var cell := Vector3i(floori(at.x), roundi(at.y), floori(at.z))
-	if not on_edge:
+	if place == Place.MIDDLE:
 		return LevelData.centre_slot(cell)
 	var across := Vector2(at.x - cell.x, at.z - cell.z)
+	if place == Place.CORNER:
+		return LevelData.corner_slot(cell, Vector2i(-1 if across.x < 0.5 else 1, -1 if across.y < 0.5 else 1))
 	var ways := []
 	if axis != 2:
 		ways.append([across.x, Vector2i(-1, 0)])
@@ -97,13 +104,11 @@ static func slot_at(at: Vector3, on_edge: bool, axis := -1) -> Vector3i:
 
 
 ## Which axis the edge in [param slot] stands across: 0 for one between two
-## cells along x, 2 along z; -1 for the middle of a cell.
+## cells along x, 2 along z; -1 for the middle of a cell or a corner.
 static func edge_axis(slot: Vector3i) -> int:
-	if slot.x & 1 == 1:
-		return 0
-	if slot.z & 1 == 1:
-		return 2
-	return -1
+	if not LevelData.is_edge(slot):
+		return -1
+	return 0 if slot.x & 1 == 1 else 2
 
 
 ## Applies [param edits] to [param level], each [code]["add", id, slot, turn][/code]

@@ -11,8 +11,11 @@
 ## rules with it, but falls whole, as a [FallingBlock], and breaks where it
 ## lands; a piece that cannot break is left where it is, and so is everything
 ## on it. A piece across an edge stands on the cells either side of it below,
-## or on the piece across the same edge below it, and falls once all of those
-## have gone. A unit left standing on nothing drops to the ground below,
+## on the piece across the same edge below it, or on a piece on the corner
+## below either end of it, and falls once all of those have gone. A piece on a
+## corner, only decoration to the fight, stands on the four cells below it, the
+## four edges meeting below it or the corner below, and falls the same way.
+## A unit left standing on nothing drops to the ground below,
 ## falling with the rubble of what it stood on and passing through it, and
 ## through whatever the pieces falling with it break into.
 ##
@@ -47,12 +50,17 @@
 ## ([method break_figure]): into lumps of voxel debris, as a block crumbles,
 ## knocked the way the killing blow went, its gear dropping whole as loose
 ## models that wear away.
+##
+## Glass shatters here, only for show ([VoxelTerrain], [GlassShards]): along
+## every round's flight, round every blast, and wherever a unit or a grenade in
+## flight passes a window, looked for every frame ([method _shatter_passing]).
 class_name TerrainDestruction
 extends Node3D
 
 ## Emitted as a piece breaks, [param destruction] saying what kind it was.
 ## [param cell] is where it broke: where it stood (for one across an edge, the
-## cell on its least side), or, for one that fell whole, the cell it landed in.
+## cell on its least side; on a corner, the least of its four), or, for one
+## that fell whole, the cell it landed in.
 signal block_broken(cell: Vector3i, destruction: Destruction)
 
 ## Physics layers: the level, and the pieces broken off it.
@@ -99,9 +107,11 @@ const FIGURE_SPIN := 8.0
 @export_group("Nodes")
 @export var grid_path: NodePath = ^"../CombatGrid"
 
-## The voxels of the pieces that wear away, and the voxels broken off them.
+## The voxels of the pieces that wear away, the voxels broken off them, and
+## the shards of every pane of glass broken.
 var voxels: VoxelTerrain
 var voxel_debris: VoxelDebris
+var glass_shards: GlassShards
 
 var _grid: CombatGrid
 var _level: VoxelLevel
@@ -110,6 +120,10 @@ var _tidy_in := TIDY_SECONDS
 ## How the figures breaking apart scatter and tumble draws on this, so the
 ## global generator is left alone.
 var _show := RandomNumberGenerator.new()
+## Each unit's tile, and each grenade in flight's place, as last seen, by its
+## instance id: whatever passes a window between two frames shatters it.
+var _unit_tiles := {}
+var _grenades_at := {}
 
 
 ## One broken piece and everything it brings down: the debris left so far, by
@@ -142,7 +156,9 @@ func _ready() -> void:
 	voxel_debris = VoxelDebris.new()
 	voxel_debris.focus = _looked_at
 	add_child(voxel_debris)
-	voxels = VoxelTerrain.new(_grid, _level, voxel_debris)
+	glass_shards = GlassShards.new()
+	add_child(glass_shards)
+	voxels = VoxelTerrain.new(_grid, _level, voxel_debris, glass_shards)
 	add_child(voxels)
 	_grid.voxels = voxels
 	_grid.terrain_struck.connect(_on_terrain_struck)
@@ -151,6 +167,11 @@ func _ready() -> void:
 	_show.randomize()
 	# The squad is spawned after this readies ([PlayerSquad]).
 	_watch_units.call_deferred()
+
+
+func _process(_delta: float) -> void:
+	if voxels != null:
+		_shatter_passing()
 
 
 func _physics_process(delta: float) -> void:
@@ -172,8 +193,9 @@ func break_block(cell: Vector3i, hit: CombatGrid.RayHit = null) -> bool:
 	if _level == null:
 		return false
 	var broke := false
-	# A copy: breaking a piece takes it out of the rules' own list.
-	var standing := _level.rules.pieces_in(cell).duplicate()
+	# A copy: breaking a piece takes it out of the rules' own list. A window in
+	# the cell too.
+	var standing := _level.rules.pieces_at(LevelData.centre_slot(cell)).duplicate()
 	for at in range(standing.size() - 1, -1, -1):
 		if break_piece(standing[at], hit):
 			broke = true
@@ -215,6 +237,10 @@ func break_figure(model: CharacterModel, from: Vector3, blasted := false, at := 
 	var pieces: Array[VoxelDebris.Piece] = []
 	var figure := model.voxels()
 	if figure != null and voxel_debris != null and model.crumbles_as != null:
+		# Its glass, a visor, shatters as the rest breaks into lumps.
+		var glass := figure.glass_points()
+		if glass_shards != null and not (glass[0] as PackedVector3Array).is_empty():
+			glass_shards.burst(glass[0], glass[1], glass[2], knock)
 		pieces = figure.crumble(model.crumbles_as.crumble_size, _show)
 		for piece in pieces:
 			piece.velocity = knock.call(piece.transform.origin)
@@ -276,9 +302,11 @@ static func pieces_in(space: PhysicsDirectSpaceState3D, box: AABB) -> Array[Rigi
 	return found
 
 
-## A round tears through the loose voxel models along its flight, and flies on.
+## A round tears through the loose voxel models along its flight, and flies on,
+## shattering the glass it passes through.
 func _on_round_flown(from: Vector3, to: Vector3, damage: int) -> void:
 	voxels.tear(from, to, damage)
+	voxels.shatter_along(from, to)
 
 
 ## A strike breaks the piece it struck, or, if the piece wears away, breaks
@@ -298,8 +326,9 @@ func _on_terrain_struck(hit: CombatGrid.RayHit, damage: int) -> void:
 
 ## Blows a crater round [param origin] in every piece among [param cells], the
 ## cells a blast there reaches, that wears away, then breaks every breakable
-## piece among them that does not - in a cell, or across an edge with a cell
-## either side among them - and every one the crater has worn past standing,
+## piece among them that does not - in a cell, across an edge with a cell
+## either side among them, or on a corner with any of its four cells among
+## them - and every one the crater has worn past standing,
 ## then throws the debris inside the blast about with a [Blast] of
 ## [param force]: what it has just broken, as its pieces are let go, and
 ## whatever was lying there already, the blast's own dead among it, who have
@@ -308,6 +337,8 @@ func _on_terrain_struck(hit: CombatGrid.RayHit, damage: int) -> void:
 ## The pieces break from the top down, so each one is blasted apart where it
 ## stands rather than first falling on the one below it, the way a piece does
 ## when something under it breaks; pieces stacked above the blast still fall.
+## Every pane of glass within [constant VoxelTerrain.GLASS_BLAST_REACH] of
+## it shatters, whatever stands between.
 func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], damage: int, force: float) -> void:
 	var wear := voxels.crater(origin, cells, damage)
 	_wake_debris(wear)
@@ -316,16 +347,21 @@ func _on_terrain_blasted(origin: Vector3, cells: Array[Vector3i], damage: int, f
 	var inside := {}
 	for cell in cells:
 		inside[cell] = true
-		for piece in rules.pieces_in(cell):
+		for piece in rules.pieces_at(LevelData.centre_slot(cell)):
 			if not voxels.wears_away(piece):
 				breaking.append(piece)
-	for slot in rules.edge_slots():
-		if inside.has(LevelData.cell_of(slot)) or inside.has(LevelData.other_cell(slot)):
-			for piece in rules.pieces_across(slot):
-				if not voxels.wears_away(piece):
-					breaking.append(piece)
+	for slot in rules.edge_slots() + rules.corner_slots() + rules.window_slots():
+		if LevelData.is_centre(slot):
+			continue
+		for cell in LevelData.cells_of(slot):
+			if inside.has(cell):
+				for piece in rules.pieces_at(slot):
+					if not voxels.wears_away(piece):
+						breaking.append(piece)
+				break
 	for piece in _top_down(breaking):
 		break_piece(piece)
+	voxels.shatter_near(origin, VoxelTerrain.GLASS_BLAST_REACH)
 	if force <= 0.0 or cells.is_empty():
 		return
 	# The pieces of what broke are held still until the next physics step
@@ -447,7 +483,8 @@ func _break(piece: int, hit: CombatGrid.RayHit, collapse: Collapse) -> bool:
 
 ## Lets each breakable piece stacked on the one that stood in [param slot], up
 ## to the first that cannot break, fall whole, to break where it lands, and
-## the pieces across edges left with nothing under them. They leave the rules
+## the pieces across edges and on corners left with nothing under them
+## ([method _unsupported]). They leave the rules
 ## now, with the piece they stood on, so the rules never wait for them to come
 ## down. Returns the level just above the last one that fell.
 func _drop_pieces_above(slot: Vector3i, collapse: Collapse) -> int:
@@ -458,7 +495,7 @@ func _drop_pieces_above(slot: Vector3i, collapse: Collapse) -> int:
 		var above: Vector3i = waiting.pop_front()
 		if not _unsupported(above):
 			continue
-		var standing := (rules.pieces_in(LevelData.cell_of(above)) if LevelData.is_centre(above) else rules.pieces_across(above)).duplicate()
+		var standing := rules.pieces_at(above).duplicate()
 		var fell := false
 		for piece in standing:
 			if voxels.destruction_of(piece) == null:
@@ -473,8 +510,9 @@ func _drop_pieces_above(slot: Vector3i, collapse: Collapse) -> int:
 
 
 ## The slots resting on the one at [param slot]: for a cell's middle, the
-## middle of the cell above and the four edges round it; for an edge, the edge
-## above.
+## middle of the cell above and the four edges and four corners round it; for
+## an edge, the edge above and the corners at its ends; for a corner, the
+## corner above and the four edges meeting there, whose ends it holds up.
 static func _above(slot: Vector3i) -> Array[Vector3i]:
 	var up := slot + Vector3i.UP
 	var found: Array[Vector3i] = [up]
@@ -482,25 +520,47 @@ static func _above(slot: Vector3i) -> Array[Vector3i]:
 		var cell := LevelData.cell_of(up)
 		for way: Vector2i in LineOfSight.COVER_DIRECTIONS:
 			found.append(LevelData.edge_slot(cell, way))
+		for way: Vector2i in [Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1)]:
+			found.append(LevelData.corner_slot(cell, way))
+	elif LevelData.is_corner(slot):
+		found.append_array(LevelData.edges_at(up))
+	else:
+		found.append_array(LevelData.ends_of(up))
 	return found
 
 
 ## Whether whatever stands in [param slot] has nothing under it any more: for
 ## a cell's middle, no solid piece in the cell below; for an edge, none in the
-## cells below it on either side, and no piece across the edge below it.
+## cells below it on either side, no piece across the edge below it and none
+## on the corner below either end of it; for a corner, none in the four cells
+## below it, across the four edges meeting below it, or on the corner below. A
+## window holds up what rests on it as any piece does.
 func _unsupported(slot: Vector3i) -> bool:
 	var rules := _level.rules
+	var below := slot + Vector3i.DOWN
 	if LevelData.is_centre(slot):
-		return not rules.is_solid(LevelData.cell_of(slot) + Vector3i.DOWN)
-	if rules.has_edge_slot(slot + Vector3i.DOWN):
+		return not rules.has_slot(below)
+	if rules.has_slot(below):
 		return false
-	return not rules.is_solid(LevelData.cell_of(slot) + Vector3i.DOWN) and not rules.is_solid(LevelData.other_cell(slot) + Vector3i.DOWN)
+	for cell in LevelData.cells_of(below):
+		if rules.has_slot(LevelData.centre_slot(cell)):
+			return false
+	if LevelData.is_corner(slot):
+		for edge in LevelData.edges_at(below):
+			if rules.has_slot(edge):
+				return false
+	else:
+		for end in LevelData.ends_of(below):
+			if rules.has_slot(end):
+				return false
+	return true
 
 
 ## Takes piece [param piece] out of the level's voxels and lets it fall whole
 ## as a [FallingBlock] showing what is left of it, as heavy as its share of its
 ## destruction's mass, to break where it lands. Its voxels keep their colours,
-## blood and all: it is drawn as a [VoxelModel] in the level's palette.
+## blood and all, and its glass is glass: it is drawn as a [VoxelModel] in the
+## level's palette.
 func _drop_whole(piece: int, collapse: Collapse) -> void:
 	var destruction := voxels.destruction_of(piece)
 	var whole := maxi(_level.volume.whole[piece], 1)
@@ -513,12 +573,20 @@ func _drop_whole(piece: int, collapse: Collapse) -> void:
 	# already, as the level holds them.
 	var shape := VoxelShape.new(Vector3i.ONE * VoxelVolume.BLOCK, -Vector3.ONE * 0.5)
 	shape.colors = _level.volume.palette
+	shape.flags = _level.volume.flags
 	var left := PackedByteArray()
 	left.resize(shape.length)
+	var glass := PackedByteArray()
+	if taken.glass.has(1):
+		glass.resize(shape.length)
 	for index in taken.size():
-		left[shape.index_of(taken.voxel(index) - origin)] = taken.places[index]
+		var at := shape.index_of(taken.voxel(index) - origin)
+		left[at] = taken.places[index]
+		if taken.is_glass(index):
+			glass[at] = 1
+	var left_glass := shape.rows_of(glass) if not glass.is_empty() else PackedInt64Array()
 	var share := float(taken.size()) / whole
-	var block := FallingBlock.new(VoxelModel.new(shape, left).show_on(),
+	var block := FallingBlock.new(VoxelModel.new(shape, left, null, left_glass).show_on(),
 		maxf(destruction.mass * share, ScriptedDestruction.MIN_MASS))
 	add_child(block)
 	var middle := _level.to_global(LevelData.box_center(slot))
@@ -705,6 +773,44 @@ func _drop_gear(model: CharacterModel, knock: Callable, pieces: Array[VoxelDebri
 			if boxes[one].intersects(piece.transform * AABB(-piece.size * 0.5, piece.size)):
 				PhysicsServer3D.body_add_collision_exception(dropped[one].get_rid(), lumps[lump])
 		voxels.take_on_later(dropped[one], wear, "", passes)
+
+
+## Shatters the glass of every window a unit has passed through since the last
+## frame, by the tile it was on and the one it is on now
+## ([method VoxelTerrain.shatter_passing]): a vault through a window, a walk
+## through one at floor level; and the glass every grenade in flight has
+## passed through ([method VoxelTerrain.shatter_along]).
+func _shatter_passing() -> void:
+	var seen := {}
+	for node in get_tree().get_nodes_in_group(Unit.GROUP):
+		var unit := node as Unit
+		if unit == null:
+			continue
+		var id := unit.get_instance_id()
+		var tile := _grid.tile_at(unit.global_position)
+		var last: Variant = _unit_tiles.get(id)
+		if last != null and last != tile:
+			voxels.shatter_passing(last, tile)
+		_unit_tiles[id] = tile
+		seen[id] = true
+	for id: int in _unit_tiles.keys():
+		if not seen.has(id):
+			_unit_tiles.erase(id)
+	seen.clear()
+	for node in get_tree().get_nodes_in_group(ThrownGrenade.GROUP):
+		var flying := node as Node3D
+		if flying == null:
+			continue
+		var id := flying.get_instance_id()
+		var at := flying.global_position
+		var last: Variant = _grenades_at.get(id)
+		if last != null:
+			voxels.shatter_along(last, at)
+		_grenades_at[id] = at
+		seen[id] = true
+	for id: int in _grenades_at.keys():
+		if not seen.has(id):
+			_grenades_at.erase(id)
 
 
 ## A point picked evenly from inside a ball one across, from [member _show].

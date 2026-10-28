@@ -12,6 +12,11 @@
 ## from above. It casts no shadow, as the scenery never did: drawn into the
 ## sun's shadow map the forest cost more than the rest of a frame together.
 ##
+## A kind's glass is meshed apart and drawn as a second surface of its mesh,
+## by the glass material ([method VoxelModel.glass_material]), as the
+## battlefield's is ([ChunkMesher]); in a coarser copy a voxel is glass if the
+## colour most of the voxels it stands for have is.
+##
 ## Further from the [member battlefield] it draws less detail: each kind also
 ## has a copy twice as coarse (every 2 x 2 x 2 of its voxels made one) and one
 ## four times as coarse, made from the kind's own voxels as the scenery is built,
@@ -169,21 +174,35 @@ func _make_size(size: int, stamps: Dictionary, volume: VoxelVolume) -> Dictionar
 		var stamp: VoxelVolume.Stamp = stamps[kind]
 		var rows_x := stamp.rows_x
 		var rows_z := stamp.rows_z
+		var glass_x := stamp.glass_x
+		var glass_z := stamp.glass_z
 		var colors := stamp.colors
 		if size > 1:
-			var coarse := _coarser(stamp, size)
+			var coarse := _coarser(stamp, size, volume.flags)
 			rows_x = coarse[0]
 			rows_z = coarse[1]
 			colors = Image.create_from_data(n, n * n, false, Image.FORMAT_R8, coarse[2])
-		var quads := ChunkMesher.rectangles(n, rows_x, rows_z, ChunkMesher.Near.new(), -1, true)
-		if quads.is_empty():
+			glass_x = coarse[3]
+			glass_z = coarse[4]
+		var found := ChunkMesher.faces(n, rows_x, rows_z, glass_x, glass_z, ChunkMesher.Near.new(), -1, true)
+		var mesh: ArrayMesh = null
+		var count := 0
+		for part in 2:
+			var quads := found[part]
+			if quads.is_empty():
+				continue
+			var arrays := ChunkMesher.arrays(quads, Vector3i.ZERO, images.size(), 1.0 / n)
+			@warning_ignore("integer_division")
+			var surface_count := quads.size() / ChunkMesher.FIELDS
+			arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(surface_count)
+			if mesh == null:
+				mesh = ArrayMesh.new()
+			mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
+			if part == 1:
+				mesh.surface_set_name(mesh.get_surface_count() - 1, VoxelModel.GLASS_SURFACE)
+			count += surface_count
+		if mesh == null:
 			continue
-		var arrays := ChunkMesher.arrays(quads, Vector3i.ZERO, images.size(), 1.0 / n)
-		@warning_ignore("integer_division")
-		var count := quads.size() / ChunkMesher.FIELDS
-		arrays[Mesh.ARRAY_INDEX] = ChunkMesher.index_array(count)
-		var mesh := ArrayMesh.new()
-		mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays, [], {}, ChunkMesher.format())
 		made[kind] = [mesh, count * 2]
 		images.append(colors)
 	if images.is_empty():
@@ -192,12 +211,17 @@ func _make_size(size: int, stamps: Dictionary, volume: VoxelVolume) -> Dictionar
 	texture.create_from_images(images)
 	var shared := ShaderMaterial.new()
 	shared.shader = VoxelModel.SHADER
-	shared.set_shader_parameter(&"voxels", texture)
-	shared.set_shader_parameter(&"box_size", Vector3i.ONE * n)
-	shared.set_shader_parameter(&"voxels_per_unit", float(n))
-	shared.set_shader_parameter(&"palette", LevelRenderer.palette_of(volume))
+	var shared_glass := VoxelModel.glass_material()
+	for each: ShaderMaterial in [shared, shared_glass]:
+		VoxelModel.set_parameter(each, &"voxels", texture)
+		VoxelModel.set_parameter(each, &"box_size", Vector3i.ONE * n)
+		VoxelModel.set_parameter(each, &"voxels_per_unit", float(n))
+		VoxelModel.set_parameter(each, &"palette", LevelRenderer.palette_of(volume))
 	for entry: Array in made.values():
-		(entry[0] as ArrayMesh).surface_set_material(0, shared)
+		var mesh := entry[0] as ArrayMesh
+		for surface in mesh.get_surface_count():
+			var glass := mesh.surface_get_name(surface) == VoxelModel.GLASS_SURFACE
+			mesh.surface_set_material(surface, shared_glass if glass else shared)
 	if size == 1:
 		material = shared
 	return made
@@ -205,14 +229,18 @@ func _make_size(size: int, stamps: Dictionary, volume: VoxelVolume) -> Dictionar
 
 ## [param stamp]'s voxels [param size] times as coarse: a voxel wherever any of
 ## the voxels it stands for is one, so a thin piece thickens rather than
-## vanishes, in the colour most of them have. Returns its rows along x and
-## along z and its colours, laid out as a stamp's are.
-static func _coarser(stamp: VoxelVolume.Stamp, size: int) -> Array:
+## vanishes, in the colour most of them have, and glass if that colour is, by
+## the level's [param flags]. Returns its rows along x and along z, its
+## colours, laid out as a stamp's are, and its glass along x and along z, empty
+## if it has none.
+static func _coarser(stamp: VoxelVolume.Stamp, size: int, flags: PackedByteArray) -> Array:
 	@warning_ignore("integer_division")
 	var n := VoxelVolume.BLOCK / size
 	var rows_x := PackedInt64Array()
 	var rows_z := PackedInt64Array()
 	var places := PackedByteArray()
+	var glass_x := PackedInt64Array()
+	var glass_z := PackedInt64Array()
 	rows_x.resize(n * n)
 	rows_z.resize(n * n)
 	places.resize(n * n * n)
@@ -237,7 +265,13 @@ static func _coarser(stamp: VoxelVolume.Stamp, size: int) -> Array:
 					if tally[place] > most:
 						most = tally[place]
 						places[x + (z + y * n) * n] = place
-	return [rows_x, rows_z, places]
+				if flags[places[x + (z + y * n) * n]] & VoxelVolume.FLAG_GLASS != 0:
+					if glass_x.is_empty():
+						glass_x.resize(n * n)
+						glass_z.resize(n * n)
+					glass_x[z + y * n] |= 1 << x
+					glass_z[x + y * n] |= 1 << z
+	return [rows_x, rows_z, places, glass_x, glass_z]
 
 
 ## The kind, coarseness and region of piece [param index], as (kind,

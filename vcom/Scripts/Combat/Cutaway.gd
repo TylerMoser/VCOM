@@ -1,10 +1,11 @@
 ## Whatever rests on what the level has cut away from the view, hidden with it
 ## ([method VoxelLevel.cut_away], [LevelCutaway]): a unit standing on a roof, a
-## crate's pieces, a block falling, dropped gear, coins and lumps of debris
-## lying there. Each is hidden while it is over a piece cut away, by where it is
-## ([method VoxelLevel.is_cut_away]), looked at every frame while anything is
-## cut away, since things move; and shown again the moment it is not. The
-## lumps of debris see to themselves as they move ([member VoxelDebris.hides]).
+## crate's pieces, a block falling, dropped gear, coins, lumps of debris and
+## shards of glass lying there. Each is hidden while it is over a piece cut
+## away, by where it is ([method VoxelLevel.is_cut_away]), looked at every frame
+## while anything is cut away, since things move; and shown again the moment it
+## is not. The lumps of debris and the shards of glass see to themselves as
+## they move ([member VoxelDebris.hides], [member GlassShards.hides]).
 ##
 ## Only for show, as the cut is: a hidden unit stands on its tile to the rules,
 ## and is seen, shot at and shoots as ever. It takes no clicks while hidden
@@ -54,6 +55,11 @@ func _on_cut_changed() -> void:
 		# height there, in the world.
 		debris.hide_above = _level.to_global(Vector3(0.0, _level.cut_level(), 0.0)).y if cut else INF
 		debris.rehide()
+	if _destruction != null and _destruction.glass_shards != null:
+		var shards := _destruction.glass_shards
+		shards.hides = _level.is_cut_away if cut else Callable()
+		shards.hide_above = _level.to_global(Vector3(0.0, _level.cut_level(), 0.0)).y if cut else INF
+		shards.rehide()
 	_hide_what_rests()
 
 

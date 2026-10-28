@@ -23,6 +23,8 @@
 [ext_resource type="ArrayMesh" uid="uid://bvwmyr1tkjfw6" path="res://Blocks/SimpleTruss1.vox" id="20_struss"]
 [ext_resource type="Resource" path="res://Resources/Destruction/SimpleRoof1.tres" id="21_sroof"]
 [ext_resource type="ArrayMesh" uid="uid://cutcv0vgqk6v5" path="res://Blocks/SimpleRoof1.vox" id="22_sroof"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleWindow1.tres" id="23_swind"]
+[ext_resource type="ArrayMesh" uid="uid://cqrnuuom6apkr" path="res://Blocks/SimpleWindow1.vox" id="24_swind"]
 
 [sub_resource type="Resource" id="Resource_spagj"]
 resource_name = "SkinnyTree1"
@@ -45,6 +47,14 @@ resource_name = "SimpleWall2"
 script = ExtResource("1_m5it7")
 display_name = "SimpleWall2"
 kinds = Array[StringName]([&"SimpleWall1", &"SimpleWall1"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_swind2"]
+resource_name = "SimpleWindowWall2"
+script = ExtResource("1_m5it7")
+display_name = "SimpleWindowWall2"
+kinds = Array[StringName]([&"SimpleWall1", &"SimpleWindow1"])
 offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
 turns = PackedInt32Array(0, 0)
 
@@ -131,7 +141,18 @@ model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
 destruction = ExtResource("21_sroof")
 cutaway = true
 
+[sub_resource type="Resource" id="Resource_swind1"]
+resource_name = "SimpleWindow1"
+script = ExtResource("2_gan5t")
+id = &"SimpleWindow1"
+model = ExtResource("24_swind")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("23_swind")
+edge_piece = true
+cutaway = true
+window = true
+
 [resource]
 script = ExtResource("11_fcufj")
-kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2"), SubResource("Resource_swall1"), SubResource("Resource_struss1"), SubResource("Resource_sroof1")])
-brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7"), SubResource("Resource_swall2")])
+kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2"), SubResource("Resource_swall1"), SubResource("Resource_struss1"), SubResource("Resource_sroof1"), SubResource("Resource_swind1")])
+brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7"), SubResource("Resource_swall2"), SubResource("Resource_swind2")])

@@ -12,7 +12,8 @@ file (Gotchas, Verification, another subsystem's notes) is `CLAUDE.md`'s.
 ## What the user decided
 
 1. A building piece is marked as one by its kind: `PieceKind.cutaway`, on `SimpleWall1`,
-   `SimpleTruss1` and `SimpleRoof1` (`Blocks/Pieces.tres`).
+   `SimpleTruss1` and `SimpleRoof1` (`Blocks/Pieces.tres`), and since glass came in on
+   `SimpleWindow1`, a window being part of its wall (`Docs/GLASS.md`).
 2. The heights a map can be cut away from are a list on its `Level` node,
    `VoxelLevel.cutaway_heights` (cell y, any number of them); `TestMap.tscn` has one, 5.
 3. A floor selector, drawn after the user's sketch (a stack of sheets: a whole one on top, the edges
@@ -45,12 +46,16 @@ pieces as the rules see them then. Its `pieces` (a set of indices into the `Leve
 piece of a `cutaway` kind with its slot at `from_level` or above, broken or not, and every other piece
 resting on one of those: a piece is resting on one if, in its column (a centre piece) or across its
 edge or in either column beside it (an edge piece), a building piece cut away stands at its level or
-below (`covers_slot()`). Only building pieces still standing to the rules (`LevelRules.is_standing()`)
+below (`covers_slot()`). Since corners came in (2026-10-27, `Docs/LEVELS.md`, "Corners"), an edge
+piece rests on a piece cut away on the corner below either end of it too, and a piece on a corner
+rests on one on that corner at its level or below, in any of the four columns round it at its level
+or below, or across any of the four edges meeting there below it: one beside a cut corner at its own
+level, touching it, does not. Only building pieces still standing to the rules (`LevelRules.is_standing()`)
 count for what rests on them, so a roof shot through stops hiding what falls in.
 
 It also says where things are hidden (`covers_point()`, `covers_cell()`): a point is hidden if a
-building piece cut away stands at its cell's level or below in its column, or across an edge within
-`LevelCutaway.STRIP` (0.2 cells) of it at that level or below. So a unit standing on a roof tile is
+building piece cut away stands at its cell's level or below in its column, or across an edge, or on
+a corner, within `LevelCutaway.STRIP` (0.2 cells) of it at that level or below. So a unit standing on a roof tile is
 hidden and one on the floor under the roof is not; the test for a tile is the same as for a unit's
 feet on it. `VoxelLevel.is_cut_away(world)` and `is_tile_cut_away(tile)` ask it, false with nothing
 cut away.
@@ -88,7 +93,10 @@ and a unit dying hidden still drops it, where it hides in turn while over what i
 The lumps of debris have no nodes: `VoxelDebris.hides` (the level's `is_cut_away`) and `hide_above`
 (the world height of the cut, below which no lump is asked) are set from `Cutaway`, a lump hidden
 draws its voxels shrunk to nothing (`_draw_lump()`), it is asked again each time the physics moves
-it, and `rehide()` asks every lump as the cut changes. It still moves and collides as ever.
+it, and `rehide()` asks every lump as the cut changes. It still moves and collides as ever. The
+shards of broken glass have no nodes either, and are hidden the same way (`GlassShards.hides`,
+`hide_above`, `rehide()`, set from `Cutaway`): asked every frame a shard falls, as it lands, and every
+shard lying still as the cut changes, a hidden one drawn shrunk to nothing.
 
 **The game changes the floor** as it gives a unit its focus, through
 `CombatGrid.show_floor_of(feet)`, for the units standing with their feet at each point given, all
@@ -209,7 +217,11 @@ whole and cut.
 
 - What rests on a piece cut away is found by column and edge, not by physics or by what touches it:
   a centre piece's column, an edge piece's edge and both columns beside it, at the cut piece's level
-  or above; and a point within 0.2 cells of a cut edge piece counts as on it.
+  or above; and a point within 0.2 cells of a cut edge piece counts as on it. For corners
+  (2026-10-27): a corner piece's corner and its four columns at the cut piece's level or above, and the
+  four edges meeting there and an edge piece's two end corners only below it, so a fence touching a
+  house's cut corner post at its own level stays; and a point within 0.2 cells of a cut corner both
+  ways counts as on it.
 - A unit hidden is hidden whole, figure and gear, and takes no clicks; it can still be lined up from
   the action bar's target cycling and the shot panel, as it is still there to the rules.
 - Small things hidden (units, pieces, coins, lumps) are hidden outright, their shadows with them;
