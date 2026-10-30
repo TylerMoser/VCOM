@@ -446,6 +446,10 @@ where the legs, torso, arms and head are.
   material, the glass drawn by the glass shaders, and `paint()` leaves a glass colour its own, so a
   visor stays clear in any unit's colour. A figure without glass bakes exactly as it did, and the base
   figure has none. `Docs/GLASS.md` has glass in full.
+- **A glowing colour**, one the `.vox` paints with MagicaVoxel's Emit material (a lamp on a helmet,
+  say), glows on the figure at dusk and at night, as brightly as its Emission: `VoxelRig.load_vox()`
+  reads it into the rig's `flags` as it reads glass, and `paint()` leaves it its own colour. It only
+  glows; only a level's pieces cast light (`Docs/LIGHTS.md`). The base figure has none.
 
 The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.

@@ -98,7 +98,8 @@ node, which keeps what is broken off, and hands the grid the terrain (`CombatGri
   `crumble_size` (3) across, and `roughen_hole()` wears a rim `RIM_DEPTH` (1.5) voxels into every
   wearing piece round the hole, wandering by `RIM_WANDER`, so the hole is ragged, not a clean cube of
   the grid. One that fell whole (`_drop_whole()`, a `FallingBlock` built from what is left of its
-  voxels, coloured as they were) crumbles where it lands.
+  voxels, coloured as they were, but with no colour glowing: a lamp that falls is dark,
+  `Docs/LIGHTS.md`) crumbles where it lands.
 - **Glass holds nothing up, and shatters whole.** A piece's glass (a window's panes) never counts
   toward `collapse_below` (`VoxelVolume.held_count()`), `holds_up()` and `_drop_loose()` never run
   through it, and it is never laid bare nor roughened. Nor does it ever break off as lumps: once a
@@ -228,6 +229,14 @@ the wreck in place, and the blocks drop on to it (see Known gaps). An edge piece
 under either side of it, nor on the corner below either end, falls the same way, as heavy as its
 destruction's `mass`, and so does a piece on a corner left with nothing in the four cells below it,
 across the four edges meeting below it or on the corner below (`Docs/LEVELS.md`, "Corners").
+
+A stack lighter than `VoxelTerrain.HOLD_SEARCH` (1,024 voxels, glass not counted) barely falls whole:
+as the piece under it breaks, the rim worn round the hole and the search for loose voxels find what
+stands on it held by nothing, and it drops in lumps before `_drop_pieces_above()` comes to it, which
+then finds that piece empty, or with only its glass, never searched, left to fall whole. The street
+lamp is such a stack (484 voxels, 112 of them glass): broken at its foot, its post and frame drop in
+lumps and its lantern's glass falls as a block and shatters where it lands (`Docs/LIGHTS.md`, "Broken
+lamps go dark"). A tree, 2,048 voxels a piece, falls whole.
 
 ## Coins
 

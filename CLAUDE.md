@@ -12,12 +12,15 @@ block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants)
 `make_shapes.py` (`Shapes/README.md`), three of them in the game (`vcom/Blocks/`: the fence, the stone
 wall, tall grass); `MagicaVoxel/Buildings/` the building pieces, all four in the game (`SimpleWall1`,
 `SimpleTruss1`, `SimpleRoof1`, drawn by hand, and `SimpleWindow1`, made from the wall by its
-`make_windows.py`: `Docs/LEVELS.md` has their offset and turn). `Images/` holds screenshots of the game
+`make_windows.py`: `Docs/LEVELS.md` has their offset and turn); `MagicaVoxel/Lamps/` the street lamp,
+drawn whole and cut into the game's three pieces by its `make_street_lamp.py` (`Lamps/README.md`).
+`Images/` holds screenshots of the game
 (the old world map and the new, the menus, battles just begun and long fought, clean and with blood, the level
 editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.
 Style 05, Colour Bounce, is applied: in every combat map's Environment, sky and sun (sun from the
-camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`.
+camera's left, blue procedural sky, SSAO and SSIL), plus 4x MSAA in `project.godot`. It is the look
+by day; at dusk and at night `TimeOfDay` lights copies of them otherwise (`Docs/LIGHTS.md`).
 `Styles/REVERT.md` restores the original look. `MapStyles/` holds 28 proposals for the
 new world map's look, 02, 04, 05 and 10's forests applied, and of 10, 14 and 19 revisited on that look 10b, 14b and 19a
 (`Docs/MAP.md`, "Its look"): the harness that renders them from `Map.tscn`, `MapStyles/README.md` on what each changes and
@@ -35,6 +38,8 @@ in voxel models and windows: how it is drawn, what a window is to the rules, sha
 shards, the window piece, the importer's part), `GRENADES.md`,
 `HUNKER.md`, `LEVELS.md` (combat maps as levels of voxel pieces: the volume, drawing it, edges),
 `LEVEL_EDITOR.md` (the level editor that paints them: every control, making a map, adding pieces),
+`LIGHTS.md` (glowing voxels, lamps and the light they cast, the time of day: making a lamp in
+MagicaVoxel and overriding it, omni and area lights, broken lamps going dark),
 `MAP.md` (the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `ROSTER.md`
 (characters and the units they become, equipment, items and the inventory), `SHOOTING.md` (sight and
 leaning out, lining up, confirming and settling shots and strikes), `SKILLS.md` and `VOXELS.md` (every
@@ -108,6 +113,11 @@ vcom/Scripts/
                        take(); for show
     Cutaway.gd         map node: hides what rests on what the level has cut away from the view (units, loose
                        pieces, falling blocks, coins; debris through VoxelDebris.hides) (Docs/CUTAWAY.md)
+    TimeOfDay.gd       map node: the battle's time of day (Period), rolled on its own generator, half by day and a
+                       quarter each at dusk and at night (static forced); dusk's and night's sky, sun and glow, on
+                       copies; the voxel_glow global (Docs/LIGHTS.md)
+    Lamps.gd           map node: at dusk and at night a light for each piece whose voxels glow, omni or (static
+                       area_lights) area; dims and goes out as the piece wears and breaks (Docs/LIGHTS.md)
     ShotPlayback.gd    shots not taken from the action bar (reactions, the enemies'): aim, step out, shoot_at(), back
     Weapon.gd          Item: damage, environment_damage; magazine (shots, 0 for none) and reload (actions), for a
                        gun; has_magazine(); stateless, the rounds left are the unit's
@@ -130,13 +140,16 @@ vcom/Scripts/
                        (Docs/CUTAWAY.md)
     LevelCutaway.gd    what a cut takes away from the view: the pieces, and where things are over them
     LevelData.gd       Resource: pieces in order, each a kind, a slot (a middle, an edge or a corner), a turn
-    PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres)
+    PieceKind.gd       Resource: a kind of piece; PieceBrush.gd, PieceLibrary.gd (Blocks/Pieces.tres);
+                       LampLight.gd (a kind's lamp, overriding MagicaVoxel's Emission and Power: Docs/LIGHTS.md)
     LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge;
                        those on corners and windows kept apart, for what holds pieces up alone
-    VoxelVolume.gd     every voxel, 32^3 chunks, glass kept apart; ChunkMesher.gd (faces by shape, none hidden;
-                       glass meshed apart, Docs/GLASS.md)
+    VoxelVolume.gd     every voxel, 32^3 chunks, glass and voxels casting no lamp's shadow kept apart, glowing
+                       voxels counted; ChunkMesher.gd (faces by shape, none hidden; glass meshed apart,
+                       Docs/GLASS.md, and voxels casting no lamp's shadow, Docs/LIGHTS.md)
     LevelRenderer.gd   draws the volume a chunk at a time, collision a trimesh a chunk; cut() (pieces cut away
-                       from the view, their shadows still cast); SceneryRenderer.gd
+                       from the view, their shadows still cast); use_fine_shadows() (area lights' shadows from
+                       copies cut fine, Docs/LIGHTS.md); SceneryRenderer.gd
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does)
   Terrain/             breaking and wearing pieces, and debris (Docs/DESTRUCTION.md, its scripts in full)
     TerrainDestruction.gd  breaks struck and blasted pieces, drops what they held and units left on nothing;
@@ -249,8 +262,8 @@ vcom/Scripts/
                        optional action button (Equip), also Enter / double-click on a square; item_activated
     ItemSquare.gd      icon (or name without one), count badge above 1; selected when focused
     FocusChain.gd      left / right through a run of buttons, stopping at the ends
-    SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off (greyed out in battle, with a
-                       note), Save / Load (not yet), Exit to Desktop
+    SystemTab.gd       its last tab: Return to Game, Tile Grid on / off, Blood on / off and Lamp Lights omni / area
+                       (both greyed out in battle, with a note), Save / Load (not yet), Exit to Desktop
   WorldMap/            the campaign map, Scenes/Map.tscn (2D; Docs/CAMPAIGN.md, Docs/MAP.md), and the old
                        map's, Scenes/WorldMap.tscn, kept as a reference (WorldMapTerrain, BakeLand)
     WorldMapCamera.gd  pan / zoom with the combat camera's input actions and the sticks; limits MapCamera overrides
@@ -731,6 +744,33 @@ has it all: the drawing and why, the rules, shattering and the shards, the windo
 its gaps and what was decided without asking. Read it before touching glass, a window or the voxel
 shaders.
 
+**Lamps light battles at dusk and at night, and only for show** (the user's, 2026-10-27). Every
+combat map's `TimeOfDay` rolls the battle's time of day as it loads, on a generator of its own: by
+day half the time, at dusk and at night a quarter each (`TimeOfDay.forced` pins it, for probes and
+harnesses). By day the map is as it was made; at dusk and at night `apply()` gives copies of its
+environment and sky a low orange sun or a faint blue moon, a darker sky and a glow, and sets the
+global shader uniform `voxel_glow` (`project.godot`'s `[shader_globals]`, which only it sets) to 1. A
+colour MagicaVoxel draws with the Emit material then glows (its Emission in the flags' top bits, a
+glass colour's clarity's place: `VoxelShape.glow_flags()`; `EMISSION` in `Voxels.gdshader`), and
+`Lamps` gives every level piece whose glowing voxels have a Power (`VoxelShape.powers`) one light at
+their middle, in their colour, of brightness 2 to the Power reaching 3.5 cells times 2 to one less,
+unless the kind's `PieceKind.lamp` (a `LampLight`) overrides them. The light is an `OmniLight3D`
+casting hard shadows or, with `Lamps.area_lights` (static, the System tab's **Lamp Lights**, which
+like **Blood** only changes between battles, read once as a map loads), an `AreaLight3D` under the
+glowing voxels facing down, whose shadows come from copies of the level cut fine round it
+(`LevelRenderer.use_fine_shadows()`: a paraboloid's shadow map puts big faces in the wrong place near
+the light; the copies are on visual layer 20, and the sections on 19 while they exist). Glowing
+voxels, and those of the colours a kind lists in `PieceKind.shadowless_colors` (the street lamp's
+lantern posts), are meshed apart (`ChunkMesher.faces()`' third set, the `shadowless` surface) and left
+out of every lamp's shadow map by the shader (`is_lamp_pass()`), never the sun's or the moon's. A
+light dims with the glowing voxels its piece has left (`VoxelVolume.glow_counts`: wear, blood) and
+goes out with the last, or as its piece leaves the rules; a piece falling whole falls dark. The
+street lamp (`MagicaVoxel/Lamps/`, three stacked corner pieces and a brush) stands twice in TestMap.
+`Docs/LIGHTS.md` has it all: the user's decisions, making a lamp in MagicaVoxel and what every number
+does, the overrides, the two lights, the frame's shadows, the fine copies, going dark, what it costs,
+how to probe it, its gaps and what was decided without asking. Read it before touching lights, the
+time of day or the voxel shader's glow.
+
 **Blood recolours voxels, and is only for show.**
 `Unit.take_damage()` emits `hurt(taken, from, at, blasted, sweep)` for every hit that takes health
 (none for one defense stops), before the unit can die of it. `Blood`, a node in each combat map
@@ -955,6 +995,11 @@ decided without asking. Read it before touching the floor selector or anything a
 - **A coin is on a tile, and only the squad takes it.** Whether a coin is there, and who takes it,
   is `Coins`' tiles and units' `tile_at()`, never the `Coin` node; enemies pass coins by. Its gold
   goes into `Campaign.gold` the moment it is taken, not at the end, and a win pays for the rest.
+- **Lights and the time of day are only for show** (the user's, 2026-10-27). Nothing in the rules
+  reads a light, a glow, which voxels cast a lamp's shadow, or the time of day: sight, cover, paths,
+  rolls and throws are the same lit or dark, by day or at night. The time of day rolls on
+  `TimeOfDay`'s own generator, never the global one, so a seeded fight replays the same at any hour;
+  a lamp is a corner piece, decoration to the fight.
 - **Blood is only for show.** Nothing in the rules reads it: wounds, drops, stains and pools change no
   sight, cover, path or roll, and everything random in them draws on `Blood`'s or the figure's own
   generator, never the global one, so a seeded fight replays the same with it. Where a hit is drawn
@@ -995,7 +1040,9 @@ G="/c/Program Files/Godot/Godot_v4.7-stable_win64_console.exe"
 
 Probe scripts belong in the scratchpad directory, not the repo. To render a scene in a particular
 state, write a temporary `res://_probe/Probe.tscn` + `.gd` that instantiates the map and drives it,
-render, then **delete `_probe/`**.
+render, then **delete `_probe/`**. A combat map's time of day is rolled as it loads, so a probe that
+renders one, or compares frames between runs, sets `TimeOfDay.forced` (and `Lamps.area_lights`) first
+(`Docs/LIGHTS.md`, "Probing it").
 
 `Scenes/LineOfSightTest.tscn` is the harness for the sight and shot rules. Four sight lanes: open,
 half cover, step-out around a pillar, and a wall that can only be leaned around from the north.
@@ -1191,6 +1238,23 @@ the class (`AIAction.reload()`), the name reaches the class's own `Script` objec
 of type int"). That is why the constructor is `AIAction.reload_gun()`; keep clear of `reload`, `new`,
 `get_class` and the rest of `Script`'s and `Resource`'s methods. Instance methods (`Unit.reload()`,
 `Tactics.reload()`) are fine.
+
+**An enum must not share a name with a native class.** `TimeOfDay`'s `enum Time` failed to parse
+("The member "Time" shadows a native class"), taking every script that names it with it; it is
+`Period`.
+
+**`RenderingServer.global_shader_parameter_get()` works only in the editor.** At run time it returns
+null (Godot refuses it there), so a global shader uniform (`tile_grid`, `voxel_glow`) is never read
+back: keep its value beside whatever sets it, as `TileGrid.shown` does, and check its effect by frames.
+
+**`process_frame` is emitted before the frame's `_process`.** A probe that changes something and
+awaits one `process_frame` reads the result before any node's `_process` has seen the change (a
+lamp's dimming, say): await two.
+
+**An area light's shadow map is a paraboloid Godot warps each corner into**, the face between drawn
+straight, so a big face near the light lands in the wrong place in the map; and a material's
+`PROJECTION_MATRIX` in that pass is the depth correction alone, neither perspective nor a sun's
+orthographic. `Docs/LIGHTS.md` has what the voxel shader and the level do about both.
 
 **A lambda captures a local variable's value, not the variable.** A probe's `var done := false` set
 to true inside a lambda it awaits never changes outside it, so a wait on it times out. Share a

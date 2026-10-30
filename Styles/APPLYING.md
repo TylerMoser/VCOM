@@ -61,6 +61,7 @@ Each ingredient's recipe follows. Its values are in the style's section of the c
 - **Sky:** most styles switch `background_mode` to Sky, which makes the ProceduralSkyMaterial visible. The camera looks down, so mostly its *ground* half shows around the map: `ground_bottom_color` is effectively the backdrop colour, and `ground_horizon_color` shows toward the top of the screen.
   - On BoundaryMap, the forest ring is deep enough that no backdrop shows in play (CLAUDE.md, "Scenery around a combat map"). There, the sky matters only through the ambient light. The harness's close view does show it, because that view looks lower than the game camera can.
   - Every map already lights from the sky (`ambient_light_source` Sky), even where the backdrop is a flat colour. Recolouring the sky therefore changes the ambient light everywhere.
+- **Time of day (2026-10-27):** these settings are the look **by day**. Every battle rolls its time of day as it loads (`vcom/Scripts/Combat/TimeOfDay.gd`), and at dusk and at night re-lights copies of the map's environment, sky and sun in code: their sky colours, the sun's colour, energy and (at dusk) height, the ambient light and the glow. A style applied here shows by day as it is, and at dusk and at night only in what that code leaves alone (SSAO, SSIL, the tonemap, fog and the rest); a style that wants its own dusk or night changes `TimeOfDay.apply()` (`Docs/LIGHTS.md`, "The time of day"). The harness pins every render to day (`TimeOfDay.forced`).
 
 ## 2. Anti-aliasing (every style)
 

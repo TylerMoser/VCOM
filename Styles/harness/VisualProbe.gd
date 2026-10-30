@@ -54,6 +54,9 @@ func _ready() -> void:
 	if _out_dir != "":
 		_out = "%s/%02d-%s.png" % [_out_dir, _variant_id, Variants.slug(variant.get("name", ""))]
 
+	# Every style is a look by day: the battle's time of day is not left to
+	# chance (TimeOfDay).
+	TimeOfDay.forced = TimeOfDay.Period.DAY
 	var map := (load(_map_scene) as PackedScene).instantiate()
 	add_child(map)
 

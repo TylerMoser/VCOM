@@ -41,10 +41,16 @@ uniform float grow_most = 0.005;
 // by this, in metres, instead: a fiftieth of its texels, so no light leaks
 // through a gap there, and no shadow's edge shifts to be seen.
 uniform float grow_shadow = 0.0002;
+// Whether these faces cast shadows from lamps' lights. Off for the voxels
+// meshed apart as casting none (LevelRenderer's third surface: a lamp's bulb
+// and the frame right beside it, whose shadows would fan out across the map).
+// The sun's and the moon's shadow maps still see them (is_lamp_pass()).
+uniform bool lamp_shadows = true;
 
 // The flags a palette entry's alpha holds (VoxelShape.FLAG_*): the tile grid
-// is drawn over it, it is wet, it is glass; and a glass colour's clarity, in
-// steps of a 31st, from the fourth bit up.
+// is drawn over it, it is wet, it is glass; and a glass colour's clarity, or
+// how brightly any other colour glows, in steps of a 31st, from the fourth bit
+// up.
 const int FLAG_GRID = 1;
 const int FLAG_WET = 2;
 const int FLAG_GLASS = 4;
@@ -58,6 +64,19 @@ varying vec3 local_voxel;
 varying flat vec3 facing;
 varying flat float layer;
 varying flat vec4 extent;
+
+// Whether a shadow pass is a lamp's. An omni light draws its shadow map in
+// perspective (w taken from depth: projection[3][3] is 0); an area light in a
+// paraboloid Godot warps the corners into itself, with the projection left the
+// depth correction alone (1 across x, a half along z, reversed). The sun's and
+// the moon's are orthographic, never either: x across is 2 over the width of a
+// cascade many metres wide, z across 1 over its depth.
+bool is_lamp_pass(mat4 projection) {
+	if (projection[3][3] < 0.5) {
+		return true;
+	}
+	return abs(projection[0][0] - 1.0) < 1e-4 && abs(abs(projection[2][2]) - 0.5) < 1e-4;
+}
 
 void vertex() {
 	int packed = int(CUSTOM0.w + 0.5);
@@ -84,6 +103,10 @@ void vertex() {
 	}
 	VERTEX += out_from_middle * grow;
 	local_voxel = at + out_from_middle * grow * voxels_per_unit;
+	if (!lamp_shadows && IN_SHADOW_PASS && is_lamp_pass(PROJECTION_MATRIX)) {
+		// Every corner to one point: nothing of the face is drawn into the map.
+		VERTEX = vec3(0.0);
+	}
 }
 
 vec3 to_linear(vec3 c) {
@@ -109,6 +132,15 @@ vec3 albedo_of(vec4 entry, bool srgb) {
 // The flags of a palette entry, as a whole number.
 int flags_of(vec4 entry) {
 	return int(entry.a * 255.0 + 0.5);
+}
+
+// How brightly a palette entry glows, 0 to 1: its Emission in MagicaVoxel, 0
+// for one that does not glow, glass among them.
+float glow_of(int flags) {
+	if ((flags & FLAG_GLASS) != 0) {
+		return 0.0;
+	}
+	return float((flags >> CLARITY_SHIFT) & CLARITY_STEPS) / float(CLARITY_STEPS);
 }
 
 // How clear a palette entry is, 0 to 1: a glass colour's clarity, 0 for any

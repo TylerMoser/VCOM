@@ -38,6 +38,8 @@
 [ext_resource type="Script" path="res://Scripts/Level/VoxelLevel.gd" id="50_level_script"]
 [ext_resource type="Resource" path="res://Blocks/Pieces.tres" id="51_pieces"]
 [ext_resource type="Resource" path="res://Levels/CombatMap.tres" id="52_level"]
+[ext_resource type="Script" path="res://Scripts/Combat/TimeOfDay.gd" id="70_time_of_day"]
+[ext_resource type="Script" path="res://Scripts/Combat/Lamps.gd" id="71_lamps"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sky"]
 sky_top_color = Color(0.28, 0.5, 0.85, 1)
@@ -178,6 +180,12 @@ script = ExtResource("32_blood")
 
 [node name="Cutaway" type="Node" parent="."]
 script = ExtResource("60_cutaway")
+
+[node name="TimeOfDay" type="Node" parent="."]
+script = ExtResource("70_time_of_day")
+
+[node name="Lamps" type="Node3D" parent="."]
+script = ExtResource("71_lamps")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 

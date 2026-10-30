@@ -29,10 +29,12 @@ as the other files do.
 - **Materials:** every material is plain (diffuse), as in the other files. Water, Ice and Lava are
   opaque colours. A colour given MagicaVoxel's Glass material is glass in the game: see-through,
   tinted by its colour, as clear as its Transparency (`Docs/GLASS.md`), so Ice, or Water, could be
-  made glass in MagicaVoxel. Other materials (emissive, metal) are read only by the importer, for the
-  meshes it still draws (coins, a grenade in flight, the editor's previews): blocks, props and figures
-  draw them as plain colours. (Until 2026-10-27 this said the importer already read glass and emissive
-  materials; it did not, stopping on a script error instead, which is now mended.)
+  made glass in MagicaVoxel. A colour given the Emit material glows in the game at dusk and at night,
+  as brightly as its Emission, and in a level piece casts light as far as its Power (a lamp:
+  `Docs/LIGHTS.md`, `../Lamps/`). Other materials (metal and the rest) are read only by the importer,
+  for the meshes it still draws (coins, a grenade in flight, the editor's previews): blocks, props and
+  figures draw them as plain colours. (Until 2026-10-27 this said the importer already read glass and
+  emissive materials; it did not, stopping on a script error instead, which is now mended.)
 
 ## The shapes
 

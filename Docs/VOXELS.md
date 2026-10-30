@@ -44,7 +44,9 @@ prop is imported at 0.063 a voxel, a block at 0.0625), or one model of a `.vox` 
 (`VoxelRig.make_shape()`), and a block falling whole's from what it left in the level. Beside each
 colour are its flags (`flags`), from the `.vox`'s materials: a colour MagicaVoxel draws as glass is
 glass, as clear as its Transparency, and the shape's glass voxels are kept apart (`glass`,
-`glass_rows`: `Docs/GLASS.md`).
+`glass_rows`: `Docs/GLASS.md`); a colour drawn with the Emit material glows, as brightly as its
+Emission, in the same top bits (`glow_flags()`), its Power kept beside it (`powers`), the light a
+level's piece of it casts (`Docs/LIGHTS.md`).
 
 **A model is drawn by a `VoxelModel`**, a node under the `MeshInstance3D` that draws it, which goes
 wherever that goes. It holds the model's voxels, its palette (its shape's, or painted one colour,
@@ -71,8 +73,9 @@ What it shares and what it owns:
   shares its source's texture and material: each writes only its own voxels, never the same ones,
   so they can share one texture for good. Neither's material is its own to change from then on; a
   change makes one.
-- **Painted** (`paint(color)`), every place but blood's and glass's is that colour, on a material of
-  its own: a figure in its unit's colour, a visor still clear.
+- **Painted** (`paint(color)`), every place but blood's, glass's and a glowing colour's is that
+  colour, on a material of its own: a figure in its unit's colour, a visor still clear, a lamp on it
+  still lit.
 - **With glass**, its glass is a second surface of its mesh (`GLASS_SURFACE`) with a material of its
   own, the glass shaders' two passes reading the same texture and palette (`_apply_materials()`); a
   voxel stays glass whatever it is recoloured (`glass_rows`). `Docs/GLASS.md` has it.
@@ -85,7 +88,9 @@ face's extent across its two axes (`ChunkMesher.arrays()`). A pixel's voxel is h
 the face, from those alone, kept within the face's extent, and read with `texelFetch` at
 `(x, z + y * box_size.z, layer)`; its palette entry is its colour (sRGB, turned linear unless the
 output is sRGB) and flags (1 the tile grid's lines, 2 wet: specular 0.35, roughness 0.55, against 0.5
-and 1; 4 glass, which this shader never draws, and a glass colour's clarity in the top five bits).
+and 1; 4 glass, which this shader never draws, and a glass colour's clarity in the top five bits,
+or, for any other colour, how brightly it glows: its `EMISSION` is its colour times its glow times
+`glow_most`, 8, times the global `voxel_glow`, 1 at dusk and at night and 0 by day, `Docs/LIGHTS.md`).
 What it shares with the glass shaders, the uniforms, the vertex function and the lookups, is in
 `Voxels.gdshaderinc`. Colour edges inside a merged face are blended over about a pixel (`neighbour_share()`), and
 faces are drawn a fiftieth of a pixel past their edges, as `Docs/LEVELS.md` describes. Since nothing
@@ -128,7 +133,9 @@ Notes on each:
 
 - **The level** is no `VoxelModel` but is drawn the same way, by the same shader, with blood at the
   same place: a model too big to draw whole, so drawn a chunk at a time from one texture array.
-  `Docs/LEVELS.md` has it.
+  `Docs/LEVELS.md` has it. Its voxels that cast no lamp's shadow (a lamp's bulb and the frame beside
+  it) are a third surface of each section, `shadowless`, by the same shader with `lamp_shadows` off:
+  only the level's pieces are lamps (`Docs/LIGHTS.md`).
 - **A figure** is a `VoxelModel` of its rig's shape (the figure as drawn, standing, every bone's
   voxels side by side: `VoxelRig.make_shape()`) shown on its `Body` with the mesh it has
   (`show_on(body, true)`), made as the figure readies (`CharacterModel._ready()`, through
@@ -211,6 +218,8 @@ of faces did (see `Docs/BLOOD.md`).
   wears, is a few hundred faces at most.
 - **Glass:** a model or a section of the level with glass has a second surface, drawn in two passes,
   two draw calls more; one with none, nothing (`Docs/GLASS.md`).
+- **Lamps:** a section with voxels casting no lamp's shadow has a third surface, a draw call more;
+  glowing costs the shader one multiply (`Docs/LIGHTS.md` has the lights' own costs).
 - **Blood:** a hit costs 0.2 ms as before; a wound's flow on a figure (24 faces) about 1 ms, in
   blood's budget a physics step; a death with blood about 4.2 ms on its frame (3.8 before).
 

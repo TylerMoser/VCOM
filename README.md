@@ -61,6 +61,7 @@ all pause the game behind them, and all work the same way.
 | Close | `Esc`, or **Return to Game** on the pause menu's System tab. The roster before a battle cannot be closed: only **Start** leaves it |
 | Show or hide the tile grid | **Tile Grid** on the pause menu's System tab. The lines show in combat, and stay as set until the game closes |
 | Turn blood on or off | **Blood** on the pause menu's System tab, just below **Tile Grid**: off, battles are fought clean. It can only be changed on the world map, and is greyed out during a battle. It stays as set until the game closes |
+| Choose how lamps light a battle | **Lamp Lights** on the pause menu's System tab, just below **Blood**: **Omni**, the default, whose shadows are sharp, or **Area**, whose shadows are soft and which asks far more of the graphics card (see [Time of day and lamps](#time-of-day-and-lamps)). Like Blood, it can only be changed on the world map, is greyed out during a battle, and stays as set until the game closes |
 | Quit the game | **Exit to Desktop** on the pause menu's System tab |
 
 ### Combat
@@ -672,6 +673,25 @@ a battle; a battle keeps whatever it began with.
 
 Enemies are slate grey, so their wounds show.
 
+### Time of day and lamps
+
+Every battle is fought by day, at dusk or at night, picked as it begins: by day half the time, at
+dusk and at night a quarter of the time each. It is only for show: sight, cover, shots and paths
+are the same at any hour.
+
+- **By day** the battlefield is as it always was.
+- **At dusk** the sun hangs low and orange in a sky going dark, and the shadows run long.
+- **At night** the moon gives a faint blue light, with just enough light everywhere to fight by.
+- **Lamps light up at dusk and at night.** A street lamp's bulb glows and lights the ground, the
+  walls and the soldiers round it, throwing shadows; by day it is dark. TestMap has two, in front of
+  its house.
+- **Broken lamps go dark.** A lamp dims as blood spatters its bulb, and goes out the moment it is
+  broken or knocked down. A lamp stands on a corner, so it is only decoration to the fight: rounds
+  pass by it and it gives no cover, but a grenade breaks it.
+- **Sharp or soft shadows.** **Lamp Lights** on the pause menu's System tab, between battles, chooses
+  how lamps light: omni lights, the default, throw sharp shadows; area lights throw soft ones and
+  light mostly downward, and cost far more to draw.
+
 ## Notable decisions
 
 **Cover is read off what stands, in cells and on their edges.** XCOM puts cover on tile edges; here
@@ -742,6 +762,14 @@ there. So blood keeps exactly to the voxel grid, nothing is drawn over anything,
 rebuilds a block, a board or a body, wherever a voxel goes its blood goes, and the rules never see it.
 Where it lands it runs like a liquid, cheapest way first and downhill cheapest, so a pool fills a
 crater and drips over a ledge with no fluid simulation.
+
+**A lamp is drawn, not set up.** A bulb painted in MagicaVoxel with the Emit material glows as
+brightly as its Emission and lights what is round it as far as its Power, so a new lamp needs only
+its model; Godot can override either for a kind of piece. The light is one of Godot's own: an omni
+light casting sharp shadows, or an area light casting soft ones, whose shadows come from a copy of
+the level cut fine round it so that no light leaks through a wall. The lantern's own frame, right
+beside the bulb, is left out of its shadow, which would otherwise throw hard wedges across the map,
+while the post holding it up keeps its shadow.
 
 **Glass is for show; a window is not.** As in XCOM 2, soldiers see, shoot, throw and vault through
 windows, and any of it breaks the glass. A window is a piece the fight looks through, the wall under
@@ -1216,7 +1244,8 @@ vcom/                     the Godot project
                           and the reaction view
     InputDevice.gd        which the player is using, the gamepad or the keyboard and mouse
     Combat/               the grid, sight and cover, hit chance, where rounds and grenades go, coins,
-                          the tile grid's switch, the gamepad's tile cursor
+                          the tile grid's switch, the gamepad's tile cursor, the time of day and
+                          the lamps' lights
     AI/                   enemy AI: the base, the assault AI, and the queries they share
     Level/                combat maps as levels of voxel pieces: the pieces, the voxels they add up
                           to, how those are drawn, what the rules see, and what an editor click does
@@ -1265,6 +1294,8 @@ MagicaVoxel/              source .vox art
                           the stone wall, tall grass)
   Buildings/              the building pieces: a wall, a truss and a roof drawn by hand, and a window
                           made from the wall by make_windows.py
+  Lamps/                  the street lamp, drawn whole, and the script that cuts it into the game's
+                          three pieces
 Images/                   screenshots: the world map, the menus, battles just begun and long fought,
                           clean and with blood, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
@@ -1273,8 +1304,8 @@ MapStyles/                proposals for the new world map's look (02, 04, 05, 10
                           with variants, the harness that renders them, and how to apply one
 Docs/                     each subsystem in full, split out of CLAUDE.md: ammo, blood, the campaign,
                           the combat camera, destruction, the gamepad, glass and windows, grenades,
-                          hunkering down, levels, the level editor, the new world map, medkits, the
-                          roster, shooting, skills and voxel models
+                          hunkering down, levels, the level editor, lights and the time of day, the
+                          new world map, medkits, the roster, shooting, skills and voxel models
 ANIMATIONS.md             the figure's rig and animations, in full
 ```
 

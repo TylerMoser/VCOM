@@ -53,7 +53,9 @@ Glass. `VoxelShape._paint(vox)` reads each entry's material from the importer's 
 (`vox.materials`: the material of palette place p is at p - 1) and gives a glass entry's place the
 flag `VoxelShape.FLAG_GLASS` (4), with its clarity, how much of the light it lets through, in the top
 five bits of the same byte: MagicaVoxel's Transparency (`_trans`), in 31 steps (`glass_flags()`,
-`clarity_of()`). Its colour is its tint: white is clear glass, a colour is stained glass. The rest of
+`clarity_of()`). A glowing colour keeps its glow in those same five bits (`Docs/LIGHTS.md`): a colour
+has one material in MagicaVoxel, so it is glass or glowing, never both, and a glow reads 0 on glass.
+Its colour is its tint: white is clear glass, a colour is stained glass. The rest of
 the material (roughness, refraction, density) is read by the importer (below) and not by the game.
 The flags are the fourth number of every palette entry the voxel shaders read: 1 draws the tile grid
 over it, 2 makes it wet (blood's), 4 makes it glass. `find_glass()`, run as every shape is read (a
@@ -76,7 +78,8 @@ glass, as `whole` and `counts` its voxels.
 ### Meshed apart
 
 **A face of anything else shows through glass; a face of glass shows only against nothing.**
-`ChunkMesher.faces()` finds a cube's faces in two sets, `[the rest's, the glass's]`. The rest's are
+`ChunkMesher.faces()` finds a cube's faces in sets, `[the rest's, the glass's, ...]` (a third, for
+the voxels that cast no lamp's shadow, came with lamps: `Docs/LIGHTS.md`). The rest's are
 the faces of every voxel that is not glass with nothing but glass, or nothing at all, against them, in
 the cube or beside it: glass is air to them (`Near`'s `*_glass` rows say which of each neighbour's
 voxels are glass). The glass's are the faces of every glass voxel with nothing at all against them,
@@ -119,7 +122,8 @@ Why so:
 - **Sunlight falls through.** In Godot a see-through surface writes no depth and casts no shadow, so
   the sun lights a room through its windows (squares of light on the floor) and SSAO and SSIL shade
   the room behind a pane, not the pane. The light comes through untinted: a stained pane casts no
-  coloured light.
+  coloured light. So does a lamp's: a lantern glazed with glass lets its bulb's light out, and a lamp
+  outside lights a room through its windows (`Docs/LIGHTS.md`).
 - **Not plain alpha blending:** a pale colour lit by the sun washed out to a haze, and a figure behind
   it all but vanished (the research's renders). Not `PREMUL_ALPHA_FACTOR`: in 4.7 it scales the whole
   fragment, its specular too, and its tint can only be grey. Not refraction: it costs a copy of the

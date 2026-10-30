@@ -573,7 +573,12 @@ func _drop_whole(piece: int, collapse: Collapse) -> void:
 	# already, as the level holds them.
 	var shape := VoxelShape.new(Vector3i.ONE * VoxelVolume.BLOCK, -Vector3.ONE * 0.5)
 	shape.colors = _level.volume.palette
-	shape.flags = _level.volume.flags
+	# Its colours as the level's, but none glowing: a lamp that has fallen is
+	# broken, and broken lamps go dark (Docs/LIGHTS.md).
+	shape.flags = _level.volume.flags.duplicate()
+	for place in range(1, VoxelShape.BLOOD):
+		if VoxelShape.glows(shape.flags[place]):
+			shape.flags[place] = VoxelShape.glow_flags(0.0, shape.flags[place])
 	var left := PackedByteArray()
 	left.resize(shape.length)
 	var glass := PackedByteArray()

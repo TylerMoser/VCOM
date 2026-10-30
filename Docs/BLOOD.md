@@ -97,7 +97,10 @@ its own the first time (its shape's is every such model's) and uploads it at the
 Nothing is rebuilt, nothing more is drawn, and every open face of the voxel shows red. On glass too:
 a voxel stays glass whatever its colour, and blood's place has no clarity, so the glass shaders draw
 a stained pane's voxel opaque, wet and red, a smear on the glass, and its shard red when the pane
-shatters (`Docs/GLASS.md`). A spreading pool under a body costs about 0.06 ms a frame in uploads (0.15 at worst), a figure's texture 4 KB.
+shatters (`Docs/GLASS.md`). On a lamp's bulb a stain puts that voxel out, since blood's place never
+glows: the level counts the piece's glowing voxels by colour (`VoxelVolume.glow_counts`), and the
+lamp's light dims by a sixteenth for each of the street lamp's (`Docs/LIGHTS.md`). The voxel still
+casts no lamp's shadow, as a stained pane stays glass. A spreading pool under a body costs about 0.06 ms a frame in uploads (0.15 at worst), a figure's texture 4 KB.
 The user chose texture writes on 2026-10-19 for the level, rather than more textures or overlay
 meshes, and on 2026-10-20 asked for every voxel model to be recoloured so "instead of utilizing
 overlays": figures, props and crate boards had faces stained by an overlay of red squares 2 mm proud

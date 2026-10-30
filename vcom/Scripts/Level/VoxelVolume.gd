@@ -31,6 +31,14 @@
 ## apart ([ChunkMesher]), never counts toward what holds a piece up or keeps it
 ## standing ([member glass_counts]), and stays glass whatever it is recoloured,
 ## so blood on glass is drawn on the glass (Docs/GLASS.md).
+##
+## A voxel of a glowing colour (MagicaVoxel's Emit material) is counted for its
+## piece while it is there and keeps its colour ([member glow_counts]): what a
+## lamp's light dims with as its bulb is shot away or bloodied ([Lamps]). The
+## voxels that cast no shadow from a lamp's light - glowing ones, and those of
+## a kind's [member PieceKind.shadowless_colors] - are kept as rows of their
+## own in each chunk that has any ([member Chunk.shadowless_x]), stamped as
+## glass is, and meshed apart ([ChunkMesher], Docs/LIGHTS.md).
 class_name VoxelVolume
 extends RefCounted
 
@@ -79,6 +87,10 @@ class Chunk:
 	## first has glass ([method make_glass]).
 	var glass_x := PackedInt64Array()
 	var glass_z := PackedInt64Array()
+	## Those that cast no shadow from a lamp's light, as rows laid out as those:
+	## empty until the chunk first has one ([method make_shadowless]).
+	var shadowless_x := PackedInt64Array()
+	var shadowless_z := PackedInt64Array()
 	## Its layer of the level's colour texture ([LevelRenderer]).
 	var layer := -1
 
@@ -124,6 +136,17 @@ class Chunk:
 	func is_glass_at(voxel: Vector3i) -> bool:
 		return not glass_x.is_empty() and (glass_x[voxel.z + (voxel.y << SHIFT)] >> voxel.x) & 1 == 1
 
+	## Whether it has rows for voxels that cast no lamp's shadow.
+	func has_shadowless() -> bool:
+		return not shadowless_x.is_empty()
+
+	## Gives it rows for voxels that cast no lamp's shadow, empty, if it has
+	## none yet.
+	func make_shadowless() -> void:
+		if shadowless_x.is_empty():
+			shadowless_x.resize(AREA)
+			shadowless_z.resize(AREA)
+
 
 ## One kind's voxels, turned one of four ways, made ready to stamp: as rows,
 ## along x at [code]z + y * 16[/code] and along z at [code]x + y * 16[/code];
@@ -142,6 +165,12 @@ class Stamp:
 	var glass_x := PackedInt64Array()
 	var glass_z := PackedInt64Array()
 	var glass_count := 0
+	## Its voxels that cast no lamp's shadow, as rows laid out as those; and its
+	## glowing voxels, along x only, and how many: empty, and 0, for none.
+	var shadowless_x := PackedInt64Array()
+	var shadowless_z := PackedInt64Array()
+	var glow_x := PackedInt64Array()
+	var glow_count := 0
 	## Each voxel's place in the level's palette, laid out as [member colors]
 	## is: x across, z and y down, a row of 16 for each.
 	var places := PackedByteArray()
@@ -174,6 +203,11 @@ var whole := PackedInt32Array()
 var counts := PackedInt32Array()
 var glass_whole := PackedInt32Array()
 var glass_counts := PackedInt32Array()
+## How many glowing voxels each piece had once every piece was stamped, and
+## how many it has left now that still glow: not taken away, nor recoloured
+## (blood puts a glowing voxel out).
+var glow_whole := PackedInt32Array()
+var glow_counts := PackedInt32Array()
 ## The lowest layer of voxels: the underside of the floor, which nothing ever
 ## sees.
 var floor_y := 0
@@ -237,6 +271,8 @@ func sync_kinds() -> void:
 			push_error("VoxelVolume: piece kind '%s' has no model." % id)
 		else:
 			shape = VoxelShape.read(kind.model, kind.model_transform)
+			if shape != null and kind.lamp != null and kind.lamp.glow >= 0.0:
+				shape.set_glow(kind.lamp.glow)
 		shapes.append(shape)
 
 
@@ -254,6 +290,8 @@ func build(only := PackedInt32Array()) -> int:
 	whole.fill(0)
 	glass_whole.resize(count)
 	glass_whole.fill(0)
+	glow_whole.resize(count)
+	glow_whole.fill(0)
 	var images := {}
 	var overlapped := {}
 	var lowest := INF
@@ -276,6 +314,7 @@ func build(only := PackedInt32Array()) -> int:
 		_recount(chunks[key])
 	counts = whole.duplicate()
 	glass_counts = glass_whole.duplicate()
+	glow_counts = glow_whole.duplicate()
 	dirty.clear()
 	for key in chunks:
 		dirty[key] = true
@@ -295,6 +334,8 @@ func restamp(keys: Array[Vector3i]) -> void:
 	counts.resize(count)
 	glass_whole.resize(count)
 	glass_counts.resize(count)
+	glow_whole.resize(count)
+	glow_counts.resize(count)
 	var limit := {}
 	var images := {}
 	for key in keys:
@@ -339,6 +380,7 @@ func restamp(keys: Array[Vector3i]) -> void:
 		for index in chunk.owners:
 			counts[index] = whole[index]
 			glass_counts[index] = glass_whole[index]
+			glow_counts[index] = glow_whole[index]
 
 
 ## Notes that piece [param index] has been taken out of the level, every piece
@@ -360,6 +402,10 @@ func piece_removed(index: int) -> void:
 		glass_whole.remove_at(index)
 	if index < glass_counts.size():
 		glass_counts.remove_at(index)
+	if index < glow_whole.size():
+		glow_whole.remove_at(index)
+	if index < glow_counts.size():
+		glow_counts.remove_at(index)
 
 
 ## Notes that a piece has been put in the level at [param index], every piece
@@ -375,6 +421,8 @@ func piece_inserted(index: int) -> void:
 	counts.insert(index, 0)
 	glass_whole.insert(index, 0)
 	glass_counts.insert(index, 0)
+	glow_whole.insert(index, 0)
+	glow_counts.insert(index, 0)
 
 
 ## The keys of the chunks the box of a piece in [param slot] reaches.
@@ -451,6 +499,20 @@ func is_opaque(voxel: Vector3i) -> bool:
 	return not chunk.is_glass_at(Vector3i(voxel.x & MASK, voxel.y & MASK, voxel.z & MASK))
 
 
+## Whether there is a voxel at [param voxel] that casts no shadow from a
+## lamp's light.
+func is_shadowless(voxel: Vector3i) -> bool:
+	var chunk := chunk_of(voxel)
+	if chunk == null or not chunk.has_shadowless():
+		return false
+	return (chunk.shadowless_x[(voxel.z & MASK) + ((voxel.y & MASK) << SHIFT)] >> (voxel.x & MASK)) & 1 == 1
+
+
+## Whether the colour at [param place] in the palette glows.
+func glows(place: int) -> bool:
+	return place != 0 and VoxelShape.glows(flags[place])
+
+
 ## The piece [param voxel] belongs to, by its index in the level; -1 if none.
 func owner_at(voxel: Vector3i) -> int:
 	var chunk := chunk_of(voxel)
@@ -504,8 +566,13 @@ func remove(voxel: Vector3i) -> int:
 		chunk.glass_z[x + (y << SHIFT)] &= ~(1 << z)
 		if piece >= 0:
 			glass_counts[piece] -= 1
+	if chunk.has_shadowless():
+		chunk.shadowless_x[z + (y << SHIFT)] &= ~(1 << x)
+		chunk.shadowless_z[x + (y << SHIFT)] &= ~(1 << z)
 	if piece >= 0:
 		counts[piece] -= 1
+		if glows(place):
+			glow_counts[piece] -= 1
 	# A cell's count is left as it was: it need only never be too few.
 	dirty[chunk.key] = true
 	if x == 0:
@@ -541,6 +608,8 @@ func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: Pack
 	var rows_z := PackedInt64Array()
 	var glass_x := PackedInt64Array()
 	var glass_z := PackedInt64Array()
+	var shadowless_x := PackedInt64Array()
+	var shadowless_z := PackedInt64Array()
 	var chunk_owners := PackedInt32Array()
 	for at in count:
 		var x := voxels[at * 3]
@@ -557,6 +626,8 @@ func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: Pack
 				rows_z = chunk.rows_z
 				glass_x = chunk.glass_x
 				glass_z = chunk.glass_z
+				shadowless_x = chunk.shadowless_x
+				shadowless_z = chunk.shadowless_z
 				chunk_owners = chunk.owners
 				dirty[key] = true
 		places[at] = 0
@@ -583,8 +654,13 @@ func remove_many(voxels: PackedInt32Array, places: PackedByteArray, owners: Pack
 			glass[at] = 1
 			if piece >= 0:
 				glass_counts[piece] -= 1
+		if not shadowless_x.is_empty():
+			shadowless_x[lz + (ly << SHIFT)] &= ~(1 << lx)
+			shadowless_z[lx + (ly << SHIFT)] &= ~(1 << lz)
 		if piece >= 0:
 			counts[piece] -= 1
+			if glows(place):
+				glow_counts[piece] -= 1
 		places[at] = place
 		owners[at] = piece
 		if lx == 0:
@@ -774,6 +850,7 @@ func _lay_bare_one(bare: Vector3i, gone: Dictionary) -> int:
 		if not gone.has(next) and not is_opaque(next):
 			return 0
 	chunk = chunk_of(bare)
+	_count_recolor(piece, place, inside)
 	chunk.colors[index] = inside
 	dirty_colors[chunk.key] = true
 	return 1
@@ -790,9 +867,23 @@ func recolor(voxel: Vector3i, place: int) -> bool:
 	var index := index_of(voxel)
 	if chunk.colors[index] == 0 or chunk.colors[index] == place:
 		return false
+	_count_recolor(chunk.owner_at(index), chunk.colors[index], place)
 	chunk.colors[index] = place
 	dirty_colors[chunk.key] = true
 	return true
+
+
+## Keeps piece [param piece]'s count of glowing voxels as one of its voxels
+## goes from the colour at [param before] to the one at [param after].
+func _count_recolor(piece: int, before: int, after: int) -> void:
+	if piece < 0 or piece >= glow_counts.size():
+		return
+	var was := glows(before)
+	var now := glows(after)
+	if was and not now:
+		glow_counts[piece] -= 1
+	elif now and not was:
+		glow_counts[piece] += 1
 
 
 ## The glass voxels piece [param piece] still has, as places in the volume.
@@ -819,6 +910,18 @@ func glass_of(piece: int) -> PackedVector3Array:
 				for x in range(least.x, most.x + 1):
 					if row & (1 << x) != 0 and chunk.slots[at + x] == owned:
 						found.append(Vector3(chunk.origin + Vector3i(x, y, z)))
+	return found
+
+
+## The voxels of piece [param piece] that still glow, as places in the
+## volume: where a lamp's light comes from ([Lamps]).
+func glowing_of(piece: int) -> PackedVector3Array:
+	var found := PackedVector3Array()
+	if piece < 0 or piece >= glow_counts.size() or glow_counts[piece] <= 0:
+		return found
+	for at in voxels_of(piece):
+		if glows(color_at(Vector3i(at))):
+			found.append(at)
 	return found
 
 
@@ -961,7 +1064,12 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 		if not stamp.glass_x.is_empty():
 			chunk.make_glass()
 		if chunk.has_glass():
-			_place_glass(chunk, stamp, local, x0, x1, z0, z1)
+			_place_bits(chunk.glass_x, chunk.glass_z, stamp, stamp.glass_x, stamp.glass_z, local, x0, x1, z0, z1)
+		# And so with the voxels casting no lamp's shadow.
+		if not stamp.shadowless_x.is_empty():
+			chunk.make_shadowless()
+		if chunk.has_shadowless():
+			_place_bits(chunk.shadowless_x, chunk.shadowless_z, stamp, stamp.shadowless_x, stamp.shadowless_z, local, x0, x1, z0, z1)
 		slot_image.fill(Color8(owned, 0, 0))
 		var made: Array = images[key]
 		for y in BLOCK:
@@ -971,6 +1079,7 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 			(made[1] as Image).blit_rect_mask(slot_image, stamp.mask, source, to)
 	whole[index] = stamp.count
 	glass_whole[index] = stamp.glass_count
+	glow_whole[index] = stamp.glow_count
 	var low := LevelData.cell_of(slot)
 	if LevelData.is_centre(slot):
 		_cell_counts[low] = _cell_counts.get(low, 0) + stamp.count
@@ -985,18 +1094,21 @@ func _place(index: int, images: Dictionary, overlapped: Dictionary, limit := {})
 		_cell_counts[high] = _cell_counts.get(high, 0) + stamp.halves[along + 1]
 
 
-## Writes [param stamp]'s glass into [param chunk]'s, the stamp's box at
+## Writes the bits of [param stamp] that [param bits_x] and [param bits_z]
+## hold (its glass, or its voxels casting no lamp's shadow) into a chunk's own
+## such rows, [param into_x] and [param into_z], the stamp's box at
 ## [param local] in the chunk, from [param x0] to [param x1] and [param z0] to
-## [param z1] of its own across: every voxel the stamp has there is glass if
-## the stamp's is and no glass if not, whatever was there before.
-func _place_glass(chunk: Chunk, stamp: Stamp, local: Vector3i, x0: int, x1: int, z0: int, z1: int) -> void:
-	var into_x := chunk.glass_x
-	var into_z := chunk.glass_z
+## [param z1] of its own across: every voxel the stamp has there takes the
+## stamp's bit for it, whatever was there before.
+func _place_bits(
+	into_x: PackedInt64Array, into_z: PackedInt64Array, stamp: Stamp, bits_x: PackedInt64Array,
+	bits_z: PackedInt64Array, local: Vector3i, x0: int, x1: int, z0: int, z1: int
+) -> void:
 	var from_x := stamp.rows_x
 	var from_z := stamp.rows_z
-	var glassy := not stamp.glass_x.is_empty()
-	var glass_x := stamp.glass_x
-	var glass_z := stamp.glass_z
+	var glassy := not bits_x.is_empty()
+	var glass_x := bits_x
+	var glass_z := bits_z
 	for y in BLOCK:
 		var row_y := (local.y + y) << SHIFT
 		var stamp_y := y * BLOCK
@@ -1025,13 +1137,17 @@ func _place_glass(chunk: Chunk, stamp: Stamp, local: Vector3i, x0: int, x1: int,
 
 
 ## Counts afresh how many voxels each piece in [param chunk] has, and how many
-## of them glass, for a chunk where pieces overlapped: the earlier piece lost
-## what the later took.
+## of them glass and how many glowing, for a chunk where pieces overlapped: the
+## earlier piece lost what the later took.
 func _recount(chunk: Chunk) -> void:
 	var here := PackedInt32Array()
 	here.resize(chunk.owners.size() + 1)
+	var glow_here := PackedInt32Array()
+	glow_here.resize(chunk.owners.size() + 1)
 	for index in LENGTH:
 		here[chunk.slots[index]] += 1
+		if glows(chunk.colors[index]):
+			glow_here[chunk.slots[index]] += 1
 	var glass_here := PackedInt32Array()
 	glass_here.resize(chunk.owners.size() + 1)
 	if chunk.has_glass():
@@ -1051,6 +1167,8 @@ func _recount(chunk: Chunk) -> void:
 		whole[piece] -= meant - here[place + 1]
 		if not stamp.glass_x.is_empty():
 			glass_whole[piece] -= _stamp_count_in(piece, stamp.glass_x, chunk) - glass_here[place + 1]
+		if not stamp.glow_x.is_empty():
+			glow_whole[piece] -= _stamp_count_in(piece, stamp.glow_x, chunk) - glow_here[place + 1]
 
 
 ## How many voxels of [param stamp_rows], a stamp's rows along x, piece
@@ -1091,6 +1209,30 @@ func _stamp(kind: int, turn: int) -> Stamp:
 	if glassy:
 		stamp.glass_x.resize(BLOCK * BLOCK)
 		stamp.glass_z.resize(BLOCK * BLOCK)
+	# Which of its colours cast no lamp's shadow: those glowing, and those the
+	# kind names; and which glow.
+	var shadowless := PackedByteArray()
+	shadowless.resize(256)
+	var glowing := PackedByteArray()
+	glowing.resize(256)
+	var any_shadowless := false
+	var any_glowing := false
+	for place in range(1, BLOOD):
+		if VoxelShape.glows(shape.flags[place]):
+			glowing[place] = 1
+			shadowless[place] = 1
+			any_glowing = true
+			any_shadowless = true
+	if kinds[kind] != null:
+		for place in kinds[kind].shadowless_colors:
+			if place > 0 and place < BLOOD and shape.flags[place] & FLAG_GLASS == 0:
+				shadowless[place] = 1
+				any_shadowless = true
+	if any_shadowless:
+		stamp.shadowless_x.resize(BLOCK * BLOCK)
+		stamp.shadowless_z.resize(BLOCK * BLOCK)
+	if any_glowing:
+		stamp.glow_x.resize(BLOCK * BLOCK)
 	for y in BLOCK:
 		for z in BLOCK:
 			for x in BLOCK:
@@ -1109,6 +1251,12 @@ func _stamp(kind: int, turn: int) -> Stamp:
 					stamp.glass_x[to.z + to.y * BLOCK] |= 1 << to.x
 					stamp.glass_z[to.x + to.y * BLOCK] |= 1 << to.z
 					stamp.glass_count += 1
+				elif any_shadowless and shadowless[place] != 0:
+					stamp.shadowless_x[to.z + to.y * BLOCK] |= 1 << to.x
+					stamp.shadowless_z[to.x + to.y * BLOCK] |= 1 << to.z
+				if any_glowing and glowing[place] != 0:
+					stamp.glow_x[to.z + to.y * BLOCK] |= 1 << to.x
+					stamp.glow_count += 1
 				stamp.count += 1
 				stamp.halves[0 if to.x < 8 else 1] += 1
 				stamp.halves[2 if to.z < 8 else 3] += 1

@@ -303,8 +303,9 @@ func recolor(index: int, place: int) -> void:
 	_texels.write(at.x + (at.z + at.y * shape.size.z) * shape.size.x, place)
 
 
-## Paints every colour of it but blood's and its glass's [param color]: a
-## figure in its unit's colour, its visor clear.
+## Paints every colour of it but blood's, its glass's and its glowing ones'
+## [param color]: a figure in its unit's colour, its visor clear, a lamp it
+## carries still its own.
 func paint(color: Color) -> void:
 	var painted := PackedColorArray()
 	painted.resize(256)
@@ -312,7 +313,7 @@ func paint(color: Color) -> void:
 	painted[0] = Color.TRANSPARENT
 	painted[BLOOD] = shape.colors[BLOOD]
 	for place in range(1, BLOOD):
-		if shape.flags[place] & FLAG_GLASS != 0:
+		if shape.flags[place] & FLAG_GLASS != 0 or VoxelShape.glows(shape.flags[place]):
 			painted[place] = shape.colors[place]
 	palette = painted
 	_material = make_material(shape, _texels.texture, palette)

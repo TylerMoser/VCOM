@@ -154,8 +154,13 @@ func load_vox(vox_path: String, rig_layout: Dictionary) -> bool:
 	flags[VoxelShape.BLOOD] = VoxelShape.FLAG_WET
 	for place in range(1, VoxelShape.BLOOD):
 		var material: Variant = vox.materials.get(place - 1)
-		if material != null and material.is_glass():
+		if material == null:
+			continue
+		if material.is_glass():
 			flags[place] = VoxelShape.glass_flags(material.transparency)
+		elif material.type == "_emit" and material.emission > 0.0:
+			# A glowing colour glows on the figure too, at dusk and at night.
+			flags[place] = VoxelShape.glow_flags(material.emission)
 
 	layout = rig_layout
 	scale = rig_layout["scale"]

@@ -61,6 +61,16 @@ extends Resource
 ## glass, a colour MagicaVoxel draws as glass, is only for show: whole or
 ## shattered, the window is the same to the rules (Docs/GLASS.md).
 @export var window := false
+## The colours of its model, by their place in MagicaVoxel's palette (1 to
+## 255), whose voxels cast no shadow from a lamp's light: the frame of a lamp
+## right beside its bulb, whose shadows would fan out across the map from so
+## close. The sun's and the moon's shadows they still cast. A glowing voxel
+## never casts a lamp's shadow, whatever this says (Docs/LIGHTS.md).
+@export var shadowless_colors := PackedInt32Array()
+## What its glowing voxels give off, where MagicaVoxel's Emission and Power for
+## them are not what is wanted ([LampLight]); none, and they are lit as the
+## .vox says. Only for show, as every light is (Docs/LIGHTS.md).
+@export var lamp: LampLight
 
 
 ## What to call it in the level editor.

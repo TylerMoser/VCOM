@@ -22,6 +22,8 @@ func _ready() -> void:
 		elif arg.begins_with("--outdir="):
 			_out_dir = arg.get_slice("=", 1)
 
+	# By day, as every style is: the time of day is not left to chance (TimeOfDay).
+	TimeOfDay.forced = TimeOfDay.Period.DAY
 	var map := (load("res://Scenes/BoundaryMap.tscn") as PackedScene).instantiate()
 	add_child(map)
 	var rig := map.get_node(^"CameraRig")

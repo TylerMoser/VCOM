@@ -27,6 +27,9 @@
 ## is glass, and how clear its material is rides along with it. The model's
 ## glass voxels are kept apart too ([member glass], [member glass_rows]), as
 ## glass is drawn and broken apart from the rest ([ChunkMesher], Docs/GLASS.md).
+## A colour drawn with MagicaVoxel's Emit material glows at dusk and at night,
+## as brightly as its Emission says, and keeps its Power, how much light it
+## casts round it ([member powers], [Lamps], Docs/LIGHTS.md).
 ##
 ## What a model is whole never changes, so each is read once and shared: a
 ## model wearing away or recoloured ([VoxelModel]) changes a copy of the
@@ -50,12 +53,18 @@ const BLOOD_COLOR := Color(0.78, 0.02, 0.03)
 ## it is glass, see-through ([VoxelModel.GLASS_SHADER]). A glass colour's
 ## clarity, how much of the light it lets through, is the flags' top
 ## [constant CLARITY_STEPS] steps from [constant CLARITY_SHIFT] up
-## ([method glass_flags], [method clarity_of]).
+## ([method glass_flags], [method clarity_of]). A colour that is not glass
+## keeps its glow there instead, how brightly it shines at dusk and at night
+## (MagicaVoxel's Emit material, its Emission: [method glow_flags],
+## [method glow_of]); 0, it does not glow. MagicaVoxel gives a colour one
+## material, so none is both.
 const FLAG_GRID := 1
 const FLAG_WET := 2
 const FLAG_GLASS := 4
 const CLARITY_SHIFT := 3
 const CLARITY_STEPS := 31
+const GLOW_SHIFT := CLARITY_SHIFT
+const GLOW_STEPS := CLARITY_STEPS
 
 ## The reader the MagicaVoxel importer uses, and how it turns the model's axes
 ## (z up) into Godot's (y up).
@@ -81,6 +90,9 @@ var rows := PackedInt64Array()
 ## says. Blood's are wet.
 var colors := PackedColorArray()
 var flags := PackedByteArray()
+## Beside each glowing colour, its Power, as MagicaVoxel's Emit material sets
+## it: how much light the voxels of it cast round them, 0 for none ([Lamps]).
+var powers := PackedFloat32Array()
 ## Which voxels are glass, laid out as [member voxels] are, 1 for glass, and
 ## the same as rows, laid out as [member rows]: both empty if none is. A voxel
 ## keeps being glass whatever colour it is given later: blood on glass is
@@ -118,6 +130,7 @@ func _init(dimensions: Vector3i, least_corner: Vector3) -> void:
 	rows.resize(size.y * size.z)
 	colors.resize(256)
 	flags.resize(256)
+	powers.resize(256)
 	flags[BLOOD] = FLAG_WET
 
 
@@ -267,11 +280,13 @@ func reserve_blood() -> void:
 		else:
 			colors[free] = colors[BLOOD]
 			flags[free] = flags[BLOOD]
+			powers[free] = powers[BLOOD]
 			for index in voxels.size():
 				if voxels[index] == BLOOD:
 					voxels[index] = free
 	colors[BLOOD] = BLOOD_COLOR
 	flags[BLOOD] = FLAG_WET
+	powers[BLOOD] = 0.0
 
 
 ## Works out which of its voxels are glass, from its colours' flags: every
@@ -318,6 +333,46 @@ static func clarity_of(of_flags: int) -> float:
 	if of_flags & FLAG_GLASS == 0:
 		return 0.0
 	return float((of_flags >> CLARITY_SHIFT) & CLARITY_STEPS) / CLARITY_STEPS
+
+
+## The flags of a colour glowing [param glow] brightly, 0 to 1: MagicaVoxel's
+## Emission, in [constant GLOW_STEPS] steps; [param others] are its other
+## flags, kept. A glow above 0 never rounds down to none.
+static func glow_flags(glow: float, others := 0) -> int:
+	var steps := roundi(clampf(glow, 0.0, 1.0) * GLOW_STEPS)
+	if glow > 0.0:
+		steps = maxi(steps, 1)
+	return (others & ~(GLOW_STEPS << GLOW_SHIFT) & ~FLAG_GLASS) | (steps << GLOW_SHIFT)
+
+
+## How brightly a colour with [param of_flags] glows, 0 to 1: [method
+## glow_flags]' glow, 0 for one that does not, glass among them.
+static func glow_of(of_flags: int) -> float:
+	if of_flags & FLAG_GLASS != 0:
+		return 0.0
+	return float((of_flags >> GLOW_SHIFT) & GLOW_STEPS) / GLOW_STEPS
+
+
+## Whether a colour with [param of_flags] glows.
+static func glows(of_flags: int) -> bool:
+	return of_flags & FLAG_GLASS == 0 and (of_flags >> GLOW_SHIFT) & GLOW_STEPS != 0
+
+
+## Whether any of its colours its voxels hold glows.
+func has_glow() -> bool:
+	for place in range(1, BLOOD):
+		if glows(flags[place]) and voxels.has(place):
+			return true
+	return false
+
+
+## Gives every glowing colour of it a glow of [param glow] instead of its own,
+## 0 to 1, as a kind's [member LampLight.glow] asks; one that does not glow
+## stays dark.
+func set_glow(glow: float) -> void:
+	for place in range(1, BLOOD):
+		if glows(flags[place]):
+			flags[place] = glow_flags(maxf(glow, 0.0), flags[place])
 
 
 ## Whether [param at], counted from voxel (0, 0, 0), is one of the model's.
@@ -399,7 +454,9 @@ func bounds_of(of_rows: PackedInt64Array) -> AABB:
 ## Fills [member colors] from [param vox]'s palette, and [member flags] from
 ## its materials: each colour's material, in the importer's reader, is at the
 ## place of the colour, one down. A colour MagicaVoxel draws as glass is glass,
-## as clear as its Transparency says.
+## as clear as its Transparency says; one it draws with its Emit material
+## glows, as brightly as its Emission says, and keeps its Power
+## ([member powers]).
 func _paint(vox: Variant) -> void:
 	var palette: Array = vox.colors
 	for index in mini(palette.size(), 255):
@@ -407,8 +464,16 @@ func _paint(vox: Variant) -> void:
 	var materials: Dictionary = vox.materials
 	for place in range(1, BLOOD):
 		var material: Variant = materials.get(place - 1)
-		if material != null and material.is_glass():
+		if material == null:
+			continue
+		if material.is_glass():
 			flags[place] = glass_flags(material.transparency)
+		elif material.type == "_emit":
+			# Emission is how brightly the voxels glow, Power how much light they
+			# cast ([Lamps]); an Emit colour with no Emission does neither.
+			if material.emission > 0.0:
+				flags[place] = glow_flags(material.emission)
+				powers[place] = maxf(material.flux, 0.0)
 
 
 ## Where the importer draws the least corner of [param voxel], a voxel of a

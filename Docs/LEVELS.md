@@ -135,7 +135,9 @@ only where a piece puts voxels. A chunk keeps two bytes a voxel, at `x + z * 32 
 the chunk's `owners` (the pieces with voxels there); and the same voxels as rows of bits, `rows_x`
 (bit x, at `z + y * 32`) and `rows_z` (bit z, at `x + y * 32`), which the mesher works from. A chunk
 with glass keeps which of its voxels are glass as rows of their own too (`glass_x`, `glass_z`, made the
-first time it has any: `Docs/GLASS.md`). That is 80 KB a chunk: BoundaryMap's 470 chunks are 36.7 MB, CombatMap's 109 8.5 MB, LineOfSightTest's 162
+first time it has any: `Docs/GLASS.md`), and a chunk with voxels that cast no lamp's shadow (a lamp's
+bulb, and its kind's `shadowless_colors`) those as rows too (`shadowless_x`, `shadowless_z`:
+`Docs/LIGHTS.md`), stamped a voxel at a time as glass is. That is 80 KB a chunk: BoundaryMap's 470 chunks are 36.7 MB, CombatMap's 109 8.5 MB, LineOfSightTest's 162
 12.7 MB.
 
 **Pieces are stamped as images.** Each kind is read once (`VoxelShape.read()`) and turned into a
@@ -149,15 +151,19 @@ piece out or puts one back in the middle of the order.
 colour and set of flags, shared across kinds, at most 254 (BoundaryMap uses 15). Place 255 is
 `BLOOD`, `VoxelShape.BLOOD_COLOR`, flagged `FLAG_WET` (glossier), as in every voxel model's palette. `FLAG_GRID` marks a colour of a kind
 with `tile_grid`, and `FLAG_GLASS` a colour its model's `.vox` draws as glass, its clarity in the
-flags' top bits. Past 254 colours, the nearest there is stands in, with an error.
+flags' top bits, where a colour drawn with the Emit material keeps its glow instead (a kind's
+`LampLight.glow` can change it, `sync_kinds()`: `Docs/LIGHTS.md`). Past 254 colours, the nearest there
+is stands in, with an error.
 
 Queries: `is_solid()`, `color_at()`, `owner_at()`, `voxels_of(piece)`, `counts[piece]` (voxels left;
 `whole[piece]`, voxels once stamped), `cell_has_voxels()` (a count per cell made as it is built, never
 fewer than are there), `voxel_under()` / `center_of()`; and for glass `is_glass()`, `is_opaque()`,
 `glass_of(piece)`, `glass_counts[piece]` (`glass_whole`), `pieces_with_glass()`, and `held_count()`,
-a piece's voxels but its glass, which holds nothing up. Changes: `remove()` and `remove_many()` (wear),
-`recolor()` (blood); each marks the chunks it touched `dirty` (and the neighbours across a face it
-touched) or `dirty_colors`.
+a piece's voxels but its glass, which holds nothing up; for lamps `is_shadowless()`, `glows(place)`,
+`glowing_of(piece)` and `glow_counts[piece]` (`glow_whole`), its glowing voxels left, which a lamp's
+light dims with (`Docs/LIGHTS.md`). Changes: `remove()` and `remove_many()` (wear), `recolor()`
+(blood); each marks the chunks it touched `dirty` (and the neighbours across a face it touched) or
+`dirty_colors`, and keeps the glowing counts by the colour a voxel had and has.
 
 ### The chunk size
 
@@ -201,6 +207,15 @@ the wall behind a pane is drawn and a pane in its frame is two broad faces. A se
 second surface of its mesh, named `glass`, drawn by the glass shaders' two passes, a tint multiplied
 over what is behind and a shine added on top, which cast no shadow. A chunk with none is meshed by
 `rectangles()` exactly as before. `Docs/GLASS.md` has it in full.
+
+**So are the voxels that cast no lamp's shadow**: `ChunkMesher.faces()`' third set, hiding and
+showing faces as any voxel that is not glass does, drawn as a third surface of the section,
+`shadowless`, by `shadowless_material` (the voxel shader with `lamp_shadows` off), which every lamp's
+shadow map leaves out and the sun's keeps. While a battle's lamps are area lights,
+`use_fine_shadows()` gives each section within their reach a shadow-only copy of its faces cut fine
+(`FineShadow`, visual layer 20) and moves the sections to layer 19, which area lights leave out of
+their shadows: an area light's paraboloid shadow map puts big faces in the wrong place near it.
+`Docs/LIGHTS.md` has both in full.
 
 **One material draws every chunk** (`Scripts/Terrain/Voxels.gdshader`, which draws every voxel
 model, `Docs/VOXELS.md`; `render_mode diffuse_burley`, as the importer's materials drew). Every
@@ -695,15 +710,17 @@ scenery's ground plane.
     LevelData.gd       Resource: pieces in order, each a kind, a slot (half cells across: a middle, an edge or a
                        corner), a turn; is_corner(), cells_of(), edges_at(), ends_of()
     PieceKind.gd       Resource: id, model, model_transform, destruction, solid, tile_grid, edge_piece, corner_piece,
-                       cutaway, window; PieceBrush.gd (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres:
-                       kinds and brushes)
+                       cutaway, window, shadowless_colors, lamp (a LampLight.gd: Docs/LIGHTS.md); PieceBrush.gd
+                       (kinds placed together), PieceLibrary.gd (Blocks/Pieces.tres: kinds and brushes)
     LevelRules.gd      what the rules see: the solid pieces standing in each cell and across each edge; those on
                        corners and windows kept apart, for what holds pieces up alone (pieces_at(), has_slot())
-    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows, glass rows), palette (BLOOD 255);
-                       remove_many(), recolor(), lay_bare() (dug ground as earth), counts, glass_counts, glass_of();
-                       ChunkMesher.gd (faces by shape, none hidden; faces(): glass apart)
+    VoxelVolume.gd     every voxel, 32^3 chunks (colour place, owner, bit rows, glass rows, shadowless rows),
+                       palette (BLOOD 255); remove_many(), recolor(), lay_bare() (dug ground as earth), counts,
+                       glass_counts, glass_of(), glow_counts, glowing_of(); ChunkMesher.gd (faces by shape, none
+                       hidden; faces(): glass apart, and the voxels casting no lamp's shadow)
     LevelRenderer.gd   sections of 2^3 chunks, colours a Texture2DArray layer a chunk (Voxels.gdshader; glass a
-                       second surface, glass_material);
+                       second surface, glass_material; voxels casting no lamp's shadow a third,
+                       shadowless_material); use_fine_shadows() (area lights' fine copies, Docs/LIGHTS.md);
                        collision a trimesh a chunk, streamed; cut() (pieces cut away from the view, their shadows
                        still cast); SceneryRenderer.gd (a MultiMesh a kind, coarseness and region)
     LevelImport.gd     a GridMap as a LevelData; LevelEditing.gd (what an editor click does: apply(), undo())
@@ -816,9 +833,10 @@ Glass's and windows' are `Docs/GLASS.md`'s.
   nothing yet places a level's pieces at load from parts.
 - No auto-tiling: a fence's or a wall's ends, corners and joints are placed piece by piece; a post
   can stand on the corner where two lengths meet, but nothing places it.
-- No kind is made for corners yet, by the user's choice (2026-10-27: the slot alone, they model the
+- No post is made for corners yet, by the user's choice (2026-10-27: the slot alone, they model the
   posts); `MagicaVoxel/Shapes/`' `FenceCorner`, `FenceT` and `FenceCross`, a post with rails half a cell
-  each way, would suit one. Until a kind has `corner_piece`, the editor's Corner is chosen by hand.
+  each way, would suit one. The street lamp's three pieces (`Docs/LIGHTS.md`) are the only kinds with
+  `corner_piece` so far; for anything else the editor's Corner is chosen by hand.
 - A piece on a corner is decoration to the fight however big it is: a stone pillar a cell across
   stops no sight line, round or throw, gives no cover and is walked through, and a shot that hits
   flies through its voxels. Only what holds pieces up, blasts, bites and blood see it.

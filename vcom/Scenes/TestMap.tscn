@@ -40,6 +40,8 @@
 [ext_resource type="Resource" uid="uid://8bifgr30ciex" path="res://Levels/TestMap.tres" id="52_level"]
 [ext_resource type="Resource" path="res://Levels/TestMapScenery.tres" id="53_scenery"]
 [ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
+[ext_resource type="Script" path="res://Scripts/Combat/TimeOfDay.gd" id="70_time_of_day"]
+[ext_resource type="Script" path="res://Scripts/Combat/Lamps.gd" id="71_lamps"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h16oa"]
 vertex_color_is_srgb = true
@@ -231,6 +233,12 @@ script = ExtResource("32_blood")
 
 [node name="Cutaway" type="Node" parent="."]
 script = ExtResource("60_cutaway")
+
+[node name="TimeOfDay" type="Node" parent="."]
+script = ExtResource("70_time_of_day")
+
+[node name="Lamps" type="Node3D" parent="."]
+script = ExtResource("71_lamps")
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1000016]
 

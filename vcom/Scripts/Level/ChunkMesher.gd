@@ -27,7 +27,10 @@
 ## A face of any other voxel shows through glass, so to the rest glass is air;
 ## a face of glass shows only against nothing, so glass beside glass, or beside
 ## anything else, hides its face there. Without glass the faces are found
-## exactly as they always were.
+## exactly as they always were. The voxels that cast no shadow from a lamp's
+## light are a third set, apart from the rest only so their faces can be drawn
+## by a material that leaves them out of a lamp's shadow map (Docs/LIGHTS.md):
+## they hide faces and show them as any voxel that is not glass does.
 class_name ChunkMesher
 extends RefCounted
 
@@ -86,24 +89,42 @@ static func rectangles(n: int, rows_x: PackedInt64Array, rows_z: PackedInt64Arra
 
 
 ## The faces of the voxels of an [param n]-sided cube as [method rectangles]
-## finds them, its glass apart: [code][the rest's, the glass's][/code]. Its
-## voxels are [param rows_x] and [param rows_z], every one, and its glass
-## [param glass_x] and [param glass_z], laid out the same way, or empty for
-## none. A face of anything but glass shows against glass as against air, in
-## the cube or beside it; a face of glass shows only against nothing.
+## finds them, its glass apart and those casting no lamp's shadow apart:
+## [code][the rest's, the glass's, the shadowless'][/code]. Its voxels are
+## [param rows_x] and [param rows_z], every one, its glass [param glass_x] and
+## [param glass_z], and those casting no lamp's shadow [param shadowless_x] and
+## [param shadowless_z], laid out the same way, or empty for none. A face of
+## anything but glass shows against glass as against air, in the cube or
+## beside it; a face of glass shows only against nothing. The third set is
+## empty unless it is asked for.
 static func faces(
 	n: int, rows_x: PackedInt64Array, rows_z: PackedInt64Array, glass_x: PackedInt64Array,
-	glass_z: PackedInt64Array, near: Near, floor_slice := -1, no_down := false
+	glass_z: PackedInt64Array, near: Near, floor_slice := -1, no_down := false,
+	shadowless_x := PackedInt64Array(), shadowless_z := PackedInt64Array()
 ) -> Array[PackedInt32Array]:
 	var found: Array[PackedInt32Array] = []
-	if glass_x.is_empty():
+	if glass_x.is_empty() and shadowless_x.is_empty():
 		found.append(rectangles(n, rows_x, rows_z, near, floor_slice, no_down))
+		found.append(PackedInt32Array())
 		found.append(PackedInt32Array())
 		return found
 	var solid_x := without(rows_x, glass_x)
 	var solid_z := without(rows_z, glass_z)
-	found.append(_faces(n, solid_x, solid_z, solid_x, solid_z, near, true, floor_slice, no_down))
-	found.append(glass_rectangles(n, glass_x, glass_z, rows_x, rows_z, near, floor_slice, no_down))
+	if shadowless_x.is_empty():
+		found.append(_faces(n, solid_x, solid_z, solid_x, solid_z, near, true, floor_slice, no_down))
+	else:
+		# Faces of the rest and of the shadowless are found apart, each against
+		# every voxel that is not glass, so the two sets meet without a seam.
+		found.append(_faces(n, without(solid_x, shadowless_x), without(solid_z, shadowless_z), solid_x, solid_z, near, true, floor_slice, no_down))
+	if glass_x.is_empty():
+		found.append(PackedInt32Array())
+	else:
+		found.append(glass_rectangles(n, glass_x, glass_z, rows_x, rows_z, near, floor_slice, no_down))
+	if shadowless_x.is_empty():
+		found.append(PackedInt32Array())
+	else:
+		# Glass is never shadowless; what is shadowless of it is not glass.
+		found.append(_faces(n, without(shadowless_x, glass_x), without(shadowless_z, glass_z), solid_x, solid_z, near, true, floor_slice, no_down))
 	return found
 
 

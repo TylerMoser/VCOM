@@ -74,7 +74,11 @@ again from those rows (`_mesh_cut()`, the neighbours' faces read through `_shown
 cut pieces hid gets faces: the top of the wall course under a cut one, the ground under a cut wall.
 A section with any chunk so drawn (`_build_section()`) draws the cut meshes, casting no shadow, and
 under them, as `Shadow`, its whole mesh, `SHADOWS_ONLY`: every shadow falls as it did, and the inside
-of a house stays in its roof's shadow. Collision is always the whole level's. Wear while cut
+of a house stays in its roof's shadow. That holds for lamps too: the voxels that cast no lamp's
+shadow (a lamp's bulb and the frame beside it, a third surface) are cut as the rest are, and an area
+light's fine copies are cut from the whole meshes, so a cut changes none of them (`Docs/LIGHTS.md`). A
+lamp cut away from the view still lights, its light where it was. Collision is always the whole
+level's. Wear while cut
 (`refresh()`) cuts each chunk changed again before any is meshed, then meshes it both ways. Cutting
 TestMap's house from 5 (32 pieces) redraws 26 chunks and adds 12 shadow sections in about 21 ms;
 showing it whole again takes about 1.5 ms.
@@ -271,6 +275,8 @@ whole and cut.
   the edge shows.
 - Screen-space light (SSAO, SSIL) reads only what is drawn, so the inside of a house is lit a shade
   differently once its roof is not in the depth buffer, though every shadow is as it was.
+- A lamp in a part cut away, hidden from the view, still lights what is round it, and glows unseen.
+  Its light is only for show, as the cut is.
 - A cut costs about 21 ms on TestMap's small house, all of it GDScript meshing; a big building, or
   many, costs more, on the frame it is chosen. Each section drawn cut keeps a second, whole mesh for
   its shadow.

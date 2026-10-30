@@ -67,10 +67,12 @@ The library as it is (2026-10-20):
 | SimpleTruss1 (edge) | a gable's triangle, under SimpleRoof1 | an edge |
 | SimpleRoof1 | one slope of a roof, rising a level across the cell | a cell's middle |
 | SimpleWindow1 (edge, window) | SimpleWall1 with a four-pane window in it (2026-10-27): seen, shot, thrown and vaulted through, its glass only for show (`Docs/GLASS.md`) | an edge |
+| StreetLamp1Bottom, StreetLamp1Middle (corner), StreetLamp1Top (corner, lamp) | a street lamp's plinth and post, more post, and its arm and lantern, each a block (2026-10-27): decoration to the fight, lit at dusk and at night (`Docs/LIGHTS.md`) | a corner |
 | Brush: SkinnyTree1 (2) | a whole tree: the trunk, and the crown a level above it | a cell's middle |
 | Brush: StoneWall2 (2) | two courses of wall, one on the other: full cover | an edge |
 | Brush: SimpleWall2 (2) | two SimpleWall1, one on the other: full cover, a storey | an edge |
 | Brush: SimpleWindowWall2 (2) | a SimpleWall1, its sill, with a SimpleWindow1 on it: half cover, a window at a unit's eye | an edge |
+| Brush: StreetLamp1 (3) | the whole street lamp, three levels high: its three pieces stacked on the corner clicked, the lantern reaching out along +x before the brush is turned | a corner |
 
 **A slot is the middle of a cell, the edge between two, or the corner where four meet.** A cell is
 one unit across (a metre, sixteen voxels). A piece in the middle of a cell fills that cell, as a block
@@ -176,7 +178,7 @@ Top to bottom:
 | **Floor (Q / E)** | The floor painted, -8 to 32 |
 | **Turn (S)** | 0°, 90°, 180° or 270°, counterclockwise seen from above |
 | **Size ([ / ])** | The square a click paints, 1 to 15 cells a side |
-| **Pieces and brushes** | The palette: every kind in the library with a picture of it (the editor's own previews, which can take a moment to appear), "(corner)" after a kind meant for corners, "(edge)" after a fence or a wall and "(decoration)" after one the rules never see, with "window" beside it for a window ("(edge, window)"); then every brush, "Brush: name (pieces)". Choosing a kind meant for corners, or a brush whose first piece is one, switches to Corner; one meant for edges, to Edge; any other, to Middle. No kind is meant for corners yet: choose Corner by hand. The first entry is chosen to begin with |
+| **Pieces and brushes** | The palette: every kind in the library with a picture of it (the editor's own previews, which can take a moment to appear), "(corner)" after a kind meant for corners, "(edge)" after a fence or a wall and "(decoration)" after one the rules never see, with "window" beside it for a window ("(edge, window)") and "lamp" for a kind with voxels that glow ("(corner, lamp)"); then every brush, "Brush: name (pieces)". Choosing a kind meant for corners, or a brush whose first piece is one (the street lamp), switches to Corner; one meant for edges, to Edge; any other, to Middle. The first entry is chosen to begin with |
 | **Import GridMap** | Makes the level from the first GridMap in the scene ("Importing a GridMap") |
 | **Rebuild** | Builds the level afresh from its pieces |
 | **Save** | Saves now every level's pieces painted since they were last saved |
@@ -244,8 +246,10 @@ Top to bottom:
   Corner, and click on the corner, where lengths of fence or wall meet or at their ends. A post is
   decoration to the fight, never cover nor in anyone's way, but a beam (a course of wall, a fence) a
   floor up, on the edge running from one post to the next, stands on them while either stands. No
-  kind is drawn for corners yet; a kind with **Corner Piece** ticked switches the panel to Corner by
-  itself.
+  post is drawn yet, so choose Corner by hand for one; a kind with **Corner Piece** ticked (the street
+  lamp's, the one so far) switches the panel to Corner by itself.
+- **Lamps:** the **StreetLamp1** brush on a corner, on the floor it stands on: three levels of post
+  and lantern. It lights at dusk and at night and is decoration to the fight (`Docs/LIGHTS.md`).
 - **Trees:** the **SkinnyTree1** brush on floor 1: its trunk there, its crown on floor 2. Shoot the
   trunk through and the crown comes down.
 - **Decoration:** TallGrass on floor 1, over the ground: drawn, stained by blood, blown away by a
@@ -325,6 +329,11 @@ from elsewhere.
     thrown, clicked and vaulted through, no cover itself; what holds pieces up sees it as any piece
     (`Docs/GLASS.md`). "(window)" in the palette. Its glass is whatever its model paints with
     MagicaVoxel's Glass material, the one thing a model needs for glass, window or not.
+  - **Shadowless Colors** and **Lamp**: for a lamp. Its light is whatever its model paints with
+    MagicaVoxel's Emit material (Emission how brightly it glows, Power how far and bright it lights);
+    **Lamp**, a `LampLight`, overrides either, and **Shadowless Colors** lists the palette places of
+    the frame right beside its bulb, left out of its shadow. "lamp" in the palette. `Docs/LIGHTS.md`,
+    "Making a lamp in MagicaVoxel" and "Overriding it in Godot", has every number.
 - **A brush.** Add a `PieceBrush` to **Brushes**: its **Display Name**, and for each of its pieces a
   kind (**Kinds**, by id), a slot offset from the slot clicked (**Offsets**: x and z in half cells, y
   in cells, so 2 is a cell along and 1 a cell up) and a turn (**Turns**, quarter turns, 0 if left out).
@@ -340,7 +349,8 @@ from elsewhere.
 - **Models to start from:** `MagicaVoxel/Shapes/` holds basic block-sized models made by a script
   (`make_shapes.py`; its `README.md` has each and how to bring one in), of which the fence, the stone
   wall and the tall grass are in the game; `MagicaVoxel/Buildings/` the building pieces, the window
-  made from the wall by `make_windows.py`.
+  made from the wall by `make_windows.py`; `MagicaVoxel/Lamps/` the street lamp, drawn whole and cut
+  into its three pieces by `make_street_lamp.py`.
 
 ## How it works
 

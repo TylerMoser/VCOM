@@ -12,9 +12,12 @@
 // grid's lines over it (TileGrid.gd), 2 makes it wet, as blood is, glossier
 // (roughness 0.55, specular 0.35), 4 makes it glass, which this never draws:
 // glass is meshed apart and drawn by VoxelGlass.gdshader and
-// VoxelGlassShine.gdshader (ChunkMesher). Each face is drawn a fraction of a
-// pixel past its edges (grow_pixels), so faces that meet overlap rather than
-// leave a crack; the colour is still read within its own extent.
+// VoxelGlassShine.gdshader (ChunkMesher). Any other colour can glow, as bright
+// as the flags' top bits say (MagicaVoxel's Emit material, its Emission), once
+// voxel_glow is up: at dusk and at night (TimeOfDay.gd). Each face is drawn a
+// fraction of a pixel past its edges (grow_pixels), so faces that meet
+// overlap rather than leave a crack; the colour is still read within its own
+// extent.
 //
 // Voxels.gdshaderinc holds what the three share: the uniforms, the vertex
 // function and the lookups, and what each corner of a face carries.
@@ -26,6 +29,13 @@ render_mode diffuse_burley, specular_schlick_ggx;
 #include "res://Scripts/Terrain/Voxels.gdshaderinc"
 
 global uniform float tile_grid;
+// Whether glowing colours glow: 1 at dusk and at night, 0 by day, as the
+// battle's time of day sets it (TimeOfDay.gd; project.godot's shader_globals).
+global uniform float voxel_glow;
+
+// How many times its own colour a colour glowing fully shines (an Emission of
+// 100%): bright enough past the glow's threshold to bloom.
+uniform float glow_most = 8.0;
 
 // How much a tile grid line darkens the surface under it, and its half-width
 // in metres: as the ground's own grid shader had them before levels.
@@ -64,4 +74,5 @@ void fragment() {
 	bool wet = (flags & FLAG_WET) != 0;
 	SPECULAR = wet ? 0.35 : 0.5;
 	ROUGHNESS = wet ? 0.55 : 1.0;
+	EMISSION = albedo * glow_of(flags) * glow_most * voxel_glow;
 }

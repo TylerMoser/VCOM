@@ -1,10 +1,11 @@
 ## The pause menu's System tab: back to the game, the tile grid on or off,
-## blood on or off, save, load, or quit. Save and Load are shown but disabled
-## until there is anything to save.
+## blood on or off, lamps' lights omni or area, save, load, or quit. Save and
+## Load are shown but disabled until there is anything to save.
 ##
-## Blood can only be turned on or off between battles, on the world map: a
-## battle keeps the blood it began with ([member Blood.enabled]), so during
-## one its button is greyed out, with a note saying where it can be changed.
+## Blood, and whether lamps cast hard or soft shadows, can only be changed
+## between battles, on the world map: a battle keeps what it began with
+## ([member Blood.enabled], [member Lamps.area_lights]), so during one their
+## buttons are greyed out, with a note saying where they can be changed.
 class_name SystemTab
 extends VBoxContainer
 
@@ -21,6 +22,7 @@ const MUTED_COLOR := Color(0.55, 0.56, 0.62)
 
 var _grid_button: Button
 var _blood_button: Button
+var _lamps_button: Button
 var _blood_note: Label
 
 func _init() -> void:
@@ -38,8 +40,14 @@ func _init() -> void:
 	_blood_button = _add_button("")
 	_blood_button.tooltip_text = "Wounds, blood spray and pools in combat. Off, battles are fought clean. Only changes on the world map."
 	_blood_button.pressed.connect(_on_blood_pressed)
+	_lamps_button = _add_button("")
+	_lamps_button.tooltip_text = (
+		"How lamps light battles at dusk and at night: Omni casts hard shadows; Area casts soft ones,"
+		+ " and asks far more of the graphics card. Only changes on the world map."
+	)
+	_lamps_button.pressed.connect(_on_lamps_pressed)
 	_blood_note = Label.new()
-	_blood_note.text = "Blood can only be changed on the world map."
+	_blood_note.text = "Blood and lamp lights can only be changed on the world map."
 	_blood_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_blood_note.add_theme_font_size_override(&"font_size", 15)
 	_blood_note.add_theme_color_override(&"font_color", MUTED_COLOR)
@@ -47,6 +55,7 @@ func _init() -> void:
 	# Not whether a battle is on: the menu is made before Campaign is. It asks
 	# as it opens (show_blood_state()).
 	_label_blood()
+	_label_lamps()
 	_blood_note.visible = false
 
 	var save_button := _add_button("Save")
@@ -67,17 +76,24 @@ func show_grid_state() -> void:
 	_grid_button.text = "Tile Grid: %s" % ("On" if TileGrid.shown else "Off")
 
 
-## Labels the blood's button with whether there is blood, and greys it out,
-## with its note showing, while a battle is on. The menu calls it as it opens.
+## Labels the blood's and the lamps' buttons with what they are set to, and
+## greys them out, with their note showing, while a battle is on. The menu
+## calls it as it opens.
 func show_blood_state() -> void:
 	var locked := Campaign.in_mission
 	_label_blood()
+	_label_lamps()
 	_blood_button.disabled = locked
+	_lamps_button.disabled = locked
 	_blood_note.visible = locked
 
 
 func _label_blood() -> void:
 	_blood_button.text = "Blood: %s" % ("On" if Blood.enabled else "Off")
+
+
+func _label_lamps() -> void:
+	_lamps_button.text = "Lamp Lights: %s" % ("Area" if Lamps.area_lights else "Omni")
 
 
 func _on_grid_pressed() -> void:
@@ -90,6 +106,14 @@ func _on_blood_pressed() -> void:
 	if Campaign.in_mission:
 		return
 	Blood.enabled = not Blood.enabled
+	show_blood_state()
+
+
+func _on_lamps_pressed() -> void:
+	# The button is greyed out in battle; this is only belt and braces.
+	if Campaign.in_mission:
+		return
+	Lamps.area_lights = not Lamps.area_lights
 	show_blood_state()
 
 

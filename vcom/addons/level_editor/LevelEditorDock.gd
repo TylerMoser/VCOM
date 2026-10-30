@@ -262,8 +262,10 @@ func _fill_palette() -> void:
 
 
 ## What the palette says after [param kind]'s name: where it goes to begin
-## with, if not in a cell's middle, or that the rules never see it; and that
-## it is a window, which the fight sees through ([member PieceKind.window]).
+## with, if not in a cell's middle, or that the rules never see it; that it is
+## a window, which the fight sees through ([member PieceKind.window]); and
+## that it is a lamp, glowing and casting light at dusk and at night
+## ([Lamps]).
 static func _note_of(kind: PieceKind) -> String:
 	var note := ""
 	if kind.corner_piece:
@@ -274,7 +276,18 @@ static func _note_of(kind: PieceKind) -> String:
 		note = "decoration"
 	if kind.window and kind.solid:
 		note = "window" if note.is_empty() else note + ", window"
+	if _glows(kind):
+		note = "lamp" if note.is_empty() else note + ", lamp"
 	return "  (%s)" % note if not note.is_empty() else ""
+
+
+## Whether [param kind]'s model has a colour that glows, and its [member
+## PieceKind.lamp] does not put it out.
+static func _glows(kind: PieceKind) -> bool:
+	if kind.model == null or (kind.lamp != null and kind.lamp.glow == 0.0):
+		return false
+	var shape := VoxelShape.read(kind.model, kind.model_transform)
+	return shape != null and shape.has_glow()
 
 
 ## Fetches a picture of [param model] for the palette's entry [param at].
