@@ -1,0 +1,2065 @@
+{
+  "source": "poke_o.png",
+  "review": {
+    "source": "poke_o.png",
+    "reviewed": true,
+    "families": [
+      "PokeO_TimberSign",
+      "PokeO_RedMailbox",
+      "PokeO_BluePlaque",
+      "PokeO_FlowerPlanter",
+      "PokeO_ParkedScooter",
+      "PokeO_BeachParasol",
+      "PokeO_BeachLounger",
+      "PokeO_Sandcastle"
+    ],
+    "notes": "Timber sign, red mailbox, metal-framed blue plaque, planted flower box, parked scooter, open beach parasol, white lounger and four-turret sandcastle. Enlarged crops corrected initial thumbnail guesses of a vending machine, bicycle and volleyball net. Characters and swimmers are excluded.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_TimberSign",
+      "kind": "sign",
+      "crop": [
+        270,
+        348,
+        290,
+        372
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_RedMailbox",
+      "kind": "mailbox",
+      "crop": [
+        365,
+        145,
+        388,
+        172
+      ],
+      "size": [
+        12,
+        12,
+        24
+      ],
+      "tone": "red"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_BluePlaque",
+      "kind": "plaque",
+      "crop": [
+        300,
+        351,
+        326,
+        375
+      ],
+      "size": [
+        24,
+        8,
+        20
+      ],
+      "tone": "blue"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_FlowerPlanter",
+      "kind": "planter",
+      "crop": [
+        285,
+        316,
+        309,
+        353
+      ],
+      "size": [
+        20,
+        32,
+        16
+      ],
+      "tone": "brown"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_ParkedScooter",
+      "kind": "scooter",
+      "crop": [
+        346,
+        173,
+        383,
+        197
+      ],
+      "size": [
+        32,
+        12,
+        24
+      ],
+      "tone": "blue"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_BeachParasol",
+      "kind": "parasol",
+      "crop": [
+        426,
+        30,
+        469,
+        71
+      ],
+      "size": [
+        32,
+        32,
+        36
+      ],
+      "tone": "orange"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_BeachLounger",
+      "kind": "lounger",
+      "crop": [
+        528,
+        363,
+        546,
+        402
+      ],
+      "size": [
+        16,
+        32,
+        16
+      ],
+      "tone": "white"
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_Sandcastle",
+      "kind": "sandcastle",
+      "crop": [
+        596,
+        441,
+        640,
+        487
+      ],
+      "size": [
+        32,
+        32,
+        24
+      ],
+      "tone": "sand"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_o/PokeO_TimberSign.vox",
+      "family": "PokeO_TimberSign",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "adf613fe8fb9a78687d8ca4793747bf48882ebcda98ce2dcae4a2e5b5e7c6265",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon.vox",
+      "family": "PokeO_TimberSign",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "e3f5d0e92763ef19070c9038ed6be5b8fa9224f3ceed9dcfe7cc19eba32df243",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_CratePalette.vox",
+      "family": "PokeO_TimberSign",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "552ebc75bb320b522b820153e541ef082f2ec77a2eefa613ec531f291e464bac",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_TwoColor.vox",
+      "family": "PokeO_TimberSign",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "13e86406f695255e5f489815c1cddda7c3316e1ab4652d82c0ebde3d884e174d",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon_TwoColor.vox",
+      "family": "PokeO_TimberSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "ffce4d1082d5eb5fdc438befa1be83d4337714cb23eabcc3bf99303c5f0b6ce5",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_CratePalette_TwoColor.vox",
+      "family": "PokeO_TimberSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "97bde41f6c5f59b200f36107173832d6e79a0fbf8026266599bb8a7434a9e756",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_TimberSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "06be908718411adff717ba02fc44dc02e6b6835cc60ef05e487f006ed6b0d063",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 6,
+      "groups": {
+        "1": "body",
+        "2": "body",
+        "3": "body",
+        "4": "ink",
+        "5": "metal",
+        "6": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "d265d76e769e26d418d4e2d15af2756eeab31585a77f7e162519b285cf2015df",
+      "palette_sha256": "5a5b23079b43867b0c4c0dea54a953d6ccbc0d5e40c9c459c477e711db04a376",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "f55c4773b81c0261bfd173f3d1f8e519b4ae9898d12ff2b6bee5d4f5634b3ca6",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_CratePalette.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 4,
+      "groups": {
+        "220": "body",
+        "221": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "0e0b15e838d788f5b727083735f6288d8eff3eec53d8fd6638b3bb0351d1533c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_TwoColor.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "0b0cae30a3bf7148f68d11886d67dd1af33c2e476e67a0c73254ad10b84ac9bc",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon_TwoColor.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "a985754577ea9cfab26db344bca708926bea7156bb2445bea40c4b3781f0f1d8",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_CratePalette_TwoColor.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 3,
+      "groups": {
+        "220": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "d2f6b17da6f1504f45ff6ad71700ed9ce02f0f14a4258c6e537df111245a5e78",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_RedMailbox",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "220": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "10e854b4f4213fde0d00354c55f964c80b4e743cd5d2053504c2fa5d0c64cb16",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "Base",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1966,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1966
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        19
+      ],
+      "sha256": "8c18a785900816a887a553c93c5262edeb66be3e2ce1dd29d92878507c39f688",
+      "palette_sha256": "3f92b6a89d6fe2ea5de132a68af39d02f104683164a08fc52f9f47312b30dcec",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1990,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1990
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        19
+      ],
+      "sha256": "5528dc7196c6ca3b114bbb8f488130edee094f6f1c10c018e9b3496e051262d8",
+      "palette_sha256": "1058d2bf2e8f5db941c6b3686b56d8abc5d4c015e0e04788914f9d1c8435bcc1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_CratePalette.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1966,
+      "colors": 6,
+      "groups": {
+        "251": "face",
+        "252": "face",
+        "193": "frame",
+        "194": "frame",
+        "195": "frame",
+        "254": "ink"
+      },
+      "components": [
+        1966
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        19
+      ],
+      "sha256": "b66580664981ad4062c23503688b8602249a9349d6d4488225acaf9fc1a774c5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_TwoColor.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1966,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1966
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        19
+      ],
+      "sha256": "9d6fe302fb55c4dc8f7a9bf673d8aa15adb9a46d94d37ec1e2f0d865c813fbee",
+      "palette_sha256": "1058d2bf2e8f5db941c6b3686b56d8abc5d4c015e0e04788914f9d1c8435bcc1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon_TwoColor.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1990,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1990
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        19
+      ],
+      "sha256": "76387d488dda063a02476e88a0bbe0f3331cee78ab58937f2bfab65bcf46813e",
+      "palette_sha256": "1058d2bf2e8f5db941c6b3686b56d8abc5d4c015e0e04788914f9d1c8435bcc1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_CratePalette_TwoColor.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1966,
+      "colors": 3,
+      "groups": {
+        "251": "face",
+        "194": "frame",
+        "254": "ink"
+      },
+      "components": [
+        1966
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        19
+      ],
+      "sha256": "177c975fe981bd0ebf953b8ae25cca779a2fce27b92c07333a7999f0c8baab06",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_BluePlaque",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        8,
+        20
+      ],
+      "voxels": 1990,
+      "colors": 3,
+      "groups": {
+        "251": "face",
+        "194": "frame",
+        "254": "ink"
+      },
+      "components": [
+        1990
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        19
+      ],
+      "sha256": "7fee04d07efe4ef08c47fc1aac6f781f6ccde011c45a6e22e67c76619fbbf132",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "Base",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 5956,
+      "colors": 11,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "petal",
+        "4": "petal",
+        "5": "petal",
+        "6": "soil",
+        "7": "soil",
+        "8": "soil",
+        "9": "wood",
+        "10": "wood",
+        "11": "wood"
+      },
+      "components": [
+        5956
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "5d3b069b4bbb046d20b5fd8440c79609f9b6756282a4809ccf66f9be834e1ae0",
+      "palette_sha256": "b67fa5936e17204fc1271f40cd428132676b79fdc39de7afc914405668043ddc",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 6016,
+      "colors": 4,
+      "groups": {
+        "1": "leaf",
+        "2": "petal",
+        "3": "soil",
+        "4": "wood"
+      },
+      "components": [
+        6016
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "9f1b5bd67dc2ddd16ec8b05adb56a58a5161f271ca7eccfc97b1e1a926855e7e",
+      "palette_sha256": "39c3b700927cdbc0e5d2b7171d7c05567b617c0bcf6cae5cb6e23f0a3d667a35",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_CratePalette.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 5956,
+      "colors": 8,
+      "groups": {
+        "242": "leaf",
+        "243": "leaf",
+        "213": "petal",
+        "214": "petal",
+        "225": "soil",
+        "233": "soil",
+        "179": "wood",
+        "235": "wood"
+      },
+      "components": [
+        5956
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "f35a8b1624162c06f44a6aeb78479c31d35db22e2732e0722a0e88ab11f98261",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_TwoColor.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 5956,
+      "colors": 4,
+      "groups": {
+        "1": "leaf",
+        "2": "petal",
+        "3": "soil",
+        "4": "wood"
+      },
+      "components": [
+        5956
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "7989883e93a13a79da34b8d47654c0a45a6284afed6ba057c4777b22e79576a7",
+      "palette_sha256": "39c3b700927cdbc0e5d2b7171d7c05567b617c0bcf6cae5cb6e23f0a3d667a35",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon_TwoColor.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 6016,
+      "colors": 4,
+      "groups": {
+        "1": "leaf",
+        "2": "petal",
+        "3": "soil",
+        "4": "wood"
+      },
+      "components": [
+        6016
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "f8bd925be4a18ef192c1bea56e62eaf2c6a01952b51dd80cc74c00d59d67ad92",
+      "palette_sha256": "39c3b700927cdbc0e5d2b7171d7c05567b617c0bcf6cae5cb6e23f0a3d667a35",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_CratePalette_TwoColor.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 5956,
+      "colors": 4,
+      "groups": {
+        "243": "leaf",
+        "214": "petal",
+        "233": "soil",
+        "179": "wood"
+      },
+      "components": [
+        5956
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "7af6d4bd19e7f219cfa6cbdb39d052d68245458283d2f03d9b7236f00c401a5b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_FlowerPlanter",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        32,
+        16
+      ],
+      "voxels": 6016,
+      "colors": 4,
+      "groups": {
+        "243": "leaf",
+        "214": "petal",
+        "233": "soil",
+        "179": "wood"
+      },
+      "components": [
+        6016
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        31,
+        15
+      ],
+      "sha256": "f4907d0fc2c95a4c10acf99dfb7e0f92926253da7e93a081ff7ef7a559a8dfd0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "Base",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 11,
+      "groups": {
+        "1": "body",
+        "2": "body",
+        "3": "body",
+        "4": "metal",
+        "5": "metal",
+        "6": "metal",
+        "7": "rubber",
+        "8": "rubber",
+        "9": "rubber",
+        "10": "seat",
+        "11": "seat"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "bd5780903d3af8d974bf393cd88350fb40fa4f0394422e58691faf0a7e2f0087",
+      "palette_sha256": "23d2128fe67fc2ce87584e4dbaebf47e4509ace4842396c75a07e36c313e8ef2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2687,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "metal",
+        "3": "rubber",
+        "4": "seat"
+      },
+      "components": [
+        2687
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "afcb1337f557e41bdc58e4e213875ff5e7d455446ba933ee4f0fe14c2a4eca26",
+      "palette_sha256": "05c67dfb999e472bcbbfba2bd46614efbe112cc410c727870f8821f41daf37db",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_CratePalette.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 9,
+      "groups": {
+        "251": "body",
+        "252": "body",
+        "205": "metal",
+        "206": "metal",
+        "203": "rubber",
+        "204": "rubber",
+        "1": "rubber",
+        "219": "seat",
+        "179": "seat"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "7834be4be2ab3cc35442808c280982aa416820f6469629643019aad7bdb58a9b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_TwoColor.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "metal",
+        "3": "rubber",
+        "4": "seat"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "68176e7214627d914a98bc37d54c47dad1f19532cc1bcb89b7731d581adf95b1",
+      "palette_sha256": "05c67dfb999e472bcbbfba2bd46614efbe112cc410c727870f8821f41daf37db",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon_TwoColor.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2687,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "metal",
+        "3": "rubber",
+        "4": "seat"
+      },
+      "components": [
+        2687
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "db302a1f67832817619d68304d9b042494340e8cbd6d759dbd09a3ccb1234ec0",
+      "palette_sha256": "05c67dfb999e472bcbbfba2bd46614efbe112cc410c727870f8821f41daf37db",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_CratePalette_TwoColor.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 4,
+      "groups": {
+        "252": "body",
+        "206": "metal",
+        "204": "rubber",
+        "179": "seat"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "ff5f6102fa3bccdacd4b8b3921983b59d708e91f6d3940bff14b7f5957167791",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_ParkedScooter",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        24
+      ],
+      "voxels": 2687,
+      "colors": 4,
+      "groups": {
+        "252": "body",
+        "206": "metal",
+        "204": "rubber",
+        "179": "seat"
+      },
+      "components": [
+        2687
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        11,
+        23
+      ],
+      "sha256": "81b1368013331fff667990ed68eb0eee0cb59ba66c65491bd81d0ccd7b073eb1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 1688,
+      "colors": 6,
+      "groups": {
+        "1": "cloth",
+        "2": "cloth",
+        "3": "metal",
+        "4": "metal",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        1688
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "2ad84def786eb31027050e95a66453c97acaed621695999f1756e0a069d804fb",
+      "palette_sha256": "1f60862e7bf8865a9e097180dbef54bdb0263930336b217e4f214677fcafcf91",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 2416,
+      "colors": 4,
+      "groups": {
+        "1": "cloth",
+        "2": "cloth",
+        "3": "metal",
+        "4": "wood"
+      },
+      "components": [
+        2416
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "aa6392bcebe03e44ae0866b46e59ee56efe8db2b1dd7bc354415c150f8e8972b",
+      "palette_sha256": "fdaaa9092154780b86321b33cd27fbc53990bcbbb6003b449c2900d8cb1095ab",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_CratePalette.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 1688,
+      "colors": 6,
+      "groups": {
+        "196": "cloth",
+        "222": "cloth",
+        "205": "metal",
+        "206": "metal",
+        "179": "wood",
+        "235": "wood"
+      },
+      "components": [
+        1688
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "58d405fa7223919aa5bc7d26bc7d9793807e7987671a4ad7aabe9dac00327d90",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_TwoColor.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 1688,
+      "colors": 3,
+      "groups": {
+        "1": "cloth",
+        "2": "metal",
+        "3": "wood"
+      },
+      "components": [
+        1688
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "9a5b057510ba0907360e46f6e446718e03ffd007e86b5fb1afbe91419bfd2802",
+      "palette_sha256": "656f9e695c0c4fda33031b374f1f815bdfa1a6e511eb1b52a7b2eeca7c5a6dbf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon_TwoColor.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 2416,
+      "colors": 3,
+      "groups": {
+        "1": "cloth",
+        "2": "metal",
+        "3": "wood"
+      },
+      "components": [
+        2416
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "cdc303cf2b3949b57d90beb3aa6541221ccc7c14334be0b485e5794573332264",
+      "palette_sha256": "656f9e695c0c4fda33031b374f1f815bdfa1a6e511eb1b52a7b2eeca7c5a6dbf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_CratePalette_TwoColor.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 1688,
+      "colors": 3,
+      "groups": {
+        "222": "cloth",
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        1688
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "2d52c772721af5c1f9941868234bddf565f475b32fe97c2d4beeab123c9195e8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_BeachParasol",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "voxels": 2416,
+      "colors": 3,
+      "groups": {
+        "222": "cloth",
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        2416
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        33
+      ],
+      "sha256": "ccafbd6a0dd72a423f31ea9bceff790501648707ae3387b7084cf0508b93abf1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "Base",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 6,
+      "groups": {
+        "1": "cloth",
+        "2": "cloth",
+        "3": "cloth",
+        "4": "metal",
+        "5": "metal",
+        "6": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "fe14585bff2e4c02f6d4e85e1badb9ffc784bc98dff8a7a831d260b6b3de2186",
+      "palette_sha256": "1cb7ef1b9035d2dd6994a1550c080d437273e84861a60bdd2f56577426f9c941",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 2,
+      "groups": {
+        "1": "cloth",
+        "2": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "a53f67aeabcc1524bfdb18248b83a236d39fc2efc41a3bb54f78e31fc37e8360",
+      "palette_sha256": "75cbf969bd454e58ca992c8bd4d7deede558f78b6aa1fc8c7aa379e538920c14",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_CratePalette.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 4,
+      "groups": {
+        "195": "cloth",
+        "196": "cloth",
+        "205": "metal",
+        "206": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "f5416891ed89a165c1ac34161801514169810fb033f44f1d52818631c0bc9447",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_TwoColor.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 2,
+      "groups": {
+        "1": "cloth",
+        "2": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "a64efc745f6f8685a14e47209d4f9b1a247bbead504c1d7e90d275fcfc63dc46",
+      "palette_sha256": "75cbf969bd454e58ca992c8bd4d7deede558f78b6aa1fc8c7aa379e538920c14",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon_TwoColor.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 2,
+      "groups": {
+        "1": "cloth",
+        "2": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "72165c1239f9e75b0d17405ba2b4f01f4523f96f37246da26a47eba8b5874298",
+      "palette_sha256": "75cbf969bd454e58ca992c8bd4d7deede558f78b6aa1fc8c7aa379e538920c14",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_CratePalette_TwoColor.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 2,
+      "groups": {
+        "195": "cloth",
+        "206": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "742185ed48a5024cc859bea461366adc02e1444f3ed0f23e2569c6066205aed9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_BeachLounger",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        32,
+        16
+      ],
+      "voxels": 768,
+      "colors": 2,
+      "groups": {
+        "195": "cloth",
+        "206": "metal"
+      },
+      "components": [
+        720,
+        24,
+        24
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        29,
+        14
+      ],
+      "sha256": "8971a9488168310ab78094ac524f3ba789a2dd59911e714be175d39438ebbd90",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9124,
+      "colors": 3,
+      "groups": {
+        "1": "sand",
+        "2": "sand",
+        "3": "sand"
+      },
+      "components": [
+        9124
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "37ac4fe43e4fd94c3e434679368fb93368dc64771a7372abd73438a7b7a1badb",
+      "palette_sha256": "580abc9483f28f47817b5f6d28b913ec8b36281ab6907a7e620473a135f19453",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9424,
+      "colors": 1,
+      "groups": {
+        "1": "sand"
+      },
+      "components": [
+        9424
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "cd9a61aa999dca2866b6bd852778453ddbd6dfaa5ff685e2f2aef423e961f3e9",
+      "palette_sha256": "2b152bf78ee05a5f10c7b47771f2131a2d8b5b814702014a8b05a83563011c74",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_CratePalette.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9124,
+      "colors": 2,
+      "groups": {
+        "237": "sand",
+        "238": "sand"
+      },
+      "components": [
+        9124
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "d94a046b17473a225f9c6d3b66c7fb43ef20c436b0a0ecd2b7dec1918979be74",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_TwoColor.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9124,
+      "colors": 1,
+      "groups": {
+        "1": "sand"
+      },
+      "components": [
+        9124
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "7cc5a6a2e15aabd71147b96737b04d811a1c739a1610cba5085ee7c86f37a9ab",
+      "palette_sha256": "2b152bf78ee05a5f10c7b47771f2131a2d8b5b814702014a8b05a83563011c74",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon_TwoColor.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9424,
+      "colors": 1,
+      "groups": {
+        "1": "sand"
+      },
+      "components": [
+        9424
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "6996851c02e81eba54dd0136bb414b3fe6a485283f1c01231e7fa93f745c0a8a",
+      "palette_sha256": "2b152bf78ee05a5f10c7b47771f2131a2d8b5b814702014a8b05a83563011c74",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_CratePalette_TwoColor.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9124,
+      "colors": 1,
+      "groups": {
+        "237": "sand"
+      },
+      "components": [
+        9124
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "2f670d7f7c3a456189e738af6f1821dc432ebadef932f17e6d78af6f63e74d86",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_Sandcastle",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        24
+      ],
+      "voxels": 9424,
+      "colors": 1,
+      "groups": {
+        "237": "sand"
+      },
+      "components": [
+        9424
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        23
+      ],
+      "sha256": "a97cf6ed77da14760f7a932f98e92549dcbd5857ecc77c8951463c1dc64b6088",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

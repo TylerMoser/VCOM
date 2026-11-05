@@ -1,0 +1,339 @@
+{
+  "family": {
+    "source": "poke_d.png",
+    "name": "PokeD_StoneLantern",
+    "shape": "stone",
+    "size": [
+      16,
+      16,
+      20
+    ],
+    "crop": [
+      458,
+      198,
+      486,
+      229
+    ],
+    "scale": 1,
+    "metal": [
+      172,
+      171,
+      151
+    ],
+    "light": [
+      255,
+      205,
+      128
+    ],
+    "power": 1,
+    "note": "Small stone garden lantern: broad rounded cap and finial, open chamber, short feet. Source unlit dark chamber; small warm burner inferred for usable night lighting."
+  },
+  "models": [
+    {
+      "file": "output/poke_d/PokeD_StoneLantern.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "colors": 4,
+      "sha256": "93e06ced25698395d3398ba7b531090eacd20f6c444a5a151103d72110357d00",
+      "palette_sha256": "96f5f2d79c00dc42d2234ad5378603f5e70d3b462c3111d24a15e1b7c6651a72",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "colors": 4,
+      "sha256": "6c4dc248ba14081945bad13bdf914200a3546e22a3ee6eb99fe816de02f8c14a",
+      "palette_sha256": "96f5f2d79c00dc42d2234ad5378603f5e70d3b462c3111d24a15e1b7c6651a72",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_CratePalette.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone",
+        "206": "stone"
+      },
+      "colors": 3,
+      "sha256": "fc59bcd9be23d70121d97ffe3b573bdf92bf445ff5c3e0d913d4d703be52fc36",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone"
+      },
+      "colors": 2,
+      "sha256": "6c80061f405f7a8d31b6081611acb05e16b4f8d3a871cbb40fe4b791f905a965",
+      "palette_sha256": "8e8267011fea8e51d76a6b52bb40089ae673894181ed2fe49505e12420ce5d57",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone"
+      },
+      "colors": 2,
+      "sha256": "356d5d848238aa24aeeb68d79569c011f4503d2d4785d3c6128bf529b3d32908",
+      "palette_sha256": "8e8267011fea8e51d76a6b52bb40089ae673894181ed2fe49505e12420ce5d57",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_CratePalette_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone"
+      },
+      "colors": 2,
+      "sha256": "196ad6db22994a04bbe1f1276a2b87dd984a0da9b7e5b09cb8054d0b32d7bd0b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone"
+      },
+      "colors": 2,
+      "sha256": "d05c3124974f11b2fabc77bf62914441fa3a9ccbbb8cad458802106058e41d5c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    }
+  ]
+}

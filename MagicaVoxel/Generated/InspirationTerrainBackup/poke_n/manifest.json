@@ -1,0 +1,2135 @@
+{
+  "source_image": "poke_n.png",
+  "source_sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+  "specification_version": "1.0",
+  "generator_sha256": "57841e2a8243316d7aa68e9492215b91481a1a0af301ad78a393d4cb7a855fa7",
+  "sculpt_sha256": "bc975ff57c9a9a1ded4d8656183b7b54de256067fe52adacc3c04d7dd9abff16",
+  "command": "python output/poke_n/generate.py",
+  "seed": "fixed deterministic integer hash, no random state",
+  "scale": 0.0625,
+  "scene_translation": "0 0 floor(canvas height/2)",
+  "delivery": "Complete models only, no per-cell files",
+  "palette_snapshot": "knowledge/palettes/crate-palette.json",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "asset_id": "PokeN_RoundedOliveTree",
+      "source_image": "poke_n.png",
+      "source_region_xyxy_exclusive": [
+        237,
+        220,
+        273,
+        266
+      ],
+      "shape": "oliveball",
+      "appearance": "olive",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        36
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.25
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          73,
+          96,
+          30,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 243,
+        "5": 243,
+        "6": 244,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeN_RoundedOliveTree.vox",
+        "PokeN_RoundedOliveTree_Cartoon.vox",
+        "PokeN_RoundedOliveTree_CratePalette.vox",
+        "PokeN_RoundedOliveTree_TwoColor.vox",
+        "PokeN_RoundedOliveTree_Cartoon_TwoColor.vox",
+        "PokeN_RoundedOliveTree_CratePalette_TwoColor.vox",
+        "PokeN_RoundedOliveTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeN_DarkPointedTree",
+      "source_image": "poke_n.png",
+      "source_region_xyxy_exclusive": [
+        332,
+        588,
+        371,
+        635
+      ],
+      "shape": "roundforest",
+      "appearance": "dark",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        40
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          63,
+          83,
+          40,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        242,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 243,
+        "6": 243,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeN_DarkPointedTree.vox",
+        "PokeN_DarkPointedTree_Cartoon.vox",
+        "PokeN_DarkPointedTree_CratePalette.vox",
+        "PokeN_DarkPointedTree_TwoColor.vox",
+        "PokeN_DarkPointedTree_Cartoon_TwoColor.vox",
+        "PokeN_DarkPointedTree_CratePalette_TwoColor.vox",
+        "PokeN_DarkPointedTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeN_GoldenOliveTree",
+      "source_image": "poke_n.png",
+      "source_region_xyxy_exclusive": [
+        220,
+        254,
+        259,
+        303
+      ],
+      "shape": "goldcrown",
+      "appearance": "gold",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        40
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          99,
+          88,
+          29,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        228,
+        179
+      ],
+      "crate_mapping": {
+        "1": 225,
+        "2": 225,
+        "3": 226,
+        "4": 227,
+        "5": 227,
+        "6": 228,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeN_GoldenOliveTree.vox",
+        "PokeN_GoldenOliveTree_Cartoon.vox",
+        "PokeN_GoldenOliveTree_CratePalette.vox",
+        "PokeN_GoldenOliveTree_TwoColor.vox",
+        "PokeN_GoldenOliveTree_Cartoon_TwoColor.vox",
+        "PokeN_GoldenOliveTree_CratePalette_TwoColor.vox",
+        "PokeN_GoldenOliveTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeN_RoundShrub",
+      "source_image": "poke_n.png",
+      "source_region_xyxy_exclusive": [
+        316,
+        652,
+        336,
+        676
+      ],
+      "shape": "roundshrub",
+      "appearance": "shrub",
+      "decoration": null,
+      "canvas_xyz": [
+        16,
+        16,
+        16
+      ],
+      "approximate_tiles_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          59,
+          77,
+          35,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        242,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 241,
+        "4": 242,
+        "5": 243,
+        "6": 243,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeN_RoundShrub.vox",
+        "PokeN_RoundShrub_Cartoon.vox",
+        "PokeN_RoundShrub_CratePalette.vox",
+        "PokeN_RoundShrub_TwoColor.vox",
+        "PokeN_RoundShrub_Cartoon_TwoColor.vox",
+        "PokeN_RoundShrub_CratePalette_TwoColor.vox",
+        "PokeN_RoundShrub_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "PokeN_RoundedOliveTree.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13650,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          30,
+          45,
+          18,
+          255
+        ],
+        [
+          42,
+          60,
+          22,
+          255
+        ],
+        [
+          57,
+          78,
+          27,
+          255
+        ],
+        [
+          73,
+          96,
+          30,
+          255
+        ],
+        [
+          92,
+          119,
+          36,
+          255
+        ],
+        [
+          114,
+          141,
+          48,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894",
+      "palette_sha256": "38be75bc7483509a4c0c3293c543d2ba3fa874503121ba7f08dbb21edad196f8",
+      "geometry_source": "PokeN_RoundedOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_Cartoon.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13580,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          30,
+          45,
+          18,
+          255
+        ],
+        [
+          42,
+          60,
+          22,
+          255
+        ],
+        [
+          57,
+          78,
+          27,
+          255
+        ],
+        [
+          73,
+          96,
+          30,
+          255
+        ],
+        [
+          92,
+          119,
+          36,
+          255
+        ],
+        [
+          114,
+          141,
+          48,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "822d98efdef8ba09d621af4f9fea01026610d47a28df06d23e442ee794226498",
+      "palette_sha256": "38be75bc7483509a4c0c3293c543d2ba3fa874503121ba7f08dbb21edad196f8",
+      "geometry_source": "PokeN_RoundedOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "822d98efdef8ba09d621af4f9fea01026610d47a28df06d23e442ee794226498"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_CratePalette.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13650,
+      "used_indices": [
+        178,
+        179,
+        180,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "fb996b575226c98af13f04cad6f8b7d085bde5c82abe547d14d0c891a433c6c6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundedOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_TwoColor.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13650,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          73,
+          96,
+          30,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "562d604fd38d2fc5c0beed93c1b62da6357cb89805770cb58385dc481ffa1c2e",
+      "palette_sha256": "39f9f1950d233b3c750227dc6252805cd69421a1156d1be57234cd9465a68253",
+      "geometry_source": "PokeN_RoundedOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_Cartoon_TwoColor.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13580,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          73,
+          96,
+          30,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "2a8d7d955c533a37438525ba965812e219dfb5d905cb05a4441c3e5439d453ec",
+      "palette_sha256": "39f9f1950d233b3c750227dc6252805cd69421a1156d1be57234cd9465a68253",
+      "geometry_source": "PokeN_RoundedOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "822d98efdef8ba09d621af4f9fea01026610d47a28df06d23e442ee794226498"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_CratePalette_TwoColor.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13650,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "f9ca0fcac38c1e00b43a55575716450f4020e38371415f79a373869e6043f18b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundedOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894"
+    },
+    {
+      "file": "PokeN_RoundedOliveTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_RoundedOliveTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        35
+      ],
+      "voxels": 13580,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "b865b148deb5e9046e6de735b011205db8e02858c56e4450e6f21aef4fdab625",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundedOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "822d98efdef8ba09d621af4f9fea01026610d47a28df06d23e442ee794226498"
+    },
+    {
+      "file": "PokeN_DarkPointedTree.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13948,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          24,
+          37,
+          22,
+          255
+        ],
+        [
+          34,
+          50,
+          27,
+          255
+        ],
+        [
+          47,
+          65,
+          32,
+          255
+        ],
+        [
+          63,
+          83,
+          40,
+          255
+        ],
+        [
+          82,
+          105,
+          49,
+          255
+        ],
+        [
+          106,
+          130,
+          62,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec",
+      "palette_sha256": "5d4e72a807122dfcca953015e48ed9635276484afcba39487af608c3512f71d4",
+      "geometry_source": "PokeN_DarkPointedTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_Cartoon.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13860,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          47,
+          65,
+          32,
+          255
+        ],
+        [
+          82,
+          105,
+          49,
+          255
+        ],
+        [
+          106,
+          130,
+          62,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "79919e41e7dca35f84ca15f46136a92e77d4cd2c8a11183b6cf07ad514b877d5",
+      "palette_sha256": "5d4e72a807122dfcca953015e48ed9635276484afcba39487af608c3512f71d4",
+      "geometry_source": "PokeN_DarkPointedTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79919e41e7dca35f84ca15f46136a92e77d4cd2c8a11183b6cf07ad514b877d5"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_CratePalette.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13948,
+      "used_indices": [
+        178,
+        179,
+        180,
+        241,
+        242,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "601d05b1b23acc94395cd38e28b9bf231ed980e646d5ece87a5f4730ca8c0f46",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_DarkPointedTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_TwoColor.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13948,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          63,
+          83,
+          40,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "2500c92d46c3e6b4a8e67a67d4b5c8a3ad4ae99a1d7b5980817c0ca7dd44b525",
+      "palette_sha256": "9479a572a9f37a493f53cfd8682ef2b251b4c0ed79985af8fabe89de462ede4b",
+      "geometry_source": "PokeN_DarkPointedTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_Cartoon_TwoColor.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13860,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          63,
+          83,
+          40,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "6609ccad36996de2e406a123e9d12f5794bf9651968cafcb63c80db5b2f87a97",
+      "palette_sha256": "9479a572a9f37a493f53cfd8682ef2b251b4c0ed79985af8fabe89de462ede4b",
+      "geometry_source": "PokeN_DarkPointedTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79919e41e7dca35f84ca15f46136a92e77d4cd2c8a11183b6cf07ad514b877d5"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_CratePalette_TwoColor.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13948,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "194449ba436579534c41b487646d76edf993c9bc22d93315339cdf44cfd04ad1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_DarkPointedTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec"
+    },
+    {
+      "file": "PokeN_DarkPointedTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_DarkPointedTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13860,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "a86a21c8bf3af049e6b9995f51eb50fdfb683736d9e1de48975ec45d18ed357b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_DarkPointedTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79919e41e7dca35f84ca15f46136a92e77d4cd2c8a11183b6cf07ad514b877d5"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13374,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          49,
+          45,
+          18,
+          255
+        ],
+        [
+          64,
+          59,
+          22,
+          255
+        ],
+        [
+          80,
+          73,
+          25,
+          255
+        ],
+        [
+          99,
+          88,
+          29,
+          255
+        ],
+        [
+          119,
+          107,
+          36,
+          255
+        ],
+        [
+          144,
+          128,
+          47,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775",
+      "palette_sha256": "47696bcb4f70e86574fc860d3d161d175b2755dce832c5e2a92bfd6a202aeb21",
+      "geometry_source": "PokeN_GoldenOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_Cartoon.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13332,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          80,
+          73,
+          25,
+          255
+        ],
+        [
+          119,
+          107,
+          36,
+          255
+        ],
+        [
+          144,
+          128,
+          47,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "a7fcd0192ef61077a540e64c6e37d5a56f985cfcb4d72d45f01733af76067909",
+      "palette_sha256": "47696bcb4f70e86574fc860d3d161d175b2755dce832c5e2a92bfd6a202aeb21",
+      "geometry_source": "PokeN_GoldenOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a7fcd0192ef61077a540e64c6e37d5a56f985cfcb4d72d45f01733af76067909"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_CratePalette.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13374,
+      "used_indices": [
+        178,
+        179,
+        180,
+        225,
+        226,
+        227,
+        228
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          52,
+          28,
+          39,
+          255
+        ],
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          190,
+          119,
+          43,
+          255
+        ]
+      ],
+      "sha256": "8b2b55760819d46cfe78d6576d7bd098e4b740a2ac8ddf8d7caf06dd5d2b1857",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_GoldenOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_TwoColor.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13374,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          88,
+          29,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "306890ac7d455db8d652d5c244f23f6ef803531597148deafdb70ee0699c701b",
+      "palette_sha256": "6e71267ca85f92b87ed41278b214c80e5d460a4ceb5976860d8ec93e6e714049",
+      "geometry_source": "PokeN_GoldenOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_Cartoon_TwoColor.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13332,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          88,
+          29,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "17f0157141582e33d4fa3600c9cb8a73451f0d3e6481024efd59f554440ce789",
+      "palette_sha256": "6e71267ca85f92b87ed41278b214c80e5d460a4ceb5976860d8ec93e6e714049",
+      "geometry_source": "PokeN_GoldenOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a7fcd0192ef61077a540e64c6e37d5a56f985cfcb4d72d45f01733af76067909"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_CratePalette_TwoColor.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13374,
+      "used_indices": [
+        179,
+        228
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          190,
+          119,
+          43,
+          255
+        ]
+      ],
+      "sha256": "ae696cded434e1040659a2b8549619346d12ede19fdf9d01b5bbf625c4ec98d6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_GoldenOliveTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775"
+    },
+    {
+      "file": "PokeN_GoldenOliveTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_GoldenOliveTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 13332,
+      "used_indices": [
+        179,
+        228
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          190,
+          119,
+          43,
+          255
+        ]
+      ],
+      "sha256": "cfe87059917cbaaba5e0f7973cbfc0e54ab3883900a9bc554a1867c9ac534b40",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_GoldenOliveTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a7fcd0192ef61077a540e64c6e37d5a56f985cfcb4d72d45f01733af76067909"
+    },
+    {
+      "file": "PokeN_RoundShrub.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          24,
+          36,
+          17,
+          255
+        ],
+        [
+          34,
+          48,
+          22,
+          255
+        ],
+        [
+          45,
+          62,
+          29,
+          255
+        ],
+        [
+          59,
+          77,
+          35,
+          255
+        ],
+        [
+          75,
+          94,
+          43,
+          255
+        ],
+        [
+          96,
+          116,
+          54,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a",
+      "palette_sha256": "239fbd242bb1fc382e52cf156e799d8fdb7c98e6c3bb70ff59ff82843b8a23a6",
+      "geometry_source": "PokeN_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a"
+    },
+    {
+      "file": "PokeN_RoundShrub_Cartoon.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          45,
+          62,
+          29,
+          255
+        ],
+        [
+          75,
+          94,
+          43,
+          255
+        ],
+        [
+          96,
+          116,
+          54,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "e8580e481cde53310833445a71851dd7033fd3e00b2902674b2271d289622123",
+      "palette_sha256": "239fbd242bb1fc382e52cf156e799d8fdb7c98e6c3bb70ff59ff82843b8a23a6",
+      "geometry_source": "PokeN_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "e8580e481cde53310833445a71851dd7033fd3e00b2902674b2271d289622123"
+    },
+    {
+      "file": "PokeN_RoundShrub_CratePalette.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "108f993123472e99b8c36ab8359c2ebb41e6581623bf9b0e611f59f648b4eb2a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a"
+    },
+    {
+      "file": "PokeN_RoundShrub_TwoColor.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          59,
+          77,
+          35,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "470caf3a7de43544cad3376fed86a227d14e31dc683ab293f1acfa00704de66a",
+      "palette_sha256": "85f86205dd47c129a99db3fd790b091b624387f1a30215b903173b3620e219cb",
+      "geometry_source": "PokeN_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a"
+    },
+    {
+      "file": "PokeN_RoundShrub_Cartoon_TwoColor.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          59,
+          77,
+          35,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "de92bd40e02e6640f5655b5e054f4a990e76a44ce66f99a4d2fbd58937cd47ba",
+      "palette_sha256": "85f86205dd47c129a99db3fd790b091b624387f1a30215b903173b3620e219cb",
+      "geometry_source": "PokeN_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "e8580e481cde53310833445a71851dd7033fd3e00b2902674b2271d289622123"
+    },
+    {
+      "file": "PokeN_RoundShrub_CratePalette_TwoColor.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "c4836bd90710b3ad69b0b7bd7a09713e0ab033670de30ebfe0cbbfd0fa8cb940",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a"
+    },
+    {
+      "file": "PokeN_RoundShrub_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_RoundShrub",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "3f0a583e160c6e404deca951c0dc8a447e0c4616b8917ee1a650af8936957509",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeN_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "e8580e481cde53310833445a71851dd7033fd3e00b2902674b2271d289622123"
+    }
+  ]
+}

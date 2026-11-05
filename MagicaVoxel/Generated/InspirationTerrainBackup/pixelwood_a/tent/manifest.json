@@ -1,0 +1,472 @@
+{
+  "source_image": "pixelwood_a.jpg",
+  "source_sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+  "generator_sha256": "93f699755d06413835db979a0728c639df0d3926ecd43449279858e440c3f16b",
+  "dependencies": {
+    "../voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3"
+  },
+  "families": [
+    {
+      "asset_id": "PixelwoodA_Tent",
+      "canvas_xyz": [
+        64,
+        64,
+        32
+      ],
+      "source_region_xyxy_exclusive": [
+        210,
+        180,
+        395,
+        390
+      ],
+      "symmetry": "Cartoon: bilateral X reflection x -> 63-x, geometry and paint; front and rear intentionally distinct.",
+      "semantic_groups": {
+        "canvas": "All fabric panels, hems, ridge seam and vent flaps; source indices 1-6.",
+        "wood": "Stakes, rear upright, internal ridge beam and end caps; source indices 7-9."
+      },
+      "two_color_rgba": [
+        [
+          232,
+          212,
+          173,
+          255
+        ],
+        [
+          111,
+          66,
+          38,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        238,
+        179
+      ],
+      "crate_mapping": {
+        "1": 225,
+        "2": 236,
+        "3": 236,
+        "4": 237,
+        "5": 238,
+        "6": 238,
+        "7": 233,
+        "8": 179,
+        "9": 179
+      }
+    }
+  ],
+  "models": [
+    {
+      "file": "PixelwoodA_Tent.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "Base",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11696,
+      "sha256": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4",
+      "palette_sha256": "c9cd17579f7d2a7a819f64ffa46ef4bfe1b8e2784482af50669b84b73f8380ec",
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          53,
+          42,
+          30,
+          255
+        ],
+        [
+          182,
+          139,
+          102,
+          255
+        ],
+        [
+          202,
+          164,
+          127,
+          255
+        ],
+        [
+          219,
+          190,
+          150,
+          255
+        ],
+        [
+          232,
+          212,
+          173,
+          255
+        ],
+        [
+          244,
+          228,
+          192,
+          255
+        ],
+        [
+          68,
+          42,
+          28,
+          255
+        ],
+        [
+          111,
+          66,
+          38,
+          255
+        ],
+        [
+          155,
+          94,
+          52,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent.vox",
+      "geometry_source_sha256": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4"
+    },
+    {
+      "file": "PixelwoodA_Tent_Cartoon.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11682,
+      "sha256": "f610b5e44026f6eca0984d0be804e8a36f1ca89663435c374d53adcf42a2dff9",
+      "palette_sha256": "c9cd17579f7d2a7a819f64ffa46ef4bfe1b8e2784482af50669b84b73f8380ec",
+      "used_indices": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          53,
+          42,
+          30,
+          255
+        ],
+        [
+          202,
+          164,
+          127,
+          255
+        ],
+        [
+          219,
+          190,
+          150,
+          255
+        ],
+        [
+          232,
+          212,
+          173,
+          255
+        ],
+        [
+          244,
+          228,
+          192,
+          255
+        ],
+        [
+          111,
+          66,
+          38,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent_Cartoon.vox",
+      "geometry_source_sha256": "f610b5e44026f6eca0984d0be804e8a36f1ca89663435c374d53adcf42a2dff9"
+    },
+    {
+      "file": "PixelwoodA_Tent_CratePalette.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11696,
+      "sha256": "5d0dfc98311bb6d60962d0ddf5182005b91892266c9067f3788480cbf4190f55",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        179,
+        225,
+        233,
+        236,
+        237,
+        238
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          52,
+          28,
+          39,
+          255
+        ],
+        [
+          77,
+          43,
+          50,
+          255
+        ],
+        [
+          192,
+          148,
+          115,
+          255
+        ],
+        [
+          215,
+          181,
+          148,
+          255
+        ],
+        [
+          231,
+          213,
+          179,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent.vox",
+      "geometry_source_sha256": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4"
+    },
+    {
+      "file": "PixelwoodA_Tent_TwoColor.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11696,
+      "sha256": "9e1e0e80f3e88fd9f9d2a84c282eee67498d950c5ac483e25a5272bfb4f716e6",
+      "palette_sha256": "4a83fcc56633a42916997d6729445cf0e383013a1e1e197394e343ca762087f4",
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          232,
+          212,
+          173,
+          255
+        ],
+        [
+          111,
+          66,
+          38,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent.vox",
+      "geometry_source_sha256": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4"
+    },
+    {
+      "file": "PixelwoodA_Tent_Cartoon_TwoColor.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11682,
+      "sha256": "2a04ed9cd0e1c8e8c3ea38d5c96e7edcefe0b77045a49b97eb1b1ae063ecf2a2",
+      "palette_sha256": "4a83fcc56633a42916997d6729445cf0e383013a1e1e197394e343ca762087f4",
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          232,
+          212,
+          173,
+          255
+        ],
+        [
+          111,
+          66,
+          38,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent_Cartoon.vox",
+      "geometry_source_sha256": "f610b5e44026f6eca0984d0be804e8a36f1ca89663435c374d53adcf42a2dff9"
+    },
+    {
+      "file": "PixelwoodA_Tent_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11696,
+      "sha256": "ef4312162eec4999ab86ac92321d606fa6cf52fe172a6b5699aec27fd20ad1cd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        179,
+        238
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          231,
+          213,
+          179,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent.vox",
+      "geometry_source_sha256": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4"
+    },
+    {
+      "file": "PixelwoodA_Tent_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_Tent",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        64,
+        32
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        61,
+        61,
+        31
+      ],
+      "voxels": 11682,
+      "sha256": "bc9639967ac7bb3ef8fcf6b99aa58de3ff77dba273daed3f4f36cdca3771457e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        179,
+        238
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          231,
+          213,
+          179,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodA_Tent_Cartoon.vox",
+      "geometry_source_sha256": "f610b5e44026f6eca0984d0be804e8a36f1ca89663435c374d53adcf42a2dff9"
+    }
+  ],
+  "scale": 0.0625,
+  "front": "local -Y / Godot +Z",
+  "scene_translation": "0 0 16",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "delivery": "Complete hollow models; no cell files.",
+  "command": "python output/pixelwood_a/tent/generate.py"
+}

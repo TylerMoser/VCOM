@@ -1,0 +1,1365 @@
+{
+  "source": "mario.jpg",
+  "families": [
+    {
+      "source": "mario.jpg",
+      "name": "Mario_Ground_Meadow",
+      "kind": "grass",
+      "crop": [
+        7,
+        132,
+        31,
+        156
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile.",
+      "representative_rgb": [
+        106,
+        212,
+        80
+      ]
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_Ground_PeachDirt",
+      "kind": "dirt",
+      "crop": [
+        610,
+        238,
+        650,
+        260
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        228,
+        150,
+        112
+      ]
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_Ground_TrailEdge",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "Edge",
+      "materials": [
+        "Mario_Ground_Meadow",
+        "Mario_Ground_PeachDirt"
+      ],
+      "crop": [
+        610,
+        238,
+        650,
+        260
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_Ground_TrailOuterCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "OuterCorner",
+      "materials": [
+        "Mario_Ground_Meadow",
+        "Mario_Ground_PeachDirt"
+      ],
+      "crop": [
+        610,
+        238,
+        650,
+        260
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_Ground_TrailInnerCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "InnerCorner",
+      "materials": [
+        "Mario_Ground_Meadow",
+        "Mario_Ground_PeachDirt"
+      ],
+      "crop": [
+        610,
+        238,
+        650,
+        260
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/mario/Mario_Ground_Meadow.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "Mario_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "1ca7c5d08b4a7824d428dd79dde6a42fcb52900178f3f6be1a0d0283ffe75402",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_Cartoon.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ]
+      },
+      "sha256": "149b7d4ded21f923c66d1d9fdd870e360b7283d84465f74725bcf349e23d9a8c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_CratePalette.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244,
+          245
+        ]
+      },
+      "sha256": "ca5ff78a2a410e8d47f84d61cff3c4a7b578713e36d72cb026a20348e711df65",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_TwoColor.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ]
+      },
+      "sha256": "776fc9d6d95e0eb9114596ad6bbb1a2379d6f2000c20ebeec9d1f1f50cce534d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_Cartoon_TwoColor.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ]
+      },
+      "sha256": "ab1ecb3ae9cc705bd399193c6b3d6f731260d9b9a43459ce0ccffd30dfe25629",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ]
+      },
+      "sha256": "7668929e6d2385885bf325cfdc29472cc34669002eac848f4ff14591c51d9def",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_Meadow",
+      "source": "mario.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ]
+      },
+      "sha256": "009905ecfcc3e1520a667fe205a77905bc0308487f6f7e9a47026428bd9bdc50",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "Mario_Ground_PeachDirt:substrate": [
+          1,
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "0984414a7f534470d1e09e7f86e3da32efde3bdf4555502c810e525df01cf6c8",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_Cartoon.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_PeachDirt:substrate": [
+          1
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          2,
+          3
+        ]
+      },
+      "sha256": "d3d6ce3d06b15cb5e40dbaf29f6ee4f20473723385d50ef5d2ee55c9ea9ccbd4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_CratePalette.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_PeachDirt:substrate": [
+          235
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236,
+          237
+        ]
+      },
+      "sha256": "4ff89317d95a909c5bbb179fffbae2a10387123c2a0330f52e59b1b1f2cf08cc",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_TwoColor.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "Mario_Ground_PeachDirt:surface": [
+          1
+        ]
+      },
+      "sha256": "416b6cbadbf52281ab9d9fe25fd8670bf9e9456e7181032252712b1385c3051f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_Cartoon_TwoColor.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "Mario_Ground_PeachDirt:surface": [
+          1
+        ]
+      },
+      "sha256": "a65d5267656df1dce51250d1c0b510d8cf1f774a5f80b6a1addc79a82f860f7f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "9c3df7ae89c28c5c377a8224c5ed9323be16fa5574f3ad28a7361e677edf24a2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_PeachDirt_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_PeachDirt",
+      "source": "mario.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "ada9f80787bb4705cb552f7e36195a3d82db7d62446f865e90e9bbbab76abc4b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "Mario_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          6,
+          7
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "b2efb2de6f73638a04bfd0ba9eb181cb0a12101368714eaaaccf4050e4d2b9ce",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_Cartoon.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          5
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "8f2a40a64e1993ae9abf45fc4636c09470e2989eabfdf353397b8df7a0aad9dd",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_CratePalette.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244,
+          245
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          235
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236,
+          237
+        ]
+      },
+      "sha256": "72fd5a57bf316b0dde3f83d114832aed05928d11066717ff4a053bdf9b159847",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_TwoColor.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "6f648e69ee1828796055ce64928bb84982a64cc74dc27d6e55e756152bd8d5c8",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_Cartoon_TwoColor.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "71305fe16319d4731a48b59937ec53f7f8db381d160b617bcecd6328a3dc74fe",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "b5c86a93ce897039ee4d82e4365e126d360c41ee54b074220e9be0ee0c85d7f0",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailEdge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailEdge",
+      "source": "mario.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "f17bf06db61a497d275fb02d35ece5cd7213cfef8807b01b4a164f5dd9539165",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "Mario_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          6,
+          7
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "686fcb5b635ed288383430f27e42b156042742ba059f0690706d94b12f1aeb94",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_Cartoon.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          5
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "9f1771a2901a9db69ebe1c831a11ca7a70201163dbdbc6e1d5a655a49535c2af",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_CratePalette.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244,
+          245
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          235
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236,
+          237
+        ]
+      },
+      "sha256": "74f821a469f2d6bab1d46a2e1848fdb69a3f8d9311122637ad6251e0373d4c1d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_TwoColor.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "fbebe1f8ec93653a69d4188d842c0baf93b02e3df6aa0e1c34e581c284df7d07",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_Cartoon_TwoColor.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "1a6daa43d19afd837754f4031b625e546c06d842cae0deb178ecc849d2967629",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "6e21915fc251ac1f94bb7eb8762ae3743b808baaa193ea603387048e7dbcde43",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailOuterCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "c00b5ef97dbae92747f7e634029fd8b9a7e996c0e4f95a8079d2eaada423b4c5",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "Mario_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          6,
+          7
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "45be91368aca10b244f939267aa0a04b07551a7cba0520fad030b54dec4b778b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_Cartoon.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          5
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "46be90a35fe8d865a9bcf46acc6281bdbddffbc28f5e1d7ed59f0ccac470f86f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_CratePalette.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244,
+          245
+        ],
+        "Mario_Ground_PeachDirt:substrate": [
+          235
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236,
+          237
+        ]
+      },
+      "sha256": "9794cf1d6693741d3aed6c04e73079f7b39fddeb9d27cc2e6ac219f79b0cf729",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_TwoColor.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "6ce436853a6bd57706a6b788c9ff6fd3e965cac72cf136de9138d742c4770aaf",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_Cartoon_TwoColor.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          1
+        ],
+        "Mario_Ground_Meadow:surface": [
+          2
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "ea58c4e4eb326f473c2917201675a9d620cf99ede87458916f8c533794961199",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "e36ee4a57c667f349031b5361656625f2b11af7c8e061874aacebed482141c23",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/mario/Mario_Ground_TrailInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_Ground_TrailInnerCorner",
+      "source": "mario.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "Mario_Ground_Meadow:substrate": [
+          234
+        ],
+        "Mario_Ground_Meadow:surface": [
+          244
+        ],
+        "Mario_Ground_PeachDirt:surface": [
+          236
+        ]
+      },
+      "sha256": "2facd39b45516b81bbfe2e546b0ffa9a338159d038fc1821a1ffbdfa33ca8c43",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    }
+  ],
+  "reuse": []
+}

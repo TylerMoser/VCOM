@@ -1,0 +1,709 @@
+{
+  "source_review": {
+    "source": "poke_p.png",
+    "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+    "reviewed": true,
+    "decision": "Two identical east-west crossings reuse the longer model; north-south shorter crossing uses the shorter model, rotated. Gray diagonal ramp is terrain stairs.",
+    "new_families": [
+      "PokeP_GullyPlankBridge",
+      "PokeP_ShortGullyBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_GullyPlankBridge",
+      "kind": "wood",
+      "size": [
+        144,
+        64,
+        64
+      ],
+      "crop": [
+        646,
+        394,
+        794,
+        495
+      ],
+      "deck": 40,
+      "tile_pixels": 16,
+      "rail": "posts",
+      "approach": 24,
+      "wood": [
+        205,
+        175,
+        125
+      ],
+      "note": "Repeated east-west gully crossings: six-tile deck plus bank-anchor margin, three independent-looking posts at each corner; no connecting rails.",
+      "source_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "crate_mapping": {
+        "1": 237,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          205,
+          175,
+          125,
+          255
+        ],
+        [
+          158,
+          135,
+          96,
+          255
+        ],
+        [
+          236,
+          201,
+          144,
+          255
+        ],
+        [
+          184,
+          158,
+          112,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_ShortGullyBridge",
+      "kind": "wood",
+      "size": [
+        128,
+        64,
+        64
+      ],
+      "crop": [
+        532,
+        895,
+        635,
+        1045
+      ],
+      "deck": 40,
+      "tile_pixels": 16,
+      "rail": "posts",
+      "approach": 24,
+      "wood": [
+        205,
+        175,
+        125
+      ],
+      "note": "Shorter north-south five-tile crossing, same construction; rotate 90 degrees. Adjacent gray diagonal ramp is terrain stairs, not part of this bridge.",
+      "source_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "crate_mapping": {
+        "1": 237,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          205,
+          175,
+          125,
+          255
+        ],
+        [
+          158,
+          135,
+          96,
+          255
+        ],
+        [
+          236,
+          201,
+          144,
+          255
+        ],
+        [
+          184,
+          158,
+          112,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge.vox",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 45316,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "7a7c2e485d414363bda75840b4284d1a75d37a628217f3530fa07663ca56190f",
+      "geometry_source": "PokeP_GullyPlankBridge",
+      "geometry_sha256": "a0a754aa923089e11b45191f8d7536c687343c9cf2312a4003c7429797c25e49"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_Cartoon.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 46748,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "7101ee44a6a83ffb0ac1923bce85b1f8532371bdee00602495ee7d3a9ecff489",
+      "geometry_source": "PokeP_GullyPlankBridge_Cartoon",
+      "geometry_sha256": "5a416284bfaf96bed2594539f5675c506b8f4cdfb5ca57847e934af02de9a9a2"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_CratePalette.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 45316,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "f652f72e4dca8a764ee843bc1a961b60d98649edde0da452ad1225017c51c9ea",
+      "geometry_source": "PokeP_GullyPlankBridge",
+      "geometry_sha256": "a0a754aa923089e11b45191f8d7536c687343c9cf2312a4003c7429797c25e49"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 45316,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "da007acca0aa7f908e63e8b8f3a0d7c7249589e188e548a1040516d46c29dd97",
+      "geometry_source": "PokeP_GullyPlankBridge",
+      "geometry_sha256": "a0a754aa923089e11b45191f8d7536c687343c9cf2312a4003c7429797c25e49"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_Cartoon_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 46748,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "536591feb0cfaadf9d77d012fc47d7414b708c80b6c0b5df4a6ad66579aeaea8",
+      "geometry_source": "PokeP_GullyPlankBridge_Cartoon",
+      "geometry_sha256": "5a416284bfaf96bed2594539f5675c506b8f4cdfb5ca57847e934af02de9a9a2"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 45316,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "8df4640783423385ef9b1b80721206445540e3d0809326454b37022e20952157",
+      "geometry_source": "PokeP_GullyPlankBridge",
+      "geometry_sha256": "a0a754aa923089e11b45191f8d7536c687343c9cf2312a4003c7429797c25e49"
+    },
+    {
+      "family": "PokeP_GullyPlankBridge",
+      "file": "output/poke_p/PokeP_GullyPlankBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        144,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 46748,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        143,
+        62,
+        53
+      ],
+      "sha256": "1fa12a6998b9ea3a2a13f360c581ff4f8bab8aa2a24ec41af74bfc4e8143e0a5",
+      "geometry_source": "PokeP_GullyPlankBridge_Cartoon",
+      "geometry_sha256": "5a416284bfaf96bed2594539f5675c506b8f4cdfb5ca57847e934af02de9a9a2"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge.vox",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 41732,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "d8d9c2d49186bfca59db5500a56aee192715b13b6de0b36b02d9fb27c2921e11",
+      "geometry_source": "PokeP_ShortGullyBridge",
+      "geometry_sha256": "386530dfc8a2c8c390f7530fdf72c9182f7bfeaf2db83c93affe774a16262c54"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_Cartoon.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43036,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "e8af0bdcc3ccec502d19875e500e35067811484af08de5c307edb462d2cbd641",
+      "geometry_source": "PokeP_ShortGullyBridge_Cartoon",
+      "geometry_sha256": "3c1202caf6fdfb1d7db150c604ec4f92cb44bac896c25ff8fff9b17b25536aa5"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_CratePalette.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 41732,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "e14f5ed8eadbaee4255d6a181742ed4ffa74534355080481319b0b1a1342dc19",
+      "geometry_source": "PokeP_ShortGullyBridge",
+      "geometry_sha256": "386530dfc8a2c8c390f7530fdf72c9182f7bfeaf2db83c93affe774a16262c54"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 41732,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "3d0bc4ff0691ffa482fd8ec5fc9510bfcda7641cbe9a5852dc36063d5f0b7e41",
+      "geometry_source": "PokeP_ShortGullyBridge",
+      "geometry_sha256": "386530dfc8a2c8c390f7530fdf72c9182f7bfeaf2db83c93affe774a16262c54"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_Cartoon_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43036,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "23058523870f90a693c2e31607d70bcbe3598e77bfa00f9ee68eb195244dd4f5",
+      "geometry_source": "PokeP_ShortGullyBridge_Cartoon",
+      "geometry_sha256": "3c1202caf6fdfb1d7db150c604ec4f92cb44bac896c25ff8fff9b17b25536aa5"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 41732,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "8a747b401b4bb227e6c4f77bc1a2d3ee1bcc1d85a53914c78be0d2dfbc7c5cb9",
+      "geometry_source": "PokeP_ShortGullyBridge",
+      "geometry_sha256": "386530dfc8a2c8c390f7530fdf72c9182f7bfeaf2db83c93affe774a16262c54"
+    },
+    {
+      "family": "PokeP_ShortGullyBridge",
+      "file": "output/poke_p/PokeP_ShortGullyBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43036,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        127,
+        62,
+        53
+      ],
+      "sha256": "4d478e32f461aed02e43fa965bab9a44bc23021f15845ec2339aadc93e566b8c",
+      "geometry_source": "PokeP_ShortGullyBridge_Cartoon",
+      "geometry_sha256": "3c1202caf6fdfb1d7db150c604ec4f92cb44bac896c25ff8fff9b17b25536aa5"
+    }
+  ]
+}

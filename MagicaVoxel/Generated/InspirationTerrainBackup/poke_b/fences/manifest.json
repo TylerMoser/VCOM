@@ -1,0 +1,510 @@
+{
+  "source": {
+    "source": "poke_b.png",
+    "size": [
+      656,
+      960
+    ],
+    "sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7"
+  },
+  "families": [
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_RosePicket",
+      "kind": "picket",
+      "crop": [
+        190,
+        159,
+        306,
+        179
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        161,
+        107,
+        105
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_IronFence",
+      "kind": "iron",
+      "crop": [
+        106,
+        79,
+        133,
+        99
+      ],
+      "size": [
+        40,
+        8,
+        18
+      ],
+      "wood": [
+        49,
+        67,
+        71
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "metal"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_b/PokeB_RosePicket.vox",
+      "family": "PokeB_RosePicket",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "43ef5f1ec8f07706f644a31ce0f20dbfd7e3599f267800fdf8b0a6acaad873cc",
+      "palette_sha256": "aeecaa8833f369c677681aea6e44674eb146c5068835bbff0f6f7ea974ebb054",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_Cartoon.vox",
+      "family": "PokeB_RosePicket",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "67efd30dd308f94d5181923dc077067fe3fe40e471365b126990e1a9077108dd",
+      "palette_sha256": "4b09c270e9f985a00a9fc6bed61beef965abe22f4743a7661ba4e7afd555b041",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_CratePalette.vox",
+      "family": "PokeB_RosePicket",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 3,
+      "groups": {
+        "234": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "bb599c171bfedfdc16285e4cf0f85546b7d3a16b08bf1ce240ced08095abfd7f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_TwoColor.vox",
+      "family": "PokeB_RosePicket",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "e752e47fe747dadb601aaa6c6ccb410aae5fac8d53317c9811e34ccb81a859aa",
+      "palette_sha256": "4b09c270e9f985a00a9fc6bed61beef965abe22f4743a7661ba4e7afd555b041",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_Cartoon_TwoColor.vox",
+      "family": "PokeB_RosePicket",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "10949a33bc5f0b8b05ff18b96b88d6ba7c7ec729b31a849cb8e41ece5581daa1",
+      "palette_sha256": "4b09c270e9f985a00a9fc6bed61beef965abe22f4743a7661ba4e7afd555b041",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_CratePalette_TwoColor.vox",
+      "family": "PokeB_RosePicket",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "b89995890e3cb2eca8a1dbbbe43b3c14d4bcf2b248c5bf22b99b946f24b5a7a1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_RosePicket_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeB_RosePicket",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "3ebfaa34cfc859663405ae2a86225be80def944341238d8db75d8b0d566658ce",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence.vox",
+      "family": "PokeB_IronFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1020,
+      "colors": 3,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal"
+      },
+      "components": [
+        1020
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "2975526b82f9f82d02e9f51b542d39781d0a6720725746b045602918c8cdecaf",
+      "palette_sha256": "80326bd459fb3699bf0788f268d602a53cb71f6f82388410b00ea21f5313a248",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_Cartoon.vox",
+      "family": "PokeB_IronFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1392,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        1392
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "e607cbdcd3125ec3593f0c1f79d908aed3bfed37333916cd29fc420121e0d655",
+      "palette_sha256": "4a8e30b4cc6917c5dd0ec5b0ecc8bac0cb56e7c8dba4ff2fd7698a66993090d6",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_CratePalette.vox",
+      "family": "PokeB_IronFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1020,
+      "colors": 2,
+      "groups": {
+        "204": "metal",
+        "205": "metal"
+      },
+      "components": [
+        1020
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "e57a186320d2f1208d07f42db8fd44247782eca39d669f4d0970ef52ca177c6d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_TwoColor.vox",
+      "family": "PokeB_IronFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1020,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        1020
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "73536b68428aaab52fbd0c3bb3de522277069031f0d137c9e543ad85566f0d4d",
+      "palette_sha256": "4a8e30b4cc6917c5dd0ec5b0ecc8bac0cb56e7c8dba4ff2fd7698a66993090d6",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_Cartoon_TwoColor.vox",
+      "family": "PokeB_IronFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1392,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        1392
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "11d288a8ccd7d35a0f80591c64bbb45616f578946328a6a691f7af5cd12228f4",
+      "palette_sha256": "4a8e30b4cc6917c5dd0ec5b0ecc8bac0cb56e7c8dba4ff2fd7698a66993090d6",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_CratePalette_TwoColor.vox",
+      "family": "PokeB_IronFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1020,
+      "colors": 1,
+      "groups": {
+        "205": "metal"
+      },
+      "components": [
+        1020
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "ba0895fec4d10cf98101aa3e8759908e32c50c8e4023fb6199ebcf43a9f19fe4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_b/PokeB_IronFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeB_IronFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1392,
+      "colors": 1,
+      "groups": {
+        "205": "metal"
+      },
+      "components": [
+        1392
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "ef7952d383b876a2437a89e6455db76e01c2c28a8ad63d04e79280e4360d143b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

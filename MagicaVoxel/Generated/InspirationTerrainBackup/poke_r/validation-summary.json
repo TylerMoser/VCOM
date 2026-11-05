@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-27",
+  "models": 28,
+  "families": 4,
+  "source_image": "poke_r.png",
+  "source_image_sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: dimensions, bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 occupancy and paint, pinned crate palette.",
+  "import_render": "All 28 models imported and rendered with current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per form; Base and Cartoon at four azimuths. Original and enlarged source regions reviewed.",
+    "findings": "Nested olive tiers, broad pointed conifer whorls, short exposed sapling stem and round shrub mass remain distinct. Source-guided muted colors, balanced Cartoon paint/geometry and exact recolor geometry reviewed.",
+    "limitations": "Depth and hidden structure inferred. Saved game greens shift muted olive/gray-green source hues. Preview lighting shades flat TwoColor paint."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "2ab7857a66cfe360e9945b897b4d72155491e1dc4b176c92e9cb6725b418bb76",
+  "sculpt_sha256": "8206d0d6afe73fc08a323f08bf655b05f967cb74afe61410a6a1686e24afe829",
+  "dependency_hashes": {
+    "output\\poke_r\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_r\\reference\\regions.json": "56c331354b13dc5ce8933470e7d03c88eb8ca814921f120a4586e9b609ebefe8",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeR_OliveTieredTree.vox": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b",
+    "PokeR_OliveTieredTree_Cartoon.vox": "d9cd5714f6e3f63150e7149032069834cae4ee667756f59280cb71f505b0068e",
+    "PokeR_OliveTieredTree_CratePalette.vox": "0ef0f9719666805e2915ea4523a49df2db1ee0b7fa6fbaee9f49255560dc91b7",
+    "PokeR_OliveTieredTree_TwoColor.vox": "c4d72c2c057ed139113db6aecea89fd11c541834ae93e83087403c7deeef5c9e",
+    "PokeR_OliveTieredTree_Cartoon_TwoColor.vox": "e8866c2d4595ba38600ed8194e46f4cda16bb4ab423b065ff6f0d51b5373af73",
+    "PokeR_OliveTieredTree_CratePalette_TwoColor.vox": "462ad1937754ddaeeeff988d55bf50c90ae7cd675a253139151de1a43a7f521f",
+    "PokeR_OliveTieredTree_Cartoon_CratePalette_TwoColor.vox": "c126c41310def16b9cea4ed1b410ccec9b4fe7a2f5fdc64272faa9596b44da2d",
+    "PokeR_BroadConifer.vox": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06",
+    "PokeR_BroadConifer_Cartoon.vox": "a5a1f748193981fac7a934e81cc96aa7bd42cb87667650e0e162374a21f0c591",
+    "PokeR_BroadConifer_CratePalette.vox": "7d1cbf87f0e0bfe2f8e470d272f8f7cabaee58ca67df466c54fef9a16f1564fc",
+    "PokeR_BroadConifer_TwoColor.vox": "9165babacbb7e80f0fd6e2d1a8e6cbc9a6ae33b32035e7d7dc9876d1370580ff",
+    "PokeR_BroadConifer_Cartoon_TwoColor.vox": "e57debaa627cd96449b70b97fd55333ea632cf133933b31df2de495e7a2788fe",
+    "PokeR_BroadConifer_CratePalette_TwoColor.vox": "637893f93783028bb300d1ed053f58bf5f9bef535b42b388af408282bffb3ae3",
+    "PokeR_BroadConifer_Cartoon_CratePalette_TwoColor.vox": "b5fb357bcf200c7ba92cb246bac478352fb04c30cc6d14099daf60f6c12e02dd",
+    "PokeR_SmallSapling.vox": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3",
+    "PokeR_SmallSapling_Cartoon.vox": "acf074bc5bc3fec1aed328221f97fe01eb35e9a019e86d3bd934b93e379662e9",
+    "PokeR_SmallSapling_CratePalette.vox": "8552c1f7216215466d9d9a61243adf6aefe034814f7fda1703d21eeb26ed5173",
+    "PokeR_SmallSapling_TwoColor.vox": "e8e268128060e944859bcc463dd4bd9c54c01e0f7e03e2fc12fdd64386782291",
+    "PokeR_SmallSapling_Cartoon_TwoColor.vox": "86a99cebec8462e87f80f36979d121e1b38bd55c0bf7c71db115c818da6cc227",
+    "PokeR_SmallSapling_CratePalette_TwoColor.vox": "973ebe82260a6431e53104185bffbd655cdbcb54d55afe759f8b08ed2df1914f",
+    "PokeR_SmallSapling_Cartoon_CratePalette_TwoColor.vox": "f83579d5218ad67600c3ca225a30fc26210b5303518110601c25b895f95af0d1",
+    "PokeR_RoundShrub.vox": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264",
+    "PokeR_RoundShrub_Cartoon.vox": "8f5aa062c9cda96c30603985ee69bf9e7c307e1a7864c58cb56791498f7f1653",
+    "PokeR_RoundShrub_CratePalette.vox": "2e864b42a3b2ef4a7adf19bbcaabe5080fe7c3feea174bd37cd419fba43ce516",
+    "PokeR_RoundShrub_TwoColor.vox": "2e79015261abdbcf83197a5a8392e3e4366c86ff6f72f886f60a91417a453e6d",
+    "PokeR_RoundShrub_Cartoon_TwoColor.vox": "c32113ecb2ae5c2116d59ac706b6641dd657ca4fef3d1e31b7ffec3316652f6e",
+    "PokeR_RoundShrub_CratePalette_TwoColor.vox": "b1998fed93ab08ecd55cceb2be08bfb7c6f6b122f2cd3478a2ee5f94aaafd83f",
+    "PokeR_RoundShrub_Cartoon_CratePalette_TwoColor.vox": "6bf43f8e6009842eb54ee5de2c6be090dee7ed8dfe8ec8a100d59c05fc95b692"
+  }
+}

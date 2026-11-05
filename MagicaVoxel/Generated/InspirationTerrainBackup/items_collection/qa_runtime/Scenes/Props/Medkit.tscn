@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="ArrayMesh" path="res://Items/Medkit.vox" id="1_medkit"]
+
+[node name="Medkit" type="Node3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0315, -0.2205, 0.0315)
+mesh = ExtResource("1_medkit")

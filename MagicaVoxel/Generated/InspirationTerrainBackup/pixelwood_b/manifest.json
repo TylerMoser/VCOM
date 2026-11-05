@@ -1,0 +1,2247 @@
+{
+  "source_image": "pixelwood_b.gif",
+  "source_sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+  "specification_version": "1.0",
+  "generator_sha256": "1a86a74a2fd57d7aeb60a51f23f9c9a7e5efe77ae3453163ac9800c5d023f2cc",
+  "sculpt_sha256": "ce9cc736b005a159cd1bcc26f2ab99e5bdc43ff473fd04e035db2240a208086d",
+  "command": "python output/pixelwood_b/generate.py",
+  "seed": "fixed deterministic integer hash, no random state",
+  "scale": 0.0625,
+  "scene_translation": "0 0 floor(canvas height/2)",
+  "delivery": "Complete models only, no per-cell files",
+  "palette_snapshot": "knowledge/palettes/crate-palette.json",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "asset_id": "PixelwoodB_ConiferGreen",
+      "source_image": "pixelwood_b.gif",
+      "source_region_xyxy_exclusive": [
+        812,
+        176,
+        1015,
+        426
+      ],
+      "shape": "conifer",
+      "appearance": "pine",
+      "decoration": null,
+      "canvas_xyz": [
+        40,
+        40,
+        48
+      ],
+      "approximate_tiles_xyz": [
+        2.5,
+        2.5,
+        3.0
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All leaves and hidden crown core.",
+        "wood": "Trunk, roots, hidden stem and branches; pale bark included."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          61,
+          115,
+          39,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 243,
+        "5": 243,
+        "6": 244,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PixelwoodB_ConiferGreen.vox",
+        "PixelwoodB_ConiferGreen_Cartoon.vox",
+        "PixelwoodB_ConiferGreen_CratePalette.vox",
+        "PixelwoodB_ConiferGreen_TwoColor.vox",
+        "PixelwoodB_ConiferGreen_Cartoon_TwoColor.vox",
+        "PixelwoodB_ConiferGreen_CratePalette_TwoColor.vox",
+        "PixelwoodB_ConiferGreen_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PixelwoodB_ConiferOlive",
+      "source_image": "pixelwood_b.gif",
+      "source_region_xyxy_exclusive": [
+        173,
+        1,
+        365,
+        243
+      ],
+      "shape": "conifer",
+      "appearance": "olive",
+      "decoration": null,
+      "canvas_xyz": [
+        40,
+        40,
+        48
+      ],
+      "approximate_tiles_xyz": [
+        2.5,
+        2.5,
+        3.0
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All leaves and hidden crown core.",
+        "wood": "Trunk, roots, hidden stem and branches; pale bark included."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        242,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 243,
+        "6": 244,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PixelwoodB_ConiferOlive.vox",
+        "PixelwoodB_ConiferOlive_Cartoon.vox",
+        "PixelwoodB_ConiferOlive_CratePalette.vox",
+        "PixelwoodB_ConiferOlive_TwoColor.vox",
+        "PixelwoodB_ConiferOlive_Cartoon_TwoColor.vox",
+        "PixelwoodB_ConiferOlive_CratePalette_TwoColor.vox",
+        "PixelwoodB_ConiferOlive_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PixelwoodB_WhiteBarkLime",
+      "source_image": "pixelwood_b.gif",
+      "source_region_xyxy_exclusive": [
+        254,
+        461,
+        413,
+        733
+      ],
+      "shape": "birch",
+      "appearance": "lime",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        56
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        3.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All leaves and hidden crown core.",
+        "wood": "Trunk, roots, hidden stem and branches; pale bark included."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          76,
+          127,
+          47,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        196
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 243,
+        "5": 244,
+        "6": 245,
+        "7": 193,
+        "8": 194,
+        "9": 196,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PixelwoodB_WhiteBarkLime.vox",
+        "PixelwoodB_WhiteBarkLime_Cartoon.vox",
+        "PixelwoodB_WhiteBarkLime_CratePalette.vox",
+        "PixelwoodB_WhiteBarkLime_TwoColor.vox",
+        "PixelwoodB_WhiteBarkLime_Cartoon_TwoColor.vox",
+        "PixelwoodB_WhiteBarkLime_CratePalette_TwoColor.vox",
+        "PixelwoodB_WhiteBarkLime_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PixelwoodB_WhiteBarkOlive",
+      "source_image": "pixelwood_b.gif",
+      "source_region_xyxy_exclusive": [
+        109,
+        254,
+        270,
+        528
+      ],
+      "shape": "birch",
+      "appearance": "olive",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        56
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        3.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All leaves and hidden crown core.",
+        "wood": "Trunk, roots, hidden stem and branches; pale bark included."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        242,
+        196
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 243,
+        "6": 244,
+        "7": 193,
+        "8": 194,
+        "9": 196,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PixelwoodB_WhiteBarkOlive.vox",
+        "PixelwoodB_WhiteBarkOlive_Cartoon.vox",
+        "PixelwoodB_WhiteBarkOlive_CratePalette.vox",
+        "PixelwoodB_WhiteBarkOlive_TwoColor.vox",
+        "PixelwoodB_WhiteBarkOlive_Cartoon_TwoColor.vox",
+        "PixelwoodB_WhiteBarkOlive_CratePalette_TwoColor.vox",
+        "PixelwoodB_WhiteBarkOlive_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "PixelwoodB_ConiferGreen.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "Base",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          10,
+          29,
+          24,
+          255
+        ],
+        [
+          25,
+          58,
+          32,
+          255
+        ],
+        [
+          39,
+          82,
+          34,
+          255
+        ],
+        [
+          61,
+          115,
+          39,
+          255
+        ],
+        [
+          91,
+          145,
+          44,
+          255
+        ],
+        [
+          135,
+          174,
+          64,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "d3c8b76ba0f5f2d1490d81657717d5805db41c1d8f1811a1f873e3e8819a15f7",
+      "palette_sha256": "305d31efd99003cac985d7b5ed696bd34fe63e36b75dfb7ad86efda050261283",
+      "geometry_source": "PixelwoodB_ConiferGreen.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d3c8b76ba0f5f2d1490d81657717d5805db41c1d8f1811a1f873e3e8819a15f7"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_Cartoon.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          10,
+          29,
+          24,
+          255
+        ],
+        [
+          25,
+          58,
+          32,
+          255
+        ],
+        [
+          39,
+          82,
+          34,
+          255
+        ],
+        [
+          61,
+          115,
+          39,
+          255
+        ],
+        [
+          91,
+          145,
+          44,
+          255
+        ],
+        [
+          135,
+          174,
+          64,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "6fe319a840a377b48e8460f2540879b276883f5f0e1a47c00945cb9f02156794",
+      "palette_sha256": "305d31efd99003cac985d7b5ed696bd34fe63e36b75dfb7ad86efda050261283",
+      "geometry_source": "PixelwoodB_ConiferGreen_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6fe319a840a377b48e8460f2540879b276883f5f0e1a47c00945cb9f02156794"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_CratePalette.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "4910504313865d7149af347388c95a8dcc8349a41b7d3ff1498e7564ef8cdf4f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferGreen.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d3c8b76ba0f5f2d1490d81657717d5805db41c1d8f1811a1f873e3e8819a15f7"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_TwoColor.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          61,
+          115,
+          39,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "e607647b3a596b5232d803394fcc33d66a494843769d40b86c5cb0a7312afd40",
+      "palette_sha256": "2f9c4d81886f939ca445d9483b29c2c93e5d48c89b839a95f36988dddb046fa8",
+      "geometry_source": "PixelwoodB_ConiferGreen.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d3c8b76ba0f5f2d1490d81657717d5805db41c1d8f1811a1f873e3e8819a15f7"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          61,
+          115,
+          39,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "51c9dfbaf0b7a8ae3d6d5fa590e549c3f6bbcaecc70778b88c3b4e81af4fcca9",
+      "palette_sha256": "2f9c4d81886f939ca445d9483b29c2c93e5d48c89b839a95f36988dddb046fa8",
+      "geometry_source": "PixelwoodB_ConiferGreen_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6fe319a840a377b48e8460f2540879b276883f5f0e1a47c00945cb9f02156794"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "ab5720b228f83e7176ecf5995ad54fdd11f40f98b1b8555880e86669d22489fb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferGreen.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d3c8b76ba0f5f2d1490d81657717d5805db41c1d8f1811a1f873e3e8819a15f7"
+    },
+    {
+      "file": "PixelwoodB_ConiferGreen_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_ConiferGreen",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "3af0d33e2616234216bfaa507e4e743044a5ca8c47cc7c3563a76ea53f0d6b10",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferGreen_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "6fe319a840a377b48e8460f2540879b276883f5f0e1a47c00945cb9f02156794"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "Base",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          14,
+          31,
+          25,
+          255
+        ],
+        [
+          28,
+          57,
+          36,
+          255
+        ],
+        [
+          44,
+          77,
+          38,
+          255
+        ],
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          83,
+          117,
+          47,
+          255
+        ],
+        [
+          117,
+          143,
+          63,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "9f06103cea675c7187d094d5a53cc7e74fc087f69d72c43734694afa046c7fba",
+      "palette_sha256": "e69a5dc0b0208620152eb72d7b951bdc0a54b81f370c792b01ce70b1b8e3aacb",
+      "geometry_source": "PixelwoodB_ConiferOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "9f06103cea675c7187d094d5a53cc7e74fc087f69d72c43734694afa046c7fba"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_Cartoon.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          14,
+          31,
+          25,
+          255
+        ],
+        [
+          28,
+          57,
+          36,
+          255
+        ],
+        [
+          44,
+          77,
+          38,
+          255
+        ],
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          83,
+          117,
+          47,
+          255
+        ],
+        [
+          117,
+          143,
+          63,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "971c4892afd4e3efa1b62799b78a4b076a9de21f4e88f3a2400469f2652096d2",
+      "palette_sha256": "e69a5dc0b0208620152eb72d7b951bdc0a54b81f370c792b01ce70b1b8e3aacb",
+      "geometry_source": "PixelwoodB_ConiferOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "971c4892afd4e3efa1b62799b78a4b076a9de21f4e88f3a2400469f2652096d2"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_CratePalette.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "5dfc6f504d3ac216404c3bc85f5545bb24b31c4f86b858d9b04c49017902e027",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "9f06103cea675c7187d094d5a53cc7e74fc087f69d72c43734694afa046c7fba"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_TwoColor.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "4b476a8964fe990ffafc47d334d68c8ea91689fb578ed1d618c3b9122be4af47",
+      "palette_sha256": "102cfd9fff715e192510601e5b20e882c16810c4ec407f4a97bc835507afdd0d",
+      "geometry_source": "PixelwoodB_ConiferOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "9f06103cea675c7187d094d5a53cc7e74fc087f69d72c43734694afa046c7fba"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "9df5ea52d88cc66aee613969f2d729e5e48107c4243a69febd0da1cef475ff02",
+      "palette_sha256": "102cfd9fff715e192510601e5b20e882c16810c4ec407f4a97bc835507afdd0d",
+      "geometry_source": "PixelwoodB_ConiferOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "971c4892afd4e3efa1b62799b78a4b076a9de21f4e88f3a2400469f2652096d2"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        38,
+        47
+      ],
+      "voxels": 11518,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "0c1bb8978d8fecfe7c6ee015831bdf639aff78a30eb746d29097f8d4c23fd663",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "9f06103cea675c7187d094d5a53cc7e74fc087f69d72c43734694afa046c7fba"
+    },
+    {
+      "file": "PixelwoodB_ConiferOlive_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_ConiferOlive",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        40,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        38,
+        47
+      ],
+      "voxels": 11520,
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "4c355779a0756a62c4bc01132e71e26afd611d013d5a782e9418e1367a3b648d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_ConiferOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "971c4892afd4e3efa1b62799b78a4b076a9de21f4e88f3a2400469f2652096d2"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          15,
+          34,
+          27,
+          255
+        ],
+        [
+          29,
+          66,
+          39,
+          255
+        ],
+        [
+          49,
+          92,
+          41,
+          255
+        ],
+        [
+          76,
+          127,
+          47,
+          255
+        ],
+        [
+          120,
+          164,
+          55,
+          255
+        ],
+        [
+          166,
+          198,
+          87,
+          255
+        ],
+        [
+          48,
+          55,
+          57,
+          255
+        ],
+        [
+          158,
+          166,
+          161,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "a54851b54e0de7a53c82c9caba098529095aa4623ef0d745974ffe3f5f9a26d2",
+      "palette_sha256": "57766f4d342b2cc1928ebd7306cb3564df9a9c00a50531ab1b5acb1047852774",
+      "geometry_source": "PixelwoodB_WhiteBarkLime.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a54851b54e0de7a53c82c9caba098529095aa4623ef0d745974ffe3f5f9a26d2"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_Cartoon.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          15,
+          34,
+          27,
+          255
+        ],
+        [
+          29,
+          66,
+          39,
+          255
+        ],
+        [
+          49,
+          92,
+          41,
+          255
+        ],
+        [
+          76,
+          127,
+          47,
+          255
+        ],
+        [
+          120,
+          164,
+          55,
+          255
+        ],
+        [
+          166,
+          198,
+          87,
+          255
+        ],
+        [
+          48,
+          55,
+          57,
+          255
+        ],
+        [
+          158,
+          166,
+          161,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "3138dc24a9c0f76b8bb0f064c942b65712c150a8bc83bb9df7035b27adbd597c",
+      "palette_sha256": "57766f4d342b2cc1928ebd7306cb3564df9a9c00a50531ab1b5acb1047852774",
+      "geometry_source": "PixelwoodB_WhiteBarkLime_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "3138dc24a9c0f76b8bb0f064c942b65712c150a8bc83bb9df7035b27adbd597c"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_CratePalette.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        193,
+        194,
+        196,
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          129,
+          151,
+          150,
+          255
+        ],
+        [
+          168,
+          181,
+          178,
+          255
+        ],
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "e67a350b93ce7d227c9a6435bdcee87df360e93cd6b8249ef15d213c876d2682",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkLime.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a54851b54e0de7a53c82c9caba098529095aa4623ef0d745974ffe3f5f9a26d2"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          76,
+          127,
+          47,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "5f5ae8778a5f7dea719fdbeb8e42fda0581a31dbf8d9cd2bcf4ca02a81623e27",
+      "palette_sha256": "aa390003b3c44696102cee1de5b4fcdaadd9f2327e51edd11e1d890431ece780",
+      "geometry_source": "PixelwoodB_WhiteBarkLime.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a54851b54e0de7a53c82c9caba098529095aa4623ef0d745974ffe3f5f9a26d2"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          76,
+          127,
+          47,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "225d24e05e51815560771ccc7544a9e3da5381c90524daa64545644b934b8336",
+      "palette_sha256": "aa390003b3c44696102cee1de5b4fcdaadd9f2327e51edd11e1d890431ece780",
+      "geometry_source": "PixelwoodB_WhiteBarkLime_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "3138dc24a9c0f76b8bb0f064c942b65712c150a8bc83bb9df7035b27adbd597c"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        196,
+        243
+      ],
+      "used_rgba": [
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "b0bead54a3606a92f1cefb0ce6c3471acb6190647c29d5e285a772eebead2eda",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkLime.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a54851b54e0de7a53c82c9caba098529095aa4623ef0d745974ffe3f5f9a26d2"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkLime_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkLime",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        196,
+        243
+      ],
+      "used_rgba": [
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "f4976e1334555c3395e6986f0b0c96bbe0d375a4ccda4bc5f940ccbae49bf74c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkLime_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "3138dc24a9c0f76b8bb0f064c942b65712c150a8bc83bb9df7035b27adbd597c"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          14,
+          31,
+          25,
+          255
+        ],
+        [
+          28,
+          57,
+          36,
+          255
+        ],
+        [
+          44,
+          77,
+          38,
+          255
+        ],
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          83,
+          117,
+          47,
+          255
+        ],
+        [
+          117,
+          143,
+          63,
+          255
+        ],
+        [
+          48,
+          55,
+          57,
+          255
+        ],
+        [
+          158,
+          166,
+          161,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "7168fb2eb7b0044bf920d3ee900e17318774d0297f4ed1c93139e29b98531794",
+      "palette_sha256": "6dcce7685ef417274a02f901556e2cf35bc306da40c3150cebe7a4cbfc8f6dac",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "7168fb2eb7b0044bf920d3ee900e17318774d0297f4ed1c93139e29b98531794"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_Cartoon.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          14,
+          31,
+          25,
+          255
+        ],
+        [
+          28,
+          57,
+          36,
+          255
+        ],
+        [
+          44,
+          77,
+          38,
+          255
+        ],
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          83,
+          117,
+          47,
+          255
+        ],
+        [
+          117,
+          143,
+          63,
+          255
+        ],
+        [
+          48,
+          55,
+          57,
+          255
+        ],
+        [
+          158,
+          166,
+          161,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "81c88e43a34b42afd18062c0275b7494b9441a66790e9dc14a34cb3b13ac6f26",
+      "palette_sha256": "6dcce7685ef417274a02f901556e2cf35bc306da40c3150cebe7a4cbfc8f6dac",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "81c88e43a34b42afd18062c0275b7494b9441a66790e9dc14a34cb3b13ac6f26"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_CratePalette.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        193,
+        194,
+        196,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          129,
+          151,
+          150,
+          255
+        ],
+        [
+          168,
+          181,
+          178,
+          255
+        ],
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "09f9fb5cf1b006a41c111e5d9b9bced53269dbe9917a417d76336ea61497030e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "7168fb2eb7b0044bf920d3ee900e17318774d0297f4ed1c93139e29b98531794"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "d299167317e3f5e479f781b21171db769cb4e7387daea0b708cd57149b7070e9",
+      "palette_sha256": "2e5f49382977b102254c4334d52bdccc2cd5be0e291f60870820354ccb198949",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "7168fb2eb7b0044bf920d3ee900e17318774d0297f4ed1c93139e29b98531794"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          64,
+          96,
+          42,
+          255
+        ],
+        [
+          232,
+          238,
+          222,
+          255
+        ]
+      ],
+      "sha256": "568a1b782a1ffc7c166e90180927f12e3bb3926db0d687a7777fb25c63824c8a",
+      "palette_sha256": "2e5f49382977b102254c4334d52bdccc2cd5be0e291f60870820354ccb198949",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "81c88e43a34b42afd18062c0275b7494b9441a66790e9dc14a34cb3b13ac6f26"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        30,
+        55
+      ],
+      "voxels": 20498,
+      "used_indices": [
+        196,
+        242
+      ],
+      "used_rgba": [
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "56fbd3101404954ae56b9594f2cb25b54fc15460f9662268d08524dcff64ffac",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "7168fb2eb7b0044bf920d3ee900e17318774d0297f4ed1c93139e29b98531794"
+    },
+    {
+      "file": "PixelwoodB_WhiteBarkOlive_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_WhiteBarkOlive",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        56
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        55
+      ],
+      "voxels": 20456,
+      "used_indices": [
+        196,
+        242
+      ],
+      "used_rgba": [
+        [
+          235,
+          237,
+          233,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "sha256": "f5efaaad608ea611ed26d5cf6941e624b0195baf1e981afcfd144e323fbe21ce",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PixelwoodB_WhiteBarkOlive_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "81c88e43a34b42afd18062c0275b7494b9441a66790e9dc14a34cb3b13ac6f26"
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "source": "poke_k.jpg",
+  "families": [
+    {
+      "source": "poke_k.jpg",
+      "name": "PokeK_LakesideStairs",
+      "crop": [
+        42,
+        385,
+        104,
+        431
+      ],
+      "width": 64,
+      "run": 32,
+      "rise": 32,
+      "steps": 8,
+      "landing": 8,
+      "tile_pixels": 14.72,
+      "stone": [
+        171,
+        173,
+        175
+      ],
+      "edge": [
+        139,
+        94,
+        62
+      ],
+      "rail": "wood",
+      "note": "Three repeated flights. Tree repeats are two tiles across: 29.4 displayed pixels = two tiles, correcting the older tree note for this collection.",
+      "size": [
+        40,
+        64,
+        48
+      ],
+      "source_sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+      "crate_mapping": {
+        "1": 194,
+        "2": 193,
+        "3": 195,
+        "4": 194,
+        "5": 179,
+        "6": 234,
+        "7": 180,
+        "8": 234,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs.vox",
+      "source": "poke_k.jpg",
+      "style": "Base",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "9ca683074c555dd15797600c27ace3a694fda3dc9984b189c63a02ddc0a63361"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_Cartoon.vox",
+      "source": "poke_k.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "22f6e8f072a94eebfdc6b927d713165082230bf34db8f9effffcbc4ff4a47821"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_CratePalette.vox",
+      "source": "poke_k.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "d4fadeb1a8ace74ca301b53bfdeb69625c2c1af5379055df7488a1606d3235af"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_TwoColor.vox",
+      "source": "poke_k.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "8d6794cc601746948a46fc42666568f6130f9277b9b0a42356de2e07b224d54a"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_Cartoon_TwoColor.vox",
+      "source": "poke_k.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "14a1642a667ea7e07b22cfbb8d882280b1d333c0e24fb9ae0db7d95eaeb88966"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_CratePalette_TwoColor.vox",
+      "source": "poke_k.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "1588a88474c08afd2cea9b02645232a881c4595752f224ed012d4bf4e0c49bfa"
+    },
+    {
+      "family": "PokeK_LakesideStairs",
+      "file": "output/poke_k/PokeK_LakesideStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_k.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "3053211188c2f89cc991776b2103a7add0b817f9a752d001611fe0d75f78c406"
+    }
+  ]
+}

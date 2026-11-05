@@ -1,0 +1,84 @@
+{
+ "source": "poke_f.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeF_BlueHouse": {
+   "title": "Blue house",
+   "regions_xyxy_exclusive": [
+    [
+     400,
+     86,
+     482,
+     180
+    ],
+    [
+     416,
+     246,
+     498,
+     340
+    ],
+    [
+     48,
+     86,
+     130,
+     180
+    ],
+    [
+     112,
+     70,
+     194,
+     164
+    ],
+    [
+     64,
+     438,
+     146,
+     532
+    ],
+    [
+     128,
+     422,
+     210,
+     516
+    ]
+   ],
+   "drawn": "Six copies of the blue-roofed house, four of them in two pairs side by side, the right one a tile further back: a front gable of dark timber with two small windows, two chimneys, a blue door, a double window over flower boxes."
+  },
+  "PokeF_DomeCenter": {
+   "title": "Domed centre",
+   "regions_xyxy_exclusive": [
+    [
+     244,
+     176,
+     380,
+     306
+    ]
+   ],
+   "drawn": "The building in the middle: the red dome of a Poke Ball (its band and button, as drawn) on a blue-panelled building with white walls, purple-blue windows, a glass double door under a dark blue canopy, banded wooden pillars at its corners."
+  },
+  "PokeF_RoundShop": {
+   "title": "Round shop",
+   "regions_xyxy_exclusive": [
+    [
+     328,
+     404,
+     420,
+     500
+    ]
+   ],
+   "drawn": "The round-cornered building by the pond: a low salmon-tiled roof, white panels in grey frames, a red band between its two storeys, a glass door, windows over planters of pink flowers."
+  },
+  "PokeF_TealHall": {
+   "title": "Teal hall",
+   "regions_xyxy_exclusive": [
+    [
+     490,
+     476,
+     576,
+     600
+    ]
+   ],
+   "drawn": "The teal building at the bottom right, its left third in view (the rest off the image or behind trees): a hipped teal roof in a brown parapet with a beige top, a white strip of windows over a beige band, a teal ground storey, a lower teal wing. Completed mirrored."
+  }
+ }
+}

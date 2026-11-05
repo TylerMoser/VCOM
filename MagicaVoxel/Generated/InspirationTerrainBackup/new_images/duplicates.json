@@ -1,0 +1,173 @@
+{
+ "note": "Reuse in the new images' models: the same art as an earlier image's model, colourways sharing one geometry, sprites drawn more than once, and models one family holds of another's.",
+ "copied_from_earlier_images": [
+  {
+   "family": "New2_FallenLog",
+   "of": "output/poke_g/PokeG_FallenLog",
+   "how": "the same voxels and palettes, re-encoded under this name"
+  },
+  {
+   "family": "New2_CutStump",
+   "of": "output/poke_g/PokeG_CutStump",
+   "how": "the same voxels and palettes, re-encoded under this name"
+  }
+ ],
+ "recoloured_from_earlier_images": [
+  {
+   "family": "New2_LayeredTree_Light",
+   "of": "output/poke_l/PokeL_LayeredTree",
+   "how": "the same voxels, painted from this sheet's sprite"
+  },
+  {
+   "family": "New2_LayeredTree_Dark",
+   "of": "output/poke_l/PokeL_LayeredTree",
+   "how": "the same voxels, painted from this sheet's sprite"
+  },
+  {
+   "family": "New2_RoundedTree_Light",
+   "of": "output/poke_l/PokeL_RoundedTree",
+   "how": "the same voxels, painted from this sheet's sprite"
+  },
+  {
+   "family": "New2_RoundedTree_Dark",
+   "of": "output/poke_l/PokeL_RoundedTree",
+   "how": "the same voxels, painted from this sheet's sprite"
+  },
+  {
+   "family": "New2_Sapling_Light",
+   "of": "output/poke_l/PokeL_Sapling",
+   "how": "the same voxels, painted from this sheet's sprite"
+  },
+  {
+   "family": "New2_Sapling_Dark",
+   "of": "output/poke_l/PokeL_Sapling",
+   "how": "the same voxels, painted from this sheet's sprite"
+  }
+ ],
+ "colourways": [
+  {
+   "family": "New2_BranchedOak_Dark",
+   "geometry_of_sprite": "BranchedOak_Light",
+   "painted_from_sprite": "BranchedOak_Dark"
+  },
+  {
+   "family": "New2_Spruce_Dark",
+   "geometry_of_sprite": "Spruce_Light",
+   "painted_from_sprite": "Spruce_Dark"
+  },
+  {
+   "family": "New2_SmallFir_Dark",
+   "geometry_of_sprite": "SmallFir_Light",
+   "painted_from_sprite": "SmallFir_Dark"
+  },
+  {
+   "family": "New2_NarrowSpruce_Dark",
+   "geometry_of_sprite": "NarrowSpruce_Light",
+   "painted_from_sprite": "NarrowSpruce_Dark"
+  },
+  {
+   "family": "New2_RoundTree_Dark",
+   "geometry_of_sprite": "RoundTree_Light",
+   "painted_from_sprite": "RoundTree_Dark"
+  },
+  {
+   "family": "New2_BigRoundTree_Dark",
+   "geometry_of_sprite": "BigRoundTree_Light",
+   "painted_from_sprite": "BigRoundTree_Dark"
+  },
+  {
+   "family": "New2_PointedRoundTree_Dark",
+   "geometry_of_sprite": "PointedRoundTree_Light",
+   "painted_from_sprite": "PointedRoundTree_Dark"
+  },
+  {
+   "family": "New2_TrunkCrownTree_Dark",
+   "geometry_of_sprite": "TrunkCrownTree_Light",
+   "painted_from_sprite": "TrunkCrownTree_Dark"
+  },
+  {
+   "family": "New2_GiantTree_Dark",
+   "geometry_of_sprite": "GiantTree_Light",
+   "painted_from_sprite": "GiantTree_Dark"
+  },
+  {
+   "family": "New2_BushyTree_Hollow",
+   "geometry_of_sprite": "BushyTree_Light",
+   "painted_from_sprite": "BushyTree_Hollow"
+  },
+  {
+   "family": "New2_LeafPointTree_Dark",
+   "geometry_of_sprite": "LeafPointTree_A",
+   "painted_from_sprite": "LeafPointTree_A"
+  },
+  {
+   "family": "New2_LeafPointTree_Light",
+   "geometry_of_sprite": "LeafPointTree_A",
+   "painted_from_sprite": "LeafPointTree_B"
+  },
+  {
+   "family": "New2_ScragglyTree_EvenShade",
+   "geometry_of_sprite": "ScragglyTree_A",
+   "painted_from_sprite": "ScragglyTree_B"
+  },
+  {
+   "family": "New2_VineTree_Light",
+   "geometry_of_sprite": "GiantTree_Light",
+   "painted_from_sprite": "VineTree_Light"
+  },
+  {
+   "family": "New2_VineTree_Dark",
+   "geometry_of_sprite": "GiantTree_Light",
+   "painted_from_sprite": "VineTree_Dark"
+  }
+ ],
+ "drawn_more_than_once": {
+  "new_2 (sprite: the family standing for it)": {
+   "TwinSapling_Mirrored": "TwinSapling",
+   "DarkOvalTree_Copy": "DarkOvalTree",
+   "BroadCrownTree_Copy": "BroadCrownTree",
+   "ScragglyTree_B": "ScragglyTree_EvenShade",
+   "HammockPalm_Left": "HammockPalms",
+   "HammockPalm_Right": "HammockPalms",
+   "ScragglyTree_A": "ScragglyTree",
+   "LeafPointTree_A": "LeafPointTree_Dark",
+   "LeafPointTree_B": "LeafPointTree_Light",
+   "Hedge_Field3x3": "Hedge_*",
+   "Hedge_Interior2x2": "Hedge_*",
+   "Hedge_Pill2x1": "Hedge_*",
+   "Hedge_Round1x1": "Hedge_*",
+   "Hedge_Pill1x2": "Hedge_*"
+  },
+  "new_1 (family: copies drawn)": {
+   "New1_OliveConeTree": 8,
+   "New1_TallGrass": 2,
+   "New1_TinySprout": 3,
+   "New1_BroadLeafPlant": 3,
+   "New1_PlanterPlant": 2,
+   "New1_CoralFlower": 2,
+   "New1_BlueFlower": 3
+  }
+ },
+ "held_by_other_models": [
+  {
+   "model": "New1_Cottage",
+   "holds": "New1_PlanterPlant (two, pressed front to back into its flower box)"
+  },
+  {
+   "model": "New1_Cottage",
+   "holds": "New1_RoofFlowerPlant (on its roof)"
+  },
+  {
+   "model": "New1_Cottage",
+   "holds": "New1_TinySprout (two, in the moss on its roof)"
+  },
+  {
+   "model": "New2_HammockPalms",
+   "holds": "the fan palm (New2_FanPalm's art) twice, the second turned half round"
+  },
+  {
+   "model": "New1_BlueFlower",
+   "holds": "New1_CoralFlower's geometry, in blue"
+  }
+ ]
+}

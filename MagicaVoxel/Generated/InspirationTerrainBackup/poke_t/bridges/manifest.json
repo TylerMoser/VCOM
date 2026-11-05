@@ -1,0 +1,361 @@
+{
+  "source_review": {
+    "source": "poke_t.png",
+    "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+    "reviewed": true,
+    "decision": "One bridge type reused at all four placements, with quarter-turn rotations for the vertical views.",
+    "new_families": [
+      "PokeT_TubularRailBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_TubularRailBridge",
+      "kind": "wood",
+      "size": [
+        128,
+        48,
+        64
+      ],
+      "crop": [
+        541,
+        268,
+        677,
+        322
+      ],
+      "deck": 32,
+      "tile_pixels": 16,
+      "rail": "metal",
+      "wood": [
+        158,
+        116,
+        65
+      ],
+      "note": "Eight-tile timber crossing with rounded metal hoop rails. Northern/southern horizontal copies and the two vertical views reuse this model with rotations.",
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 180,
+        "2": 179,
+        "3": 235,
+        "4": 179,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          158,
+          116,
+          65,
+          255
+        ],
+        [
+          122,
+          89,
+          50,
+          255
+        ],
+        [
+          182,
+          133,
+          75,
+          255
+        ],
+        [
+          142,
+          104,
+          58,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 36400,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "0ede371fee2480837a2cb61f4003b1eec794e10658339961d44785be6b2b631a",
+      "geometry_source": "PokeT_TubularRailBridge",
+      "geometry_sha256": "ab1b0a78e158346b18d636e032b0c3cc0d5450e740a2c47a7c80855fccbe07ee"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42252,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "bed4f6a11064926d36181166e94edd3e321ffbc3f5630c7fccc626d5d8f49592",
+      "geometry_source": "PokeT_TubularRailBridge_Cartoon",
+      "geometry_sha256": "22b86192f098f62084a58dd5a68a39ca4d3096035a4f5044e03944033c640bdd"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 36400,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "f6fc40e32ecbfb5b298ead411c346b0d4bbe423a19df05f1f8c9813c56adeda0",
+      "geometry_source": "PokeT_TubularRailBridge",
+      "geometry_sha256": "ab1b0a78e158346b18d636e032b0c3cc0d5450e740a2c47a7c80855fccbe07ee"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 36400,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "f2b1dd5ddb3e451d3976948a450ba70376713e98d7a48d0d3b6b3953252fbd84",
+      "geometry_source": "PokeT_TubularRailBridge",
+      "geometry_sha256": "ab1b0a78e158346b18d636e032b0c3cc0d5450e740a2c47a7c80855fccbe07ee"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42252,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "d5009098d2f58e1cfe6022aab1733c581ce7fdd06a6c62c78be7a7d0afbe3e6c",
+      "geometry_source": "PokeT_TubularRailBridge_Cartoon",
+      "geometry_sha256": "22b86192f098f62084a58dd5a68a39ca4d3096035a4f5044e03944033c640bdd"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 36400,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "00d31f39372f43b78d04163b1cdd8ea5f5ee64d9e0f4273a2a77cd79776958d9",
+      "geometry_source": "PokeT_TubularRailBridge",
+      "geometry_sha256": "ab1b0a78e158346b18d636e032b0c3cc0d5450e740a2c47a7c80855fccbe07ee"
+    },
+    {
+      "family": "PokeT_TubularRailBridge",
+      "file": "output/poke_t/PokeT_TubularRailBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        128,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42252,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        127,
+        45,
+        47
+      ],
+      "sha256": "03d6ef4259c3b2011572bd6700def4a3de6e539dc2a8bbe495f38e3223a9a1e0",
+      "geometry_source": "PokeT_TubularRailBridge_Cartoon",
+      "geometry_sha256": "22b86192f098f62084a58dd5a68a39ca4d3096035a4f5044e03944033c640bdd"
+    }
+  ]
+}

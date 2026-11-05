@@ -1,0 +1,600 @@
+{
+  "source_image": "pixelwood_b.gif",
+  "source_sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+  "generator_sha256": "13c34896ef5fe04fba73f6c9682d2b238b22c8b03017b2965c40619d0620d947",
+  "dependencies": {
+    "../voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "sculpt.py": "7d0fe370ad9eb24132e5d144a471e625637eec66ec8e7d149c2b902335495e18"
+  },
+  "families": [
+    {
+      "asset_id": "PixelwoodB_House",
+      "canvas_xyz": [
+        80,
+        80,
+        80
+      ],
+      "source_region_xyxy_exclusive": [
+        404,
+        300,
+        830,
+        800
+      ],
+      "symmetry": "Cartoon: balanced roof and structural shell; intentional exceptions: left chimney, left front door, right front window and their trim. No full-model reflection claim.",
+      "semantic_groups": {
+        "wood": "Timber structure, door, window frames, floor and steps; indices 1-6.",
+        "accent": "Roof, chimney masonry and recessed opaque dark glazing; indices 7-17."
+      },
+      "two_color_rgba": [
+        [
+          161,
+          85,
+          48,
+          255
+        ],
+        [
+          54,
+          107,
+          46,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        179,
+        242
+      ],
+      "crate_mapping": {
+        "1": 225,
+        "2": 178,
+        "3": 179,
+        "4": 179,
+        "5": 180,
+        "6": 222,
+        "7": 202,
+        "8": 241,
+        "9": 242,
+        "10": 242,
+        "11": 243,
+        "12": 244,
+        "13": 204,
+        "14": 1,
+        "15": 206,
+        "16": 193,
+        "17": 201
+      }
+    }
+  ],
+  "models": [
+    {
+      "file": "PixelwoodB_House.vox",
+      "family": "PixelwoodB_House",
+      "style": "Base",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52401,
+      "sha256": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502",
+      "palette_sha256": "3afc1289cbb08fe336e9370f3ae28bf02b31b13b7450329bb1001de32d9be6aa",
+      "used_indices": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        14,
+        15,
+        17
+      ],
+      "used_rgba": [
+        [
+          96,
+          46,
+          35,
+          255
+        ],
+        [
+          129,
+          65,
+          40,
+          255
+        ],
+        [
+          161,
+          85,
+          48,
+          255
+        ],
+        [
+          186,
+          112,
+          69,
+          255
+        ],
+        [
+          205,
+          137,
+          86,
+          255
+        ],
+        [
+          10,
+          32,
+          28,
+          255
+        ],
+        [
+          24,
+          62,
+          40,
+          255
+        ],
+        [
+          37,
+          82,
+          43,
+          255
+        ],
+        [
+          54,
+          107,
+          46,
+          255
+        ],
+        [
+          77,
+          133,
+          52,
+          255
+        ],
+        [
+          38,
+          42,
+          50,
+          255
+        ],
+        [
+          77,
+          82,
+          94,
+          255
+        ],
+        [
+          115,
+          122,
+          134,
+          255
+        ],
+        [
+          17,
+          17,
+          14,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House.vox",
+      "geometry_source_sha256": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502"
+    },
+    {
+      "file": "PixelwoodB_House_Cartoon.vox",
+      "family": "PixelwoodB_House",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52145,
+      "sha256": "82ad5c8f5c699d0eaa6fb95598e00a1d6b148465d6073371ee6bc0a740d2da43",
+      "palette_sha256": "3afc1289cbb08fe336e9370f3ae28bf02b31b13b7450329bb1001de32d9be6aa",
+      "used_indices": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9,
+        10,
+        11,
+        13,
+        15,
+        17
+      ],
+      "used_rgba": [
+        [
+          96,
+          46,
+          35,
+          255
+        ],
+        [
+          129,
+          65,
+          40,
+          255
+        ],
+        [
+          161,
+          85,
+          48,
+          255
+        ],
+        [
+          186,
+          112,
+          69,
+          255
+        ],
+        [
+          205,
+          137,
+          86,
+          255
+        ],
+        [
+          10,
+          32,
+          28,
+          255
+        ],
+        [
+          37,
+          82,
+          43,
+          255
+        ],
+        [
+          54,
+          107,
+          46,
+          255
+        ],
+        [
+          77,
+          133,
+          52,
+          255
+        ],
+        [
+          38,
+          42,
+          50,
+          255
+        ],
+        [
+          115,
+          122,
+          134,
+          255
+        ],
+        [
+          17,
+          17,
+          14,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House_Cartoon.vox",
+      "geometry_source_sha256": "82ad5c8f5c699d0eaa6fb95598e00a1d6b148465d6073371ee6bc0a740d2da43"
+    },
+    {
+      "file": "PixelwoodB_House_CratePalette.vox",
+      "family": "PixelwoodB_House",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52401,
+      "sha256": "049482cfc7d08e82f20a081a63cf03d7064e5464a6df20a4b5a26c84131acb50",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        1,
+        178,
+        179,
+        180,
+        201,
+        202,
+        204,
+        206,
+        222,
+        241,
+        242,
+        243
+      ],
+      "used_rgba": [
+        [
+          75,
+          75,
+          75,
+          255
+        ],
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          9,
+          10,
+          20,
+          255
+        ],
+        [
+          16,
+          20,
+          31,
+          255
+        ],
+        [
+          32,
+          46,
+          55,
+          255
+        ],
+        [
+          87,
+          114,
+          119,
+          255
+        ],
+        [
+          218,
+          134,
+          62,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House.vox",
+      "geometry_source_sha256": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502"
+    },
+    {
+      "file": "PixelwoodB_House_TwoColor.vox",
+      "family": "PixelwoodB_House",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52401,
+      "sha256": "567dfddbff8bf84d57abe81590344c7d2bfbc8e77f2ee93ac4d69f44b11928b1",
+      "palette_sha256": "c6a713a83ff65e2b0f05f8552634bd9f2fb80dd8fd6e0388db822c6d5ff91554",
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          161,
+          85,
+          48,
+          255
+        ],
+        [
+          54,
+          107,
+          46,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House.vox",
+      "geometry_source_sha256": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502"
+    },
+    {
+      "file": "PixelwoodB_House_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_House",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52145,
+      "sha256": "3c4ad4fbb055e9a72aa735d152a6b10595ae678cb813e463b84554cb19bee680",
+      "palette_sha256": "c6a713a83ff65e2b0f05f8552634bd9f2fb80dd8fd6e0388db822c6d5ff91554",
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          161,
+          85,
+          48,
+          255
+        ],
+        [
+          54,
+          107,
+          46,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House_Cartoon.vox",
+      "geometry_source_sha256": "82ad5c8f5c699d0eaa6fb95598e00a1d6b148465d6073371ee6bc0a740d2da43"
+    },
+    {
+      "file": "PixelwoodB_House_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_House",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52401,
+      "sha256": "670082a8007578a7c43e75caa566ab24dc3cd265ca5ca3dd8ccd0c339b3e20aa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House.vox",
+      "geometry_source_sha256": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502"
+    },
+    {
+      "file": "PixelwoodB_House_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_House",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        80,
+        80
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        74,
+        79
+      ],
+      "voxels": 52145,
+      "sha256": "d923a23c8948e37b24ea8d6ce440e1e7930e086220db1e858abe52d2f50dd174",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "used_indices": [
+        179,
+        242
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ]
+      ],
+      "geometry_source": "PixelwoodB_House_Cartoon.vox",
+      "geometry_source_sha256": "82ad5c8f5c699d0eaa6fb95598e00a1d6b148465d6073371ee6bc0a740d2da43"
+    }
+  ],
+  "scale": 0.0625,
+  "front": "local -Y / Godot +Z",
+  "scene_translation": "0 0 40",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "delivery": "Complete hollow models; no cell files.",
+  "command": "python output/pixelwood_b/house/generate.py"
+}

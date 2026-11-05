@@ -1,0 +1,274 @@
+{
+  "source": {
+    "source": "pixelwood_c.jpg",
+    "size": [
+      736,
+      736
+    ],
+    "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53"
+  },
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_LogBridge",
+      "kind": "log",
+      "size": [
+        32,
+        152,
+        32
+      ],
+      "crop": [
+        133,
+        449,
+        587,
+        550
+      ],
+      "bark": [
+        104,
+        60,
+        39
+      ],
+      "wood": [
+        167,
+        107,
+        66
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "Base",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103392,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        103392
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        151,
+        29
+      ],
+      "sha256": "c6bdb56c386700f0d20173e32d9d8e2d68ce07d004dd6e05aeddae2615ecf79d",
+      "palette_sha256": "31fc81f372b670da9a0a535ad20f0cfd6506f25e8d3e8e2bd80dcee13f0a138f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_Cartoon.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103360,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        103360
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        151,
+        28
+      ],
+      "sha256": "57fe4d5b80cc82fda41da6021c44a039c09ad09a890fc86acd8396fdd222ffa8",
+      "palette_sha256": "31fc81f372b670da9a0a535ad20f0cfd6506f25e8d3e8e2bd80dcee13f0a138f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_CratePalette.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103392,
+      "colors": 3,
+      "groups": {
+        "179": "bark",
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        103392
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        151,
+        29
+      ],
+      "sha256": "0295da3f3b56142deb111bcad3dd7e650c87442960bba3e9c43598f1afab2876",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_TwoColor.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103392,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        103392
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        151,
+        29
+      ],
+      "sha256": "f3db12f2b4d08f26a9da53f8e8448de8b6ea201f3c082177beecfa6a6330d95d",
+      "palette_sha256": "9185a931b462d3f2afb589d1d19676f5d9a3fc15add40db94bb8ec5f51518186",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103360,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        103360
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        151,
+        28
+      ],
+      "sha256": "df5b715e6b68f48dcc61e3eae323f071e3c688e06314498a14a1c1ddb6131abc",
+      "palette_sha256": "9185a931b462d3f2afb589d1d19676f5d9a3fc15add40db94bb8ec5f51518186",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103392,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        103392
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        151,
+        29
+      ],
+      "sha256": "c16a8a393e513804574ac0f55ca49c00d92b5d33db3d6d99263035972a61db71",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LogBridge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_LogBridge",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        152,
+        32
+      ],
+      "voxels": 103360,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        103360
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        151,
+        28
+      ],
+      "sha256": "64764562384a4bb75f7839e8da9ba1de90641e059e774c2e00896a9a41cb0d5c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    "pixelwood_a/PixelwoodA_Stump"
+  ]
+}

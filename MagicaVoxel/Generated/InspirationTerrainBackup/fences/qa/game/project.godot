@@ -1,0 +1,15 @@
+config_version=5
+[application]
+config/name="Lights runtime QA"
+[rendering]
+renderer/rendering_method="gl_compatibility"
+[shader_globals]
+
+tile_grid={
+"type": "float",
+"value": 0.0
+}
+voxel_glow={
+"type": "float",
+"value": 0.0
+}

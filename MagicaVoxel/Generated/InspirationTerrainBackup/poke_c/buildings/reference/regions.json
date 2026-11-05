@@ -1,0 +1,129 @@
+{
+ "Cottage": {
+  "drawn": "Five copies: the small slate-roofed house without flower boxes (two partly hidden by a lamp and a bush).",
+  "regions_xyxy_exclusive": [
+   [
+    146,
+    138,
+    216,
+    226
+   ],
+   [
+    162,
+    266,
+    232,
+    354
+   ],
+   [
+    578,
+    378,
+    648,
+    466
+   ],
+   [
+    34,
+    298,
+    104,
+    386
+   ],
+   [
+    162,
+    378,
+    232,
+    466
+   ]
+  ],
+  "modelled_from": [
+   146,
+   138,
+   216,
+   226
+  ]
+ },
+ "FlowerBoxCottage": {
+  "drawn": "Three copies: the same house with flower boxes under its front windows.",
+  "regions_xyxy_exclusive": [
+   [
+    50,
+    154,
+    120,
+    242
+   ],
+   [
+    546,
+    250,
+    616,
+    338
+   ],
+   [
+    690,
+    250,
+    760,
+    338
+   ]
+  ],
+  "modelled_from": [
+   50,
+   154,
+   120,
+   242
+  ]
+ },
+ "Manor": {
+  "drawn": "The large house at the top right: scalloped slate roof, barrel dormer, double door under a hood, a half-timbered wing on the left, a bay on the right.",
+  "regions_xyxy_exclusive": [
+   [
+    578,
+    68,
+    730,
+    186
+   ]
+  ],
+  "modelled_from": [
+   578,
+   68,
+   730,
+   186
+  ]
+ },
+ "BridgePavilion": {
+  "drawn": "Two identical pavilions eight tiles apart on the covered bridge over the river.",
+  "regions_xyxy_exclusive": [
+   [
+    284,
+    318,
+    372,
+    450
+   ],
+   [
+    412,
+    318,
+    500,
+    450
+   ]
+  ],
+  "modelled_from": [
+   284,
+   318,
+   372,
+   450
+  ]
+ },
+ "BridgeSpan": {
+  "drawn": "The arched stone span between the two pavilions, its railed walkway.",
+  "regions_xyxy_exclusive": [
+   [
+    362,
+    364,
+    422,
+    446
+   ]
+  ],
+  "modelled_from": [
+   362,
+   364,
+   422,
+   446
+  ]
+ }
+}

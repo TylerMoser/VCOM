@@ -1,0 +1,376 @@
+{
+  "source": "poke_q.png",
+  "review": {
+    "source": "poke_q.png",
+    "reviewed": true,
+    "families": [
+      "PokeQ_TrailSign"
+    ],
+    "notes": "Timber trail sign. Skull posts, chain fence and bamboo already exist in fences. Shrine, stairs and terrain are architectural; creatures are excluded.",
+    "reuse": [
+      "output/poke_q/PokeQ_SkullPost.vox",
+      "output/poke_q/PokeQ_ChainFence.vox",
+      "output/poke_q/PokeQ_BambooFence.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_TrailSign",
+      "kind": "sign",
+      "crop": [
+        500,
+        566,
+        529,
+        593
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_q/PokeQ_TrailSign.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "4027b0a0a41ec7a450d7829ee7b108433a4b9621b960f640b37abd2058a2d230",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "9e4657143352ed8a17e553f7b8e038fc57fdd0e6889a6ca5fdc967b34cf51f10",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_CratePalette.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "905a0c5afa1572bf5cc955074c465765b058ff1ff0a4840d639e7f0002ef47a9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_TwoColor.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "334dcec1d489d038b1bbdabe7d25efdaecf55b6fd827c6236d937f76c63d3fc8",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon_TwoColor.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "104032b1a4e6b8e69ebd5fdf9f71e99d29801d18ec7ae4662d486c70b5f14dad",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_CratePalette_TwoColor.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "775d5e870990d36b2f59ea0639303ff912d1c2305c5258e3dcb40c6492885b6a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeQ_TrailSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "7501de9a2f39e0ea81e3dc6fa71e9be9cf288b48e9bb991c6e35720118609bbf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost.vox",
+      "sha256": "eb25f9cc21cee6c4cf0fceb4fd71b47aed5637e0285ba7a9a3c6e7472d8dec1c"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon.vox",
+      "sha256": "1b8c777f08a3f5929ef826cc0644784ccbc8062ca2d1d09745c2c31b3889a8e5"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_CratePalette.vox",
+      "sha256": "e9e0bf789b7619401f5fe0cc2ac7e10e648cc25a436ceab73c74207c1d526d39"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_TwoColor.vox",
+      "sha256": "14ba7990018cc6d92cc8dc2a71ae4db56d09b29658753956a658af0345817d5f"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon_TwoColor.vox",
+      "sha256": "35124585fc12f305fed4747259fbae50c0540a48d1c33efda362c00bd9a736ce"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_CratePalette_TwoColor.vox",
+      "sha256": "f7741522c89e65e7da7cc189af2b250c616aa4e96d15a7469d0398930bbf26de"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "3f31d0dd58845de53ea53d0d8b8627656f26dcc2b38782c97301d8517e8af608"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence.vox",
+      "sha256": "8eefd85ff05464f7b4e287b81e9be6f5abfe6b99ea4bf02b5cca2e3915bac53d"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon.vox",
+      "sha256": "b7f0bdf32067938b28fdd57cd5bfbb99430d321de08f3ebfefca73803574c4e4"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_CratePalette.vox",
+      "sha256": "898803f2a642e9e46a9625aec33e846862c34bb3fe97f28689caf100da16c4d3"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_TwoColor.vox",
+      "sha256": "c3a99e8cd852a164e54ab2a429e15cf9a1b02ddf975bf01c8a912fa84617112b"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon_TwoColor.vox",
+      "sha256": "509e443e778b559ed1de1cbed1c5e120ef0bf80e18fd0b14048bb46041dd4c1d"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_CratePalette_TwoColor.vox",
+      "sha256": "035954bf3b080ca05cee208d72e3820527a05e5b91008e1e20bbcefe272fd0a5"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "30c3628a2f82d55532a871d719be7f9bd2b7046d013bd7c11e34de9bf25f4e92"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence.vox",
+      "sha256": "8defdd4897bb5e4e29ac87be1b11b6986c5dbe3654b2a7737ad5306edbc864e6"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon.vox",
+      "sha256": "1dc8a7f417072018f457d1b02474e90865675063f3e9582af072c8dc9c85c4ee"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_CratePalette.vox",
+      "sha256": "508c4578919f7f4c8f8cac4ab9964ee0b982edf6281c5f4aeebabf0c5d782a78"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_TwoColor.vox",
+      "sha256": "a15b74a43017e1d276e645ebe4285e3aab5ce2ae569c2b8c86181740ebca4496"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon_TwoColor.vox",
+      "sha256": "c80af537d51ab12ed735e6f85dbfd72cb47259993f8db1320d1b8c93b4aaf32d"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_CratePalette_TwoColor.vox",
+      "sha256": "769b8150f13a118a710895c7e0a562f0d2a8d82c7f0fc2e4f6ccac0ae26b7512"
+    },
+    {
+      "source": "poke_q.png",
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "6aecce08d420567bd0f7dccfffb12336d692e8791ab0f0c4acdf5232e0a88624"
+    }
+  ]
+}

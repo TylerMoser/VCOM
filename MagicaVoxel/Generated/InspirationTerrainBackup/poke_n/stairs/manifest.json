@@ -1,0 +1,258 @@
+{
+  "source": "poke_n.png",
+  "families": [
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_TwoStepStairs",
+      "crop": [
+        296,
+        271,
+        337,
+        304
+      ],
+      "width": 32,
+      "run": 16,
+      "rise": 8,
+      "steps": 2,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        161,
+        153,
+        106
+      ],
+      "edge": [
+        123,
+        88,
+        48
+      ],
+      "rail": "wood",
+      "note": "Two broad olive treads and short timber edging on the upper house path.",
+      "size": [
+        24,
+        32,
+        32
+      ],
+      "source_sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 236,
+        "4": 235,
+        "5": 179,
+        "6": 178,
+        "7": 179,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs.vox",
+      "source": "poke_n.png",
+      "style": "Base",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5436,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "e68c8a0871c0c040b1c7389557645aff9b9523f4fe92fb6829794cc8c56a0dfd"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_Cartoon.vox",
+      "source": "poke_n.png",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5980,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "03656e5b69390d8046664921b7e3f4373a253fa4786d3ee34fdfdd1fd90d705c"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_CratePalette.vox",
+      "source": "poke_n.png",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5436,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "a46b9509651d38072d95ba300766338b32eb95ce39500c45280294451897045f"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_TwoColor.vox",
+      "source": "poke_n.png",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5436,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "4dd023324ab4d876356bd94fc449b3fbd0642cac1d7832f3867679f3498df86d"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_Cartoon_TwoColor.vox",
+      "source": "poke_n.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5980,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "5a2eba16f5519ace631bce668fde32a31800d31272324009c886c8e22bc425c9"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_CratePalette_TwoColor.vox",
+      "source": "poke_n.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5436,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "a4434b24b602394ec5deaf68d920122684426287eb0ea69499c9277eaa9fc350"
+    },
+    {
+      "family": "PokeN_TwoStepStairs",
+      "file": "output/poke_n/PokeN_TwoStepStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_n.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        32,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 5980,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        30,
+        18
+      ],
+      "sha256": "12201e76474165f126f3382aaa4935b0ff0a23d9dd0341384ff930c621cc9b6f"
+    }
+  ]
+}

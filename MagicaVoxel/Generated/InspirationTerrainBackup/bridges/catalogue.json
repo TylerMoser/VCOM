@@ -1,0 +1,500 @@
+[
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_CompletePicketBridge",
+    "kind": "wood",
+    "size": [
+      112,
+      64,
+      64
+    ],
+    "crop": [
+      215,
+      263,
+      295,
+      324
+    ],
+    "deck": 32,
+    "tile_pixels": 10.5,
+    "rail": "picket",
+    "wood": [
+      180,
+      137,
+      83
+    ],
+    "note": "Seven-tile timber span with close pickets, caps, deck, beams and four inferred bank piles."
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_DownstreamStoneBridge",
+    "kind": "stone",
+    "size": [
+      208,
+      48,
+      80
+    ],
+    "crop": [
+      317,
+      608,
+      530,
+      680
+    ],
+    "deck": 48,
+    "tile_pixels": 16,
+    "bays": [
+      0,
+      28,
+      76,
+      124,
+      172,
+      208
+    ],
+    "rail": "woodsolid",
+    "stone": [
+      75,
+      83,
+      90
+    ],
+    "paving": [
+      163,
+      163,
+      128
+    ],
+    "wood": [
+      102,
+      66,
+      48
+    ],
+    "note": "Downstream uncovered bridge: dark masonry, three principal arch bays and small end openings, pale slab paving, solid brown timber guards."
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_FourArchBridge",
+    "kind": "stone",
+    "size": [
+      320,
+      80,
+      96
+    ],
+    "crop": [
+      142,
+      217,
+      465,
+      357
+    ],
+    "deck": 64,
+    "tile_pixels": 16,
+    "bays": [
+      0,
+      80,
+      160,
+      240,
+      320
+    ],
+    "rail": "stone",
+    "stone": [
+      150,
+      149,
+      128
+    ],
+    "paving": [
+      163,
+      162,
+      143
+    ],
+    "note": "Four long arches, broad cobbled carriageway, pale solid parapets and rounded pier noses; complete 20-tile scene in one file with two internal halves."
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_SingleArchBridge",
+    "kind": "stone",
+    "size": [
+      80,
+      64,
+      80
+    ],
+    "crop": [
+      262,
+      699,
+      360,
+      802
+    ],
+    "deck": 48,
+    "tile_pixels": 16,
+    "bays": [
+      0,
+      80
+    ],
+    "rail": "stone",
+    "stone": [
+      150,
+      149,
+      128
+    ],
+    "paving": [
+      163,
+      162,
+      143
+    ],
+    "note": "Southern short river bridge; single arch, cobbles and matching parapets."
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_StoneOverpass",
+    "kind": "stone",
+    "size": [
+      80,
+      64,
+      72
+    ],
+    "crop": [
+      542,
+      374,
+      625,
+      466
+    ],
+    "deck": 40,
+    "tile_pixels": 16,
+    "bays": [
+      0,
+      80
+    ],
+    "rail": "stone",
+    "stone": [
+      150,
+      149,
+      128
+    ],
+    "paving": [
+      163,
+      162,
+      143
+    ],
+    "note": "Eastern short arched road overpass. Terrain approaches, side stair and nearby lower terrace remain separate."
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_PondSlatCrossing",
+    "kind": "wood",
+    "size": [
+      32,
+      48,
+      32
+    ],
+    "crop": [
+      268,
+      398,
+      323,
+      434
+    ],
+    "deck": 16,
+    "tile_pixels": 16,
+    "rail": "none",
+    "slats": 8,
+    "gap": 2,
+    "wood": [
+      182,
+      168,
+      110
+    ],
+    "bolts": true,
+    "nopiles": true,
+    "note": "Four broad planks across the pond neck, with visible gaps and end fasteners; underside stringers inferred."
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_FarmPicketBridge",
+    "kind": "wood",
+    "size": [
+      160,
+      64,
+      64
+    ],
+    "crop": [
+      430,
+      433,
+      560,
+      501
+    ],
+    "deck": 32,
+    "tile_pixels": 16,
+    "rail": "picket",
+    "wood": [
+      151,
+      106,
+      60
+    ],
+    "note": "Image clips the far end. Visible 128-pixel span is completed to a symmetric ten-tile bridge; full unseen length is an explicit estimate."
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_ArchedTimberBridge",
+    "kind": "wood",
+    "size": [
+      80,
+      64,
+      64
+    ],
+    "crop": [
+      253,
+      314,
+      310,
+      357
+    ],
+    "deck": 24,
+    "tile_pixels": 9.5,
+    "rail": "picket",
+    "hump": 8,
+    "wood": [
+      150,
+      143,
+      98
+    ],
+    "note": "Upper west river crossing: shallow bowed timber deck with pale close-spaced rails. Uses later building calibration of 9.5 displayed pixels/tile."
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_FlatTimberBridge",
+    "kind": "wood",
+    "size": [
+      64,
+      56,
+      56
+    ],
+    "crop": [
+      266,
+      394,
+      311,
+      430
+    ],
+    "deck": 24,
+    "tile_pixels": 9.5,
+    "rail": "picket",
+    "wood": [
+      150,
+      143,
+      98
+    ],
+    "note": "Lower west crossing; shorter and flat, with paired pale timber rails."
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_NarrowPlankBridge",
+    "kind": "wood",
+    "size": [
+      64,
+      40,
+      40
+    ],
+    "crop": [
+      333,
+      350,
+      365,
+      394
+    ],
+    "deck": 24,
+    "tile_pixels": 9.5,
+    "rail": "none",
+    "wood": [
+      150,
+      143,
+      98
+    ],
+    "note": "North-south central crossing with broad transverse plank joints and low edge beams. Rotate this X-running model 90 degrees."
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_DiagonalDeckBridge",
+    "kind": "wood",
+    "size": [
+      80,
+      48,
+      40
+    ],
+    "crop": [
+      350,
+      686,
+      435,
+      742
+    ],
+    "deck": 24,
+    "tile_pixels": 16,
+    "rail": "none",
+    "diagonal": true,
+    "bolts": true,
+    "wood": [
+      191,
+      149,
+      64
+    ],
+    "note": "Gold diagonal-board deck, timber border and four light metal L-corner plates. Hidden beams/short bank supports inferred; no rail added."
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_GullyPlankBridge",
+    "kind": "wood",
+    "size": [
+      144,
+      64,
+      64
+    ],
+    "crop": [
+      646,
+      394,
+      794,
+      495
+    ],
+    "deck": 40,
+    "tile_pixels": 16,
+    "rail": "posts",
+    "approach": 24,
+    "wood": [
+      205,
+      175,
+      125
+    ],
+    "note": "Repeated east-west gully crossings: six-tile deck plus bank-anchor margin, three independent-looking posts at each corner; no connecting rails."
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_ShortGullyBridge",
+    "kind": "wood",
+    "size": [
+      128,
+      64,
+      64
+    ],
+    "crop": [
+      532,
+      895,
+      635,
+      1045
+    ],
+    "deck": 40,
+    "tile_pixels": 16,
+    "rail": "posts",
+    "approach": 24,
+    "wood": [
+      205,
+      175,
+      125
+    ],
+    "note": "Shorter north-south five-tile crossing, same construction; rotate 90 degrees. Adjacent gray diagonal ramp is terrain stairs, not part of this bridge."
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_IvyStoneBridge",
+    "kind": "stone",
+    "size": [
+      112,
+      48,
+      80
+    ],
+    "crop": [
+      580,
+      335,
+      657,
+      385
+    ],
+    "deck": 48,
+    "tile_pixels": 10,
+    "rail": "stone",
+    "bays": [
+      0,
+      112
+    ],
+    "stone": [
+      190,
+      194,
+      173
+    ],
+    "paving": [
+      190,
+      194,
+      173
+    ],
+    "ivy": true,
+    "note": "Eastern pale garden bridge over water: slab paving, single open arch, solid coping and ivy. Other pale linear details are garden walls/edging, already covered."
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_TubularRailBridge",
+    "kind": "wood",
+    "size": [
+      128,
+      48,
+      64
+    ],
+    "crop": [
+      541,
+      268,
+      677,
+      322
+    ],
+    "deck": 32,
+    "tile_pixels": 16,
+    "rail": "metal",
+    "wood": [
+      158,
+      116,
+      65
+    ],
+    "note": "Eight-tile timber crossing with rounded metal hoop rails. Northern/southern horizontal copies and the two vertical views reuse this model with rotations."
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_ShortIslandBridge",
+    "kind": "wood",
+    "size": [
+      64,
+      32,
+      40
+    ],
+    "crop": [
+      126,
+      46,
+      161,
+      113
+    ],
+    "deck": 24,
+    "tile_pixels": 16,
+    "rail": "none",
+    "slats": 16,
+    "gap": 1,
+    "sag": 2,
+    "wood": [
+      160,
+      145,
+      111
+    ],
+    "note": "Upper floating-island crossing, four broad plank sections; low underside ties and bank anchors inferred, no handrail."
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_LongIslandBridge",
+    "kind": "wood",
+    "size": [
+      96,
+      32,
+      40
+    ],
+    "crop": [
+      272,
+      238,
+      304,
+      339
+    ],
+    "deck": 24,
+    "tile_pixels": 16,
+    "rail": "none",
+    "slats": 16,
+    "gap": 1,
+    "sag": 3,
+    "wood": [
+      160,
+      145,
+      111
+    ],
+    "note": "Lower crossing is six plank sections long. Shallow sag and hidden ties inferred; same source palette as upper span."
+  }
+]

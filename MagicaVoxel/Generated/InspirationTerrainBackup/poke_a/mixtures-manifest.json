@@ -1,0 +1,334 @@
+{
+  "models": [
+    {
+      "file": "PokeA_ForestTree_Large_Cartoon_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree_Large_Cartoon.vox",
+      "source_sha256": "8890667f367b57d9bfaf6f0c80ce58b8eecfb034fa61600681fc41ffdd6b5131",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "voxels": 23156,
+      "green_index": 1,
+      "brown_index": 2,
+      "green_rgba": [
+        61,
+        123,
+        75,
+        255
+      ],
+      "brown_rgba": [
+        116,
+        80,
+        45,
+        255
+      ],
+      "sha256": "10273aa6ef0dc10122ac2501ca0ff80775804ffc7446a0dfe8248ab743879d42",
+      "palette_sha256": "894f606fc480115d63c1fe2ff9475ee7f530d80870114a30b34d857c0ecee4d5",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": false
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Large_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree_Large.vox",
+      "source_sha256": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "voxels": 24888,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "7b1de889beb92b67f24fb6a38fe98fdf0c748b0413ce1e94d49e7f994a5e4495",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": false,
+        "crate_palette": true
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Large_Cartoon_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree_Large_Cartoon.vox",
+      "source_sha256": "8890667f367b57d9bfaf6f0c80ce58b8eecfb034fa61600681fc41ffdd6b5131",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "voxels": 23156,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "78aa9fffc0c8a21024fa8dd4128e001771de70a852ade6a1a4ee9e88408f6311",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": true
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Cartoon_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree_Cartoon.vox",
+      "source_sha256": "9332c1c944efc2cf60c0455f5633de66a9af1e75b504abf0f782a2a600818f3a",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 2376,
+      "green_index": 1,
+      "brown_index": 2,
+      "green_rgba": [
+        61,
+        123,
+        75,
+        255
+      ],
+      "brown_rgba": [
+        116,
+        80,
+        45,
+        255
+      ],
+      "sha256": "7b93ca1ef228c0fda8877a5b26aed45fe4438557317f221932a76dfd40dad29b",
+      "palette_sha256": "894f606fc480115d63c1fe2ff9475ee7f530d80870114a30b34d857c0ecee4d5",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": false
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree.vox",
+      "source_sha256": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 2183,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "244bfe276bcc0b3c01d53c54b5080a39bcfd61b4bd5947014e99f2424e38ffc0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": false,
+        "crate_palette": true
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Cartoon_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_ForestTree_Cartoon.vox",
+      "source_sha256": "9332c1c944efc2cf60c0455f5633de66a9af1e75b504abf0f782a2a600818f3a",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 2376,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "dd3981d286b1b1d2fd0280d026cae50cab0921584cc60bf581106965c98bb128",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": true
+      }
+    },
+    {
+      "file": "PokeA_Sapling_Cartoon_TwoColor.vox",
+      "source_geometry": "PokeA_Sapling_Cartoon.vox",
+      "source_sha256": "6868357833e5d65e5369eab020d43834761ea2c0b0ecdd70edabd48387c43334",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 308,
+      "green_index": 1,
+      "brown_index": 2,
+      "green_rgba": [
+        61,
+        123,
+        75,
+        255
+      ],
+      "brown_rgba": [
+        116,
+        80,
+        45,
+        255
+      ],
+      "sha256": "809a9a4f0101e71dc6cc4fb8836517ae5c306904ab48d2f3b4de7b2a9e8232e5",
+      "palette_sha256": "894f606fc480115d63c1fe2ff9475ee7f530d80870114a30b34d857c0ecee4d5",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": false
+      }
+    },
+    {
+      "file": "PokeA_Sapling_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_Sapling.vox",
+      "source_sha256": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 291,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "447d7b2d3e533f059dd8efa44280bd403b8736adec5dc536ea918fd9a1c552aa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": false,
+        "crate_palette": true
+      }
+    },
+    {
+      "file": "PokeA_Sapling_Cartoon_CratePalette_TwoColor.vox",
+      "source_geometry": "PokeA_Sapling_Cartoon.vox",
+      "source_sha256": "6868357833e5d65e5369eab020d43834761ea2c0b0ecdd70edabd48387c43334",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 308,
+      "green_index": 243,
+      "brown_index": 179,
+      "green_rgba": [
+        70,
+        130,
+        50,
+        255
+      ],
+      "brown_rgba": [
+        136,
+        75,
+        43,
+        255
+      ],
+      "sha256": "131e2178f3c490efa338b4e2d6a8ee24d8b743ec772a7595bb6fb4c7a84e7129",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "checks": {
+        "exactly_two_used_colors": true,
+        "source_geometry_preserved": true,
+        "single_connected_component": true,
+        "quarter_turn_symmetry": true,
+        "crate_palette": true
+      }
+    }
+  ],
+  "preserved_existing_sha256": {
+    "PokeA_ForestTree.vox": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e",
+    "PokeA_ForestTree_Cartoon.vox": "9332c1c944efc2cf60c0455f5633de66a9af1e75b504abf0f782a2a600818f3a",
+    "PokeA_ForestTree_CratePalette.vox": "7446113039420053d9f32e7dbaae25dc1755020cfa9dec7e14c1744962230f10",
+    "PokeA_ForestTree_Large.vox": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+    "PokeA_ForestTree_Large_Cartoon.vox": "8890667f367b57d9bfaf6f0c80ce58b8eecfb034fa61600681fc41ffdd6b5131",
+    "PokeA_ForestTree_Large_CratePalette.vox": "5f89b8e840e3ecf85d14b25dc235156d9d2fe7805569cb24c627358522b5088b",
+    "PokeA_ForestTree_Large_TwoColor.vox": "73aeaefb11332e60ff6098386eb58026ac58c09880f998df47b7f00c79a571f0",
+    "PokeA_ForestTree_TwoColor.vox": "686954eecd6e769171e5ce3735b6273382abc8b62017d46ec6444434362d0389",
+    "PokeA_Sapling.vox": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba",
+    "PokeA_Sapling_Cartoon.vox": "6868357833e5d65e5369eab020d43834761ea2c0b0ecdd70edabd48387c43334",
+    "PokeA_Sapling_CratePalette.vox": "5cb05aad6ffb21460d2723e999ea7c92c8146ee15c915e9e39450db6a26e96ca",
+    "PokeA_Sapling_TwoColor.vox": "efecc48959639834c4edf8b9d64ef0f3b6a6438a152566a7a61e3d025831bea8"
+  },
+  "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2"
+}

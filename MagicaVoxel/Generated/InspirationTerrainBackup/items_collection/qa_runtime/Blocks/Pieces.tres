@@ -1,0 +1,208 @@
+[gd_resource type="Resource" script_class="PieceLibrary" format=3 uid="uid://2lwj8p6vil4o"]
+
+[ext_resource type="Script" uid="uid://3j4hb4i8lqmk" path="res://Scripts/Level/PieceBrush.gd" id="1_m5it7"]
+[ext_resource type="Script" uid="uid://ceaghxyk57clp" path="res://Scripts/Level/PieceKind.gd" id="2_gan5t"]
+[ext_resource type="Resource" path="res://Resources/Destruction/BrightGrass1.tres" id="3_8q4o1"]
+[ext_resource type="ArrayMesh" uid="uid://b32tejrd82h2l" path="res://Blocks/BrightGrass1.vox" id="4_xh3ah"]
+[ext_resource type="Resource" uid="uid://diuhwotcrxbq7" path="res://Resources/Destruction/BrightCrate1.tres" id="5_7oivu"]
+[ext_resource type="ArrayMesh" uid="uid://bii7daxc74i0m" path="res://Blocks/BrightCrate1.vox" id="6_1hji8"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Bottom.tres" id="7_lyu25"]
+[ext_resource type="ArrayMesh" uid="uid://bdlp02yotd55l" path="res://Blocks/SkinnyTree1Bottom.vox" id="8_mxfqa"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SkinnyTree1Top.tres" id="9_1obmr"]
+[ext_resource type="ArrayMesh" uid="uid://c4pxhehin4eod" path="res://Blocks/SkinnyTree1Top.vox" id="10_7h860"]
+[ext_resource type="Script" uid="uid://dfq7mkk8xy741" path="res://Scripts/Level/PieceLibrary.gd" id="11_fcufj"]
+[ext_resource type="Resource" path="res://Resources/Destruction/FenceStraight.tres" id="11_lyu25"]
+[ext_resource type="ArrayMesh" uid="uid://dd57ct6a3348x" path="res://Blocks/FenceStraight.vox" id="12_mxfqa"]
+[ext_resource type="Resource" path="res://Resources/Destruction/StoneWall.tres" id="13_1obmr"]
+[ext_resource type="ArrayMesh" uid="uid://bgq5vycn3tb1r" path="res://Blocks/StoneWall.vox" id="14_7h860"]
+[ext_resource type="Resource" path="res://Resources/Destruction/TallGrass.tres" id="15_fcufj"]
+[ext_resource type="ArrayMesh" uid="uid://frnxckldlypi" path="res://Blocks/TallGrass.vox" id="16_spagj"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleWall1.tres" id="17_swall"]
+[ext_resource type="ArrayMesh" uid="uid://m1d3ijsymfif" path="res://Blocks/SimpleWall1.vox" id="18_swall"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleTruss1.tres" id="19_struss"]
+[ext_resource type="ArrayMesh" uid="uid://bvwmyr1tkjfw6" path="res://Blocks/SimpleTruss1.vox" id="20_struss"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleRoof1.tres" id="21_sroof"]
+[ext_resource type="ArrayMesh" uid="uid://cutcv0vgqk6v5" path="res://Blocks/SimpleRoof1.vox" id="22_sroof"]
+[ext_resource type="Resource" path="res://Resources/Destruction/SimpleWindow1.tres" id="23_swind"]
+[ext_resource type="ArrayMesh" uid="uid://cqrnuuom6apkr" path="res://Blocks/SimpleWindow1.vox" id="24_swind"]
+[ext_resource type="Resource" path="res://Resources/Destruction/StreetLamp1.tres" id="25_slamp"]
+[ext_resource type="ArrayMesh" uid="uid://c228oqpwfo0mh" path="res://Blocks/StreetLamp1Bottom.vox" id="26_slamp_bottom"]
+[ext_resource type="ArrayMesh" uid="uid://dcviexqt0rdhv" path="res://Blocks/StreetLamp1Middle.vox" id="27_slamp_middle"]
+[ext_resource type="ArrayMesh" uid="uid://cpmepcmehhp2u" path="res://Blocks/StreetLamp1Top.vox" id="28_slamp_top"]
+
+[sub_resource type="Resource" id="Resource_spagj"]
+resource_name = "SkinnyTree1"
+script = ExtResource("1_m5it7")
+display_name = "SkinnyTree1"
+kinds = Array[StringName]([&"SkinnyTree1Bottom", &"SkinnyTree1Top"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_xjtj7"]
+resource_name = "StoneWall2"
+script = ExtResource("1_m5it7")
+display_name = "StoneWall2"
+kinds = Array[StringName]([&"StoneWall", &"StoneWall"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_swall2"]
+resource_name = "SimpleWall2"
+script = ExtResource("1_m5it7")
+display_name = "SimpleWall2"
+kinds = Array[StringName]([&"SimpleWall1", &"SimpleWall1"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_swind2"]
+resource_name = "SimpleWindowWall2"
+script = ExtResource("1_m5it7")
+display_name = "SimpleWindowWall2"
+kinds = Array[StringName]([&"SimpleWall1", &"SimpleWindow1"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0)])
+turns = PackedInt32Array(0, 0)
+
+[sub_resource type="Resource" id="Resource_slamp4"]
+resource_name = "StreetLamp1"
+script = ExtResource("1_m5it7")
+display_name = "StreetLamp1"
+kinds = Array[StringName]([&"StreetLamp1Bottom", &"StreetLamp1Middle", &"StreetLamp1Top"])
+offsets = Array[Vector3i]([Vector3i(0, 0, 0), Vector3i(0, 1, 0), Vector3i(0, 2, 0)])
+turns = PackedInt32Array(0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_pigci"]
+resource_name = "BrightGrass1"
+script = ExtResource("2_gan5t")
+id = &"BrightGrass1"
+model = ExtResource("4_xh3ah")
+destruction = ExtResource("3_8q4o1")
+tile_grid = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_vmsv4"]
+resource_name = "BrightCrate1"
+script = ExtResource("2_gan5t")
+id = &"BrightCrate1"
+model = ExtResource("6_1hji8")
+model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
+destruction = ExtResource("5_7oivu")
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_nqi74"]
+resource_name = "SkinnyTree1Bottom"
+script = ExtResource("2_gan5t")
+id = &"SkinnyTree1Bottom"
+model = ExtResource("8_mxfqa")
+destruction = ExtResource("7_lyu25")
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_q76kx"]
+resource_name = "SkinnyTree1Top"
+script = ExtResource("2_gan5t")
+id = &"SkinnyTree1Top"
+model = ExtResource("10_7h860")
+destruction = ExtResource("9_1obmr")
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_7qhhg"]
+resource_name = "FenceStraight"
+script = ExtResource("2_gan5t")
+id = &"FenceStraight"
+model = ExtResource("12_mxfqa")
+destruction = ExtResource("11_lyu25")
+edge_piece = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_rxsbc"]
+resource_name = "StoneWall"
+script = ExtResource("2_gan5t")
+id = &"StoneWall"
+model = ExtResource("14_7h860")
+destruction = ExtResource("13_1obmr")
+edge_piece = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_fgki2"]
+resource_name = "TallGrass"
+script = ExtResource("2_gan5t")
+id = &"TallGrass"
+model = ExtResource("16_spagj")
+destruction = ExtResource("15_fcufj")
+solid = false
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_swall1"]
+resource_name = "SimpleWall1"
+script = ExtResource("2_gan5t")
+id = &"SimpleWall1"
+model = ExtResource("18_swall")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("17_swall")
+edge_piece = true
+cutaway = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_struss1"]
+resource_name = "SimpleTruss1"
+script = ExtResource("2_gan5t")
+id = &"SimpleTruss1"
+model = ExtResource("20_struss")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("19_struss")
+edge_piece = true
+cutaway = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_sroof1"]
+resource_name = "SimpleRoof1"
+script = ExtResource("2_gan5t")
+id = &"SimpleRoof1"
+model = ExtResource("22_sroof")
+model_transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 1.3125)
+destruction = ExtResource("21_sroof")
+cutaway = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_swind1"]
+resource_name = "SimpleWindow1"
+script = ExtResource("2_gan5t")
+id = &"SimpleWindow1"
+model = ExtResource("24_swind")
+model_transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -1.3125, -0.5, 0)
+destruction = ExtResource("23_swind")
+edge_piece = true
+cutaway = true
+window = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_slamp1"]
+resource_name = "StreetLamp1Bottom"
+script = ExtResource("2_gan5t")
+id = &"StreetLamp1Bottom"
+model = ExtResource("26_slamp_bottom")
+destruction = ExtResource("25_slamp")
+corner_piece = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_slamp2"]
+resource_name = "StreetLamp1Middle"
+script = ExtResource("2_gan5t")
+id = &"StreetLamp1Middle"
+model = ExtResource("27_slamp_middle")
+destruction = ExtResource("25_slamp")
+corner_piece = true
+shadowless_colors = PackedInt32Array()
+
+[sub_resource type="Resource" id="Resource_slamp3"]
+resource_name = "StreetLamp1Top"
+script = ExtResource("2_gan5t")
+id = &"StreetLamp1Top"
+model = ExtResource("28_slamp_top")
+destruction = ExtResource("25_slamp")
+corner_piece = true
+shadowless_colors = PackedInt32Array(186)
+
+[resource]
+script = ExtResource("11_fcufj")
+kinds = Array[ExtResource("2_gan5t")]([SubResource("Resource_pigci"), SubResource("Resource_vmsv4"), SubResource("Resource_nqi74"), SubResource("Resource_q76kx"), SubResource("Resource_7qhhg"), SubResource("Resource_rxsbc"), SubResource("Resource_fgki2"), SubResource("Resource_swall1"), SubResource("Resource_struss1"), SubResource("Resource_sroof1"), SubResource("Resource_swind1"), SubResource("Resource_slamp1"), SubResource("Resource_slamp2"), SubResource("Resource_slamp3")])
+brushes = Array[ExtResource("1_m5it7")]([SubResource("Resource_spagj"), SubResource("Resource_xjtj7"), SubResource("Resource_swall2"), SubResource("Resource_swind2"), SubResource("Resource_slamp4")])

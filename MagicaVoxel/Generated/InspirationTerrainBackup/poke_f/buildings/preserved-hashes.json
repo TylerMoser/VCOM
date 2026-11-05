@@ -1,0 +1,50 @@
+{
+ "recorded": "2026-10-28",
+ "note": "ChatGPT's poke_f streetlight files (its seven models and lights/ folder, from before these buildings); validate.py checks each is unchanged. Left out: the folder's README.md and FILES.md, to which a section on these buildings was added (checked in 'appended': each still begins with what it was), and the vegetation and rocks another agent was writing in output/poke_f/ at the same time.",
+ "sha256": {
+  "lights/geometry.png": "156692dd96d9aa88e0d0e6d47bd8e80e56b229ce119a6f72ff154e2250b2cc01",
+  "lights/manifest.json": "b2a320cca6e1e0df74b9d6b49afc7bcc803a10fba30f7c658072a067477022a4",
+  "lights/PokeF_TwinGlobeStreetlight_source.png": "ae5e9e05b106e09857a4c1a0bdcaf9f296a90b506d1f089c187a63053351432d",
+  "lights/previews/PokeF_TwinGlobeStreetlight.png": "9c0b0014c52e7d1bfb10af463a00f7b41590a559c357672dfa42de75197ab1b8",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon.png": "a2981a1be249be10b284faf2cc99998e741db10a9922683970a537b519666c95",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_CratePalette_TwoColor.png": "10399e49ebedfef258b8190aa8aa5215e41ea7b04f36718dd6ac88c6b023b6e4",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_CratePalette_TwoColor_night.png": "58ed2f85b9a8e479d56b0e4c660a2ec6e6c63ac9c08f1cad5f7fdb7838006a03",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_night.png": "6ef4c5d47e21673b4442b02ec5ab6c418e0f8ddff82c8df46faa387194ac79ab",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_TwoColor.png": "21366746542b240fa0aca71d52194a8f065e0e210ea19007fbeeab520ba1b976",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_TwoColor_night.png": "362b2e7b6fc41ba2eb59c893dbf3d7dabd0e2574b3571eeedea5aff89bae48ff",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_view0.png": "520f853722a360f3ed7794d5d0f1707a43b0c2030fd6c5251035e44352d3f4e4",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_view180.png": "c18d30b00657959b10cacf99a1c1abaa81df2ffc1c16e8757da3c7e071686478",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_view270.png": "bb652b587dcb4a4c14640da9701271dcbfb5de9bf3226af811aaef2ea5da1737",
+  "lights/previews/PokeF_TwinGlobeStreetlight_Cartoon_view90.png": "d7a8bbfb20e95faf0908ed0af9e458eb35b4d13b89a208494eefb2492b5c5094",
+  "lights/previews/PokeF_TwinGlobeStreetlight_CratePalette.png": "d83578b5abaf6c3b1b0b2cfbf90091386f6e298068b803e0947b6d99416b79af",
+  "lights/previews/PokeF_TwinGlobeStreetlight_CratePalette_night.png": "60bf36b60355db990b2f1f3a1bb93f984331ea011ce1c48d519281d4a2885939",
+  "lights/previews/PokeF_TwinGlobeStreetlight_CratePalette_TwoColor.png": "f495db1d0c27b0ab556941a28e87b9621ceb24ea91a940aa9d3c800e021455f2",
+  "lights/previews/PokeF_TwinGlobeStreetlight_CratePalette_TwoColor_night.png": "e7e653029a5cb2ec8b6e5e9267a80150dfad62fb6264159cefd612c365e9bc37",
+  "lights/previews/PokeF_TwinGlobeStreetlight_night.png": "6f8ea3a2b3992529e3bedf9aa6798f4ce74fa9a74921046f5ca5c1f86db1efb3",
+  "lights/previews/PokeF_TwinGlobeStreetlight_TwoColor.png": "a8284c02fff888d85e28a761a0958c9ad7a35149c4dd097e77311063b29835de",
+  "lights/previews/PokeF_TwinGlobeStreetlight_TwoColor_night.png": "c7ac931914043dc7a96827661342b678946ca0a29ac320d9e4ba10740ffe4945",
+  "lights/previews/PokeF_TwinGlobeStreetlight_view0.png": "ca6824cfef54442157760e30a39a3dc87f44ea91c2cd2062942b8c42c847c1e4",
+  "lights/previews/PokeF_TwinGlobeStreetlight_view180.png": "a48883d9dbb3145b433b57b51802fb8b2b21529ca95d8add0dcd3e14310af088",
+  "lights/previews/PokeF_TwinGlobeStreetlight_view270.png": "ab5ef4792f655d79c087c7eaf516418fa62703d42c1bdea50f697c17f3182351",
+  "lights/previews/PokeF_TwinGlobeStreetlight_view90.png": "c65d9beac7c73cf54d7208c23a26607fdb7d109a5225ed37ccadcfade990e0a5",
+  "lights/README.md": "4af635e4df02bd08a70ac34c82b58b40d33f6edf0468df352ae2fa19e74abe39",
+  "lights/variations.png": "17675fd2a5e663a5f9b267e9bead3b710f7abe6be001cc985103d717fc5a7771",
+  "PokeF_TwinGlobeStreetlight.vox": "f18cdd91869def095f8b620fbcf1d39a2c2f5d9c7d4560a2bd7494c7c30ca4d7",
+  "PokeF_TwinGlobeStreetlight_Cartoon.vox": "d88d2e7dd7fb90a8ca7d317bc9bf3a5d9664c4e95e70f51fc1fd35ae02d50ca7",
+  "PokeF_TwinGlobeStreetlight_Cartoon_CratePalette_TwoColor.vox": "b33b46a64848e5e2a0da2948f67891b8f2dcb2a5ed72a3069af1bef1e9b49707",
+  "PokeF_TwinGlobeStreetlight_Cartoon_TwoColor.vox": "0dc29b1c387d26759094203b29c2285e4a06cb30437b0be35b5342bf5f4daec0",
+  "PokeF_TwinGlobeStreetlight_CratePalette.vox": "2f7a938b8476da2bb39ae4367a4edbb3a5c58d2f75b39f3944ec313cc0dbb71b",
+  "PokeF_TwinGlobeStreetlight_CratePalette_TwoColor.vox": "dab06704b3d6d2452e28ec8a73cb07a318678e21ed0c9b781dbcb28d2bad0ab0",
+  "PokeF_TwinGlobeStreetlight_TwoColor.vox": "c2ceeb3c7bb75d877c77313eb95fa32da4a205129375669eb3cab3961b28d93a"
+ },
+ "appended": {
+  "README.md": {
+   "bytes": 191,
+   "sha256": "ffecadb576c10861417f2f89b23674b2723be7e595ebca595f7efbb16e38b7cd"
+  },
+  "FILES.md": {
+   "bytes": 778,
+   "sha256": "5e32b22b7b715c053a35b4b07266f0c2c8ebf56b5d61035e469eb61a32f449be"
+  }
+ }
+}

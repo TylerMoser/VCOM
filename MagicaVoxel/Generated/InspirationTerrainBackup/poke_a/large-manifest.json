@@ -1,0 +1,111 @@
+{
+  "source": "poke_a.jpg",
+  "file": "PokeA_ForestTree_Large.vox",
+  "size": [
+    32,
+    32,
+    64
+  ],
+  "occupied_bounds": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      31,
+      31,
+      63
+    ]
+  ],
+  "voxels": 24888,
+  "sha256": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+  "palette": [
+    [
+      23,
+      49,
+      45
+    ],
+    [
+      29,
+      62,
+      54
+    ],
+    [
+      34,
+      76,
+      61
+    ],
+    [
+      40,
+      91,
+      67
+    ],
+    [
+      48,
+      106,
+      70
+    ],
+    [
+      61,
+      123,
+      75
+    ],
+    [
+      78,
+      140,
+      80
+    ],
+    [
+      98,
+      156,
+      85
+    ],
+    [
+      123,
+      174,
+      93
+    ],
+    [
+      150,
+      189,
+      105
+    ],
+    [
+      47,
+      35,
+      27
+    ],
+    [
+      67,
+      47,
+      31
+    ],
+    [
+      91,
+      63,
+      37
+    ],
+    [
+      116,
+      80,
+      45
+    ],
+    [
+      140,
+      102,
+      57
+    ]
+  ],
+  "scale": 0.0625,
+  "game_dimensions": [
+    2,
+    4,
+    2
+  ],
+  "checks": {
+    "six_connected": true
+  },
+  "note": "Complete asset exceeds current VoxelModel 62-side mesh limit. Integration is separate; do not auto-split.",
+  "delivery": "complete model only; no per-cell files"
+}

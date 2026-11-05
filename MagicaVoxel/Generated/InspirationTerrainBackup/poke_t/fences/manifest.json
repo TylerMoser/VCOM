@@ -1,0 +1,262 @@
+{
+  "source": {
+    "source": "poke_t.png",
+    "size": [
+      1008,
+      1024
+    ],
+    "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d"
+  },
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_TubularRailing",
+      "kind": "tube",
+      "crop": [
+        544,
+        268,
+        675,
+        287
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        175,
+        184,
+        180
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "metal"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_t/PokeT_TubularRailing.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 424,
+      "colors": 3,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal"
+      },
+      "components": [
+        424
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "3b45c0e8ab8b1f8776a8f93a6d218a6cba9aba5eb0cbd9dabbcf4d2993e38548",
+      "palette_sha256": "0ae55727fcf71a1be453d566b4e58adbe68e7ea4b466f2a01efbab146ec4c4ea",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_Cartoon.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 636,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        636
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "8267ff5a0891483e9c1c307d4535a7dccaaf5bb6dd0fab6227b2808b358be6df",
+      "palette_sha256": "ebebcf9dde0f9f0e8581023c9f4db8e28ef740caa49721a8f8f675ce555f1d58",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_CratePalette.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 424,
+      "colors": 2,
+      "groups": {
+        "194": "metal",
+        "195": "metal"
+      },
+      "components": [
+        424
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "814da6a0be3c7ed7a11ac32f73c5226baf15eabdbf5b366847a2d7cbdee2e4de",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_TwoColor.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 424,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        424
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "928d4aa22f876ac9729062ef7af53b32bb92ddac653d725e367b4cb92671f51c",
+      "palette_sha256": "ebebcf9dde0f9f0e8581023c9f4db8e28ef740caa49721a8f8f675ce555f1d58",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_Cartoon_TwoColor.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 636,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        636
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "d094e3f05f18dabd64725d9684bcf55079308566e46d93a8ce2b777e4779f131",
+      "palette_sha256": "ebebcf9dde0f9f0e8581023c9f4db8e28ef740caa49721a8f8f675ce555f1d58",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_CratePalette_TwoColor.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 424,
+      "colors": 1,
+      "groups": {
+        "194": "metal"
+      },
+      "components": [
+        424
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "f2f50988e986ae4a46af8f79ac05f2a95f9704d9e30cf690c563c21c6e17f46d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_TubularRailing_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_TubularRailing",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 636,
+      "colors": 1,
+      "groups": {
+        "194": "metal"
+      },
+      "components": [
+        636
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        14
+      ],
+      "sha256": "624b8dbbec7e89fc5ea13607ec425edcc21b8dcaf18ef4c98541714198b680ea",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

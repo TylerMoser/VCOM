@@ -1,0 +1,694 @@
+{
+  "source": "poke_i.jpg",
+  "families": [
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_GrayRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        16
+      ],
+      "crop": [
+        386,
+        394,
+        418,
+        427
+      ],
+      "color": "river",
+      "scale": 0.6666666666666666,
+      "note": "Resized JPEG, about 24 displayed pixels per tile; repeated river boulders.",
+      "seed": 20
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_RiverPebble",
+      "shape": "pebble",
+      "size": [
+        8,
+        8,
+        6
+      ],
+      "crop": [
+        421,
+        447,
+        434,
+        466
+      ],
+      "color": "river",
+      "scale": 0.6666666666666666,
+      "note": "Tiny matching river stone.",
+      "seed": 21
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_BrownFieldRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        482,
+        225,
+        511,
+        247
+      ],
+      "color": "brown",
+      "scale": 0.6666666666666666,
+      "note": "Small rust-brown loose rock near houses and fields.",
+      "seed": 22
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2213,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "778eb4acbc9e615e62ed184a9621eb550d885c055e93b030e2691ba20d32252f",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_Cartoon.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2096,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "a40f6bfbd71862a29d30d8596ad2ceb5e8daefeb18ebf15d512301d3fb005132",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_CratePalette.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2213,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "6872e2c9e8504b69c997dde486181fdb74e0c4644f23c518e4e40521b871c4d9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_TwoColor.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2213,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "8cbde1b5e734bfc6896c8a1886c470bfe376a89df3a4d992b0b516f127c99cff",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2096,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "35599d8a6a14ed6ccc3bc44956e91818b1c3e4ee30244094a9c8a125344b5c7c",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2213,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "2bba5842a9f827a7fa545b6a6f99c82b1311fba8c74005b7688836b538a525e6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_GrayRiverBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_GrayRiverBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        16
+      ],
+      "voxels": 2096,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        15
+      ],
+      "sha256": "16779ac8dccdd43be5d91957d0fe55f2dc12374e4ba6fd900fd570f990c075f1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "Base",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 180,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        6,
+        7,
+        5
+      ],
+      "sha256": "1866ce5f889e46b0ad442d59533df7f27921fbe083557d49512c154584bde0e1",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_Cartoon.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "Cartoon",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 196,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        7,
+        7,
+        5
+      ],
+      "sha256": "ebbc16871adeac6036b90af7e142f501ddeea25c6612624833519229b19e614a",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_CratePalette.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "CratePalette",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 180,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        6,
+        7,
+        5
+      ],
+      "sha256": "e6d0321e331f7857f7ec88c21f81652e06d6881955ad05f7cd9ca5e3ef0b44ba",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_TwoColor.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "TwoColor",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 180,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        6,
+        7,
+        5
+      ],
+      "sha256": "f15622b5bd34086d58afba33f74f5f08a486ca3bd056996597b726d8b2fa826f",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_Cartoon_TwoColor.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 196,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        7,
+        7,
+        5
+      ],
+      "sha256": "5f1f92b10368404fdd7c076ccdfa3bcafb1346cbc1725275cae3babee9b529e2",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_CratePalette_TwoColor.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 180,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        6,
+        7,
+        5
+      ],
+      "sha256": "5c2ab6430abba54bc212627117abe1022fd00501aeb008c7050ed6df6df6f16c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_RiverPebble_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_RiverPebble",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        8,
+        8,
+        6
+      ],
+      "voxels": 196,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        7,
+        7,
+        5
+      ],
+      "sha256": "6f2eec4d61e2416179eb8f7e9773cc5b0fd2f398d99444427e759f20656d6a43",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1455,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        12,
+        11
+      ],
+      "sha256": "0e01c7f424fd72e4821652d159fd210be5d39d54fad0d830812228bb9d5a191c",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_Cartoon.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "b9215213bf024437df288a7e48a4a3b1abf21761b0cc15ce48eef7f0b3bafd6b",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_CratePalette.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1455,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        12,
+        11
+      ],
+      "sha256": "f6b549cd4f2b656e85a1176906eebddcdee7b7a3a018850cb9700c3d0f0f01e3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_TwoColor.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1455,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        12,
+        11
+      ],
+      "sha256": "a68a955a0979a54f97d8aa97f29b381a4de30bb5ad2adc1de02a6c4fd7d299dc",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_Cartoon_TwoColor.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "d68be0e2d46e73a467b09347d57e46e5b92a143abadcc6a08b9b529d1536f1aa",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_CratePalette_TwoColor.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1455,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        12,
+        11
+      ],
+      "sha256": "752a987b0b7068f5514366dc397bf4ddad9a614d74a7cfde744cd9513c562a31",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_i/PokeI_BrownFieldRock_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_BrownFieldRock",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "6d8d4d1049086afeff024e9bdd0060c0c51b9c1d6bb23057ec48202f34f5917b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

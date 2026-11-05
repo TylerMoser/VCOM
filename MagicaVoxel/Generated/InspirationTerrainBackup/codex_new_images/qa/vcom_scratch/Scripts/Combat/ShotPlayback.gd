@@ -1,0 +1,74 @@
+## Plays out a shot the player is not lining up on the action bar: an enemy's
+## fire, or a squad member's reaction. The shooter turns to its target with its
+## gun up, leans out of cover if the shot needs it, still facing the target,
+## the sight line hangs long enough to be seen, the round flies to wherever
+## [Ballistics] sends it, the result is called over the target as it lands,
+## and the shooter settles back into cover and lowers its gun. A target the
+## shot only sees where it leans out of its own cover is seen leaning out there
+## from the moment the shooter turns to it until the shooter is back in cover.
+##
+## The shot itself is [method Unit.shoot_at], so a shot played out here means
+## the same as one taken from the action bar. As the shooter turns to its
+## target, the floor changes if it must for both of them to be seen, as for
+## every shot ([method CombatGrid.show_shot]).
+class_name ShotPlayback
+extends RefCounted
+
+## Seconds the shooter takes to lean out of cover, and to settle back in.
+var step_out_seconds := 0.2
+## How long the sight line hangs before the shot goes off.
+var aim_seconds := 0.45
+## True for the squad's own fire. It is drawn as the player's aim, reticle and
+## odds, rather than as the paler line of fire coming in.
+var player_fire := false
+
+var _grid: CombatGrid
+## Null in a scene without one: the shot still happens, it just is not drawn.
+var _overlay: ShotOverlay
+
+
+func _init(grid: CombatGrid, overlay: ShotOverlay) -> void:
+	_grid = grid
+	_overlay = overlay
+
+
+## [param shooter] takes [param shot], rolling against [param estimate]: the
+## odds already worked out for it, which are the odds the player was shown.
+## Await it to wait until the shooter is back in cover. Returns whether the
+## shot hit.
+func play(shooter: Unit, shot: LineOfSight.Shot, estimate: HitChance.Estimate) -> bool:
+	_grid.show_shot(shooter, shot)
+	var cover := shooter.global_position
+	var eye := _grid.cell_center(LineOfSight.eye_cell(shot.from))
+	# Before the aim, which is taken at where the target leans out to.
+	if shot.leaning:
+		shot.target.lean_out(shot.seen_at, eye, _grid)
+	# Read where to call the result now: a target that dies is gone by then.
+	var mark := _grid.cell_center(LineOfSight.eye_cell(shot.target_tile)) + shot.target.lean()
+
+	shooter.aim_at(shooter.aim_point(shot.target, _grid))
+	if shot.stepped_out:
+		await shooter.walk([_grid.tile_position(shot.from)], step_out_seconds, true)
+	var show_rounds := Callable()
+	if _overlay != null:
+		if player_fire:
+			_overlay.show_shot(eye, mark, shot, estimate)
+		else:
+			_overlay.show_incoming(eye, mark)
+		await _grid.get_tree().create_timer(aim_seconds, false).timeout
+		# The round takes over from the sight line once it is fired.
+		_overlay.clear()
+		show_rounds = _overlay.show_rounds
+
+	var outcome: Ballistics.Outcome = await shooter.shoot_at(shot, estimate.chance, _grid, show_rounds)
+	if _overlay != null:
+		# Under the target when the odds panel holds the space over it.
+		var text := "%d" % outcome.damage if outcome.hit else "MISS"
+		_overlay.flash_result(mark, text, outcome.hit, player_fire)
+
+	if shot.stepped_out:
+		await shooter.walk([cover], step_out_seconds, true)
+	shooter.stand_easy()
+	if shot.leaning and is_instance_valid(shot.target):
+		shot.target.lean_back()
+	return outcome.hit

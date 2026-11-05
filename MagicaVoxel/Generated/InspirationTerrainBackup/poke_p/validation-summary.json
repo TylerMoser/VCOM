@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-27",
+  "models": 14,
+  "families": 2,
+  "source_image": "poke_p.png",
+  "source_image_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 geometry and paint, pinned crate palette.",
+  "import_render": "All 14 models imported and rendered using the current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per form; Base and Cartoon at four azimuths. Original and enlarged source crops reviewed.",
+    "findings": "Layered mature canopy and narrow sapling remain distinct. Teal source paint, raised mature foliage, continuous trunks, balanced Cartoon geometry and exact recolor geometry reviewed. CratePalette shifts to saved blue-gray/cyan colors as documented.",
+    "limitations": "Depth and hidden geometry inferred. Saved palette lacks saturated teal. Preview lighting adds shading to flat TwoColor paint."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "0265234e6c971cb175d582618de2b7d21785770a542d66dd2619105a83297334",
+  "sculpt_sha256": "18bd22f96310fc7806433652761d9a697a98413d8714ba326208ce397283ed89",
+  "dependency_hashes": {
+    "output\\poke_p\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_p\\profiles.py": "a5d9568298d8b063f931bc0827c8bdc8395dd7b10192597075ddb7945c65fec5",
+    "output\\poke_p\\leaves.py": "0786365ae24c49e70d51fb7335e62c773cf00f2210b23aa6f7c86a749e134939",
+    "output\\poke_p\\reference\\regions.json": "d908257c6774c3411405cbdad8d44cbe98d1b14e7ec1f805e3cffd7eb0e5e4ba",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeP_TealLayeredTree.vox": "f595f4992e83307ee7c7515f40ceb19184749acf77755f36f2e2349af048b66f",
+    "PokeP_TealLayeredTree_Cartoon.vox": "5123628def270ff541ba35cfd995c95ddcaad75c5467494cd53f9c00ccdc1665",
+    "PokeP_TealLayeredTree_CratePalette.vox": "4ba117bce6bf2549d050be4f24ceaa98c5eab9e7b25dab418ce523bbdd56b86c",
+    "PokeP_TealLayeredTree_TwoColor.vox": "35519de55758fdca4bf56d72727d3140dd3d369ea7a8ae1daf0b51e3b55ce407",
+    "PokeP_TealLayeredTree_Cartoon_TwoColor.vox": "bcc265a285410cdc7654e06f27510d30f0d5845d67e8121ea42452a3e946bd4a",
+    "PokeP_TealLayeredTree_CratePalette_TwoColor.vox": "59a0ba04a6d6a8030db4e3c7301272a7dd2c821e72a01ce39241ada1859b3c44",
+    "PokeP_TealLayeredTree_Cartoon_CratePalette_TwoColor.vox": "7f06393c730a5daa7afd854e599d700c4eeadae85eb52f7fff0642d4796171b0",
+    "PokeP_TealSapling.vox": "b5a19732235f5b5903ba7f9bebb7c1d7e32c74ed2ffa1c784e142d2704a12d61",
+    "PokeP_TealSapling_Cartoon.vox": "10b5138cb4cee6f11442e62262ffd2ff87af58c7f7987fdfb05359bb9806b42c",
+    "PokeP_TealSapling_CratePalette.vox": "cf6390ecf2baaa123b62185e2396aa95b0b225607be9c6ca7a767bf9b40f0b0f",
+    "PokeP_TealSapling_TwoColor.vox": "c19eca419b48c0d5b67278641e87d972291ef99bc18d9dc726c9b5405ddcc529",
+    "PokeP_TealSapling_Cartoon_TwoColor.vox": "271065183bea17d6c865e91ff534cc127ff537d92c747c2f8cb1e3a990498425",
+    "PokeP_TealSapling_CratePalette_TwoColor.vox": "6b0c550382f62a5ed8f43f3e8deee62c3bce1c420caf23ad923bffa3bf720416",
+    "PokeP_TealSapling_Cartoon_CratePalette_TwoColor.vox": "a6aa258e8ffe5a4e42bdfe36769db636f3a4e44a220793d33d446c7e7d7800a2"
+  }
+}

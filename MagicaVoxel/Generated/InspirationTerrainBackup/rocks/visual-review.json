@@ -1,0 +1,105 @@
+{
+  "status": "reviewed",
+  "source_images_reviewed": 25,
+  "families_reviewed": 66,
+  "variation_models_reviewed": 462,
+  "geometry_views": "Base and Cartoon at 0, 90, 180 and 270 degrees",
+  "sheets": [
+    {
+      "file": "variations_01.png",
+      "sha256": "de85328c117526b8a620db59cca5661627907fb1c73411d8f17be5d8d33393f0"
+    },
+    {
+      "file": "variations_02.png",
+      "sha256": "54b337ea40982b1cec4d43c6080b13a9f98794525a8df6d8f64aa7ca343b17ed"
+    },
+    {
+      "file": "variations_03.png",
+      "sha256": "5d0ed1a31a254f004050001fc49b61229aa66702373661d5cadc35d6cedbe4cf"
+    },
+    {
+      "file": "variations_04.png",
+      "sha256": "1e56211b74f0c16301bf39bd6a127e001b3254daea358d933f8a01d066f6ca96"
+    },
+    {
+      "file": "variations_05.png",
+      "sha256": "d0caa8086487f9ef455f429ae7b12faafc4a0c9d157304b67da0b0cbf44819bc"
+    },
+    {
+      "file": "variations_06.png",
+      "sha256": "7cc9d5da343d8d061fdbb0ded2687a6e7baa8dafe5473c35a79d261948e6860c"
+    },
+    {
+      "file": "variations_07.png",
+      "sha256": "76a7a711bf8ec2132df3af5bbb7811e0dc83cb7ba9e2d4374b11465db934695e"
+    },
+    {
+      "file": "variations_08.png",
+      "sha256": "1a9e988b88301160d80187c273d6a6fbba0c5e3858eb39eb95b2a21191dae4f4"
+    },
+    {
+      "file": "variations_09.png",
+      "sha256": "421a37992b32f4d7549aaf39ad36e6086909b87722ce356ec2d0a6e608d0806d"
+    },
+    {
+      "file": "variations_10.png",
+      "sha256": "b24430bf47098c8df0b696482ea393443872f5ae0cb5a48a5e7ef8ab05dd0dfc"
+    },
+    {
+      "file": "variations_11.png",
+      "sha256": "549a04086d1f5a7c2bc4f0409aa068233082fc52bd31d0d81847298a7246e4a0"
+    },
+    {
+      "file": "geometry_01.png",
+      "sha256": "9a28b37d8e8245665be8f4f58371d41a67b190c60a58c4900ed6da3505b85d81"
+    },
+    {
+      "file": "geometry_02.png",
+      "sha256": "612790afe94285692951a004b61a2f98a5e189e6c8aef1570e4f65304813c062"
+    },
+    {
+      "file": "geometry_03.png",
+      "sha256": "266e7fa85bd9969eb2b3f4fc29d78f4e0bb3a78199bcfec86b82c8aa396802b3"
+    },
+    {
+      "file": "geometry_04.png",
+      "sha256": "363091750b31788f0d5c12d42d3e8de24cf0fcfb4d1bcff6929c6e343357605d"
+    },
+    {
+      "file": "geometry_05.png",
+      "sha256": "bfede9c29ae9ba0df1604e50d27731a6f4a234671abf2c17482d9d218e233d63"
+    },
+    {
+      "file": "geometry_06.png",
+      "sha256": "00266e5b3a502beb51204917f07f646882a22567a4fb6da840df1ef877316d1d"
+    },
+    {
+      "file": "geometry_07.png",
+      "sha256": "8f48e4552e1a20b86248b20c993d58d88205205051f4e3c9aba7b86d4348eedd"
+    },
+    {
+      "file": "geometry_08.png",
+      "sha256": "29fca1274b6b260eb6a2b5110f0dd7cd66e8088b56a9dc88fd71d2b7bc8ba3e4"
+    },
+    {
+      "file": "geometry_09.png",
+      "sha256": "bfb87ae61d0ecef4f3d085b15d7896326999b8b50a1a177fd27e3989d0cff357"
+    },
+    {
+      "file": "geometry_10.png",
+      "sha256": "e0173f5df3038233d3c98973d45a32a474d21a1e1f31583bc3cc07ce9bee86bd"
+    },
+    {
+      "file": "geometry_11.png",
+      "sha256": "8db01f82d5c0011e3731b457f57ee6e14a429a44ef920df13a52f14e2c6732fd"
+    }
+  ],
+  "findings": [
+    "Reviewed silhouettes, grounding, material separation and directional views.",
+    "Broadened boulder shoulders and removed incidental Cartoon cluster color patches before final renders.",
+    "Backside geometry and depth are inferred from 2D references; source-specific scale assumptions are documented."
+  ],
+  "limitations": [
+    "Standalone VCOM reader and renderer validation; combat-map registration and gameplay integration were not performed."
+  ]
+}

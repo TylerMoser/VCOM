@@ -1,0 +1,263 @@
+{
+  "source": {
+    "source": "poke_a.jpg",
+    "size": [
+      735,
+      480
+    ],
+    "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c"
+  },
+  "families": [
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_BridgePicket",
+      "kind": "picket",
+      "crop": [
+        216,
+        263,
+        293,
+        282
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        159,
+        125,
+        80
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_a/PokeA_BridgePicket.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "03cb6dcb316ec0345373c04a67ce77635e493b16fabe39306487c4dc8153c67a",
+      "palette_sha256": "1512b2ce5bf53c812e77534c4eb9f6f13188105da134e956884a35d5e82d6910",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_Cartoon.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "2762efea854a2fc0bd9f115d3b0162a29196dd6565420f9a9cdc9947eff82385",
+      "palette_sha256": "68033c6dcebe7abf931f4ef00c87766e69eee4faf93091c367bda3b7fc40b9c8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_CratePalette.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 3,
+      "groups": {
+        "179": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "4fbbca7c2d17c41c42eb1254d4dc7d007b9df02574360c0ef7c133108537bf93",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_TwoColor.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "7bec625e402bfd66dc7506c6eab671320831e471c8035f2c1153996ae284916d",
+      "palette_sha256": "68033c6dcebe7abf931f4ef00c87766e69eee4faf93091c367bda3b7fc40b9c8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_Cartoon_TwoColor.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "12ad2cd547cb9f999c33f52bd70a54a313aff2afd77421bf7923c3582ca05a36",
+      "palette_sha256": "68033c6dcebe7abf931f4ef00c87766e69eee4faf93091c367bda3b7fc40b9c8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_CratePalette_TwoColor.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "e80cbaf36769bfb0addb4d1ffbf2a149c400509822cba1af242ca34305434c61",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_a/PokeA_BridgePicket_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeA_BridgePicket",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "839765ad78c8a5cf58e300af1b773bc8b839369afa129fc5edb169c53a645888",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

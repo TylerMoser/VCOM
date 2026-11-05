@@ -1,0 +1,933 @@
+{
+  "source": "poke_s.jpg",
+  "families": [
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_PaleRiverSpire",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        28
+      ],
+      "crop": [
+        124,
+        267,
+        140,
+        288
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Tiny pale pointed river stones; JPEG obscures fine facets. Existing estimate: ten displayed pixels per tile.",
+      "seed": 49
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_PaleRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        20,
+        18,
+        16
+      ],
+      "crop": [
+        123,
+        49,
+        142,
+        72
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Pale faceted boulder in the river below the upper-left waterfall.",
+      "seed": 50
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_DarkRiverPebble",
+      "shape": "pebble",
+      "size": [
+        12,
+        10,
+        8
+      ],
+      "crop": [
+        137,
+        292,
+        151,
+        304
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Low dark blue-gray river stone, distinct from the tall pale spire.",
+      "seed": 51
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_MossyRiverColumn",
+      "shape": "moss_pillar",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        609,
+        437,
+        628,
+        460
+      ],
+      "color": "gray",
+      "scale": 1.6,
+      "note": "Small isolated moss-topped stone pillar in the stream; no surrounding water included.",
+      "seed": 52
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "Base",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1003,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        8,
+        27
+      ],
+      "sha256": "15ad372d412a43e53e7630f6406b6701f89482ab3d755755dc9c41d44f1bf647",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_Cartoon.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1132,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        24
+      ],
+      "sha256": "e3e4486745ffcf22da40edcade315791974aba3f5e0eebcf011568000a4e2269",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_CratePalette.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1003,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        8,
+        27
+      ],
+      "sha256": "6873f01cb2e17c28426aebb302d8c3b14fc625153e4daa61d17a9eaaa727cff9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_TwoColor.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1003,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        8,
+        27
+      ],
+      "sha256": "4b296a735fda84908d5cda75fef0a162750b8a39d839c79e3fb40f1ba95bd295",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_Cartoon_TwoColor.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1132,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        24
+      ],
+      "sha256": "0c58b1deb2d54172945bc90c50347136c6d8621146e77393d0b10092c1161583",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_CratePalette_TwoColor.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1003,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        8,
+        27
+      ],
+      "sha256": "eb792e0d744163c8273a77a62cf3ef0b79aea3e8dcd05a84d84aee9a8240a876",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverSpire_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_PaleRiverSpire",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        28
+      ],
+      "voxels": 1132,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        24
+      ],
+      "sha256": "943e5a5311e1710d41c81536def902a63f273ee7c4d4b9360079a0006ca476c5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "Base",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3154,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "c2b077de573ac661b8af3aafb6faa04505f15e6efe76a01f3423906e24d37de1",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_Cartoon.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3340,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "7f77e67bc9d0deaafa9a3d449c762899e645b22613f16d20a1a3e23515eea110",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_CratePalette.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3154,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "e923a8505435bb85ef40613d0f8a054565e2750e1c527d2556c00ea164a54c35",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_TwoColor.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3154,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "49c55720006d7f5b5b5028cd0968a6656cd0d095cc8ef50d625f69d6c36257bc",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3340,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "fd2230e30d98499721ad6b24af41f74775c63b7f9e7e8535b12f0d26e2f6a716",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3154,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "57645a48a0c6786de0bcce6fc5d76a2754bed27524fee21c6d67f7a45495c5df",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_PaleRiverBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_PaleRiverBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        18,
+        16
+      ],
+      "voxels": 3340,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        17,
+        15
+      ],
+      "sha256": "d275a6291f113eda5f8d5e56ea6f1e824dd339ca610c8a7024a107ea2bd68959",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "Base",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 452,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "ee77ee4782f0fa575417fa8f6530dda340d8784a41ac43bd871a0261d5c219e6",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_Cartoon.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 456,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "b8a0e76b66ed97723d5a41ab03540638e461fbced7fe4f34946b0d7336e5d8d0",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_CratePalette.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 452,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "8514f17996c5befddbd6609c9db9c6f87fe9976704f563882f7032a9f371434b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_TwoColor.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 452,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "9acc5d3972dd56bcfd766b0ba6891eb9c4dce4baf185becfa8224382f5189f65",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_Cartoon_TwoColor.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 456,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "83e1adf46c31b801f5129644a966a1dfafd8b7d6e873298120b8bf519907cfeb",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_CratePalette_TwoColor.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 452,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "bea711865ed618f10f30704e48f7d3f40a5ca54db35dd5283844392cad78709c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_DarkRiverPebble_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_DarkRiverPebble",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 456,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "a5c8e664b19ed1d801532ac7593b1f958e4d5dc1db8fc057242f084c55825bf0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2918,
+      "colors": 6,
+      "groups": {
+        "1": "moss",
+        "2": "moss",
+        "3": "stone",
+        "4": "stone",
+        "5": "stone",
+        "6": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "5cbd1d52e0990b353befce089f200fcdfce210c0e15e7c1b6744ab98325ede36",
+      "palette_sha256": "4306bca021899437dd00ab4f681875ecc7f655fd8111f96d805fc4ebb9c4ff32",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_Cartoon.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2972,
+      "colors": 5,
+      "groups": {
+        "1": "moss",
+        "2": "moss",
+        "3": "stone",
+        "4": "stone",
+        "5": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "860c99f0a5ae1f79a64c7ccea0c07e9c6562af96ba829f9dcc01abf2252f96c5",
+      "palette_sha256": "3dcdf98eb60f43534ae056d60a8128235917dc107311565de31f3a8e53982c28",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_CratePalette.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2918,
+      "colors": 4,
+      "groups": {
+        "243": "moss",
+        "206": "stone",
+        "193": "stone",
+        "194": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "fdad201369d24c342d1fab0fb72c48479cf339d4b6cca4248dad42c7116334ee",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_TwoColor.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2918,
+      "colors": 2,
+      "groups": {
+        "1": "moss",
+        "2": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "1df470fac0f05d28826a8a5c6a4f59609450a6fd58697f054eb994404f243ee7",
+      "palette_sha256": "2eec8c460920696d8112c4abf815cf6412e933874598963f29e5ba254ffc3c6a",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_Cartoon_TwoColor.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2972,
+      "colors": 2,
+      "groups": {
+        "1": "moss",
+        "2": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "d9623327265f60644c464c445daafba16a6c28b155b7484dbcf5c9122ee0eb3c",
+      "palette_sha256": "2eec8c460920696d8112c4abf815cf6412e933874598963f29e5ba254ffc3c6a",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_CratePalette_TwoColor.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2918,
+      "colors": 2,
+      "groups": {
+        "244": "moss",
+        "193": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "5886d6d4b79f87b48477d5bfc50e1fd0ab291b6ba0fd7df41cb8db0aca2d34cd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_s/PokeS_MossyRiverColumn_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_MossyRiverColumn",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 2972,
+      "colors": 2,
+      "groups": {
+        "244": "moss",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        19
+      ],
+      "sha256": "df9f705c99c7e97927887173675ba2512133387b8c4eff35e47c8ab1d11774a5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

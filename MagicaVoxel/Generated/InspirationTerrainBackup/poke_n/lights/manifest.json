@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_n.png",
+    "name": "PokeN_TealStreetlight",
+    "shape": "drum",
+    "size": [
+      16,
+      16,
+      40
+    ],
+    "crop": [
+      266,
+      414,
+      290,
+      465
+    ],
+    "scale": 1,
+    "metal": [
+      63,
+      86,
+      88
+    ],
+    "light": [
+      166,
+      193,
+      193
+    ],
+    "power": 2,
+    "note": "Dark teal disc cap, recessed gray-blue diffuser band and flared pedestal. Luminescence inferred from identifiable lamp fixture in daytime source."
+  },
+  "models": [
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "1e0c0a31d65cbe21933abd9140faed34c3b733d7a7cc7a0664e9bfbd4cd3b763",
+      "palette_sha256": "f03489d9974afaff121cbce499888cf1cd9b3d465e7b6b465e339c2453be31bb",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "6c53b7d812bf09c012a957010f68ba4d38597c0a9d0764ee26c9f89911e7108a",
+      "palette_sha256": "f03489d9974afaff121cbce499888cf1cd9b3d465e7b6b465e339c2453be31bb",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_CratePalette.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure",
+        "204": "structure",
+        "206": "structure"
+      },
+      "colors": 4,
+      "sha256": "d9fa1cc31eb7e5a30ee0f3ba89c24610f6351cd16d8f781bc8a76b2de83c324e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "0972ee3a2c4beb7ac5eb2c9ef8beec3ca603ee690d3469f9cf0d159edc1d59ed",
+      "palette_sha256": "ae691ea8ab147bbd3b750c667324db467e89a629f57845fc2cd963be65cc5321",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "7d84ca09866908a0f01535cecc52f5f2c90f381f2a28879db6fcd1ac8f1d1aec",
+      "palette_sha256": "ae691ea8ab147bbd3b750c667324db467e89a629f57845fc2cd963be65cc5321",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "7ca3815792e029f447624dd83d77b153586a9fc4162aa3a2d97511e8b368482e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "2914cbc10ad37222cba9e2eb59644cc1ac9963a3f277a1fc333766f96c30d4e4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    }
+  ]
+}

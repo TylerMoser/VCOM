@@ -1,0 +1,460 @@
+{
+  "author": "Codex",
+  "source": "poke_u.jpg",
+  "families": [
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_Codex_UpperRibbonFall",
+      "kind": "waterfall",
+      "width": 16,
+      "drop": 64,
+      "crop": [
+        180,
+        0,
+        215,
+        48
+      ],
+      "tile_pixels": 16,
+      "water": [
+        68,
+        142,
+        170
+      ],
+      "foam": [
+        177,
+        216,
+        221
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Thin blue falling-water ribbon behind the northern house; inlet and lower end are occluded/cropped. 64-voxel completed length is an explicit estimate.",
+      "size": [
+        32,
+        40,
+        80
+      ],
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 254,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_Codex_LowerRibbonFall",
+      "kind": "waterfall",
+      "width": 16,
+      "drop": 48,
+      "crop": [
+        158,
+        302,
+        216,
+        361
+      ],
+      "tile_pixels": 16,
+      "water": [
+        68,
+        142,
+        170
+      ],
+      "foam": [
+        177,
+        216,
+        221
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Lower island notch ribbon with a pale mist foot. Blue atmospheric gaps without a visible water ribbon are excluded.",
+      "size": [
+        32,
+        40,
+        64
+      ],
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 254,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "71289feb8219db662bae82571ba27e99ac3caeb5f83923acabd5962683879dab"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "c6df9dc2d1a89b4c9e20cfd4ec73b18ee7d5eaec17e5667d46ab4b8b60f91321"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "f37c7b116e70cf116c8295c276d674ad2676a3c46701c470b211a6f815e2b2c7"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "abd82c0bd47357bce75b13efb1afb462cf6bb7fa67359572c5965848c88e318f"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "3938f54428cfcb352a4a1e3b50267f7777d27e511aad4b2789731ace792d46c8"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "186e9b6f432749ff6a6d571903e404d6981ed604668dd0096f83c6b883d342e6"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "7262c8de15f604af6728d11bdffadf326f8b2caf8868905cf6c39e9870b8953f"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "ced5378a664f06a278f58a3379581dd386401302f5cd4806d15d1a81b7125a16"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "f3a8a42932f29593f292cb5b433faa4e00641242ff71fab9bb4d32b7170e0f9b"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "54b53da929a107f715afc08b6f3cf63dc01328c42c6098515766382e249335a0"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "1d0948069744f4c07d906ab1039913ec9e090ae87b500244ed5119a15dcc927f"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "33c90f5d364f7e4999efcbb8500224c5b9979a4ab9d1c0f73d47fc6f5fd53c1e"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "198fce0e548ada36c275e1f03b105fe92a8fdeab7141583f52463291834f5576"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "fd1c039e922cafbc6b800dbffc1f73d76789e96b8b2398fed5b5efb0a5a67f43"
+    }
+  ]
+}

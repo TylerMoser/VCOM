@@ -1,0 +1,1054 @@
+{
+  "source_review": {
+    "source": "poke_i.jpg",
+    "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+    "reviewed": true,
+    "decision": "Three distinct crossings: bowed railed, shorter flat railed, and narrow unrailed. Uses newer building scale calibration of 9.5 displayed pixels/tile.",
+    "new_families": [
+      "PokeI_ArchedTimberBridge",
+      "PokeI_FlatTimberBridge",
+      "PokeI_NarrowPlankBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_ArchedTimberBridge",
+      "kind": "wood",
+      "size": [
+        80,
+        64,
+        64
+      ],
+      "crop": [
+        253,
+        314,
+        310,
+        357
+      ],
+      "deck": 24,
+      "tile_pixels": 9.5,
+      "rail": "picket",
+      "hump": 8,
+      "wood": [
+        150,
+        143,
+        98
+      ],
+      "note": "Upper west river crossing: shallow bowed timber deck with pale close-spaced rails. Uses later building calibration of 9.5 displayed pixels/tile.",
+      "source_sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "crate_mapping": {
+        "1": 235,
+        "2": 234,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          143,
+          98,
+          255
+        ],
+        [
+          116,
+          110,
+          75,
+          255
+        ],
+        [
+          172,
+          164,
+          113,
+          255
+        ],
+        [
+          135,
+          129,
+          88,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_FlatTimberBridge",
+      "kind": "wood",
+      "size": [
+        64,
+        56,
+        56
+      ],
+      "crop": [
+        266,
+        394,
+        311,
+        430
+      ],
+      "deck": 24,
+      "tile_pixels": 9.5,
+      "rail": "picket",
+      "wood": [
+        150,
+        143,
+        98
+      ],
+      "note": "Lower west crossing; shorter and flat, with paired pale timber rails.",
+      "source_sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "crate_mapping": {
+        "1": 235,
+        "2": 234,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          143,
+          98,
+          255
+        ],
+        [
+          116,
+          110,
+          75,
+          255
+        ],
+        [
+          172,
+          164,
+          113,
+          255
+        ],
+        [
+          135,
+          129,
+          88,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_NarrowPlankBridge",
+      "kind": "wood",
+      "size": [
+        64,
+        40,
+        40
+      ],
+      "crop": [
+        333,
+        350,
+        365,
+        394
+      ],
+      "deck": 24,
+      "tile_pixels": 9.5,
+      "rail": "none",
+      "wood": [
+        150,
+        143,
+        98
+      ],
+      "note": "North-south central crossing with broad transverse plank joints and low edge beams. Rotate this X-running model 90 degrees.",
+      "source_sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "crate_mapping": {
+        "1": 235,
+        "2": 234,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          143,
+          98,
+          255
+        ],
+        [
+          116,
+          110,
+          75,
+          255
+        ],
+        [
+          172,
+          164,
+          113,
+          255
+        ],
+        [
+          135,
+          129,
+          88,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge.vox",
+      "source": "poke_i.jpg",
+      "style": "Base",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 32992,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "8b4eb15829492508d0c9e9f362496b75eddf46d4f06610f2f8f02ab548670900",
+      "geometry_source": "PokeI_ArchedTimberBridge",
+      "geometry_sha256": "b478174003deefc6bf041229fe4ead770554f591c16553336c22815c61f77d37"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_Cartoon.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 37488,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "994dd821227b614b1a8d5a8b757150c5d084ce8000b284b8f39672f8b2b86c70",
+      "geometry_source": "PokeI_ArchedTimberBridge_Cartoon",
+      "geometry_sha256": "7a966946e22334d4d24312e9322e2db200991305cce0fa21581e02130a7e1f83"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_CratePalette.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 32992,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "c2187f589b616e2e0d7c9f4794fb630741ed098dc4c9f5310bcbc54e3b28424c",
+      "geometry_source": "PokeI_ArchedTimberBridge",
+      "geometry_sha256": "b478174003deefc6bf041229fe4ead770554f591c16553336c22815c61f77d37"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 32992,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "78264d769024652968d2f451221e0f4c14593d9fc5b75ec0a3dcaf8e6880df5f",
+      "geometry_source": "PokeI_ArchedTimberBridge",
+      "geometry_sha256": "b478174003deefc6bf041229fe4ead770554f591c16553336c22815c61f77d37"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_Cartoon_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 37488,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "4a7e1f9ada3ee728e476ae22d5091e834bdd88b5b70edf7781e30f4214227e30",
+      "geometry_source": "PokeI_ArchedTimberBridge_Cartoon",
+      "geometry_sha256": "7a966946e22334d4d24312e9322e2db200991305cce0fa21581e02130a7e1f83"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 32992,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "7fe449aad7ad20e3ecc0f3827bf200fc6aacf77ee49c02dbb5cf4377d7869420",
+      "geometry_source": "PokeI_ArchedTimberBridge",
+      "geometry_sha256": "b478174003deefc6bf041229fe4ead770554f591c16553336c22815c61f77d37"
+    },
+    {
+      "family": "PokeI_ArchedTimberBridge",
+      "file": "output/poke_i/PokeI_ArchedTimberBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 37488,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        61,
+        47
+      ],
+      "sha256": "41b51f3d4366223ecdf9fbe68128c25c47ad2d6a46999e7560590f35a8d256f1",
+      "geometry_source": "PokeI_ArchedTimberBridge_Cartoon",
+      "geometry_sha256": "7a966946e22334d4d24312e9322e2db200991305cce0fa21581e02130a7e1f83"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge.vox",
+      "source": "poke_i.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 24792,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "88bceab48cee048dff216cf00f911aab574780b9224079d24db990695fb09be7",
+      "geometry_source": "PokeI_FlatTimberBridge",
+      "geometry_sha256": "76146bd21924f06e882936b2dae200d094fc41ad8c689e79a71f159f12b28ae6"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_Cartoon.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 28360,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "8b4deb0cb176441abbdf8a3de9c87573c560664ad85f405b2d19fcdce9645827",
+      "geometry_source": "PokeI_FlatTimberBridge_Cartoon",
+      "geometry_sha256": "b76d902e2fbf83a22ebb0a67476adf3c4d59841b3d40c13c354d4c1df309cc85"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_CratePalette.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 24792,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "25b642555e98b87bd61ab0887925c7b5ed4ad124019a3ea0b931a3c4e520b8ac",
+      "geometry_source": "PokeI_FlatTimberBridge",
+      "geometry_sha256": "76146bd21924f06e882936b2dae200d094fc41ad8c689e79a71f159f12b28ae6"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 24792,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "f22690581bf9d353d9ace71694a2953dbfb2fc40364b4885fe7fb133e07b5241",
+      "geometry_source": "PokeI_FlatTimberBridge",
+      "geometry_sha256": "76146bd21924f06e882936b2dae200d094fc41ad8c689e79a71f159f12b28ae6"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_Cartoon_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 28360,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "ee145b44a1a37df1aa8369f2306bf6bd1364f959529144ce8547edfc31016b4b",
+      "geometry_source": "PokeI_FlatTimberBridge_Cartoon",
+      "geometry_sha256": "b76d902e2fbf83a22ebb0a67476adf3c4d59841b3d40c13c354d4c1df309cc85"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 24792,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "f00debaa5c38d5dd20c8ae0d1d98190ba5f18cd9590ad8d42ddb1b9a0c4794c9",
+      "geometry_source": "PokeI_FlatTimberBridge",
+      "geometry_sha256": "76146bd21924f06e882936b2dae200d094fc41ad8c689e79a71f159f12b28ae6"
+    },
+    {
+      "family": "PokeI_FlatTimberBridge",
+      "file": "output/poke_i/PokeI_FlatTimberBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        56,
+        56
+      ],
+      "scene_models": 1,
+      "voxels": 28360,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        53,
+        39
+      ],
+      "sha256": "5ae2b8f7013b493bec6b8621c53b5cc9129a56531f3b4813b60df1153f931a66",
+      "geometry_source": "PokeI_FlatTimberBridge_Cartoon",
+      "geometry_sha256": "b76d902e2fbf83a22ebb0a67476adf3c4d59841b3d40c13c354d4c1df309cc85"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge.vox",
+      "source": "poke_i.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13344,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "5cc207b03897c22a89c5506fd4c148326b6b5dbcb1627818e5f0a59b39764855",
+      "geometry_source": "PokeI_NarrowPlankBridge",
+      "geometry_sha256": "86ef99a12763fb3029815ace55267fc7f31b7fdc8989acac9d9a0f262d0e962e"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_Cartoon.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14136,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "494bb6ac12390bc6e1c5ec568c0f91b97d3a56edd28dc9fc1b70ef2dc58dec29",
+      "geometry_source": "PokeI_NarrowPlankBridge_Cartoon",
+      "geometry_sha256": "8c5240ab9ba9963bb27660326f8c5714b3a6a5130e0a3437c81420e08ba41e07"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_CratePalette.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13344,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "21fcf9e73e4c50e37945f21fb00d2ad515cde128f3af0210815e2e027e2f627d",
+      "geometry_source": "PokeI_NarrowPlankBridge",
+      "geometry_sha256": "86ef99a12763fb3029815ace55267fc7f31b7fdc8989acac9d9a0f262d0e962e"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13344,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "91054e9e197ea7b2ce42af1446d69e9bed659935ce8ed889f2cdb6d26130164a",
+      "geometry_source": "PokeI_NarrowPlankBridge",
+      "geometry_sha256": "86ef99a12763fb3029815ace55267fc7f31b7fdc8989acac9d9a0f262d0e962e"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_Cartoon_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14136,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "3fc6e8408a407da4b9631ea5b6ff6410a8e93accd9bffc0b6e8146b35153f859",
+      "geometry_source": "PokeI_NarrowPlankBridge_Cartoon",
+      "geometry_sha256": "8c5240ab9ba9963bb27660326f8c5714b3a6a5130e0a3437c81420e08ba41e07"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13344,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "fa216b1480c7f6ecaebec60b40318a214fb2e61c86e6e145d0ac1a4dcc44fce1",
+      "geometry_source": "PokeI_NarrowPlankBridge",
+      "geometry_sha256": "86ef99a12763fb3029815ace55267fc7f31b7fdc8989acac9d9a0f262d0e962e"
+    },
+    {
+      "family": "PokeI_NarrowPlankBridge",
+      "file": "output/poke_i/PokeI_NarrowPlankBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14136,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        37,
+        23
+      ],
+      "sha256": "541584cb7a3bb1193745836a6a063caf673bcd276b20ac1f64b5a025fa76e4a9",
+      "geometry_source": "PokeI_NarrowPlankBridge_Cartoon",
+      "geometry_sha256": "8c5240ab9ba9963bb27660326f8c5714b3a6a5130e0a3437c81420e08ba41e07"
+    }
+  ]
+}

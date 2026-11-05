@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="VoxelDestruction" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Terrain/VoxelDestruction.gd" id="1_7xx8w"]
+
+[resource]
+script = ExtResource("1_7xx8w")
+voxels_per_damage = 24.0
+density = 300.0
+crumble_size = 2
+block = "TallGrass"
+mass = 5.0

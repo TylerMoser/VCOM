@@ -1,0 +1,48 @@
+{
+ "source": "poke_r.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeR_RedHouse": {
+   "title": "Red house",
+   "regions_xyxy_exclusive": [
+    [
+     216,
+     88,
+     316,
+     200
+    ],
+    [
+     536,
+     104,
+     636,
+     216
+    ],
+    [
+     216,
+     280,
+     316,
+     392
+    ],
+    [
+     216,
+     456,
+     316,
+     568
+    ]
+   ],
+   "drawn": "Four copies of the red house: a steep red gable roof with its ridge front to back, darker lines down its slopes and a dark red verge; white siding, a white board across the front under the tall front gable with two windows and a louvred vent in it; the red door and a window of two panes on the ground floor, a blue strip along the foot, grey corner boards."
+  },
+  "PokeR_Shop": {
+   "title": "Shop",
+   "regions_xyxy_exclusive": [
+    [
+     552,
+     360,
+     680,
+     468
+    ]
+   ],
+   "drawn": "The flat-roofed building at the right: cream walls with ochre bricks at the corners and an ochre band under the roof, three pairs of windows above and two below under red awnings, the green door with a round window between ochre pilasters; a flat roof of grey tiles inside a grey parapet, a tall red housing on it with a dark opening in its top."
+  }
+ }
+}

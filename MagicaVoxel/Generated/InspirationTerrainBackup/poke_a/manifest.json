@@ -1,0 +1,135 @@
+{
+  "source": "poke_a.jpg",
+  "palette": [
+    [
+      23,
+      49,
+      45
+    ],
+    [
+      29,
+      62,
+      54
+    ],
+    [
+      34,
+      76,
+      61
+    ],
+    [
+      40,
+      91,
+      67
+    ],
+    [
+      48,
+      106,
+      70
+    ],
+    [
+      61,
+      123,
+      75
+    ],
+    [
+      78,
+      140,
+      80
+    ],
+    [
+      98,
+      156,
+      85
+    ],
+    [
+      123,
+      174,
+      93
+    ],
+    [
+      150,
+      189,
+      105
+    ],
+    [
+      47,
+      35,
+      27
+    ],
+    [
+      67,
+      47,
+      31
+    ],
+    [
+      91,
+      63,
+      37
+    ],
+    [
+      116,
+      80,
+      45
+    ],
+    [
+      140,
+      102,
+      57
+    ]
+  ],
+  "models": [
+    {
+      "file": "PokeA_ForestTree.vox",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 2183,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "components": [
+        2183
+      ],
+      "role": "complete model",
+      "sha256": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e"
+    },
+    {
+      "file": "PokeA_Sapling.vox",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 291,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        11,
+        10,
+        14
+      ],
+      "components": [
+        291
+      ],
+      "role": "complete model",
+      "sha256": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba"
+    }
+  ],
+  "scale": 0.0625,
+  "checks": {
+    "six_connected": true
+  },
+  "delivery": "complete models only; no per-cell files"
+}

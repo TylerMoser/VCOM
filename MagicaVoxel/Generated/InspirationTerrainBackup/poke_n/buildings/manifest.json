@@ -1,0 +1,3047 @@
+{
+ "source_image": "poke_n.png",
+ "source_sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+ "generator_sha256": "d3c2109eaa064b67235e54ee35e416893c8cd508df8ff3212c4eebba1899f2a6",
+ "dependencies": {
+  "sculpt.py": "344ac3842d500dd7268aaa25e1755ccef34800ab7546bfe1bdc7903c98f517b0",
+  "palettes.py": "085afa6fa50561ddac701430adb2c6bb75b1b7f0813848de0948427183059908",
+  "voxlib.py": "1e58d03f11c0c1bd631a9a2a4023a063f6426e68958ecba49852cbf61500a59f"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+ "minimal_palette_sha256": {
+  "RedHouse": "0149f309a66c0885aeac39b95a928d0c9792b16359791fda73561c394a06e08a",
+  "Chalet": "1bbb48d93503f72af22a045184c51e35490be48664d34574b96080fdc9d9865b",
+  "RoofedGate": "0fb145b517d70f06a9ca04c1807356a24afdff9f58df1700ec8c4c268699bf63"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_n/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeN_RedHouse",
+   "kind": "RedHouse",
+   "title": "Red house",
+   "drawn": "Two copies of the red house: a steep red gable roof with its ridge front to back under a light band, grey verges, a shed dormer on its right slope and a brick chimney at its back, the upper floor's two wide windows over flower boxes between dark timbers, a dark beam, the ground floor's cream walls between stone quoins, a bay window under a red awning and the blue double door.",
+   "source_regions_xyxy_exclusive": [
+    [
+     156,
+     352,
+     270,
+     466
+    ],
+    [
+     444,
+     416,
+     558,
+     530
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    48,
+    144
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     3,
+     0,
+     1
+    ],
+    [
+     "ey",
+     3,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 3
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "rh_chim_cap",
+     "rh_chim_face",
+     "rh_chim_face_dark",
+     "rh_chim_ring",
+     "rh_chim_top",
+     "rh_dormer",
+     "rh_dormer_line",
+     "rh_frame",
+     "rh_gable",
+     "rh_gable_line",
+     "rh_knob",
+     "rh_wall",
+     "rh_wall_light",
+     "rh_wall_line"
+    ],
+    "wood": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark",
+     "rh_beam",
+     "rh_beam_dark",
+     "rh_box",
+     "rh_box_dark",
+     "rh_chim",
+     "rh_chim_dark",
+     "rh_flue",
+     "rh_stone",
+     "rh_stone_dark",
+     "rh_stone_light",
+     "rh_timber",
+     "rh_timber_dark",
+     "rh_verge",
+     "rh_verge_dark"
+    ],
+    "glass": [
+     "glass_rh"
+    ],
+    "door": [
+     "rh_door",
+     "rh_door_dark",
+     "rh_door_line",
+     "rh_door_mid"
+    ],
+    "roof": [
+     "rh_flower",
+     "rh_flower_orange",
+     "rh_leaf",
+     "rh_ridge",
+     "rh_roof",
+     "rh_roof_dark",
+     "rh_roof_light",
+     "rh_roof_line"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     230,
+     202,
+     140
+    ],
+    "wood": [
+     104,
+     81,
+     41
+    ],
+    "glass": [
+     120,
+     170,
+     215
+    ],
+    "door": [
+     60,
+     86,
+     125
+    ],
+    "roof": [
+     215,
+     80,
+     34
+    ]
+   },
+   "folded_groups": {
+    "stone": "wood",
+    "flower": "roof",
+    "dark": "wood"
+   },
+   "crate_group_indices": {
+    "light": 237,
+    "wood": 234,
+    "glass": 253,
+    "door": 251,
+    "roof": 221
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "rh_chim_cap": 237,
+    "rh_chim_face": 234,
+    "rh_chim_face_dark": 234,
+    "rh_chim_ring": 236,
+    "rh_chim_top": 235,
+    "rh_dormer": 194,
+    "rh_dormer_line": 194,
+    "rh_frame": 196,
+    "rh_gable": 237,
+    "rh_gable_line": 236,
+    "rh_knob": 193,
+    "rh_wall": 236,
+    "rh_wall_light": 237,
+    "rh_wall_line": 236,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "rh_beam": 234,
+    "rh_beam_dark": 225,
+    "rh_box": 234,
+    "rh_box_dark": 225,
+    "rh_chim": 179,
+    "rh_chim_dark": 178,
+    "rh_flue": 249,
+    "rh_stone": 179,
+    "rh_stone_dark": 234,
+    "rh_stone_light": 179,
+    "rh_timber": 234,
+    "rh_timber_dark": 178,
+    "rh_verge": 193,
+    "rh_verge_dark": 203,
+    "glass_rh": 253,
+    "rh_door": 251,
+    "rh_door_dark": 250,
+    "rh_door_line": 250,
+    "rh_door_mid": 250,
+    "rh_flower": 214,
+    "rh_flower_orange": 222,
+    "rh_leaf": 244,
+    "rh_ridge": 221,
+    "rh_roof": 221,
+    "rh_roof_dark": 220,
+    "rh_roof_light": 221,
+    "rh_roof_line": 220
+   }
+  },
+  {
+   "asset_id": "PokeN_Chalet",
+   "kind": "Chalet",
+   "title": "Chalet",
+   "drawn": "The house at the top: a wing on the left under a steep hipped roof with a white fascia, its door with a pane and a lamp beside it; an A-frame block a tile forward on the right under a very steep gable with a flat top, its cream gable with dark braces and three windows under a white verge, two windows below between timber posts; a tall pale chimney down its right slope.",
+   "source_regions_xyxy_exclusive": [
+    [
+     262,
+     108,
+     378,
+     212
+    ]
+   ],
+   "canvas_xyz": [
+    112,
+    80,
+    144
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     5,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     1,
+     1
+    ],
+    [
+     "ey",
+     1,
+     1,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       5,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 3
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "wood": [
+     "ch_beam",
+     "ch_beam_dark",
+     "ch_brace",
+     "ch_lamp",
+     "ch_post",
+     "ch_post_dark",
+     "ch_post_light",
+     "ch_vent",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark"
+    ],
+    "light": [
+     "ch_chim",
+     "ch_chim_dark",
+     "ch_chim_light",
+     "ch_frame",
+     "ch_gable",
+     "ch_gable_spot",
+     "ch_lamp_glass",
+     "ch_verge",
+     "ch_verge_dark",
+     "ch_wall",
+     "ch_wall_light",
+     "ch_wall_line"
+    ],
+    "roof": [
+     "ch_door",
+     "ch_door_dark",
+     "ch_door_line",
+     "ch_roof",
+     "ch_roof_dark",
+     "ch_roof_light",
+     "ch_roof_line"
+    ],
+    "glass": [
+     "glass_ch"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     126,
+     98,
+     70
+    ],
+    "light": [
+     206,
+     179,
+     108
+    ],
+    "roof": [
+     187,
+     114,
+     64
+    ],
+    "glass": [
+     120,
+     175,
+     225
+    ]
+   },
+   "folded_groups": {
+    "door": "roof",
+    "stone": "light",
+    "dark": "wood"
+   },
+   "crate_group_indices": {
+    "wood": 234,
+    "light": 230,
+    "roof": 180,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "ch_beam": 234,
+    "ch_beam_dark": 233,
+    "ch_brace": 234,
+    "ch_lamp": 234,
+    "ch_post": 235,
+    "ch_post_dark": 233,
+    "ch_post_light": 235,
+    "ch_vent": 205,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "ch_chim": 195,
+    "ch_chim_dark": 194,
+    "ch_chim_light": 195,
+    "ch_frame": 196,
+    "ch_gable": 230,
+    "ch_gable_spot": 236,
+    "ch_lamp_glass": 237,
+    "ch_verge": 195,
+    "ch_verge_dark": 206,
+    "ch_wall": 230,
+    "ch_wall_light": 236,
+    "ch_wall_line": 236,
+    "ch_door": 179,
+    "ch_door_dark": 178,
+    "ch_door_line": 179,
+    "ch_roof": 180,
+    "ch_roof_dark": 179,
+    "ch_roof_light": 235,
+    "ch_roof_line": 228,
+    "glass_ch": 253
+   }
+  },
+  {
+   "asset_id": "PokeN_RoofedGate",
+   "kind": "RoofedGate",
+   "title": "Roofed gate",
+   "drawn": "The gate over the path at the bottom: a low roof of brown planks under a dark cap on two dark posts, its shadow across the path; no walls.",
+   "source_regions_xyxy_exclusive": [
+    [
+     350,
+     630,
+     460,
+     700
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    32,
+    80
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     3,
+     0
+    ]
+   ],
+   "doors": [],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       3,
+       0
+      ]
+     ],
+     "entered_by": "walk",
+     "cut_away_from": 3
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "wood": [
+     "gt_beam",
+     "gt_beam_dark",
+     "gt_post",
+     "gt_post_dark",
+     "gt_post_light"
+    ],
+    "roof": [
+     "gt_cap",
+     "gt_cap_light",
+     "gt_gap",
+     "gt_plank",
+     "gt_plank_dark",
+     "gt_plank_light"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     65,
+     45,
+     40
+    ],
+    "roof": [
+     105,
+     63,
+     46
+    ]
+   },
+   "folded_groups": {
+    "light": "wood",
+    "dark": "wood"
+   },
+   "crate_group_indices": {
+    "wood": 233,
+    "roof": 178
+   },
+   "crate_label_indices": {
+    "gt_beam": 178,
+    "gt_beam_dark": 225,
+    "gt_post": 233,
+    "gt_post_dark": 225,
+    "gt_post_light": 178,
+    "gt_cap": 225,
+    "gt_cap_light": 233,
+    "gt_gap": 225,
+    "gt_plank": 234,
+    "gt_plank_dark": 178,
+    "gt_plank_light": 179
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeN_RedHouse.vox",
+   "family": "PokeN_RedHouse",
+   "style": "Base",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 111269,
+   "sha256": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    74
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     215,
+     80,
+     34,
+     255
+    ],
+    [
+     225,
+     97,
+     53,
+     255
+    ],
+    [
+     162,
+     60,
+     26,
+     255
+    ],
+    [
+     183,
+     68,
+     29,
+     255
+    ],
+    [
+     139,
+     139,
+     139,
+     255
+    ],
+    [
+     37,
+     37,
+     37,
+     255
+    ],
+    [
+     202,
+     163,
+     129,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     192,
+     147,
+     105,
+     255
+    ],
+    [
+     141,
+     121,
+     49,
+     255
+    ],
+    [
+     130,
+     106,
+     46,
+     255
+    ],
+    [
+     104,
+     81,
+     41,
+     255
+    ],
+    [
+     38,
+     34,
+     29,
+     255
+    ],
+    [
+     100,
+     70,
+     40,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     60,
+     86,
+     125,
+     255
+    ],
+    [
+     38,
+     67,
+     104,
+     255
+    ],
+    [
+     32,
+     55,
+     96,
+     255
+    ],
+    [
+     20,
+     39,
+     88,
+     255
+    ],
+    [
+     152,
+     144,
+     136,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     56,
+     49,
+     42,
+     255
+    ],
+    [
+     99,
+     163,
+     80,
+     255
+    ],
+    [
+     206,
+     123,
+     181,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     184,
+     192,
+     168,
+     255
+    ],
+    [
+     160,
+     168,
+     155,
+     255
+    ],
+    [
+     128,
+     72,
+     40,
+     255
+    ],
+    [
+     104,
+     56,
+     16,
+     255
+    ],
+    [
+     198,
+     179,
+     133,
+     255
+    ],
+    [
+     168,
+     144,
+     104,
+     255
+    ],
+    [
+     144,
+     120,
+     88,
+     255
+    ],
+    [
+     119,
+     111,
+     77,
+     255
+    ],
+    [
+     107,
+     99,
+     58,
+     255
+    ],
+    [
+     24,
+     24,
+     56,
+     255
+    ],
+    [
+     120,
+     170,
+     215,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "74": 0.7
+   },
+   "glass_voxels": 2769,
+   "geometry_source": "PokeN_RedHouse.vox",
+   "geometry_source_sha256": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab"
+  },
+  {
+   "file": "PokeN_RedHouse_Cartoon.vox",
+   "family": "PokeN_RedHouse",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 118169,
+   "sha256": "dd5a6f507a32e3d72098fb5c609e817dbae777f493a7fc84c6f682b51ae9ad64",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    30,
+    32,
+    33,
+    34,
+    35,
+    36,
+    38,
+    39,
+    40,
+    41,
+    74
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     215,
+     80,
+     34,
+     255
+    ],
+    [
+     225,
+     97,
+     53,
+     255
+    ],
+    [
+     162,
+     60,
+     26,
+     255
+    ],
+    [
+     183,
+     68,
+     29,
+     255
+    ],
+    [
+     139,
+     139,
+     139,
+     255
+    ],
+    [
+     37,
+     37,
+     37,
+     255
+    ],
+    [
+     202,
+     163,
+     129,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     192,
+     147,
+     105,
+     255
+    ],
+    [
+     141,
+     121,
+     49,
+     255
+    ],
+    [
+     130,
+     106,
+     46,
+     255
+    ],
+    [
+     104,
+     81,
+     41,
+     255
+    ],
+    [
+     38,
+     34,
+     29,
+     255
+    ],
+    [
+     100,
+     70,
+     40,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     60,
+     86,
+     125,
+     255
+    ],
+    [
+     38,
+     67,
+     104,
+     255
+    ],
+    [
+     32,
+     55,
+     96,
+     255
+    ],
+    [
+     20,
+     39,
+     88,
+     255
+    ],
+    [
+     152,
+     144,
+     136,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     56,
+     49,
+     42,
+     255
+    ],
+    [
+     206,
+     123,
+     181,
+     255
+    ],
+    [
+     184,
+     192,
+     168,
+     255
+    ],
+    [
+     160,
+     168,
+     155,
+     255
+    ],
+    [
+     128,
+     72,
+     40,
+     255
+    ],
+    [
+     104,
+     56,
+     16,
+     255
+    ],
+    [
+     198,
+     179,
+     133,
+     255
+    ],
+    [
+     144,
+     120,
+     88,
+     255
+    ],
+    [
+     119,
+     111,
+     77,
+     255
+    ],
+    [
+     107,
+     99,
+     58,
+     255
+    ],
+    [
+     24,
+     24,
+     56,
+     255
+    ],
+    [
+     120,
+     170,
+     215,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "74": 0.7
+   },
+   "glass_voxels": 2157,
+   "geometry_source": "PokeN_RedHouse_Cartoon.vox",
+   "geometry_source_sha256": "dd5a6f507a32e3d72098fb5c609e817dbae777f493a7fc84c6f682b51ae9ad64"
+  },
+  {
+   "file": "PokeN_RedHouse_CratePalette.vox",
+   "family": "PokeN_RedHouse",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 111269,
+   "sha256": "6abc4f0513e9e8fbee4f0ce22f6a613a7bd91e1e1824310841edb68e9b77b897",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    195,
+    196,
+    203,
+    205,
+    206,
+    214,
+    220,
+    221,
+    222,
+    225,
+    234,
+    235,
+    236,
+    237,
+    244,
+    249,
+    250,
+    251,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     21,
+     29,
+     40,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     52,
+     28,
+     39,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     23,
+     32,
+     56,
+     255
+    ],
+    [
+     37,
+     58,
+     94,
+     255
+    ],
+    [
+     60,
+     94,
+     139,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2769,
+   "geometry_source": "PokeN_RedHouse.vox",
+   "geometry_source_sha256": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab"
+  },
+  {
+   "file": "PokeN_RedHouse_TwoColor.vox",
+   "family": "PokeN_RedHouse",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 111269,
+   "sha256": "c8440cf4f42dc41fe6f7270f0c7c37d5aab07363f15b9f7a3b3cb5dd828f0f18",
+   "palette_sha256": "0149f309a66c0885aeac39b95a928d0c9792b16359791fda73561c394a06e08a",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     215,
+     80,
+     34,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     104,
+     81,
+     41,
+     255
+    ],
+    [
+     60,
+     86,
+     125,
+     255
+    ],
+    [
+     120,
+     170,
+     215,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 2769,
+   "geometry_source": "PokeN_RedHouse.vox",
+   "geometry_source_sha256": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab"
+  },
+  {
+   "file": "PokeN_RedHouse_Cartoon_TwoColor.vox",
+   "family": "PokeN_RedHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 118169,
+   "sha256": "f61d49f7169b0ef6e1dda5457f6b336c9be190bac3fb00528b9bd5854e4e74f5",
+   "palette_sha256": "0149f309a66c0885aeac39b95a928d0c9792b16359791fda73561c394a06e08a",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     215,
+     80,
+     34,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     104,
+     81,
+     41,
+     255
+    ],
+    [
+     60,
+     86,
+     125,
+     255
+    ],
+    [
+     120,
+     170,
+     215,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 2157,
+   "geometry_source": "PokeN_RedHouse_Cartoon.vox",
+   "geometry_source_sha256": "dd5a6f507a32e3d72098fb5c609e817dbae777f493a7fc84c6f682b51ae9ad64"
+  },
+  {
+   "file": "PokeN_RedHouse_CratePalette_TwoColor.vox",
+   "family": "PokeN_RedHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 111269,
+   "sha256": "55a5558e3461eb1849bbff7fb71deed8240cb8a1c0fb1600d7ac048e81b2480b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    221,
+    234,
+    237,
+    251,
+    253
+   ],
+   "used_rgba": [
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     60,
+     94,
+     139,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2769,
+   "geometry_source": "PokeN_RedHouse.vox",
+   "geometry_source_sha256": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab"
+  },
+  {
+   "file": "PokeN_RedHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeN_RedHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    144
+   ],
+   "occupied_min": [
+    0,
+    1,
+    0
+   ],
+   "occupied_max": [
+    95,
+    47,
+    132
+   ],
+   "voxels": 118169,
+   "sha256": "6d7ccb5d22bd2992e988b008d1323225af2d236b67f8917de40a40322a7abd77",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    221,
+    234,
+    237,
+    251,
+    253
+   ],
+   "used_rgba": [
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     60,
+     94,
+     139,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2157,
+   "geometry_source": "PokeN_RedHouse_Cartoon.vox",
+   "geometry_source_sha256": "dd5a6f507a32e3d72098fb5c609e817dbae777f493a7fc84c6f682b51ae9ad64"
+  },
+  {
+   "file": "PokeN_Chalet.vox",
+   "family": "PokeN_Chalet",
+   "style": "Base",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 126812,
+   "sha256": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    75
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     187,
+     114,
+     64,
+     255
+    ],
+    [
+     194,
+     124,
+     78,
+     255
+    ],
+    [
+     185,
+     102,
+     46,
+     255
+    ],
+    [
+     171,
+     85,
+     27,
+     255
+    ],
+    [
+     193,
+     193,
+     193,
+     255
+    ],
+    [
+     99,
+     98,
+     98,
+     255
+    ],
+    [
+     206,
+     179,
+     108,
+     255
+    ],
+    [
+     176,
+     148,
+     75,
+     255
+    ],
+    [
+     167,
+     148,
+     96,
+     255
+    ],
+    [
+     126,
+     98,
+     70,
+     255
+    ],
+    [
+     64,
+     55,
+     49,
+     255
+    ],
+    [
+     131,
+     101,
+     64,
+     255
+    ],
+    [
+     164,
+     118,
+     80,
+     255
+    ],
+    [
+     176,
+     128,
+     88,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     145,
+     72,
+     23,
+     255
+    ],
+    [
+     116,
+     58,
+     18,
+     255
+    ],
+    [
+     116,
+     88,
+     48,
+     255
+    ],
+    [
+     214,
+     200,
+     150,
+     255
+    ],
+    [
+     177,
+     197,
+     207,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     66,
+     70,
+     66,
+     255
+    ],
+    [
+     120,
+     175,
+     225,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "75": 0.7
+   },
+   "glass_voxels": 2246,
+   "geometry_source": "PokeN_Chalet.vox",
+   "geometry_source_sha256": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f"
+  },
+  {
+   "file": "PokeN_Chalet_Cartoon.vox",
+   "family": "PokeN_Chalet",
+   "style": "Cartoon",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 131769,
+   "sha256": "24decae0482ed5aea860ea422fe17f5d55a9168dde61a517ad7f0db674e809e5",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    42,
+    44,
+    45,
+    46,
+    47,
+    48,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    75
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     187,
+     114,
+     64,
+     255
+    ],
+    [
+     185,
+     102,
+     46,
+     255
+    ],
+    [
+     171,
+     85,
+     27,
+     255
+    ],
+    [
+     193,
+     193,
+     193,
+     255
+    ],
+    [
+     99,
+     98,
+     98,
+     255
+    ],
+    [
+     206,
+     179,
+     108,
+     255
+    ],
+    [
+     167,
+     148,
+     96,
+     255
+    ],
+    [
+     126,
+     98,
+     70,
+     255
+    ],
+    [
+     64,
+     55,
+     49,
+     255
+    ],
+    [
+     131,
+     101,
+     64,
+     255
+    ],
+    [
+     164,
+     118,
+     80,
+     255
+    ],
+    [
+     176,
+     128,
+     88,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     145,
+     72,
+     23,
+     255
+    ],
+    [
+     116,
+     58,
+     18,
+     255
+    ],
+    [
+     116,
+     88,
+     48,
+     255
+    ],
+    [
+     214,
+     200,
+     150,
+     255
+    ],
+    [
+     177,
+     197,
+     207,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     66,
+     70,
+     66,
+     255
+    ],
+    [
+     120,
+     175,
+     225,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "75": 0.7
+   },
+   "glass_voxels": 1614,
+   "geometry_source": "PokeN_Chalet_Cartoon.vox",
+   "geometry_source_sha256": "24decae0482ed5aea860ea422fe17f5d55a9168dde61a517ad7f0db674e809e5"
+  },
+  {
+   "file": "PokeN_Chalet_CratePalette.vox",
+   "family": "PokeN_Chalet",
+   "style": "CratePalette",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 126812,
+   "sha256": "25e90d33a121553ddadf8fab73e5ea481d7e68736f942a4d846a7d243d6de13c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    180,
+    194,
+    195,
+    196,
+    205,
+    206,
+    228,
+    230,
+    233,
+    234,
+    235,
+    236,
+    237,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     190,
+     119,
+     43,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2246,
+   "geometry_source": "PokeN_Chalet.vox",
+   "geometry_source_sha256": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f"
+  },
+  {
+   "file": "PokeN_Chalet_TwoColor.vox",
+   "family": "PokeN_Chalet",
+   "style": "TwoColor",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 126812,
+   "sha256": "52ed53447be6d68fb9365af1d65a89c6392de1ac6efe41a3bcb992e706ddaaa3",
+   "palette_sha256": "1bbb48d93503f72af22a045184c51e35490be48664d34574b96080fdc9d9865b",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     187,
+     114,
+     64,
+     255
+    ],
+    [
+     206,
+     179,
+     108,
+     255
+    ],
+    [
+     126,
+     98,
+     70,
+     255
+    ],
+    [
+     120,
+     175,
+     225,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 2246,
+   "geometry_source": "PokeN_Chalet.vox",
+   "geometry_source_sha256": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f"
+  },
+  {
+   "file": "PokeN_Chalet_Cartoon_TwoColor.vox",
+   "family": "PokeN_Chalet",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 131769,
+   "sha256": "ee4bbf332c3f686b9a9fca5b796711235d0fd1eeb0075d4c4752f4f8cfcaff1f",
+   "palette_sha256": "1bbb48d93503f72af22a045184c51e35490be48664d34574b96080fdc9d9865b",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     187,
+     114,
+     64,
+     255
+    ],
+    [
+     206,
+     179,
+     108,
+     255
+    ],
+    [
+     126,
+     98,
+     70,
+     255
+    ],
+    [
+     120,
+     175,
+     225,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 1614,
+   "geometry_source": "PokeN_Chalet_Cartoon.vox",
+   "geometry_source_sha256": "24decae0482ed5aea860ea422fe17f5d55a9168dde61a517ad7f0db674e809e5"
+  },
+  {
+   "file": "PokeN_Chalet_CratePalette_TwoColor.vox",
+   "family": "PokeN_Chalet",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 126812,
+   "sha256": "4e6bafc2f9a2c1c034e555b48bf5993cfc611a62a6ff583e664e14638d29f39a",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    230,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2246,
+   "geometry_source": "PokeN_Chalet.vox",
+   "geometry_source_sha256": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f"
+  },
+  {
+   "file": "PokeN_Chalet_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeN_Chalet",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    144
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    132
+   ],
+   "voxels": 131769,
+   "sha256": "fcaacbeee7f90bab1049d94534b6563cb8222f73519e141e63c61b70e784c76c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    230,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1614,
+   "geometry_source": "PokeN_Chalet_Cartoon.vox",
+   "geometry_source_sha256": "24decae0482ed5aea860ea422fe17f5d55a9168dde61a517ad7f0db674e809e5"
+  },
+  {
+   "file": "PokeN_RoofedGate.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "Base",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 14280,
+   "sha256": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73
+   ],
+   "used_rgba": [
+    [
+     129,
+     83,
+     61,
+     255
+    ],
+    [
+     145,
+     93,
+     61,
+     255
+    ],
+    [
+     93,
+     59,
+     42,
+     255
+    ],
+    [
+     49,
+     30,
+     22,
+     255
+    ],
+    [
+     81,
+     50,
+     38,
+     255
+    ],
+    [
+     81,
+     55,
+     51,
+     255
+    ],
+    [
+     105,
+     63,
+     46,
+     255
+    ],
+    [
+     57,
+     42,
+     42,
+     255
+    ],
+    [
+     65,
+     40,
+     30,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate.vox",
+   "geometry_source_sha256": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0"
+  },
+  {
+   "file": "PokeN_RoofedGate_Cartoon.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 18596,
+   "sha256": "71e6bcc962f2cf0f8c7619951ddf82dd4f361e3c795a6acf5584f43cd7732059",
+   "palette_sha256": "955f23b62e16373b3fe349976686140ed727fc70efda6a975e19e7e28d5a0fbc",
+   "used_indices": [
+    65,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73
+   ],
+   "used_rgba": [
+    [
+     129,
+     83,
+     61,
+     255
+    ],
+    [
+     93,
+     59,
+     42,
+     255
+    ],
+    [
+     49,
+     30,
+     22,
+     255
+    ],
+    [
+     81,
+     50,
+     38,
+     255
+    ],
+    [
+     81,
+     55,
+     51,
+     255
+    ],
+    [
+     105,
+     63,
+     46,
+     255
+    ],
+    [
+     57,
+     42,
+     42,
+     255
+    ],
+    [
+     65,
+     40,
+     30,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate_Cartoon.vox",
+   "geometry_source_sha256": "71e6bcc962f2cf0f8c7619951ddf82dd4f361e3c795a6acf5584f43cd7732059"
+  },
+  {
+   "file": "PokeN_RoofedGate_CratePalette.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 14280,
+   "sha256": "389fa1a4d2d08b00b60927c4c771fa4c571b9946439974b4b8b03372a00b533e",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    225,
+    233,
+    234
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     52,
+     28,
+     39,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate.vox",
+   "geometry_source_sha256": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0"
+  },
+  {
+   "file": "PokeN_RoofedGate_TwoColor.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 14280,
+   "sha256": "8adbab380be32cf7d2485d06c8656cab9f39a96352099c715397eb2f089be826",
+   "palette_sha256": "0fb145b517d70f06a9ca04c1807356a24afdff9f58df1700ec8c4c268699bf63",
+   "used_indices": [
+    1,
+    2
+   ],
+   "used_rgba": [
+    [
+     105,
+     63,
+     46,
+     255
+    ],
+    [
+     65,
+     45,
+     40,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate.vox",
+   "geometry_source_sha256": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0"
+  },
+  {
+   "file": "PokeN_RoofedGate_Cartoon_TwoColor.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 18596,
+   "sha256": "df83cd1e7768fd77e2a5a7cf767e4c512e03bc172df73f6cc646900ecd387632",
+   "palette_sha256": "0fb145b517d70f06a9ca04c1807356a24afdff9f58df1700ec8c4c268699bf63",
+   "used_indices": [
+    1,
+    2
+   ],
+   "used_rgba": [
+    [
+     105,
+     63,
+     46,
+     255
+    ],
+    [
+     65,
+     45,
+     40,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate_Cartoon.vox",
+   "geometry_source_sha256": "71e6bcc962f2cf0f8c7619951ddf82dd4f361e3c795a6acf5584f43cd7732059"
+  },
+  {
+   "file": "PokeN_RoofedGate_CratePalette_TwoColor.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 14280,
+   "sha256": "17dfd21bd03ae0772f37eecff15b407a452d775b63445f88728e741059b3de39",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    233
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate.vox",
+   "geometry_source_sha256": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0"
+  },
+  {
+   "file": "PokeN_RoofedGate_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeN_RoofedGate",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    32,
+    80
+   ],
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    79,
+    31,
+    68
+   ],
+   "voxels": 18596,
+   "sha256": "bc8300cf9a64a28566000b194b44991c1ffd3c82982ba403055681be299817cb",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    233
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeN_RoofedGate_Cartoon.vox",
+   "geometry_source_sha256": "71e6bcc962f2cf0f8c7619951ddf82dd4f361e3c795a6acf5584f43cd7732059"
+  }
+ ]
+}

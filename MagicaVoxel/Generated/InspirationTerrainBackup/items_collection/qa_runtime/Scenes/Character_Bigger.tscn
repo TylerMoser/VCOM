@@ -1,0 +1,866 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Characters/CharacterModel.gd" id="1_iiifn"]
+[ext_resource type="ArrayMesh" path="res://Characters/Character_BiggerBody.res" id="2_alqnh"]
+[ext_resource type="Script" path="res://Scripts/Characters/AimModifier.gd" id="3_eekhq"]
+[ext_resource type="AnimationLibrary" path="res://Characters/Character_BiggerAnimations.res" id="4_kgxlh"]
+
+[sub_resource type="Skin" id="Skin_ssncw"]
+bind_count = 18
+bind/0/name = &""
+bind/0/bone = 0
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bind/1/name = &""
+bind/1/bone = 1
+bind/1/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.56700003, 0.0315)
+bind/2/name = &""
+bind/2/bone = 2
+bind/2/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.75600004, 0.0315)
+bind/3/name = &""
+bind/3/bone = 3
+bind/3/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.945, 0.0315)
+bind/4/name = &""
+bind/4/bone = 4
+bind/4/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.197, 0.0315)
+bind/5/name = &""
+bind/5/bone = 5
+bind/5/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.26, 0.0315)
+bind/6/name = &""
+bind/6/bone = 6
+bind/6/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2205, -1.1340001, 0.0315)
+bind/7/name = &""
+bind/7/bone = 7
+bind/7/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.47249997, -1.1340001, 0.0315)
+bind/8/name = &""
+bind/8/bone = 8
+bind/8/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6615, -1.1340001, 0.0315)
+bind/9/name = &""
+bind/9/bone = 9
+bind/9/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2205, -1.1340001, 0.0315)
+bind/10/name = &""
+bind/10/bone = 10
+bind/10/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.47249997, -1.1340001, 0.0315)
+bind/11/name = &""
+bind/11/bone = 11
+bind/11/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6615, -1.1340001, 0.0315)
+bind/12/name = &""
+bind/12/bone = 12
+bind/12/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.094500005, -0.56700003, 0.0315)
+bind/13/name = &""
+bind/13/bone = 13
+bind/13/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.094500005, -0.315, 0.0315)
+bind/14/name = &""
+bind/14/bone = 14
+bind/14/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.094500005, -0.06299999, 0.0315)
+bind/15/name = &""
+bind/15/bone = 15
+bind/15/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094500005, -0.56700003, 0.0315)
+bind/16/name = &""
+bind/16/bone = 16
+bind/16/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094500005, -0.315, 0.0315)
+bind/17/name = &""
+bind/17/bone = 17
+bind/17/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094500005, -0.06299999, 0.0315)
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_yoxc6"]
+fadein_time = 0.1
+fadeout_time = 0.22
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ikp86"]
+input_0/name = "strike_sword"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "throw_rifle"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "throw_melee"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "throw_unarmed"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+input_4/name = "draw_sword"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
+input_5/name = "stow_sword"
+input_5/auto_advance = false
+input_5/break_loop_at_end = false
+input_5/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nqfay"]
+animation = &"aim_rifle"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_6se7r"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nudon"]
+animation = &"cheer_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6jq51"]
+animation = &"cheer_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wbtsp"]
+animation = &"cheer_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cnuef"]
+animation = &"crouch_lean_left_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m4ouk"]
+animation = &"crouch_lean_left_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ln070"]
+animation = &"crouch_lean_left_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uny1l"]
+animation = &"crouch_lean_right_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_atumh"]
+animation = &"crouch_lean_right_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2b1oy"]
+animation = &"crouch_lean_right_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mmawu"]
+animation = &"crouch_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yylcc"]
+animation = &"crouch_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6udgw"]
+animation = &"crouch_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jtpxb"]
+animation = &"dodge"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_62ebs"]
+animation = &"draw_sword"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vpe01"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3ghee"]
+animation = &"fire_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_65bas"]
+animation = &"hit_back"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xp1lw"]
+animation = &"hit_front"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_wjqb8"]
+filter_enabled = true
+filters = ["Skeleton3D:Hips", "Skeleton3D:LeftFoot", "Skeleton3D:LeftLowerLeg", "Skeleton3D:LeftUpperLeg", "Skeleton3D:RightFoot", "Skeleton3D:RightLowerLeg", "Skeleton3D:RightUpperLeg"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gw30d"]
+animation = &"hop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s7uvh"]
+animation = &"hunker_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vlcjv"]
+animation = &"hunker_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bijc7"]
+animation = &"hunker_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ttrta"]
+animation = &"land"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_up121"]
+filter_enabled = true
+filters = ["Skeleton3D:LeftHand", "Skeleton3D:LeftLowerArm", "Skeleton3D:LeftUpperArm"]
+fadein_time = 0.15
+fadeout_time = 0.25
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ge4tu"]
+input_0/name = "use_medkit"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "use_medkit_self"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_pm2ux"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j8rqs"]
+animation = &"overwatch_crouch_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_khr4w"]
+animation = &"overwatch_rifle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_lil5r"]
+mix_mode = 1
+fadein_time = 0.03
+fadeout_time = 0.12
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_48ldh"]
+input_0/name = "fire_rifle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "hit_front"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "hit_back"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+input_3/name = "dodge"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = true
+input_4/name = "land"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2fpf6"]
+animation = &"ready_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dnadm"]
+animation = &"ready_throw_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qe5li"]
+animation = &"ready_throw_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w11tk"]
+animation = &"ready_throw_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8jw7m"]
+animation = &"reload_rifle"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_ha5xu"]
+xfade_time = 0.15
+input_0/name = "run_rifle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+input_1/name = "run_melee"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = true
+input_2/name = "run_unarmed"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xkv1o"]
+animation = &"run_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cl7xm"]
+animation = &"run_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g47xi"]
+animation = &"back_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gwyys"]
+animation = &"strafe_left_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5pyh6"]
+animation = &"strafe_right_rifle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_dpk4l"]
+sync_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_cl7xm")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_0/name = &"forward"
+blend_point_1/node = SubResource("AnimationNodeAnimation_g47xi")
+blend_point_1/pos = Vector2(0, -1)
+blend_point_1/name = &"back"
+blend_point_2/node = SubResource("AnimationNodeAnimation_gwyys")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_2/name = &"left"
+blend_point_3/node = SubResource("AnimationNodeAnimation_5pyh6")
+blend_point_3/pos = Vector2(-1, 0)
+blend_point_3/name = &"right"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_gt3ep"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cslmb"]
+animation = &"run_unarmed"
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_epl4x"]
+xfade_time = 0.22
+input_0/name = "stand_rifle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = false
+input_1/name = "crouch_rifle"
+input_1/auto_advance = false
+input_1/break_loop_at_end = false
+input_1/reset = false
+input_2/name = "wall_rifle"
+input_2/auto_advance = false
+input_2/break_loop_at_end = false
+input_2/reset = false
+input_3/name = "hunker_rifle"
+input_3/auto_advance = false
+input_3/break_loop_at_end = false
+input_3/reset = false
+input_4/name = "ready_throw_rifle"
+input_4/auto_advance = false
+input_4/break_loop_at_end = false
+input_4/reset = false
+input_5/name = "cheer_rifle"
+input_5/auto_advance = false
+input_5/break_loop_at_end = false
+input_5/reset = false
+input_6/name = "wall_lean_left_rifle"
+input_6/auto_advance = false
+input_6/break_loop_at_end = false
+input_6/reset = false
+input_7/name = "wall_lean_right_rifle"
+input_7/auto_advance = false
+input_7/break_loop_at_end = false
+input_7/reset = false
+input_8/name = "crouch_lean_left_rifle"
+input_8/auto_advance = false
+input_8/break_loop_at_end = false
+input_8/reset = false
+input_9/name = "crouch_lean_right_rifle"
+input_9/auto_advance = false
+input_9/break_loop_at_end = false
+input_9/reset = false
+input_10/name = "stand_melee"
+input_10/auto_advance = false
+input_10/break_loop_at_end = false
+input_10/reset = false
+input_11/name = "crouch_melee"
+input_11/auto_advance = false
+input_11/break_loop_at_end = false
+input_11/reset = false
+input_12/name = "wall_melee"
+input_12/auto_advance = false
+input_12/break_loop_at_end = false
+input_12/reset = false
+input_13/name = "hunker_melee"
+input_13/auto_advance = false
+input_13/break_loop_at_end = false
+input_13/reset = false
+input_14/name = "ready_throw_melee"
+input_14/auto_advance = false
+input_14/break_loop_at_end = false
+input_14/reset = false
+input_15/name = "cheer_melee"
+input_15/auto_advance = false
+input_15/break_loop_at_end = false
+input_15/reset = false
+input_16/name = "wall_lean_left_melee"
+input_16/auto_advance = false
+input_16/break_loop_at_end = false
+input_16/reset = false
+input_17/name = "wall_lean_right_melee"
+input_17/auto_advance = false
+input_17/break_loop_at_end = false
+input_17/reset = false
+input_18/name = "crouch_lean_left_melee"
+input_18/auto_advance = false
+input_18/break_loop_at_end = false
+input_18/reset = false
+input_19/name = "crouch_lean_right_melee"
+input_19/auto_advance = false
+input_19/break_loop_at_end = false
+input_19/reset = false
+input_20/name = "stand_unarmed"
+input_20/auto_advance = false
+input_20/break_loop_at_end = false
+input_20/reset = false
+input_21/name = "crouch_unarmed"
+input_21/auto_advance = false
+input_21/break_loop_at_end = false
+input_21/reset = false
+input_22/name = "wall_unarmed"
+input_22/auto_advance = false
+input_22/break_loop_at_end = false
+input_22/reset = false
+input_23/name = "hunker_unarmed"
+input_23/auto_advance = false
+input_23/break_loop_at_end = false
+input_23/reset = false
+input_24/name = "ready_throw_unarmed"
+input_24/auto_advance = false
+input_24/break_loop_at_end = false
+input_24/reset = false
+input_25/name = "cheer_unarmed"
+input_25/auto_advance = false
+input_25/break_loop_at_end = false
+input_25/reset = false
+input_26/name = "wall_lean_left_unarmed"
+input_26/auto_advance = false
+input_26/break_loop_at_end = false
+input_26/reset = false
+input_27/name = "wall_lean_right_unarmed"
+input_27/auto_advance = false
+input_27/break_loop_at_end = false
+input_27/reset = false
+input_28/name = "crouch_lean_left_unarmed"
+input_28/auto_advance = false
+input_28/break_loop_at_end = false
+input_28/reset = false
+input_29/name = "crouch_lean_right_unarmed"
+input_29/auto_advance = false
+input_29/break_loop_at_end = false
+input_29/reset = false
+input_30/name = "aim_rifle"
+input_30/auto_advance = false
+input_30/break_loop_at_end = false
+input_30/reset = false
+input_31/name = "overwatch_rifle"
+input_31/auto_advance = false
+input_31/break_loop_at_end = false
+input_31/reset = false
+input_32/name = "overwatch_crouch_rifle"
+input_32/auto_advance = false
+input_32/break_loop_at_end = false
+input_32/reset = false
+input_33/name = "ready_melee"
+input_33/auto_advance = false
+input_33/break_loop_at_end = false
+input_33/reset = false
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kmjld"]
+animation = &"stand_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_m3xkh"]
+animation = &"stand_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3fbqw"]
+animation = &"stand_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nnf1e"]
+animation = &"stow_sword"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mfcui"]
+animation = &"strike_sword"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_67gs2"]
+animation = &"throw_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kau23"]
+animation = &"throw_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qb4os"]
+animation = &"throw_unarmed"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_dmn64"]
+filter_enabled = true
+filters = ["Skeleton3D:Head", "Skeleton3D:LeftHand", "Skeleton3D:LeftLowerArm", "Skeleton3D:LeftUpperArm", "Skeleton3D:Neck", "Skeleton3D:RightHand", "Skeleton3D:RightLowerArm", "Skeleton3D:RightUpperArm"]
+fadein_time = 0.15
+fadeout_time = 0.25
+
+[sub_resource type="AnimationNodeTransition" id="AnimationNodeTransition_1wmry"]
+input_0/name = "reload_rifle"
+input_0/auto_advance = false
+input_0/break_loop_at_end = false
+input_0/reset = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gjjn2"]
+animation = &"use_medkit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yjr2u"]
+animation = &"use_medkit_self"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yo031"]
+animation = &"wall_lean_left_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4exrl"]
+animation = &"wall_lean_left_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kjphp"]
+animation = &"wall_lean_left_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_myamh"]
+animation = &"wall_lean_right_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5570s"]
+animation = &"wall_lean_right_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j88pt"]
+animation = &"wall_lean_right_unarmed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nrvmg"]
+animation = &"wall_melee"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fsqdp"]
+animation = &"wall_rifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kabc0"]
+animation = &"wall_unarmed"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_086rh"]
+nodes/output/position = Vector2(2300, 200)
+nodes/stand_rifle/node = SubResource("AnimationNodeAnimation_m3xkh")
+nodes/stand_rifle/position = Vector2(0, 0)
+nodes/crouch_rifle/node = SubResource("AnimationNodeAnimation_yylcc")
+nodes/crouch_rifle/position = Vector2(0, 70)
+nodes/wall_rifle/node = SubResource("AnimationNodeAnimation_fsqdp")
+nodes/wall_rifle/position = Vector2(0, 140)
+nodes/hunker_rifle/node = SubResource("AnimationNodeAnimation_vlcjv")
+nodes/hunker_rifle/position = Vector2(0, 210)
+nodes/ready_throw_rifle/node = SubResource("AnimationNodeAnimation_qe5li")
+nodes/ready_throw_rifle/position = Vector2(0, 280)
+nodes/cheer_rifle/node = SubResource("AnimationNodeAnimation_6jq51")
+nodes/cheer_rifle/position = Vector2(0, 350)
+nodes/wall_lean_left_rifle/node = SubResource("AnimationNodeAnimation_4exrl")
+nodes/wall_lean_left_rifle/position = Vector2(0, 420)
+nodes/wall_lean_right_rifle/node = SubResource("AnimationNodeAnimation_5570s")
+nodes/wall_lean_right_rifle/position = Vector2(0, 490)
+nodes/crouch_lean_left_rifle/node = SubResource("AnimationNodeAnimation_m4ouk")
+nodes/crouch_lean_left_rifle/position = Vector2(0, 560)
+nodes/crouch_lean_right_rifle/node = SubResource("AnimationNodeAnimation_atumh")
+nodes/crouch_lean_right_rifle/position = Vector2(0, 630)
+nodes/stand_melee/node = SubResource("AnimationNodeAnimation_kmjld")
+nodes/stand_melee/position = Vector2(0, 700)
+nodes/crouch_melee/node = SubResource("AnimationNodeAnimation_mmawu")
+nodes/crouch_melee/position = Vector2(0, 770)
+nodes/wall_melee/node = SubResource("AnimationNodeAnimation_nrvmg")
+nodes/wall_melee/position = Vector2(0, 840)
+nodes/hunker_melee/node = SubResource("AnimationNodeAnimation_s7uvh")
+nodes/hunker_melee/position = Vector2(0, 910)
+nodes/ready_throw_melee/node = SubResource("AnimationNodeAnimation_dnadm")
+nodes/ready_throw_melee/position = Vector2(0, 980)
+nodes/cheer_melee/node = SubResource("AnimationNodeAnimation_nudon")
+nodes/cheer_melee/position = Vector2(0, 1050)
+nodes/wall_lean_left_melee/node = SubResource("AnimationNodeAnimation_yo031")
+nodes/wall_lean_left_melee/position = Vector2(0, 1120)
+nodes/wall_lean_right_melee/node = SubResource("AnimationNodeAnimation_myamh")
+nodes/wall_lean_right_melee/position = Vector2(0, 1190)
+nodes/crouch_lean_left_melee/node = SubResource("AnimationNodeAnimation_cnuef")
+nodes/crouch_lean_left_melee/position = Vector2(0, 1260)
+nodes/crouch_lean_right_melee/node = SubResource("AnimationNodeAnimation_uny1l")
+nodes/crouch_lean_right_melee/position = Vector2(0, 1330)
+nodes/stand_unarmed/node = SubResource("AnimationNodeAnimation_3fbqw")
+nodes/stand_unarmed/position = Vector2(0, 1400)
+nodes/crouch_unarmed/node = SubResource("AnimationNodeAnimation_6udgw")
+nodes/crouch_unarmed/position = Vector2(0, 1470)
+nodes/wall_unarmed/node = SubResource("AnimationNodeAnimation_kabc0")
+nodes/wall_unarmed/position = Vector2(0, 1540)
+nodes/hunker_unarmed/node = SubResource("AnimationNodeAnimation_bijc7")
+nodes/hunker_unarmed/position = Vector2(0, 1610)
+nodes/ready_throw_unarmed/node = SubResource("AnimationNodeAnimation_w11tk")
+nodes/ready_throw_unarmed/position = Vector2(0, 1680)
+nodes/cheer_unarmed/node = SubResource("AnimationNodeAnimation_wbtsp")
+nodes/cheer_unarmed/position = Vector2(0, 1750)
+nodes/wall_lean_left_unarmed/node = SubResource("AnimationNodeAnimation_kjphp")
+nodes/wall_lean_left_unarmed/position = Vector2(0, 1820)
+nodes/wall_lean_right_unarmed/node = SubResource("AnimationNodeAnimation_j88pt")
+nodes/wall_lean_right_unarmed/position = Vector2(0, 1890)
+nodes/crouch_lean_left_unarmed/node = SubResource("AnimationNodeAnimation_ln070")
+nodes/crouch_lean_left_unarmed/position = Vector2(0, 1960)
+nodes/crouch_lean_right_unarmed/node = SubResource("AnimationNodeAnimation_2b1oy")
+nodes/crouch_lean_right_unarmed/position = Vector2(0, 2030)
+nodes/aim_rifle/node = SubResource("AnimationNodeAnimation_nqfay")
+nodes/aim_rifle/position = Vector2(0, 2100)
+nodes/overwatch_rifle/node = SubResource("AnimationNodeAnimation_khr4w")
+nodes/overwatch_rifle/position = Vector2(0, 2170)
+nodes/overwatch_crouch_rifle/node = SubResource("AnimationNodeAnimation_j8rqs")
+nodes/overwatch_crouch_rifle/position = Vector2(0, 2240)
+nodes/ready_melee/node = SubResource("AnimationNodeAnimation_2fpf6")
+nodes/ready_melee/position = Vector2(0, 2310)
+nodes/stance/node = SubResource("AnimationNodeTransition_epl4x")
+nodes/stance/position = Vector2(300, 0)
+nodes/run_rifle/node = SubResource("AnimationNodeBlendSpace2D_dpk4l")
+nodes/run_rifle/position = Vector2(0, 2420)
+nodes/run_melee/node = SubResource("AnimationNodeAnimation_xkv1o")
+nodes/run_melee/position = Vector2(0, 2490)
+nodes/run_unarmed/node = SubResource("AnimationNodeAnimation_cslmb")
+nodes/run_unarmed/position = Vector2(0, 2560)
+nodes/run/node = SubResource("AnimationNodeTransition_ha5xu")
+nodes/run/position = Vector2(300, 2460)
+nodes/run_scale/node = SubResource("AnimationNodeTimeScale_gt3ep")
+nodes/run_scale/position = Vector2(500, 2460)
+nodes/move/node = SubResource("AnimationNodeBlend2_pm2ux")
+nodes/move/position = Vector2(700, 200)
+nodes/hop_pose/node = SubResource("AnimationNodeAnimation_gw30d")
+nodes/hop_pose/position = Vector2(700, 400)
+nodes/hop/node = SubResource("AnimationNodeBlend2_wjqb8")
+nodes/hop/position = Vector2(900, 200)
+nodes/fall_pose/node = SubResource("AnimationNodeAnimation_vpe01")
+nodes/fall_pose/position = Vector2(900, 400)
+nodes/air/node = SubResource("AnimationNodeBlend2_6se7r")
+nodes/air/position = Vector2(1100, 200)
+nodes/strike_sword_clip/node = SubResource("AnimationNodeAnimation_mfcui")
+nodes/strike_sword_clip/position = Vector2(1100, 450)
+nodes/throw_rifle_clip/node = SubResource("AnimationNodeAnimation_kau23")
+nodes/throw_rifle_clip/position = Vector2(1100, 520)
+nodes/throw_melee_clip/node = SubResource("AnimationNodeAnimation_67gs2")
+nodes/throw_melee_clip/position = Vector2(1100, 590)
+nodes/throw_unarmed_clip/node = SubResource("AnimationNodeAnimation_qb4os")
+nodes/throw_unarmed_clip/position = Vector2(1100, 660)
+nodes/draw_sword_clip/node = SubResource("AnimationNodeAnimation_62ebs")
+nodes/draw_sword_clip/position = Vector2(1100, 730)
+nodes/stow_sword_clip/node = SubResource("AnimationNodeAnimation_nnf1e")
+nodes/stow_sword_clip/position = Vector2(1100, 800)
+nodes/act_pick/node = SubResource("AnimationNodeTransition_ikp86")
+nodes/act_pick/position = Vector2(1300, 450)
+nodes/act/node = SubResource("AnimationNodeOneShot_yoxc6")
+nodes/act/position = Vector2(1500, 200)
+nodes/reload_rifle_clip/node = SubResource("AnimationNodeAnimation_8jw7m")
+nodes/reload_rifle_clip/position = Vector2(1500, 650)
+nodes/upper_pick/node = SubResource("AnimationNodeTransition_1wmry")
+nodes/upper_pick/position = Vector2(1700, 650)
+nodes/upper/node = SubResource("AnimationNodeOneShot_dmn64")
+nodes/upper/position = Vector2(1700, 200)
+nodes/use_medkit_clip/node = SubResource("AnimationNodeAnimation_gjjn2")
+nodes/use_medkit_clip/position = Vector2(1700, 850)
+nodes/use_medkit_self_clip/node = SubResource("AnimationNodeAnimation_yjr2u")
+nodes/use_medkit_self_clip/position = Vector2(1700, 920)
+nodes/left_pick/node = SubResource("AnimationNodeTransition_ge4tu")
+nodes/left_pick/position = Vector2(1900, 850)
+nodes/left/node = SubResource("AnimationNodeOneShot_up121")
+nodes/left/position = Vector2(1900, 200)
+nodes/fire_rifle_clip/node = SubResource("AnimationNodeAnimation_3ghee")
+nodes/fire_rifle_clip/position = Vector2(1500, 450)
+nodes/hit_front_clip/node = SubResource("AnimationNodeAnimation_xp1lw")
+nodes/hit_front_clip/position = Vector2(1500, 520)
+nodes/hit_back_clip/node = SubResource("AnimationNodeAnimation_65bas")
+nodes/hit_back_clip/position = Vector2(1500, 590)
+nodes/dodge_clip/node = SubResource("AnimationNodeAnimation_jtpxb")
+nodes/dodge_clip/position = Vector2(1500, 660)
+nodes/land_clip/node = SubResource("AnimationNodeAnimation_ttrta")
+nodes/land_clip/position = Vector2(1500, 730)
+nodes/react_pick/node = SubResource("AnimationNodeTransition_48ldh")
+nodes/react_pick/position = Vector2(1700, 450)
+nodes/react/node = SubResource("AnimationNodeOneShot_lil5r")
+nodes/react/position = Vector2(2100, 200)
+node_connections = [&"output", 0, &"react", &"stance", 0, &"stand_rifle", &"stance", 1, &"crouch_rifle", &"stance", 2, &"wall_rifle", &"stance", 3, &"hunker_rifle", &"stance", 4, &"ready_throw_rifle", &"stance", 5, &"cheer_rifle", &"stance", 6, &"wall_lean_left_rifle", &"stance", 7, &"wall_lean_right_rifle", &"stance", 8, &"crouch_lean_left_rifle", &"stance", 9, &"crouch_lean_right_rifle", &"stance", 10, &"stand_melee", &"stance", 11, &"crouch_melee", &"stance", 12, &"wall_melee", &"stance", 13, &"hunker_melee", &"stance", 14, &"ready_throw_melee", &"stance", 15, &"cheer_melee", &"stance", 16, &"wall_lean_left_melee", &"stance", 17, &"wall_lean_right_melee", &"stance", 18, &"crouch_lean_left_melee", &"stance", 19, &"crouch_lean_right_melee", &"stance", 20, &"stand_unarmed", &"stance", 21, &"crouch_unarmed", &"stance", 22, &"wall_unarmed", &"stance", 23, &"hunker_unarmed", &"stance", 24, &"ready_throw_unarmed", &"stance", 25, &"cheer_unarmed", &"stance", 26, &"wall_lean_left_unarmed", &"stance", 27, &"wall_lean_right_unarmed", &"stance", 28, &"crouch_lean_left_unarmed", &"stance", 29, &"crouch_lean_right_unarmed", &"stance", 30, &"aim_rifle", &"stance", 31, &"overwatch_rifle", &"stance", 32, &"overwatch_crouch_rifle", &"stance", 33, &"ready_melee", &"run", 0, &"run_rifle", &"run", 1, &"run_melee", &"run", 2, &"run_unarmed", &"run_scale", 0, &"run", &"move", 0, &"stance", &"move", 1, &"run_scale", &"hop", 0, &"move", &"hop", 1, &"hop_pose", &"air", 0, &"hop", &"air", 1, &"fall_pose", &"act_pick", 0, &"strike_sword_clip", &"act_pick", 1, &"throw_rifle_clip", &"act_pick", 2, &"throw_melee_clip", &"act_pick", 3, &"throw_unarmed_clip", &"act_pick", 4, &"draw_sword_clip", &"act_pick", 5, &"stow_sword_clip", &"act", 0, &"air", &"act", 1, &"act_pick", &"upper_pick", 0, &"reload_rifle_clip", &"upper", 0, &"act", &"upper", 1, &"upper_pick", &"left_pick", 0, &"use_medkit_clip", &"left_pick", 1, &"use_medkit_self_clip", &"left", 0, &"upper", &"left", 1, &"left_pick", &"react_pick", 0, &"fire_rifle_clip", &"react_pick", 1, &"hit_front_clip", &"react_pick", 2, &"hit_back_clip", &"react_pick", 3, &"dodge_clip", &"react_pick", 4, &"land_clip", &"react", 0, &"left", &"react", 1, &"react_pick"]
+
+[node name="Character_Bigger" type="Node3D" unique_id=2128644839]
+script = ExtResource("1_iiifn")
+
+[node name="Skeleton3D" type="Skeleton3D" parent="." unique_id=414151327]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+bones/0/enabled = true
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Hips"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56700003, -0.0315)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 0.56700003, -0.0315)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "Spine"
+bones/2/parent = 1
+bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18900001, 0)
+bones/2/enabled = true
+bones/2/position = Vector3(0, 0.18900001, 0)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "Chest"
+bones/3/parent = 2
+bones/3/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18899995, 0)
+bones/3/enabled = true
+bones/3/position = Vector3(0, 0.18899995, 0)
+bones/3/rotation = Quaternion(0, 0, 0, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "Neck"
+bones/4/parent = 3
+bones/4/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25200003, 0)
+bones/4/enabled = true
+bones/4/position = Vector3(0, 0.25200003, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "Head"
+bones/5/parent = 4
+bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062999964, 0)
+bones/5/enabled = true
+bones/5/position = Vector3(0, 0.062999964, 0)
+bones/5/rotation = Quaternion(0, 0, 0, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "LeftUpperArm"
+bones/6/parent = 3
+bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2205, 0.18900007, 0)
+bones/6/enabled = true
+bones/6/position = Vector3(0.2205, 0.18900007, 0)
+bones/6/rotation = Quaternion(0, 0, 0, 1)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "LeftLowerArm"
+bones/7/parent = 6
+bones/7/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25199997, 0, 0)
+bones/7/enabled = true
+bones/7/position = Vector3(0.25199997, 0, 0)
+bones/7/rotation = Quaternion(0, 0, 0, 1)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/name = "LeftHand"
+bones/8/parent = 7
+bones/8/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18900004, 0, 0)
+bones/8/enabled = true
+bones/8/position = Vector3(0.18900004, 0, 0)
+bones/8/rotation = Quaternion(0, 0, 0, 1)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/name = "RightUpperArm"
+bones/9/parent = 3
+bones/9/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2205, 0.18900007, 0)
+bones/9/enabled = true
+bones/9/position = Vector3(-0.2205, 0.18900007, 0)
+bones/9/rotation = Quaternion(0, 0, 0, 1)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/name = "RightLowerArm"
+bones/10/parent = 9
+bones/10/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25199997, 0, 0)
+bones/10/enabled = true
+bones/10/position = Vector3(-0.25199997, 0, 0)
+bones/10/rotation = Quaternion(0, 0, 0, 1)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "RightHand"
+bones/11/parent = 10
+bones/11/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18900004, 0, 0)
+bones/11/enabled = true
+bones/11/position = Vector3(-0.18900004, 0, 0)
+bones/11/rotation = Quaternion(0, 0, 0, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/name = "LeftUpperLeg"
+bones/12/parent = 1
+bones/12/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.094500005, 0, 0)
+bones/12/enabled = true
+bones/12/position = Vector3(0.094500005, 0, 0)
+bones/12/rotation = Quaternion(0, 0, 0, 1)
+bones/12/scale = Vector3(1, 1, 1)
+bones/13/name = "LeftLowerLeg"
+bones/13/parent = 12
+bones/13/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25200003, 0)
+bones/13/enabled = true
+bones/13/position = Vector3(0, -0.25200003, 0)
+bones/13/rotation = Quaternion(0, 0, 0, 1)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/name = "LeftFoot"
+bones/14/parent = 13
+bones/14/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.252, 0)
+bones/14/enabled = true
+bones/14/position = Vector3(0, -0.252, 0)
+bones/14/rotation = Quaternion(0, 0, 0, 1)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/name = "RightUpperLeg"
+bones/15/parent = 1
+bones/15/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.094500005, 0, 0)
+bones/15/enabled = true
+bones/15/position = Vector3(-0.094500005, 0, 0)
+bones/15/rotation = Quaternion(0, 0, 0, 1)
+bones/15/scale = Vector3(1, 1, 1)
+bones/16/name = "RightLowerLeg"
+bones/16/parent = 15
+bones/16/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25200003, 0)
+bones/16/enabled = true
+bones/16/position = Vector3(0, -0.25200003, 0)
+bones/16/rotation = Quaternion(0, 0, 0, 1)
+bones/16/scale = Vector3(1, 1, 1)
+bones/17/name = "RightFoot"
+bones/17/parent = 16
+bones/17/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.252, 0)
+bones/17/enabled = true
+bones/17/position = Vector3(0, -0.252, 0)
+bones/17/rotation = Quaternion(0, 0, 0, 1)
+bones/17/scale = Vector3(1, 1, 1)
+
+[node name="Body" type="MeshInstance3D" parent="Skeleton3D" unique_id=14287429]
+mesh = ExtResource("2_alqnh")
+skin = SubResource("Skin_ssncw")
+skeleton = NodePath("..")
+
+[node name="Aim" type="SkeletonModifier3D" parent="Skeleton3D" unique_id=478802211]
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = false
+visible = true
+visibility_parent = NodePath("")
+active = true
+influence = 1.0
+script = ExtResource("3_eekhq")
+
+[node name="RightHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=483943252]
+bone_name = "RightHand"
+
+[node name="RifleGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=550024713]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.062999964, 0.031499982, 0)
+
+[node name="SwordGrip" type="Node3D" parent="Skeleton3D/RightHand" unique_id=1194471515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.062999964, 0.031499982, 0)
+
+[node name="LeftHand" type="BoneAttachment3D" parent="Skeleton3D" unique_id=1556818586]
+bone_name = "LeftHand"
+
+[node name="GrenadeGrip" type="Node3D" parent="Skeleton3D/LeftHand" unique_id=280697760]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06299999, 0.031499982, 0)
+
+[node name="Back" type="BoneAttachment3D" parent="Skeleton3D" unique_id=559093390]
+bone_name = "Chest"
+
+[node name="RifleSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=288411502]
+transform = Transform3D(0, 0.86193424, 0.5070201, 0, -0.5070201, 0.86193424, 1, 0, 0, -0.07875, -0.037800003, -0.19530001)
+
+[node name="SwordSlot" type="Node3D" parent="Skeleton3D/Back" unique_id=1864993597]
+transform = Transform3D(0, -0.89442724, 0.4472136, 0, -0.44721362, -0.8944272, 1, 0, 0, -0.2205, 0.252, -0.1701)
+
+[node name="Belt" type="BoneAttachment3D" parent="Skeleton3D" unique_id=501174484]
+bone_name = "Hips"
+
+[node name="Grenade1" type="Node3D" parent="Skeleton3D/Belt" unique_id=1948483398]
+transform = Transform3D(0.72488517, 0.3384398, 0, -0.3384398, 0.72488517, 0, 0, 0, 0.8, 0.1386, 0.094500005, -0.16380002)
+
+[node name="Grenade2" type="Node3D" parent="Skeleton3D/Belt" unique_id=1994235830]
+transform = Transform3D(0.72488517, -0.3384398, 0, 0.3384398, 0.72488517, 0, 0, 0, 0.8, -0.1386, 0.094500005, -0.16380002)
+
+[node name="Grenade3" type="Node3D" parent="Skeleton3D/Belt" unique_id=1591340323]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.094500005, -0.2016)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1073549619]
+libraries/ = ExtResource("4_kgxlh")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1709266699]
+tree_root = SubResource("AnimationNodeBlendTree_086rh")
+anim_player = NodePath("../AnimationPlayer")
+parameters/stance/current_state = ""
+parameters/stance/transition_request = ""
+parameters/stance/current_index = -1
+parameters/run_rifle/blend_position = Vector2(0, 0)
+parameters/run/current_state = ""
+parameters/run/transition_request = ""
+parameters/run/current_index = -1
+parameters/run_scale/scale = 1.0
+parameters/move/blend_amount = 0.0
+parameters/hop/blend_amount = 0.0
+parameters/air/blend_amount = 0.0
+parameters/act_pick/current_state = ""
+parameters/act_pick/transition_request = ""
+parameters/act_pick/current_index = -1
+parameters/act/active = false
+parameters/act/internal_active = false
+parameters/act/request = 0
+parameters/upper_pick/current_state = ""
+parameters/upper_pick/transition_request = ""
+parameters/upper_pick/current_index = -1
+parameters/upper/active = false
+parameters/upper/internal_active = false
+parameters/upper/request = 0
+parameters/left_pick/current_state = ""
+parameters/left_pick/transition_request = ""
+parameters/left_pick/current_index = -1
+parameters/left/active = false
+parameters/left/internal_active = false
+parameters/left/request = 0
+parameters/react_pick/current_state = ""
+parameters/react_pick/transition_request = ""
+parameters/react_pick/current_index = -1
+parameters/react/active = false
+parameters/react/internal_active = false
+parameters/react/request = 0

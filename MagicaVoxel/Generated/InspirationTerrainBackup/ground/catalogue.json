@@ -1,0 +1,4999 @@
+[
+  {
+    "source": "mario.jpg",
+    "name": "Mario_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      7,
+      132,
+      31,
+      156
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "mario.jpg",
+    "name": "Mario_Ground_PeachDirt",
+    "kind": "dirt",
+    "crop": [
+      610,
+      238,
+      650,
+      260
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_Ground_Meadow",
+    "kind": "broadgrass",
+    "crop": [
+      684,
+      221,
+      708,
+      245
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_Ground_WarmDirt",
+    "kind": "dirt",
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_b.gif",
+    "name": "PixelwoodB_Ground_SlateLedge",
+    "kind": "slate",
+    "crop": [
+      812,
+      489,
+      921,
+      548
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_River",
+    "kind": "calm",
+    "crop": [
+      288,
+      386,
+      310,
+      413
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_BrokenPavers",
+    "kind": "broken",
+    "crop": [
+      596,
+      481,
+      654,
+      538
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      439,
+      241,
+      451,
+      253
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_PaleTrail",
+    "kind": "dirt",
+    "crop": [
+      427,
+      200,
+      441,
+      222
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_River",
+    "kind": "waves",
+    "crop": [
+      40,
+      163,
+      52,
+      195
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_BridgeDeck",
+    "kind": "planks",
+    "crop": [
+      225,
+      285,
+      281,
+      301
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      279,
+      701,
+      291,
+      713
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_Herringbone",
+    "kind": "herringbone",
+    "crop": [
+      308,
+      573,
+      349,
+      608
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_WarmHerringbone",
+    "kind": "herringbone",
+    "crop": [
+      154,
+      33,
+      202,
+      71
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_Lake",
+    "kind": "caustic",
+    "crop": [
+      530,
+      810,
+      573,
+      850
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_GardenSoil",
+    "kind": "dirt",
+    "crop": [
+      542,
+      715,
+      552,
+      733
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      752,
+      532,
+      764,
+      544
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_Flagstone",
+    "kind": "flagstone",
+    "crop": [
+      623,
+      482,
+      643,
+      512
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_Sand",
+    "kind": "sand",
+    "crop": [
+      627,
+      39,
+      647,
+      57
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_River",
+    "kind": "ripples",
+    "crop": [
+      353,
+      263,
+      378,
+      281
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_OchreFloor",
+    "kind": "dirt",
+    "crop": [
+      663,
+      572,
+      675,
+      584
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      560,
+      502,
+      586,
+      528
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_Cobblestone",
+    "kind": "cobble",
+    "crop": [
+      280,
+      246,
+      316,
+      277
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_River",
+    "kind": "ripples",
+    "crop": [
+      348,
+      115,
+      385,
+      152
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_GrayRock",
+    "kind": "rock",
+    "crop": [
+      227,
+      412,
+      241,
+      432
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      126,
+      247,
+      138,
+      259
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      210,
+      257,
+      229,
+      280
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_Herringbone",
+    "kind": "herringbone",
+    "crop": [
+      194,
+      8,
+      226,
+      35
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_Lake",
+    "kind": "caustic",
+    "crop": [
+      125,
+      112,
+      158,
+      146
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_DryMeadow",
+    "kind": "grass",
+    "crop": [
+      408,
+      297,
+      420,
+      309
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_PaleTrail",
+    "kind": "dirt",
+    "crop": [
+      218,
+      33,
+      241,
+      66
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_Pond",
+    "kind": "ripples",
+    "crop": [
+      174,
+      404,
+      198,
+      426
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      304,
+      393,
+      316,
+      405
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      165,
+      120,
+      193,
+      136
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_RoundedPavers",
+    "kind": "cobble",
+    "crop": [
+      423,
+      204,
+      450,
+      237
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_Pond",
+    "kind": "ripples",
+    "crop": [
+      77,
+      60,
+      98,
+      80
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      414,
+      472,
+      426,
+      484
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_FarmDirt",
+    "kind": "dirt",
+    "crop": [
+      304,
+      161,
+      332,
+      191
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_Pond",
+    "kind": "ripples",
+    "crop": [
+      218,
+      379,
+      237,
+      402
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_BridgeDeck",
+    "kind": "planks",
+    "crop": [
+      453,
+      461,
+      483,
+      480
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      524,
+      85,
+      536,
+      97
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      612,
+      292,
+      624,
+      304
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_FurrowedSoil",
+    "kind": "furrows",
+    "crop": [
+      392,
+      174,
+      404,
+      194
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_Pond",
+    "kind": "waves",
+    "crop": [
+      404,
+      419,
+      420,
+      436
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_BridgeDeck",
+    "kind": "planks",
+    "crop": [
+      271,
+      331,
+      291,
+      343
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      226,
+      147,
+      238,
+      159
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      259,
+      368,
+      271,
+      380
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_Pond",
+    "kind": "ripples",
+    "crop": [
+      401,
+      441,
+      417,
+      453
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      516,
+      545,
+      528,
+      557
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      491,
+      28,
+      511,
+      45
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_Lake",
+    "kind": "ripples",
+    "crop": [
+      439,
+      109,
+      473,
+      142
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_l.png",
+    "name": "PokeL_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      163,
+      71,
+      175,
+      83
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_l.png",
+    "name": "PokeL_Ground_TerraceEarth",
+    "kind": "rock",
+    "crop": [
+      154,
+      9,
+      161,
+      30
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      153,
+      617,
+      165,
+      629
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      649,
+      389,
+      674,
+      414
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_ShallowWater",
+    "kind": "dapple",
+    "crop": [
+      297,
+      265,
+      317,
+      284
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_ChannelWater",
+    "kind": "waves",
+    "crop": [
+      396,
+      259,
+      408,
+      271
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_PebbleCourt",
+    "kind": "gravel",
+    "crop": [
+      42,
+      819,
+      65,
+      843
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_Deck",
+    "kind": "diagonalplanks",
+    "crop": [
+      364,
+      702,
+      384,
+      718
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      200,
+      126,
+      212,
+      138
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      349,
+      432,
+      370,
+      457
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_DeepLake",
+    "kind": "dapple",
+    "crop": [
+      28,
+      685,
+      45,
+      704
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_ShallowLake",
+    "kind": "dapple",
+    "crop": [
+      115,
+      649,
+      133,
+      666
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_BridgeDeck",
+    "kind": "planks",
+    "crop": [
+      405,
+      651,
+      439,
+      669
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      205,
+      185,
+      217,
+      197
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_Herringbone",
+    "kind": "herringbone",
+    "crop": [
+      310,
+      244,
+      327,
+      261
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_BeachSand",
+    "kind": "sand",
+    "crop": [
+      500,
+      342,
+      513,
+      367
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_Sea",
+    "kind": "caustic",
+    "crop": [
+      564,
+      249,
+      592,
+      274
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_DeepSea",
+    "kind": "dapple",
+    "crop": [
+      603,
+      401,
+      627,
+      421
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      746,
+      274,
+      758,
+      286
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      803,
+      461,
+      834,
+      486
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_RockyGully",
+    "kind": "gravel",
+    "crop": [
+      277,
+      145,
+      311,
+      178
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_ShallowPool",
+    "kind": "dapple",
+    "crop": [
+      332,
+      381,
+      348,
+      404
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_DeepPool",
+    "kind": "calm",
+    "crop": [
+      229,
+      1091,
+      251,
+      1110
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_Deck",
+    "kind": "planks",
+    "crop": [
+      705,
+      427,
+      732,
+      442
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      92,
+      377,
+      104,
+      389
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_BeachSand",
+    "kind": "sand",
+    "crop": [
+      474,
+      558,
+      486,
+      570
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_CrackedTrail",
+    "kind": "cracked",
+    "crop": [
+      301,
+      349,
+      321,
+      374
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_TerraceClay",
+    "kind": "cracked",
+    "crop": [
+      312,
+      211,
+      340,
+      233
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_Sea",
+    "kind": "caustic",
+    "crop": [
+      596,
+      703,
+      613,
+      719
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      600,
+      576,
+      612,
+      588
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_PaleTrail",
+    "kind": "dirt",
+    "crop": [
+      451,
+      291,
+      467,
+      321
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_GardenSoil",
+    "kind": "soil",
+    "crop": [
+      407,
+      353,
+      419,
+      369
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_Pond",
+    "kind": "ripples",
+    "crop": [
+      475,
+      603,
+      501,
+      625
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      169,
+      678,
+      181,
+      690
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      357,
+      641,
+      369,
+      653
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_PaleBrickPaving",
+    "kind": "brick",
+    "crop": [
+      408,
+      80,
+      437,
+      100
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_River",
+    "kind": "ripples",
+    "crop": [
+      162,
+      273,
+      174,
+      285
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_CliffRock",
+    "kind": "slate",
+    "crop": [
+      410,
+      647,
+      425,
+      657
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_CaveSand",
+    "kind": "sand",
+    "crop": [
+      383,
+      510,
+      404,
+      525
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_DampCaveFloor",
+    "kind": "mud",
+    "crop": [
+      285,
+      747,
+      310,
+      771
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_CaveRock",
+    "kind": "rock",
+    "crop": [
+      276,
+      895,
+      298,
+      914
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_ShallowPool",
+    "kind": "dapple",
+    "crop": [
+      629,
+      368,
+      653,
+      391
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_DeepPool",
+    "kind": "dapple",
+    "crop": [
+      574,
+      189,
+      599,
+      211
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_BridgeDeck",
+    "kind": "planks",
+    "crop": [
+      765,
+      333,
+      789,
+      361
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+      112,
+      370,
+      124,
+      382
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile."
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_PaleTrail",
+    "kind": "sand",
+    "crop": [
+      168,
+      251,
+      186,
+      264
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_Pond",
+    "kind": "waves",
+    "crop": [
+      213,
+      171,
+      232,
+      191
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_Deck",
+    "kind": "planks",
+    "crop": [
+      280,
+      284,
+      296,
+      307
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_CliffRock",
+    "kind": "rock",
+    "crop": [
+      124,
+      280,
+      144,
+      297
+    ],
+    "role": "surface",
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "mario.jpg",
+    "name": "Mario_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "Mario_Ground_Meadow",
+      "Mario_Ground_PeachDirt"
+    ],
+    "crop": [
+      610,
+      238,
+      650,
+      260
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "mario.jpg",
+    "name": "Mario_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "Mario_Ground_Meadow",
+      "Mario_Ground_PeachDirt"
+    ],
+    "crop": [
+      610,
+      238,
+      650,
+      260
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "mario.jpg",
+    "name": "Mario_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "Mario_Ground_Meadow",
+      "Mario_Ground_PeachDirt"
+    ],
+    "crop": [
+      610,
+      238,
+      650,
+      260
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "crop": [
+      363,
+      390,
+      413,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodC_Ground_River"
+    ],
+    "crop": [
+      287,
+      272,
+      323,
+      311
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodC_Ground_River"
+    ],
+    "crop": [
+      287,
+      272,
+      323,
+      311
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodC_Ground_River"
+    ],
+    "crop": [
+      287,
+      272,
+      323,
+      311
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_PaleTrail"
+    ],
+    "crop": [
+      427,
+      200,
+      441,
+      222
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_PaleTrail"
+    ],
+    "crop": [
+      427,
+      200,
+      441,
+      222
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_PaleTrail"
+    ],
+    "crop": [
+      427,
+      200,
+      441,
+      222
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_River"
+    ],
+    "crop": [
+      40,
+      163,
+      52,
+      195
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_River"
+    ],
+    "crop": [
+      40,
+      163,
+      52,
+      195
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_River"
+    ],
+    "crop": [
+      40,
+      163,
+      52,
+      195
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_GardenSoil"
+    ],
+    "crop": [
+      526,
+      710,
+      543,
+      730
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_GardenSoil"
+    ],
+    "crop": [
+      526,
+      710,
+      543,
+      730
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_GardenSoil"
+    ],
+    "crop": [
+      526,
+      710,
+      543,
+      730
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Lake"
+    ],
+    "crop": [
+      530,
+      810,
+      573,
+      850
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Lake"
+    ],
+    "crop": [
+      530,
+      810,
+      573,
+      850
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Lake"
+    ],
+    "crop": [
+      530,
+      810,
+      573,
+      850
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Sand"
+    ],
+    "crop": [
+      640,
+      41,
+      661,
+      64
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Sand"
+    ],
+    "crop": [
+      640,
+      41,
+      661,
+      64
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Sand"
+    ],
+    "crop": [
+      640,
+      41,
+      661,
+      64
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_River"
+    ],
+    "crop": [
+      353,
+      263,
+      378,
+      281
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_River"
+    ],
+    "crop": [
+      353,
+      263,
+      378,
+      281
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_River"
+    ],
+    "crop": [
+      353,
+      263,
+      378,
+      281
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_PaleTrail"
+    ],
+    "crop": [
+      596,
+      338,
+      622,
+      369
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_PaleTrail"
+    ],
+    "crop": [
+      596,
+      338,
+      622,
+      369
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_PaleTrail"
+    ],
+    "crop": [
+      596,
+      338,
+      622,
+      369
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_River"
+    ],
+    "crop": [
+      348,
+      115,
+      385,
+      152
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_River"
+    ],
+    "crop": [
+      348,
+      115,
+      385,
+      152
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_d.png",
+    "name": "PokeD_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_River"
+    ],
+    "crop": [
+      348,
+      115,
+      385,
+      152
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_PaleTrail"
+    ],
+    "crop": [
+      210,
+      257,
+      229,
+      280
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_PaleTrail"
+    ],
+    "crop": [
+      210,
+      257,
+      229,
+      280
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_PaleTrail"
+    ],
+    "crop": [
+      210,
+      257,
+      229,
+      280
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Lake"
+    ],
+    "crop": [
+      125,
+      112,
+      158,
+      146
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Lake"
+    ],
+    "crop": [
+      125,
+      112,
+      158,
+      146
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Lake"
+    ],
+    "crop": [
+      125,
+      112,
+      158,
+      146
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_PaleTrail"
+    ],
+    "crop": [
+      218,
+      33,
+      241,
+      66
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_PaleTrail"
+    ],
+    "crop": [
+      218,
+      33,
+      241,
+      66
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_PaleTrail"
+    ],
+    "crop": [
+      218,
+      33,
+      241,
+      66
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_Pond"
+    ],
+    "crop": [
+      174,
+      404,
+      198,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_Pond"
+    ],
+    "crop": [
+      174,
+      404,
+      198,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_Pond"
+    ],
+    "crop": [
+      174,
+      404,
+      198,
+      426
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_PaleTrail"
+    ],
+    "crop": [
+      165,
+      120,
+      193,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_PaleTrail"
+    ],
+    "crop": [
+      165,
+      120,
+      193,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_PaleTrail"
+    ],
+    "crop": [
+      165,
+      120,
+      193,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_Pond"
+    ],
+    "crop": [
+      77,
+      60,
+      98,
+      80
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_Pond"
+    ],
+    "crop": [
+      77,
+      60,
+      98,
+      80
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_Pond"
+    ],
+    "crop": [
+      77,
+      60,
+      98,
+      80
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_FarmDirt"
+    ],
+    "crop": [
+      304,
+      161,
+      332,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_FarmDirt"
+    ],
+    "crop": [
+      304,
+      161,
+      332,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_FarmDirt"
+    ],
+    "crop": [
+      304,
+      161,
+      332,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_Pond"
+    ],
+    "crop": [
+      218,
+      379,
+      237,
+      402
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_Pond"
+    ],
+    "crop": [
+      218,
+      379,
+      237,
+      402
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_Pond"
+    ],
+    "crop": [
+      218,
+      379,
+      237,
+      402
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_PaleTrail"
+    ],
+    "crop": [
+      487,
+      150,
+      522,
+      171
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_PaleTrail"
+    ],
+    "crop": [
+      487,
+      150,
+      522,
+      171
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_PaleTrail"
+    ],
+    "crop": [
+      487,
+      150,
+      522,
+      171
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_Pond"
+    ],
+    "crop": [
+      447,
+      417,
+      466,
+      443
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_Pond"
+    ],
+    "crop": [
+      447,
+      417,
+      466,
+      443
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_Pond"
+    ],
+    "crop": [
+      447,
+      417,
+      466,
+      443
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_PaleTrail"
+    ],
+    "crop": [
+      270,
+      391,
+      284,
+      409
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_PaleTrail"
+    ],
+    "crop": [
+      270,
+      391,
+      284,
+      409
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_PaleTrail"
+    ],
+    "crop": [
+      270,
+      391,
+      284,
+      409
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_Pond"
+    ],
+    "crop": [
+      401,
+      441,
+      417,
+      453
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_Pond"
+    ],
+    "crop": [
+      401,
+      441,
+      417,
+      453
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_Pond"
+    ],
+    "crop": [
+      401,
+      441,
+      417,
+      453
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_PaleTrail"
+    ],
+    "crop": [
+      491,
+      28,
+      511,
+      45
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_PaleTrail"
+    ],
+    "crop": [
+      491,
+      28,
+      511,
+      45
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_PaleTrail"
+    ],
+    "crop": [
+      491,
+      28,
+      511,
+      45
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_Lake"
+    ],
+    "crop": [
+      439,
+      109,
+      473,
+      142
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_Lake"
+    ],
+    "crop": [
+      439,
+      109,
+      473,
+      142
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_k.jpg",
+    "name": "PokeK_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_Lake"
+    ],
+    "crop": [
+      439,
+      109,
+      473,
+      142
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_PaleTrail"
+    ],
+    "crop": [
+      649,
+      389,
+      674,
+      414
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_PaleTrail"
+    ],
+    "crop": [
+      649,
+      389,
+      674,
+      414
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_PaleTrail"
+    ],
+    "crop": [
+      649,
+      389,
+      674,
+      414
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_ShallowWater"
+    ],
+    "crop": [
+      353,
+      113,
+      377,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_ShallowWater"
+    ],
+    "crop": [
+      353,
+      113,
+      377,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_ShallowWater"
+    ],
+    "crop": [
+      353,
+      113,
+      377,
+      136
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_PaleTrail"
+    ],
+    "crop": [
+      349,
+      432,
+      370,
+      457
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_PaleTrail"
+    ],
+    "crop": [
+      349,
+      432,
+      370,
+      457
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_PaleTrail"
+    ],
+    "crop": [
+      349,
+      432,
+      370,
+      457
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_DeepLake"
+    ],
+    "crop": [
+      28,
+      685,
+      45,
+      704
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_DeepLake"
+    ],
+    "crop": [
+      28,
+      685,
+      45,
+      704
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_DeepLake"
+    ],
+    "crop": [
+      28,
+      685,
+      45,
+      704
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_BeachSand"
+    ],
+    "crop": [
+      502,
+      146,
+      522,
+      175
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_BeachSand"
+    ],
+    "crop": [
+      502,
+      146,
+      522,
+      175
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_BeachSand"
+    ],
+    "crop": [
+      502,
+      146,
+      522,
+      175
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeO_Ground_BeachSand",
+      "PokeO_Ground_Sea"
+    ],
+    "crop": [
+      564,
+      249,
+      592,
+      274
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeO_Ground_BeachSand",
+      "PokeO_Ground_Sea"
+    ],
+    "crop": [
+      564,
+      249,
+      592,
+      274
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeO_Ground_BeachSand",
+      "PokeO_Ground_Sea"
+    ],
+    "crop": [
+      564,
+      249,
+      592,
+      274
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_PaleTrail"
+    ],
+    "crop": [
+      803,
+      461,
+      834,
+      486
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_PaleTrail"
+    ],
+    "crop": [
+      803,
+      461,
+      834,
+      486
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_PaleTrail"
+    ],
+    "crop": [
+      803,
+      461,
+      834,
+      486
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_ShallowPool"
+    ],
+    "crop": [
+      332,
+      381,
+      348,
+      404
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_ShallowPool"
+    ],
+    "crop": [
+      332,
+      381,
+      348,
+      404
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_ShallowPool"
+    ],
+    "crop": [
+      332,
+      381,
+      348,
+      404
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeQ_Ground_Meadow",
+      "PokeQ_Ground_BeachSand"
+    ],
+    "crop": [
+      645,
+      386,
+      667,
+      416
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeQ_Ground_Meadow",
+      "PokeQ_Ground_BeachSand"
+    ],
+    "crop": [
+      645,
+      386,
+      667,
+      416
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeQ_Ground_Meadow",
+      "PokeQ_Ground_BeachSand"
+    ],
+    "crop": [
+      645,
+      386,
+      667,
+      416
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeQ_Ground_BeachSand",
+      "PokeQ_Ground_Sea"
+    ],
+    "crop": [
+      617,
+      711,
+      641,
+      733
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeQ_Ground_BeachSand",
+      "PokeQ_Ground_Sea"
+    ],
+    "crop": [
+      617,
+      711,
+      641,
+      733
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeQ_Ground_BeachSand",
+      "PokeQ_Ground_Sea"
+    ],
+    "crop": [
+      617,
+      711,
+      641,
+      733
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_PaleTrail"
+    ],
+    "crop": [
+      451,
+      291,
+      467,
+      321
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_PaleTrail"
+    ],
+    "crop": [
+      451,
+      291,
+      467,
+      321
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_PaleTrail"
+    ],
+    "crop": [
+      451,
+      291,
+      467,
+      321
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_Pond"
+    ],
+    "crop": [
+      475,
+      603,
+      501,
+      625
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_Pond"
+    ],
+    "crop": [
+      475,
+      603,
+      501,
+      625
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_Pond"
+    ],
+    "crop": [
+      475,
+      603,
+      501,
+      625
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleTrail"
+    ],
+    "crop": [
+      380,
+      635,
+      393,
+      649
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleTrail"
+    ],
+    "crop": [
+      380,
+      635,
+      393,
+      649
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleTrail"
+    ],
+    "crop": [
+      380,
+      635,
+      393,
+      649
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_River"
+    ],
+    "crop": [
+      602,
+      297,
+      615,
+      325
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_River"
+    ],
+    "crop": [
+      602,
+      297,
+      615,
+      325
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_River"
+    ],
+    "crop": [
+      602,
+      297,
+      615,
+      325
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeT_Ground_CaveSand",
+      "PokeT_Ground_ShallowPool"
+    ],
+    "crop": [
+      629,
+      368,
+      653,
+      391
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeT_Ground_CaveSand",
+      "PokeT_Ground_ShallowPool"
+    ],
+    "crop": [
+      629,
+      368,
+      653,
+      391
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeT_Ground_CaveSand",
+      "PokeT_Ground_ShallowPool"
+    ],
+    "crop": [
+      629,
+      368,
+      653,
+      391
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_TrailEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_PaleTrail"
+    ],
+    "crop": [
+      171,
+      258,
+      198,
+      276
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_TrailOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_PaleTrail"
+    ],
+    "crop": [
+      171,
+      258,
+      198,
+      276
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_TrailInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_PaleTrail"
+    ],
+    "crop": [
+      171,
+      258,
+      198,
+      276
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_ShoreEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_Pond"
+    ],
+    "crop": [
+      213,
+      171,
+      232,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_ShoreOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_Pond"
+    ],
+    "crop": [
+      213,
+      171,
+      232,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_Ground_ShoreInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_Pond"
+    ],
+    "crop": [
+      213,
+      171,
+      232,
+      191
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Herringbone"
+    ],
+    "crop": [
+      308,
+      573,
+      349,
+      608
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Herringbone"
+    ],
+    "crop": [
+      308,
+      573,
+      349,
+      608
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Herringbone"
+    ],
+    "crop": [
+      308,
+      573,
+      349,
+      608
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Flagstone"
+    ],
+    "crop": [
+      623,
+      482,
+      643,
+      512
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Flagstone"
+    ],
+    "crop": [
+      623,
+      482,
+      643,
+      512
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Flagstone"
+    ],
+    "crop": [
+      623,
+      482,
+      643,
+      512
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Herringbone"
+    ],
+    "crop": [
+      194,
+      8,
+      226,
+      35
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Herringbone"
+    ],
+    "crop": [
+      194,
+      8,
+      226,
+      35
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_e.png",
+    "name": "PokeE_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_Herringbone"
+    ],
+    "crop": [
+      194,
+      8,
+      226,
+      35
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_RoundedPavers"
+    ],
+    "crop": [
+      423,
+      204,
+      450,
+      237
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_RoundedPavers"
+    ],
+    "crop": [
+      423,
+      204,
+      450,
+      237
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_RoundedPavers"
+    ],
+    "crop": [
+      423,
+      204,
+      450,
+      237
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_Herringbone"
+    ],
+    "crop": [
+      310,
+      244,
+      327,
+      261
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_Herringbone"
+    ],
+    "crop": [
+      310,
+      244,
+      327,
+      261
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_Herringbone"
+    ],
+    "crop": [
+      310,
+      244,
+      327,
+      261
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_PavingEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleBrickPaving"
+    ],
+    "crop": [
+      408,
+      80,
+      437,
+      100
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_PavingOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleBrickPaving"
+    ],
+    "crop": [
+      408,
+      80,
+      437,
+      100
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_Ground_PavingInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleBrickPaving"
+    ],
+    "crop": [
+      408,
+      80,
+      437,
+      100
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ],
+    "curb": true
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Ground_InlandPool",
+    "kind": "dapple",
+    "role": "surface",
+    "crop": [
+      473,
+      619,
+      489,
+      633
+    ],
+    "canvas": [
+      16,
+      16,
+      16
+    ]
+  }
+]

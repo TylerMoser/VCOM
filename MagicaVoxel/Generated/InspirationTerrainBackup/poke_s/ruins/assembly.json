@@ -1,0 +1,12 @@
+{
+  "units": "voxels; local XYZ is MagicaVoxel Z-up",
+  "position_reference": "canvas horizontal center and bottom z=0",
+  "assembled_canvas": [384, 240, 128],
+  "parts": [
+    {"family": "PokeS_RuinsTempleCore", "offset": [0, 0, 0], "mirror_x": false},
+    {"family": "PokeS_RuinsTempleWing", "offset": [-144, 0, 0], "mirror_x": false},
+    {"family": "PokeS_RuinsTempleWing", "offset": [144, 0, 0], "mirror_x": true}
+  ],
+  "styles": "Use the same suffix on every section. No per-cell exports.",
+  "reusable_decor": "Existing PokeS_CourtyardStatue and plants can stand on the terrace at z=48. They are not duplicated into the architectural mesh."
+}

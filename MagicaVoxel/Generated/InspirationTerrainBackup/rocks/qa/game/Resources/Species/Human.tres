@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="Species" format=3 uid="uid://boolev5y0joc4"]
+
+[ext_resource type="Script" uid="uid://b4st0sa1d5cgy" path="res://Scripts/Roster/Species.gd" id="1_yya5g"]
+[ext_resource type="Script" uid="uid://bma3xercegy4t" path="res://Scripts/Skills/SkillTreeNode.gd" id="2_cvdgw"]
+[ext_resource type="Script" uid="uid://dqsl2aio68dnv" path="res://Scripts/Skills/SkillTree.gd" id="4_traf1"]
+[ext_resource type="Resource" uid="uid://ke8tri7pqbyx" path="res://Resources/Skills/Ambition.tres" id="5_ambition"]
+[ext_resource type="Resource" uid="uid://b24kohgx4eajr" path="res://Resources/Skills/Hardiness.tres" id="6_hardiness"]
+[ext_resource type="Resource" uid="uid://de6w00cwucnm2" path="res://Resources/Skills/Dexterity.tres" id="7_dexterity"]
+[ext_resource type="Resource" uid="uid://civ04iudp41vm" path="res://Resources/Skills/Adaptability.tres" id="8_adaptability"]
+
+[sub_resource type="Resource" id="Resource_gp4wy"]
+script = ExtResource("2_cvdgw")
+id = &"ambition"
+skill = ExtResource("5_ambition")
+
+[sub_resource type="Resource" id="Resource_dftb0"]
+script = ExtResource("2_cvdgw")
+id = &"hardiness"
+skill = ExtResource("6_hardiness")
+cell = Vector2i(0, 1)
+requires = Array[StringName]([&"ambition"])
+
+[sub_resource type="Resource" id="Resource_if3bl"]
+script = ExtResource("2_cvdgw")
+id = &"dexterity"
+skill = ExtResource("7_dexterity")
+cell = Vector2i(0, 2)
+requires = Array[StringName]([&"hardiness"])
+
+[sub_resource type="Resource" id="Resource_gtanq"]
+script = ExtResource("2_cvdgw")
+id = &"adaptability"
+skill = ExtResource("8_adaptability")
+cell = Vector2i(0, 3)
+requires = Array[StringName]([&"dexterity"])
+
+[sub_resource type="Resource" id="Resource_53kuh"]
+script = ExtResource("4_traf1")
+nodes = Array[ExtResource("2_cvdgw")]([SubResource("Resource_gp4wy"), SubResource("Resource_dftb0"), SubResource("Resource_if3bl"), SubResource("Resource_gtanq")])
+
+[resource]
+script = ExtResource("1_yya5g")
+display_name = "Human"
+tree = SubResource("Resource_53kuh")

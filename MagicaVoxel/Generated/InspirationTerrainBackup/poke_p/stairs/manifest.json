@@ -1,0 +1,258 @@
+{
+  "source": "poke_p.png",
+  "families": [
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_GullyStairs",
+      "crop": [
+        698,
+        928,
+        745,
+        994
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 32,
+      "steps": 8,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        171,
+        173,
+        175
+      ],
+      "edge": [
+        172,
+        83,
+        41
+      ],
+      "rail": "wood",
+      "note": "Gray side-on terrain stair with orange-brown stringers beside the lower plank bridge. Distinct from the bridge.",
+      "size": [
+        40,
+        48,
+        48
+      ],
+      "source_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "crate_mapping": {
+        "1": 194,
+        "2": 193,
+        "3": 195,
+        "4": 194,
+        "5": 179,
+        "6": 179,
+        "7": 228,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs.vox",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36076,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "93763fb1c7d7338d543461e16e87f3c321376d01227c1a4d5fe728a62c3db59d"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_Cartoon.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36908,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "ca4777dedd4fd400e277e72d4fcd6e5a16bd7345bc5370f50aa69ea2082456d9"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_CratePalette.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36076,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "6a93ff01639f34c045f7145390d3c32a1ed897c0823cf72ff007e20251510ed6"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36076,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "54fcd7e3fab219387e3c046d048345dfb2266ae206178470f6a8f4e99806e044"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_Cartoon_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36908,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "d9d36329ccd0fa837d9e637e8ec7ca16030cc7cd116ac4c215ad81e02a9e1c0f"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36076,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "008d2b10a3abeb16886685956a8dcf2270908685025c181ce91d643dfdf931c6"
+    },
+    {
+      "family": "PokeP_GullyStairs",
+      "file": "output/poke_p/PokeP_GullyStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 36908,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        42
+      ],
+      "sha256": "5e64050d80e744486466ab8fc6dde1bc3b2decbae5ff6939ecd15fe7c5df8ab7"
+    }
+  ]
+}

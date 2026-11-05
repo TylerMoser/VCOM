@@ -1,0 +1,60 @@
+{
+ "source": "poke_o.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeO_GableHouse": {
+   "title": "Gabled house",
+   "regions_xyxy_exclusive": [
+    [
+     172,
+     2,
+     244,
+     80
+    ],
+    [
+     444,
+     402,
+     516,
+     480
+    ],
+    [
+     140,
+     370,
+     212,
+     448
+    ]
+   ],
+   "drawn": "Three copies of the gabled house: a pink front gable roof with its ridge front to back in stripes under a light band, a dormer with a triangular window on its left slope, a khaki gable with a small window over a light board, cream walls, the red door and a window, a teal strip along the foot."
+  },
+  "PokeO_SkylightHouse": {
+   "title": "Skylight house",
+   "regions_xyxy_exclusive": [
+    [
+     172,
+     196,
+     244,
+     274
+    ],
+    [
+     316,
+     276,
+     388,
+     354
+    ]
+   ],
+   "drawn": "Two copies of the skylight house: a pink split roof, flat on the right with a skylight in it and on the left a facet in courses sloping down to its eave; a band of wall with a small high window under its front edge, a light board, cream walls, the red door and a window, a teal strip along the foot."
+  },
+  "PokeO_WideHouse": {
+   "title": "Wide house",
+   "regions_xyxy_exclusive": [
+    [
+     346,
+     66,
+     452,
+     162
+    ]
+   ],
+   "drawn": "The wide house at the top right: the skylight house's split roof six tiles wide with two grey rooftop units on its flat part; in front of its middle a wing under a lower split roof, the red door in it, a mailbox and a small tree before it; two high windows over a window on the main block's front, cream walls, a teal strip along the foot."
+  }
+ }
+}

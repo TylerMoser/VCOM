@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_s.jpg",
+    "name": "PokeS_IvoryScrollLantern",
+    "shape": "crook",
+    "size": [
+      24,
+      16,
+      56
+    ],
+    "crop": [
+      630,
+      59,
+      658,
+      104
+    ],
+    "scale": 1.6,
+    "metal": [
+      219,
+      218,
+      190
+    ],
+    "light": [
+      255,
+      238,
+      180
+    ],
+    "power": 2,
+    "note": "Ivory curved shepherd-hook fixture repeated beside waterfalls. Small compressed image: scroll and hanging lantern reconstructed; approx. 10 displayed pixels per tile. Bilateral depth symmetry, intentional offset lantern preserved."
+  },
+  "models": [
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Base",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "539814438ea690496d2c7470d2ca69b680acc609d6d5a07b986e17bf7e0f03c1",
+      "palette_sha256": "646e78c89da8864db18030345c897cbcf28e0e011da4b7cbdb519ebc4ef972a1",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "92e3ceb085b7311f1b79a9bbf08cc0e9de615d2ff7795767f29456ddc1c78978",
+      "palette_sha256": "646e78c89da8864db18030345c897cbcf28e0e011da4b7cbdb519ebc4ef972a1",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_CratePalette.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure",
+        "237": "structure",
+        "196": "structure"
+      },
+      "colors": 4,
+      "sha256": "12d0949561ffdf43d4218db2af36f4bcce0024414649d1479ac135294e90393e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "b7bd951c0a5ef433100e3ae8085c5c251051927b655601b074e87c9a2d670f6c",
+      "palette_sha256": "4908a9cc810e7425888cc3b4df08e636455cd264a1f38a4f847d65da9edb4c92",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "7dc64ff7ecf2592feb145b6c00db3c87ff05fb81d48ef954b8223348f351a98e",
+      "palette_sha256": "4908a9cc810e7425888cc3b4df08e636455cd264a1f38a4f847d65da9edb4c92",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_CratePalette_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure"
+      },
+      "colors": 2,
+      "sha256": "b1963aa9d8428bb31b3ef45a2fe351e54e210c0468d32d87749335a88f69e13f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure"
+      },
+      "colors": 2,
+      "sha256": "c23bbfcc050210e1c7dd106620e2253a7051bc0c64777c4c1e75b7a6dd4d0f5b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    }
+  ]
+}

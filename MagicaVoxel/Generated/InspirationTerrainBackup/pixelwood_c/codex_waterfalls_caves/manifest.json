@@ -1,0 +1,234 @@
+{
+  "author": "Codex",
+  "source": "pixelwood_c.jpg",
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Codex_CurtainWaterfall",
+      "kind": "waterfall",
+      "width": 64,
+      "drop": 32,
+      "crop": [
+        254,
+        127,
+        477,
+        269
+      ],
+      "tile_pixels": 48,
+      "water": [
+        77,
+        145,
+        179
+      ],
+      "foam": [
+        153,
+        202,
+        193
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "broad",
+      "note": "Broad blue curtain with a lighter central ribbon and comb-shaped lip/foot foam. 48 displayed pixels per tile; no standing stone or chest included.",
+      "size": [
+        80,
+        40,
+        48
+      ],
+      "source_sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 194,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "dc4673466b451c1942283fd185ab7fd0a584564e5fcc789cab0ff3566b0c8a68"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "c9210bee3905414732c1cb45ce52a504cf7a5cda0394f3cdf567e391624de13d"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_CratePalette.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 2,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "8c26b1befb3c4339c85d7ef90277e2a03a05c60cebf1f03369126e18fa88ad05"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "460b34f184e6e77a87ab2bc71623fa9b14b26863e795e5be4924a2fa3ecde180"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "82316e7b8caddcc7196a91eedeb0dfebda92279b15acfd5293aab3d54b8f4648"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_CratePalette_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "609ae16bfb5ad4ffd2faeb104e2f1a24f6231be7ba4c773f974f650bbbc9a6c4"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "1fbeea2a4c959ed4942bd070c3b3de2e7f0c058cb607d8ca7c6d765226c60ded"
+    }
+  ]
+}

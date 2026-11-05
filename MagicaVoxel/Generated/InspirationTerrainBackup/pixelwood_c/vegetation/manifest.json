@@ -1,0 +1,582 @@
+{
+  "source": {
+    "source": "pixelwood_c.jpg",
+    "size": [
+      736,
+      736
+    ],
+    "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53"
+  },
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Cattail",
+      "shape": "cattail",
+      "size": [
+        12,
+        12,
+        20
+      ],
+      "crop": [
+        502,
+        250,
+        545,
+        300
+      ],
+      "leaf": "olive",
+      "petal": "orange",
+      "scale": 0.32605151613955,
+      "note": "Orange-brown upright seed head and low green leaves; not a light source.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_LilyPad",
+      "shape": "pad",
+      "size": [
+        14,
+        14,
+        2
+      ],
+      "crop": [
+        454,
+        370,
+        504,
+        420
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.32605151613955,
+      "note": "Flat notched floating leaf; placement datum is water surface.",
+      "seed": 11
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 267,
+      "colors": 4,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "petal",
+        "4": "petal"
+      },
+      "components": [
+        {
+          "voxels": 267,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "0315fcfc6944f60cf0fbb46c92fbed7ba2f19ba4c05296fc358db0c980c2f882",
+      "palette_sha256": "a130c7c8f4964ae10eba4e391d277fae8adcb6ff91eb78a802454f547276db60",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 312,
+      "colors": 4,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "petal",
+        "4": "petal"
+      },
+      "components": [
+        {
+          "voxels": 312,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "79b8023a953be2cb4f910b8cc07e775b300ca2993b67a7bd0b8e0ada6b48ff4d",
+      "palette_sha256": "a130c7c8f4964ae10eba4e391d277fae8adcb6ff91eb78a802454f547276db60",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_CratePalette.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 267,
+      "colors": 4,
+      "groups": {
+        "243": "leaf",
+        "244": "leaf",
+        "229": "petal",
+        "230": "petal"
+      },
+      "components": [
+        {
+          "voxels": 267,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "b475f58932d7b941f72849932d1090172cc1c683b1dba9a734d4ec23365bb00d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_TwoColor.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 267,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "petal"
+      },
+      "components": [
+        {
+          "voxels": 267,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "99e43a8329e84238435fa203f5173fbd9ea722b860d64ca6e0262d0bf071faf3",
+      "palette_sha256": "7955339af7d604d53308d51429bb50f0dcffb3dccb2899fdd7669de6b4606cb8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 312,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "petal"
+      },
+      "components": [
+        {
+          "voxels": 312,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "4c5e4635e09acad6e3c3b5c4998b372660c15e82b399dca9c61f359806a770a7",
+      "palette_sha256": "7955339af7d604d53308d51429bb50f0dcffb3dccb2899fdd7669de6b4606cb8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 267,
+      "colors": 2,
+      "groups": {
+        "244": "leaf",
+        "229": "petal"
+      },
+      "components": [
+        {
+          "voxels": 267,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "33adae4f7cc9e643f0c6a2356853770c7842e158cdfbc36bc2595b4b6bbb023f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Cattail",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        20
+      ],
+      "voxels": 312,
+      "colors": 2,
+      "groups": {
+        "244": "leaf",
+        "229": "petal"
+      },
+      "components": [
+        {
+          "voxels": 312,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        18
+      ],
+      "sha256": "282476e8648901380b4838ba9f4d76680428322480bbf7c21db7f37047fc53a8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "Base",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 172,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 172,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        11,
+        12,
+        1
+      ],
+      "sha256": "82a61a5512a4a67ff8d1866c9573db6776155a20b35c462d23b619a847d5637d",
+      "palette_sha256": "2f8c715a42167f8ab836d7120599f483dec2858a8179ec3c48c65cb2cffa37b1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "Cartoon",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 188,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 188,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        12,
+        12,
+        1
+      ],
+      "sha256": "28eb9711e7393eddf4a10cbd558b3bd2e4fc3a78fe8740a0cf68055337644c61",
+      "palette_sha256": "2f8c715a42167f8ab836d7120599f483dec2858a8179ec3c48c65cb2cffa37b1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_CratePalette.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "CratePalette",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 172,
+      "colors": 2,
+      "groups": {
+        "243": "leaf",
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 172,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        11,
+        12,
+        1
+      ],
+      "sha256": "9cdc93b5bb6f4711fd813c98b0d8b60768f642bba4b9c6e206dabc3932530052",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_TwoColor.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "TwoColor",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 172,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 172,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        11,
+        12,
+        1
+      ],
+      "sha256": "8bc0143092f5b57d1dd4eea6900d4b4486d43d66c5fd552e611edd0acbe65ff7",
+      "palette_sha256": "852d55ba7efbbac82a107daddc746b52788d8f0074e127b867f7d75ee2c3ca90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 188,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 188,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        12,
+        12,
+        1
+      ],
+      "sha256": "18b495a64a751a6c16551d8b709293f7e37848b13436c9ad74c51e59c623c430",
+      "palette_sha256": "852d55ba7efbbac82a107daddc746b52788d8f0074e127b867f7d75ee2c3ca90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 172,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 172,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        11,
+        12,
+        1
+      ],
+      "sha256": "83ac01d12680c80534cf68d9a4d9259a59711ea71d1c427f20b5abba272c17e3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_LilyPad",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        14,
+        14,
+        2
+      ],
+      "voxels": 188,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 188,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        12,
+        12,
+        1
+      ],
+      "sha256": "13778eceb3d73b9b9f4bd368e5a87fe9f97590c319ffba1f46b808f7a1f32b43",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    }
+  ],
+  "reuse": [
+    "output/pixelwood_a/PixelwoodA_SquareShrub.vox",
+    "output/pixelwood_a/PixelwoodA_WhiteDaisy.vox",
+    "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike.vox",
+    "output/pixelwood_a/PixelwoodA_ShortGrassPatch.vox"
+  ]
+}

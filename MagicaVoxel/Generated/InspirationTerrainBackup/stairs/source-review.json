@@ -1,0 +1,194 @@
+[
+  {
+    "source": "mario.jpg",
+    "sha256": "1e586aac976f0aa83ba36f1abcc4e360d6f8f111cfac271fd64202022f423c51",
+    "families": [],
+    "decision": "Raised platforms are terrain forms, not a separate staircase. No stair export."
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+    "families": [],
+    "decision": "No independent stair flight; tent entry already belongs to tent."
+  },
+  {
+    "source": "pixelwood_b.gif",
+    "sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+    "families": [],
+    "decision": "House threshold belongs to the existing house. Slate ledges are cliff geometry."
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+    "families": [],
+    "decision": "Chest pedestal, rock ledges and log bridge are not stair flights."
+  },
+  {
+    "source": "poke_a.jpg",
+    "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+    "families": [],
+    "decision": "Terrace edges and bridge approaches, no independently drawn tread flight."
+  },
+  {
+    "source": "poke_b.png",
+    "sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7",
+    "families": [
+      "PokeB_LongTerraceStairs",
+      "PokeB_SideTerraceStairs"
+    ],
+    "decision": "House entrance stairs and cottage annex stairs are already in the buildings. Two outdoor flights differ in tread count."
+  },
+  {
+    "source": "poke_c.png",
+    "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+    "families": [
+      "PokeC_VillageStairs",
+      "PokeC_WideVillageStairs",
+      "PokeC_LongVillageStairs",
+      "PokeC_UpperVillageStairs"
+    ],
+    "decision": "Four terrain-flight sizes retained. Door thresholds remain in buildings; bridge deck is covered by prior collections."
+  },
+  {
+    "source": "poke_d.png",
+    "sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+    "families": [
+      "PokeD_RoughStoneStairs",
+      "PokeD_StairLanding"
+    ],
+    "decision": "Includes complete lower eastern terrace and its side stair, plus northern rough stone flight. Long retaining walls and the barred drain remain separate future assets."
+  },
+  {
+    "source": "poke_e.png",
+    "sha256": "f56dbeef65a3e5a29d63a58831ea4f3d1b0578f02961ae705985877da22d078a",
+    "families": [],
+    "decision": "Shoreline ledges and hoop fencing, no independent stairs."
+  },
+  {
+    "source": "poke_f.png",
+    "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+    "families": [
+      "PokeF_TallTerraceStairs",
+      "PokeF_LowTerraceStairs"
+    ],
+    "decision": "Northern clipped stair uses the tall flight. Clinic entry is already included in its building. Pond slats belong to bridges."
+  },
+  {
+    "source": "poke_g.png",
+    "sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+    "families": [
+      "PokeG_TerraceStairs",
+      "PokeG_SideTerraceStairs"
+    ],
+    "decision": "Front and side flights have different visible tread counts. Building entrance steps remain in buildings."
+  },
+  {
+    "source": "poke_h.png",
+    "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+    "families": [
+      "PokeH_FieldStairs"
+    ],
+    "decision": "Repeated front and oblique four-step field flights share one family with rotations. Farmhouse upper-floor stair is already part of its building."
+  },
+  {
+    "source": "poke_i.jpg",
+    "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+    "families": [
+      "PokeI_FarmStairs"
+    ],
+    "decision": "All visible terrain flights use the short farm family with rotations. Calibration follows newer buildings, not early tree records."
+  },
+  {
+    "source": "poke_j.jpg",
+    "sha256": "ade8525fa4a3d29c357dc6b2b037cf9ff6d3c2cbab799faf927206151b1cd80d",
+    "families": [
+      "PokeJ_ForestStairs"
+    ],
+    "decision": "Two repeated forest stair sprites share one family."
+  },
+  {
+    "source": "poke_k.jpg",
+    "sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+    "families": [
+      "PokeK_LakesideStairs"
+    ],
+    "decision": "Three matching flights share one family. Corrected calibration: 29.4 displayed pixels span a two-tile tree repeat, hence about 14.72 pixels per tile."
+  },
+  {
+    "source": "poke_l.png",
+    "sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637",
+    "families": [],
+    "decision": "Terrace sprite blocks, no tread staircase in the sheet."
+  },
+  {
+    "source": "poke_m.png",
+    "sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+    "families": [
+      "PokeM_StoneStairs",
+      "PokeM_DoubleStoneStairs"
+    ],
+    "decision": "One short flight and one stacked double flight with a middle landing. Building stairs are not recreated."
+  },
+  {
+    "source": "poke_n.png",
+    "sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+    "families": [
+      "PokeN_TwoStepStairs"
+    ],
+    "decision": "Two broad outdoor treads on the upper path; gate and house thresholds already belong to buildings."
+  },
+  {
+    "source": "poke_o.png",
+    "sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6",
+    "families": [],
+    "decision": "Building thresholds are part of building work; continuous coastal ledges are not stairs."
+  },
+  {
+    "source": "poke_p.png",
+    "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+    "families": [
+      "PokeP_GullyStairs"
+    ],
+    "decision": "Side-on gray stair beside the lower bridge gets its own flight. The bridge remains unchanged."
+  },
+  {
+    "source": "poke_q.png",
+    "sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+    "families": [
+      "PokeQ_SummitBambooStairs",
+      "PokeQ_LongBambooStairs"
+    ],
+    "decision": "Short summit and longer lower flights kept distinct, with tan wood treads and segmented green bamboo edging. Existing skull/chain/bamboo fence props excluded."
+  },
+  {
+    "source": "poke_r.png",
+    "sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+    "families": [
+      "PokeR_GardenStairs"
+    ],
+    "decision": "Northern and commercial-garden three-step flights share one family. House thresholds remain building details."
+  },
+  {
+    "source": "poke_s.jpg",
+    "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+    "families": [
+      "PokeS_MossyTerrainStairs",
+      "PokeS_ShortTerrainStairs"
+    ],
+    "decision": "Repeated six-step terrain flights and short eastern three-step flight covered. Central temple steps and smaller sanctuary steps already belong to the ruins collection, especially PokeS_RuinsSteppedSanctuary."
+  },
+  {
+    "source": "poke_t.png",
+    "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+    "families": [
+      "PokeT_CaveStairs"
+    ],
+    "decision": "Repeated warm stone cave-bank flights use rotations of one family. Side-on depth is inferred from the shared tread/curb motif; no duplicate orientation exports."
+  },
+  {
+    "source": "poke_u.jpg",
+    "sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+    "families": [],
+    "decision": "Stepped-looking wood spans are the already completed island bridges; no separate terrain stairs."
+  }
+]

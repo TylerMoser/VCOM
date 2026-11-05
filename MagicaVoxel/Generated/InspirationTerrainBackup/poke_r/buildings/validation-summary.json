@@ -1,0 +1,34 @@
+{
+ "validated": "2026-11-03",
+ "files": 14,
+ "families": [
+  "PokeR_RedHouse",
+  "PokeR_Shop"
+ ],
+ "file_sha256": {
+  "PokeR_RedHouse.vox": "788915a201ef4c924ed59a2c9f0d290a886bad7cfc788b388758fd9f5a0d39cf",
+  "PokeR_RedHouse_Cartoon.vox": "5663ab35ff9e93ae669ed9169c2b3a3c44b9bea6a2c573cc769ac4b951b1afd7",
+  "PokeR_RedHouse_CratePalette.vox": "fd77148ad78095e7c8d1b5c02ac3b2bf81b97b21cf2c63d3ed20256ef0e9ab9c",
+  "PokeR_RedHouse_TwoColor.vox": "413b98b0f8f8decbc0b2af1a27b767b6b2d5b8927cd8d86694573b4b7a99335a",
+  "PokeR_RedHouse_Cartoon_TwoColor.vox": "924c2ba778d6e75697ae2ceb2456f4845a5806f90d8000119e2c1c539b745aa2",
+  "PokeR_RedHouse_CratePalette_TwoColor.vox": "f5ad4e87b4d2bb0c5df0c4423a0edc6afa4bbab031163d756d607c4bb3c814a9",
+  "PokeR_RedHouse_Cartoon_CratePalette_TwoColor.vox": "aef998110d59ce9ef94713d07b15f001388499ec39794408c0232f1272665ca4",
+  "PokeR_Shop.vox": "87beea9b4278a8e86856e9d084f928790e2fc0a1b92a29c7acb4786bf30c5839",
+  "PokeR_Shop_Cartoon.vox": "76ccf4b504b66a67b6ea9c527f9ddd3a11d2935b435c9715fa6a982437f0dc33",
+  "PokeR_Shop_CratePalette.vox": "b0201277f634cdd113055c7f076c82e3f77e4c1cd008756c95cdbd4e6ff980d8",
+  "PokeR_Shop_TwoColor.vox": "5d7d1b8c5da8c73569934faac8abc4d7d4981f59bbdd8c0286db217300edddc1",
+  "PokeR_Shop_Cartoon_TwoColor.vox": "b8b726280fd360557d9eee495342a543cf71f80eb73790929e1b9d4efa69da3a",
+  "PokeR_Shop_CratePalette_TwoColor.vox": "baa502b0c58c0f93b9bda2f6018163257057a63a4de22969aa153c10874ce3f8",
+  "PokeR_Shop_Cartoon_CratePalette_TwoColor.vox": "80c445b7cf47cff10bad8b420ef7544fb44aee5d63beb35bf8f0fd66765112bc"
+ },
+ "structure": "pass: tools/inspect_vox.py, 14 files, no errors or warnings (structural-audit.json)",
+ "geometry": "pass: canvases, grounded at z 0, one connected model each, recolours on their source's exact voxels, Cartoon a different shape from Base",
+ "palettes": "pass: CratePalette files the pinned crate palette byte for byte; TwoColor files one colour a group (each family's own colours, folded groups resolved)",
+ "glass": "pass: MagicaVoxel Glass (_type _glass, _trans 0.45-0.7) on exactly the glass indices",
+ "grid": "pass: nothing in the middle of a storey's tiles at the two levels units fill; no glass in a sill course outside a door's slot",
+ "whole_import": "pass: every file read and meshed whole by the game's MagicaVoxel importer at Scale 0.0625 (qa/whole-import.json)",
+ "integration": "pass: 14 scenes (every treatment of the two families), cut into the game's pieces in a scratch copy of VCOM: the level the game stamps is each model voxel for voxel, and every rules check passed: blocked_steps, climbs, closed_off, cutaway, floors_are_tiles, reachable, sight, stamped_exactly, under_building, vaults, walks, walls_and_doors_shut, windows_open (qa/integration-report.json)",
+ "visual_review": "done: in-game renders by day, dusk and night, cut away at each storey, from four sides and the game's camera, and each Base drawn in the art's projection beside the source (previews/)",
+ "preserved": "pass: 151 files of ChatGPT's in output/poke_r/ from before these buildings unchanged (its models, generator, records and previews)",
+ "not_tested": "the files opened in MagicaVoxel's own editor; the pieces added to the game's Pieces.tres and painted in the level editor; play in a battle (units fighting through them, destruction, blood)"
+}

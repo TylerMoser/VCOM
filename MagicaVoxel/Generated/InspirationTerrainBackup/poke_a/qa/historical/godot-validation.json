@@ -1,0 +1,35 @@
+{
+	"PokeA_ForestTree.vox": {
+		"bounds": "[P: (-0.5, 0.0, -0.4375), S: (1.0, 1.75, 0.875)]",
+		"raw_voxels": 2183,
+		"runtime_size": "(16, 28, 14)",
+		"runtime_voxels": 2183,
+		"triangles": 1404
+	},
+	"PokeA_ForestTree_Bottom.vox": {
+		"bounds": "[P: (-0.5, -0.5, -0.4375), S: (1.0, 1.0, 0.875)]",
+		"raw_voxels": 1547,
+		"runtime_size": "(16, 16, 16)",
+		"runtime_voxels": 1547,
+		"triangles": 866
+	},
+	"PokeA_ForestTree_Top.vox": {
+		"bounds": "[P: (-0.375, -0.5, -0.375), S: (0.75, 0.75, 0.75)]",
+		"raw_voxels": 636,
+		"runtime_size": "(16, 16, 16)",
+		"runtime_voxels": 636,
+		"triangles": 580
+	},
+	"PokeA_Sapling.vox": {
+		"bounds": "[P: (-0.25, 0.0, -0.1875), S: (0.5, 0.9375, 0.4375)]",
+		"raw_voxels": 291,
+		"runtime_size": "(8, 15, 7)",
+		"runtime_voxels": 291,
+		"triangles": 340
+	},
+	"checks": {
+		"clipped_voxels": 0,
+		"runtime_split_exact": true,
+		"sapling_piece_voxels": 291
+	}
+}

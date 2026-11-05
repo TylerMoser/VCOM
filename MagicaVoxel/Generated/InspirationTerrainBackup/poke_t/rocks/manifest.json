@@ -1,0 +1,1839 @@
+{
+  "source": "poke_t.png",
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownCrag",
+      "shape": "crag",
+      "size": [
+        32,
+        28,
+        36
+      ],
+      "crop": [
+        278,
+        470,
+        317,
+        516
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Tall brown broad-shouldered angular crag, distinct from the rounded boulder.",
+      "seed": 29
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        28
+      ],
+      "crop": [
+        334,
+        247,
+        371,
+        291
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Large faceted brown boulder repeated around the rocky banks.",
+      "seed": 30
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        319,
+        490,
+        339,
+        516
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Small low brown stone, distinct from the dark gravel clusters.",
+      "seed": 31
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_LayeredRockPile",
+      "shape": "pile",
+      "size": [
+        32,
+        26,
+        28
+      ],
+      "crop": [
+        202,
+        566,
+        242,
+        600
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Stacked flattened layers with a smaller summit stone.",
+      "seed": 32
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SmallGravelCluster",
+      "shape": "gravel",
+      "size": [
+        12,
+        10,
+        8
+      ],
+      "crop": [
+        252,
+        634,
+        277,
+        662
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Low group of three angular stones, kept connected below ground-contact level.",
+      "seed": 33
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        480,
+        413,
+        499,
+        436
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Muted blue-green rock visible through water; authored complete and opaque, without a water plane.",
+      "seed": 34
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_DarkStalagmite",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        24
+      ],
+      "crop": [
+        348,
+        710,
+        371,
+        740
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Narrow dark cave spire with a chipped angular crown.",
+      "seed": 35
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        26,
+        14
+      ],
+      "crop": [
+        448,
+        408,
+        482,
+        439
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Broad low submerged boulder with smaller stones nearby; separate small-stone family supplied.",
+      "seed": 53
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_t/PokeT_BrownCrag.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "Base",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 12672,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        27,
+        35
+      ],
+      "sha256": "77dfad1aaad20f34c24b6549d294f0935b811f9a9a586dbc9c77a9883be83f1c",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_Cartoon.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 13236,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        35
+      ],
+      "sha256": "74f2c025e1066c8b91eb0885c7345a798bd6332d59dd3362769803fa5f7fa8b7",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_CratePalette.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 12672,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        27,
+        35
+      ],
+      "sha256": "289509a61b920e6807253e4e7cb5e85df51e35d6483e821ec84628622c050626",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_TwoColor.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 12672,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        27,
+        35
+      ],
+      "sha256": "565d499c36ab7a9af32802b851001b49ac78528c2eaac75cf7466f4927625e77",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_Cartoon_TwoColor.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 13236,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        35
+      ],
+      "sha256": "28762551204d3fe8904b3c762c528795c3d43d1403ef62224ef21f31dce51a67",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 12672,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        27,
+        35
+      ],
+      "sha256": "1b61713fa62211195d2844c9588e5521108a153958b55a8a954305547c04e590",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownCrag_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownCrag",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        28,
+        36
+      ],
+      "voxels": 13236,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        35
+      ],
+      "sha256": "7c9a05ede139d4c770e1225df3410dddb386caa36ec6e5919f306d112eca7c49",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "Base",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 13403,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        27
+      ],
+      "sha256": "bede097a7a28ebf7a6af3eaa0c8fb464837ac96a25c4edcb85ee5aff8bf3052b",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_Cartoon.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 14664,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        27
+      ],
+      "sha256": "bbeb255c6b9d1a551bddd95379269496d93f4cbffb47e9d4ab9e63e0e6c1edac",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_CratePalette.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 13403,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        27
+      ],
+      "sha256": "27f6f857333ac51bdcc930ef1e5a110e038bfc43eeffaea2bb6d2d0210737474",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_TwoColor.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 13403,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        27
+      ],
+      "sha256": "ea1f294df1440e1c5b38429fceda734f5b2b8bdb5af145f2a1e73f0ed3f9ed20",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 14664,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        27
+      ],
+      "sha256": "66ea425e9b97bcc11bb72b44d3ad7f9cbbf43e335f494ea1a27948acf038a137",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 13403,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        27
+      ],
+      "sha256": "69b7dea05c62c042f1f8535d00595aa62909052d8b5174533f9b91d2fd484bcf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        28,
+        28
+      ],
+      "voxels": 14664,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        27,
+        27
+      ],
+      "sha256": "4b6971c33371272cc76b60abb127b0375f25d99acef742a4ea7e4f64c091368c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1164,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        11
+      ],
+      "sha256": "85c1252462331b2b058bef810f2ef74418ff4d723709c1f1de1304ada218bab4",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_Cartoon.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1316,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "f7a8635f80f68fab9f71aa242f96afed2405d104a090e1318fb3a32f7614b6fd",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_CratePalette.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1164,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        11
+      ],
+      "sha256": "1911cb3f9e0cb1078828a345c7c6ce26057e5166c32848982654f5b35c1fc211",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_TwoColor.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1164,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        11
+      ],
+      "sha256": "fa2a209d1ce9c46a7745b9e20127d1b802b657f7093f65e0658a43e2298ad33f",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_Cartoon_TwoColor.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1316,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "9c13f19c3954dd02c298195684ac2d9a975049751eebe3f3161660e745c8335b",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1164,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        11
+      ],
+      "sha256": "b8562eb10caaa96e74e208415b4e31bd953ac9c7eaad07f1ed659f9aea08e8c3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_BrownPebble_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_BrownPebble",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1316,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "839647196ed224fd696f5ab04222981f7e26d3d5fcd4a0a09a0ab2bd5f6d9582",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "Base",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 8162,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "53f3eb991cb952f4a5e512cd0dfedb37eb81ceadc9fb7e7fdc77b50e75fc85c6",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_Cartoon.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 10976,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "2247c74e38edfd31152361bc5070a3e9546b9e69c20aeb30ba2e72ffa904887e",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_CratePalette.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 8162,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "ff4af667e3bf63ec5b856b29c4de41d3742bad65a41249b991f7378fae11e385",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_TwoColor.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 8162,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "e339b4803420be3edf6d455c1e1545924d174a4390c6ce3444d1b388b3bc025d",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_Cartoon_TwoColor.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 10976,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "596300ed78866d2d09eee67fe1f8646826e09400b6b7d55a081c4440d0026f74",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_CratePalette_TwoColor.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 8162,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "163362719fb3ea7766d0c5eb8be321e825fd17c35c5ef3236c785be42b4c3620",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_LayeredRockPile_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_LayeredRockPile",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        26,
+        28
+      ],
+      "voxels": 10976,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        26
+      ],
+      "sha256": "24a76e8f5e90356a5fb72c49492832000b8c6798635a2e3ace8fb543cbbfab27",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "Base",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 418,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "ce2c0161f8310e91211b028fe0fed395b7e9b4952fc7f0c2aa14e1723d1429f6",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_Cartoon.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 568,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "2190a26344a2b92a8150a928cc891eeba28abde4894a886300940865936e59bd",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_CratePalette.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 418,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "a269ef12d974122e83a1227806ec6f591b5ab064f3f33bce568ed36883789a8f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_TwoColor.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 418,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "d8cf182226bcfd1ef461a4e8d18ada20565e9366ba0885b49dd91a5b789792fc",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_Cartoon_TwoColor.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 568,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "3ea2f2870e13fdcb782b11ada5c7cf9be4eab82a61684a2b3b605487a032ef09",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_CratePalette_TwoColor.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 418,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "fd874da118c115257544af58ce5565e65155e37a802e0d1fd35ba350351ea322",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SmallGravelCluster_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_SmallGravelCluster",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        8
+      ],
+      "voxels": 568,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        7
+      ],
+      "sha256": "22e460a6861e9cc97b39dfa46c10bfca13ff0ffa0b578a9903fba402b2365ea5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1607,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "3a63f98ac420b999c654957a48f29c8be22c4dc25f3baa46876d876201b05ca3",
+      "palette_sha256": "0190d44c3d814afd659a56c102adef2ab42987fac1e6e11effd159a8e244a9e7",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_Cartoon.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "33cc178cad940b5d500995752d3b15dc1a89e0b7cf43cf6f7a80576a47d13855",
+      "palette_sha256": "654227a1cca0210c660d81c7e2346122d00ddf99e9bdd439bb620e3e74f54c2b",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_CratePalette.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1607,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "07a170eed2b75d9833d05646cb2375c915f22c4c5eddb1f2150b25831744161a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_TwoColor.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1607,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "01bb45430996cfc18d8f4061cbf109b3afb12d01e51567c3fb8e6e7f5b715269",
+      "palette_sha256": "b91e87e239c5ab60c4ea37ea174bad3fe1799a6e897217d983fbf4ce5be1fcb3",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_Cartoon_TwoColor.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "963e865447d7e88a09a8d0a300b3e5e9ca9a14b5fbc3422c22caa76eeb4b6a8b",
+      "palette_sha256": "b91e87e239c5ab60c4ea37ea174bad3fe1799a6e897217d983fbf4ce5be1fcb3",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_CratePalette_TwoColor.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1607,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "054d4087d9a01f8a4296b58717e0f7920cda0d10a66903b759d6bc7ba3732a99",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedStone_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_SubmergedStone",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        12
+      ],
+      "voxels": 1568,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        11
+      ],
+      "sha256": "820163e1a885cc84cd2dd154b46edb03b4ab323b0ff289e5b7be81c0fc52f588",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "Base",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 995,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        23
+      ],
+      "sha256": "dd02608f83635b03b1aafd4b2484bfad2d0aa59c24204478c1cf6be7dee16138",
+      "palette_sha256": "3fe5b03c8f616e6b6965af450f961baebf40c3963459147c0294698de487dcb0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_Cartoon.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 984,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        21
+      ],
+      "sha256": "8cff76c63fae36ec339f97c24131cad6bd70828dc989adfda3c263364f659e43",
+      "palette_sha256": "8cadfebb1c3b19bd7355e57cc63a70f237fb44c9e7839b2dccdae21f751ff099",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_CratePalette.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 995,
+      "colors": 2,
+      "groups": {
+        "227": "stone",
+        "235": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        23
+      ],
+      "sha256": "5ae45975fb784aa8794c98fae1070c3254e39a0f3feb5cdfbd5db7bf294f5a0e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_TwoColor.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 995,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        23
+      ],
+      "sha256": "3f9629d17eb07b6aba076e980c0d0af49aa4f0af0db4dc22c4edc0789e9e5532",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_Cartoon_TwoColor.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 984,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        21
+      ],
+      "sha256": "268c765890356ac3d05c6b5af6df03405efcb6915e26b65979e1ff630de923dd",
+      "palette_sha256": "9f556e162f470194feb532dfa240b2184369b3eefcf3702c90b8c1666ff2aea8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_CratePalette_TwoColor.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 995,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        23
+      ],
+      "sha256": "e4827903871e1cf9960a4566305fac856359e670ec5d8d2784c34c449fce26c5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_DarkStalagmite_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_DarkStalagmite",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        10,
+        24
+      ],
+      "voxels": 984,
+      "colors": 1,
+      "groups": {
+        "234": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        9,
+        21
+      ],
+      "sha256": "9d3ecf5c827a2a57253aea762823f7d69ec4552f6ecd10ec7baa45b0eff4d487",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "Base",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 7110,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        13
+      ],
+      "sha256": "9d9f0fdeb5d797cb5e67e832354e31c8b77adf03d6368b4f35a64b4646414811",
+      "palette_sha256": "0190d44c3d814afd659a56c102adef2ab42987fac1e6e11effd159a8e244a9e7",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_Cartoon.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 6804,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        13
+      ],
+      "sha256": "7eec3c0b0c73557499fb8e1af2e4a71d32f5d63449e8f45bba2b654aad01aac8",
+      "palette_sha256": "654227a1cca0210c660d81c7e2346122d00ddf99e9bdd439bb620e3e74f54c2b",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_CratePalette.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 7110,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        13
+      ],
+      "sha256": "b61468dbd38ad2b0fd0e297e2147581827ac3ccdd9b1ca61fb45ab9e9e1d46cf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_TwoColor.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 7110,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        13
+      ],
+      "sha256": "538f9abca37bf93c39c31783f98ab378a500307c53c6010f7f7857c7be1ededf",
+      "palette_sha256": "b91e87e239c5ab60c4ea37ea174bad3fe1799a6e897217d983fbf4ce5be1fcb3",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 6804,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        13
+      ],
+      "sha256": "995cc1daa24089724c938889faf66af3a7953aa5260733e7da5aeab0c0eb18f5",
+      "palette_sha256": "b91e87e239c5ab60c4ea37ea174bad3fe1799a6e897217d983fbf4ce5be1fcb3",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 7110,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        24,
+        13
+      ],
+      "sha256": "94c2d61819b8d53e7a0de9b0bc4e632c4ce0183f2033892240351397c57abcfa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_SubmergedBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        26,
+        14
+      ],
+      "voxels": 6804,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        25,
+        13
+      ],
+      "sha256": "c8dca5c6ecb7c0263615717b87462223d1f3971d0ca0a06484068ec02526100b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

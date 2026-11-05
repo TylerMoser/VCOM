@@ -1,0 +1,234 @@
+{
+  "author": "Codex",
+  "source": "poke_a.jpg",
+  "families": [
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_Codex_TerraceWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 32,
+      "crop": [
+        35,
+        209,
+        90,
+        259
+      ],
+      "tile_pixels": 10.5,
+      "water": [
+        79,
+        163,
+        205
+      ],
+      "foam": [
+        214,
+        240,
+        225
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Repeated short bright-blue terrace falls; western and bridge-adjacent examples share this size. Small white shoreline corners are not separate falls.",
+      "size": [
+        64,
+        40,
+        48
+      ],
+      "source_sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall.vox",
+      "source": "poke_a.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "3b05f7dbb8182330378fdb19a0d05ff1574f2a1c31efea1b14d6996660fe36e4"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "d6226c24acf1b5b13517a886865578d8343a55a2f3fd0cd43c953273432abc4e"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_CratePalette.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "bf24745082f767d136e1e1034fab3931735f70ecdea365ec2a5ea26e6aa22bea"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "73e44709a069c0eba4508de9f6f411d60de789eab3dbcc27a361d5cd32297480"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "cda8c89717916784342feda6d029393c9f04a0cf5dc2c8c4a46b313762041056"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "a5d1526d5faab9e06b7369cd4daed8b5261c5efcf71cca88f47f9ddd47368894"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "bf9fe035221d141880d6ab56a8284d74e74e0056de279926bba00cba2246bf33"
+    }
+  ]
+}

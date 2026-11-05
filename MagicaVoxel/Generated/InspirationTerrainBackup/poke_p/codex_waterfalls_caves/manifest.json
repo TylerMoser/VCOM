@@ -1,0 +1,228 @@
+{
+  "author": "Codex",
+  "source": "poke_p.png",
+  "families": [
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Codex_RockCaveEntrance",
+      "kind": "cave",
+      "size": [
+        48,
+        40,
+        48
+      ],
+      "crop": [
+        269,
+        88,
+        321,
+        132
+      ],
+      "opening": [
+        20,
+        32
+      ],
+      "rock": [
+        134,
+        112,
+        88
+      ],
+      "tile_pixels": 16,
+      "note": "Small pointed pale-rock surround in the upper gully, with a real open tunnel and a recessed earthy floor. Unseen depth is inferred.",
+      "source_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance.vox",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "47c7121347cae22678d1d0e6ec430fbe389170a53d0c1d27ad8808e0bbef78ab"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "fb8fb25b0357369aba2043292c14d1bf45d4a86dab0bb28fc9ec57f2f7bf3529"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_CratePalette.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "c2d8975ef899ea1a2ad06d53e20ddcd1101d504f8faff27dbe7a5524b3c1efeb"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "ef873ad790ddb5b8b8158b226f7ee55dbf1c2820e6e8047efebbd9e785cbb094"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "94fd5f6ec89c44dda16ebd2d1b52b2efbb0b76c72a3abe4fa5dce18be00e234d"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "b5b18b135aa0d26111b405f7d6e8bd0c177bc1f80253599d2fdf8a0e73242141"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "329dfb3d85913f5f0a60773ef118369f812ea998929437cdb15c5c2eab5b412f"
+    }
+  ]
+}

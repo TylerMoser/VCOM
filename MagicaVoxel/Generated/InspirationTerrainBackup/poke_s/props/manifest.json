@@ -1,0 +1,503 @@
+{
+  "source": "poke_s.jpg",
+  "review": {
+    "source": "poke_s.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeS_TieredFountain",
+      "PokeS_CourtyardStatue"
+    ],
+    "notes": "Tiered fountain and slender courtyard monument. Small reduced-image details and backs are inferred. Tiny brown marks remain ambiguous; they are not confidently classified as separate props. Larger arches, columns, terraces and ruins are architecture; lamps, vegetation and balustrades already covered.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_TieredFountain",
+      "kind": "fountain",
+      "crop": [
+        409,
+        328,
+        460,
+        370
+      ],
+      "size": [
+        48,
+        48,
+        32
+      ],
+      "tone": "white"
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_CourtyardStatue",
+      "kind": "statue",
+      "crop": [
+        418,
+        19,
+        445,
+        73
+      ],
+      "size": [
+        24,
+        20,
+        48
+      ],
+      "tone": "white"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_s/PokeS_TieredFountain.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "Base",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13232,
+      "colors": 6,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "water",
+        "5": "water",
+        "6": "water"
+      },
+      "components": [
+        13232
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "eba6d50afaf737f7cc0e04c1f483c0e3f9ec8ffa8f6bfcb2124b0c874879a36c",
+      "palette_sha256": "f4a3e23d3efff346ed2222bf71ce8f0a5ccfb88599a18825ffd3078e3d641e92",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13560,
+      "colors": 2,
+      "groups": {
+        "1": "stone",
+        "2": "water"
+      },
+      "components": [
+        13560
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "bbc9b02aecd427c9d884374cc8ca59652681e5302f0afac20b81c4c6bf580560",
+      "palette_sha256": "7ad633a6e2773ed548d99a167b9095a01bc1fc46c5a6c747fabbd08815a34590",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_CratePalette.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13232,
+      "colors": 5,
+      "groups": {
+        "195": "stone",
+        "196": "stone",
+        "193": "water",
+        "253": "water",
+        "194": "water"
+      },
+      "components": [
+        13232
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "05248b438e0939fb0fc42f404ca1dd6f8a346b6f7b692de40aca2139f87c9b31",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_TwoColor.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13232,
+      "colors": 2,
+      "groups": {
+        "1": "stone",
+        "2": "water"
+      },
+      "components": [
+        13232
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "f9643c49e6f926c06648e2bcffd510a315fb19ade3475b23d27f3a2a786435b4",
+      "palette_sha256": "7ad633a6e2773ed548d99a167b9095a01bc1fc46c5a6c747fabbd08815a34590",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon_TwoColor.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13560,
+      "colors": 2,
+      "groups": {
+        "1": "stone",
+        "2": "water"
+      },
+      "components": [
+        13560
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "38b1fc0c3105b2227a215fb7c96cbb078684134ecc61ceeec53b71515f00ee81",
+      "palette_sha256": "7ad633a6e2773ed548d99a167b9095a01bc1fc46c5a6c747fabbd08815a34590",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_CratePalette_TwoColor.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13232,
+      "colors": 2,
+      "groups": {
+        "195": "stone",
+        "253": "water"
+      },
+      "components": [
+        13232
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "85aaf29cf882cebfe924a03e42f1b31083174d3305feec186a84f7013ebe635f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_TieredFountain",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        48,
+        32
+      ],
+      "voxels": 13560,
+      "colors": 2,
+      "groups": {
+        "195": "stone",
+        "253": "water"
+      },
+      "components": [
+        13560
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        30
+      ],
+      "sha256": "5d1d0a7e8fc8d96fc77fde0e04f53c2a22766bfeb01aca495e889c5986fff9ab",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "Base",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3305,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "components": [
+        3305
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        17,
+        47
+      ],
+      "sha256": "465e5eaf829301ccfbdde9e739961ecfaf52732bfc504e63e62e04f6027b8eb5",
+      "palette_sha256": "b0ab3850e8b52011a647cac55be0a0fe18fc0228e2c2253485eb9a02d19bef9a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3612,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        3612
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        23,
+        17,
+        47
+      ],
+      "sha256": "b2734879c3997169d8a4d13ee23fce78446efde91b40c9fa7dd9fd80d9827327",
+      "palette_sha256": "188fc1849a9b402bfa7eb26dacce8d72675290c2fbba4c4cb60465f0fee7630d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_CratePalette.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3305,
+      "colors": 2,
+      "groups": {
+        "195": "stone",
+        "196": "stone"
+      },
+      "components": [
+        3305
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        17,
+        47
+      ],
+      "sha256": "30dfd5e902b512193d67da13d55ea5916f77e8dc9ba7dbd4321c911e330c3899",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_TwoColor.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3305,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        3305
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        17,
+        47
+      ],
+      "sha256": "a0b1fa24380bd783ad7c7b3d9bdbfa59d782e559509afc73ea9280cbe6376e4b",
+      "palette_sha256": "188fc1849a9b402bfa7eb26dacce8d72675290c2fbba4c4cb60465f0fee7630d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon_TwoColor.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3612,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        3612
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        23,
+        17,
+        47
+      ],
+      "sha256": "e809d5572345744de49313a4f262d363aaa31bd1b123c52ec290ebd074cabaf6",
+      "palette_sha256": "188fc1849a9b402bfa7eb26dacce8d72675290c2fbba4c4cb60465f0fee7630d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_CratePalette_TwoColor.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3305,
+      "colors": 1,
+      "groups": {
+        "195": "stone"
+      },
+      "components": [
+        3305
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        17,
+        47
+      ],
+      "sha256": "65ba5586c4820edbee9655dcb62227c340c4be9a47f13ec2a7e53f055ce886b8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_CourtyardStatue",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 3612,
+      "colors": 1,
+      "groups": {
+        "195": "stone"
+      },
+      "components": [
+        3612
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        23,
+        17,
+        47
+      ],
+      "sha256": "df6df103f773450b161832a82e23dac2bf44de3663744e77954a2567982687ba",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

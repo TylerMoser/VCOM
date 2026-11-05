@@ -1,0 +1,508 @@
+{
+  "source": "poke_d.png",
+  "families": [
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_RoughStoneStairs",
+      "crop": [
+        650,
+        371,
+        729,
+        423
+      ],
+      "width": 64,
+      "run": 40,
+      "rise": 32,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        155,
+        153,
+        133
+      ],
+      "edge": [
+        125,
+        126,
+        108
+      ],
+      "rail": "rock",
+      "note": "Six broad rounded stone treads nested between rough rock shoulders.",
+      "size": [
+        48,
+        64,
+        48
+      ],
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 194,
+        "4": 193,
+        "5": 206,
+        "6": 206,
+        "7": 193,
+        "8": 206,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_StairLanding",
+      "crop": [
+        571,
+        546,
+        678,
+        678
+      ],
+      "width": 80,
+      "run": 32,
+      "rise": 32,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        155,
+        153,
+        133
+      ],
+      "edge": [
+        177,
+        177,
+        151
+      ],
+      "rail": "stone",
+      "kind": "platform",
+      "note": "Complete lower eastern cobbled terrace with masonry support, parapets and a side flight; hidden underside and rear are inferred.",
+      "size": [
+        112,
+        80,
+        64
+      ],
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 194,
+        "4": 193,
+        "5": 194,
+        "6": 193,
+        "7": 237,
+        "8": 194,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65794,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        35
+      ],
+      "sha256": "0125ea205f088e5c71afbc32cf5f15b9ba611abe241e3b920f226bbb8e6e66a2"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65728,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        33
+      ],
+      "sha256": "801a6066111f2c81e8ee45070f0c9571c4f91a221f4b08ee1f97c91b4831f486"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65794,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        35
+      ],
+      "sha256": "6469b2d09756a8d8317a543a0a90b2f891f766f68addafd6a0878a93407a2f79"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65794,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        35
+      ],
+      "sha256": "a77ee55f4c0a67fb6f3ef9911a065749d09278dc7f424066716dafa4069183b5"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65728,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        33
+      ],
+      "sha256": "d94aac1556745955e16946605e91674276f62b5df8e35d9d99a4e1777d450817"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65794,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        35
+      ],
+      "sha256": "0c46963e9816672e7a5d9cae900bab5d7d204397c956b01c2ce9df624e1ff343"
+    },
+    {
+      "family": "PokeD_RoughStoneStairs",
+      "file": "output/poke_d/PokeD_RoughStoneStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 65728,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        63,
+        33
+      ],
+      "sha256": "b835fe519b8e9b91d106831d5707f23d9e459843fe10c17eb7a0411c1f6ef1f3"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 248858,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        46
+      ],
+      "sha256": "a1a7b435f14e1542d85678b7ac78607492bc65057aacaf7dbfd2be749926f499"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 250648,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        47
+      ],
+      "sha256": "f5cfdc4fe2b2eb21e168c8b80ff5a62e6051cf9d63246f7b08ff63270d6a9d4c"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 248858,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        46
+      ],
+      "sha256": "61fd2261df21ad7171cb3dadb72ed01a4b82c58b140f3a24645cb521daaee2a2"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 248858,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        46
+      ],
+      "sha256": "8528f56a84d8e2c36bf68f378dd3656055af6a5ca271c05745039f5add345111"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 250648,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        47
+      ],
+      "sha256": "22dfe429308950096e98282814421312c51b8d0a0c278fc9afeca8911f5eb820"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 248858,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        46
+      ],
+      "sha256": "35d404c608b92313d14af2edb84feb978d2fef271cc9285867b515598340730a"
+    },
+    {
+      "family": "PokeD_StairLanding",
+      "file": "output/poke_d/PokeD_StairLanding_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        112,
+        80,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 250648,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        79,
+        47
+      ],
+      "sha256": "3919f9224c628326a72eaf9a57376bba9657562cde714941962cb0598d594c4c"
+    }
+  ]
+}

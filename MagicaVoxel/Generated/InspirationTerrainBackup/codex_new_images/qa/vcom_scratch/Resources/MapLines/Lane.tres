@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://Scripts/WorldMap/MapLine.gdshader" id="1_line"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_line")
+shader_parameter/casing = Color(0.70980394, 0.6666667, 0.6039216, 1)
+shader_parameter/casing_share = 0.34
+shader_parameter/casing_min_px = 5.0
+shader_parameter/narrow = Color(0.72156864, 0.6784314, 0.6156863, 1)

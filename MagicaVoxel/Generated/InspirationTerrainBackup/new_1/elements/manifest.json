@@ -1,0 +1,6674 @@
+{
+ "source_image": "new_1.jpg",
+ "source_sha256": "7caf7826f906e79c1ed976384256bec9df71f40dc76cd41dd5e539ca4e7ab480",
+ "generator": "output/new_images/generate.py",
+ "generator_sha256": "22fab4732293d980053752c037194295331b1030ff1e303b7432fc1ac9a131f4",
+ "library_sha256": {
+  "build_new2.py": "b3789ab432f6489cd1cbcae08f10e55e28d726984cfb91ecec5770fc81902b5c",
+  "catalogue_new1.py": "762654dadcd8e351d7d929f2ed862b932b788417da277a40485ce6bdeeaed727",
+  "catalogue_new2.py": "d68851f10341f3ed6df841efb2d057b6053129271511df6138597f7df6f2b01e",
+  "fastview.py": "2474f084029c8250fb973f617a6a06d101833c1c7871b02111e98e12aa180b41",
+  "new1_figures.py": "816544c59619ad510008b73c29eaf96b3351a72fc4cbc071868e68999bc41086",
+  "new1_ground.py": "5f53ecae5d873e38899c4b3312d732a318a69b6260b4dad54ee43475672fa7c7",
+  "new1_plants.py": "f2dfd75d8e5ae7646ffc389617e9c9e35932d2acd1212bfe78c4dacda220403a",
+  "new1_props.py": "56a2be45deb760a2496ff4d88086e1d301b2726c89ee888129d78247765cedcd",
+  "new1_sculpt.py": "3b26750c1e128aca0303f4b954c5c5fb0c8e359e24939366a21abff5bdc89868",
+  "recolour.py": "86dd379a0c1d706be71d0ac15783e066b67fe7c12a75f175d5153e0e1746e748",
+  "sculpt_clumps.py": "98f8c4962020070a7e28a3373245b484f40f68334853b1405a0cef6caa47e393",
+  "sculpt_hammock.py": "e8435183fb6be8afd213f68959e475424796c515f066dc4d6cf7f987a8f051d6",
+  "sculpt_hedge.py": "09bf32bdd024535d0b9fce401bb8cf3fa13a2101caeeab433f991b8bf1614781",
+  "sculpt_palm.py": "1e7d563f2a9990daf3eafe4604f9e4e77ba380d1c4e92d00a111574773f94fe5",
+  "sculpt_plants.py": "598bf55e8c3d7f4d3e162ea94839c789e8ea8f4d8b7088a7b05aeeebecee7f7b",
+  "sculpt_tree.py": "44bdf497939bc7a273e0b46c8c7ae632a189e20b227c581d33619c7c1ee4241c",
+  "sprites.py": "7491896b5c70791631541414e6527b8abc40df2c8b22bcefb550a2c40e75de73",
+  "treatments.py": "839633e3af77f4d4d70a4a569d49ffb3948669a9be42f2770c0c97d6b602b6d1",
+  "voxlib.py": "2c98bf98faf240147f1466a6c4c68c357ea91f8334467dbb3d353e8f85943575"
+ },
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "scale": 0.0625,
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grounded": "z 0",
+ "delivery": "Complete models only, one .vox per treatment; no cell files or brushes.",
+ "families": [
+  {
+   "name": "OliveConeTree",
+   "builder": "new1_sculpt.cone_tree",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)",
+   "regions": [
+    [
+     69,
+     23,
+     183,
+     197
+    ],
+    [
+     0,
+     0,
+     115,
+     150
+    ],
+    [
+     495,
+     0,
+     620,
+     86
+    ],
+    [
+     575,
+     0,
+     700,
+     161
+    ],
+    [
+     0,
+     541,
+     58,
+     736
+    ],
+    [
+     23,
+     610,
+     150,
+     736
+    ],
+    [
+     586,
+     644,
+     690,
+     736
+    ],
+    [
+     667,
+     587,
+     736,
+     736
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     124,
+     128,
+     42
+    ],
+    "wood": [
+     86,
+     44,
+     43
+    ]
+   },
+   "flat_crate": {
+    "leaf": 244,
+    "wood": 178
+   },
+   "canvas": [
+    28,
+    28,
+    35
+   ]
+  },
+  {
+   "name": "TallGrass",
+   "builder": "new1_plants.tall_grass",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)",
+   "regions": [
+    [
+     0,
+     160,
+     78,
+     295
+    ],
+    [
+     260,
+     15,
+     470,
+     95
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     64,
+     138,
+     87
+    ]
+   },
+   "flat_crate": {
+    "leaf": 243
+   },
+   "canvas": [
+    16,
+    16,
+    14
+   ]
+  },
+  {
+   "name": "SmallYellowFlower",
+   "builder": "new1_plants.small_flower",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart",
+   "regions": [
+    [
+     38,
+     265,
+     64,
+     294
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     60,
+     120,
+     60
+    ],
+    "yellow": [
+     238,
+     219,
+     100
+    ],
+    "bloom": [
+     250,
+     244,
+     192
+    ]
+   },
+   "flat_crate": {
+    "bloom": 238,
+    "leaf": 243,
+    "yellow": 230
+   },
+   "canvas": [
+    8,
+    8,
+    6
+   ]
+  },
+  {
+   "name": "TinySprout",
+   "builder": "new1_sculpt.sprout",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)",
+   "regions": [
+    [
+     24,
+     428,
+     62,
+     454
+    ],
+    [
+     185,
+     118,
+     220,
+     138
+    ],
+    [
+     170,
+     195,
+     205,
+     212
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     64,
+     142,
+     80
+    ]
+   },
+   "flat_crate": {
+    "leaf": 243
+   },
+   "canvas": [
+    10,
+    10,
+    4
+   ]
+  },
+  {
+   "name": "BroadLeafPlant",
+   "builder": "new1_sculpt.rosette",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)",
+   "regions": [
+    [
+     70,
+     295,
+     182,
+     378
+    ],
+    [
+     540,
+     230,
+     645,
+     305
+    ],
+    [
+     540,
+     300,
+     645,
+     375
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     52,
+     151,
+     75
+    ]
+   },
+   "flat_crate": {
+    "leaf": 243
+   },
+   "canvas": [
+    24,
+    24,
+    8
+   ]
+  },
+  {
+   "name": "PlanterPlant",
+   "builder": "new1_sculpt.planter_plant",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)",
+   "regions": [
+    [
+     222,
+     345,
+     262,
+     395
+    ],
+    [
+     265,
+     345,
+     305,
+     395
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     59,
+     142,
+     74
+    ]
+   },
+   "flat_crate": {
+    "leaf": 243
+   },
+   "canvas": [
+    10,
+    10,
+    9
+   ]
+  },
+  {
+   "name": "RoofFlowerPlant",
+   "builder": "new1_plants.roof_plant",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)",
+   "regions": [
+    [
+     190,
+     212,
+     295,
+     280
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     66,
+     150,
+     74
+    ],
+    "yellow": [
+     243,
+     191,
+     46
+    ],
+    "bloom": [
+     236,
+     140,
+     36
+    ]
+   },
+   "flat_crate": {
+    "bloom": 229,
+    "leaf": 243,
+    "yellow": 222
+   },
+   "canvas": [
+    22,
+    22,
+    7
+   ]
+  },
+  {
+   "name": "CoralFlower",
+   "builder": "new1_plants.flower6",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)",
+   "regions": [
+    [
+     450,
+     455,
+     515,
+     505
+    ],
+    [
+     497,
+     685,
+     592,
+     736
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     52,
+     128,
+     70
+    ],
+    "bloom": [
+     226,
+     138,
+     36
+    ],
+    "flower": [
+     234,
+     91,
+     107
+    ]
+   },
+   "flat_crate": {
+    "bloom": 229,
+    "flower": 221,
+    "leaf": 243
+   },
+   "canvas": [
+    14,
+    14,
+    6
+   ]
+  },
+  {
+   "name": "BlueFlower",
+   "builder": "new1_plants.flower6_blue",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)",
+   "regions": [
+    [
+     665,
+     440,
+     720,
+     495
+    ],
+    [
+     685,
+     495,
+     736,
+     550
+    ],
+    [
+     420,
+     645,
+     480,
+     702
+    ]
+   ],
+   "layer": "Vegetation",
+   "flat": {
+    "leaf": [
+     52,
+     128,
+     70
+    ],
+    "bloom": [
+     226,
+     138,
+     36
+    ],
+    "blue": [
+     15,
+     191,
+     237
+    ]
+   },
+   "flat_crate": {
+    "bloom": 229,
+    "blue": 252,
+    "leaf": 243
+   },
+   "canvas": [
+    14,
+    14,
+    6
+   ]
+  },
+  {
+   "name": "Woodpile",
+   "builder": "new1_props.woodpile",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them",
+   "regions": [
+    [
+     80,
+     170,
+     182,
+     300
+    ]
+   ],
+   "layer": "Props",
+   "flat": {
+    "wood": [
+     211,
+     157,
+     123
+    ]
+   },
+   "flat_crate": {
+    "wood": 236
+   },
+   "canvas": [
+    26,
+    20,
+    9
+   ]
+  },
+  {
+   "name": "ChoppingStump",
+   "builder": "new1_props.stump_axe",
+   "what": "the chopping stump with an axe stuck in its top",
+   "regions": [
+    [
+     40,
+     372,
+     182,
+     492
+    ]
+   ],
+   "layer": "Props",
+   "flat": {
+    "wood": [
+     110,
+     60,
+     45
+    ],
+    "cut": [
+     209,
+     134,
+     92
+    ],
+    "metal": [
+     151,
+     163,
+     184
+    ]
+   },
+   "flat_crate": {
+    "cut": 236,
+    "metal": 194,
+    "wood": 178
+   },
+   "canvas": [
+    24,
+    24,
+    22
+   ]
+  },
+  {
+   "name": "Hero",
+   "builder": "new1_figures.hero",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)",
+   "regions": [
+    [
+     325,
+     520,
+     405,
+     615
+    ]
+   ],
+   "layer": "Figures",
+   "flat": {
+    "skin": [
+     240,
+     180,
+     150
+    ],
+    "hood": [
+     65,
+     95,
+     110
+    ],
+    "tunic": [
+     230,
+     110,
+     200
+    ],
+    "white": [
+     238,
+     238,
+     242
+    ],
+    "boot": [
+     150,
+     90,
+     60
+    ],
+    "gold": [
+     240,
+     190,
+     40
+    ],
+    "black": [
+     25,
+     22,
+     30
+    ],
+    "red": [
+     200,
+     60,
+     40
+    ]
+   },
+   "flat_crate": {
+    "black": 202,
+    "boot": 179,
+    "gold": 229,
+    "hood": 206,
+    "red": 221,
+    "skin": 237,
+    "tunic": 214,
+    "white": 196
+   },
+   "canvas": [
+    20,
+    16,
+    27
+   ]
+  },
+  {
+   "name": "Fairy",
+   "builder": "new1_figures.fairy",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)",
+   "regions": [
+    [
+     410,
+     535,
+     475,
+     595
+    ]
+   ],
+   "layer": "Figures",
+   "flat": {
+    "yellow": [
+     250,
+     206,
+     46
+    ],
+    "white": [
+     226,
+     246,
+     242
+    ],
+    "black": [
+     24,
+     20,
+     16
+    ]
+   },
+   "flat_crate": {
+    "black": 202,
+    "white": 196,
+    "yellow": 229
+   },
+   "canvas": [
+    18,
+    14,
+    15
+   ]
+  },
+  {
+   "name": "CrestedCreature",
+   "builder": "new1_figures.creature",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)",
+   "regions": [
+    [
+     538,
+     405,
+     648,
+     548
+    ]
+   ],
+   "layer": "Figures",
+   "flat": {
+    "white": [
+     242,
+     242,
+     250
+    ],
+    "scale": [
+     84,
+     190,
+     72
+    ],
+    "purple": [
+     150,
+     62,
+     162
+    ],
+    "orange": [
+     230,
+     92,
+     40
+    ],
+    "red": [
+     230,
+     72,
+     84
+    ],
+    "yellow": [
+     242,
+     202,
+     62
+    ],
+    "blue": [
+     62,
+     92,
+     204
+    ],
+    "black": [
+     20,
+     20,
+     26
+    ]
+   },
+   "flat_crate": {
+    "black": 202,
+    "blue": 252,
+    "orange": 221,
+    "purple": 212,
+    "red": 222,
+    "scale": 244,
+    "white": 196,
+    "yellow": 229
+   },
+   "canvas": [
+    28,
+    20,
+    40
+   ]
+  },
+  {
+   "name": "Crow",
+   "builder": "new1_figures.crow",
+   "what": "the crow perched on the roof, facing right (a static figure)",
+   "regions": [
+    [
+     450,
+     162,
+     528,
+     236
+    ]
+   ],
+   "layer": "Figures",
+   "flat": {
+    "black": [
+     48,
+     48,
+     54
+    ],
+    "orange": [
+     240,
+     112,
+     60
+    ]
+   },
+   "flat_crate": {
+    "black": 204,
+    "orange": 222
+   },
+   "canvas": [
+    22,
+    14,
+    17
+   ]
+  },
+  {
+   "name": "Ground_LightMeadow",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: grass",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_LightMeadow",
+    "kind": "grass",
+    "crop": [
+     150,
+     545,
+     200,
+     575
+    ],
+    "role": "surface",
+    "canvas": [
+     16,
+     16,
+     16
+    ],
+    "representative_rgb": [
+     139,
+     215,
+     151
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_LightPatchEdge",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: Edge",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_LightPatchEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_LightMeadow"
+    ],
+    "crop": [
+     100,
+     515,
+     230,
+     625
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_LightPatchInnerCorner",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: InnerCorner",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_LightPatchInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_LightMeadow"
+    ],
+    "crop": [
+     100,
+     515,
+     230,
+     625
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_LightPatchOuterCorner",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: OuterCorner",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_LightPatchOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_LightMeadow"
+    ],
+    "crop": [
+     100,
+     515,
+     230,
+     625
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_Meadow",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: grass",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_Meadow",
+    "kind": "grass",
+    "crop": [
+     672,
+     556,
+     728,
+     580
+    ],
+    "role": "surface",
+    "canvas": [
+     16,
+     16,
+     16
+    ],
+    "representative_rgb": [
+     98,
+     198,
+     138
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_PathEdge",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: Edge",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_PathEdge",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "Edge",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_SandPath"
+    ],
+    "crop": [
+     380,
+     640,
+     420,
+     720
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_PathInnerCorner",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: InnerCorner",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_PathInnerCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "InnerCorner",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_SandPath"
+    ],
+    "crop": [
+     380,
+     640,
+     420,
+     720
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_PathOuterCorner",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: OuterCorner",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_PathOuterCorner",
+    "kind": "transition",
+    "role": "transition",
+    "contour": "OuterCorner",
+    "materials": [
+     "New1_Ground_Meadow",
+     "New1_Ground_SandPath"
+    ],
+    "crop": [
+     380,
+     640,
+     420,
+     720
+    ],
+    "canvas": [
+     16,
+     16,
+     16
+    ]
+   },
+   "layer": "Ground"
+  },
+  {
+   "name": "Ground_SandPath",
+   "builder": "the ground collection's own code (output/ground/generate.py, through lib/new1_ground.py)",
+   "what": "ground tile: sand",
+   "row": {
+    "source": "new_1.jpg",
+    "name": "New1_Ground_SandPath",
+    "kind": "sand",
+    "crop": [
+     335,
+     650,
+     385,
+     720
+    ],
+    "role": "surface",
+    "canvas": [
+     16,
+     16,
+     16
+    ],
+    "representative_rgb": [
+     230,
+     207,
+     166
+    ]
+   },
+   "layer": "Ground"
+  }
+ ],
+ "files": [
+  {
+   "file": "New1_OliveConeTree.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "Base",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5593,
+   "colours": 11,
+   "groups": {
+    "leaf": 8,
+    "wood": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree.vox",
+   "sha256": "1d5c93982a73ebe3272962f044bfd349ee449724c94a730a8842bdbf521dfe5c",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_Cartoon.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "Cartoon",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5472,
+   "colours": 10,
+   "groups": {
+    "leaf": 8,
+    "wood": 2
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree_Cartoon.vox",
+   "sha256": "ecd349aa82f7c8b84f8205869ba22095b5ca11bf6e2dede87c2f08d60c7a456a",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_CratePalette.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "CratePalette",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5593,
+   "colours": 8,
+   "groups": {
+    "leaf": 5,
+    "wood": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree.vox",
+   "sha256": "de076d10d31e0b9a38d8dcfd26605d796ffb8694919791af2a1596dd1eddd86d",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_TwoColor.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "TwoColor",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5593,
+   "colours": 2,
+   "groups": {
+    "leaf": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree.vox",
+   "sha256": "9510ae0badc896690a7ffe85de3d4811091b3b97db41218399ca36cc6eacf9ec",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_Cartoon_TwoColor.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5472,
+   "colours": 2,
+   "groups": {
+    "leaf": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree_Cartoon.vox",
+   "sha256": "3164623f368ac9f65a96357b682f394f7f34653c6ca214680d7b0a07cd5f1846",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_CratePalette_TwoColor.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5593,
+   "colours": 2,
+   "groups": {
+    "leaf": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree.vox",
+   "sha256": "09ac622102696214c07b84988c019d540f6f881b6b180dd69c5a3418b6f0601c",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_OliveConeTree_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_OliveConeTree",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    28,
+    28,
+    35
+   ],
+   "voxels": 5472,
+   "colours": 2,
+   "groups": {
+    "leaf": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    25,
+    25,
+    34
+   ],
+   "geometry": "New1_OliveConeTree_Cartoon.vox",
+   "sha256": "4389425abcc6308724278062a686ef9463f5c2db075cbc869f86e2b8152bb5b6",
+   "kind": "vegetation",
+   "what": "the olive cone tree: a straight cone, lit on its left, dark leaf-marks on it and a pale cap at its tip, over a skirt of two tiers of round scalloped leaves, a short red-brown trunk and spreading roots (drawn eight times, every one cut off by the image's edge or overlapped by a neighbour or the HUD; the second from the left at the top the clearest)"
+  },
+  {
+   "file": "New1_TallGrass.vox",
+   "family": "New1_TallGrass",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 623,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    13
+   ],
+   "geometry": "New1_TallGrass.vox",
+   "sha256": "ba79be1bc4633355b1b3953b6d1c2aaeca0ee2c4712c0ecd1f8a9c78f22d9342",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_Cartoon.vox",
+   "family": "New1_TallGrass",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 656,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    14,
+    12
+   ],
+   "geometry": "New1_TallGrass_Cartoon.vox",
+   "sha256": "5e32432a441baf07ecd54f23bb3dc68701ec684b005f67abb22d6d368d60c77c",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_CratePalette.vox",
+   "family": "New1_TallGrass",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 623,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    13
+   ],
+   "geometry": "New1_TallGrass.vox",
+   "sha256": "48fb4075ee45846921df6fe0203ce7b6e32a0559532ea2026aea251ef6af74da",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_TwoColor.vox",
+   "family": "New1_TallGrass",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 623,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    13
+   ],
+   "geometry": "New1_TallGrass.vox",
+   "sha256": "800aaaf4b32e8077ba763666e4badbe02214da851fe8c6812a8cf64a609903e0",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_Cartoon_TwoColor.vox",
+   "family": "New1_TallGrass",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 656,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    14,
+    12
+   ],
+   "geometry": "New1_TallGrass_Cartoon.vox",
+   "sha256": "c7f9d968a7406c656762ac95dc753fc16c6d7226aaee2345dd36c4f0c78cfb73",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_CratePalette_TwoColor.vox",
+   "family": "New1_TallGrass",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 623,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    13
+   ],
+   "geometry": "New1_TallGrass.vox",
+   "sha256": "8ff0ea1094bba73621cd6dfbddb2e103b08bb45bb8f5c85153b0a88035dab924",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_TallGrass_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_TallGrass",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    14
+   ],
+   "voxels": 656,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    14,
+    12
+   ],
+   "geometry": "New1_TallGrass_Cartoon.vox",
+   "sha256": "2078b69b8cb368a24d9699cd56f8f121163df1bf29c711fd1896e8c63a6f84b6",
+   "kind": "vegetation",
+   "what": "a tile of the tall leafy grass (the strip at the top, the patch at the left: one tile of it, repeated)"
+  },
+  {
+   "file": "New1_SmallYellowFlower.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "Base",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 48,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "leaf": 3,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower.vox",
+   "sha256": "d7ff3071dd8f7c5650ed86edc22964678078662836fbf4366adcbfc0b500770c",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_Cartoon.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "Cartoon",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 52,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "leaf": 3,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower_Cartoon.vox",
+   "sha256": "0f676f5c44ee223cca676ab791da13e7ff5c6612f95de9fe683249430e6bcf6d",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_CratePalette.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "CratePalette",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 48,
+   "colours": 4,
+   "groups": {
+    "bloom": 1,
+    "leaf": 2,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower.vox",
+   "sha256": "8b89792b29739958a8f1b054433525d2de604e24b031ac1db5299af6baf22460",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_TwoColor.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "TwoColor",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 48,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower.vox",
+   "sha256": "9dacfdb0db505b110105a344528b41c90073a57bb69d8924478e94f8c89f80c1",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_Cartoon_TwoColor.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 52,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower_Cartoon.vox",
+   "sha256": "db00ae957bc2038f0d24a1c3ef971202c09ed061bc7d804323e9bbae6d188ed4",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_CratePalette_TwoColor.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 48,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower.vox",
+   "sha256": "35256bc3f3799b0e40b96ac58a88868cec7c94a5c56709fd398375df241b8f42",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_SmallYellowFlower_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_SmallYellowFlower",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    8,
+    8,
+    6
+   ],
+   "voxels": 52,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    6,
+    5
+   ],
+   "geometry": "New1_SmallYellowFlower_Cartoon.vox",
+   "sha256": "aad34702a02d33d011a5f9a60c6a685f5fc773ee186083d97c0a455f786f4698",
+   "kind": "vegetation",
+   "what": "the small yellow flower in front of the tall grass: five petals round a cream heart"
+  },
+  {
+   "file": "New1_TinySprout.vox",
+   "family": "New1_TinySprout",
+   "treatment": "Base",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 46,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout.vox",
+   "sha256": "ccea6ff8f6bd3a23d1fd046d329d5bf4abe7c7065e46d6c4abc9f61f5bc75e7e",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_Cartoon.vox",
+   "family": "New1_TinySprout",
+   "treatment": "Cartoon",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 44,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout_Cartoon.vox",
+   "sha256": "11e15db4a4dde45b3561399178014609920b18e36357cb4ee8cfa0dede1388f9",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_CratePalette.vox",
+   "family": "New1_TinySprout",
+   "treatment": "CratePalette",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 46,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout.vox",
+   "sha256": "84e3a7d964c1c2ef2e3ba276bbd28c84c2bb1202dd1bdb8e15b3258ce1e58d38",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_TwoColor.vox",
+   "family": "New1_TinySprout",
+   "treatment": "TwoColor",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 46,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout.vox",
+   "sha256": "058df5d04fd9720020edda45f57c9aa91d9de80a6fd0aef111deea0488f06431",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_Cartoon_TwoColor.vox",
+   "family": "New1_TinySprout",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 44,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout_Cartoon.vox",
+   "sha256": "3a300951ebfdca7e366f28d6286536fd4dc2234a9a16957262f06e957df39310",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_CratePalette_TwoColor.vox",
+   "family": "New1_TinySprout",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 46,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout.vox",
+   "sha256": "32682a9674d15210f02133385d16364461bee8201d11ffeba5a19eaf00f0c0d4",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_TinySprout_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_TinySprout",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    10,
+    10,
+    4
+   ],
+   "voxels": 44,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    8,
+    6,
+    3
+   ],
+   "geometry": "New1_TinySprout_Cartoon.vox",
+   "sha256": "91b978f5a094b0750947590f84d1083f600b3a6f3d2d05db3d884ea4f162aafd",
+   "kind": "vegetation",
+   "what": "the tiny two-leaved sprout (drawn three times: in the grass, and twice in the moss on the roof, which the cottage holds)"
+  },
+  {
+   "file": "New1_BroadLeafPlant.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "Base",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 393,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    2,
+    7,
+    0
+   ],
+   "occupied_max": [
+    21,
+    17,
+    7
+   ],
+   "geometry": "New1_BroadLeafPlant.vox",
+   "sha256": "51212c5ea5916289a4ccc4b487a22bfc844ac4ead337460124a687a86ba940ac",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_Cartoon.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "Cartoon",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 428,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    5,
+    5,
+    0
+   ],
+   "occupied_max": [
+    18,
+    18,
+    6
+   ],
+   "geometry": "New1_BroadLeafPlant_Cartoon.vox",
+   "sha256": "bc5b41c0f6b7c1c39c3c0df72ad6dc8a450df7c226090aa7759baa1bb5aae9d5",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_CratePalette.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "CratePalette",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 393,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    2,
+    7,
+    0
+   ],
+   "occupied_max": [
+    21,
+    17,
+    7
+   ],
+   "geometry": "New1_BroadLeafPlant.vox",
+   "sha256": "4fe766f400c4d275457ce2b58f299132a5fbe9c21f385d31a5daab4f246ca866",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_TwoColor.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "TwoColor",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 393,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    7,
+    0
+   ],
+   "occupied_max": [
+    21,
+    17,
+    7
+   ],
+   "geometry": "New1_BroadLeafPlant.vox",
+   "sha256": "bde69e62016c11130c6841f0c62b7c04bc540fcf722386b16ccf05d6a212522d",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_Cartoon_TwoColor.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 428,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    5,
+    5,
+    0
+   ],
+   "occupied_max": [
+    18,
+    18,
+    6
+   ],
+   "geometry": "New1_BroadLeafPlant_Cartoon.vox",
+   "sha256": "99427eb59c72acef87f6e1a992d4d95a26abd3c206824dc17b6b0cdbb6b90045",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_CratePalette_TwoColor.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 393,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    7,
+    0
+   ],
+   "occupied_max": [
+    21,
+    17,
+    7
+   ],
+   "geometry": "New1_BroadLeafPlant.vox",
+   "sha256": "c2ab50bdc1e46254382db4d4919cdd1e72f80b0e7a11af09eefecd04c1312359",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_BroadLeafPlant_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_BroadLeafPlant",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    24,
+    24,
+    8
+   ],
+   "voxels": 428,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    5,
+    5,
+    0
+   ],
+   "occupied_max": [
+    18,
+    18,
+    6
+   ],
+   "geometry": "New1_BroadLeafPlant_Cartoon.vox",
+   "sha256": "74161191cd93d4268f5556cc60491496eadb214f704fe72cc1e657bbd6dbaee3",
+   "kind": "vegetation",
+   "what": "the broad-leaved plant: five broad oval leaves round a dark heart (drawn three times, beside the house)"
+  },
+  {
+   "file": "New1_PlanterPlant.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "Base",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 104,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    8,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant.vox",
+   "sha256": "4f88e391c4177c722ebc338f85629a5f1e87cb67f3356f0dd6ac7448397fad89",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_Cartoon.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "Cartoon",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 148,
+   "colours": 4,
+   "groups": {
+    "leaf": 4
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant_Cartoon.vox",
+   "sha256": "dd98553ddd385844e0cb0e5f500ccef7da3dd6d15e34466ede3b86b2f758495a",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_CratePalette.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "CratePalette",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 104,
+   "colours": 3,
+   "groups": {
+    "leaf": 3
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    8,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant.vox",
+   "sha256": "47151bbf98a0b78ede1ef1097909c118af6c8941667dff47a75e62de55893527",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_TwoColor.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "TwoColor",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 104,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    8,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant.vox",
+   "sha256": "17408c1e07abdfe2875f0f1a31162e6f697efb335d2af6f2ebdd743e1d92785c",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_Cartoon_TwoColor.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 148,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant_Cartoon.vox",
+   "sha256": "c6bf9ef5401cb1c6118a46d5a63fdcab79c7ce40d1cdf3e32cf1486eac7cdf5a",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_CratePalette_TwoColor.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 104,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    1,
+    2,
+    0
+   ],
+   "occupied_max": [
+    8,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant.vox",
+   "sha256": "4e7d046b29dbcc39b0e68fbe83b8efc82d93c95729365f7876de9fb33f95f0fb",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_PlanterPlant_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_PlanterPlant",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    10,
+    10,
+    9
+   ],
+   "voxels": 148,
+   "colours": 1,
+   "groups": {
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    7,
+    7,
+    8
+   ],
+   "geometry": "New1_PlanterPlant_Cartoon.vox",
+   "sha256": "4d024b14dae28a2a75169edaddc80e5435956e3a957fd08c68b40bf028223084",
+   "kind": "vegetation",
+   "what": "the small jagged-leaved plant in the house's flower box (drawn twice; the cottage holds both)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "Base",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 994,
+   "colours": 6,
+   "groups": {
+    "bloom": 1,
+    "leaf": 3,
+    "yellow": 2
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant.vox",
+   "sha256": "3ed7c15a2409ab3236f535b81a7db64f3eb8543cc5d9bc6c55c8dfbb68814d01",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_Cartoon.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "Cartoon",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 964,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "leaf": 3,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    3,
+    0
+   ],
+   "occupied_max": [
+    20,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant_Cartoon.vox",
+   "sha256": "37ffd0997cf850a061c0d67ade9883b0f75fbf4cee7ab5190de5c9c515aa02f2",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_CratePalette.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "CratePalette",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 994,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "leaf": 3,
+    "yellow": 2
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant.vox",
+   "sha256": "c8f5efe7de75dc87e887f7197f774399a995a6df039bc66f1e13ecbb16782174",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_TwoColor.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "TwoColor",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 994,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant.vox",
+   "sha256": "68d6fe89e690bddb5b93e801dc55b4abeadb0e306cee795c41dac8cfd766046a",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_Cartoon_TwoColor.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 964,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    3,
+    0
+   ],
+   "occupied_max": [
+    20,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant_Cartoon.vox",
+   "sha256": "e062a1fe85c467cea53c5fecf156cebfed60111e70ed4538ea4c45107b63beb6",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_CratePalette_TwoColor.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 994,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant.vox",
+   "sha256": "09bee36fd1ee67602cda2feab5878126fb28ba2c7ee1fe4d59bac23c2fcdfa02",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_RoofFlowerPlant_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_RoofFlowerPlant",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    22,
+    22,
+    7
+   ],
+   "voxels": 964,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "leaf": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    1,
+    3,
+    0
+   ],
+   "occupied_max": [
+    20,
+    18,
+    6
+   ],
+   "geometry": "New1_RoofFlowerPlant_Cartoon.vox",
+   "sha256": "10395cdf8694702f6a8e91921c8f855b7f7e9a341e218eb4283f26ccfecdecbe",
+   "kind": "vegetation",
+   "what": "the low flowering plant on the roof: round leaves and three yellow star flowers (the cottage holds it too)"
+  },
+  {
+   "file": "New1_CoralFlower.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "Base",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 8,
+   "groups": {
+    "bloom": 2,
+    "flower": 3,
+    "leaf": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower.vox",
+   "sha256": "4622f9664d2d96b4710eb907986890158d4599cb0114c466eed10d56eb8fcef4",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_Cartoon.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "Cartoon",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "flower": 1,
+    "leaf": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower_Cartoon.vox",
+   "sha256": "a410561e2c26670f06630b67e033adf9307eeec02b53cf6a29ff6214c9a915b4",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_CratePalette.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "CratePalette",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "flower": 2,
+    "leaf": 2
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower.vox",
+   "sha256": "8dcb6f4113d3321599c0cea999f204fcf53dd5c45b92b3245d80f83b666ea8d0",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_TwoColor.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "flower": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower.vox",
+   "sha256": "eedee5ee856dd9ab3de250dba8fcf44dc2a17a3d2646631750d308f2803661f2",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_Cartoon_TwoColor.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "flower": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower_Cartoon.vox",
+   "sha256": "0d2e3095651b22de57f29201c3c4f080a913af9dfb4bf5a08cc2bc9a0bf3c4cd",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_CratePalette_TwoColor.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "flower": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower.vox",
+   "sha256": "89ddae6342e63bf0ee42f400c8b87c623ed1cb2a94e4b135b55ec7c7a99bf4ce",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_CoralFlower_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_CoralFlower",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "flower": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_CoralFlower_Cartoon.vox",
+   "sha256": "076ca1a38b6c5839ac71ebf99ae113af57639d4d0789580bc4cc3d1473a267f1",
+   "kind": "vegetation",
+   "what": "the six-petalled coral-red flower (drawn twice in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "Base",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 8,
+   "groups": {
+    "bloom": 2,
+    "blue": 3,
+    "leaf": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower.vox",
+   "sha256": "c26efe20f6ace8222b5821006f40e7d19a7ac1b70157fe1d9e48711d22b572a9",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_Cartoon.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "Cartoon",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 5,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 3
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower_Cartoon.vox",
+   "sha256": "1ef1fed83cb148dcfa9414eaf250ce9045926765ced2feb82d68fb7a597c86ec",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_CratePalette.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "CratePalette",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 4,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 2
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower.vox",
+   "sha256": "0d55b0a646225cfadd79732f722ca71af5eeb0c4308fd461ede356f222b4ac12",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_TwoColor.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower.vox",
+   "sha256": "9a8d7d80da74d3075434b06e1d686490dbf91c3f5d896d41b33e2e19f4cb35bb",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_Cartoon_TwoColor.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower_Cartoon.vox",
+   "sha256": "de97051fdb0f48c7f2fef1a407895267ed7cb1f3b1d145ae1038354274a7c9ca",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_CratePalette_TwoColor.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 140,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower.vox",
+   "sha256": "a3296382a5899331351219ff70f72a94233b6b4ba9e112105a7c1b7c7389b70d",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_BlueFlower_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_BlueFlower",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    14,
+    14,
+    6
+   ],
+   "voxels": 144,
+   "colours": 3,
+   "groups": {
+    "bloom": 1,
+    "blue": 1,
+    "leaf": 1
+   },
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    11,
+    11,
+    5
+   ],
+   "geometry": "New1_BlueFlower_Cartoon.vox",
+   "sha256": "084d6f4e0851a4cc8a782eca934fea3c0eba8fa0ac17d37150ac9b09acdc56cc",
+   "kind": "vegetation",
+   "what": "the six-petalled blue flower: the coral flower's shape in blue (drawn three times in the grass)"
+  },
+  {
+   "file": "New1_Woodpile.vox",
+   "family": "New1_Woodpile",
+   "treatment": "Base",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 10,
+   "groups": {
+    "wood": 10
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    23,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile.vox",
+   "sha256": "486d16f05d194b07335c8e868268429b0100f8cf38ffc77e434d578d1a9e4615",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_Cartoon.vox",
+   "family": "New1_Woodpile",
+   "treatment": "Cartoon",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 7,
+   "groups": {
+    "wood": 7
+   },
+   "occupied_min": [
+    1,
+    0,
+    0
+   ],
+   "occupied_max": [
+    24,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile_Cartoon.vox",
+   "sha256": "b4cf013d9b5adbb4d427067a15e926011a737c95c00ecc2646e2b00b927957a0",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_CratePalette.vox",
+   "family": "New1_Woodpile",
+   "treatment": "CratePalette",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 6,
+   "groups": {
+    "wood": 6
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    23,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile.vox",
+   "sha256": "27e6f2f705e437ef06a7a6d19ac12294344181085252a34607da43ad245cce02",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_TwoColor.vox",
+   "family": "New1_Woodpile",
+   "treatment": "TwoColor",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 1,
+   "groups": {
+    "wood": 1
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    23,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile.vox",
+   "sha256": "dbc0e8206674871e31b01f65f4aeb3d9f7fa68c8f17156a4e6311e5893ae99e6",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_Cartoon_TwoColor.vox",
+   "family": "New1_Woodpile",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 1,
+   "groups": {
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    0,
+    0
+   ],
+   "occupied_max": [
+    24,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile_Cartoon.vox",
+   "sha256": "d0b7b7ad0da23ba57306d254f9b22c4bb6f83615c7105c818d1affe52cb8595c",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_CratePalette_TwoColor.vox",
+   "family": "New1_Woodpile",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 1,
+   "groups": {
+    "wood": 1
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    23,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile.vox",
+   "sha256": "e3edddb6965105cb5c44cbe3a8eaa7bd7e1f80b9505498e6adc04f99c49a53e6",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_Woodpile_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Woodpile",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    26,
+    20,
+    9
+   ],
+   "voxels": 2648,
+   "colours": 1,
+   "groups": {
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    0,
+    0
+   ],
+   "occupied_max": [
+    24,
+    19,
+    8
+   ],
+   "geometry": "New1_Woodpile_Cartoon.vox",
+   "sha256": "84ec5ce7f1f7dcf1fa456ab0648b992d7d29196b6ce6eb2ecea6f746ecf70f71",
+   "kind": "props",
+   "what": "the woodpile beside the house: three stripped logs side by side, ringed ends, two boards across them"
+  },
+  {
+   "file": "New1_ChoppingStump.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "Base",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3340,
+   "colours": 13,
+   "groups": {
+    "cut": 5,
+    "metal": 3,
+    "wood": 5
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump.vox",
+   "sha256": "b7e0e25f656ee26457622e2fe5d6706d1e109d1434c3ac2383501f752c394bef",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_Cartoon.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "Cartoon",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3334,
+   "colours": 10,
+   "groups": {
+    "cut": 4,
+    "metal": 3,
+    "wood": 3
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump_Cartoon.vox",
+   "sha256": "66cc329a8ddc3e4a36f0b96ec4dc7e584f45490b411b5e043e30342921ee8d9e",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_CratePalette.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "CratePalette",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3340,
+   "colours": 9,
+   "groups": {
+    "cut": 2,
+    "metal": 3,
+    "wood": 4
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump.vox",
+   "sha256": "70f0453312bd7164da65eccdd17ae9bc7b4c0ef10788f164e9deb56c5185f28c",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_TwoColor.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "TwoColor",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3340,
+   "colours": 3,
+   "groups": {
+    "cut": 1,
+    "metal": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump.vox",
+   "sha256": "ade307427f27b6d541e19abf38462a81a4d52d5bb9a0d4bdbe8169b6b1d065d0",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_Cartoon_TwoColor.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3334,
+   "colours": 3,
+   "groups": {
+    "cut": 1,
+    "metal": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump_Cartoon.vox",
+   "sha256": "41d8f533f6b00752337c9c63cb09ba1fb490b5b092fd36f05f01ad5c9138b1d4",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_CratePalette_TwoColor.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3340,
+   "colours": 3,
+   "groups": {
+    "cut": 1,
+    "metal": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump.vox",
+   "sha256": "876c36580dd7923a6ee678e276e9328bdc80e2656f840481abf3c944ab58168a",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_ChoppingStump_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_ChoppingStump",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    24,
+    24,
+    22
+   ],
+   "voxels": 3334,
+   "colours": 3,
+   "groups": {
+    "cut": 1,
+    "metal": 1,
+    "wood": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    22,
+    22,
+    21
+   ],
+   "geometry": "New1_ChoppingStump_Cartoon.vox",
+   "sha256": "b7802b6228c7cee1a3acf06660a18596f3584d47f3d08fc7140d21bafcb0012c",
+   "kind": "props",
+   "what": "the chopping stump with an axe stuck in its top"
+  },
+  {
+   "file": "New1_Hero.vox",
+   "family": "New1_Hero",
+   "treatment": "Base",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2393,
+   "colours": 27,
+   "groups": {
+    "black": 1,
+    "boot": 3,
+    "gold": 6,
+    "hood": 7,
+    "red": 1,
+    "skin": 3,
+    "tunic": 2,
+    "white": 4
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero.vox",
+   "sha256": "4f60b12da4b166089ab0fd725dae05ed9e84325ca5323446896a877e7b7a003b",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_Cartoon.vox",
+   "family": "New1_Hero",
+   "treatment": "Cartoon",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2398,
+   "colours": 13,
+   "groups": {
+    "black": 1,
+    "boot": 1,
+    "gold": 3,
+    "hood": 3,
+    "red": 1,
+    "skin": 1,
+    "tunic": 1,
+    "white": 2
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero_Cartoon.vox",
+   "sha256": "4480391e7e3a49c1bd223d19783a46cac019d568de1b70bda470c5671bfafa39",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_CratePalette.vox",
+   "family": "New1_Hero",
+   "treatment": "CratePalette",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2393,
+   "colours": 18,
+   "groups": {
+    "black": 1,
+    "boot": 3,
+    "gold": 3,
+    "hood": 3,
+    "red": 1,
+    "skin": 3,
+    "tunic": 1,
+    "white": 3
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero.vox",
+   "sha256": "e49a89f15184dcbc57e6465cad14cae16584b98bbba5c1f741176f77285935c4",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_TwoColor.vox",
+   "family": "New1_Hero",
+   "treatment": "TwoColor",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2393,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "boot": 1,
+    "gold": 1,
+    "hood": 1,
+    "red": 1,
+    "skin": 1,
+    "tunic": 1,
+    "white": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero.vox",
+   "sha256": "24d466d6e3ec74c62b9000b18ebcb1da79137dd081059f857ff4d9fa2db99b8c",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_Cartoon_TwoColor.vox",
+   "family": "New1_Hero",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2398,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "boot": 1,
+    "gold": 1,
+    "hood": 1,
+    "red": 1,
+    "skin": 1,
+    "tunic": 1,
+    "white": 1
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero_Cartoon.vox",
+   "sha256": "4a62201e695d7a9c4c853c3ce7320b628e54d75235a033cf2e88a235bcfa6661",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_CratePalette_TwoColor.vox",
+   "family": "New1_Hero",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2393,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "boot": 1,
+    "gold": 1,
+    "hood": 1,
+    "red": 1,
+    "skin": 1,
+    "tunic": 1,
+    "white": 1
+   },
+   "occupied_min": [
+    1,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero.vox",
+   "sha256": "ab2b909e6c68f9bb9d4c7ea9a500b6fc9d8a99074aa86c26ffb782e944cf0f96",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Hero_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Hero",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    20,
+    16,
+    27
+   ],
+   "voxels": 2398,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "boot": 1,
+    "gold": 1,
+    "hood": 1,
+    "red": 1,
+    "skin": 1,
+    "tunic": 1,
+    "white": 1
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    17,
+    15,
+    26
+   ],
+   "geometry": "New1_Hero_Cartoon.vox",
+   "sha256": "164115165f5f57594a99917cd004a1c14ce83c0b8f1d53d6c80a2487ff39af72",
+   "kind": "figures",
+   "what": "the hooded hero on the path, a golden staff in his hand (a static figure)"
+  },
+  {
+   "file": "New1_Fairy.vox",
+   "family": "New1_Fairy",
+   "treatment": "Base",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 938,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "white": 3,
+    "yellow": 4
+   },
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    12,
+    12
+   ],
+   "geometry": "New1_Fairy.vox",
+   "sha256": "c6d39555d0ce1477e744771a23a381b96268c06b64745df3dd759d84f7228a27",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_Cartoon.vox",
+   "family": "New1_Fairy",
+   "treatment": "Cartoon",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 1014,
+   "colours": 4,
+   "groups": {
+    "black": 1,
+    "white": 1,
+    "yellow": 2
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    15,
+    12,
+    14
+   ],
+   "geometry": "New1_Fairy_Cartoon.vox",
+   "sha256": "fcb0819e5366dfa794cb874f8e35aedb8f959253357b743cec32710ad349a563",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_CratePalette.vox",
+   "family": "New1_Fairy",
+   "treatment": "CratePalette",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 938,
+   "colours": 6,
+   "groups": {
+    "black": 1,
+    "white": 3,
+    "yellow": 2
+   },
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    12,
+    12
+   ],
+   "geometry": "New1_Fairy.vox",
+   "sha256": "8bbd46317e12dd3ba8fa13d6eec1d5c89504de4ad883bf316c741a8e46c120a2",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_TwoColor.vox",
+   "family": "New1_Fairy",
+   "treatment": "TwoColor",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 938,
+   "colours": 3,
+   "groups": {
+    "black": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    12,
+    12
+   ],
+   "geometry": "New1_Fairy.vox",
+   "sha256": "522cebcb2185b406f9be076d3f7ef9008ae09c77815079ba3ca6f52ba50c2463",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_Cartoon_TwoColor.vox",
+   "family": "New1_Fairy",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 1014,
+   "colours": 3,
+   "groups": {
+    "black": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    15,
+    12,
+    14
+   ],
+   "geometry": "New1_Fairy_Cartoon.vox",
+   "sha256": "927b4bc36da2088f4a4d0f66ecd752e40bc7b76c82f9648013375b4baf3ff073",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_CratePalette_TwoColor.vox",
+   "family": "New1_Fairy",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 938,
+   "colours": 3,
+   "groups": {
+    "black": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    14,
+    12,
+    12
+   ],
+   "geometry": "New1_Fairy.vox",
+   "sha256": "41fb4af2bed843961776795829a6398e90bbe01eb88a441a0d3a0c5453640606",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_Fairy_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Fairy",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    18,
+    14,
+    15
+   ],
+   "voxels": 1014,
+   "colours": 3,
+   "groups": {
+    "black": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    2,
+    1,
+    0
+   ],
+   "occupied_max": [
+    15,
+    12,
+    14
+   ],
+   "geometry": "New1_Fairy_Cartoon.vox",
+   "sha256": "0e37d2ea9a8ea1c10a943b749e5af584725c44165526fa4f940a75cdda7c2b0a",
+   "kind": "figures",
+   "what": "the yellow fairy floating beside the hero (a static figure; it floats about 6 voxels up, lift it when placing it)"
+  },
+  {
+   "file": "New1_CrestedCreature.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "Base",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4646,
+   "colours": 24,
+   "groups": {
+    "black": 1,
+    "blue": 3,
+    "orange": 6,
+    "purple": 3,
+    "red": 1,
+    "scale": 3,
+    "white": 4,
+    "yellow": 3
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature.vox",
+   "sha256": "cc6155e3e1dc8192e46775174132039608c007f4e59428903e0287b4509127ef",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_Cartoon.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "Cartoon",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4706,
+   "colours": 11,
+   "groups": {
+    "black": 1,
+    "blue": 1,
+    "orange": 2,
+    "purple": 1,
+    "red": 1,
+    "scale": 1,
+    "white": 3,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature_Cartoon.vox",
+   "sha256": "fcab872b533581e52ecbff3a2bc251bd0a03d51b094bdea627948cb861997a8f",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_CratePalette.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "CratePalette",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4646,
+   "colours": 16,
+   "groups": {
+    "black": 1,
+    "blue": 2,
+    "orange": 3,
+    "purple": 3,
+    "red": 1,
+    "scale": 3,
+    "white": 3,
+    "yellow": 3
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature.vox",
+   "sha256": "7afedf005753f143fcb59e2b5f72237c2a069bbfcd073be54734e6c2cbd4824e",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_TwoColor.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "TwoColor",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4646,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "blue": 1,
+    "orange": 1,
+    "purple": 1,
+    "red": 1,
+    "scale": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature.vox",
+   "sha256": "8a5ba7eaf382bb2659a345c43ecf912bebe8d966bae9568df56228b956e4f83f",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_Cartoon_TwoColor.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4706,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "blue": 1,
+    "orange": 1,
+    "purple": 1,
+    "red": 1,
+    "scale": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature_Cartoon.vox",
+   "sha256": "ec422ecd16bc87f5f2a14e23771244df815c8f23e4185dacaaba8b01ac7e8c52",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_CratePalette_TwoColor.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4646,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "blue": 1,
+    "orange": 1,
+    "purple": 1,
+    "red": 1,
+    "scale": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature.vox",
+   "sha256": "903177c64c30b456521c8ba956ccbc306234591046a9aeb6f4491472361bf360",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_CrestedCreature_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_CrestedCreature",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    28,
+    20,
+    40
+   ],
+   "voxels": 4706,
+   "colours": 8,
+   "groups": {
+    "black": 1,
+    "blue": 1,
+    "orange": 1,
+    "purple": 1,
+    "red": 1,
+    "scale": 1,
+    "white": 1,
+    "yellow": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    27,
+    17,
+    39
+   ],
+   "geometry": "New1_CrestedCreature_Cartoon.vox",
+   "sha256": "855da17f8dea57eefa2a4197f305d67d753648280163845997da9fcefd27ef2d",
+   "kind": "figures",
+   "what": "the green crested creature by the flowers: an orange crest, yellow and blue feathers, a cape and scarf (a static figure)"
+  },
+  {
+   "file": "New1_Crow.vox",
+   "family": "New1_Crow",
+   "treatment": "Base",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1096,
+   "colours": 12,
+   "groups": {
+    "black": 8,
+    "orange": 4
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow.vox",
+   "sha256": "cd3ff40bf2bcb621eb12b040be2eeff87afc5e4a81c9d3ca2de8f2f50d74fc15",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_Cartoon.vox",
+   "family": "New1_Crow",
+   "treatment": "Cartoon",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1118,
+   "colours": 5,
+   "groups": {
+    "black": 3,
+    "orange": 2
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow_Cartoon.vox",
+   "sha256": "8c1fc42011abc6dfedc7c3513b18a06f092655ad0bc2ba60c1a6ee9684d20e69",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_CratePalette.vox",
+   "family": "New1_Crow",
+   "treatment": "CratePalette",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1096,
+   "colours": 7,
+   "groups": {
+    "black": 5,
+    "orange": 2
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow.vox",
+   "sha256": "72dfe1711d95dc031f80de2e49b0f57e4ce26d98c4b3be9528ad705a1da98f2b",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_TwoColor.vox",
+   "family": "New1_Crow",
+   "treatment": "TwoColor",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1096,
+   "colours": 2,
+   "groups": {
+    "black": 1,
+    "orange": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow.vox",
+   "sha256": "aeff563d1eb746c4b439c011194b9b18afd11a9f141da7e22c5d017f44a6b177",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_Cartoon_TwoColor.vox",
+   "family": "New1_Crow",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1118,
+   "colours": 2,
+   "groups": {
+    "black": 1,
+    "orange": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow_Cartoon.vox",
+   "sha256": "bf9bfbbdfcc3d1667f1619d4ab38fdc8a7023d98da7990db2abdd41620247c87",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_CratePalette_TwoColor.vox",
+   "family": "New1_Crow",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1096,
+   "colours": 2,
+   "groups": {
+    "black": 1,
+    "orange": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow.vox",
+   "sha256": "7d71f1faaef92b23ed0b66c340c9a5543c1e16f97dd7cbf2a1a83faa1d100e00",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Crow_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Crow",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    22,
+    14,
+    17
+   ],
+   "voxels": 1118,
+   "colours": 2,
+   "groups": {
+    "black": 1,
+    "orange": 1
+   },
+   "occupied_min": [
+    0,
+    2,
+    0
+   ],
+   "occupied_max": [
+    21,
+    11,
+    16
+   ],
+   "geometry": "New1_Crow_Cartoon.vox",
+   "sha256": "fb244921fe02c1d697b287d91573c32d731772180b0c3a597bc409544b69eb42",
+   "kind": "figures",
+   "what": "the crow perched on the roof, facing right (a static figure)"
+  },
+  {
+   "file": "New1_Ground_LightMeadow.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     3,
+     4,
+     5
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "d5b705ca417b408641a4a3761446d892d03e5e5e3bc6a9efe270b8869665d4cb"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_Cartoon.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2,
+     3,
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "153a79eb13d4da6d30aebabb2c76bd4571aec8f5b5de8d44d584f7179d7d0199"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_CratePalette.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     245,
+     246
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "910f329be54f98f20441c2f6f28768e7f9fffbee44b6fad6f1ee2c3e1d364271"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_TwoColor.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "ca663f9cb2a447a79416aed8e581e0ddcf0a7e1b739c7ff45960431924039ad2"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "722142bbb3715bfab7441a2978b8cd10fbabe6e432d3ab36fbb95c1d42ba14b9"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "4c344bcdf0a11fb913ee9c766708fc3ca970b8478e6c5d32e9a573b4190bcee3"
+  },
+  {
+   "file": "New1_Ground_LightMeadow_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightMeadow",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightMeadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "42b07aaca0264d7e462849a339555013757a7d1583362be46f5bfbc7e3d2cd76"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 10,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     3,
+     4,
+     5
+    ],
+    "New1_Ground_Meadow:substrate": [
+     6,
+     7
+    ],
+    "New1_Ground_Meadow:surface": [
+     8,
+     9,
+     10
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "f9a3c5a5b6d5dd6f23f4de350ce450ad9bad1ce9791d461c5a13839f84afee29"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_Cartoon.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 8,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_Meadow:substrate": [
+     5
+    ],
+    "New1_Ground_Meadow:surface": [
+     6,
+     7,
+     8
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "64eedf8584934ac5234a4b95b59b1d97e6c20aede198e578f307b035dc4dd7c8"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_CratePalette.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     245,
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "6eeb7be74049bcb1a2e8b07c2105878233ee3fd622cc9cb7a4903e0171f9d331"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_TwoColor.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "adee1b85b29cef6edcaf29a9a771229c338696317ec47525ea6a8da796d45af0"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "17393eceb57fb46855fe09920cc39bf47164a9d2efcd254ec6e537b9c2cf4e94"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "96aac797b28c529815e4f313136995ea8e475a4fd06305958fdd368c8faa4b1a"
+  },
+  {
+   "file": "New1_Ground_LightPatchEdge_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchEdge",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "1f03565a34129cbd001ff4196b6da968198d8052bbc2efa8ef144456560715fc"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 9,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     3,
+     4
+    ],
+    "New1_Ground_Meadow:substrate": [
+     5,
+     6
+    ],
+    "New1_Ground_Meadow:surface": [
+     7,
+     8,
+     9
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "c73e40daef19d60acd7a35cfea1dc16078be7d41bc05ed5c9b8210c56bcd20ef"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_Cartoon.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 8,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_Meadow:substrate": [
+     5
+    ],
+    "New1_Ground_Meadow:surface": [
+     6,
+     7,
+     8
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "dae467f10840a2242ef404f215537c24a4ae471293a883cd80950977752da27f"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_CratePalette.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     245,
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "461e0c7f98d0a5158dc1f9780c8c178fbfe807595ff4fe0260b0178a5a2f8b94"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_TwoColor.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "e91b8cc6fc79e1c65c75a24e0943ab64bd70e8248bb88106064a2f5b00e8fbed"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "cc9cea4a5dc2784877bad8edadcf45c97f787ef7081c03dfc471560be3119781"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "2d45026282783e213ffc34ac63718dfcb590ed858ed80283dc66e1262656e16c"
+  },
+  {
+   "file": "New1_Ground_LightPatchInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchInnerCorner",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "90935b9442a09f5bb66b3723562700bd655ba5aa04b98b081c443a0673b5b3a0"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 10,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     3,
+     4,
+     5
+    ],
+    "New1_Ground_Meadow:substrate": [
+     6,
+     7
+    ],
+    "New1_Ground_Meadow:surface": [
+     8,
+     9,
+     10
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "16dd8e5b3727fd82fc317759f9f3a642a1f8399949477a2a305f762fc1ef6078"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_Cartoon.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 8,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_Meadow:substrate": [
+     5
+    ],
+    "New1_Ground_Meadow:surface": [
+     6,
+     7,
+     8
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "c0e1d6f532621d75f63d74f266ccecd449ab7f0010ea58d8708407acbb831cde"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_CratePalette.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     245,
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "5cbbd6fa2bf57f0d8d404b5661db71261b1dbe061360a411b2afd86eebd757df"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_TwoColor.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "51e731722d9da69028e2aed2308755102210ba6c9ec5cef550709fbc49be909c"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     1
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     2
+    ],
+    "New1_Ground_Meadow:substrate": [
+     3
+    ],
+    "New1_Ground_Meadow:surface": [
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "64b8c25716d2a019c6235fdeefbf38ed2a9e3611fee316677841089024020b2e"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "89a2f7c0662fbd9f3ed99b942ad391fe781344a4764521a9c2e6a44fd0d07ba0"
+  },
+  {
+   "file": "New1_Ground_LightPatchOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_LightPatchOuterCorner",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_LightMeadow:substrate": [
+     234
+    ],
+    "New1_Ground_LightMeadow:surface": [
+     246
+    ],
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_LightPatchOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "d6fe914441db33b8035e4af0a712c794e140c3d0287fcadb9752137133396fa3"
+  },
+  {
+   "file": "New1_Ground_Meadow.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_Meadow:surface": [
+     3,
+     4,
+     5
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "59b86038028920cd867b7812258ea07a29c46363f1d2f9f33423a6ce137e1b66"
+  },
+  {
+   "file": "New1_Ground_Meadow_Cartoon.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2,
+     3,
+     4
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "e91ac6572327f2a3d0dd331c9b1a522301313c235e923429e5e3bf090769f829"
+  },
+  {
+   "file": "New1_Ground_Meadow_CratePalette.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 4,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "520fd5a25a35fc566455cab324b1ab786c18363322143db4c24f13b370dd5ab8"
+  },
+  {
+   "file": "New1_Ground_Meadow_TwoColor.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "4eb466be6a2feef2a42c028c294d598744dd39344fb8edd246257fec1c5c2d41"
+  },
+  {
+   "file": "New1_Ground_Meadow_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "022ac3819e4e10ec90819493e45e5605d652a8c447e3063a736daf2fa820bab9"
+  },
+  {
+   "file": "New1_Ground_Meadow_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "c71c6323681f7276220c3c63db0c55226e206d7eb7f8f7a45ecd2015bf2657a9"
+  },
+  {
+   "file": "New1_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_Meadow",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 2,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_Meadow_Cartoon.vox",
+   "kind": "ground",
+   "what": "grass",
+   "sha256": "f8c32b0378d948c2bea4b9afe5dace3905df9338bb8dd4568425b14544ae6fe5"
+  },
+  {
+   "file": "New1_Ground_PathEdge.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 10,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_Meadow:surface": [
+     3,
+     4,
+     5
+    ],
+    "New1_Ground_SandPath:substrate": [
+     6,
+     7
+    ],
+    "New1_Ground_SandPath:surface": [
+     8,
+     9,
+     10
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "df253d1127c86ba1abd0c0cc26eacffceb3c51e98873cf0736dd010b8372c8fb"
+  },
+  {
+   "file": "New1_Ground_PathEdge_Cartoon.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_SandPath:substrate": [
+     5
+    ],
+    "New1_Ground_SandPath:surface": [
+     6,
+     7
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "2d94f5512a0600540c3699b88438320f242dd670005a8cdab2dac35dbaafedc8"
+  },
+  {
+   "file": "New1_Ground_PathEdge_CratePalette.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ],
+    "New1_Ground_SandPath:substrate": [
+     236,
+     237
+    ],
+    "New1_Ground_SandPath:surface": [
+     237,
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "30ef60ffa2b3e7d020fafbe182449270ce8fc262dc02c4ccd9bd9905e7cd1400"
+  },
+  {
+   "file": "New1_Ground_PathEdge_TwoColor.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "ad59547b2f416dd52fd76db46ee5723287eb0558320c0b033e51eb551732dab5"
+  },
+  {
+   "file": "New1_Ground_PathEdge_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "220459ebdf34a5cfc85a409e2167ce435451c0d1de3b709f2844d337f4217967"
+  },
+  {
+   "file": "New1_Ground_PathEdge_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "f046af89bb182178ace80c36bed33ef84a95ada444bdb56cc19192e6d41b5b46"
+  },
+  {
+   "file": "New1_Ground_PathEdge_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathEdge",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathEdge_Cartoon.vox",
+   "kind": "ground",
+   "what": "Edge",
+   "sha256": "c7218847f22dc768b1d1c835a45b65d95049b8fae988c1163c55fa5b5b162746"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 10,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_Meadow:surface": [
+     3,
+     4,
+     5
+    ],
+    "New1_Ground_SandPath:substrate": [
+     6,
+     7
+    ],
+    "New1_Ground_SandPath:surface": [
+     8,
+     9,
+     10
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "7db9352d1f60bb98725012e96e22cdf373e6cfc787b76248b21c443cd2af5e90"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_Cartoon.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_SandPath:substrate": [
+     5
+    ],
+    "New1_Ground_SandPath:surface": [
+     6,
+     7
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "47d2983a0d97872f61d1bf6cd9165dae0e6883d11a167c6e03431c979601142d"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_CratePalette.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ],
+    "New1_Ground_SandPath:substrate": [
+     236,
+     237
+    ],
+    "New1_Ground_SandPath:surface": [
+     237,
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "59d9b8f87e51119bacc2a46248234d91b16a55930642e5d1cb10c55e3658ed21"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_TwoColor.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "6ac462f39e27f2929488ad44c986ff7e284efa10f03f5faaad1994619fbe1867"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "26d5d2bdd1b710141474c8cb7ba11d72af9e8a113f6c49b2e53ed15b58384c7b"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "ea8649acb944dbcbcb6adef7e14a992a8fcff0048bc310b0728f9c242c950240"
+  },
+  {
+   "file": "New1_Ground_PathInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathInnerCorner",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathInnerCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "InnerCorner",
+   "sha256": "860f66ef8bdf7dd65be9cbd87a85d11e66167fde48f192667f1a9f4dabafb353"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 10,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_Meadow:surface": [
+     3,
+     4,
+     5
+    ],
+    "New1_Ground_SandPath:substrate": [
+     6,
+     7
+    ],
+    "New1_Ground_SandPath:surface": [
+     8,
+     9,
+     10
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "b05c650a4813dcbc4380cccd4ecfcb16137e7df33dbb9fbf58f90902b6a95c09"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_Cartoon.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2,
+     3,
+     4
+    ],
+    "New1_Ground_SandPath:substrate": [
+     5
+    ],
+    "New1_Ground_SandPath:surface": [
+     6,
+     7
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "fedfdc83f93cfe35bd1d81e468e7f0795ba3409c59e6b97c557d26ed63a29e50"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_CratePalette.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 7,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     233,
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244,
+     245
+    ],
+    "New1_Ground_SandPath:substrate": [
+     236,
+     237
+    ],
+    "New1_Ground_SandPath:surface": [
+     237,
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "20a6a7b8bc5d214613720598c662b5339e812d25ef684fb41939bc7cb2e75d19"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_TwoColor.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "0bf6f81990e13a4dc76d53b706075c94dcf25855d5d23bf3d52b51f918ed074c"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     1
+    ],
+    "New1_Ground_Meadow:surface": [
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "16a6d76fc6a1ef10a2f5c773229b5774e9575fa914ba72e083f91b8e614b6555"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "4a4d7254df8de59513116a43581938375ff98d19d55c0324f8fbb494451547ea"
+  },
+  {
+   "file": "New1_Ground_PathOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_PathOuterCorner",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_Meadow:substrate": [
+     234
+    ],
+    "New1_Ground_Meadow:surface": [
+     244
+    ],
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_PathOuterCorner_Cartoon.vox",
+   "kind": "ground",
+   "what": "OuterCorner",
+   "sha256": "748ad1433f8f0995ce0e74c7c0b1fd78e4ded919855fe6ff9afdea40d989a230"
+  },
+  {
+   "file": "New1_Ground_SandPath.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "Base",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 5,
+   "groups": {
+    "New1_Ground_SandPath:substrate": [
+     1,
+     2
+    ],
+    "New1_Ground_SandPath:surface": [
+     3,
+     4,
+     5
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "ca8836cb18172eed455300810ee916e28afc3503b51423ef25b6edce33fc38e6"
+  },
+  {
+   "file": "New1_Ground_SandPath_Cartoon.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "Cartoon",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_SandPath:substrate": [
+     1
+    ],
+    "New1_Ground_SandPath:surface": [
+     2,
+     3
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath_Cartoon.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "e3c56f20645744264cee23c5aa6150cafe2e33b9ea01339ef17002e5c8e3a516"
+  },
+  {
+   "file": "New1_Ground_SandPath_CratePalette.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "CratePalette",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 3,
+   "groups": {
+    "New1_Ground_SandPath:substrate": [
+     236,
+     237
+    ],
+    "New1_Ground_SandPath:surface": [
+     237,
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "9c949950fc0b6dacb73f76a4d5e3f06d3170c2dfdef42e0bf097890a4f053b09"
+  },
+  {
+   "file": "New1_Ground_SandPath_TwoColor.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 1,
+   "groups": {
+    "New1_Ground_SandPath:surface": [
+     1
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "8506f66c4f33e22995cd3a370628b3203715f3958c8ba05c370c67fd49dfbcb5"
+  },
+  {
+   "file": "New1_Ground_SandPath_Cartoon_TwoColor.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "Cartoon_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 1,
+   "groups": {
+    "New1_Ground_SandPath:surface": [
+     1
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath_Cartoon.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "b618350d6d30e1ded0ea005e3c2bbe4fda6a231a1ffeb9eb46b7d882a47fef34"
+  },
+  {
+   "file": "New1_Ground_SandPath_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 1,
+   "groups": {
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "466912346889836a83ac593cb0041dd64540e3e8a17753f76ac35b660c4d25ad"
+  },
+  {
+   "file": "New1_Ground_SandPath_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Ground_SandPath",
+   "treatment": "Cartoon_CratePalette_TwoColor",
+   "size": [
+    16,
+    16,
+    16
+   ],
+   "voxels": 4096,
+   "colours": 1,
+   "groups": {
+    "New1_Ground_SandPath:surface": [
+     238
+    ]
+   },
+   "occupied_min": [
+    0,
+    0,
+    0
+   ],
+   "occupied_max": [
+    15,
+    15,
+    15
+   ],
+   "geometry": "New1_Ground_SandPath_Cartoon.vox",
+   "kind": "ground",
+   "what": "sand",
+   "sha256": "54bfe23fb0d7aa354b161cd7d41f168416c8881f917bb0d20ba1f8817123a830"
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "source": "poke_n.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeN_RedHouse": {
+   "title": "Red house",
+   "regions_xyxy_exclusive": [
+    [
+     156,
+     352,
+     270,
+     466
+    ],
+    [
+     444,
+     416,
+     558,
+     530
+    ]
+   ],
+   "drawn": "Two copies of the red house: a steep red gable roof with its ridge front to back under a light band, grey verges, a shed dormer on its right slope and a brick chimney at its back, the upper floor's two wide windows over flower boxes between dark timbers, a dark beam, the ground floor's cream walls between stone quoins, a bay window under a red awning and the blue double door."
+  },
+  "PokeN_Chalet": {
+   "title": "Chalet",
+   "regions_xyxy_exclusive": [
+    [
+     262,
+     108,
+     378,
+     212
+    ]
+   ],
+   "drawn": "The house at the top: a wing on the left under a steep hipped roof with a white fascia, its door with a pane and a lamp beside it; an A-frame block a tile forward on the right under a very steep gable with a flat top, its cream gable with dark braces and three windows under a white verge, two windows below between timber posts; a tall pale chimney down its right slope."
+  },
+  "PokeN_RoofedGate": {
+   "title": "Roofed gate",
+   "regions_xyxy_exclusive": [
+    [
+     350,
+     630,
+     460,
+     700
+    ]
+   ],
+   "drawn": "The gate over the path at the bottom: a low roof of brown planks under a dark cap on two dark posts, its shadow across the path; no walls."
+  }
+ }
+}

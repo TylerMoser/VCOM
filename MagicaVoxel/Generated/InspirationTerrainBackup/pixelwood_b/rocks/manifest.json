@@ -1,0 +1,936 @@
+{
+  "source": "pixelwood_b.gif",
+  "families": [
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_FlatPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        8
+      ],
+      "crop": [
+        606,
+        184,
+        680,
+        236
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Low dark-gray loose stone; repeated copies represented once.",
+      "seed": 4
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_SplitBoulder",
+      "shape": "cluster",
+      "size": [
+        36,
+        30,
+        28
+      ],
+      "crop": [
+        944,
+        1039,
+        1130,
+        1202
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Broad faceted rock with attached smaller shoulder at its foot. Same Pixelwood rock vocabulary across all three images.",
+      "seed": 5
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_MossyStandingStone",
+      "shape": "moss_pillar",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        247,
+        245,
+        327,
+        416
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Upright fractured slab; chipped top and transverse seams. Moss cap only where evidenced in pixelwood_b.",
+      "seed": 6
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_EmptyFireRing",
+      "shape": "ring",
+      "size": [
+        24,
+        24,
+        6
+      ],
+      "crop": [
+        540,
+        881,
+        680,
+        976
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Rock ring from the campfire, delivered without logs/flame. Existing complete emissive campfire is preserved.",
+      "seed": 8
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 797,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        12,
+        7
+      ],
+      "sha256": "117e8e25508bedeb337e68e206fea67f63e53d92019bc4323796911fc9578631",
+      "palette_sha256": "cb1c7b5f26366343789f427d90a3f59fa92c3e230f980dd9ccc4fab7987593d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_Cartoon.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 900,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        7
+      ],
+      "sha256": "1bfe3f4a299ee73ddf4d096d13673deb6a22d69c6ece06aa7bfc6e174d8a5d11",
+      "palette_sha256": "6382f67244b19593b7f079b9ad61424eea09401fde27feb60037554cc4230fe0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_CratePalette.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 797,
+      "colors": 3,
+      "groups": {
+        "205": "stone",
+        "185": "stone",
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        12,
+        7
+      ],
+      "sha256": "17940e6498c2b9a3deae6f549b063a9dd27248ad5f0d70cc2479b4dcab6b81b0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_TwoColor.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 797,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        12,
+        7
+      ],
+      "sha256": "b7c937671512acb4719cc808b48f42c026c4b6c634ac7185aa82e56bfb61fa00",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 900,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        7
+      ],
+      "sha256": "724884d8f7dc24df7c18f47bdf4e4a933ffcb02d1a319afc0510655733121529",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 797,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        12,
+        7
+      ],
+      "sha256": "6eec79bbaccd16ded946f3b6bd6fc593c8c48e181316a02cd4ccea5ac64532d3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_FlatPebble_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_FlatPebble",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        8
+      ],
+      "voxels": 900,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        7
+      ],
+      "sha256": "a0553dcc4bed280b87d7be7d79f5e12f248a848ff5ddf83707375d35f908832a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "Base",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 14258,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "f9c14977dd919bc92ae02252382ceac8dd4bc646a52612475ba65982f1789c43",
+      "palette_sha256": "cb1c7b5f26366343789f427d90a3f59fa92c3e230f980dd9ccc4fab7987593d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_Cartoon.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 19136,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "57cfc49fc7654f6c8a6b28b29c395469990eef593f3a33b914608685bd3b0fa0",
+      "palette_sha256": "6382f67244b19593b7f079b9ad61424eea09401fde27feb60037554cc4230fe0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_CratePalette.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 14258,
+      "colors": 3,
+      "groups": {
+        "205": "stone",
+        "185": "stone",
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "944c842a838a4955485a0c385fff5ab18c4ed7e7dbbfd527338702d195319aab",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_TwoColor.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 14258,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "181bc41ee968c33ee247485041c10841f75ee62881f6916849c6326261b9a38d",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 19136,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "73e9b874fcedca8424c63a44f76df5dae38607fda55331641087f5604596209c",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 14258,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "1b9d1eb04150dfe469421103dcb0eeb5649f14aa3bb0253e2d3bec7d80bafd12",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_SplitBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_SplitBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        36,
+        30,
+        28
+      ],
+      "voxels": 19136,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        35,
+        29,
+        27
+      ],
+      "sha256": "b55b03907fcdef3d2b696f36f4b0cde146ccb3b28ba2ee906d2e308cd6db9e3c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4681,
+      "colors": 6,
+      "groups": {
+        "1": "moss",
+        "2": "moss",
+        "3": "stone",
+        "4": "stone",
+        "5": "stone",
+        "6": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        15,
+        31
+      ],
+      "sha256": "263e5c871c3cfd833cc55608a61ffe27dab4a583336b7f0f288415733fa281ca",
+      "palette_sha256": "72ed34ae2d22f206a2d500524f44161969f4f7ebd656c72783376ce5df45a5a8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_Cartoon.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4696,
+      "colors": 5,
+      "groups": {
+        "1": "moss",
+        "2": "moss",
+        "3": "stone",
+        "4": "stone",
+        "5": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        31
+      ],
+      "sha256": "95a00b7f679fb36187d583079f2db38434e487ab422ffb92c36d5cff2d196787",
+      "palette_sha256": "893fa12e20ad544801b9d80be7dfe9e5672e38ccce6ee59730772d0492919bcf",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_CratePalette.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4681,
+      "colors": 4,
+      "groups": {
+        "243": "moss",
+        "205": "stone",
+        "185": "stone",
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        15,
+        31
+      ],
+      "sha256": "d33efad476563773f74671d392a3f52ff1032192e5503d1d0157d1019cd8277f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_TwoColor.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4681,
+      "colors": 2,
+      "groups": {
+        "1": "moss",
+        "2": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        15,
+        31
+      ],
+      "sha256": "c25b17c8ea957e54ec58987fee00c4b04d11968fa25fcc50d32e0ef40ba1b72c",
+      "palette_sha256": "1dc27f3f9acc65a735a0f17e21d3f89666167274a711c6285d5db8196cfc7312",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4696,
+      "colors": 2,
+      "groups": {
+        "1": "moss",
+        "2": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        31
+      ],
+      "sha256": "2140a4052301e4ca7f06911ac98a0e7faa6f57fd84b38e067f27fab2d3196f9b",
+      "palette_sha256": "1dc27f3f9acc65a735a0f17e21d3f89666167274a711c6285d5db8196cfc7312",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4681,
+      "colors": 2,
+      "groups": {
+        "244": "moss",
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        15,
+        31
+      ],
+      "sha256": "7807e9b998a50008aca0755d397dfa505f36820ba31de55cb420e9add909b752",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_MossyStandingStone_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_MossyStandingStone",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4696,
+      "colors": 2,
+      "groups": {
+        "244": "moss",
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        31
+      ],
+      "sha256": "fad30f7dfa5ab774bcab514bbc0378ecd9d0ba105007d4ccb7c65fd4fb857aaf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "Base",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1391,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        23,
+        5
+      ],
+      "sha256": "fe869cd8efc23ef87a68b095a04fda17177e7c3be36b061c3c88d09b13f27378",
+      "palette_sha256": "cb1c7b5f26366343789f427d90a3f59fa92c3e230f980dd9ccc4fab7987593d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_Cartoon.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1468,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        5
+      ],
+      "sha256": "a4b1434cb032355428fe4461fcb4dcd951861f4c0db0293b9d0f6f36ff049c5c",
+      "palette_sha256": "6382f67244b19593b7f079b9ad61424eea09401fde27feb60037554cc4230fe0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_CratePalette.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1391,
+      "colors": 3,
+      "groups": {
+        "205": "stone",
+        "185": "stone",
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        23,
+        5
+      ],
+      "sha256": "f9b9c237ce9cd57dfa4c4e56d9853a5a36f88f53dcf3d8801e9d9535bef908a0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_TwoColor.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1391,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        23,
+        5
+      ],
+      "sha256": "2b2198adfafa34bfe83898fed22ad5df00248fe36d41a3d6e17168a0a9c2cdaf",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1468,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        5
+      ],
+      "sha256": "9aaaed620cda4fed29665f1bb5f37613bc3eef8d34da78ed05fd5de0c0e84c05",
+      "palette_sha256": "383973d680bfbca84f7e209ca0858bbada336541dd5716ee8b28fcfac9830918",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1391,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        23,
+        5
+      ],
+      "sha256": "edfe9b1a41b64e2e1ebd2a370d1e542c42d9a39d1484a080699a0f1991ca0e05",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_EmptyFireRing_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_EmptyFireRing",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        6
+      ],
+      "voxels": 1468,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        5
+      ],
+      "sha256": "acc2400d0b43dcb45660da72f4d4ac9a96083019e4b182755601acfc4dfd200b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

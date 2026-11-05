@@ -1,0 +1,592 @@
+{
+  "source": "mario.jpg",
+  "review": {
+    "source": "mario.jpg",
+    "reviewed": true,
+    "families": [
+      "Mario_NoticeSign",
+      "Mario_QuestionBlock"
+    ],
+    "notes": "Notice sign and question block. Existing carved stone stacks are reused from rocks. Characters, backdrop faces and HUD are excluded. The block is a static prop, not an implemented pickup.",
+    "reuse": [
+      "output/mario/Mario_TallStoneStack.vox",
+      "output/mario/Mario_ShortStoneStack.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "mario.jpg",
+      "name": "Mario_NoticeSign",
+      "kind": "sign",
+      "crop": [
+        469,
+        179,
+        537,
+        235
+      ],
+      "size": [
+        24,
+        8,
+        24
+      ],
+      "tone": "white"
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_QuestionBlock",
+      "kind": "question",
+      "crop": [
+        140,
+        0,
+        186,
+        48
+      ],
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "tone": "gold"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/mario/Mario_NoticeSign.vox",
+      "family": "Mario_NoticeSign",
+      "style": "Base",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2306,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        2306
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        22
+      ],
+      "sha256": "c916f8b0fb86d318702a8ec1cc90e49093ee0c8e24b689b221275526acee9d25",
+      "palette_sha256": "0cb177e8c94134deb5132f1b67316b8de67f6087a047c8c55fbbbd92dc837788",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon.vox",
+      "family": "Mario_NoticeSign",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2330,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        2330
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        22
+      ],
+      "sha256": "802b9f2ea94932ca9d654a527cdee8ec80a7cca0e3f478a67a1e35a10df46cfb",
+      "palette_sha256": "f6e15770173eb5881def72241d6846f93858f68396cdca99b6be276ac6fc7ab1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_CratePalette.vox",
+      "family": "Mario_NoticeSign",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2306,
+      "colors": 5,
+      "groups": {
+        "195": "face",
+        "196": "face",
+        "193": "frame",
+        "194": "frame",
+        "205": "ink"
+      },
+      "components": [
+        2306
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        22
+      ],
+      "sha256": "55fbca52822946738c418151603e7e0df24471c80e959647149cdf8e82dbe97b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_TwoColor.vox",
+      "family": "Mario_NoticeSign",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2306,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        2306
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        22
+      ],
+      "sha256": "53c4b77807589c800e5771e2659c8aadedf7626f5ae3c18ed2be9f3e7cb4e2e5",
+      "palette_sha256": "f6e15770173eb5881def72241d6846f93858f68396cdca99b6be276ac6fc7ab1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon_TwoColor.vox",
+      "family": "Mario_NoticeSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2330,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        2330
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        22
+      ],
+      "sha256": "8e3ef87fef352b75cef2ee7db293279c63a1f051c75cd9824049a8138e26e9ed",
+      "palette_sha256": "f6e15770173eb5881def72241d6846f93858f68396cdca99b6be276ac6fc7ab1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_CratePalette_TwoColor.vox",
+      "family": "Mario_NoticeSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2306,
+      "colors": 3,
+      "groups": {
+        "195": "face",
+        "194": "frame",
+        "205": "ink"
+      },
+      "components": [
+        2306
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        6,
+        22
+      ],
+      "sha256": "9f93343f57d4eb101cd7527f98bea19a5cfd579bee993667f6936cacbc371caf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_NoticeSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        8,
+        24
+      ],
+      "voxels": 2330,
+      "colors": 3,
+      "groups": {
+        "195": "face",
+        "194": "frame",
+        "205": "ink"
+      },
+      "components": [
+        2330
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        6,
+        22
+      ],
+      "sha256": "e8a045dc4c9fac8d1b7a5648b1a5c0964560a32fff2416a8ad3a17a0d1adaf18",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "1": "body",
+        "2": "body",
+        "3": "body",
+        "4": "mark",
+        "5": "rim"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "719c091db81ea85b3134d6a50f0dd38c739a22ea912f11a5a8f4b4e20ad47739",
+      "palette_sha256": "1421c374fc1b9561bd9dd0081739f29d134cd9b359219b759a22675862f9de3b",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "mark",
+        "3": "rim"
+      },
+      "components": [
+        4032
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "7a8f1522af591d23199165b7fa667a1d605d7aa92497d227a54f67659f5e7ba0",
+      "palette_sha256": "0e78f9e8d8d2fc7df262c25498ee99c6b9d399c8766762be6877a3a735ace17e",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_CratePalette.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "222": "body",
+        "229": "body",
+        "196": "mark",
+        "228": "rim"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "6244db813e05cef6416040078ec69daaac05439c00c448c96f7ee9f8cf4daa58",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_TwoColor.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "1": "body",
+        "2": "mark"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "5baa9c79107ed21936c15c4cb7be850a1967b7424779135f797655075d4bf8f3",
+      "palette_sha256": "00985cfde902c1816094a54163565f68892392fdb88d27bccb63fb6ddd476764",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon_TwoColor.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 2,
+      "groups": {
+        "1": "body",
+        "2": "mark"
+      },
+      "components": [
+        4032
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "182d65354e6dd6f5dfe37d11da6484ce8cc98e8e38efd073678b6aaa69285a97",
+      "palette_sha256": "00985cfde902c1816094a54163565f68892392fdb88d27bccb63fb6ddd476764",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_CratePalette_TwoColor.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "229": "body",
+        "196": "mark"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "f890045265008d86f8cd032b468fecc2253e0c63454a6e31e579b7f6ba6fff0f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_QuestionBlock",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 2,
+      "groups": {
+        "229": "body",
+        "196": "mark"
+      },
+      "components": [
+        4032
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "sha256": "306941d216f04e033730ef702e8d726d6fc41abf6f9870325a32e4d7dc37f4cf",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack.vox",
+      "sha256": "dd6849ef01fef40e932b4c4c2f2cdadae361f6ec9412e9acfcb31ede6aac1169"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_Cartoon.vox",
+      "sha256": "fa2d82a5a4c85789cf65c896b95ec13ed92581e38ec07052c378ea042387f3de"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_CratePalette.vox",
+      "sha256": "3dc5d00adbab9eb1fa6f0f2b9c516b540a4253c8c93ec21a12286fc1d3d26bee"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_TwoColor.vox",
+      "sha256": "43cc19163844220c76a536b3de0264aa7eb9294011eb1aa4489e397794cf0d1b"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_Cartoon_TwoColor.vox",
+      "sha256": "33a0f70ffccdfbd3935b371010275fb09366ee2e863226366cbe013d5b1f7b54"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_CratePalette_TwoColor.vox",
+      "sha256": "213276f393ee41c1600c75edc021a123e32345af839b97d063938f75ba64a3cd"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_TallStoneStack_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "b4ddc973ddc10573b9253080023e0eb535c7397e3bcb47226d51c8b830c77955"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack.vox",
+      "sha256": "4c0577d206f058755d571a5dd0609afe5fdc20a8f9c968879b460867fdbc8a04"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon.vox",
+      "sha256": "6d69cdc4aa6666c6c412a8f1d6738674c632056f1f4eafe7560526d13274b1ed"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_CratePalette.vox",
+      "sha256": "1877d31aaf095004555a15416d460cdcf92ad9577a9b1a98f979cac1b817131b"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_TwoColor.vox",
+      "sha256": "d4f172184f7b4066a274f6c81d8f61d039317564d26dafd33ff3d976f54df366"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon_TwoColor.vox",
+      "sha256": "b7e9ded2151998458918bc8f81b1be7d9d7fd7b7ad5db53e4d656cf3870ec943"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_CratePalette_TwoColor.vox",
+      "sha256": "58f7c35dd6e0468bbb0e081d0a7fb5eeae160cb90afc40c6bb305713a4444f3b"
+    },
+    {
+      "source": "mario.jpg",
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "0712c8911e7abf19e91c8b0ca634ac1b6f697c8efd21d60c71a69c625286146f"
+    }
+  ]
+}

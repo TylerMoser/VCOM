@@ -1,0 +1,546 @@
+[
+  {
+    "name": "Shield_Buckler_IronBoss.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Buckler_IronBoss.vox",
+    "kind": "Buckler",
+    "design": "IronBoss",
+    "canvas": [
+      7,
+      7,
+      7
+    ],
+    "outline": "round",
+    "finish": "iron",
+    "decoration": "boss",
+    "voxels": 78,
+    "sha256": "431c90d9db061e5f9942a27ebbb0ba76b2ad8b3bf3e66e6bf8f60e7429cc75ec",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Buckler_BronzeSun.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Buckler_BronzeSun.vox",
+    "kind": "Buckler",
+    "design": "BronzeSun",
+    "canvas": [
+      9,
+      7,
+      9
+    ],
+    "outline": "round",
+    "finish": "bronze",
+    "decoration": "sun",
+    "voxels": 134,
+    "sha256": "94b2030aabfd30e063e1f325cb9363e33e727788c43e2d018931156f979cfed7",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Buckler_DuelingSpike.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Buckler_DuelingSpike.vox",
+    "kind": "Buckler",
+    "design": "DuelingSpike",
+    "canvas": [
+      7,
+      8,
+      9
+    ],
+    "outline": "oval",
+    "finish": "iron",
+    "decoration": "spike",
+    "voxels": 107,
+    "sha256": "9bc18a62aaa3ca3fc84943443e680b0cbe8c170bc540e843f3c4a665031d52ea",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Buckler_FlutedGuard.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Buckler_FlutedGuard.vox",
+    "kind": "Buckler",
+    "design": "FlutedGuard",
+    "canvas": [
+      9,
+      7,
+      9
+    ],
+    "outline": "octagon",
+    "finish": "blue",
+    "decoration": "ribs",
+    "voxels": 140,
+    "sha256": "453c8780280c9c4f56b27684af753fabb66248716b347c32249d1afe2c326915",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Wooden_OakPlanks.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Wooden_OakPlanks.vox",
+    "kind": "Wooden",
+    "design": "OakPlanks",
+    "canvas": [
+      11,
+      7,
+      15
+    ],
+    "outline": "clipped",
+    "finish": "oak",
+    "decoration": "bands",
+    "voxels": 327,
+    "sha256": "994bba4599703bdfaf2eba2ffb5c18daceeaed065f7f598069587084656714d4",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Wooden_PaintedKite.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Wooden_PaintedKite.vox",
+    "kind": "Wooden",
+    "design": "PaintedKite",
+    "canvas": [
+      11,
+      6,
+      17
+    ],
+    "outline": "kite",
+    "finish": "red",
+    "decoration": "chevron",
+    "voxels": 229,
+    "sha256": "46621ed7ea908c09c10dca526d81f568d50a65e2ba4f3f35d1e3494cff3a045d",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Wooden_ReinforcedPalisade.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Wooden_ReinforcedPalisade.vox",
+    "kind": "Wooden",
+    "design": "ReinforcedPalisade",
+    "canvas": [
+      13,
+      7,
+      15
+    ],
+    "outline": "arch",
+    "finish": "darkwood",
+    "decoration": "bands",
+    "voxels": 399,
+    "sha256": "68c4f744d2ff7f5e2efb65e202f6e6b26e07aae212e2732f364c03b56b414142",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Wooden_ForestWard.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Wooden_ForestWard.vox",
+    "kind": "Wooden",
+    "design": "ForestWard",
+    "canvas": [
+      11,
+      6,
+      13
+    ],
+    "outline": "oval",
+    "finish": "green",
+    "decoration": "tree",
+    "voxels": 217,
+    "sha256": "784895306d644cef0adb7bd5c5b38be9b3725a0649c859869cb4e682eccff0fc",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Hide_RawhideOval.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Hide_RawhideOval.vox",
+    "kind": "Hide",
+    "design": "RawhideOval",
+    "canvas": [
+      11,
+      6,
+      15
+    ],
+    "outline": "oval",
+    "finish": "hide",
+    "decoration": "lacing",
+    "voxels": 245,
+    "sha256": "a01e046ece09763de97a8b067a2c486f6f894d45e3a45c7c9bbd9f21d5ea3dc9",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Hide_TribalSun.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Hide_TribalSun.vox",
+    "kind": "Hide",
+    "design": "TribalSun",
+    "canvas": [
+      13,
+      7,
+      13
+    ],
+    "outline": "round",
+    "finish": "hide",
+    "decoration": "sun",
+    "voxels": 262,
+    "sha256": "de2a698f1f3604c5f6ec740efb2a7ddab70ae7f73152bc8aec0d9e424ea84a96",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Hide_BoneWard.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Hide_BoneWard.vox",
+    "kind": "Hide",
+    "design": "BoneWard",
+    "canvas": [
+      11,
+      7,
+      17
+    ],
+    "outline": "waist",
+    "finish": "darkhide",
+    "decoration": "bones",
+    "voxels": 334,
+    "sha256": "18ccd6cad9339c28c42653093ca64ec4e39064527279c1c4e67bc989c458913a",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Hide_HunterChevron.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Hide_HunterChevron.vox",
+    "kind": "Hide",
+    "design": "HunterChevron",
+    "canvas": [
+      11,
+      6,
+      15
+    ],
+    "outline": "clipped",
+    "finish": "darkhide",
+    "decoration": "chevron",
+    "voxels": 309,
+    "sha256": "92e09a13417f4936daae268ca0b680469cab551a379e16c1b1fbbc9bfd5e3695",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Steel_KnightHeater.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Steel_KnightHeater.vox",
+    "kind": "Steel",
+    "design": "KnightHeater",
+    "canvas": [
+      13,
+      6,
+      17
+    ],
+    "outline": "heater",
+    "finish": "blue",
+    "decoration": "cross",
+    "voxels": 361,
+    "sha256": "b9277fd4e4ff7ba75c74b8e51864bf5f4df9d454dc42547f661446e9d608acf8",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Steel_RivetedKite.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Steel_RivetedKite.vox",
+    "kind": "Steel",
+    "design": "RivetedKite",
+    "canvas": [
+      11,
+      7,
+      19
+    ],
+    "outline": "kite",
+    "finish": "iron",
+    "decoration": "ridge",
+    "voxels": 273,
+    "sha256": "e8d94811a5cb0ee2d79b4e5e273f84ef5c67943a9ec3e1bb5b32621a114c4790",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Steel_RoyalGuard.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Steel_RoyalGuard.vox",
+    "kind": "Steel",
+    "design": "RoyalGuard",
+    "canvas": [
+      13,
+      7,
+      17
+    ],
+    "outline": "heater",
+    "finish": "red",
+    "decoration": "diamond",
+    "voxels": 389,
+    "sha256": "c10ff13ab7acf19f7c4a0a1d94035555db92ef1ef23f3e837b9bfce41cf6eb9d",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Steel_BlackenedPlate.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Steel_BlackenedPlate.vox",
+    "kind": "Steel",
+    "design": "BlackenedPlate",
+    "canvas": [
+      13,
+      7,
+      15
+    ],
+    "outline": "octagon",
+    "finish": "black",
+    "decoration": "ribs",
+    "voxels": 400,
+    "sha256": "6be2fba96204162660313fa4c4379edfa6c84b4e814651590f53564ac051079d",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Tower_LegionScutum.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Tower_LegionScutum.vox",
+    "kind": "Tower",
+    "design": "LegionScutum",
+    "canvas": [
+      13,
+      7,
+      23
+    ],
+    "outline": "arch",
+    "finish": "red",
+    "decoration": "wings",
+    "voxels": 598,
+    "sha256": "f1cf0c3282d2c6c31f0e10e450d55b2d3d9bc1e3a74ac584c6bd54b03f641e4e",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Tower_OakPavise.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Tower_OakPavise.vox",
+    "kind": "Tower",
+    "design": "OakPavise",
+    "canvas": [
+      15,
+      7,
+      25
+    ],
+    "outline": "arch",
+    "finish": "oak",
+    "decoration": "ridge",
+    "voxels": 760,
+    "sha256": "53b106352774f7569effff17454b16ca89ac6255f50d89f20756d0d251788b4c",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Tower_AzureBastion.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Tower_AzureBastion.vox",
+    "kind": "Tower",
+    "design": "AzureBastion",
+    "canvas": [
+      13,
+      6,
+      25
+    ],
+    "outline": "clipped",
+    "finish": "blue",
+    "decoration": "cross",
+    "voxels": 629,
+    "sha256": "9fdd32b975b5d3e2f4474accba86f0753a46b1895353759782743a613d8a860a",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Tower_IronRampart.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Tower_IronRampart.vox",
+    "kind": "Tower",
+    "design": "IronRampart",
+    "canvas": [
+      15,
+      7,
+      23
+    ],
+    "outline": "clipped",
+    "finish": "black",
+    "decoration": "bands",
+    "voxels": 699,
+    "sha256": "a049d3061d80a9e73a2c19a03baf1808c9b486514f378f29ddbc9d0824b772e8",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Fortress_CastleGate.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Fortress_CastleGate.vox",
+    "kind": "Fortress",
+    "design": "CastleGate",
+    "canvas": [
+      19,
+      7,
+      29
+    ],
+    "outline": "battlement",
+    "finish": "iron",
+    "decoration": "gate",
+    "voxels": 1158,
+    "sha256": "cd5d83d884adfed16e7c5cf558a1a8dc62857e5bbf23862c342265bdd6f24451",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Fortress_DwarvenBulwark.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Fortress_DwarvenBulwark.vox",
+    "kind": "Fortress",
+    "design": "DwarvenBulwark",
+    "canvas": [
+      19,
+      7,
+      27
+    ],
+    "outline": "octagon",
+    "finish": "bronze",
+    "decoration": "ribs",
+    "voxels": 1051,
+    "sha256": "93a68ab6489d42420b4dd73c5836c84f7e17153c38eb57ca839065c9da6f66c7",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Fortress_RoyalWall.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Fortress_RoyalWall.vox",
+    "kind": "Fortress",
+    "design": "RoyalWall",
+    "canvas": [
+      19,
+      6,
+      29
+    ],
+    "outline": "arch",
+    "finish": "blue",
+    "decoration": "cross",
+    "voxels": 1100,
+    "sha256": "d98dd90b1b55488c4a084491c6b347bcb1c664d766c2c83483c2b2607369e22a",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Fortress_SiegeMantlet.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Fortress_SiegeMantlet.vox",
+    "kind": "Fortress",
+    "design": "SiegeMantlet",
+    "canvas": [
+      21,
+      7,
+      27
+    ],
+    "outline": "clipped",
+    "finish": "darkwood",
+    "decoration": "bands",
+    "voxels": 1162,
+    "sha256": "8c0fe526bc733c8275b7963f53fabc89294cd21dc13fdf1df30083f849438ec8",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Round_VikingQuartered.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Round_VikingQuartered.vox",
+    "kind": "Round",
+    "design": "VikingQuartered",
+    "canvas": [
+      15,
+      7,
+      15
+    ],
+    "outline": "round",
+    "finish": "red",
+    "decoration": "quarters",
+    "voxels": 354,
+    "sha256": "2a6a55ea717087faa3c5ea0b62fe07d877cd7db6267134b5e02c06f44762ecda",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Round_BronzeSunburst.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Round_BronzeSunburst.vox",
+    "kind": "Round",
+    "design": "BronzeSunburst",
+    "canvas": [
+      15,
+      7,
+      15
+    ],
+    "outline": "round",
+    "finish": "bronze",
+    "decoration": "sun",
+    "voxels": 358,
+    "sha256": "f8b0dc660f86437c9e386a0e3b9df771fb883a4080eccb933e506915493caf04",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Round_ForestSpiral.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Round_ForestSpiral.vox",
+    "kind": "Round",
+    "design": "ForestSpiral",
+    "canvas": [
+      13,
+      7,
+      13
+    ],
+    "outline": "round",
+    "finish": "green",
+    "decoration": "spiral",
+    "voxels": 258,
+    "sha256": "2777b335c850af4f31dc66ffaf3a1672b8be0dfb8ade7e7da369bb87a1254f94",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Round_IronRings.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Round_IronRings.vox",
+    "kind": "Round",
+    "design": "IronRings",
+    "canvas": [
+      15,
+      7,
+      15
+    ],
+    "outline": "round",
+    "finish": "iron",
+    "decoration": "rings",
+    "voxels": 390,
+    "sha256": "2a9133cd0f6f9787b5054743481c3e9f161e5cc63ff0979cc60e1cf9de840ca0",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Ballistic_Patrol.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Ballistic_Patrol.vox",
+    "kind": "Ballistic",
+    "design": "Patrol",
+    "canvas": [
+      13,
+      6,
+      21
+    ],
+    "outline": "clipped",
+    "finish": "black",
+    "decoration": "viewport",
+    "voxels": 515,
+    "sha256": "09935aa34a480e46b9aa67496a30e8cb9087edf185c1f9f77ed7fa27c93ec2bd",
+    "glass_voxels": 10
+  },
+  {
+    "name": "Shield_Ballistic_Breacher.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Ballistic_Breacher.vox",
+    "kind": "Ballistic",
+    "design": "Breacher",
+    "canvas": [
+      15,
+      6,
+      23
+    ],
+    "outline": "notched",
+    "finish": "black",
+    "decoration": "viewport",
+    "voxels": 641,
+    "sha256": "2dc4d3b4745f40904a0b1512034c71a002bfce77874478e406e13cdce822cb20",
+    "glass_voxels": 10
+  },
+  {
+    "name": "Shield_Ballistic_Riot.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Ballistic_Riot.vox",
+    "kind": "Ballistic",
+    "design": "Riot",
+    "canvas": [
+      13,
+      6,
+      23
+    ],
+    "outline": "arch",
+    "finish": "navy",
+    "decoration": "stripe",
+    "voxels": 585,
+    "sha256": "34a763b92942f1c55698e9040e5a1f9e6dc2272f0f87bc963997aa9ad3362bf1",
+    "glass_voxels": 0
+  },
+  {
+    "name": "Shield_Ballistic_HeavyAssault.vox",
+    "path": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Items\\Shields\\Shield_Ballistic_HeavyAssault.vox",
+    "kind": "Ballistic",
+    "design": "HeavyAssault",
+    "canvas": [
+      17,
+      6,
+      25
+    ],
+    "outline": "clipped",
+    "finish": "olive",
+    "decoration": "viewport",
+    "voxels": 830,
+    "sha256": "6037464a8ac3b989a23d428e10961da7cd0f95aeb618bcd374402cd16d0f3e90",
+    "glass_voxels": 10
+  }
+]

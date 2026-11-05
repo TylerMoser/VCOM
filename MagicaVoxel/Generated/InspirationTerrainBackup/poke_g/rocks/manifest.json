@@ -1,0 +1,465 @@
+{
+  "source": "poke_g.png",
+  "families": [
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_AngularPondRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        14
+      ],
+      "crop": [
+        62,
+        77,
+        82,
+        100
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Gray pointed faceted pond rock.",
+      "seed": 16
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_SmallPondStone",
+      "shape": "pebble",
+      "size": [
+        10,
+        10,
+        8
+      ],
+      "crop": [
+        94,
+        45,
+        112,
+        65
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Small pale angular pond stone.",
+      "seed": 17
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "Base",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1740,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        13
+      ],
+      "sha256": "ff4b88677a60fb7000cda888d1491c8a694b224b8468a4bc3fe165825f8b0dff",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_Cartoon.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1828,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        13
+      ],
+      "sha256": "644c4d359b9fcadd5f7911efe1c94a0e4b2ba8e717aa6c608770196537da873a",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_CratePalette.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1740,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        13
+      ],
+      "sha256": "a7727745d543ac6cbb0378641859dc397c73690376f57795689dc9b6a3bde11e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_TwoColor.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1740,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        13
+      ],
+      "sha256": "1528134714423abe62747e5d34a164a2f95e7450eccd5aab407f1fdfcf2087e4",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_Cartoon_TwoColor.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1828,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        13
+      ],
+      "sha256": "6774e7b75b5d70f156d1477801b141bbefd3920c18dc867b45a870bc339dc4bf",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_CratePalette_TwoColor.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1740,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        13
+      ],
+      "sha256": "a1cf2b53ae0e16bef7e3195cc924886dd24af1d52e6c3e704b7900f08a587f93",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_AngularPondRock_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_AngularPondRock",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        14,
+        14
+      ],
+      "voxels": 1828,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        13,
+        13
+      ],
+      "sha256": "77ac94ff346dd0570dbcfb049e3005f7b755c15a843be81fcd885ac21036cb5c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "Base",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 393,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "fab73439a03df80a27582a2ddf48086b3496a73ecb0c3847bcd0e4525ded07fc",
+      "palette_sha256": "cbe9b57598c46d3fabbd53b7f437d4a0800ea3836d1a38f610a25a2c727f6642",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_Cartoon.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "Cartoon",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 388,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "66ca2dfae01db6f72a7d6b3c31a47436e6ab844d9168d13d75e17a068f9f5079",
+      "palette_sha256": "aca5fe15d15a75407ea9a5ee14aadd18c17c7548b5c2596f300ef3ee0b0d79d0",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_CratePalette.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "CratePalette",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 393,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "deae6fd897988c35270277fbfe2463029acd3827ede81c7839aeef9f22ee6fd9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_TwoColor.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "TwoColor",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 393,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "2214fb698877a32e761a8a0147abc37594e040a976efee3b255d04c5d3782476",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_Cartoon_TwoColor.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 388,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "8eef2ca977ea216adaa239b06371fc087c73679d2701e018402c6026c534efed",
+      "palette_sha256": "ba50b09dfe0fe0cae26d37fd67466df72eb7ca62626b6619552946f3a8f405a4",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_CratePalette_TwoColor.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 393,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "2a045590eded9b8a1c9aa2901a63d19f5870f279b9549e43154b0dd95acbf145",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_g/PokeG_SmallPondStone_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_SmallPondStone",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        8
+      ],
+      "voxels": 388,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        7
+      ],
+      "sha256": "6dae27e3e51f8f8f1673a2003190207bcfc4dc55d58d2aad011d825eb7d962f3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

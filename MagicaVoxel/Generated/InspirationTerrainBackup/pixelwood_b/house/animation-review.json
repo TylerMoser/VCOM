@@ -1,0 +1,33 @@
+{
+  "frames": 5,
+  "unique_house_crops": 2,
+  "frame_hashes": [
+    "a3e923a029cb59102be4bf9a4a49678d9f2bcfa94c290e7f004f70481902a896",
+    "a3e923a029cb59102be4bf9a4a49678d9f2bcfa94c290e7f004f70481902a896",
+    "a3e923a029cb59102be4bf9a4a49678d9f2bcfa94c290e7f004f70481902a896",
+    "a3e923a029cb59102be4bf9a4a49678d9f2bcfa94c290e7f004f70481902a896",
+    "4faaf13cd72a2287cd8ab4f218adb9160e60a367899817b7c830aebca0c7a269"
+  ],
+  "modeling_frame": 0,
+  "isolated_regions": {
+    "house_without_bottom_context": {
+      "box": [
+        404,
+        300,
+        830,
+        790
+      ],
+      "unique_crops": 1
+    },
+    "entry_steps": {
+      "box": [
+        490,
+        760,
+        615,
+        800
+      ],
+      "unique_crops": 1
+    }
+  },
+  "context_difference": "Broad crop differs only at x630..639,y790..799 in frame 4: ground/fire context outside the house. House and entry-step regions are unchanged."
+}

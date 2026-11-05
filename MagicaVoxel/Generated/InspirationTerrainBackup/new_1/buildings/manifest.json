@@ -1,0 +1,1407 @@
+{
+ "source_image": "new_1.jpg",
+ "source_sha256": "7caf7826f906e79c1ed976384256bec9df71f40dc76cd41dd5e539ca4e7ab480",
+ "generator_sha256": "10f2d3e40e6ea835e646a3b017a1fc02aeeb1889b2b3edfa43eeabc586c9a36e",
+ "dependencies": {
+  "sculpt.py": "6f16c242d72ed86ddee4705e1e4e78a8fec7fad5b333d7e74df397fb49c3fc57",
+  "palettes.py": "29cf2d8e54e168b03a4e98fe758742fb5ddd9f1fbac33e85ed818c4b34ba820e",
+  "voxlib.py": "1e58d03f11c0c1bd631a9a2a4023a063f6426e68958ecba49852cbf61500a59f"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "a9b2d9d3b4d789c2e421b99374161ac3ee18b403fad171caea316d8bd2e34a16",
+ "minimal_palette_sha256": {
+  "Cottage": "d2c59be12b606ee123e1fd5c6cb2f04c3936fc8a0c6675bc8324c3ed47d1576a"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/new_1/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "New1_Cottage",
+   "kind": "Cottage",
+   "title": "Cottage",
+   "drawn": "The cottage in the middle of the scene: blue-grey stone walls in courses with a square stone pillar at each corner; under a dark beam all round, a flat roof of tan stone with a parapet, its middle recessed and cracked, a chimney at its back left, moss and a flowering plant at its left end (a crow perched on its right, a figure of its own); the front's two window bays dark over flower boxes on the stone base course, the left box with two plants; the dark door of two leaves under a round-headed arch of lighter wood, a half round slate doorstep in front of it.",
+   "source_regions_xyxy_exclusive": [
+    [
+     175,
+     100,
+     550,
+     475
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    48,
+    96
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     0,
+     1
+    ],
+    [
+     "ey",
+     2,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "wood": [
+     "arch",
+     "arch_dark",
+     "arch_light",
+     "beam",
+     "beam_dark",
+     "beam_light",
+     "box",
+     "box_dark",
+     "door",
+     "door_dark",
+     "door_light",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "soil"
+    ],
+    "roof": [
+     "ceiling",
+     "chimney_light",
+     "crack",
+     "rim",
+     "rim_dark",
+     "rim_joint",
+     "rim_light"
+    ],
+    "dark": [
+     "flue",
+     "recess"
+    ],
+    "stone": [
+     "found",
+     "found_dark",
+     "step",
+     "step_dark",
+     "stone",
+     "stone_dark",
+     "stone_joint",
+     "stone_light",
+     "stone_pit"
+    ],
+    "glass": [
+     "glass_dark"
+    ],
+    "leaf": [
+     "moss",
+     "moss_dark",
+     "moss_dot",
+     "petal",
+     "petal_dark",
+     "petal_heart",
+     "plant",
+     "plant_dark",
+     "plant_mid"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     93,
+     45,
+     41
+    ],
+    "roof": [
+     163,
+     138,
+     97
+    ],
+    "dark": [
+     28,
+     16,
+     16
+    ],
+    "stone": [
+     147,
+     161,
+     186
+    ],
+    "glass": [
+     44,
+     46,
+     58
+    ],
+    "leaf": [
+     98,
+     184,
+     102
+    ]
+   },
+   "folded_groups": {},
+   "crate_group_indices": {
+    "wood": 178,
+    "roof": 236,
+    "dark": 202,
+    "stone": 194,
+    "glass": 253,
+    "leaf": 244
+   },
+   "crate_label_indices": {
+    "arch": 179,
+    "arch_dark": 178,
+    "arch_light": 235,
+    "beam": 178,
+    "beam_dark": 178,
+    "beam_light": 179,
+    "box": 235,
+    "box_dark": 234,
+    "door": 178,
+    "door_dark": 178,
+    "door_light": 234,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "soil": 178,
+    "ceiling": 234,
+    "chimney_light": 230,
+    "crack": 193,
+    "rim": 236,
+    "rim_dark": 193,
+    "rim_joint": 193,
+    "rim_light": 237,
+    "flue": 201,
+    "recess": 202,
+    "found": 206,
+    "found_dark": 205,
+    "step": 206,
+    "step_dark": 251,
+    "stone": 194,
+    "stone_dark": 206,
+    "stone_joint": 205,
+    "stone_light": 254,
+    "stone_pit": 193,
+    "glass_dark": 253,
+    "moss": 244,
+    "moss_dark": 243,
+    "moss_dot": 245,
+    "petal": 230,
+    "petal_dark": 229,
+    "petal_heart": 222,
+    "plant": 244,
+    "plant_dark": 242,
+    "plant_mid": 243
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "New1_Cottage.vox",
+   "family": "New1_Cottage",
+   "style": "Base",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 93804,
+   "sha256": "ac04ba5304fcd03f028ed87d194e847b6242fd45908ef1dd02b29a189c329467",
+   "palette_sha256": "a9b2d9d3b4d789c2e421b99374161ac3ee18b403fad171caea316d8bd2e34a16",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     126,
+     106,
+     76,
+     255
+    ],
+    [
+     147,
+     161,
+     186,
+     255
+    ],
+    [
+     198,
+     206,
+     223,
+     255
+    ],
+    [
+     109,
+     123,
+     149,
+     255
+    ],
+    [
+     87,
+     100,
+     125,
+     255
+    ],
+    [
+     62,
+     68,
+     88,
+     255
+    ],
+    [
+     91,
+     45,
+     42,
+     255
+    ],
+    [
+     145,
+     80,
+     60,
+     255
+    ],
+    [
+     50,
+     25,
+     24,
+     255
+    ],
+    [
+     163,
+     138,
+     97,
+     255
+    ],
+    [
+     206,
+     174,
+     128,
+     255
+    ],
+    [
+     97,
+     82,
+     57,
+     255
+    ],
+    [
+     62,
+     52,
+     36,
+     255
+    ],
+    [
+     94,
+     80,
+     58,
+     255
+    ],
+    [
+     215,
+     183,
+     124,
+     255
+    ],
+    [
+     20,
+     14,
+     10,
+     255
+    ],
+    [
+     161,
+     163,
+     40,
+     255
+    ],
+    [
+     100,
+     109,
+     54,
+     255
+    ],
+    [
+     212,
+     204,
+     72,
+     255
+    ],
+    [
+     93,
+     45,
+     41,
+     255
+    ],
+    [
+     57,
+     31,
+     31,
+     255
+    ],
+    [
+     135,
+     74,
+     58,
+     255
+    ],
+    [
+     136,
+     74,
+     57,
+     255
+    ],
+    [
+     175,
+     109,
+     86,
+     255
+    ],
+    [
+     82,
+     46,
+     44,
+     255
+    ],
+    [
+     100,
+     115,
+     146,
+     255
+    ],
+    [
+     75,
+     90,
+     118,
+     255
+    ],
+    [
+     28,
+     16,
+     16,
+     255
+    ],
+    [
+     192,
+     117,
+     82,
+     255
+    ],
+    [
+     124,
+     75,
+     61,
+     255
+    ],
+    [
+     84,
+     52,
+     38,
+     255
+    ],
+    [
+     98,
+     184,
+     102,
+     255
+    ],
+    [
+     59,
+     142,
+     74,
+     255
+    ],
+    [
+     44,
+     100,
+     58,
+     255
+    ],
+    [
+     248,
+     220,
+     96,
+     255
+    ],
+    [
+     243,
+     191,
+     46,
+     255
+    ],
+    [
+     236,
+     140,
+     36,
+     255
+    ],
+    [
+     44,
+     46,
+     58,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "43": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage.vox",
+   "geometry_source_sha256": "ac04ba5304fcd03f028ed87d194e847b6242fd45908ef1dd02b29a189c329467"
+  },
+  {
+   "file": "New1_Cottage_Cartoon.vox",
+   "family": "New1_Cottage",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 94120,
+   "sha256": "651c2762c1102654921dc36e2cfac5a922e1e9ffe0da9349c040447f961a0ebb",
+   "palette_sha256": "a9b2d9d3b4d789c2e421b99374161ac3ee18b403fad171caea316d8bd2e34a16",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    20,
+    21,
+    22,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    42,
+    43
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     126,
+     106,
+     76,
+     255
+    ],
+    [
+     147,
+     161,
+     186,
+     255
+    ],
+    [
+     198,
+     206,
+     223,
+     255
+    ],
+    [
+     62,
+     68,
+     88,
+     255
+    ],
+    [
+     91,
+     45,
+     42,
+     255
+    ],
+    [
+     145,
+     80,
+     60,
+     255
+    ],
+    [
+     50,
+     25,
+     24,
+     255
+    ],
+    [
+     163,
+     138,
+     97,
+     255
+    ],
+    [
+     206,
+     174,
+     128,
+     255
+    ],
+    [
+     97,
+     82,
+     57,
+     255
+    ],
+    [
+     62,
+     52,
+     36,
+     255
+    ],
+    [
+     215,
+     183,
+     124,
+     255
+    ],
+    [
+     20,
+     14,
+     10,
+     255
+    ],
+    [
+     161,
+     163,
+     40,
+     255
+    ],
+    [
+     212,
+     204,
+     72,
+     255
+    ],
+    [
+     93,
+     45,
+     41,
+     255
+    ],
+    [
+     57,
+     31,
+     31,
+     255
+    ],
+    [
+     135,
+     74,
+     58,
+     255
+    ],
+    [
+     136,
+     74,
+     57,
+     255
+    ],
+    [
+     175,
+     109,
+     86,
+     255
+    ],
+    [
+     82,
+     46,
+     44,
+     255
+    ],
+    [
+     100,
+     115,
+     146,
+     255
+    ],
+    [
+     75,
+     90,
+     118,
+     255
+    ],
+    [
+     28,
+     16,
+     16,
+     255
+    ],
+    [
+     192,
+     117,
+     82,
+     255
+    ],
+    [
+     124,
+     75,
+     61,
+     255
+    ],
+    [
+     84,
+     52,
+     38,
+     255
+    ],
+    [
+     98,
+     184,
+     102,
+     255
+    ],
+    [
+     59,
+     142,
+     74,
+     255
+    ],
+    [
+     44,
+     100,
+     58,
+     255
+    ],
+    [
+     248,
+     220,
+     96,
+     255
+    ],
+    [
+     236,
+     140,
+     36,
+     255
+    ],
+    [
+     44,
+     46,
+     58,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "43": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "651c2762c1102654921dc36e2cfac5a922e1e9ffe0da9349c040447f961a0ebb"
+  },
+  {
+   "file": "New1_Cottage_CratePalette.vox",
+   "family": "New1_Cottage",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 93804,
+   "sha256": "d0f96f307952a2f7b29650e3f2863a395cd4427513202ce71e21387235ed4007",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    201,
+    202,
+    205,
+    206,
+    222,
+    229,
+    230,
+    234,
+    235,
+    236,
+    237,
+    242,
+    243,
+    244,
+    245,
+    251,
+    253,
+    254
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     9,
+     10,
+     20,
+     255
+    ],
+    [
+     16,
+     20,
+     31,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     37,
+     86,
+     46,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     168,
+     202,
+     88,
+     255
+    ],
+    [
+     60,
+     94,
+     139,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ],
+    [
+     164,
+     221,
+     219,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage.vox",
+   "geometry_source_sha256": "ac04ba5304fcd03f028ed87d194e847b6242fd45908ef1dd02b29a189c329467"
+  },
+  {
+   "file": "New1_Cottage_TwoColor.vox",
+   "family": "New1_Cottage",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 93804,
+   "sha256": "154d251ada3d67661c29ee61fd90567c54d367daaf2575df0ac958068ee2ed38",
+   "palette_sha256": "d2c59be12b606ee123e1fd5c6cb2f04c3936fc8a0c6675bc8324c3ed47d1576a",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     147,
+     161,
+     186,
+     255
+    ],
+    [
+     163,
+     138,
+     97,
+     255
+    ],
+    [
+     93,
+     45,
+     41,
+     255
+    ],
+    [
+     98,
+     184,
+     102,
+     255
+    ],
+    [
+     28,
+     16,
+     16,
+     255
+    ],
+    [
+     44,
+     46,
+     58,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "6": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage.vox",
+   "geometry_source_sha256": "ac04ba5304fcd03f028ed87d194e847b6242fd45908ef1dd02b29a189c329467"
+  },
+  {
+   "file": "New1_Cottage_Cartoon_TwoColor.vox",
+   "family": "New1_Cottage",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 94120,
+   "sha256": "c11076674b24e69b30032e5fea507877503a7908ed240e758e60f5e5ac0dd6f6",
+   "palette_sha256": "d2c59be12b606ee123e1fd5c6cb2f04c3936fc8a0c6675bc8324c3ed47d1576a",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     147,
+     161,
+     186,
+     255
+    ],
+    [
+     163,
+     138,
+     97,
+     255
+    ],
+    [
+     93,
+     45,
+     41,
+     255
+    ],
+    [
+     98,
+     184,
+     102,
+     255
+    ],
+    [
+     28,
+     16,
+     16,
+     255
+    ],
+    [
+     44,
+     46,
+     58,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "6": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "651c2762c1102654921dc36e2cfac5a922e1e9ffe0da9349c040447f961a0ebb"
+  },
+  {
+   "file": "New1_Cottage_CratePalette_TwoColor.vox",
+   "family": "New1_Cottage",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 93804,
+   "sha256": "677650e88b87820afd81aa7aac32eea7ccbf83d0ce85cd93cc65aaa7234813dd",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    194,
+    202,
+    236,
+    244,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     16,
+     20,
+     31,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage.vox",
+   "geometry_source_sha256": "ac04ba5304fcd03f028ed87d194e847b6242fd45908ef1dd02b29a189c329467"
+  },
+  {
+   "file": "New1_Cottage_Cartoon_CratePalette_TwoColor.vox",
+   "family": "New1_Cottage",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    96
+   ],
+   "occupied_min": [
+    6,
+    0,
+    0
+   ],
+   "occupied_max": [
+    89,
+    41,
+    88
+   ],
+   "voxels": 94120,
+   "sha256": "f17e3c4aaeac5edfd0d8deb34c8a1630ec9639d2e06ca7c4278290fbde40c5a9",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    194,
+    202,
+    236,
+    244,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     16,
+     20,
+     31,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 918,
+   "geometry_source": "New1_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "651c2762c1102654921dc36e2cfac5a922e1e9ffe0da9349c040447f961a0ebb"
+  }
+ ]
+}

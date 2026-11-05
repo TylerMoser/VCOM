@@ -1,0 +1,4875 @@
+{
+ "source_image": "poke_c.png",
+ "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+ "generator_sha256": "026b82f7f870f7c8043180af16df52877a6b8e3a6db2539bea61343c1f093a41",
+ "dependencies": {
+  "sculpt.py": "6f545ada3bdd3484aa50996b1d4e4d36bfa3e5e991a8e1dff1c4fa182613f874",
+  "palettes.py": "5183983094ac819acd2c6fc83a0abb89274b5416bc2e404a308c23a233b12fbf",
+  "voxlib.py": "b109a6d9f3cfcab2468b01dde3fab45c140066df2b9628c739564edce8432682"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+ "minimal_palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_c/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeC_Cottage",
+   "kind": "Cottage",
+   "title": "Cottage",
+   "drawn": "Five copies: the small slate-roofed house without flower boxes (two partly hidden by a lamp and a bush).",
+   "source_regions_xyxy_exclusive": [
+    [
+     146,
+     138,
+     216,
+     226
+    ],
+    [
+     162,
+     266,
+     232,
+     354
+    ],
+    [
+     578,
+     378,
+     648,
+     466
+    ],
+    [
+     34,
+     298,
+     104,
+     386
+    ],
+    [
+     162,
+     378,
+     232,
+     466
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    64,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     0,
+     0,
+     1
+    ],
+    [
+     "ey",
+     0,
+     0,
+     2
+    ]
+   ],
+   "labels_by_group": {
+    "wood": [
+     "beam",
+     "beam_hi",
+     "door_wood",
+     "door_wood_dark",
+     "door_wood_mid",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "timber",
+     "timber_dark"
+    ],
+    "light": [
+     "brass",
+     "frame",
+     "plaster",
+     "tan",
+     "tan_dark",
+     "tan_light",
+     "tan_shade"
+    ],
+    "slate": [
+     "brass_dark",
+     "flue",
+     "found",
+     "found_dark",
+     "gable_dark",
+     "slate",
+     "slate_black",
+     "slate_edge",
+     "slate_gap",
+     "slate_light",
+     "slate_mid"
+    ],
+    "glass": [
+     "glass_cottage"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     124,
+     88,
+     60
+    ],
+    "light": [
+     214,
+     210,
+     192
+    ],
+    "slate": [
+     70,
+     74,
+     84
+    ],
+    "glass": [
+     160,
+     186,
+     232
+    ]
+   },
+   "crate_group_indices": {
+    "wood": 234,
+    "light": 195,
+    "slate": 182,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "beam": 234,
+    "beam_hi": 236,
+    "door_wood": 235,
+    "door_wood_dark": 234,
+    "door_wood_mid": 234,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "timber": 178,
+    "timber_dark": 233,
+    "brass": 230,
+    "frame": 194,
+    "plaster": 195,
+    "tan": 236,
+    "tan_dark": 234,
+    "tan_light": 237,
+    "tan_shade": 236,
+    "brass_dark": 204,
+    "flue": 182,
+    "found": 206,
+    "found_dark": 182,
+    "gable_dark": 233,
+    "slate": 182,
+    "slate_black": 203,
+    "slate_edge": 204,
+    "slate_gap": 205,
+    "slate_light": 206,
+    "slate_mid": 205,
+    "glass_cottage": 253
+   }
+  },
+  {
+   "asset_id": "PokeC_FlowerBoxCottage",
+   "kind": "FlowerBoxCottage",
+   "title": "Flower-box cottage",
+   "drawn": "Three copies: the same house with flower boxes under its front windows.",
+   "source_regions_xyxy_exclusive": [
+    [
+     50,
+     154,
+     120,
+     242
+    ],
+    [
+     546,
+     250,
+     616,
+     338
+    ],
+    [
+     690,
+     250,
+     760,
+     338
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    64,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     0,
+     0,
+     1
+    ],
+    [
+     "ey",
+     0,
+     0,
+     2
+    ]
+   ],
+   "labels_by_group": {
+    "wood": [
+     "beam",
+     "beam_hi",
+     "box_edge",
+     "door_wood",
+     "door_wood_dark",
+     "door_wood_mid",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "timber",
+     "timber_dark",
+     "timber_mid"
+    ],
+    "light": [
+     "brass",
+     "frame",
+     "plaster",
+     "tan",
+     "tan_dark",
+     "tan_light",
+     "tan_shade"
+    ],
+    "slate": [
+     "brass_dark",
+     "flue",
+     "found",
+     "found_dark",
+     "gable_dark",
+     "slate",
+     "slate_black",
+     "slate_edge",
+     "slate_gap",
+     "slate_light",
+     "slate_mid"
+    ],
+    "flower": [
+     "flower_blue",
+     "flower_blue_light",
+     "flower_orange",
+     "flower_orange_light",
+     "flower_yellow"
+    ],
+    "glass": [
+     "glass_cottage"
+    ],
+    "leaf": [
+     "leaf",
+     "leaf_dark",
+     "leaf_light"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     124,
+     88,
+     60
+    ],
+    "light": [
+     214,
+     210,
+     192
+    ],
+    "slate": [
+     70,
+     74,
+     84
+    ],
+    "flower": [
+     230,
+     170,
+     40
+    ],
+    "glass": [
+     160,
+     186,
+     232
+    ],
+    "leaf": [
+     78,
+     126,
+     78
+    ]
+   },
+   "crate_group_indices": {
+    "wood": 234,
+    "light": 195,
+    "slate": 182,
+    "flower": 229,
+    "glass": 253,
+    "leaf": 243
+   },
+   "crate_label_indices": {
+    "beam": 234,
+    "beam_hi": 236,
+    "box_edge": 217,
+    "door_wood": 235,
+    "door_wood_dark": 234,
+    "door_wood_mid": 234,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "timber": 178,
+    "timber_dark": 233,
+    "timber_mid": 178,
+    "brass": 230,
+    "frame": 194,
+    "plaster": 195,
+    "tan": 236,
+    "tan_dark": 234,
+    "tan_light": 237,
+    "tan_shade": 236,
+    "brass_dark": 204,
+    "flue": 182,
+    "found": 206,
+    "found_dark": 182,
+    "gable_dark": 233,
+    "slate": 182,
+    "slate_black": 203,
+    "slate_edge": 204,
+    "slate_gap": 205,
+    "slate_light": 206,
+    "slate_mid": 205,
+    "flower_blue": 252,
+    "flower_blue_light": 252,
+    "flower_orange": 228,
+    "flower_orange_light": 222,
+    "flower_yellow": 229,
+    "glass_cottage": 253,
+    "leaf": 243,
+    "leaf_dark": 242,
+    "leaf_light": 244
+   }
+  },
+  {
+   "asset_id": "PokeC_Manor",
+   "kind": "Manor",
+   "title": "Manor",
+   "drawn": "The large house at the top right: scalloped slate roof, barrel dormer, double door under a hood, a half-timbered wing on the left, a bay on the right.",
+   "source_regions_xyxy_exclusive": [
+    [
+     578,
+     68,
+     730,
+     186
+    ]
+   ],
+   "canvas_xyz": [
+    160,
+    80,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     6,
+     3
+    ],
+    [
+     7,
+     0
+    ],
+    [
+     7,
+     1
+    ],
+    [
+     7,
+     2
+    ],
+    [
+     7,
+     3
+    ],
+    [
+     8,
+     1
+    ],
+    [
+     8,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     4,
+     0,
+     1
+    ],
+    [
+     "ey",
+     4,
+     0,
+     2
+    ],
+    [
+     "ey",
+     5,
+     0,
+     1
+    ],
+    [
+     "ey",
+     5,
+     0,
+     2
+    ]
+   ],
+   "labels_by_group": {
+    "light": [
+     "brass",
+     "frame",
+     "frame_light",
+     "plaster",
+     "plaster_mid",
+     "plaster_shade"
+    ],
+    "slate": [
+     "cflue",
+     "cstone",
+     "cstone_dark",
+     "cstone_light",
+     "cstone_mid",
+     "found",
+     "found_dark",
+     "slate",
+     "slate_black",
+     "slate_blue",
+     "slate_dark",
+     "slate_edge",
+     "slate_gap",
+     "slate_light",
+     "slate_mid"
+    ],
+    "wood": [
+     "door_black",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "mtimber",
+     "mtimber_dark",
+     "mtimber_light",
+     "redwood",
+     "redwood_dark",
+     "redwood_light",
+     "timber_dark"
+    ],
+    "glass": [
+     "glass_manor"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     214,
+     210,
+     192
+    ],
+    "slate": [
+     70,
+     74,
+     84
+    ],
+    "wood": [
+     124,
+     88,
+     60
+    ],
+    "glass": [
+     160,
+     186,
+     232
+    ]
+   },
+   "crate_group_indices": {
+    "light": 195,
+    "slate": 182,
+    "wood": 234,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "brass": 230,
+    "frame": 194,
+    "frame_light": 195,
+    "plaster": 195,
+    "plaster_mid": 195,
+    "plaster_shade": 194,
+    "cflue": 204,
+    "cstone": 206,
+    "cstone_dark": 206,
+    "cstone_light": 194,
+    "cstone_mid": 206,
+    "found": 206,
+    "found_dark": 182,
+    "slate": 182,
+    "slate_black": 203,
+    "slate_blue": 205,
+    "slate_dark": 204,
+    "slate_edge": 204,
+    "slate_gap": 205,
+    "slate_light": 206,
+    "slate_mid": 205,
+    "door_black": 217,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "mtimber": 234,
+    "mtimber_dark": 178,
+    "mtimber_light": 234,
+    "redwood": 234,
+    "redwood_dark": 178,
+    "redwood_light": 234,
+    "timber_dark": 233,
+    "glass_manor": 253
+   }
+  },
+  {
+   "asset_id": "PokeC_BridgePavilion",
+   "kind": "BridgePavilion",
+   "title": "Bridge pavilion",
+   "drawn": "Two identical pavilions eight tiles apart on the covered bridge over the river.",
+   "source_regions_xyxy_exclusive": [
+    [
+     284,
+     318,
+     372,
+     450
+    ],
+    [
+     412,
+     318,
+     500,
+     450
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    48,
+    208
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ]
+   ],
+   "doors": [],
+   "labels_by_group": {
+    "slate": [
+     "masonry",
+     "masonry_black",
+     "masonry_dark",
+     "masonry_light",
+     "slate",
+     "slate_black",
+     "slate_edge",
+     "slate_gap",
+     "slate_light",
+     "slate_mid"
+    ],
+    "light": [
+     "paving",
+     "paving_dark",
+     "paving_hi",
+     "paving_mid",
+     "plaster_mid",
+     "plaster_shade"
+    ],
+    "wood": [
+     "plank",
+     "plank_dark",
+     "plank_line",
+     "plank_mid",
+     "redwood",
+     "redwood_dark",
+     "timber_dark"
+    ],
+    "sage": [
+     "sage",
+     "sage_dark"
+    ]
+   },
+   "minimal_colours": {
+    "slate": [
+     70,
+     74,
+     84
+    ],
+    "light": [
+     214,
+     210,
+     192
+    ],
+    "wood": [
+     124,
+     88,
+     60
+    ],
+    "sage": [
+     138,
+     157,
+     131
+    ]
+   },
+   "crate_group_indices": {
+    "slate": 182,
+    "light": 195,
+    "wood": 234,
+    "sage": 193
+   },
+   "crate_label_indices": {
+    "masonry": 205,
+    "masonry_black": 202,
+    "masonry_dark": 204,
+    "masonry_light": 182,
+    "slate": 182,
+    "slate_black": 203,
+    "slate_edge": 204,
+    "slate_gap": 205,
+    "slate_light": 206,
+    "slate_mid": 205,
+    "paving": 237,
+    "paving_dark": 193,
+    "paving_hi": 238,
+    "paving_mid": 236,
+    "plaster_mid": 195,
+    "plaster_shade": 194,
+    "plank": 180,
+    "plank_dark": 179,
+    "plank_line": 178,
+    "plank_mid": 179,
+    "redwood": 234,
+    "redwood_dark": 178,
+    "timber_dark": 233,
+    "sage": 193,
+    "sage_dark": 193
+   }
+  },
+  {
+   "asset_id": "PokeC_BridgeSpan",
+   "kind": "BridgeSpan",
+   "title": "Bridge span",
+   "drawn": "The arched stone span between the two pavilions, its railed walkway.",
+   "source_regions_xyxy_exclusive": [
+    [
+     362,
+     364,
+     422,
+     446
+    ]
+   ],
+   "canvas_xyz": [
+    64,
+    48,
+    80
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "doors": [],
+   "labels_by_group": {
+    "slate": [
+     "masonry",
+     "masonry_black",
+     "masonry_dark",
+     "masonry_light"
+    ],
+    "light": [
+     "paving",
+     "paving_dark",
+     "paving_hi",
+     "paving_mid"
+    ],
+    "wood": [
+     "redwood",
+     "redwood_dark",
+     "redwood_light"
+    ]
+   },
+   "minimal_colours": {
+    "slate": [
+     70,
+     74,
+     84
+    ],
+    "light": [
+     214,
+     210,
+     192
+    ],
+    "wood": [
+     124,
+     88,
+     60
+    ]
+   },
+   "crate_group_indices": {
+    "slate": 182,
+    "light": 195,
+    "wood": 234
+   },
+   "crate_label_indices": {
+    "masonry": 205,
+    "masonry_black": 202,
+    "masonry_dark": 204,
+    "masonry_light": 182,
+    "paving": 237,
+    "paving_dark": 193,
+    "paving_hi": 238,
+    "paving_mid": 236,
+    "redwood": 234,
+    "redwood_dark": 178,
+    "redwood_light": 234
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeC_Cottage.vox",
+   "family": "PokeC_Cottage",
+   "style": "Base",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 95325,
+   "sha256": "f6f181c450abbdc3157360021bd48c61e5616232e2be1f9aeebe24b298eced5e",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    6,
+    7,
+    8,
+    10,
+    11,
+    12,
+    13,
+    14,
+    20,
+    21,
+    22,
+    23,
+    24,
+    27,
+    29,
+    30,
+    44,
+    45,
+    46,
+    47,
+    51,
+    58,
+    59,
+    62,
+    63,
+    72
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     65,
+     74,
+     84,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     104,
+     104,
+     112,
+     255
+    ],
+    [
+     202,
+     187,
+     167,
+     255
+    ],
+    [
+     186,
+     167,
+     141,
+     255
+    ],
+    [
+     167,
+     143,
+     109,
+     255
+    ],
+    [
+     132,
+     110,
+     80,
+     255
+    ],
+    [
+     81,
+     68,
+     49,
+     255
+    ],
+    [
+     145,
+     118,
+     92,
+     255
+    ],
+    [
+     137,
+     101,
+     74,
+     255
+    ],
+    [
+     116,
+     85,
+     63,
+     255
+    ],
+    [
+     88,
+     63,
+     41,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     122,
+     92,
+     55,
+     255
+    ],
+    [
+     198,
+     174,
+     121,
+     255
+    ],
+    [
+     77,
+     72,
+     63,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     45,
+     45,
+     45,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     152,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "72": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_Cottage.vox",
+   "geometry_source_sha256": "f6f181c450abbdc3157360021bd48c61e5616232e2be1f9aeebe24b298eced5e"
+  },
+  {
+   "file": "PokeC_Cottage_Cartoon.vox",
+   "family": "PokeC_Cottage",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    4,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 104826,
+   "sha256": "565b3002efbff3a13cb8003043bc05660259ed362cdb31b30287ab6e105e51ae",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    7,
+    10,
+    11,
+    13,
+    14,
+    20,
+    21,
+    22,
+    23,
+    24,
+    27,
+    30,
+    44,
+    46,
+    47,
+    51,
+    58,
+    62,
+    63,
+    72
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     202,
+     187,
+     167,
+     255
+    ],
+    [
+     186,
+     167,
+     141,
+     255
+    ],
+    [
+     132,
+     110,
+     80,
+     255
+    ],
+    [
+     81,
+     68,
+     49,
+     255
+    ],
+    [
+     145,
+     118,
+     92,
+     255
+    ],
+    [
+     137,
+     101,
+     74,
+     255
+    ],
+    [
+     116,
+     85,
+     63,
+     255
+    ],
+    [
+     88,
+     63,
+     41,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     122,
+     92,
+     55,
+     255
+    ],
+    [
+     77,
+     72,
+     63,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     152,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "72": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "565b3002efbff3a13cb8003043bc05660259ed362cdb31b30287ab6e105e51ae"
+  },
+  {
+   "file": "PokeC_Cottage_CratePalette.vox",
+   "family": "PokeC_Cottage",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 95325,
+   "sha256": "d165415a60d78e7f29c6ed71d494f3cc82041843143080375d48fc7d1afc825f",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    182,
+    194,
+    195,
+    203,
+    204,
+    205,
+    206,
+    230,
+    233,
+    234,
+    235,
+    236,
+    237,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     21,
+     29,
+     40,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_Cottage.vox",
+   "geometry_source_sha256": "f6f181c450abbdc3157360021bd48c61e5616232e2be1f9aeebe24b298eced5e"
+  },
+  {
+   "file": "PokeC_Cottage_TwoColor.vox",
+   "family": "PokeC_Cottage",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 95325,
+   "sha256": "93825030c8884c9aa6ed97766f34054e14707d6167564f9a51fbc5c44e6c4660",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_Cottage.vox",
+   "geometry_source_sha256": "f6f181c450abbdc3157360021bd48c61e5616232e2be1f9aeebe24b298eced5e"
+  },
+  {
+   "file": "PokeC_Cottage_Cartoon_TwoColor.vox",
+   "family": "PokeC_Cottage",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    4,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 104826,
+   "sha256": "4183cc14f92d4f043ec8e158ce31845a5f615d92ffd42918a9e4266813fde8cf",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "565b3002efbff3a13cb8003043bc05660259ed362cdb31b30287ab6e105e51ae"
+  },
+  {
+   "file": "PokeC_Cottage_CratePalette_TwoColor.vox",
+   "family": "PokeC_Cottage",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 95325,
+   "sha256": "b7b5bec5e4c0f46866ccdfa89539ccf5d6cc173339ffe8bdaffd4ffe44c7aa9e",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_Cottage.vox",
+   "geometry_source_sha256": "f6f181c450abbdc3157360021bd48c61e5616232e2be1f9aeebe24b298eced5e"
+  },
+  {
+   "file": "PokeC_Cottage_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeC_Cottage",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    4,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 104826,
+   "sha256": "516aad83b2a067db8bbf7ccd09b893141faf8258b85b60bfa26e8880ab816207",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "565b3002efbff3a13cb8003043bc05660259ed362cdb31b30287ab6e105e51ae"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "Base",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 96013,
+   "sha256": "c531807a729c827bb4f6c0777d10086ee401bed8f03f9c5cf3ec88126ee97980",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    27,
+    29,
+    30,
+    44,
+    45,
+    46,
+    47,
+    51,
+    58,
+    59,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     65,
+     74,
+     84,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     104,
+     104,
+     112,
+     255
+    ],
+    [
+     27,
+     27,
+     27,
+     255
+    ],
+    [
+     202,
+     187,
+     167,
+     255
+    ],
+    [
+     186,
+     167,
+     141,
+     255
+    ],
+    [
+     167,
+     143,
+     109,
+     255
+    ],
+    [
+     132,
+     110,
+     80,
+     255
+    ],
+    [
+     81,
+     68,
+     49,
+     255
+    ],
+    [
+     145,
+     118,
+     92,
+     255
+    ],
+    [
+     137,
+     101,
+     74,
+     255
+    ],
+    [
+     116,
+     85,
+     63,
+     255
+    ],
+    [
+     88,
+     63,
+     41,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     97,
+     69,
+     53,
+     255
+    ],
+    [
+     122,
+     92,
+     55,
+     255
+    ],
+    [
+     198,
+     174,
+     121,
+     255
+    ],
+    [
+     77,
+     72,
+     63,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     45,
+     45,
+     45,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     65,
+     91,
+     68,
+     255
+    ],
+    [
+     78,
+     126,
+     78,
+     255
+    ],
+    [
+     105,
+     152,
+     90,
+     255
+    ],
+    [
+     255,
+     214,
+     8,
+     255
+    ],
+    [
+     73,
+     138,
+     164,
+     255
+    ],
+    [
+     122,
+     175,
+     196,
+     255
+    ],
+    [
+     192,
+     102,
+     41,
+     255
+    ],
+    [
+     206,
+     133,
+     83,
+     255
+    ],
+    [
+     150,
+     152,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "72": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_FlowerBoxCottage.vox",
+   "geometry_source_sha256": "c531807a729c827bb4f6c0777d10086ee401bed8f03f9c5cf3ec88126ee97980"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_Cartoon.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 105863,
+   "sha256": "2ba8709497adad50e866e56bcd830535b2cc2925c4775a84eb0c282d187e267b",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    7,
+    10,
+    11,
+    13,
+    14,
+    20,
+    21,
+    22,
+    23,
+    24,
+    27,
+    30,
+    44,
+    46,
+    47,
+    51,
+    58,
+    62,
+    63,
+    65,
+    67,
+    70,
+    72
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     202,
+     187,
+     167,
+     255
+    ],
+    [
+     186,
+     167,
+     141,
+     255
+    ],
+    [
+     132,
+     110,
+     80,
+     255
+    ],
+    [
+     81,
+     68,
+     49,
+     255
+    ],
+    [
+     145,
+     118,
+     92,
+     255
+    ],
+    [
+     137,
+     101,
+     74,
+     255
+    ],
+    [
+     116,
+     85,
+     63,
+     255
+    ],
+    [
+     88,
+     63,
+     41,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     122,
+     92,
+     55,
+     255
+    ],
+    [
+     77,
+     72,
+     63,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     78,
+     126,
+     78,
+     255
+    ],
+    [
+     255,
+     214,
+     8,
+     255
+    ],
+    [
+     192,
+     102,
+     41,
+     255
+    ],
+    [
+     150,
+     152,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "72": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_FlowerBoxCottage_Cartoon.vox",
+   "geometry_source_sha256": "2ba8709497adad50e866e56bcd830535b2cc2925c4775a84eb0c282d187e267b"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_CratePalette.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 96013,
+   "sha256": "3c6149af0d9aaf58b609a182f22a16d60c2cd9fe90b463f7f6b435fa87ded209",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    182,
+    194,
+    195,
+    203,
+    204,
+    205,
+    206,
+    217,
+    222,
+    228,
+    229,
+    230,
+    233,
+    234,
+    235,
+    236,
+    237,
+    242,
+    243,
+    244,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     21,
+     29,
+     40,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     36,
+     21,
+     39,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     190,
+     119,
+     43,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     37,
+     86,
+     46,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_FlowerBoxCottage.vox",
+   "geometry_source_sha256": "c531807a729c827bb4f6c0777d10086ee401bed8f03f9c5cf3ec88126ee97980"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_TwoColor.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 96013,
+   "sha256": "6a834943feeaf51eaca996e35326dcc8dd262562a16e12560d77e80102a2cbe6",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ],
+    [
+     78,
+     126,
+     78,
+     255
+    ],
+    [
+     230,
+     170,
+     40,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_FlowerBoxCottage.vox",
+   "geometry_source_sha256": "c531807a729c827bb4f6c0777d10086ee401bed8f03f9c5cf3ec88126ee97980"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_Cartoon_TwoColor.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 105863,
+   "sha256": "18d76f0a2778934e04d30c2d65b84418900afe32a659028bdd5dd9e42f7ef693",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ],
+    [
+     78,
+     126,
+     78,
+     255
+    ],
+    [
+     230,
+     170,
+     40,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_FlowerBoxCottage_Cartoon.vox",
+   "geometry_source_sha256": "2ba8709497adad50e866e56bcd830535b2cc2925c4775a84eb0c282d187e267b"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_CratePalette_TwoColor.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    76,
+    58,
+    98
+   ],
+   "voxels": 96013,
+   "sha256": "b324df2373070a5d17905e15596ab689086c025b4e2df67ebf8e3aa3415bedb5",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    229,
+    234,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 952,
+   "geometry_source": "PokeC_FlowerBoxCottage.vox",
+   "geometry_source_sha256": "c531807a729c827bb4f6c0777d10086ee401bed8f03f9c5cf3ec88126ee97980"
+  },
+  {
+   "file": "PokeC_FlowerBoxCottage_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeC_FlowerBoxCottage",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    64,
+    112
+   ],
+   "occupied_min": [
+    2,
+    2,
+    0
+   ],
+   "occupied_max": [
+    77,
+    59,
+    100
+   ],
+   "voxels": 105863,
+   "sha256": "98e9d58fcf4d97dde16f9c4386cf28a6153073fd9aca768325dbd11dac5ea564",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    229,
+    234,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 736,
+   "geometry_source": "PokeC_FlowerBoxCottage_Cartoon.vox",
+   "geometry_source_sha256": "2ba8709497adad50e866e56bcd830535b2cc2925c4775a84eb0c282d187e267b"
+  },
+  {
+   "file": "PokeC_Manor.vox",
+   "family": "PokeC_Manor",
+   "style": "Base",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    76,
+    124
+   ],
+   "voxels": 238173,
+   "sha256": "cb231af268a61c0f6be352b9232f72fb2bc2c6c3c60a124ddfb2c063617059d9",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    15,
+    17,
+    18,
+    19,
+    24,
+    32,
+    33,
+    34,
+    36,
+    37,
+    38,
+    39,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    51,
+    52,
+    58,
+    62,
+    63,
+    73
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     47,
+     47,
+     53,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     56,
+     64,
+     72,
+     255
+    ],
+    [
+     65,
+     74,
+     84,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     104,
+     104,
+     112,
+     255
+    ],
+    [
+     153,
+     174,
+     196,
+     255
+    ],
+    [
+     89,
+     102,
+     114,
+     255
+    ],
+    [
+     79,
+     90,
+     102,
+     255
+    ],
+    [
+     56,
+     56,
+     56,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     104,
+     75,
+     57,
+     255
+    ],
+    [
+     117,
+     84,
+     65,
+     255
+    ],
+    [
+     87,
+     64,
+     49,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     128,
+     78,
+     65,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     38,
+     32,
+     27,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     201,
+     201,
+     191,
+     255
+    ],
+    [
+     170,
+     170,
+     153,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     194,
+     192,
+     200,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     130,
+     178,
+     222,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "73": 0.7
+   },
+   "glass_voxels": 3282,
+   "geometry_source": "PokeC_Manor.vox",
+   "geometry_source_sha256": "cb231af268a61c0f6be352b9232f72fb2bc2c6c3c60a124ddfb2c063617059d9"
+  },
+  {
+   "file": "PokeC_Manor_Cartoon.vox",
+   "family": "PokeC_Manor",
+   "style": "Cartoon",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    77,
+    124
+   ],
+   "voxels": 248371,
+   "sha256": "8597565de87634f4e4ebd057d6134787e4f7386cb06d57651079da6d458159ed",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    15,
+    18,
+    19,
+    24,
+    32,
+    34,
+    36,
+    37,
+    38,
+    39,
+    44,
+    46,
+    47,
+    48,
+    49,
+    52,
+    58,
+    62,
+    63,
+    73
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     47,
+     47,
+     53,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     56,
+     64,
+     72,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     104,
+     104,
+     112,
+     255
+    ],
+    [
+     153,
+     174,
+     196,
+     255
+    ],
+    [
+     79,
+     90,
+     102,
+     255
+    ],
+    [
+     56,
+     56,
+     56,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     104,
+     75,
+     57,
+     255
+    ],
+    [
+     87,
+     64,
+     49,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     128,
+     78,
+     65,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     38,
+     32,
+     27,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     216,
+     216,
+     197,
+     255
+    ],
+    [
+     201,
+     201,
+     191,
+     255
+    ],
+    [
+     170,
+     170,
+     153,
+     255
+    ],
+    [
+     194,
+     192,
+     200,
+     255
+    ],
+    [
+     206,
+     183,
+     119,
+     255
+    ],
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     130,
+     178,
+     222,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "73": 0.7
+   },
+   "glass_voxels": 2538,
+   "geometry_source": "PokeC_Manor_Cartoon.vox",
+   "geometry_source_sha256": "8597565de87634f4e4ebd057d6134787e4f7386cb06d57651079da6d458159ed"
+  },
+  {
+   "file": "PokeC_Manor_CratePalette.vox",
+   "family": "PokeC_Manor",
+   "style": "CratePalette",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    76,
+    124
+   ],
+   "voxels": 238173,
+   "sha256": "bb28df82edf101e4efe1564ebfca74f7193a43cca557e0fc41f9389d3126ba64",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    182,
+    194,
+    195,
+    203,
+    204,
+    205,
+    206,
+    217,
+    230,
+    233,
+    234,
+    235,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     21,
+     29,
+     40,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     36,
+     21,
+     39,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 3282,
+   "geometry_source": "PokeC_Manor.vox",
+   "geometry_source_sha256": "cb231af268a61c0f6be352b9232f72fb2bc2c6c3c60a124ddfb2c063617059d9"
+  },
+  {
+   "file": "PokeC_Manor_TwoColor.vox",
+   "family": "PokeC_Manor",
+   "style": "TwoColor",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    76,
+    124
+   ],
+   "voxels": 238173,
+   "sha256": "a3d276a3fff007ef17928a5597b5fab7c2958e56596bddec6e6145efc33e36a3",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 3282,
+   "geometry_source": "PokeC_Manor.vox",
+   "geometry_source_sha256": "cb231af268a61c0f6be352b9232f72fb2bc2c6c3c60a124ddfb2c063617059d9"
+  },
+  {
+   "file": "PokeC_Manor_Cartoon_TwoColor.vox",
+   "family": "PokeC_Manor",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    77,
+    124
+   ],
+   "voxels": 248371,
+   "sha256": "a3d5fa5efd28aa067eca1b657f3fdf5a97326fc47d76afd9e488a6f1f67df6fe",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     160,
+     186,
+     232,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 2538,
+   "geometry_source": "PokeC_Manor_Cartoon.vox",
+   "geometry_source_sha256": "8597565de87634f4e4ebd057d6134787e4f7386cb06d57651079da6d458159ed"
+  },
+  {
+   "file": "PokeC_Manor_CratePalette_TwoColor.vox",
+   "family": "PokeC_Manor",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    76,
+    124
+   ],
+   "voxels": 238173,
+   "sha256": "abf11cd5f07c7ff6239aaa1068fc8c37e77b3f47619ad19d1e15ccd772172f29",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 3282,
+   "geometry_source": "PokeC_Manor.vox",
+   "geometry_source_sha256": "cb231af268a61c0f6be352b9232f72fb2bc2c6c3c60a124ddfb2c063617059d9"
+  },
+  {
+   "file": "PokeC_Manor_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeC_Manor",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    160,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    155,
+    77,
+    124
+   ],
+   "voxels": 248371,
+   "sha256": "dae1e9a292c442357df59c2735f16fc57c0b9f32ae2395bc73a1aef07e3310ec",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234,
+    253
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2538,
+   "geometry_source": "PokeC_Manor_Cartoon.vox",
+   "geometry_source_sha256": "8597565de87634f4e4ebd057d6134787e4f7386cb06d57651079da6d458159ed"
+  },
+  {
+   "file": "PokeC_BridgePavilion.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "Base",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    92,
+    42,
+    195
+   ],
+   "voxels": 124724,
+   "sha256": "51a36087976fb4c2798d5f7eb1e91c485751457b0a4b2a9b7153a4c12f44a354",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    6,
+    7,
+    8,
+    9,
+    24,
+    36,
+    38,
+    40,
+    41,
+    42,
+    43,
+    48,
+    49,
+    54,
+    55,
+    56,
+    57,
+    60,
+    61
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     65,
+     74,
+     84,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     104,
+     104,
+     112,
+     255
+    ],
+    [
+     27,
+     27,
+     27,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     153,
+     111,
+     65,
+     255
+    ],
+    [
+     138,
+     91,
+     56,
+     255
+    ],
+    [
+     121,
+     71,
+     47,
+     255
+    ],
+    [
+     97,
+     59,
+     43,
+     255
+    ],
+    [
+     201,
+     201,
+     191,
+     255
+    ],
+    [
+     170,
+     170,
+     153,
+     255
+    ],
+    [
+     192,
+     184,
+     160,
+     255
+    ],
+    [
+     160,
+     160,
+     128,
+     255
+    ],
+    [
+     136,
+     128,
+     104,
+     255
+    ],
+    [
+     224,
+     224,
+     192,
+     255
+    ],
+    [
+     138,
+     157,
+     131,
+     255
+    ],
+    [
+     121,
+     140,
+     116,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion.vox",
+   "geometry_source_sha256": "51a36087976fb4c2798d5f7eb1e91c485751457b0a4b2a9b7153a4c12f44a354"
+  },
+  {
+   "file": "PokeC_BridgePavilion_Cartoon.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    94,
+    43,
+    197
+   ],
+   "voxels": 140664,
+   "sha256": "cbdbab355a52ee573f1b552150e5318ff5009482f67c50951d149d3e1d0cecaa",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    1,
+    2,
+    4,
+    7,
+    24,
+    36,
+    38,
+    40,
+    43,
+    48,
+    54,
+    56,
+    60
+   ],
+   "used_rgba": [
+    [
+     27,
+     27,
+     33,
+     255
+    ],
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     80,
+     60,
+     48,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     153,
+     111,
+     65,
+     255
+    ],
+    [
+     97,
+     59,
+     43,
+     255
+    ],
+    [
+     201,
+     201,
+     191,
+     255
+    ],
+    [
+     192,
+     184,
+     160,
+     255
+    ],
+    [
+     136,
+     128,
+     104,
+     255
+    ],
+    [
+     138,
+     157,
+     131,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion_Cartoon.vox",
+   "geometry_source_sha256": "cbdbab355a52ee573f1b552150e5318ff5009482f67c50951d149d3e1d0cecaa"
+  },
+  {
+   "file": "PokeC_BridgePavilion_CratePalette.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    92,
+    42,
+    195
+   ],
+   "voxels": 124724,
+   "sha256": "ad153506368c98a0098521ce947e9e362b81db34b91788cb96c447931f73231a",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    180,
+    182,
+    193,
+    194,
+    195,
+    202,
+    203,
+    204,
+    205,
+    206,
+    233,
+    234,
+    236,
+    237,
+    238
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     16,
+     20,
+     31,
+     255
+    ],
+    [
+     21,
+     29,
+     40,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion.vox",
+   "geometry_source_sha256": "51a36087976fb4c2798d5f7eb1e91c485751457b0a4b2a9b7153a4c12f44a354"
+  },
+  {
+   "file": "PokeC_BridgePavilion_TwoColor.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    92,
+    42,
+    195
+   ],
+   "voxels": 124724,
+   "sha256": "ffad2e0276f71f74e0fcc38877fceee450b3cdf481be25a0ea0492ce1caa352e",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    7
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     138,
+     157,
+     131,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion.vox",
+   "geometry_source_sha256": "51a36087976fb4c2798d5f7eb1e91c485751457b0a4b2a9b7153a4c12f44a354"
+  },
+  {
+   "file": "PokeC_BridgePavilion_Cartoon_TwoColor.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    94,
+    43,
+    197
+   ],
+   "voxels": 140664,
+   "sha256": "c94e235d325cae90d8a11820b0b25d283083ea7d47f3d8e7d59f28197c912bbb",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3,
+    7
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ],
+    [
+     138,
+     157,
+     131,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion_Cartoon.vox",
+   "geometry_source_sha256": "cbdbab355a52ee573f1b552150e5318ff5009482f67c50951d149d3e1d0cecaa"
+  },
+  {
+   "file": "PokeC_BridgePavilion_CratePalette_TwoColor.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    3,
+    5,
+    0
+   ],
+   "occupied_max": [
+    92,
+    42,
+    195
+   ],
+   "voxels": 124724,
+   "sha256": "37ebf7b646817b9eafc6b1f37e8882d61262878edb3fd4a44cd5db4552d28eaa",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    193,
+    195,
+    234
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion.vox",
+   "geometry_source_sha256": "51a36087976fb4c2798d5f7eb1e91c485751457b0a4b2a9b7153a4c12f44a354"
+  },
+  {
+   "file": "PokeC_BridgePavilion_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeC_BridgePavilion",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    48,
+    208
+   ],
+   "occupied_min": [
+    1,
+    4,
+    0
+   ],
+   "occupied_max": [
+    94,
+    43,
+    197
+   ],
+   "voxels": 140664,
+   "sha256": "74e6354a0c2c5413c5e7efd5230a6011645b6fe2aed28c7885c3ae4ded2825ae",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    193,
+    195,
+    234
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgePavilion_Cartoon.vox",
+   "geometry_source_sha256": "cbdbab355a52ee573f1b552150e5318ff5009482f67c50951d149d3e1d0cecaa"
+  },
+  {
+   "file": "PokeC_BridgeSpan.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "Base",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    75
+   ],
+   "voxels": 76544,
+   "sha256": "67f9e26349c0da116264406e6dab21b41f330dad8e430f1f04b6e0b846c98912",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    2,
+    4,
+    7,
+    9,
+    36,
+    37,
+    38,
+    54,
+    55,
+    56,
+    57
+   ],
+   "used_rgba": [
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     27,
+     27,
+     27,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     128,
+     78,
+     65,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     192,
+     184,
+     160,
+     255
+    ],
+    [
+     160,
+     160,
+     128,
+     255
+    ],
+    [
+     136,
+     128,
+     104,
+     255
+    ],
+    [
+     224,
+     224,
+     192,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan.vox",
+   "geometry_source_sha256": "67f9e26349c0da116264406e6dab21b41f330dad8e430f1f04b6e0b846c98912"
+  },
+  {
+   "file": "PokeC_BridgeSpan_Cartoon.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "Cartoon",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    77
+   ],
+   "voxels": 76716,
+   "sha256": "37553d3d11e7320608a6c2342b5b1575ca46b7d7229576a9244b872e1eba6d2a",
+   "palette_sha256": "407690fcb16c0fa63cf08a9ae7d8fa1ebddbe1b17f5c37967901ab877e672185",
+   "used_indices": [
+    2,
+    4,
+    7,
+    36,
+    37,
+    38,
+    54,
+    56
+   ],
+   "used_rgba": [
+    [
+     40,
+     40,
+     48,
+     255
+    ],
+    [
+     56,
+     56,
+     64,
+     255
+    ],
+    [
+     88,
+     88,
+     96,
+     255
+    ],
+    [
+     110,
+     64,
+     48,
+     255
+    ],
+    [
+     128,
+     78,
+     65,
+     255
+    ],
+    [
+     91,
+     55,
+     36,
+     255
+    ],
+    [
+     192,
+     184,
+     160,
+     255
+    ],
+    [
+     136,
+     128,
+     104,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan_Cartoon.vox",
+   "geometry_source_sha256": "37553d3d11e7320608a6c2342b5b1575ca46b7d7229576a9244b872e1eba6d2a"
+  },
+  {
+   "file": "PokeC_BridgeSpan_CratePalette.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "CratePalette",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    75
+   ],
+   "voxels": 76544,
+   "sha256": "fead5989e4282d23b0575c2a45fa9bf1bced8695fef2dc2cee1a4387e07ef35b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    182,
+    193,
+    202,
+    204,
+    205,
+    234,
+    236,
+    237,
+    238
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     16,
+     20,
+     31,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan.vox",
+   "geometry_source_sha256": "67f9e26349c0da116264406e6dab21b41f330dad8e430f1f04b6e0b846c98912"
+  },
+  {
+   "file": "PokeC_BridgeSpan_TwoColor.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "TwoColor",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    75
+   ],
+   "voxels": 76544,
+   "sha256": "e5559982ab4194705ba9a2f0b0d6210d1a4ee3ae313c140b21726c8bf0b7eba2",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan.vox",
+   "geometry_source_sha256": "67f9e26349c0da116264406e6dab21b41f330dad8e430f1f04b6e0b846c98912"
+  },
+  {
+   "file": "PokeC_BridgeSpan_Cartoon_TwoColor.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    77
+   ],
+   "voxels": 76716,
+   "sha256": "d30d02a5dfabe3e9d342a18329bd85d40eab4d0a375b4a1b1048d29416990bec",
+   "palette_sha256": "a05519360181ada61d56daee0e029429cb49be78dd2649e056952d4e8a05032e",
+   "used_indices": [
+    1,
+    2,
+    3
+   ],
+   "used_rgba": [
+    [
+     70,
+     74,
+     84,
+     255
+    ],
+    [
+     124,
+     88,
+     60,
+     255
+    ],
+    [
+     214,
+     210,
+     192,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan_Cartoon.vox",
+   "geometry_source_sha256": "37553d3d11e7320608a6c2342b5b1575ca46b7d7229576a9244b872e1eba6d2a"
+  },
+  {
+   "file": "PokeC_BridgeSpan_CratePalette_TwoColor.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    75
+   ],
+   "voxels": 76544,
+   "sha256": "33ca8efc10181a24ec67de7243d2eeaa4de19340b0fc9e83191d4f9ac0a9763c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan.vox",
+   "geometry_source_sha256": "67f9e26349c0da116264406e6dab21b41f330dad8e430f1f04b6e0b846c98912"
+  },
+  {
+   "file": "PokeC_BridgeSpan_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeC_BridgeSpan",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    64,
+    48,
+    80
+   ],
+   "occupied_min": [
+    8,
+    5,
+    0
+   ],
+   "occupied_max": [
+    55,
+    42,
+    77
+   ],
+   "voxels": 76716,
+   "sha256": "b416fdc7ed0b7dffe404b52b20212e1df6d052ee4069519a3f0979051c30d342",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    182,
+    195,
+    234
+   ],
+   "used_rgba": [
+    [
+     75,
+     75,
+     75,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ]
+   ],
+   "glass_indices": {},
+   "glass_voxels": 0,
+   "geometry_source": "PokeC_BridgeSpan_Cartoon.vox",
+   "geometry_source_sha256": "37553d3d11e7320608a6c2342b5b1575ca46b7d7229576a9244b872e1eba6d2a"
+  }
+ ]
+}

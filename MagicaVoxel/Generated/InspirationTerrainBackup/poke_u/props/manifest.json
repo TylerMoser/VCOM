@@ -1,0 +1,541 @@
+{
+  "source": "poke_u.jpg",
+  "review": {
+    "source": "poke_u.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeU_SmallGreenNotice",
+      "PokeU_WideGreenNotice"
+    ],
+    "notes": "Small and wide pale-trimmed green noticeboards. Characters, green creatures and building-mounted signs are excluded.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_SmallGreenNotice",
+      "kind": "board",
+      "crop": [
+        159,
+        99,
+        192,
+        131
+      ],
+      "size": [
+        24,
+        10,
+        24
+      ],
+      "tone": "green"
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_WideGreenNotice",
+      "kind": "board",
+      "crop": [
+        190,
+        194,
+        241,
+        226
+      ],
+      "size": [
+        48,
+        10,
+        24
+      ],
+      "tone": "green"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "Base",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2602,
+      "colors": 7,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink",
+        "7": "mark"
+      },
+      "components": [
+        2602
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "455bcc721e0b23558afc0559fd4620293f765affdab59695921faa7cdcb1bfcf",
+      "palette_sha256": "e6d7e74430fee1adc831318ee2814f57d985ed7c4b333ec542b35f396cf9f152",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2666,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2666
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "7b2b0c94773d1916d9e6994be4e384e21c6a44d6fc560b5c21925ac4b678f64f",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_CratePalette.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2602,
+      "colors": 7,
+      "groups": {
+        "206": "face",
+        "193": "face",
+        "244": "frame",
+        "236": "frame",
+        "237": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        2602
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "3014c168eeb956616fdc7fd95d30a547da41bda29acae55eab0f026587e1842f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_TwoColor.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2602,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2602
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "aba0ce7ca4beb3ec528d6cd3d4e286527ff1f25b01b883428e122559d9f79b7d",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon_TwoColor.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2666,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2666
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "4780992d11481eb8510b2b74390bfe6690a8cf1b695fcbe080a5e69881813c9a",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_CratePalette_TwoColor.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2602,
+      "colors": 4,
+      "groups": {
+        "206": "face",
+        "236": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        2602
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "ddf837a6b6813f8228bc016ebcbf6161c69adbfd72a73b601c995fc59fe48a56",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeU_SmallGreenNotice",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2666,
+      "colors": 4,
+      "groups": {
+        "206": "face",
+        "236": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        2666
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "154a76e3c952e56c656d7768f53d440a1e33c2e0c8d82719d5070badfffb2ca7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "Base",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5530,
+      "colors": 8,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "face",
+        "4": "frame",
+        "5": "frame",
+        "6": "frame",
+        "7": "ink",
+        "8": "mark"
+      },
+      "components": [
+        5530
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        45,
+        8,
+        22
+      ],
+      "sha256": "ebaa9dea01cb9e3a6d2b9a6cb13c8cc8790efdf477d86b66d8845b0ef2c60c81",
+      "palette_sha256": "b00dfc261a5c642b4a66910fc56fecea130d44ef961ba183517722683b6b0e40",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5594,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        5594
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        8,
+        22
+      ],
+      "sha256": "6a09aade038bb6dfe1ecbda2b6d81cc820e780f089708a8787001ef515a91e37",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_CratePalette.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5530,
+      "colors": 7,
+      "groups": {
+        "206": "face",
+        "193": "face",
+        "244": "frame",
+        "236": "frame",
+        "237": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        5530
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        45,
+        8,
+        22
+      ],
+      "sha256": "3b8497a095c55fce543f40a38e21b65602f47ea406269fe503f1110f700cf4bc",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_TwoColor.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5530,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        5530
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        45,
+        8,
+        22
+      ],
+      "sha256": "7869b0a03eac6a594a03551fad6c95fd41ae4d9531ecfb86d12d0649dd08a5c1",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon_TwoColor.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5594,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        5594
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        8,
+        22
+      ],
+      "sha256": "1aed2efd6a60dbab47d6317f7ced76c08c46873f675182795aaca8052a215647",
+      "palette_sha256": "4895b32fe2dc176dff72c92e6456741d57dfd520140a8b9056586ea236286e5a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_CratePalette_TwoColor.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5530,
+      "colors": 4,
+      "groups": {
+        "206": "face",
+        "236": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        5530
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        45,
+        8,
+        22
+      ],
+      "sha256": "1390301677665fec39d02f1e0378b417e539fddb3f3bf94cb004c68a7b24edc9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeU_WideGreenNotice",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        10,
+        24
+      ],
+      "voxels": 5594,
+      "colors": 4,
+      "groups": {
+        "206": "face",
+        "236": "frame",
+        "238": "ink",
+        "196": "mark"
+      },
+      "components": [
+        5594
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        8,
+        22
+      ],
+      "sha256": "ea4731d452572a3f56ccdadab90fae91249ff0132e84a113adf6c1c213df7dae",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

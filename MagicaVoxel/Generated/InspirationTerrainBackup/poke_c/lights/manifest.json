@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_c.png",
+    "name": "PokeC_SilverStreetLantern",
+    "shape": "cap",
+    "size": [
+      12,
+      12,
+      40
+    ],
+    "crop": [
+      63,
+      254,
+      85,
+      305
+    ],
+    "scale": 1,
+    "metal": [
+      100,
+      113,
+      104
+    ],
+    "light": [
+      211,
+      246,
+      247
+    ],
+    "power": 2,
+    "note": "Same silver lantern artwork as poke_b. Reuses its complete geometry and palette under this image folder; not an additional design."
+  },
+  "models": [
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "d16c1f209f07a88d228b08e34ffea426a09e80d8f815ac6f5c15c7686a189bd5",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "29c5a7833782d447fc12ebd84421bf8059d2a7ddf1e1468fa2be749214c6ba16",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_CratePalette.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure",
+        "185": "structure",
+        "193": "structure"
+      },
+      "colors": 4,
+      "sha256": "104e3fd2e7c6723f249576dd81fc5c33bec212c2471d960c0b4fe0242131b8d7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "2f704d22ca026162085c55b6a553233ef830004c7664e7b591041a483fa1accf",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "3559f5f3778bc0112f238dae0abf99266af00dbf65b41c421ad0d214210b6020",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_CratePalette_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "ca0651ee0677911b36ed6153567d7eea2979987f7722ae35d7ae509fa2d2d478",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "1b755026e381fd385ce121ea060c60ec76907e84ac73de17c884267bb5f317f3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-27",
+  "models": 21,
+  "families": 3,
+  "source_image": "poke_l.png",
+  "source_image_sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 geometry and paint, pinned crate palette.",
+  "import_render": "All 21 models imported and rendered using the current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per family; Base and Cartoon from four azimuths. Compared original and enlarged sprite sheet.",
+    "findings": "Raised leaf clusters remain visible in color-only variants. Tall layered crown, wider round crown and slender sapling are distinct. Leaf rings, continuous trunks, palette treatments and Cartoon balance reviewed. No ground-shadow geometry included.",
+    "limitations": "Canopy depth and unseen structure inferred; sprite height includes projection. Lit shading remains visible in two-color variants."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "53be9ffa548588e22bcfc37dab6a868147c29a7936825f33f5521f43703855bb",
+  "sculpt_sha256": "99d8216fec945357de3e355ada46b7b2da797885e34ecfafef045af0e489cfeb",
+  "dependency_hashes": {
+    "output\\poke_l\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_l\\reference\\regions.json": "e095b15522295dda41b233697494a02b71cbea5685f010ec2072ae6e3d649b00",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeL_LayeredTree.vox": "cf524919130a8554fc88f2a5b31336bcf7f3db841e14194c8075220c55026e42",
+    "PokeL_LayeredTree_Cartoon.vox": "bdaac19001400cae24c05add9c146c5095172c3a621acae63137b2c7f84540ad",
+    "PokeL_LayeredTree_CratePalette.vox": "fcc19256c280e8e1496f1d1c78563215cec5314d45f590f774783993e7ee0435",
+    "PokeL_LayeredTree_TwoColor.vox": "d0571a7274985b4914572f17e8352d8d1a83cbd3863ce7dcca4e34634a99b59c",
+    "PokeL_LayeredTree_Cartoon_TwoColor.vox": "1f561e3dd821c7fae193d3d05713b279afb4979931ce2ca0cc787ad0ed8d75e4",
+    "PokeL_LayeredTree_CratePalette_TwoColor.vox": "a442090307f887d2b54b05b2326e1160639a707176519687134f4a6757412926",
+    "PokeL_LayeredTree_Cartoon_CratePalette_TwoColor.vox": "aaff77481e5eacddc6a80870809cc2c38b0463e29d844b03ad9febc11d4df53c",
+    "PokeL_RoundedTree.vox": "40149c0bb70b1dc88059bd49f74ce5303efd99ceb46ff083863c1796f90fcb81",
+    "PokeL_RoundedTree_Cartoon.vox": "d12bbf4dac5d89f68b636f78778101f62f415bfd9f42c33bd9798db0456f30ac",
+    "PokeL_RoundedTree_CratePalette.vox": "c827d472f97352cf8cbec1ce89a8f8073315b07343325f08eb668a00079ee071",
+    "PokeL_RoundedTree_TwoColor.vox": "ed9d2d10c30cf468ab687b725ea763201a97083c5e377b3db51d53f96a47fafb",
+    "PokeL_RoundedTree_Cartoon_TwoColor.vox": "416ff623f88d51da0343e8ebb3e1901f823c1dcf778bbcc87debfa2a05211adb",
+    "PokeL_RoundedTree_CratePalette_TwoColor.vox": "42deaf48e198ce7c8a17cbbafd3de87b1716494c10d5c37a1962fdaa17dad1cc",
+    "PokeL_RoundedTree_Cartoon_CratePalette_TwoColor.vox": "60f9d6b0c814d25776269a49c035b04b76dcbd5866ec8a6708699ea715603122",
+    "PokeL_Sapling.vox": "436b670fed1758d5b8760c2bc781bb06b4411ec305586a3515374d79d629572f",
+    "PokeL_Sapling_Cartoon.vox": "6f077ed38c76054dec5fe672e0bd97bbe657aded502a266651ad3cb51692f2f7",
+    "PokeL_Sapling_CratePalette.vox": "045bc1dc876e3836a045c754a303f74f023b1a5e09c756b5d7ca1bc48c36c194",
+    "PokeL_Sapling_TwoColor.vox": "4367439193d83e62a3d6f450bcb4addae993f1ebb6f7c6797f08ad8c0ce49d17",
+    "PokeL_Sapling_Cartoon_TwoColor.vox": "12e9d2ebeadb839550b3bca58935dc9fa42fe605814beefa741c2ed92decd61d",
+    "PokeL_Sapling_CratePalette_TwoColor.vox": "b4d4579b3bbd122c97fda76d8d037f7b3321b9444ca763ad8d9c02c45817b7d0",
+    "PokeL_Sapling_Cartoon_CratePalette_TwoColor.vox": "2a58d59738a1ad1006eb78cee09faa871122610472e8b550906bd6d4eed5bd75"
+  }
+}

@@ -1,0 +1,4632 @@
+{
+  "models": 770,
+  "families": 110,
+  "sources_reviewed": 25,
+  "preserved_previous_models": 1666,
+  "checks": [
+    {
+      "file": "output/mario/Mario_BladeClump.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_BladeClump_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/mario/Mario_SerratedBush_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_WhiteDaisy_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Cattail_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_LilyPad_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_LeafyTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_YellowFlowerBed_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_PinkWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_a/PokeA_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_PinkDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenBlades_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_b/PokeB_GardenFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_DryTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_d/PokeD_GoldenLeafClump_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_MeadowGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_BlueDaisyBed_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_e/PokeE_RedFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_PinkFlowerBed_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_f/PokeF_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_PinkWhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_OrangeDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_g/PokeG_RedFlowerSpray_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_GoldenWheat_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PinkWhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_h/PokeH_PurpleDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_YellowFlowerBed_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_PaleWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_CropSeedlings_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_LeafyTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_i/PokeI_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WhiteWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_j/PokeJ_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_TallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WhiteWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_k/PokeK_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_GroundRosette_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_l/PokeL_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BankReeds_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_LowMeadowGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_SubmergedReeds_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_AquaticRosette_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_WaterLily_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_PinkWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_BlueWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_m/PokeM_OrangeWildflowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PurpleFlowerSpikes_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_YellowStarFlowers_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_PinkWhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_SubmergedFern_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_n/PokeN_FloatingLeafCluster_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_DenseMeadowGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_o/PokeO_OrangeDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TealTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_RedRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_BlueRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_WhiteRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_YellowRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PurpleRoundFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_PinkFlowerSpikes_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_TinyPinkDaisyPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_SubmergedFern_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_p/PokeP_DryBankReeds_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_GiantRedFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleBellFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_PurpleSpatheFlower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_DenseGroundHedge_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_TropicalLeafRosette_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_q/PokeQ_OrangeDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_GardenTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_r/PokeR_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_PinkFlowerCarpet_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_Sunflower_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_s/PokeS_FloatingLeaves_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_LowGrassClump_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SparseBeachGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedReeds_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_t/PokeT_SubmergedRosette_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PaleTallGrass_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_PinkWhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_Cartoon.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_CratePalette.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_Cartoon_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    },
+    {
+      "file": "output/poke_u/PokeU_OrangeDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "geometry_palette_groups": "pass",
+      "all_components_rooted": "pass",
+      "runtime_hash_match": "pass"
+    }
+  ],
+  "runtime_report": "godot-validation.json",
+  "level_integration": "not performed",
+  "visual_review": "visual-review.json",
+  "reuse": "reuse.json"
+}

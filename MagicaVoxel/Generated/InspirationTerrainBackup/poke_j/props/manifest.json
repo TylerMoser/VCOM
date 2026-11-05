@@ -1,0 +1,264 @@
+{
+  "source": "poke_j.jpg",
+  "review": {
+    "source": "poke_j.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeJ_StackedTimber"
+    ],
+    "notes": "Low stacked timber decoration near the modern building, interpreted as round log ends. Previously overlooked by deadwood/fence passes. Other props are already-covered lamps, plants and building trim.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_StackedTimber",
+      "kind": "timberpile",
+      "crop": [
+        492,
+        243,
+        547,
+        263
+      ],
+      "size": [
+        32,
+        16,
+        16
+      ],
+      "tone": "brown"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "Base",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 4466,
+      "colors": 6,
+      "groups": {
+        "1": "cut",
+        "2": "cut",
+        "3": "cut",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        4466
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "85ecad097d0308b653893c21b42932c807c71e1fa16cb395e378d5cbd18e2076",
+      "palette_sha256": "eb45c9f02cde790e955943fed005ceda8701b88b85667f9538594cb691dc3798",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 5348,
+      "colors": 2,
+      "groups": {
+        "1": "cut",
+        "2": "wood"
+      },
+      "components": [
+        5348
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "6cbd381632da4f3df03eea1daf9ef1c91fc454e8467f3976c5e45c6f296756cf",
+      "palette_sha256": "5b2966f4f7156a49a491131deaf55a1bf8b9ebc35524b8fc276288ba1a6249e3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_CratePalette.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 4466,
+      "colors": 4,
+      "groups": {
+        "235": "cut",
+        "236": "cut",
+        "179": "wood",
+        "180": "wood"
+      },
+      "components": [
+        4466
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "00dcf5abefdf85cb82c215de2094317d221b04d24bb521d8ad746f283615c141",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_TwoColor.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 4466,
+      "colors": 2,
+      "groups": {
+        "1": "cut",
+        "2": "wood"
+      },
+      "components": [
+        4466
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "f81b792d9a3d7d787ab63bfad19ffbbfe3fd50cc5a72ea7dc3733256d826f445",
+      "palette_sha256": "5b2966f4f7156a49a491131deaf55a1bf8b9ebc35524b8fc276288ba1a6249e3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon_TwoColor.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 5348,
+      "colors": 2,
+      "groups": {
+        "1": "cut",
+        "2": "wood"
+      },
+      "components": [
+        5348
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "ccc079e3196c0c306987250f5bbb051c794c85852b22d6ee4c5023ead654ef57",
+      "palette_sha256": "5b2966f4f7156a49a491131deaf55a1bf8b9ebc35524b8fc276288ba1a6249e3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_CratePalette_TwoColor.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 4466,
+      "colors": 2,
+      "groups": {
+        "235": "cut",
+        "179": "wood"
+      },
+      "components": [
+        4466
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "dff59ed57cfb8f3e63cc0c6728e5e908a5963673ce7747b4a674959c4cc1439c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeJ_StackedTimber",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        16,
+        16
+      ],
+      "voxels": 5348,
+      "colors": 2,
+      "groups": {
+        "235": "cut",
+        "179": "wood"
+      },
+      "components": [
+        5348
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        14,
+        13
+      ],
+      "sha256": "f1781f2e6c1bea2fcf85a10e628a4569afaf10b09df1a86fd898b7178c99f3a4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-27",
+  "models": 21,
+  "families": 3,
+  "source_image": "poke_i.jpg",
+  "source_image_sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 geometry and paint, pinned crate palette.",
+  "import_render": "All 21 models imported and rendered using the current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png",
+      "previews/PokeI_Sapling_family.png"
+    ],
+    "scope": "All seven variants per family; Base and Cartoon at four azimuths. Sapling taper refined and final family reviewed.",
+    "findings": "Mature tiered foliage, slender sapling and low shrub silhouettes remain distinct. Source-guided teal greens, material separation, recolor geometry and balanced Cartoon geometry reviewed.",
+    "limitations": "Source JPEG is resized; tile pitch and hidden depth inferred. Lighting adds face shading to flat two-color paint."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "1b75318e2165d299e107f4185a315c98a9b4a94930c82e2bdaaaec4a99946faa",
+  "sculpt_sha256": "bc918a893a8e0d59e806cbcf3c046408c81116262e4fadcfb7bec50de3ed00bf",
+  "dependency_hashes": {
+    "output\\poke_i\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_i\\reference\\regions.json": "16271df66cfc6d1a592966995949676f34e79e643e9280dac7c3d8764efff798",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeI_ForestTree.vox": "279b015fb0ae2079aa728f75f71d44716cb9f3c50eac73efe4780b69b8b3b69b",
+    "PokeI_ForestTree_Cartoon.vox": "5317c01af4e7ab54be8be30ef63e02a2d45e38e976b2360dcde24aa83aa41f18",
+    "PokeI_ForestTree_CratePalette.vox": "85eba18a0219b0d9532aa90683bb597c89473853922f1890220778bd0f997cf7",
+    "PokeI_ForestTree_TwoColor.vox": "bd5e43744cfce7d54bf9c2c486cac7c9bbef8a45667f9ade84bd2a76515e99c9",
+    "PokeI_ForestTree_Cartoon_TwoColor.vox": "8339f03ecc44346f1c6096f7adae74b6d3ab8dc04d4728682a103fa68039da48",
+    "PokeI_ForestTree_CratePalette_TwoColor.vox": "d6091f364f0cb17e45455389992bef12747861d98ee415cfa4e89db1a4d7c6b1",
+    "PokeI_ForestTree_Cartoon_CratePalette_TwoColor.vox": "f039aaff3ef735b4175f3a97ecbe5760bfc3c168e98b3aafb25dbda5ed6debd6",
+    "PokeI_Sapling.vox": "b5694e2050e8292f52ee1eacb4843e8103004e1a1a2e4beac721e0962aef653a",
+    "PokeI_Sapling_Cartoon.vox": "0dd743f3b12b4f2d80ecd3b08907bc3e55accbae60c58aa9eef22a15e70ef3c7",
+    "PokeI_Sapling_CratePalette.vox": "709149995c10c8aa6ba6828c74d4f79119b636a4416754a52adfabd0c95f18e1",
+    "PokeI_Sapling_TwoColor.vox": "45047fb38ed89ca383ab39daf6b605216d4c8d09db2bae0856143aebb2c4244f",
+    "PokeI_Sapling_Cartoon_TwoColor.vox": "7f09796245a1b397b875831441a6a7b421592837027422740d8320bdbcc1c9ad",
+    "PokeI_Sapling_CratePalette_TwoColor.vox": "fd7ffcbdbebedc9e0ad804374d7b829ca1da6b25547f28ccad78867a3bbd4b6b",
+    "PokeI_Sapling_Cartoon_CratePalette_TwoColor.vox": "ac5502ea52f9ae17bd094b21c3f267e1418b09ba871d53188a506ed068e6e08b",
+    "PokeI_HedgeShrub.vox": "e6e378ccae9e203c89647e1fccc624b09686a33648c95c9029cf0869fff530d5",
+    "PokeI_HedgeShrub_Cartoon.vox": "00e6651c4c78b5d0bbb87ebdfcdee544a50702918dd2fd8a6698e82da86bb260",
+    "PokeI_HedgeShrub_CratePalette.vox": "ee3e166af2934f9b41f40790377427aca1fdaf9ad6784903b2a0c42582305be6",
+    "PokeI_HedgeShrub_TwoColor.vox": "09154dd9cc04088955a59dc1db0878442e3b7bdf2206e0bcf3aec3c80c39c684",
+    "PokeI_HedgeShrub_Cartoon_TwoColor.vox": "71b6f9292de9a998bd62bc9fe7f3f6412815e8bc81db6fe6e9c0605406209433",
+    "PokeI_HedgeShrub_CratePalette_TwoColor.vox": "1e6913d32eaf0f0778975a9d7a74d72efd5eb986920f6680568fcab7cca4be90",
+    "PokeI_HedgeShrub_Cartoon_CratePalette_TwoColor.vox": "2b50a0763d775d93bb4a268add406f164bd3681935b4a7918afda0f743716aa3"
+  }
+}

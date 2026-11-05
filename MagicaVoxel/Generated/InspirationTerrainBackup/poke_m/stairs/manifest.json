@@ -1,0 +1,508 @@
+{
+  "source": "poke_m.png",
+  "families": [
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_StoneStairs",
+      "crop": [
+        122,
+        648,
+        181,
+        694
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 24,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        150,
+        141,
+        119
+      ],
+      "edge": [
+        190,
+        182,
+        157
+      ],
+      "rail": "stone",
+      "note": "Six warm gray treads, pale stone curbs and end piers.",
+      "size": [
+        40,
+        48,
+        48
+      ],
+      "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 236,
+        "4": 235,
+        "5": 237,
+        "6": 193,
+        "7": 238,
+        "8": 194,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_DoubleStoneStairs",
+      "crop": [
+        633,
+        440,
+        695,
+        520
+      ],
+      "width": 48,
+      "run": 64,
+      "rise": 48,
+      "steps": 12,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        150,
+        141,
+        119
+      ],
+      "edge": [
+        190,
+        182,
+        157
+      ],
+      "rail": "stone",
+      "midlanding": 8,
+      "note": "Two six-step flights separated by a short landing, complete as one model.",
+      "size": [
+        80,
+        48,
+        64
+      ],
+      "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 236,
+        "4": 235,
+        "5": 237,
+        "6": 193,
+        "7": 238,
+        "8": 194,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs.vox",
+      "source": "poke_m.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "c94da57a7adafc89c8b861b9141233d41695240b972ef8539bc62a8a1d22c7c0"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_Cartoon.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "1b1b4ec05b744f0370f96ea8e41fcfe44f3969bec0151808c9a35bfa7d4ee941"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_CratePalette.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "304ab0a171b5d310210f09f5acc9570982d1165487d055395764d5ac695c5948"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "8cff248cc0487afea18028cb2e5b89efa644d45f09606fb6dc11fc217f3e4be5"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_Cartoon_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "c46a59d44d821a2c3c39fa52bac2e00fab67649013e67d0a1854c701bcf78ca0"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "2273f32b7a2fdfcf3ca5b633ad2bd13c84243bb9b1e8b1c5e4234fea22a9b60d"
+    },
+    {
+      "family": "PokeM_StoneStairs",
+      "file": "output/poke_m/PokeM_StoneStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "4924029d0bcb31c5539de5222787b6fab587b94ad85ecd420667b1d3efcccdab"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs.vox",
+      "source": "poke_m.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 94468,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "bd41d33769a6d69b4c2be132bd3fc26615aaad8b77a6e44402901bd41265c71a"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_Cartoon.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 96100,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "be407d499fd3cd6dce38d96dd0195f28341675dba545c986d7af79b9d04ef780"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_CratePalette.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 94468,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "b965b04c521f553572b4344b8c15482e25940d42681bb106c1b9631489487f87"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 94468,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "cf2457df54f4b039f3df7f5868e9c07bc05a3d3fc043541d8f0ee773797466a3"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_Cartoon_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 96100,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "24e59c2c6f21df071bda2905b8ccadcc44496af180d7538e7913d4651482e323"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 94468,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "b2c4ea7ef242b055898a47af262d2935025b5a4d1b1db8cb3e34e494e5003d7e"
+    },
+    {
+      "family": "PokeM_DoubleStoneStairs",
+      "file": "output/poke_m/PokeM_DoubleStoneStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 96100,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        79,
+        46,
+        58
+      ],
+      "sha256": "a879ed5caa23ea1fea6cd537dd17fd8c3a124ba99f63505d6c4779853e5877fd"
+    }
+  ]
+}

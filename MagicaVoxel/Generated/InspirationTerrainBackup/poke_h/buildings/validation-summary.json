@@ -1,0 +1,26 @@
+{
+ "validated": "2026-10-28",
+ "files": 7,
+ "families": [
+  "PokeH_Farmhouse"
+ ],
+ "file_sha256": {
+  "PokeH_Farmhouse.vox": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931",
+  "PokeH_Farmhouse_Cartoon.vox": "44b667a877faf757fc46e2dc10d11fc17e4fff87243b00b49c7e84b48e5797a0",
+  "PokeH_Farmhouse_CratePalette.vox": "f1a7df9049fab0d58696f4a8a89be2a20c8813077032334ee1c7774cd16858f0",
+  "PokeH_Farmhouse_TwoColor.vox": "cda3c46e6758f172448d0fd46d7f8feac3241d81bc62980d761df053d9715539",
+  "PokeH_Farmhouse_Cartoon_TwoColor.vox": "85d8ab46dc1947ea94d90111ed72581e241df5f9b906ea6ef7a736b991697a4d",
+  "PokeH_Farmhouse_CratePalette_TwoColor.vox": "d7eb78289cdb559f8afdbff1c0a4ddd694ce117da7df74e0321e5a4a674c38e5",
+  "PokeH_Farmhouse_Cartoon_CratePalette_TwoColor.vox": "deb0a76ca1a4f20202340807d5898d80de1b7442a29291971fc0bcb792553da9"
+ },
+ "structure": "pass: tools/inspect_vox.py, 7 files, no errors or warnings (structural-audit.json)",
+ "geometry": "pass: canvases, grounded at z 0, one connected model each, recolours on their source's exact voxels, Cartoon a different shape from Base",
+ "palettes": "pass: CratePalette files the pinned crate palette byte for byte; TwoColor files one colour a group (each family's own colours, folded groups resolved)",
+ "glass": "pass: MagicaVoxel Glass (_type _glass, _trans 0.45-0.7) on exactly the glass indices",
+ "grid": "pass: nothing in the middle of a storey's tiles at the two levels units fill; no glass in a sill course outside a door's slot",
+ "whole_import": "pass: every file read and meshed whole by the game's MagicaVoxel importer at Scale 0.0625 (qa/whole-import.json)",
+ "integration": "pass: 7 scenes (every treatment of the farmhouse), cut into the game's pieces in a scratch copy of VCOM: the level the game stamps is each model voxel for voxel, and every rules check passed: blocked_steps, climbs, closed_off, cutaway, floors_are_tiles, reachable, sight, stamped_exactly, under_building, vaults, walls_and_doors_shut, windows_open (qa/integration-report.json)",
+ "visual_review": "done: in-game renders by day, dusk and night, cut away at each storey, from four sides and the game's camera, and each Base drawn in the art's projection beside the source (previews/)",
+ "preserved": "pass: 301 files of ChatGPT's in output/poke_h/ from before these buildings unchanged (its models, generator, records and previews)",
+ "not_tested": "the files opened in MagicaVoxel's own editor; the pieces added to the game's Pieces.tres and painted in the level editor; play in a battle (units fighting through them, destruction, blood)"
+}

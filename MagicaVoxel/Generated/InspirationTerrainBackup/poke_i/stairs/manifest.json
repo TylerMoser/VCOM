@@ -1,0 +1,258 @@
+{
+  "source": "poke_i.jpg",
+  "families": [
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_FarmStairs",
+      "crop": [
+        317,
+        223,
+        354,
+        249
+      ],
+      "width": 48,
+      "run": 16,
+      "rise": 16,
+      "steps": 4,
+      "landing": 8,
+      "tile_pixels": 9.5,
+      "stone": [
+        180,
+        185,
+        177
+      ],
+      "edge": [
+        149,
+        112,
+        71
+      ],
+      "rail": "wood",
+      "note": "Repeated short flights; uses the newer building calibration of 9.5 displayed pixels per tile.",
+      "size": [
+        24,
+        48,
+        32
+      ],
+      "source_sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "crate_mapping": {
+        "1": 194,
+        "2": 193,
+        "3": 195,
+        "4": 194,
+        "5": 235,
+        "6": 234,
+        "7": 235,
+        "8": 234,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs.vox",
+      "source": "poke_i.jpg",
+      "style": "Base",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13212,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "e01a60e4853e5ae3ca801567104d8415ee3d3cb7ae2ba790b9b8671d85213dbf"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_Cartoon.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13756,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "41f06f37d8065c3bdec8a53bb829d14e262032fd02eda3871c79e5e9f22d85c9"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_CratePalette.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13212,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "f84a6201c8a054f7cc17b86b4ac070eaeba35a36d7d1951cd8ec73eceb149b60"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13212,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "c5a2fda66dea929d7aca2856e2ff31e2c0ef288015401a5aaffbbf09a163602d"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_Cartoon_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13756,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "639ba9984168a133debd3bdbffd36b794d02564a94faa9e5c7c6845da190af76"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13212,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "748f11fbbc307d53dea832c97d50889717e30cc765d6e9c62abf053255944da8"
+    },
+    {
+      "family": "PokeI_FarmStairs",
+      "file": "output/poke_i/PokeI_FarmStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_i.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 13756,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        46,
+        26
+      ],
+      "sha256": "c34407bbd863c1af5e68df7d902cc8e3a26ce07c90248a586559f2ac69a2d12e"
+    }
+  ]
+}

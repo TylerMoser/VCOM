@@ -1,0 +1,262 @@
+{
+  "source": {
+    "source": "poke_f.png",
+    "size": [
+      576,
+      672
+    ],
+    "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc"
+  },
+  "families": [
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_CappedFence",
+      "kind": "capped",
+      "crop": [
+        76,
+        34,
+        204,
+        63
+      ],
+      "size": [
+        40,
+        8,
+        20
+      ],
+      "wood": [
+        158,
+        144,
+        88
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_f/PokeF_CappedFence.vox",
+      "family": "PokeF_CappedFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 1728,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1728
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        19
+      ],
+      "sha256": "b51589088a4c9c8e94f1b6d9abb1c61db39c98ec63cb3ab0a9e201f53416aa4a",
+      "palette_sha256": "42a5938e6207ea5edc9385d5c42a74aa4c68c2aaa82121a34fc3921434c632e0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_Cartoon.vox",
+      "family": "PokeF_CappedFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2460,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        2460
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        19
+      ],
+      "sha256": "5cd21319c53a686fd62a24e105822601991621546c0aee8a87fb8860c0f2f983",
+      "palette_sha256": "918b0f9ec52729e2a451c514a31cb836f57f750b531ba38f676e3ade218b93a0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_CratePalette.vox",
+      "family": "PokeF_CappedFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 1728,
+      "colors": 2,
+      "groups": {
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1728
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        19
+      ],
+      "sha256": "a22578e21a57aece262f8e26dc3a149805dcd10729e65c582c4f895dd5897e25",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_TwoColor.vox",
+      "family": "PokeF_CappedFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 1728,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1728
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        19
+      ],
+      "sha256": "8bfb43d2794a93c5a1b6e33639c032473ae358f08cd62e1ba096ac8b7af26583",
+      "palette_sha256": "918b0f9ec52729e2a451c514a31cb836f57f750b531ba38f676e3ade218b93a0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_Cartoon_TwoColor.vox",
+      "family": "PokeF_CappedFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2460,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        2460
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        19
+      ],
+      "sha256": "8b8eae9dddcd35c205dcea2200e20e3c3150819c282c458089aafc16dfe2efda",
+      "palette_sha256": "918b0f9ec52729e2a451c514a31cb836f57f750b531ba38f676e3ade218b93a0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_CratePalette_TwoColor.vox",
+      "family": "PokeF_CappedFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 1728,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1728
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        19
+      ],
+      "sha256": "9b976ccf9a179c6e7eb63ede7a345a819e7c3c15c87bfd407035a44afc0a7a40",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_CappedFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeF_CappedFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2460,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        2460
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        19
+      ],
+      "sha256": "e8c43be5e00ab1e044b599942f78dd878a3f1438768f4321fd2586c6e80dcead",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

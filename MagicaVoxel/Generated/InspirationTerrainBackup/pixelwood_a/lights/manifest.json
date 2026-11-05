@@ -1,0 +1,360 @@
+{
+  "family": {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_PostLantern",
+    "shape": "pixelwood",
+    "size": [
+      16,
+      16,
+      40
+    ],
+    "crop": [
+      99,
+      207,
+      154,
+      340
+    ],
+    "scale": 0.3333333333333333,
+    "metal": [
+      81,
+      85,
+      98
+    ],
+    "light": [
+      255,
+      205,
+      115
+    ],
+    "power": 1.5,
+    "note": "Square amber lantern, dark corner mullions, broad hipped cap and squared foot. Three source pixels per voxel."
+  },
+  "models": [
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure",
+        "4": "structure",
+        "5": "structure"
+      },
+      "colors": 5,
+      "sha256": "7452378ffb1eee866dfd38318146f2473f2998b8a5fc3894e80735f96c35a8f3",
+      "palette_sha256": "ec8caa27e3c25ec0bc8e3c125212cecce3c68d325a118f066dbeaebaba7bd8c6",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure",
+        "4": "structure",
+        "5": "structure"
+      },
+      "colors": 5,
+      "sha256": "2bad47bb10ead067c1952e0b0e41e6d16b7c69b3a17097010b16b412edbeea24",
+      "palette_sha256": "ec8caa27e3c25ec0bc8e3c125212cecce3c68d325a118f066dbeaebaba7bd8c6",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_CratePalette.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure",
+        "206": "structure"
+      },
+      "colors": 4,
+      "sha256": "e73328e0200591c22e2b91b0efe002168f98a28668fca5265ed8e628cf26e4d2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure"
+      },
+      "colors": 3,
+      "sha256": "4aef88e357c450c1f77a127c56e601c86876a65e8826c737b886bde401f8f09c",
+      "palette_sha256": "9ff245fdffbed9dd4e1b98120d9658e80c0d12b6916a1e469a07e6a9217355c0",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure"
+      },
+      "colors": 3,
+      "sha256": "16f420743a6458b0d8111be2b6f271ade92e2fef199f1fbc195c72663bd00097",
+      "palette_sha256": "9ff245fdffbed9dd4e1b98120d9658e80c0d12b6916a1e469a07e6a9217355c0",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure"
+      },
+      "colors": 3,
+      "sha256": "ce7ffc7c1acfe9e6753e9fe6a13a3c5a01388c56e24f3d12d8aaaac44f837b7e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure"
+      },
+      "colors": 3,
+      "sha256": "7557a10602ed48de481b73b55543f4cfe7b7352c7fe465bc533dff792f987c15",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    }
+  ]
+}

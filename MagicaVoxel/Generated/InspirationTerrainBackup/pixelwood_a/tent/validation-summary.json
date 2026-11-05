@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-28",
+  "models": 7,
+  "source_image": "pixelwood_a.jpg",
+  "source_sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+  "generator_sha256": "93f699755d06413835db979a0728c639df0d3926ecd43449279858e440c3f16b",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "import_render": "All seven imported and rendered through current VCOM whole-model Mesh importer at .0625; counts retained and grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "comparison.png",
+      "geometry.png"
+    ],
+    "scope": "All seven styles and four sides of Base/Cartoon.",
+    "findings": "Source proportions, ridge, cream/tan sides, open triangular entrance, roof vents and wooden stakes preserved. Cartoon bilateral symmetry retains front/rear distinctions.",
+    "limitations": "Hidden structure and groundsheet inferred. TwoColor lightens interior fabric and therefore reduces opening contrast, without filling holes."
+  },
+  "gameplay": "not tested or integrated",
+  "preservation": "All 28 earlier tree VOX hashes unchanged.",
+  "model_hashes": {
+    "PixelwoodA_Tent.vox": "5427b21621bc24905f3bdb7c95f4ee142a4c19de2a978368f1764a7e2d6e70d4",
+    "PixelwoodA_Tent_Cartoon.vox": "f610b5e44026f6eca0984d0be804e8a36f1ca89663435c374d53adcf42a2dff9",
+    "PixelwoodA_Tent_CratePalette.vox": "5d0dfc98311bb6d60962d0ddf5182005b91892266c9067f3788480cbf4190f55",
+    "PixelwoodA_Tent_TwoColor.vox": "9e1e0e80f3e88fd9f9d2a84c282eee67498d950c5ac483e25a5272bfb4f716e6",
+    "PixelwoodA_Tent_Cartoon_TwoColor.vox": "2a04ed9cd0e1c8e8c3ea38d5c96e7edcefe0b77045a49b97eb1b1ae063ecf2a2",
+    "PixelwoodA_Tent_CratePalette_TwoColor.vox": "ef4312162eec4999ab86ac92321d606fa6cf52fe172a6b5699aec27fd20ad1cd",
+    "PixelwoodA_Tent_Cartoon_CratePalette_TwoColor.vox": "bc9639967ac7bb3ef8fcf6b99aa58de3ff77dba273daed3f4f36cdca3771457e"
+  },
+  "dependency_hashes": {
+    "output\\pixelwood_a\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\pixelwood_a\\qa\\tent_preview.gd": "be34179a0c0497f5ebbb243205c75c7c848c94cb6aa3652a98204aa46b312e1b",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  }
+}

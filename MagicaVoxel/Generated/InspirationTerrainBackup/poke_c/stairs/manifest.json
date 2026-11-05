@@ -1,0 +1,1011 @@
+{
+  "source": "poke_c.png",
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_VillageStairs",
+      "crop": [
+        100,
+        311,
+        151,
+        354
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 24,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        172,
+        166,
+        127
+      ],
+      "edge": [
+        149,
+        99,
+        66
+      ],
+      "rail": "wood",
+      "note": "Six olive stone treads between brown edging at the western village center.",
+      "size": [
+        40,
+        48,
+        48
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 180,
+        "6": 234,
+        "7": 180,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_WideVillageStairs",
+      "crop": [
+        104,
+        487,
+        169,
+        533
+      ],
+      "width": 64,
+      "run": 32,
+      "rise": 24,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        172,
+        166,
+        127
+      ],
+      "edge": [
+        149,
+        99,
+        66
+      ],
+      "rail": "wood",
+      "note": "Wider six-step western terrace flight.",
+      "size": [
+        40,
+        64,
+        48
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 180,
+        "6": 234,
+        "7": 180,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_LongVillageStairs",
+      "crop": [
+        148,
+        585,
+        201,
+        650
+      ],
+      "width": 48,
+      "run": 48,
+      "rise": 40,
+      "steps": 10,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        172,
+        166,
+        127
+      ],
+      "edge": [
+        149,
+        99,
+        66
+      ],
+      "rail": "wood",
+      "note": "Ten-step southern descent, preserving its longer run.",
+      "size": [
+        56,
+        48,
+        64
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 180,
+        "6": 234,
+        "7": 180,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_UpperVillageStairs",
+      "crop": [
+        641,
+        199,
+        697,
+        235
+      ],
+      "width": 48,
+      "run": 24,
+      "rise": 16,
+      "steps": 4,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        172,
+        166,
+        127
+      ],
+      "edge": [
+        149,
+        99,
+        66
+      ],
+      "rail": "wood",
+      "note": "Short eastern flight below the large house; terrain staircase, separate from its doorway.",
+      "size": [
+        32,
+        48,
+        32
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 180,
+        "6": 234,
+        "7": 180,
+        "8": 179,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "9a17f39e5650b8192a327d96dc9d6812eea5b04c407c89abc9b55f59ceb1d598"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "cdbe3c590a8040725c9f5b6bf53932e30aad9721902826637270d42a84f659dd"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "a380567a8d6acca588c02272bd9f1d78e290f0b3693e1b28889d11aadc72b2dc"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "2ff1a71f66afe340acc790cdd9f7ddc96708c0562509ab47458932015d805de2"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "7ce1f4ba38f012b1bd0c731127802d8c9fca49b18fbce687dcd564aae997c994"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "d91bd1ff68f23d9bdd25eaabc51fe650e3432f1e7415fba170a01dc4e16cad31"
+    },
+    {
+      "family": "PokeC_VillageStairs",
+      "file": "output/poke_c/PokeC_VillageStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "7558a80dffe605fab19b159a73de0b912975b1dad78d439e593b02eb37eceaba"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38116,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "07d61bbd9e17699ab26d1d41687c9d87ac13cf3d21092ee6c2a0c1985bf39163"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38948,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "3f48170d7489d5e801fe7dd50a317424b5d1c8419966da5be40955e5003c5d18"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38116,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "ce25341cd39b1114890245865930d130cc423d603a0bba024f14a58f0dc5bdbe"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38116,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "9d69f8efd1259a15f6655a75e52e82e65f64c45cd6e95f4fe05a9b4cd78887b0"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38948,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "e0a05ea2aa7a4ef4a82364c4cd4d691514973bec125c4e4ddda5ac4e1428ba12"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38116,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "65eae2d1c12f18fd15ae9d09650571a4452ad8718230e0721a36fe904533a5b9"
+    },
+    {
+      "family": "PokeC_WideVillageStairs",
+      "file": "output/poke_c/PokeC_WideVillageStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38948,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        34
+      ],
+      "sha256": "1a35a107289bfaad21d9e6cbbbd0306a43b761ce75a5dd1961a2469a60ee283c"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 58240,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "72a4291e2dfcc57563071fec19feb4d0bd3de0088792420cfdc946534c6b25ea"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59360,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "cc5511d14b58f493eb8714009ea10af86689293d7cbec2416fd1d6a33fe12ab0"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 58240,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "13d1fb142f532485a4885bd15452b873d5f407911f3d30946f4f6ab6d8875011"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 58240,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "1104888205e2fc45f2ba5740b43c992309c6ac594c679227b288c7ae28035678"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59360,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "cbbc74a6554c5b07b770f5cd7e67dfbd52337dd4480b4488ecb088fc60d62598"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 58240,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "a916551e4db8af722dde2a584afa131961d2f4bffaac35040ca5f784af454b4b"
+    },
+    {
+      "family": "PokeC_LongVillageStairs",
+      "file": "output/poke_c/PokeC_LongVillageStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        56,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59360,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        55,
+        46,
+        50
+      ],
+      "sha256": "3df58ef20c09d9c8046ceaf412d9c13a5dee725ef0de3fb0f165ecfbbd139eb5"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 16868,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "c6cf70938b3a56f831869caa8ebf88c576c8db12dcdad88e3bf913f439b7926e"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 17540,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "0e282aa7533ab5a0390ec74672b7821fa68d5308cfb24b6249b4f87397a387a6"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 16868,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "7d359262b6ed0cd6a47a3fc3104a4291aa797e83ea365f05b45142388b4ab680"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 16868,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "4dcdf3eb18f5a33375e5b0a3f3efe046b899b363315be0a2d10e2ac9ab69a7e4"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 17540,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "5ebb61db2c4f70486bad07a195cecb6c83c48c3742143e76e6b63f92d394ceae"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 16868,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "e4ba9e16ad1a4b6606c808a8f2aed2faba2dc7ae86c07c0964fefa29e201e019"
+    },
+    {
+      "family": "PokeC_UpperVillageStairs",
+      "file": "output/poke_c/PokeC_UpperVillageStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 17540,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        31,
+        46,
+        26
+      ],
+      "sha256": "7777ab96e8cc5007478a0e3e8b4565194ee6daa7f73440e25991983ac95f87ec"
+    }
+  ]
+}

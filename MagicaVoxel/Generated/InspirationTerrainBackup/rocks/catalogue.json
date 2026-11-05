@@ -1,0 +1,1685 @@
+{
+  "sources": [
+    {
+      "source": "mario.jpg",
+      "size": [
+        720,
+        480
+      ],
+      "frames": 1,
+      "sha256": "1e586aac976f0aa83ba36f1abcc4e360d6f8f111cfac271fd64202022f423c51",
+      "families": [
+        "Mario_TallStoneStack",
+        "Mario_ShortStoneStack"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "size": [
+        720,
+        720
+      ],
+      "frames": 1,
+      "sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+      "families": [
+        "PixelwoodA_SmallRoundStone",
+        "PixelwoodA_SplitBoulder",
+        "PixelwoodA_FracturedStone",
+        "PixelwoodA_RoundStone"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "size": [
+        1210,
+        1210
+      ],
+      "frames": 5,
+      "sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+      "families": [
+        "PixelwoodB_FlatPebble",
+        "PixelwoodB_SplitBoulder",
+        "PixelwoodB_MossyStandingStone",
+        "PixelwoodB_EmptyFireRing"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "frames": 1,
+      "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "families": [
+        "PixelwoodC_FlatPebble",
+        "PixelwoodC_SplitBoulder",
+        "PixelwoodC_FracturedStandingStone"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_a.jpg",
+      "size": [
+        735,
+        480
+      ],
+      "frames": 1,
+      "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "families": [
+        "PokeA_PointedRiverRock"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_b.png",
+      "size": [
+        656,
+        960
+      ],
+      "frames": 1,
+      "sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7",
+      "families": [],
+      "assessment": "No discrete loose rocks found; stone paving, continuous cliffs and house masonry excluded."
+    },
+    {
+      "source": "poke_c.png",
+      "size": [
+        800,
+        752
+      ],
+      "frames": 1,
+      "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "families": [
+        "PokeC_BrownRiverBoulder",
+        "PokeC_BrownRiverPebble"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_d.png",
+      "size": [
+        864,
+        848
+      ],
+      "frames": 1,
+      "sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "families": [
+        "PokeD_FacetedGrayBoulder",
+        "PokeD_SmallGrayRock",
+        "PokeD_RiverShard",
+        "PokeD_FlatRiverStone"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_e.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "sha256": "f56dbeef65a3e5a29d63a58831ea4f3d1b0578f02961ae705985877da22d078a",
+      "families": [],
+      "assessment": "No discrete rocks found; shoreline is continuous terrain."
+    },
+    {
+      "source": "poke_f.png",
+      "size": [
+        576,
+        672
+      ],
+      "frames": 1,
+      "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+      "families": [],
+      "assessment": "No discrete rocks found; central sculpted creature statue is not a natural rock."
+    },
+    {
+      "source": "poke_g.png",
+      "size": [
+        560,
+        768
+      ],
+      "frames": 1,
+      "sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+      "families": [
+        "PokeG_AngularPondRock",
+        "PokeG_SmallPondStone"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_h.png",
+      "size": [
+        560,
+        560
+      ],
+      "frames": 1,
+      "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+      "families": [
+        "PokeH_LargePondBoulder",
+        "PokeH_SmallPondRock"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_i.jpg",
+      "size": [
+        736,
+        559
+      ],
+      "frames": 1,
+      "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "families": [
+        "PokeI_GrayRiverBoulder",
+        "PokeI_RiverPebble",
+        "PokeI_BrownFieldRock"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_j.jpg",
+      "size": [
+        735,
+        565
+      ],
+      "frames": 1,
+      "sha256": "ade8525fa4a3d29c357dc6b2b037cf9ff6d3c2cbab799faf927206151b1cd80d",
+      "families": [],
+      "assessment": "No discrete rocks found; cliffs, buildings and garden edging are terrain/architecture."
+    },
+    {
+      "source": "poke_k.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "frames": 1,
+      "sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+      "families": [],
+      "assessment": "No discrete rocks found; repeated cliff banks are continuous terrain."
+    },
+    {
+      "source": "poke_l.png",
+      "size": [
+        272,
+        192
+      ],
+      "frames": 1,
+      "sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637",
+      "families": [
+        "PokeL_ThreeLobeRock",
+        "PokeL_LeaningRockPair",
+        "PokeL_RoundRock",
+        "PokeL_AngularPebble",
+        "PokeL_TallShard",
+        "PokeL_ShortShard"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_m.png",
+      "size": [
+        800,
+        880
+      ],
+      "frames": 1,
+      "sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "families": [
+        "PokeM_BrownCrag",
+        "PokeM_BrownBoulder",
+        "PokeM_BrownPebble",
+        "PokeM_LayeredRockPile",
+        "PokeM_SmallGravelCluster",
+        "PokeM_SubmergedStone",
+        "PokeM_SubmergedBoulder"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_n.png",
+      "size": [
+        638,
+        766
+      ],
+      "frames": 1,
+      "sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+      "families": [
+        "PokeN_OchreBankBoulder",
+        "PokeN_OchreRiverBoulder"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_o.png",
+      "size": [
+        640,
+        640
+      ],
+      "frames": 1,
+      "sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6",
+      "families": [
+        "PokeO_PaleSeaBoulder",
+        "PokeO_BrownSeaBoulder",
+        "PokeO_SmallSeaRock"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_p.png",
+      "size": [
+        960,
+        1348
+      ],
+      "frames": 1,
+      "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "families": [
+        "PokeP_TaupeBoulder",
+        "PokeP_TaupePebble",
+        "PokeP_BlueRiverStone",
+        "PokeP_TippedRiverPillar"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_q.png",
+      "size": [
+        800,
+        800
+      ],
+      "frames": 1,
+      "sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+      "families": [
+        "PokeQ_RedCrystalOutcrop",
+        "PokeQ_LargeCoastalRockPile",
+        "PokeQ_SmallCoastalRockPair",
+        "PokeQ_BrownHillBoulder",
+        "PokeQ_SmallHillStone"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_r.png",
+      "size": [
+        896,
+        640
+      ],
+      "frames": 1,
+      "sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+      "families": [],
+      "assessment": "No discrete rocks found; stairs, paving and continuous cliff edges excluded."
+    },
+    {
+      "source": "poke_s.jpg",
+      "size": [
+        894,
+        894
+      ],
+      "frames": 1,
+      "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "families": [
+        "PokeS_PaleRiverSpire",
+        "PokeS_PaleRiverBoulder",
+        "PokeS_DarkRiverPebble",
+        "PokeS_MossyRiverColumn"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_t.png",
+      "size": [
+        1008,
+        1024
+      ],
+      "frames": 1,
+      "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "families": [
+        "PokeT_BrownCrag",
+        "PokeT_BrownBoulder",
+        "PokeT_BrownPebble",
+        "PokeT_LayeredRockPile",
+        "PokeT_SmallGravelCluster",
+        "PokeT_SubmergedStone",
+        "PokeT_DarkStalagmite",
+        "PokeT_SubmergedBoulder"
+      ],
+      "assessment": "Discrete rocks modeled; repeated placements within image represented once. Buildings, continuous cliff walls, water foam, loose items, creatures and shells are excluded."
+    },
+    {
+      "source": "poke_u.jpg",
+      "size": [
+        384,
+        384
+      ],
+      "frames": 1,
+      "sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "families": [],
+      "assessment": "Rock-sided floating islands are whole terrain masses; no discrete loose rock prop identified."
+    }
+  ],
+  "families": [
+    {
+      "source": "mario.jpg",
+      "name": "Mario_TallStoneStack",
+      "shape": "stack",
+      "size": [
+        24,
+        20,
+        48
+      ],
+      "crop": [
+        20,
+        5,
+        94,
+        138
+      ],
+      "color": "purple",
+      "scale": 0.3333333333333333,
+      "note": "Two broad stones with shallow pitted marks; lower edge partly hidden. Depth inferred from the side-view artwork.",
+      "seed": 1
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_ShortStoneStack",
+      "shape": "stack",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        119,
+        49,
+        176,
+        143
+      ],
+      "color": "purple",
+      "scale": 0.3333333333333333,
+      "note": "Narrow three-section stack; shallow face-like pits retained as carvings.",
+      "seed": 2
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_SmallRoundStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        14
+      ],
+      "crop": [
+        139,
+        220,
+        189,
+        278
+      ],
+      "color": "slate",
+      "scale": 0.3333333333333333,
+      "note": "Small rounded gray rock beside the lantern; taller than the flat pebbles in the other Pixelwood images.",
+      "seed": 4
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_SplitBoulder",
+      "shape": "cluster",
+      "size": [
+        36,
+        30,
+        28
+      ],
+      "crop": [
+        585,
+        384,
+        719,
+        499
+      ],
+      "color": "slate",
+      "scale": 0.3333333333333333,
+      "note": "Broad faceted rock with attached smaller shoulder at its foot. Same Pixelwood rock vocabulary across all three images.",
+      "seed": 5
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_FracturedStone",
+      "shape": "boulder",
+      "size": [
+        18,
+        16,
+        20
+      ],
+      "crop": [
+        279,
+        597,
+        345,
+        689
+      ],
+      "color": "slate",
+      "scale": 0.3333333333333333,
+      "note": "Short upright fractured boulder partly overlapped by foliage; not the tall river pillar in pixelwood_c.",
+      "seed": 6
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_FlatPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        8
+      ],
+      "crop": [
+        606,
+        184,
+        680,
+        236
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Low dark-gray loose stone; repeated copies represented once.",
+      "seed": 4
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_SplitBoulder",
+      "shape": "cluster",
+      "size": [
+        36,
+        30,
+        28
+      ],
+      "crop": [
+        944,
+        1039,
+        1130,
+        1202
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Broad faceted rock with attached smaller shoulder at its foot. Same Pixelwood rock vocabulary across all three images.",
+      "seed": 5
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_MossyStandingStone",
+      "shape": "moss_pillar",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        247,
+        245,
+        327,
+        416
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Upright fractured slab; chipped top and transverse seams. Moss cap only where evidenced in pixelwood_b.",
+      "seed": 6
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_FlatPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        8
+      ],
+      "crop": [
+        423,
+        258,
+        472,
+        300
+      ],
+      "color": "slate",
+      "scale": 0.32605151613955,
+      "note": "Low dark-gray loose stone; repeated copies represented once.",
+      "seed": 4
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_SplitBoulder",
+      "shape": "cluster",
+      "size": [
+        36,
+        30,
+        28
+      ],
+      "crop": [
+        483,
+        0,
+        605,
+        69
+      ],
+      "color": "slate",
+      "scale": 0.32605151613955,
+      "note": "Broad faceted rock with attached smaller shoulder at its foot. Same Pixelwood rock vocabulary across all three images.",
+      "seed": 5
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_FracturedStandingStone",
+      "shape": "pillar",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        267,
+        203,
+        326,
+        310
+      ],
+      "color": "slate",
+      "scale": 0.32605151613955,
+      "note": "Upright fractured slab; chipped top and transverse seams. Moss cap only where evidenced in pixelwood_b.",
+      "seed": 6
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_RoundStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        16,
+        14
+      ],
+      "crop": [
+        72,
+        0,
+        129,
+        56
+      ],
+      "color": "slate",
+      "scale": 0.3333333333333333,
+      "note": "Small angular-rounded gray stone near the upper-left edge.",
+      "seed": 7
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_EmptyFireRing",
+      "shape": "ring",
+      "size": [
+        24,
+        24,
+        6
+      ],
+      "crop": [
+        540,
+        881,
+        680,
+        976
+      ],
+      "color": "slate",
+      "scale": 0.2,
+      "note": "Rock ring from the campfire, delivered without logs/flame. Existing complete emissive campfire is preserved.",
+      "seed": 8
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_PointedRiverRock",
+      "shape": "shard",
+      "size": [
+        16,
+        14,
+        18
+      ],
+      "crop": [
+        244,
+        181,
+        269,
+        216
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Single pointed stream rock; source resized, approximately one tile wide.",
+      "seed": 9
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_BrownRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        24
+      ],
+      "crop": [
+        367,
+        0,
+        402,
+        32
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Broad exposed river boulder, faceted upper crown.",
+      "seed": 10
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_BrownRiverPebble",
+      "shape": "pebble",
+      "size": [
+        14,
+        12,
+        10
+      ],
+      "crop": [
+        239,
+        77,
+        257,
+        97
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Smaller pointed angular river stone; repeated placements deduplicated.",
+      "seed": 11
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_FacetedGrayBoulder",
+      "shape": "boulder",
+      "size": [
+        28,
+        24,
+        24
+      ],
+      "crop": [
+        239,
+        384,
+        274,
+        418
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Irregular large warm-gray boulder on the river island.",
+      "seed": 12
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_SmallGrayRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        125,
+        426,
+        148,
+        453
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Small rounded faceted rock on the west bank.",
+      "seed": 13
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_RiverShard",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        24
+      ],
+      "crop": [
+        207,
+        463,
+        225,
+        498
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Tall narrow pointed stone at the waterfall foot; also on dry banks.",
+      "seed": 14
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_FlatRiverStone",
+      "shape": "pebble",
+      "size": [
+        16,
+        12,
+        6
+      ],
+      "crop": [
+        188,
+        477,
+        208,
+        497
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Low oval river stone and matching loose stepping stones.",
+      "seed": 15
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_AngularPondRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        14
+      ],
+      "crop": [
+        62,
+        77,
+        82,
+        100
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Gray pointed faceted pond rock.",
+      "seed": 16
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_SmallPondStone",
+      "shape": "pebble",
+      "size": [
+        10,
+        10,
+        8
+      ],
+      "crop": [
+        94,
+        45,
+        112,
+        65
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Small pale angular pond stone.",
+      "seed": 17
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_LargePondBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        24
+      ],
+      "crop": [
+        492,
+        381,
+        531,
+        420
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Large slate-gray pond boulder with irregular shoulder.",
+      "seed": 18
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_SmallPondRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        525,
+        396,
+        546,
+        419
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Smaller rounded gray stones in the eastern pond.",
+      "seed": 19
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_GrayRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        16
+      ],
+      "crop": [
+        386,
+        394,
+        418,
+        427
+      ],
+      "color": "river",
+      "scale": 0.6666666666666666,
+      "note": "Resized JPEG, about 24 displayed pixels per tile; repeated river boulders.",
+      "seed": 20
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_RiverPebble",
+      "shape": "pebble",
+      "size": [
+        8,
+        8,
+        6
+      ],
+      "crop": [
+        421,
+        447,
+        434,
+        466
+      ],
+      "color": "river",
+      "scale": 0.6666666666666666,
+      "note": "Tiny matching river stone.",
+      "seed": 21
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_BrownFieldRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        482,
+        225,
+        511,
+        247
+      ],
+      "color": "brown",
+      "scale": 0.6666666666666666,
+      "note": "Small rust-brown loose rock near houses and fields.",
+      "seed": 22
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_ThreeLobeRock",
+      "shape": "cluster",
+      "size": [
+        28,
+        24,
+        24
+      ],
+      "crop": [
+        0,
+        159,
+        30,
+        192
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet: main angular peak with two smaller foot lobes.",
+      "seed": 23
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_LeaningRockPair",
+      "shape": "pair",
+      "size": [
+        28,
+        22,
+        24
+      ],
+      "crop": [
+        29,
+        158,
+        63,
+        192
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet: elongated leaning rear slab and low front stone.",
+      "seed": 24
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_RoundRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        62,
+        158,
+        82,
+        178
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet upper round stone, distinct from the smaller angular pebble below.",
+      "seed": 25
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_AngularPebble",
+      "shape": "pebble",
+      "size": [
+        14,
+        12,
+        10
+      ],
+      "crop": [
+        62,
+        175,
+        82,
+        192
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet lower angular stone.",
+      "seed": 26
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_TallShard",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        28
+      ],
+      "crop": [
+        80,
+        157,
+        98,
+        192
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet long tapered blade-like stone.",
+      "seed": 27
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_ShortShard",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        22
+      ],
+      "crop": [
+        96,
+        163,
+        113,
+        192
+      ],
+      "color": "pale",
+      "scale": 1,
+      "note": "Tilesheet shorter broader blade-like stone.",
+      "seed": 28
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BrownCrag",
+      "shape": "crag",
+      "size": [
+        32,
+        28,
+        36
+      ],
+      "crop": [
+        662,
+        118,
+        700,
+        164
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Tall brown broad-shouldered angular crag, distinct from the rounded boulder.",
+      "seed": 29
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BrownBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        28
+      ],
+      "crop": [
+        733,
+        219,
+        772,
+        260
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Large faceted brown boulder repeated around the rocky banks.",
+      "seed": 30
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BrownPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        766,
+        43,
+        787,
+        69
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Small low brown stone, distinct from the dark gravel clusters.",
+      "seed": 31
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_LayeredRockPile",
+      "shape": "pile",
+      "size": [
+        32,
+        26,
+        28
+      ],
+      "crop": [
+        699,
+        22,
+        740,
+        68
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Stacked flattened layers with a smaller summit stone.",
+      "seed": 32
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_SmallGravelCluster",
+      "shape": "gravel",
+      "size": [
+        12,
+        10,
+        8
+      ],
+      "crop": [
+        27,
+        25,
+        51,
+        53
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Low group of three angular stones, kept connected below ground-contact level.",
+      "seed": 33
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_SubmergedStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        312,
+        271,
+        335,
+        293
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Muted blue-green rock visible through water; authored complete and opaque, without a water plane.",
+      "seed": 34
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownCrag",
+      "shape": "crag",
+      "size": [
+        32,
+        28,
+        36
+      ],
+      "crop": [
+        278,
+        470,
+        317,
+        516
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Tall brown broad-shouldered angular crag, distinct from the rounded boulder.",
+      "seed": 29
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        28
+      ],
+      "crop": [
+        334,
+        247,
+        371,
+        291
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Large faceted brown boulder repeated around the rocky banks.",
+      "seed": 30
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_BrownPebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        319,
+        490,
+        339,
+        516
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Small low brown stone, distinct from the dark gravel clusters.",
+      "seed": 31
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_LayeredRockPile",
+      "shape": "pile",
+      "size": [
+        32,
+        26,
+        28
+      ],
+      "crop": [
+        202,
+        566,
+        242,
+        600
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Stacked flattened layers with a smaller summit stone.",
+      "seed": 32
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SmallGravelCluster",
+      "shape": "gravel",
+      "size": [
+        12,
+        10,
+        8
+      ],
+      "crop": [
+        252,
+        634,
+        277,
+        662
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Low group of three angular stones, kept connected below ground-contact level.",
+      "seed": 33
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        480,
+        413,
+        499,
+        436
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Muted blue-green rock visible through water; authored complete and opaque, without a water plane.",
+      "seed": 34
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_DarkStalagmite",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        24
+      ],
+      "crop": [
+        348,
+        710,
+        371,
+        740
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Narrow dark cave spire with a chipped angular crown.",
+      "seed": 35
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_OchreBankBoulder",
+      "shape": "boulder",
+      "size": [
+        24,
+        20,
+        22
+      ],
+      "crop": [
+        465,
+        379,
+        497,
+        416
+      ],
+      "color": "tan",
+      "scale": 1,
+      "note": "Warm ochre boulder east of the path, with a broad pale facet.",
+      "seed": 36
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_OchreRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        24,
+        20,
+        18
+      ],
+      "crop": [
+        222,
+        620,
+        252,
+        650
+      ],
+      "color": "tan",
+      "scale": 1,
+      "note": "Lower rounded partly submerged river boulder. Whole underside inferred; no water included.",
+      "seed": 37
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_PaleSeaBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        26
+      ],
+      "crop": [
+        462,
+        0,
+        499,
+        34
+      ],
+      "color": "sand",
+      "scale": 1,
+      "note": "Pale sandy-gray sea boulder with polygonal upper facets.",
+      "seed": 38
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_BrownSeaBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        26
+      ],
+      "crop": [
+        558,
+        0,
+        595,
+        34
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Warm brown colorway of the large sea boulder.",
+      "seed": 38
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_SmallSeaRock",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        573,
+        285,
+        596,
+        307
+      ],
+      "color": "sand",
+      "scale": 1,
+      "note": "Small faceted offshore rock.",
+      "seed": 39
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_TaupeBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        26
+      ],
+      "crop": [
+        493,
+        636,
+        532,
+        674
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Large taupe boulder at the plateau edge.",
+      "seed": 40
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_TaupePebble",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        239,
+        332,
+        258,
+        352
+      ],
+      "color": "gray",
+      "scale": 1,
+      "note": "Small standalone angular stone on the north plateau.",
+      "seed": 41
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_BlueRiverStone",
+      "shape": "boulder",
+      "size": [
+        16,
+        14,
+        14
+      ],
+      "crop": [
+        324,
+        380,
+        384,
+        428
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Dark wet blue-gray stone in the upper pond.",
+      "seed": 42
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_TippedRiverPillar",
+      "shape": "tipped",
+      "size": [
+        16,
+        14,
+        28
+      ],
+      "crop": [
+        397,
+        402,
+        421,
+        435
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Narrow blue-gray river pillar with exposed brown top; flat variants merge wet/dry shades as the same stone.",
+      "seed": 43
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_RedCrystalOutcrop",
+      "shape": "geode",
+      "size": [
+        48,
+        40,
+        40
+      ],
+      "crop": [
+        48,
+        155,
+        100,
+        213
+      ],
+      "color": "river",
+      "scale": 1,
+      "note": "Gray peaked host rock with a dark open front and red crystal blades. Crystals remain opaque diffuse; no evidence that they emit light.",
+      "seed": 44
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_LargeCoastalRockPile",
+      "shape": "pile",
+      "size": [
+        48,
+        40,
+        40
+      ],
+      "crop": [
+        628,
+        49,
+        677,
+        96
+      ],
+      "color": "sand",
+      "scale": 1,
+      "note": "Large golden offshore outcrop with rounded summit and smaller surrounding rocks.",
+      "seed": 45
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_SmallCoastalRockPair",
+      "shape": "pair",
+      "size": [
+        32,
+        24,
+        20
+      ],
+      "crop": [
+        746,
+        289,
+        788,
+        323
+      ],
+      "color": "sand",
+      "scale": 1,
+      "note": "Low two-lobed golden offshore rock.",
+      "seed": 46
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_BrownHillBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        28,
+        28
+      ],
+      "crop": [
+        400,
+        125,
+        434,
+        163
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Rounded brown hill rock with a faceted crown.",
+      "seed": 47
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_SmallHillStone",
+      "shape": "pebble",
+      "size": [
+        16,
+        14,
+        12
+      ],
+      "crop": [
+        355,
+        79,
+        388,
+        103
+      ],
+      "color": "brown",
+      "scale": 1,
+      "note": "Small ochre-brown hill stones beside the shrine path.",
+      "seed": 48
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_PaleRiverSpire",
+      "shape": "shard",
+      "size": [
+        12,
+        10,
+        28
+      ],
+      "crop": [
+        124,
+        267,
+        140,
+        288
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Tiny pale pointed river stones; JPEG obscures fine facets. Existing estimate: ten displayed pixels per tile.",
+      "seed": 49
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_PaleRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        20,
+        18,
+        16
+      ],
+      "crop": [
+        123,
+        49,
+        142,
+        72
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Pale faceted boulder in the river below the upper-left waterfall.",
+      "seed": 50
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_DarkRiverPebble",
+      "shape": "pebble",
+      "size": [
+        12,
+        10,
+        8
+      ],
+      "crop": [
+        137,
+        292,
+        151,
+        304
+      ],
+      "color": "river",
+      "scale": 1.6,
+      "note": "Low dark blue-gray river stone, distinct from the tall pale spire.",
+      "seed": 51
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_MossyRiverColumn",
+      "shape": "moss_pillar",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        609,
+        437,
+        628,
+        460
+      ],
+      "color": "gray",
+      "scale": 1.6,
+      "note": "Small isolated moss-topped stone pillar in the stream; no surrounding water included.",
+      "seed": 52
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_SubmergedBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        26,
+        14
+      ],
+      "crop": [
+        289,
+        267,
+        322,
+        300
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Broad low submerged boulder. Color captures the water-muted appearance, but the asset contains stone only.",
+      "seed": 53
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedBoulder",
+      "shape": "boulder",
+      "size": [
+        32,
+        26,
+        14
+      ],
+      "crop": [
+        448,
+        408,
+        482,
+        439
+      ],
+      "color": "wet",
+      "scale": 1,
+      "note": "Broad low submerged boulder with smaller stones nearby; separate small-stone family supplied.",
+      "seed": 53
+    }
+  ]
+}

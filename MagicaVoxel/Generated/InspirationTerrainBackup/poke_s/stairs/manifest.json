@@ -1,0 +1,509 @@
+{
+  "source": "poke_s.jpg",
+  "families": [
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_MossyTerrainStairs",
+      "crop": [
+        415,
+        435,
+        452,
+        469
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 32,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 10,
+      "stone": [
+        164,
+        162,
+        143
+      ],
+      "edge": [
+        118,
+        127,
+        103
+      ],
+      "rail": "rock",
+      "moss": true,
+      "note": "Repeated six-step outdoor rock cuts, outside the already authored sanctuaries. Low rough shoulders with restrained moss.",
+      "size": [
+        40,
+        48,
+        48
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 193,
+        "2": 193,
+        "3": 194,
+        "4": 193,
+        "5": 206,
+        "6": 206,
+        "7": 193,
+        "8": 206,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_ShortTerrainStairs",
+      "crop": [
+        505,
+        461,
+        545,
+        488
+      ],
+      "width": 48,
+      "run": 16,
+      "rise": 16,
+      "steps": 3,
+      "landing": 8,
+      "tile_pixels": 10,
+      "stone": [
+        164,
+        162,
+        143
+      ],
+      "edge": [
+        118,
+        127,
+        103
+      ],
+      "rail": "rock",
+      "moss": true,
+      "note": "Short eastern three-step descent; not a separate temple entrance.",
+      "size": [
+        24,
+        48,
+        32
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 193,
+        "2": 193,
+        "3": 194,
+        "4": 193,
+        "5": 206,
+        "6": 206,
+        "7": 193,
+        "8": 206,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42142,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        35
+      ],
+      "sha256": "66ebd91dcfeb7e9bcd525380269651985014cfe05d4a3269188bd9163cc1f867"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42112,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        33
+      ],
+      "sha256": "7ddf33f253c97f331ef406f3cd5b6c54b1312ef84ef68a1fdecf55730ce6423f"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42142,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        35
+      ],
+      "sha256": "5176b849c5c0905c3d5aa11ebb8fc9af20ac75f2c6f82007431dbdd823747570"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42142,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        35
+      ],
+      "sha256": "9cd62954bd33ae38ba560666bf908bd2ff974df2fa48d5986ce7501b4dea5292"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42112,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        33
+      ],
+      "sha256": "23be01d96285e9be1a5645165f2f4079abd484a2d08bc808b1941c03f9d93954"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42142,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        35
+      ],
+      "sha256": "538c303493a8c4b8ecb1c680dffcf75e983774b7d5767d060e9a0cbbd365d22a"
+    },
+    {
+      "family": "PokeS_MossyTerrainStairs",
+      "file": "output/poke_s/PokeS_MossyTerrainStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 42112,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        33
+      ],
+      "sha256": "f8bec6f49181891550e9facbd06f85185efc6f8866957a5499868a181789cef3"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15022,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        19
+      ],
+      "sha256": "8497b0df6d77ac18dac2e0c06fcc80e5d645c66d70bb037f39bef03bd4a13216"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15024,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        17
+      ],
+      "sha256": "929eb7a02599e603c284b87804a0fa2a8634bda5a79c4de18bbdff8fe5e41fee"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15022,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        19
+      ],
+      "sha256": "74207b191e1e1a87c0e4f3a12dae7aa783343e29e4c5ffecc3013a597aeb7b3b"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15022,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        19
+      ],
+      "sha256": "8afcec11fed0ad4874fbf3c683afcd39b6835a5096ed6d904d6d26555dea6d38"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15024,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        17
+      ],
+      "sha256": "96d272dcaf7c3eb632b4e18301f151ae01f04309f2b9bee13498076c82387df2"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15022,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        19
+      ],
+      "sha256": "063cd2b34df13b8bca08058fddd70769e3e23b1ef5b3b0a65bfbb21ce63d67f6"
+    },
+    {
+      "family": "PokeS_ShortTerrainStairs",
+      "file": "output/poke_s/PokeS_ShortTerrainStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 15024,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        47,
+        17
+      ],
+      "sha256": "8769f2d09703df861d4e1a06bae83649a58b447134d226b640800f683232e684"
+    }
+  ]
+}

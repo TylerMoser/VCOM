@@ -1,0 +1,42 @@
+{
+ "validated": "2026-11-03",
+ "files": 21,
+ "families": [
+  "PokeN_RedHouse",
+  "PokeN_Chalet",
+  "PokeN_RoofedGate"
+ ],
+ "file_sha256": {
+  "PokeN_RedHouse.vox": "feee3df48eeafd37d2610dc784a92c04613e2609fa30da46fd6e2dfc293faeab",
+  "PokeN_RedHouse_Cartoon.vox": "dd5a6f507a32e3d72098fb5c609e817dbae777f493a7fc84c6f682b51ae9ad64",
+  "PokeN_RedHouse_CratePalette.vox": "6abc4f0513e9e8fbee4f0ce22f6a613a7bd91e1e1824310841edb68e9b77b897",
+  "PokeN_RedHouse_TwoColor.vox": "c8440cf4f42dc41fe6f7270f0c7c37d5aab07363f15b9f7a3b3cb5dd828f0f18",
+  "PokeN_RedHouse_Cartoon_TwoColor.vox": "f61d49f7169b0ef6e1dda5457f6b336c9be190bac3fb00528b9bd5854e4e74f5",
+  "PokeN_RedHouse_CratePalette_TwoColor.vox": "55a5558e3461eb1849bbff7fb71deed8240cb8a1c0fb1600d7ac048e81b2480b",
+  "PokeN_RedHouse_Cartoon_CratePalette_TwoColor.vox": "6d7ccb5d22bd2992e988b008d1323225af2d236b67f8917de40a40322a7abd77",
+  "PokeN_Chalet.vox": "c143208422d5c6d2a8ef4a12895195aaa475ba6014d1e73910b3f98600f3082f",
+  "PokeN_Chalet_Cartoon.vox": "24decae0482ed5aea860ea422fe17f5d55a9168dde61a517ad7f0db674e809e5",
+  "PokeN_Chalet_CratePalette.vox": "25e90d33a121553ddadf8fab73e5ea481d7e68736f942a4d846a7d243d6de13c",
+  "PokeN_Chalet_TwoColor.vox": "52ed53447be6d68fb9365af1d65a89c6392de1ac6efe41a3bcb992e706ddaaa3",
+  "PokeN_Chalet_Cartoon_TwoColor.vox": "ee4bbf332c3f686b9a9fca5b796711235d0fd1eeb0075d4c4752f4f8cfcaff1f",
+  "PokeN_Chalet_CratePalette_TwoColor.vox": "4e6bafc2f9a2c1c034e555b48bf5993cfc611a62a6ff583e664e14638d29f39a",
+  "PokeN_Chalet_Cartoon_CratePalette_TwoColor.vox": "fcaacbeee7f90bab1049d94534b6563cb8222f73519e141e63c61b70e784c76c",
+  "PokeN_RoofedGate.vox": "51aa320237aaf01ab13f95fa57cc3841ac58ddd7c28d5075a1f0f940364891f0",
+  "PokeN_RoofedGate_Cartoon.vox": "71e6bcc962f2cf0f8c7619951ddf82dd4f361e3c795a6acf5584f43cd7732059",
+  "PokeN_RoofedGate_CratePalette.vox": "389fa1a4d2d08b00b60927c4c771fa4c571b9946439974b4b8b03372a00b533e",
+  "PokeN_RoofedGate_TwoColor.vox": "8adbab380be32cf7d2485d06c8656cab9f39a96352099c715397eb2f089be826",
+  "PokeN_RoofedGate_Cartoon_TwoColor.vox": "df83cd1e7768fd77e2a5a7cf767e4c512e03bc172df73f6cc646900ecd387632",
+  "PokeN_RoofedGate_CratePalette_TwoColor.vox": "17dfd21bd03ae0772f37eecff15b407a452d775b63445f88728e741059b3de39",
+  "PokeN_RoofedGate_Cartoon_CratePalette_TwoColor.vox": "bc8300cf9a64a28566000b194b44991c1ffd3c82982ba403055681be299817cb"
+ },
+ "structure": "pass: tools/inspect_vox.py, 21 files, no errors or warnings (structural-audit.json)",
+ "geometry": "pass: canvases, grounded at z 0, one connected model each, recolours on their source's exact voxels, Cartoon a different shape from Base",
+ "palettes": "pass: CratePalette files the pinned crate palette byte for byte; TwoColor files one colour a group (each family's own colours, folded groups resolved)",
+ "glass": "pass: MagicaVoxel Glass (_type _glass, _trans 0.45-0.7) on exactly the glass indices",
+ "grid": "pass: nothing in the middle of a storey's tiles at the two levels units fill; no glass in a sill course outside a door's slot",
+ "whole_import": "pass: every file read and meshed whole by the game's MagicaVoxel importer at Scale 0.0625 (qa/whole-import.json)",
+ "integration": "pass: 21 scenes (every treatment of the three families), cut into the game's pieces in a scratch copy of VCOM: the level the game stamps is each model voxel for voxel, and every rules check passed: blocked_steps, climbs, closed_off, cutaway, floors_are_tiles, reachable, sight, stamped_exactly, under_building, vaults, walks, walls_and_doors_shut, windows_open (qa/integration-report.json)",
+ "visual_review": "done: in-game renders by day, dusk and night, cut away at each storey, from four sides and the game's camera, and each Base drawn in the art's projection beside the source (previews/)",
+ "preserved": "pass: 151 files of ChatGPT's in output/poke_n/ from before these buildings unchanged (its models, generator, records and previews)",
+ "not_tested": "the files opened in MagicaVoxel's own editor; the pieces added to the game's Pieces.tres and painted in the level editor; play in a battle (units fighting through them, destruction, blood)"
+}

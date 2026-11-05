@@ -1,0 +1,1083 @@
+{
+  "source_review": {
+    "source": "poke_d.png",
+    "sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+    "reviewed": true,
+    "decision": "Three true spans: long four-arch river bridge, short southern river bridge, eastern road overpass. Lower eastern stair platform is terrain, excluded.",
+    "new_families": [
+      "PokeD_FourArchBridge",
+      "PokeD_SingleArchBridge",
+      "PokeD_StoneOverpass"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_FourArchBridge",
+      "kind": "stone",
+      "size": [
+        320,
+        80,
+        96
+      ],
+      "crop": [
+        142,
+        217,
+        465,
+        357
+      ],
+      "deck": 64,
+      "tile_pixels": 16,
+      "bays": [
+        0,
+        80,
+        160,
+        240,
+        320
+      ],
+      "rail": "stone",
+      "stone": [
+        150,
+        149,
+        128
+      ],
+      "paving": [
+        163,
+        162,
+        143
+      ],
+      "note": "Four long arches, broad cobbled carriageway, pale solid parapets and rounded pier noses; complete 20-tile scene in one file with two internal halves.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 180,
+        "2": 234,
+        "3": 235,
+        "4": 179,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 193,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          109,
+          65,
+          255
+        ],
+        [
+          116,
+          84,
+          50,
+          255
+        ],
+        [
+          172,
+          125,
+          75,
+          255
+        ],
+        [
+          135,
+          98,
+          58,
+          255
+        ],
+        [
+          150,
+          149,
+          128,
+          255
+        ],
+        [
+          116,
+          115,
+          99,
+          255
+        ],
+        [
+          172,
+          171,
+          147,
+          255
+        ],
+        [
+          135,
+          134,
+          115,
+          255
+        ],
+        [
+          163,
+          162,
+          143,
+          255
+        ],
+        [
+          143,
+          143,
+          126,
+          255
+        ],
+        [
+          173,
+          172,
+          152,
+          255
+        ],
+        [
+          156,
+          156,
+          137,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_SingleArchBridge",
+      "kind": "stone",
+      "size": [
+        80,
+        64,
+        80
+      ],
+      "crop": [
+        262,
+        699,
+        360,
+        802
+      ],
+      "deck": 48,
+      "tile_pixels": 16,
+      "bays": [
+        0,
+        80
+      ],
+      "rail": "stone",
+      "stone": [
+        150,
+        149,
+        128
+      ],
+      "paving": [
+        163,
+        162,
+        143
+      ],
+      "note": "Southern short river bridge; single arch, cobbles and matching parapets.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 180,
+        "2": 234,
+        "3": 235,
+        "4": 179,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 193,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          109,
+          65,
+          255
+        ],
+        [
+          116,
+          84,
+          50,
+          255
+        ],
+        [
+          172,
+          125,
+          75,
+          255
+        ],
+        [
+          135,
+          98,
+          58,
+          255
+        ],
+        [
+          150,
+          149,
+          128,
+          255
+        ],
+        [
+          116,
+          115,
+          99,
+          255
+        ],
+        [
+          172,
+          171,
+          147,
+          255
+        ],
+        [
+          135,
+          134,
+          115,
+          255
+        ],
+        [
+          163,
+          162,
+          143,
+          255
+        ],
+        [
+          143,
+          143,
+          126,
+          255
+        ],
+        [
+          173,
+          172,
+          152,
+          255
+        ],
+        [
+          156,
+          156,
+          137,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_StoneOverpass",
+      "kind": "stone",
+      "size": [
+        80,
+        64,
+        72
+      ],
+      "crop": [
+        542,
+        374,
+        625,
+        466
+      ],
+      "deck": 40,
+      "tile_pixels": 16,
+      "bays": [
+        0,
+        80
+      ],
+      "rail": "stone",
+      "stone": [
+        150,
+        149,
+        128
+      ],
+      "paving": [
+        163,
+        162,
+        143
+      ],
+      "note": "Eastern short arched road overpass. Terrain approaches, side stair and nearby lower terrace remain separate.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 180,
+        "2": 234,
+        "3": 235,
+        "4": 179,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 193,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          109,
+          65,
+          255
+        ],
+        [
+          116,
+          84,
+          50,
+          255
+        ],
+        [
+          172,
+          125,
+          75,
+          255
+        ],
+        [
+          135,
+          98,
+          58,
+          255
+        ],
+        [
+          150,
+          149,
+          128,
+          255
+        ],
+        [
+          116,
+          115,
+          99,
+          255
+        ],
+        [
+          172,
+          171,
+          147,
+          255
+        ],
+        [
+          135,
+          134,
+          115,
+          255
+        ],
+        [
+          163,
+          162,
+          143,
+          255
+        ],
+        [
+          143,
+          143,
+          126,
+          255
+        ],
+        [
+          173,
+          172,
+          152,
+          255
+        ],
+        [
+          156,
+          156,
+          137,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 645474,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "57e03dea56b0954033aa7e2de1449fc1feab735d855aa6de4c5eaca61e2efd56",
+      "geometry_source": "PokeD_FourArchBridge",
+      "geometry_sha256": "bb919331a6dea5173ebf4d8578583eacac8d12c97c84466ac5c97ba15269bb43"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 652758,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "5fc3af4e6bc33ac41f0db7bfe73d359279826ae73bba95840905292225589730",
+      "geometry_source": "PokeD_FourArchBridge_Cartoon",
+      "geometry_sha256": "c6508ac1e1aa9b8e7981eba68d4a542410dcf4d75af7656dd71da603b23b644e"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 645474,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "27544cb7f04941dd6510ffcc69ae9605a593ce586adf91a19314edb897048ac3",
+      "geometry_source": "PokeD_FourArchBridge",
+      "geometry_sha256": "bb919331a6dea5173ebf4d8578583eacac8d12c97c84466ac5c97ba15269bb43"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 645474,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "07bfb91ca38639d97659046307632a36f3ae4fb03ed67a851f1f6a63969dfd87",
+      "geometry_source": "PokeD_FourArchBridge",
+      "geometry_sha256": "bb919331a6dea5173ebf4d8578583eacac8d12c97c84466ac5c97ba15269bb43"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 652758,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "9c93e171c63629f293e08f99eeec9d1bd1b10649c276ebddd8bfd32c56d415b6",
+      "geometry_source": "PokeD_FourArchBridge_Cartoon",
+      "geometry_sha256": "c6508ac1e1aa9b8e7981eba68d4a542410dcf4d75af7656dd71da603b23b644e"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 645474,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "ef18686c3a285f51b0dce026766fd69ac9e775de746529c2ced2cc290b3ccc62",
+      "geometry_source": "PokeD_FourArchBridge",
+      "geometry_sha256": "bb919331a6dea5173ebf4d8578583eacac8d12c97c84466ac5c97ba15269bb43"
+    },
+    {
+      "family": "PokeD_FourArchBridge",
+      "file": "output/poke_d/PokeD_FourArchBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        320,
+        80,
+        96
+      ],
+      "scene_models": 2,
+      "voxels": 652758,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        319,
+        79,
+        84
+      ],
+      "sha256": "ea50556de1b3157c8f242ed031de32d8a44e2af84ca766e068aa0ac1d4414c65",
+      "geometry_source": "PokeD_FourArchBridge_Cartoon",
+      "geometry_sha256": "c6508ac1e1aa9b8e7981eba68d4a542410dcf4d75af7656dd71da603b23b644e"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 120024,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "b8c508d760d81549e47051f0e492d5f6c701a35f67b819eb6c854ebbd5960658",
+      "geometry_source": "PokeD_SingleArchBridge",
+      "geometry_sha256": "f4c5c038de1a49d29ea4858b02653febe6d9549dbc38b07c240bfa868543ec2b"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 121800,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "9409a894ccaf3ba6b3d1ac0d357001c738e8256d0a69696fcd66e3fd0b48d495",
+      "geometry_source": "PokeD_SingleArchBridge_Cartoon",
+      "geometry_sha256": "05a8b0999f15b6c61e2f48b3f97fba0090b7cf2bcc33971633f0a8fabfb743d6"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 120024,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "71deeafd1773f5a7c7d904a40ff0519a175c8360351e232c6b810ebdcc18d981",
+      "geometry_source": "PokeD_SingleArchBridge",
+      "geometry_sha256": "f4c5c038de1a49d29ea4858b02653febe6d9549dbc38b07c240bfa868543ec2b"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 120024,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "d8687e7dcfabafc57e9ad1f1a80505e7e419b85e375c15090d8ea5b6c660f9a2",
+      "geometry_source": "PokeD_SingleArchBridge",
+      "geometry_sha256": "f4c5c038de1a49d29ea4858b02653febe6d9549dbc38b07c240bfa868543ec2b"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 121800,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "6de3975ca3aea18eb2681c31563a19d0b5dac8f8f2c37ecd577e419d24fb225e",
+      "geometry_source": "PokeD_SingleArchBridge_Cartoon",
+      "geometry_sha256": "05a8b0999f15b6c61e2f48b3f97fba0090b7cf2bcc33971633f0a8fabfb743d6"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 120024,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "e048053baf77cfa9e4bcfbcedc3b4a1d7b52949f75747b50b36a2317d9e7b159",
+      "geometry_source": "PokeD_SingleArchBridge",
+      "geometry_sha256": "f4c5c038de1a49d29ea4858b02653febe6d9549dbc38b07c240bfa868543ec2b"
+    },
+    {
+      "family": "PokeD_SingleArchBridge",
+      "file": "output/poke_d/PokeD_SingleArchBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 121800,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        68
+      ],
+      "sha256": "1db60f77abd563df8ca6fd6366455f0274d1bbc1bcce4fe3bbaaee45a22c3c83",
+      "geometry_source": "PokeD_SingleArchBridge_Cartoon",
+      "geometry_sha256": "05a8b0999f15b6c61e2f48b3f97fba0090b7cf2bcc33971633f0a8fabfb743d6"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 107928,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "304a261a004e8316ce620f907b1248760604ff9970d96bf638b92159aa086f4f",
+      "geometry_source": "PokeD_StoneOverpass",
+      "geometry_sha256": "ccf2a5cce58425f43ea53ce967d57c581a091ec1ee9c3ec9de6b89233361f110"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 109704,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "117c2703c6c337c9a0e3160d6affdca1c108a1c9f2cf466bddf4b40da61ba0bf",
+      "geometry_source": "PokeD_StoneOverpass_Cartoon",
+      "geometry_sha256": "d88b5446524686e4aaddabc987a3b6d73d5f908557a4723463c04edb4bb0cfe7"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 107928,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "d8cedcf3d9dea95315719daa2254743beeebb43b8eae032a1492b6e1700cecd4",
+      "geometry_source": "PokeD_StoneOverpass",
+      "geometry_sha256": "ccf2a5cce58425f43ea53ce967d57c581a091ec1ee9c3ec9de6b89233361f110"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 107928,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "f5d54bd6368a89a9acf55c6df9a89241d424c9860ce871c3c4a9c11250c52473",
+      "geometry_source": "PokeD_StoneOverpass",
+      "geometry_sha256": "ccf2a5cce58425f43ea53ce967d57c581a091ec1ee9c3ec9de6b89233361f110"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 109704,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "0cae7a63bf2873fbf55ac60e7a258b0a92f94388fb8dc419cda45bf0cb90c0f2",
+      "geometry_source": "PokeD_StoneOverpass_Cartoon",
+      "geometry_sha256": "d88b5446524686e4aaddabc987a3b6d73d5f908557a4723463c04edb4bb0cfe7"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 107928,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "43880ad30b40392c8182db3e977da11bb16bd9651f2146bb478719c10fcdbec1",
+      "geometry_source": "PokeD_StoneOverpass",
+      "geometry_sha256": "ccf2a5cce58425f43ea53ce967d57c581a091ec1ee9c3ec9de6b89233361f110"
+    },
+    {
+      "family": "PokeD_StoneOverpass",
+      "file": "output/poke_d/PokeD_StoneOverpass_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        64,
+        72
+      ],
+      "scene_models": 1,
+      "voxels": 109704,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        79,
+        63,
+        60
+      ],
+      "sha256": "cc0a7b63ac63260eaa7af92c18c67c0baa8243adfb83fa86c94f64be95c58de9",
+      "geometry_source": "PokeD_StoneOverpass_Cartoon",
+      "geometry_sha256": "d88b5446524686e4aaddabc987a3b6d73d5f908557a4723463c04edb4bb0cfe7"
+    }
+  ]
+}

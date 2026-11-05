@@ -1,0 +1,263 @@
+{
+  "source": {
+    "source": "poke_h.png",
+    "size": [
+      560,
+      560
+    ],
+    "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b"
+  },
+  "families": [
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_FarmPicket",
+      "kind": "picket",
+      "crop": [
+        193,
+        222,
+        273,
+        241
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        192,
+        137,
+        83
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_h/PokeH_FarmPicket.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "f6ef93487858808ec1c9b4cbc9d5f3bae7dc4d3151a1dac3dbe2703701eef9e7",
+      "palette_sha256": "cb82f66d20d08eb114e86f84fd0ddac949693cd5bc78b5fe34c452ccda89c491",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_Cartoon.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "5df8e143b4dbe8bee555e9b27e07c51863dd90b174b165b8293dea1d6128922b",
+      "palette_sha256": "05944bad64bd6bdb58711d23540b1c98a1a82b4a25319c604db04e633faed285",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_CratePalette.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 3,
+      "groups": {
+        "180": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "898f2aaa9ee8684b77c02813a7d08c063c7ec203121a987af0ff983c55b3f48a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_TwoColor.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "88e567748994df6e12c234d5727c84ff332c018fbd5f4caae1ffe83325b12707",
+      "palette_sha256": "05944bad64bd6bdb58711d23540b1c98a1a82b4a25319c604db04e633faed285",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_Cartoon_TwoColor.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "c6f0e76ad1765efb8f3a30166d6fcbbb9f5c27afe6f48c0a126e9dc4748a97be",
+      "palette_sha256": "05944bad64bd6bdb58711d23540b1c98a1a82b4a25319c604db04e633faed285",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_CratePalette_TwoColor.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1288,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1288
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "33584ce1056521ac9ecc6e4d4d490eb2706e03b5fb35d1c426a1134391198a30",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_FarmPicket_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeH_FarmPicket",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "5259454a1993d990972432f48e0461327985082126773ee282aed7bb5fe00c67",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

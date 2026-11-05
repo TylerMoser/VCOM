@@ -1,0 +1,42 @@
+{
+ "source": "poke_j.jpg",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeJ_RedHouse": {
+   "title": "Red house",
+   "regions_xyxy_exclusive": [
+    [
+     226,
+     70,
+     314,
+     166
+    ],
+    [
+     152,
+     315,
+     240,
+     411
+    ],
+    [
+     495,
+     254,
+     583,
+     350
+    ]
+   ],
+   "drawn": "Three copies of the red house: a steep red gable roof with its ridge front to back and wide eaves, a stone chimney at the back of its left slope, a half-timbered cream gable over a fan window, cream stone walls between dark posts, a beam, the red door in a dark frame and a window of four panes."
+  },
+  "PokeJ_GreyHouse": {
+   "title": "Grey house",
+   "regions_xyxy_exclusive": [
+    [
+     420,
+     138,
+     538,
+     234
+    ]
+   ],
+   "drawn": "The grey-roofed building at the top: three parts stepped front to back under flat grey roofs with standing seams and dark edges, the left part lower, a skylight and three white vents on the roofs, cream stone walls with white corner posts, the door under a long window, windows over flower boxes."
+  }
+ }
+}

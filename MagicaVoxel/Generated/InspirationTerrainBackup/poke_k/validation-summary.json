@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-27",
+  "models": 21,
+  "families": 3,
+  "source_image": "poke_k.jpg",
+  "source_image_sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 geometry and paint, pinned crate palette.",
+  "import_render": "All 21 models imported and rendered using the current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per family; Base and Cartoon at four azimuths. Compared source image and enlarged source regions.",
+    "findings": "Source repeats poke_j artwork; matching geometry retained deliberately. Full pointed tree crowns and low rounded shrub silhouettes reviewed. Lime and slate treatments remain distinct, including saved game palette colors. Connected wood, recolor coordinate preservation and Cartoon symmetry verified.",
+    "limitations": "Resized JPEG: approximately 29.4 pixels per tile inferred, hidden depth inferred. Lighting shades two-color models."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "abc8b2b35191f3d7f871e093383d1bf13387e34e60f217d3499966b1e7074516",
+  "sculpt_sha256": "10dc48d14210ed7e86ef5c008300f3582c1fdfa7aab783d9525e798b5ec7445c",
+  "dependency_hashes": {
+    "output\\poke_k\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_k\\reference\\regions.json": "a1be28acc9034e03eb38689ff7d5243b3a30c56397a8a391613b7ba947ed6e74",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeK_LimeForestTree.vox": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357",
+    "PokeK_LimeForestTree_Cartoon.vox": "00aef26ec5f1ffbd2aee7ae8722ba2bf0cc8422670ad170fbf07400c64618732",
+    "PokeK_LimeForestTree_CratePalette.vox": "e52efb0b7c87df4f910f602d51e30e4f0cd1be96e56bc2d354fa0ac93d127bc2",
+    "PokeK_LimeForestTree_TwoColor.vox": "12e776719b16d52b2a36ae88e26ed4284aa14756fa619e55f703761fe156251c",
+    "PokeK_LimeForestTree_Cartoon_TwoColor.vox": "019f6189cf09e7741ed5519001b3f9f799f489ed03cb595f4bcdfa4e76fa78dd",
+    "PokeK_LimeForestTree_CratePalette_TwoColor.vox": "8ceb6e941e686f0bf665c52f52e519a125435d7074ecdc39a3b58f838e4ad0fb",
+    "PokeK_LimeForestTree_Cartoon_CratePalette_TwoColor.vox": "281b80d10aaf67a5ec7fd21a98690ec66e29f783a4da995914459817708ee52e",
+    "PokeK_SlateForestTree.vox": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb",
+    "PokeK_SlateForestTree_Cartoon.vox": "0beec3dbb005fb40fd8d0f61e5adb91aec21a911caa094a1f845ef5648a7afcf",
+    "PokeK_SlateForestTree_CratePalette.vox": "e7923e8948c95b242fbb895693c2ed40c7d5241415e12180e79db8143a98401c",
+    "PokeK_SlateForestTree_TwoColor.vox": "4c3b8794c8a5950197ec1010ae6ce2892742b1a597a62836a607f8d3c31d4444",
+    "PokeK_SlateForestTree_Cartoon_TwoColor.vox": "a02aefed9cafe1892029eecaf265c171005b446f312aaa8080c666cccaee15cd",
+    "PokeK_SlateForestTree_CratePalette_TwoColor.vox": "528567c81753143d9e352e8d744a0a21ff31365692704b0f4ecdf80f7f7bb375",
+    "PokeK_SlateForestTree_Cartoon_CratePalette_TwoColor.vox": "6e833ca29c15fbb8607379df9575fd8486c3c9e114f0a07a2797bb7cdae94e0f",
+    "PokeK_RoundedShrub.vox": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3",
+    "PokeK_RoundedShrub_Cartoon.vox": "1f4cb11bd31f28dfef1c75f1af0081b1f9a1b30d78d1fdeec2b5a0ad19618232",
+    "PokeK_RoundedShrub_CratePalette.vox": "7e9a98e1188e06e7f53f4c12f9fb98fb89f093abb894bd6e88e431457f1c099f",
+    "PokeK_RoundedShrub_TwoColor.vox": "70068bfd6777a0ec9c436b99a457b3a5315df026bd6ed171aaf229736af994bc",
+    "PokeK_RoundedShrub_Cartoon_TwoColor.vox": "ac6da39e66f5d57addbe3f47851c5a1aa7e8dbb82295c0e558e5c4fca1709fcb",
+    "PokeK_RoundedShrub_CratePalette_TwoColor.vox": "08eed8399fb719021a6285c3ebe4873edea3f1cc7a436d4141a2e0dcf15df9fd",
+    "PokeK_RoundedShrub_Cartoon_CratePalette_TwoColor.vox": "05985a4be92d061c3926fe851ed33ec8424188eeec1f229167ae771533c22b05"
+  }
+}

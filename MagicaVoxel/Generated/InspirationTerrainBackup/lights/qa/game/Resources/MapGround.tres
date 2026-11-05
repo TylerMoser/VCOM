@@ -1,0 +1,25 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://Scripts/WorldMap/MapGround.gdshader" id="1_ground"]
+
+[resource]
+shader = ExtResource("1_ground")
+shader_parameter/overall_intensity = 1.0
+shader_parameter/tundra_mountains_color = Color(0.9137255, 0.9254902, 0.9372549, 1)
+shader_parameter/tundra_mountains_intensity = 0.4
+shader_parameter/volcanic_mountains_color = Color(0.8901961, 0.8627451, 0.8352941, 1)
+shader_parameter/volcanic_mountains_intensity = 0.4
+shader_parameter/temperate_mountains_color = Color(0.8980392, 0.9098039, 0.8627451, 1)
+shader_parameter/temperate_mountains_intensity = 0.4
+shader_parameter/desert_color = Color(0.95686275, 0.89411765, 0.76862746, 1)
+shader_parameter/desert_intensity = 0.4
+shader_parameter/grassland_color = Color(0.93333334, 0.9411765, 0.8117647, 1)
+shader_parameter/grassland_intensity = 0.4
+shader_parameter/evergreen_temperate_rainforest_color = Color(0.8627451, 0.92156863, 0.84705883, 1)
+shader_parameter/evergreen_temperate_rainforest_intensity = 0.4
+shader_parameter/swamp_color = Color(0.8862745, 0.9019608, 0.8117647, 1)
+shader_parameter/swamp_intensity = 0.4
+shader_parameter/deciduous_forest_color = Color(0.9019608, 0.9372549, 0.8392157, 1)
+shader_parameter/deciduous_forest_intensity = 0.4
+shader_parameter/tropical_rainforest_color = Color(0.8509804, 0.9254902, 0.80784315, 1)
+shader_parameter/tropical_rainforest_intensity = 0.4

@@ -1,0 +1,622 @@
+{
+  "sources": [
+    {
+      "source": "mario.jpg",
+      "size": [
+        720,
+        480
+      ],
+      "frames": 1,
+      "sha256": "1e586aac976f0aa83ba36f1abcc4e360d6f8f111cfac271fd64202022f423c51",
+      "assessment": "Question blocks, HUD and signs are not light fixtures.",
+      "families": []
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "size": [
+        720,
+        720
+      ],
+      "frames": 1,
+      "sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PixelwoodA_PostLantern"
+      ]
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "size": [
+        1210,
+        1210
+      ],
+      "frames": 5,
+      "sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PixelwoodB_Campfire"
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "frames": 1,
+      "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "assessment": "Orange water plants are cattails with green leaves, not torches; chest is not a lamp.",
+      "families": []
+    },
+    {
+      "source": "poke_a.jpg",
+      "size": [
+        735,
+        480
+      ],
+      "frames": 1,
+      "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "assessment": "Woodland paths, fences and flowers; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_b.png",
+      "size": [
+        656,
+        960
+      ],
+      "frames": 1,
+      "sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeB_SilverStreetLantern"
+      ]
+    },
+    {
+      "source": "poke_c.png",
+      "size": [
+        800,
+        752
+      ],
+      "frames": 1,
+      "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeC_SilverStreetLantern"
+      ]
+    },
+    {
+      "source": "poke_d.png",
+      "size": [
+        864,
+        848
+      ],
+      "frames": 1,
+      "sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeD_StoneLantern"
+      ]
+    },
+    {
+      "source": "poke_e.png",
+      "size": [
+        480,
+        480
+      ],
+      "frames": 1,
+      "sha256": "f56dbeef65a3e5a29d63a58831ea4f3d1b0578f02961ae705985877da22d078a",
+      "assessment": "Trees, flowers, fences and water; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_f.png",
+      "size": [
+        576,
+        672
+      ],
+      "frames": 1,
+      "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeF_TwinGlobeStreetlight"
+      ]
+    },
+    {
+      "source": "poke_g.png",
+      "size": [
+        560,
+        768
+      ],
+      "frames": 1,
+      "sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeG_RoundStreetlight"
+      ]
+    },
+    {
+      "source": "poke_h.png",
+      "size": [
+        560,
+        560
+      ],
+      "frames": 1,
+      "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+      "assessment": "Farm tools, scarecrows, hay and crops; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_i.jpg",
+      "size": [
+        736,
+        559
+      ],
+      "frames": 1,
+      "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "assessment": "Red posts by doors are mailboxes; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_j.jpg",
+      "size": [
+        735,
+        565
+      ],
+      "frames": 1,
+      "sha256": "ade8525fa4a3d29c357dc6b2b037cf9ff6d3c2cbab799faf927206151b1cd80d",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeJ_DarkStreetLantern"
+      ]
+    },
+    {
+      "source": "poke_k.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "frames": 1,
+      "sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+      "assessment": "Forest paths and signs; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_l.png",
+      "size": [
+        272,
+        192
+      ],
+      "frames": 1,
+      "sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637",
+      "assessment": "Tree/terrain tilesheet; no lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_m.png",
+      "size": [
+        800,
+        880
+      ],
+      "frames": 1,
+      "sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeM_BronzePostLantern"
+      ]
+    },
+    {
+      "source": "poke_n.png",
+      "size": [
+        638,
+        766
+      ],
+      "frames": 1,
+      "sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeN_TealStreetlight"
+      ]
+    },
+    {
+      "source": "poke_o.png",
+      "size": [
+        640,
+        640
+      ],
+      "frames": 1,
+      "sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6",
+      "assessment": "Mailboxes, signs, benches, parasols and floral decorations; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_p.png",
+      "size": [
+        960,
+        1348
+      ],
+      "frames": 1,
+      "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "assessment": "Flowers, paths and building; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_q.png",
+      "size": [
+        800,
+        800
+      ],
+      "frames": 1,
+      "sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+      "assessment": "Paired sculpted creature statues at shrine and gate are not lamps; crystal rocks are not evidenced as lights.",
+      "families": []
+    },
+    {
+      "source": "poke_r.png",
+      "size": [
+        896,
+        640
+      ],
+      "frames": 1,
+      "sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+      "assessment": "Blue objects beside doors are mailboxes; no identifiable lighting prop.",
+      "families": []
+    },
+    {
+      "source": "poke_s.jpg",
+      "size": [
+        894,
+        894
+      ],
+      "frames": 1,
+      "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "assessment": "Identifiable lighting modeled; see families.",
+      "families": [
+        "PokeS_IvoryScrollLantern"
+      ]
+    },
+    {
+      "source": "poke_t.png",
+      "size": [
+        1008,
+        1024
+      ],
+      "frames": 1,
+      "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "assessment": "Cave rocks, crystals, plants and signs; no identifiable torch or installed light.",
+      "families": []
+    },
+    {
+      "source": "poke_u.jpg",
+      "size": [
+        384,
+        384
+      ],
+      "frames": 1,
+      "sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "assessment": "Signs, characters and pale sculpted trees; no identifiable lighting prop.",
+      "families": []
+    }
+  ],
+  "families": [
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_PostLantern",
+      "shape": "pixelwood",
+      "size": [
+        16,
+        16,
+        40
+      ],
+      "crop": [
+        99,
+        207,
+        154,
+        340
+      ],
+      "scale": 0.3333333333333333,
+      "metal": [
+        81,
+        85,
+        98
+      ],
+      "light": [
+        255,
+        205,
+        115
+      ],
+      "power": 1.5,
+      "note": "Square amber lantern, dark corner mullions, broad hipped cap and squared foot. Three source pixels per voxel."
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_Campfire",
+      "shape": "fire",
+      "size": [
+        24,
+        24,
+        28
+      ],
+      "crop": [
+        540,
+        820,
+        680,
+        975
+      ],
+      "scale": 0.2,
+      "metal": [
+        81,
+        85,
+        98
+      ],
+      "light": [
+        244,
+        154,
+        62
+      ],
+      "power": 1.5,
+      "note": "Five GIF frames reviewed. Static flame inspired by frame 0; eight-sided rock ring and charred logs; no animation or detached sparks."
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_SilverStreetLantern",
+      "shape": "cap",
+      "size": [
+        12,
+        12,
+        40
+      ],
+      "crop": [
+        414,
+        182,
+        435,
+        227
+      ],
+      "scale": 1,
+      "metal": [
+        100,
+        113,
+        104
+      ],
+      "light": [
+        211,
+        246,
+        247
+      ],
+      "power": 2,
+      "note": "Tapered pale-blue diffuser, faceted silver cap and finial, narrow stem, square-reading stepped pedestal."
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_SilverStreetLantern",
+      "shape": "cap",
+      "size": [
+        12,
+        12,
+        40
+      ],
+      "crop": [
+        63,
+        254,
+        85,
+        305
+      ],
+      "scale": 1,
+      "metal": [
+        100,
+        113,
+        104
+      ],
+      "light": [
+        211,
+        246,
+        247
+      ],
+      "power": 2,
+      "note": "Same silver lantern artwork as poke_b. Reuses its complete geometry and palette under this image folder; not an additional design."
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_StoneLantern",
+      "shape": "stone",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        458,
+        198,
+        486,
+        229
+      ],
+      "scale": 1,
+      "metal": [
+        172,
+        171,
+        151
+      ],
+      "light": [
+        255,
+        205,
+        128
+      ],
+      "power": 1,
+      "note": "Small stone garden lantern: broad rounded cap and finial, open chamber, short feet. Source unlit dark chamber; small warm burner inferred for usable night lighting."
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_TwinGlobeStreetlight",
+      "shape": "twin",
+      "size": [
+        32,
+        12,
+        48
+      ],
+      "crop": [
+        207,
+        235,
+        242,
+        291
+      ],
+      "scale": 1,
+      "metal": [
+        142,
+        137,
+        128
+      ],
+      "light": [
+        222,
+        245,
+        243
+      ],
+      "power": 2,
+      "note": "Paired low-domed lamps on rising Y arms and one ringed pedestal. Two heads in one complete file."
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_RoundStreetlight",
+      "shape": "drum",
+      "size": [
+        16,
+        16,
+        48
+      ],
+      "crop": [
+        397,
+        155,
+        420,
+        211
+      ],
+      "scale": 1,
+      "metal": [
+        140,
+        134,
+        126
+      ],
+      "light": [
+        220,
+        246,
+        241
+      ],
+      "power": 2,
+      "note": "Wide low-domed gray head, short pale diffuser band, slender stem and tiered round base."
+    },
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_DarkStreetLantern",
+      "shape": "cap",
+      "size": [
+        10,
+        10,
+        28
+      ],
+      "crop": [
+        190,
+        130,
+        215,
+        174
+      ],
+      "scale": 0.6666666666666666,
+      "metal": [
+        54,
+        66,
+        68
+      ],
+      "light": [
+        227,
+        236,
+        220
+      ],
+      "power": 1.5,
+      "note": "Small dark lantern left of north house. JPEG obscures detail; inferred faceted cap and small luminous chamber. Existing scale estimate: 24 displayed pixels per tile."
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BronzePostLantern",
+      "shape": "hood",
+      "size": [
+        16,
+        16,
+        48
+      ],
+      "crop": [
+        25,
+        844,
+        55,
+        880
+      ],
+      "scale": 1,
+      "metal": [
+        122,
+        112,
+        80
+      ],
+      "light": [
+        243,
+        243,
+        211
+      ],
+      "power": 2,
+      "note": "Visible at lower image edge: bronze pointed hood, broad cream chamber and thin pole. Base and lower stem are cropped away; inferred matching stepped pedestal, total height 48."
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_TealStreetlight",
+      "shape": "drum",
+      "size": [
+        16,
+        16,
+        40
+      ],
+      "crop": [
+        266,
+        414,
+        290,
+        465
+      ],
+      "scale": 1,
+      "metal": [
+        63,
+        86,
+        88
+      ],
+      "light": [
+        166,
+        193,
+        193
+      ],
+      "power": 2,
+      "note": "Dark teal disc cap, recessed gray-blue diffuser band and flared pedestal. Luminescence inferred from identifiable lamp fixture in daytime source."
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_IvoryScrollLantern",
+      "shape": "crook",
+      "size": [
+        24,
+        16,
+        56
+      ],
+      "crop": [
+        630,
+        59,
+        658,
+        104
+      ],
+      "scale": 1.6,
+      "metal": [
+        219,
+        218,
+        190
+      ],
+      "light": [
+        255,
+        238,
+        180
+      ],
+      "power": 2,
+      "note": "Ivory curved shepherd-hook fixture repeated beside waterfalls. Small compressed image: scroll and hanging lantern reconstructed; approx. 10 displayed pixels per tile. Bilateral depth symmetry, intentional offset lantern preserved."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-28",
+  "models": 7,
+  "source_sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+  "generator_sha256": "13c34896ef5fe04fba73f6c9682d2b238b22c8b03017b2965c40619d0620d947",
+  "dependencies": {
+    "../voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "sculpt.py": "7d0fe370ad9eb24132e5d144a471e625637eec66ec8e7d149c2b902335495e18"
+  },
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0
+  },
+  "import_render": "Seven whole-model Mesh imports and renders passed; retained counts and grounded bounds.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "comparison.png",
+      "geometry.png"
+    ],
+    "scope": "Every treatment; four sides of Base and Cartoon.",
+    "findings": "Ribbed green roof, left chimney, asymmetric door/window placement, round attic window, timber skirt and stairs retained. Closed rear/side walls and hollow room reviewed.",
+    "limitations": "Hidden construction inferred; TwoColor deliberately merges roof, chimney and panes into one green accent."
+  },
+  "preservation": "All 28 previous tree files unchanged by hash.",
+  "runtime_limits": "80-voxel occupied X width exceeds 62 loose-model limit and 16-cell contract.",
+  "gameplay": "not tested or integrated",
+  "model_hashes": {
+    "PixelwoodB_House.vox": "78ec5c9fa1b2781e833f343597ac0de0b284b2f09f725e0e2cb43daf7fc47502",
+    "PixelwoodB_House_Cartoon.vox": "82ad5c8f5c699d0eaa6fb95598e00a1d6b148465d6073371ee6bc0a740d2da43",
+    "PixelwoodB_House_CratePalette.vox": "049482cfc7d08e82f20a081a63cf03d7064e5464a6df20a4b5a26c84131acb50",
+    "PixelwoodB_House_TwoColor.vox": "567dfddbff8bf84d57abe81590344c7d2bfbc8e77f2ee93ac4d69f44b11928b1",
+    "PixelwoodB_House_Cartoon_TwoColor.vox": "3c4ad4fbb055e9a72aa735d152a6b10595ae678cb813e463b84554cb19bee680",
+    "PixelwoodB_House_CratePalette_TwoColor.vox": "670082a8007578a7c43e75caa566ab24dc3cd265ca5ca3dd8ccd0c339b3e20aa",
+    "PixelwoodB_House_Cartoon_CratePalette_TwoColor.vox": "d923a23c8948e37b24ea8d6ce440e1e7930e086220db1e858abe52d2f50dd174"
+  }
+}

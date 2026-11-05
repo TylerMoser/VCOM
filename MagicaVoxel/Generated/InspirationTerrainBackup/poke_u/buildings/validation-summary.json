@@ -1,0 +1,34 @@
+{
+ "validated": "2026-11-03",
+ "files": 14,
+ "families": [
+  "PokeU_Cottage",
+  "PokeU_WingHouse"
+ ],
+ "file_sha256": {
+  "PokeU_Cottage.vox": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e",
+  "PokeU_Cottage_Cartoon.vox": "b4e6084a8159073677ee6f0ad149f3c82901fd2227ec4ab23c261c0824d26edf",
+  "PokeU_Cottage_CratePalette.vox": "9feff48d1b3fe7683dfd0a9b36a0cf67836012fae9e05250d02ffd1f8db3251b",
+  "PokeU_Cottage_TwoColor.vox": "27c71c8f7031c7f6d2e0fad3eb6ddc0d8eba666785e5759e6c32ac16ab8c7b12",
+  "PokeU_Cottage_Cartoon_TwoColor.vox": "70fa19c1b52d6b92198558aaaadd89dc957be162dbc0e5882989c308f77269f5",
+  "PokeU_Cottage_CratePalette_TwoColor.vox": "fe07c2b2a00a5124912b88b025c2482896c48a38f2002149b7aec7e5fedadfa2",
+  "PokeU_Cottage_Cartoon_CratePalette_TwoColor.vox": "62f4dde4cdaa342641528fc8a243d8ac7cc226bca303e7ff0084dab93064d9c1",
+  "PokeU_WingHouse.vox": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4",
+  "PokeU_WingHouse_Cartoon.vox": "d7432bd156fe67d5e90e0b2e82169084f6cba209a7b338bbb03490f7d33767ca",
+  "PokeU_WingHouse_CratePalette.vox": "8ddc410c1026d198fffaf81ade8794f8380ad9ffaca00c1fddfec48b867b03fd",
+  "PokeU_WingHouse_TwoColor.vox": "5190fbd1f3306ae6d2e6606bbfdc945c51b17f8531de8b3bc823dacc79840982",
+  "PokeU_WingHouse_Cartoon_TwoColor.vox": "d9798c8864b4152fd4e21fc8d5743c023d2c689fe8e303587e2a251d42513314",
+  "PokeU_WingHouse_CratePalette_TwoColor.vox": "88b5977bf6e6fd69102fe6cb260cae56043781f322ce6047eacd50d6b8b815ac",
+  "PokeU_WingHouse_Cartoon_CratePalette_TwoColor.vox": "a544c37dab13e69283acbca451f28d4aed15c0129c75b97dc51fa73e756172a0"
+ },
+ "structure": "pass: tools/inspect_vox.py, 14 files, no errors or warnings (structural-audit.json)",
+ "geometry": "pass: canvases, grounded at z 0, one connected model each, recolours on their source's exact voxels, Cartoon a different shape from Base",
+ "palettes": "pass: CratePalette files the pinned crate palette byte for byte; TwoColor files one colour a group (each family's own colours, folded groups resolved)",
+ "glass": "pass: MagicaVoxel Glass (_type _glass, _trans 0.45-0.7) on exactly the glass indices",
+ "grid": "pass: nothing in the middle of a storey's tiles at the two levels units fill; no glass in a sill course outside a door's slot",
+ "whole_import": "pass: every file read and meshed whole by the game's MagicaVoxel importer at Scale 0.0625 (qa/whole-import.json)",
+ "integration": "pass: 14 scenes (every treatment of the two families), cut into the game's pieces in a scratch copy of VCOM: the level the game stamps is each model voxel for voxel, and every rules check passed: blocked_steps, climbs, closed_off, cutaway, floors_are_tiles, reachable, sight, stamped_exactly, under_building, vaults, walks, walls_and_doors_shut, windows_open (qa/integration-report.json)",
+ "visual_review": "done: in-game renders by day, dusk and night, cut away at each storey, from four sides and the game's camera, and each Base drawn in the art's projection beside the source (previews/)",
+ "preserved": "pass: 87 files of ChatGPT's in output/poke_u/ from before these buildings unchanged (its models, generator, records and previews)",
+ "not_tested": "the files opened in MagicaVoxel's own editor; the pieces added to the game's Pieces.tres and painted in the level editor; play in a battle (units fighting through them, destruction, blood)"
+}

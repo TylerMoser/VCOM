@@ -1,0 +1,262 @@
+{
+  "source": {
+    "source": "poke_s.jpg",
+    "size": [
+      894,
+      894
+    ],
+    "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4"
+  },
+  "families": [
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_GardenBalustrade",
+      "kind": "balustrade",
+      "crop": [
+        332,
+        229,
+        423,
+        249
+      ],
+      "size": [
+        40,
+        8,
+        20
+      ],
+      "wood": [
+        226,
+        225,
+        216
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "stone"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2056,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "components": [
+        2056
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        18
+      ],
+      "sha256": "4a15520bc52287f9e11cdf6ce262f18f7b99de0254fe6d1636e3530a727d0090",
+      "palette_sha256": "42fa9042f7bac9283aa4ad4fa9c43ccf55b9e440e8274c3b59b869ea129f2056",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_Cartoon.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2536,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        2536
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        18
+      ],
+      "sha256": "edb523a193f5f7e52ac294673a1cfb7e0b799eca7b30b18d7f5dcb451bbafb70",
+      "palette_sha256": "5ed10bf48bfda1ab25eae081a35975ab7b04e1f8643c178895aa65b7152d0645",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_CratePalette.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2056,
+      "colors": 2,
+      "groups": {
+        "195": "stone",
+        "196": "stone"
+      },
+      "components": [
+        2056
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        18
+      ],
+      "sha256": "282b6beebc5bda1ef126606f2ec3c6227887afe0beee5b6e0935353f17094ec2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_TwoColor.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2056,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        2056
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        18
+      ],
+      "sha256": "366d2852bdee4e2c21b881f1adfdc5d8ae190cdfd5ad80e41e7bffc170473beb",
+      "palette_sha256": "5ed10bf48bfda1ab25eae081a35975ab7b04e1f8643c178895aa65b7152d0645",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_Cartoon_TwoColor.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2536,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        2536
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        18
+      ],
+      "sha256": "3a77cc6744cdc1b0c982c51cc88f3c48556504b2bf160ed2398225f62beb0694",
+      "palette_sha256": "5ed10bf48bfda1ab25eae081a35975ab7b04e1f8643c178895aa65b7152d0645",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_CratePalette_TwoColor.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2056,
+      "colors": 1,
+      "groups": {
+        "196": "stone"
+      },
+      "components": [
+        2056
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        18
+      ],
+      "sha256": "c4ce8d41ab3382d3c032459f0809e9e714aa2531a1084f3fbb249891fe0d8a3e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_s/PokeS_GardenBalustrade_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_GardenBalustrade",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        20
+      ],
+      "voxels": 2536,
+      "colors": 1,
+      "groups": {
+        "196": "stone"
+      },
+      "components": [
+        2536
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        18
+      ],
+      "sha256": "2018e2f6c31ac39e6c0e98881525fa69d1ebd7efb4e66ed3b047a06b3a41bec4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

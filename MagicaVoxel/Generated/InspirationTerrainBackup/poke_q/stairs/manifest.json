@@ -1,0 +1,509 @@
+{
+  "source": "poke_q.png",
+  "families": [
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_SummitBambooStairs",
+      "crop": [
+        288,
+        120,
+        339,
+        164
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 16,
+      "steps": 4,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        193,
+        158,
+        96
+      ],
+      "edge": [
+        80,
+        115,
+        68
+      ],
+      "rail": "bamboo",
+      "woodsteps": true,
+      "note": "Four broad timber treads with green segmented bamboo edging below the summit.",
+      "size": [
+        40,
+        48,
+        32
+      ],
+      "source_sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 230,
+        "4": 236,
+        "5": 243,
+        "6": 242,
+        "7": 243,
+        "8": 243,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 5,
+        "5": 13,
+        "6": 13,
+        "7": 13,
+        "8": 13,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "9": 9,
+        "13": 5,
+        "5": 1
+      }
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_LongBambooStairs",
+      "crop": [
+        446,
+        434,
+        499,
+        519
+      ],
+      "width": 48,
+      "run": 64,
+      "rise": 48,
+      "steps": 10,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        193,
+        158,
+        96
+      ],
+      "edge": [
+        80,
+        115,
+        68
+      ],
+      "rail": "bamboo",
+      "woodsteps": true,
+      "note": "Ten-step lower island flight, with continuous paired bamboo stringers.",
+      "size": [
+        72,
+        48,
+        64
+      ],
+      "source_sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 230,
+        "4": 236,
+        "5": 243,
+        "6": 242,
+        "7": 243,
+        "8": 243,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 5,
+        "5": 13,
+        "6": 13,
+        "7": 13,
+        "8": 13,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "9": 9,
+        "13": 5,
+        "5": 1
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs.vox",
+      "source": "poke_q.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 20898,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "21234f3f55b0444049797f171d184cd1d55d7b01f12587727f46892aa0f37806"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_Cartoon.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 21766,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "6fae8daf67a5641d01586156b71c4169272906255d325a2df9352aa58533054e"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_CratePalette.vox",
+      "source": "poke_q.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 20898,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "a7f410a8a33ecf6ba5dfbf799a11ed834d396a16c06202a33cbc12c97abdef2f"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 20898,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "b928ff52a84c4754a2dbabb47dea9d5d6557f900ad5a8bbb6fa93e4d3e6d1e58"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_Cartoon_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 21766,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "1acd53dee913f2b0d1935941c3c62a3648efad0c83fdae992ea96410bec805a2"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_CratePalette_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 20898,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "2a9bd11c686e812ea2bd5ad1e57436e53932105063a33a645e2f58517161d5e0"
+    },
+    {
+      "family": "PokeQ_SummitBambooStairs",
+      "file": "output/poke_q/PokeQ_SummitBambooStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 21766,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        47,
+        26
+      ],
+      "sha256": "8cdba32681f202e76a711495a0d1cfd118e23f624a68d568e8b275dc3b62f121"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs.vox",
+      "source": "poke_q.png",
+      "style": "Base",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 88928,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "25dbe119ca599145911dbc9bf19c2a1a7c53f0faaecde32ca186cc65a0334119"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_Cartoon.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 90500,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "24addded3bca7f85c7770985622ad67f661c920cf05d7bb4499daba56ecbb7c1"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_CratePalette.vox",
+      "source": "poke_q.png",
+      "style": "CratePalette",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 88928,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "a42f57aee8cea6f12e6d3be8769faa452929219458e53b54f535fa62ae09652f"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "TwoColor",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 88928,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "3f8a9bc52bf2142a821f99ae54bde2c78920d6c395d2c90cbbf3f0f1b40afe36"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_Cartoon_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 90500,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "85a9849a22cff48a51dc310df7380743dc34b6249ed897b780684c92dd652f4c"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_CratePalette_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 88928,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "a887ad7d36b07ccf1278e5be00a42c3c771fa718d1d9775b93857c188eb73f27"
+    },
+    {
+      "family": "PokeQ_LongBambooStairs",
+      "file": "output/poke_q/PokeQ_LongBambooStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_q.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        72,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 90500,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        71,
+        47,
+        59
+      ],
+      "sha256": "f8743a977fc9bb141d9262cfaae686dfb7e241de784ec67c2deee10e48b5c24c"
+    }
+  ]
+}

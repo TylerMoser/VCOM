@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Medkit" format=3]
+
+[ext_resource type="Script" path="res://Scripts/Items/Medkit.gd" id="1_medkit"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/Medkit.tscn" id="2_model"]
+
+[resource]
+script = ExtResource("1_medkit")
+heal = 4
+model = ExtResource("2_model")
+display_name = "Medkit"
+description = "Bandages, splints and salves for patching up a comrade under fire, or yourself. While equipped it gives the Use Medkit action: for 1 action, heal yourself or a wounded ally standing next to you by 4 HP, never above the maximum.
+
+Allies standing next to you can use it too, even without a Medkit of their own: each use they make is one of yours.
+
+Each Medkit can be used once per mission, and is never used up: it is ready again for the next. Equip two for two uses."
+price = 10
+tags = Array[StringName]([&"medkit"])

@@ -1,0 +1,836 @@
+{
+  "date": "2026-11-04",
+  "families": [
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_BarredDrain",
+      "kind": "drain",
+      "size": [
+        32,
+        16,
+        32
+      ],
+      "crop": [
+        482,
+        477,
+        526,
+        508
+      ],
+      "stone": [
+        150,
+        149,
+        128
+      ],
+      "note": "Small half-round riverbank outlet. Five recessed bars, open gaps and through bore; hidden depth inferred. Source approximately two tiles wide.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 194,
+        "4": 193,
+        "5": 1,
+        "6": 1
+      },
+      "tile_pixels": 16
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_RetainingWall",
+      "kind": "wall",
+      "size": [
+        64,
+        16,
+        48
+      ],
+      "crop": [
+        574,
+        559,
+        602,
+        644
+      ],
+      "stone": [
+        155,
+        153,
+        133
+      ],
+      "note": "Reusable four-tile straight section extracted from the masonry vocabulary of the lower terrace; inferred repeat length and hidden back. Not a separate new structure in the image.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 194,
+        "4": 193,
+        "5": 1,
+        "6": 1
+      },
+      "tile_pixels": 16
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_RetainingCorner",
+      "kind": "corner",
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "crop": [
+        576,
+        559,
+        661,
+        639
+      ],
+      "stone": [
+        155,
+        153,
+        133
+      ],
+      "note": "L-shaped outside corner matching the terrace masonry and pale coping. Repeatable assembly component; hidden return inferred.",
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 194,
+        "4": 193,
+        "5": 1,
+        "6": 1
+      },
+      "tile_pixels": 16
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Codex_ChestPedestal",
+      "kind": "pedestal",
+      "size": [
+        32,
+        32,
+        16
+      ],
+      "crop": [
+        315,
+        315,
+        424,
+        420
+      ],
+      "stone": [
+        100,
+        103,
+        115
+      ],
+      "note": "Square slate plinth under existing treasure chest; bevelled base, inset top and raised border. 48 displayed pixels per tile. Chest excluded; center it above z=10.",
+      "source_sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "crate_mapping": {
+        "1": 206,
+        "2": 1,
+        "3": 206,
+        "4": 206,
+        "5": 1,
+        "6": 1
+      },
+      "tile_pixels": 48
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "Base",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain.vox",
+      "sha256": "315c217be63f18358584aedb1522c97dd9a1c607512cacb7dffef7eb4e6a730f",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3328,
+      "colors": 4,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        19
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_Cartoon.vox",
+      "sha256": "27adb0829701eb9a1ac7a226854c5706a5fb177246d8563a6194140456443b39",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3422,
+      "colors": 4,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        21
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_CratePalette.vox",
+      "sha256": "60ce59c411439f9fb85fae40bbb936e4f798f5dc8a7d67b7462e8d06b53845fa",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3328,
+      "colors": 3,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        19
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_TwoColor.vox",
+      "sha256": "7384ae7a0b1688407bc88943a73632f2a3b88445e2a4fb132353d2b2ac6fda9f",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3328,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        19
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_Cartoon_TwoColor.vox",
+      "sha256": "95acd7d5aea5eb43dec1a9370d72bb1d2b4d6d2157c932fe3fbe718fe2333112",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3422,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        21
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_CratePalette_TwoColor.vox",
+      "sha256": "b0f4bd0f7f0d1e92cd8e9829776c616cce2c60363fbea5e4d4e71c3725085f42",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3328,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        19
+      ]
+    },
+    {
+      "family": "PokeD_Codex_BarredDrain",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_BarredDrain_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "232a35c4907ade1a9781ce81376578ba4a4dde9c599455eaac224769ec299268",
+      "canvas": [
+        32,
+        16,
+        32
+      ],
+      "voxels": 3422,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        14,
+        21
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "Base",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall.vox",
+      "sha256": "147aff17536a574edae596b33b86945a5cc1de7ec835e635bd2a00884a942551",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 29976,
+      "colors": 3,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_Cartoon.vox",
+      "sha256": "485591b33cf19337cd4ccd247457a51ac9f51d09a7d4446cdfa94b94e985d889",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 30940,
+      "colors": 3,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        39
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_CratePalette.vox",
+      "sha256": "b93f880952d8d37a536deee3daf7c91bec7a217acafa2ef45e7012748edd0536",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 29976,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_TwoColor.vox",
+      "sha256": "bb475bd1a8c8e8d0a10995745dde9311349427529bebee05693495a9cf31bd2d",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 29976,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_Cartoon_TwoColor.vox",
+      "sha256": "bb3d1e6f5b6234f5e91eac8c474a9115f69e944c4f1ae8dfb2574a5aff0e2a99",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 30940,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        39
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_CratePalette_TwoColor.vox",
+      "sha256": "d5ac2009c5ffb86f9b4a16c675feeda1f383fd5ac053536b1781f4dd515b38af",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 29976,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingWall",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingWall_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "428106b80cf227430086ea24f0951428d40d466b31f288d762a823ed83905f23",
+      "canvas": [
+        64,
+        16,
+        48
+      ],
+      "voxels": 30940,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        63,
+        15,
+        39
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "Base",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner.vox",
+      "sha256": "dd0f774c2e968ce3d7bc16340699ac932e47791adda10fd07f2f39c65cad6225",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 38882,
+      "colors": 3,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_Cartoon.vox",
+      "sha256": "0d64a89bb6c15c0f22529d32bbae0933c1ae2bfa3be4a52ac8a0430717e6d2d5",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 40113,
+      "colors": 3,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        39
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_CratePalette.vox",
+      "sha256": "a69e48141b6b0ce13d558d9f1cd38ab5de81642aad24217d68921a36c25f8589",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 38882,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_TwoColor.vox",
+      "sha256": "138b4bc8452295e9489aebc7e428007728af4caf694f28d6a8d4ea6633232f1b",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 38882,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_Cartoon_TwoColor.vox",
+      "sha256": "98fe0686a59a545c97628c6e0ab9ea116dfbc91a575a74952f9deb27f164c419",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 40113,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        39
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_CratePalette_TwoColor.vox",
+      "sha256": "0e7f8b26b391980973db3d6b45b47a3af53042aa4fadc8c31d3cb14a24518224",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 38882,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        38
+      ]
+    },
+    {
+      "family": "PokeD_Codex_RetainingCorner",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "file": "output/poke_d/PokeD_Codex_RetainingCorner_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "112cce502cc92cde633a6ad6ceb09f2a7320b130e3c3c3e8edff8f77a08731d2",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "voxels": 40113,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        47,
+        47,
+        39
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal.vox",
+      "sha256": "2bb377b5f20898e0955331615ebbcb0d67e5db9fcc4f5b4f1a9a77462b1e987b",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8848,
+      "colors": 4,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        10
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_Cartoon.vox",
+      "sha256": "8e2ff9e420e516149599627cf342e961eeab2f595d54e44ba8ee00c6ad881a6f",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8948,
+      "colors": 4,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        11
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_CratePalette.vox",
+      "sha256": "d4ef8dc5d7bdd67625f522fd3f01e4544f918a566b084d74cb014fb914b40c19",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8848,
+      "colors": 2,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        10
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_TwoColor.vox",
+      "sha256": "8b84e68e07d150747b46076f6535a67080390d952929d4d212efe21b2a4bb20c",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8848,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        10
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_Cartoon_TwoColor.vox",
+      "sha256": "354c9bc4d165086f83c6d1b4023ac4d35eb21763519f956a66571ce2e714b7d0",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8948,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        11
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_CratePalette_TwoColor.vox",
+      "sha256": "9c9b049c295060c767c65906290bc88f1e01cc54d0ea4acf7e56a53d9fe68529",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8848,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        10
+      ]
+    },
+    {
+      "family": "PixelwoodC_Codex_ChestPedestal",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_ChestPedestal_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "c934472e2dcd0fe3cd22f803a35c10f4e3bdc1da15f1f93cd9345d041c104652",
+      "canvas": [
+        32,
+        32,
+        16
+      ],
+      "voxels": 8948,
+      "colors": 1,
+      "scene_models": 1,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        11
+      ]
+    }
+  ],
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2"
+}

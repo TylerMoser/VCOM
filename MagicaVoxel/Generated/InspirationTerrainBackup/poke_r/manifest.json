@@ -1,0 +1,2156 @@
+{
+  "source_image": "poke_r.png",
+  "source_sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+  "specification_version": "1.0",
+  "generator_sha256": "2ab7857a66cfe360e9945b897b4d72155491e1dc4b176c92e9cb6725b418bb76",
+  "sculpt_sha256": "8206d0d6afe73fc08a323f08bf655b05f967cb74afe61410a6a1686e24afe829",
+  "command": "python output/poke_r/generate.py",
+  "seed": "fixed deterministic integer hash, no random state",
+  "scale": 0.0625,
+  "scene_translation": "0 0 floor(canvas height/2)",
+  "delivery": "Complete models only, no per-cell files",
+  "palette_snapshot": "knowledge/palettes/crate-palette.json",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "asset_id": "PokeR_OliveTieredTree",
+      "source_image": "poke_r.png",
+      "source_region_xyxy_exclusive": [
+        332,
+        143,
+        373,
+        190
+      ],
+      "shape": "oliveball",
+      "appearance": "olive",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        40
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          99,
+          113,
+          32,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 242,
+        "3": 242,
+        "4": 243,
+        "5": 244,
+        "6": 244,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeR_OliveTieredTree.vox",
+        "PokeR_OliveTieredTree_Cartoon.vox",
+        "PokeR_OliveTieredTree_CratePalette.vox",
+        "PokeR_OliveTieredTree_TwoColor.vox",
+        "PokeR_OliveTieredTree_Cartoon_TwoColor.vox",
+        "PokeR_OliveTieredTree_CratePalette_TwoColor.vox",
+        "PokeR_OliveTieredTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeR_BroadConifer",
+      "source_image": "poke_r.png",
+      "source_region_xyxy_exclusive": [
+        539,
+        270,
+        589,
+        322
+      ],
+      "shape": "conifer",
+      "appearance": "pine",
+      "decoration": null,
+      "canvas_xyz": [
+        48,
+        48,
+        48
+      ],
+      "approximate_tiles_xyz": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          78,
+          107,
+          67,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 242,
+        "3": 242,
+        "4": 243,
+        "5": 244,
+        "6": 244,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeR_BroadConifer.vox",
+        "PokeR_BroadConifer_Cartoon.vox",
+        "PokeR_BroadConifer_CratePalette.vox",
+        "PokeR_BroadConifer_TwoColor.vox",
+        "PokeR_BroadConifer_Cartoon_TwoColor.vox",
+        "PokeR_BroadConifer_CratePalette_TwoColor.vox",
+        "PokeR_BroadConifer_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeR_SmallSapling",
+      "source_image": "poke_r.png",
+      "source_region_xyxy_exclusive": [
+        335,
+        0,
+        355,
+        35
+      ],
+      "shape": "stemmed",
+      "appearance": "sapling",
+      "decoration": null,
+      "canvas_xyz": [
+        16,
+        16,
+        28
+      ],
+      "approximate_tiles_xyz": [
+        1.0,
+        1.0,
+        1.75
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          106,
+          132,
+          69,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        244,
+        179
+      ],
+      "crate_mapping": {
+        "1": 242,
+        "2": 242,
+        "3": 243,
+        "4": 244,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeR_SmallSapling.vox",
+        "PokeR_SmallSapling_Cartoon.vox",
+        "PokeR_SmallSapling_CratePalette.vox",
+        "PokeR_SmallSapling_TwoColor.vox",
+        "PokeR_SmallSapling_Cartoon_TwoColor.vox",
+        "PokeR_SmallSapling_CratePalette_TwoColor.vox",
+        "PokeR_SmallSapling_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeR_RoundShrub",
+      "source_image": "poke_r.png",
+      "source_region_xyxy_exclusive": [
+        573,
+        462,
+        596,
+        498
+      ],
+      "shape": "roundshrub",
+      "appearance": "shrub",
+      "decoration": null,
+      "canvas_xyz": [
+        16,
+        16,
+        16
+      ],
+      "approximate_tiles_xyz": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          88,
+          120,
+          63,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 242,
+        "3": 242,
+        "4": 243,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeR_RoundShrub.vox",
+        "PokeR_RoundShrub_Cartoon.vox",
+        "PokeR_RoundShrub_CratePalette.vox",
+        "PokeR_RoundShrub_TwoColor.vox",
+        "PokeR_RoundShrub_Cartoon_TwoColor.vox",
+        "PokeR_RoundShrub_CratePalette_TwoColor.vox",
+        "PokeR_RoundShrub_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "PokeR_OliveTieredTree.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12830,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          42,
+          49,
+          19,
+          255
+        ],
+        [
+          58,
+          67,
+          24,
+          255
+        ],
+        [
+          77,
+          88,
+          28,
+          255
+        ],
+        [
+          99,
+          113,
+          32,
+          255
+        ],
+        [
+          124,
+          140,
+          40,
+          255
+        ],
+        [
+          151,
+          168,
+          55,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b",
+      "palette_sha256": "fd248dc919c7a49d351f4c034a845036fdfebf81366813e752b505f069980138",
+      "geometry_source": "PokeR_OliveTieredTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_Cartoon.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12832,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          42,
+          49,
+          19,
+          255
+        ],
+        [
+          58,
+          67,
+          24,
+          255
+        ],
+        [
+          77,
+          88,
+          28,
+          255
+        ],
+        [
+          99,
+          113,
+          32,
+          255
+        ],
+        [
+          124,
+          140,
+          40,
+          255
+        ],
+        [
+          151,
+          168,
+          55,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "d9cd5714f6e3f63150e7149032069834cae4ee667756f59280cb71f505b0068e",
+      "palette_sha256": "fd248dc919c7a49d351f4c034a845036fdfebf81366813e752b505f069980138",
+      "geometry_source": "PokeR_OliveTieredTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d9cd5714f6e3f63150e7149032069834cae4ee667756f59280cb71f505b0068e"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_CratePalette.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12830,
+      "used_indices": [
+        178,
+        179,
+        180,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "0ef0f9719666805e2915ea4523a49df2db1ee0b7fa6fbaee9f49255560dc91b7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_OliveTieredTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_TwoColor.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12830,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          113,
+          32,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "c4d72c2c057ed139113db6aecea89fd11c541834ae93e83087403c7deeef5c9e",
+      "palette_sha256": "1f336d0dab5aa957fbc861ed34028e60768cbb9408b891600710f0771e042b43",
+      "geometry_source": "PokeR_OliveTieredTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_Cartoon_TwoColor.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12832,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          113,
+          32,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "e8866c2d4595ba38600ed8194e46f4cda16bb4ab423b065ff6f0d51b5373af73",
+      "palette_sha256": "1f336d0dab5aa957fbc861ed34028e60768cbb9408b891600710f0771e042b43",
+      "geometry_source": "PokeR_OliveTieredTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d9cd5714f6e3f63150e7149032069834cae4ee667756f59280cb71f505b0068e"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_CratePalette_TwoColor.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12830,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "462ad1937754ddaeeeff988d55bf50c90ae7cd675a253139151de1a43a7f521f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_OliveTieredTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8628ab58b87fe982b9029218cc2bb5ca431a62fd2dd16817622fc5aeccb5747b"
+    },
+    {
+      "file": "PokeR_OliveTieredTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeR_OliveTieredTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 12832,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "c126c41310def16b9cea4ed1b410ccec9b4fe7a2f5fdc64272faa9596b44da2d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_OliveTieredTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "d9cd5714f6e3f63150e7149032069834cae4ee667756f59280cb71f505b0068e"
+    },
+    {
+      "file": "PokeR_BroadConifer.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "Base",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        46,
+        45,
+        47
+      ],
+      "voxels": 16914,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          31,
+          51,
+          37,
+          255
+        ],
+        [
+          44,
+          67,
+          47,
+          255
+        ],
+        [
+          59,
+          85,
+          56,
+          255
+        ],
+        [
+          78,
+          107,
+          67,
+          255
+        ],
+        [
+          104,
+          135,
+          83,
+          255
+        ],
+        [
+          139,
+          169,
+          105,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06",
+      "palette_sha256": "b2ef1b9be68d60565ddff3d3a4007d13bc405b5b5c83d911a78448e31c13d8b7",
+      "geometry_source": "PokeR_BroadConifer.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06"
+    },
+    {
+      "file": "PokeR_BroadConifer_Cartoon.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        47
+      ],
+      "voxels": 16032,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          59,
+          85,
+          56,
+          255
+        ],
+        [
+          104,
+          135,
+          83,
+          255
+        ],
+        [
+          139,
+          169,
+          105,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "a5a1f748193981fac7a934e81cc96aa7bd42cb87667650e0e162374a21f0c591",
+      "palette_sha256": "b2ef1b9be68d60565ddff3d3a4007d13bc405b5b5c83d911a78448e31c13d8b7",
+      "geometry_source": "PokeR_BroadConifer_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a5a1f748193981fac7a934e81cc96aa7bd42cb87667650e0e162374a21f0c591"
+    },
+    {
+      "file": "PokeR_BroadConifer_CratePalette.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        46,
+        45,
+        47
+      ],
+      "voxels": 16914,
+      "used_indices": [
+        178,
+        179,
+        180,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "7d1cbf87f0e0bfe2f8e470d272f8f7cabaee58ca67df466c54fef9a16f1564fc",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_BroadConifer.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06"
+    },
+    {
+      "file": "PokeR_BroadConifer_TwoColor.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        46,
+        45,
+        47
+      ],
+      "voxels": 16914,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          78,
+          107,
+          67,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "9165babacbb7e80f0fd6e2d1a8e6cbc9a6ae33b32035e7d7dc9876d1370580ff",
+      "palette_sha256": "25b7b2e8b4a950df08a9074eb30144423a22aaa8453b31afd9a6e5bc615faea7",
+      "geometry_source": "PokeR_BroadConifer.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06"
+    },
+    {
+      "file": "PokeR_BroadConifer_Cartoon_TwoColor.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        47
+      ],
+      "voxels": 16032,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          78,
+          107,
+          67,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "e57debaa627cd96449b70b97fd55333ea632cf133933b31df2de495e7a2788fe",
+      "palette_sha256": "25b7b2e8b4a950df08a9074eb30144423a22aaa8453b31afd9a6e5bc615faea7",
+      "geometry_source": "PokeR_BroadConifer_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a5a1f748193981fac7a934e81cc96aa7bd42cb87667650e0e162374a21f0c591"
+    },
+    {
+      "file": "PokeR_BroadConifer_CratePalette_TwoColor.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        46,
+        45,
+        47
+      ],
+      "voxels": 16914,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "637893f93783028bb300d1ed053f58bf5f9bef535b42b388af408282bffb3ae3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_BroadConifer.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1544bfb903ecf57733cefdf3ebf6a6390f020cb890d7d011a68a5cb120c1db06"
+    },
+    {
+      "file": "PokeR_BroadConifer_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeR_BroadConifer",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        48,
+        48
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        46,
+        46,
+        47
+      ],
+      "voxels": 16032,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "b5fb357bcf200c7ba92cb246bac478352fb04c30cc6d14099daf60f6c12e02dd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_BroadConifer_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "a5a1f748193981fac7a934e81cc96aa7bd42cb87667650e0e162374a21f0c591"
+    },
+    {
+      "file": "PokeR_SmallSapling.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 1839,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          47,
+          66,
+          35,
+          255
+        ],
+        [
+          64,
+          85,
+          44,
+          255
+        ],
+        [
+          83,
+          108,
+          55,
+          255
+        ],
+        [
+          106,
+          132,
+          69,
+          255
+        ],
+        [
+          134,
+          160,
+          89,
+          255
+        ],
+        [
+          170,
+          192,
+          118,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3",
+      "palette_sha256": "d19dcef39f81b0f321fa1da78869c16fcf5f8710906392c9cd4ab82709fe8f60",
+      "geometry_source": "PokeR_SmallSapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3"
+    },
+    {
+      "file": "PokeR_SmallSapling_Cartoon.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 1824,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          83,
+          108,
+          55,
+          255
+        ],
+        [
+          134,
+          160,
+          89,
+          255
+        ],
+        [
+          170,
+          192,
+          118,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "acf074bc5bc3fec1aed328221f97fe01eb35e9a019e86d3bd934b93e379662e9",
+      "palette_sha256": "d19dcef39f81b0f321fa1da78869c16fcf5f8710906392c9cd4ab82709fe8f60",
+      "geometry_source": "PokeR_SmallSapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "acf074bc5bc3fec1aed328221f97fe01eb35e9a019e86d3bd934b93e379662e9"
+    },
+    {
+      "file": "PokeR_SmallSapling_CratePalette.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 1839,
+      "used_indices": [
+        178,
+        179,
+        180,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "8552c1f7216215466d9d9a61243adf6aefe034814f7fda1703d21eeb26ed5173",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_SmallSapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3"
+    },
+    {
+      "file": "PokeR_SmallSapling_TwoColor.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 1839,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          106,
+          132,
+          69,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "e8e268128060e944859bcc463dd4bd9c54c01e0f7e03e2fc12fdd64386782291",
+      "palette_sha256": "002193c7ca0eed952035ef3b927cc99bfc540862385b2ebfcb928e4bed17ada0",
+      "geometry_source": "PokeR_SmallSapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3"
+    },
+    {
+      "file": "PokeR_SmallSapling_Cartoon_TwoColor.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 1824,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          106,
+          132,
+          69,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "86a99cebec8462e87f80f36979d121e1b38bd55c0bf7c71db115c818da6cc227",
+      "palette_sha256": "002193c7ca0eed952035ef3b927cc99bfc540862385b2ebfcb928e4bed17ada0",
+      "geometry_source": "PokeR_SmallSapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "acf074bc5bc3fec1aed328221f97fe01eb35e9a019e86d3bd934b93e379662e9"
+    },
+    {
+      "file": "PokeR_SmallSapling_CratePalette_TwoColor.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 1839,
+      "used_indices": [
+        179,
+        244
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "973ebe82260a6431e53104185bffbd655cdbcb54d55afe759f8b08ed2df1914f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_SmallSapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "f158998a1f4539d2252e632b261ed387eb83b77440f2aeaa4170acbc2ae483e3"
+    },
+    {
+      "file": "PokeR_SmallSapling_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeR_SmallSapling",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 1824,
+      "used_indices": [
+        179,
+        244
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "f83579d5218ad67600c3ca225a30fc26210b5303518110601c25b895f95af0d1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_SmallSapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "acf074bc5bc3fec1aed328221f97fe01eb35e9a019e86d3bd934b93e379662e9"
+    },
+    {
+      "file": "PokeR_RoundShrub.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          38,
+          55,
+          30,
+          255
+        ],
+        [
+          51,
+          73,
+          39,
+          255
+        ],
+        [
+          67,
+          95,
+          50,
+          255
+        ],
+        [
+          88,
+          120,
+          63,
+          255
+        ],
+        [
+          117,
+          147,
+          80,
+          255
+        ],
+        [
+          153,
+          178,
+          105,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264",
+      "palette_sha256": "65305d567a02e111c6e2eca9281d8557fcdb9e8865a897e8e8ac19042be42ca8",
+      "geometry_source": "PokeR_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264"
+    },
+    {
+      "file": "PokeR_RoundShrub_Cartoon.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          67,
+          95,
+          50,
+          255
+        ],
+        [
+          117,
+          147,
+          80,
+          255
+        ],
+        [
+          153,
+          178,
+          105,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "8f5aa062c9cda96c30603985ee69bf9e7c307e1a7864c58cb56791498f7f1653",
+      "palette_sha256": "65305d567a02e111c6e2eca9281d8557fcdb9e8865a897e8e8ac19042be42ca8",
+      "geometry_source": "PokeR_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8f5aa062c9cda96c30603985ee69bf9e7c307e1a7864c58cb56791498f7f1653"
+    },
+    {
+      "file": "PokeR_RoundShrub_CratePalette.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "2e864b42a3b2ef4a7adf19bbcaabe5080fe7c3feea174bd37cd419fba43ce516",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264"
+    },
+    {
+      "file": "PokeR_RoundShrub_TwoColor.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          88,
+          120,
+          63,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "2e79015261abdbcf83197a5a8392e3e4366c86ff6f72f886f60a91417a453e6d",
+      "palette_sha256": "f07bca023fb5371df634b49f135856b1937742d00923bfd6b7eed854be7f17d4",
+      "geometry_source": "PokeR_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264"
+    },
+    {
+      "file": "PokeR_RoundShrub_Cartoon_TwoColor.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          88,
+          120,
+          63,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "c32113ecb2ae5c2116d59ac706b6641dd657ca4fef3d1e31b7ffec3316652f6e",
+      "palette_sha256": "f07bca023fb5371df634b49f135856b1937742d00923bfd6b7eed854be7f17d4",
+      "geometry_source": "PokeR_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8f5aa062c9cda96c30603985ee69bf9e7c307e1a7864c58cb56791498f7f1653"
+    },
+    {
+      "file": "PokeR_RoundShrub_CratePalette_TwoColor.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1478,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "b1998fed93ab08ecd55cceb2be08bfb7c6f6b122f2cd3478a2ee5f94aaafd83f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_RoundShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "948a9b148c9346409118a7c9538f128bacb2eec6cb53d197f89ba21eb0ce3264"
+    },
+    {
+      "file": "PokeR_RoundShrub_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeR_RoundShrub",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ],
+      "voxels": 1464,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "6bf43f8e6009842eb54ee5de2c6be090dee7ed8dfe8ec8a100d59c05fc95b692",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeR_RoundShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8f5aa062c9cda96c30603985ee69bf9e7c307e1a7864c58cb56791498f7f1653"
+    }
+  ]
+}

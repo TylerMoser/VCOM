@@ -1,0 +1,510 @@
+{
+  "source": {
+    "source": "poke_i.jpg",
+    "size": [
+      736,
+      559
+    ],
+    "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79"
+  },
+  "families": [
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_SplitRail",
+      "kind": "rail",
+      "crop": [
+        531,
+        134,
+        629,
+        153
+      ],
+      "size": [
+        40,
+        8,
+        18
+      ],
+      "wood": [
+        159,
+        131,
+        81
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_BridgeRailing",
+      "kind": "picket",
+      "crop": [
+        255,
+        316,
+        310,
+        330
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        175,
+        170,
+        126
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_i/PokeI_SplitRail.vox",
+      "family": "PokeI_SplitRail",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 912,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        912
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "9fa6334abaaf9196982b28b8101ab544dc06af444fb75c7be31c7017e9c20e3b",
+      "palette_sha256": "049d51937b2361717a507427e1a1ac0a3dd0e282840b65117ea4e6076838e746",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_Cartoon.vox",
+      "family": "PokeI_SplitRail",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1272,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1272
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "d2aecc1a6b46573c09585b401344900d889c7db8134fff584b8290140cb010e2",
+      "palette_sha256": "ffc3bfdc3a3b46659e9bf16e69b2fbc1d790dd864b7bcaf9557476957d6d147f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_CratePalette.vox",
+      "family": "PokeI_SplitRail",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 912,
+      "colors": 3,
+      "groups": {
+        "179": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        912
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "221ee7fb3e064f61629f426d6fbcfc5bc08998d6543d87b5ef1dfd53f9e7d5ff",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_TwoColor.vox",
+      "family": "PokeI_SplitRail",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 912,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        912
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "60c4bdd0a4e4bc9af9fa1e90bc7e299b51177971e1dda4612a6f80df1b028409",
+      "palette_sha256": "ffc3bfdc3a3b46659e9bf16e69b2fbc1d790dd864b7bcaf9557476957d6d147f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_Cartoon_TwoColor.vox",
+      "family": "PokeI_SplitRail",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1272,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1272
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "0230722bdb57574efe21f719e8e021b8b0724355ac8b00128f1994eec40c3878",
+      "palette_sha256": "ffc3bfdc3a3b46659e9bf16e69b2fbc1d790dd864b7bcaf9557476957d6d147f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_CratePalette_TwoColor.vox",
+      "family": "PokeI_SplitRail",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 912,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        912
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        17
+      ],
+      "sha256": "603dbb06fd01bc355644062b1c6359351516da0a91bbbc61da3d7845debaea38",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_SplitRail_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_SplitRail",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        18
+      ],
+      "voxels": 1272,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        1272
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        17
+      ],
+      "sha256": "e7b7dc53bf9135d91c36fbd0409ac54995b43e501f696af044efdf4d41ee5e42",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "8418a21174acb24d5d9ae3f3eca01394949fa54a19f1e3fd479a41f7be943bca",
+      "palette_sha256": "b348578172e3befbfca91a4bd6270e9c055d3a0c0faee58987785d514e11a0f2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_Cartoon.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "d874c6e74e8ab0b2c27b9d6db11bf5559c1162e5fd4f687af46ea15eded57691",
+      "palette_sha256": "b773fa0f12aa014f64f4775c44aa2561de3d8ad4c1e805a33b94bb04425bcafa",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_CratePalette.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 2,
+      "groups": {
+        "236": "wood",
+        "237": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "4a217a290427bcf9b393baeef37469b259d2f82408f42acf5551e7978dac90b3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_TwoColor.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "f4e017810b95391403214b06805ce3157df8648663d929a9ed045f52cbe9905d",
+      "palette_sha256": "b773fa0f12aa014f64f4775c44aa2561de3d8ad4c1e805a33b94bb04425bcafa",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_Cartoon_TwoColor.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "bf54f2fc5b9485299cbafd04d585e8d4a54d200baf211a641f2dfbe7780df94c",
+      "palette_sha256": "b773fa0f12aa014f64f4775c44aa2561de3d8ad4c1e805a33b94bb04425bcafa",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_CratePalette_TwoColor.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1344,
+      "colors": 1,
+      "groups": {
+        "236": "wood"
+      },
+      "components": [
+        1344
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "e0685794679a99f997169127cfce40202365388313883a94aa269a49f9260673",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_BridgeRailing_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_BridgeRailing",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "236": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "3e688e31c5797697aa1406c545c01b38238008cdf248d808f2133290f1554aad",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

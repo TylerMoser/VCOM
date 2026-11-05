@@ -1,0 +1,448 @@
+{
+  "author": "Codex",
+  "source": "poke_t.png",
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_Codex_AmberCaveEntrance",
+      "kind": "cave",
+      "size": [
+        48,
+        40,
+        48
+      ],
+      "crop": [
+        912,
+        414,
+        962,
+        463
+      ],
+      "opening": [
+        24,
+        32
+      ],
+      "rock": [
+        151,
+        111,
+        70
+      ],
+      "tile_pixels": 16,
+      "note": "Eastern warm brown rounded cave mouth near the sign; real arch opening, faceted rock brow and short through-tunnel.",
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 180,
+        "9": 234,
+        "10": 235,
+        "11": 179,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_Codex_DeepCavernEntrance",
+      "kind": "cave",
+      "size": [
+        80,
+        56,
+        80
+      ],
+      "crop": [
+        470,
+        887,
+        528,
+        956
+      ],
+      "opening": [
+        36,
+        56
+      ],
+      "rock": [
+        151,
+        111,
+        70
+      ],
+      "tile_pixels": 16,
+      "note": "Large irregular southern dark recess reconstructed as a deep cavern mouth. The source black void beyond the entrance is background, not exported geometry; hidden roof/rear tunnel are inferred.",
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 180,
+        "9": 234,
+        "10": 235,
+        "11": 179,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "5a3177bec81662812c53cee242c715351ae50406d6991b3f442ac2005f1599b8"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "c273c271f12129a6ba7a2488c6be1f5f4456583b37577a2fcb12999c1137d0a7"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 3,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "2a6156e308be7919305303fb50adb9cf87aeaa2ae6a88e7d8b3ffb8217bbb97c"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "b02a62ab41f0958855866a1da9b54f4c08ee10efdd420f71c059074862dc77d4"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "ac00337db0a79ac8dc91627b408b0f6fdc11ddef0791c23f4dd0623aa941f7fb"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "bc19e7c4663e7f7d4a4f11e48f9f2db1a08401013db0e7109ad2531260d65890"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "3e445014248791259f69511f10341ce22ddd96a8db08875f2ee8edf4e1055150"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "51e6c6dba6961838c0a527ad35d48a3cfc9e6bba6a6b48328e4a535499121d18"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "60cc61c6d0bd7394df99f644ee76e8b5f1a4e4160d1da9518d56e05976297237"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 3,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "c0e476c046fdca73ec2528d2cfd76ef8c73663814f6bc1c3d87f67dc1ca9d83a"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "31e4d1d1322654f56efb14769fe12e9e55b5358014666708a7aaf631c9613e73"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "fe99752aae4aaaf74300bd929273f05427cd67843ed14989d0771b669249632e"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "796916d51de176ede7638424689789ff66fe793408cc0849218417fb4cd3931c"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "95a96821832ea266aa6ec45872d1a63fdbb24ed22a755e669594fec210a42e85"
+    }
+  ]
+}

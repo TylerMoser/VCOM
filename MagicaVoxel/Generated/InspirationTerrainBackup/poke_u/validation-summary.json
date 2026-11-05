@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-27",
+  "models": 14,
+  "families": 2,
+  "source_image": "poke_u.jpg",
+  "source_image_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "validate.py verifies output hashes, connectedness, recolor geometry, semantic two-color reduction, C4 geometry/paint, crate palette and render evidence.",
+  "import_render": "All 14 models passed current VCOM whole Mesh import/render at scale 0.0625; voxel counts retained, bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments and four azimuths for Base and Cartoon of both forms. Source and enlarged crops inspected.",
+    "findings": "Broad scalloped tiers and narrow low-foliage sapling remain distinct. Revised sapling foliage lowers exposed trunk to match source. Geometry and colors readable in all four views.",
+    "limitations": "JPEG edge measurements and inferred depth/height are approximate. Game palette shifts source greens. Lighting shades flat TwoColor paint."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "9e2b45bd5e4f4be0ab2f448ab63b174f24b5475b26b3320f15c53170f1f5e9b5",
+  "sculpt_sha256": "e771a33ca2c62509621fa28616493f7fbf60cc5a14ab537531a356b68b0eb319",
+  "dependency_hashes": {
+    "output\\poke_u\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_u\\reference\\regions.json": "fe12dfeca3d96abff0b43e559ed11d5851234141d4963590696fe57fd2db1171",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeU_ScallopedTree.vox": "f07c97fd0f4b20da1fecfd52e201482a4e43408b5aef00f552c9ebe29302b4c5",
+    "PokeU_ScallopedTree_Cartoon.vox": "fc4dffc654cffa50913e7925f454b75ca0535d46aeacfeceb38722edb573ae04",
+    "PokeU_ScallopedTree_CratePalette.vox": "269df6343efbc83e338bb793238358f24bef22f7d0a0c94e93a29d90888f7807",
+    "PokeU_ScallopedTree_TwoColor.vox": "ced75037b682ee22b12a8cebc75bb9c411c1849011e2b5e7cd241f2b4d5e8e63",
+    "PokeU_ScallopedTree_Cartoon_TwoColor.vox": "e39d1196bd1b908ceafdf5765b700ed226ba3a41aa3dc238e3dc947659b3fbeb",
+    "PokeU_ScallopedTree_CratePalette_TwoColor.vox": "f674ce71e58143675a3ea2cad38c2c357453e8deca72998ad26882abb7c0c82a",
+    "PokeU_ScallopedTree_Cartoon_CratePalette_TwoColor.vox": "1036da941c9e5e2b1e3c8bd3a3ec102095b9b61eb99b0df536c399b7a180aa25",
+    "PokeU_NarrowSapling.vox": "cdf58d1905240d6ed86a938243797c709562de56130b2f36c94936c8c2562c0f",
+    "PokeU_NarrowSapling_Cartoon.vox": "33d0eeebb8b7380fc9f2bce74a8e6e7cd5479a4f2ed2ded1658a38613bcb315d",
+    "PokeU_NarrowSapling_CratePalette.vox": "e2fbfe150c95a1efd5d32670f658b25f97a17b09af98e3e2b15dcc9fc6c36f42",
+    "PokeU_NarrowSapling_TwoColor.vox": "449f248b530e86b3ef33fd04b002daf59d758da8b6508cc3924d91cb59325f2f",
+    "PokeU_NarrowSapling_Cartoon_TwoColor.vox": "976054194397f551f32a545a4ea179b497787cadc75592b911cf62151cc19893",
+    "PokeU_NarrowSapling_CratePalette_TwoColor.vox": "643d378f071e3f53e4a7fd4a51be75ad9feed8e22aa8ff00b6f271c96bc58a5c",
+    "PokeU_NarrowSapling_Cartoon_CratePalette_TwoColor.vox": "f65ff5e6aa880229dccb70b186cc5bc7e8cc6b5cdb138ff2138781a3f9e9f673"
+  }
+}

@@ -1,0 +1,36 @@
+{
+ "source": "poke_m.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeM_LogCabin": {
+   "title": "Log cabin",
+   "regions_xyxy_exclusive": [
+    [
+     580,
+     290,
+     670,
+     380
+    ]
+   ],
+   "drawn": "The log cabin by the marsh: a steep gable roof of grey slates with its ridge front to back under a raised ridge cap, log walls whose side logs run out past the corners in round ends, a gable of dark boards over a light beam with a king post and rafters, the plank door and a window of two panes."
+  },
+  "PokeM_Lodge": {
+   "title": "Lodge",
+   "regions_xyxy_exclusive": [
+    [
+     0,
+     724,
+     80,
+     822
+    ],
+    [
+     104,
+     820,
+     200,
+     880
+    ]
+   ],
+   "drawn": "Two copies, each cut off by the image's edge: at the bottom left the front but for its left end, at the bottom only the roof, whole across. A skirt roof of brown boards over a dark fascia round cream brick walls between big timber corner posts, an upper part of light boards under a low gable roof with a light ridge board, a window and the door between two posts under a porch beam."
+  }
+ }
+}

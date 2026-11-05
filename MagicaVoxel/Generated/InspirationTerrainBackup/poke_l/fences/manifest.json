@@ -1,0 +1,262 @@
+{
+  "source": {
+    "source": "poke_l.png",
+    "size": [
+      272,
+      192
+    ],
+    "sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637"
+  },
+  "families": [
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_HoopFence",
+      "kind": "hoop",
+      "crop": [
+        208,
+        110,
+        256,
+        160
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        211,
+        228,
+        216
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "metal"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_l/PokeL_HoopFence.vox",
+      "family": "PokeL_HoopFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 320,
+      "colors": 3,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal"
+      },
+      "components": [
+        320
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "15f87feea273d2b8c905f2ab1cb3ac95294be245f2509d84fdb0b8538a04a9d5",
+      "palette_sha256": "8be1d09ca99dc4e1f6b4ccd0d8a8b20d8a4f95fb18ac8a88e05fad210e2425ed",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_Cartoon.vox",
+      "family": "PokeL_HoopFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 576,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        576
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "17f905a0d62120c2d2719b2a12baf030f45147f60a0f6b744576331c7f3811e1",
+      "palette_sha256": "b999144d5c807e35bb9bae480e72b3ff5434f364dc73fde7d20f9403a03fd3e0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_CratePalette.vox",
+      "family": "PokeL_HoopFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 320,
+      "colors": 2,
+      "groups": {
+        "195": "metal",
+        "196": "metal"
+      },
+      "components": [
+        320
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "d0c735b61dd68b4500bf757d1d2ade09d35f6b3a96c137d0d0e9fdbc3cb7be88",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_TwoColor.vox",
+      "family": "PokeL_HoopFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 320,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        320
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "69dc3f2ecc4a374fca7d946ac52d2dbad25ef495b22064a6ec451a5ff0cd3094",
+      "palette_sha256": "b999144d5c807e35bb9bae480e72b3ff5434f364dc73fde7d20f9403a03fd3e0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_Cartoon_TwoColor.vox",
+      "family": "PokeL_HoopFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 576,
+      "colors": 1,
+      "groups": {
+        "1": "metal"
+      },
+      "components": [
+        576
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "742dffe972aa4d84d9637785fac19ae80c14768d7e56f3b758f8c1375ef3b3b3",
+      "palette_sha256": "b999144d5c807e35bb9bae480e72b3ff5434f364dc73fde7d20f9403a03fd3e0",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_CratePalette_TwoColor.vox",
+      "family": "PokeL_HoopFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 320,
+      "colors": 1,
+      "groups": {
+        "195": "metal"
+      },
+      "components": [
+        320
+      ],
+      "occupied_min": [
+        4,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "8c5e85b54dbcd08a70e4856859f329b404b5502a641c70c4b4af098f8816fac6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_l/PokeL_HoopFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeL_HoopFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 576,
+      "colors": 1,
+      "groups": {
+        "195": "metal"
+      },
+      "components": [
+        576
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        37,
+        4,
+        15
+      ],
+      "sha256": "68a5ef33c5b4b89b8d81fe637835cd139d301b2d06bddae185610cf5205dc533",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

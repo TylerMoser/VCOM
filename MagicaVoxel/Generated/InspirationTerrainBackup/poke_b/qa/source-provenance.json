@@ -1,0 +1,177 @@
+{
+  "source": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\vcom\\addons\\MagicaVoxel_Importer_with_Extensions",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "sha256": "9416b8a6e99d2b3536e500a0e8c8efa8caf52dc726dadc32fb10fca204358513"
+    },
+    {
+      "path": "framed_mesh_instance.png",
+      "sha256": "f73a53cabe1d6b054aa7802d90caea9415ec62e7a0ac0d2925abfb23c47f5fce"
+    },
+    {
+      "path": "icon.png",
+      "sha256": "56ec3241f4fbb54efd25057507b8dfe31612dd5902b07fbcc54da42683d39146"
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "774991c2773676feb16146328619495d5ac01b13f0debd3b5502e23bc03eb231"
+    },
+    {
+      "path": "plugin.cfg",
+      "sha256": "ec783d390608856ab38a93bf1d1da769cb0b7c39c4341ee00ba7cbe2ce23f917"
+    },
+    {
+      "path": "plugin.gd",
+      "sha256": "cc4f1a52b72d007955e8128774a1e478f48fac26d7ede124134eb6fc53b3a04b"
+    },
+    {
+      "path": "plugin.gd.uid",
+      "sha256": "c0d7134cb025fcc01d89024cb80bfb6c053df44fecbad56190d665df1da477f6"
+    },
+    {
+      "path": "README.md",
+      "sha256": "22849dbc446cf7b223321f06fe5cbcd5e6a54bedae6a31be40c91cd7dc236f4a"
+    },
+    {
+      "path": "vox-icon.vox",
+      "sha256": "45bcff850208c9970b7fb9025b72adc14ea076c12a93281a77c20a369acb690e"
+    },
+    {
+      "path": "Editor/vox_import_info_inspector_plugin.gd",
+      "sha256": "2f402de62cb6ec779ce4ed31e073eb233ba4d465757c31512e8bcce9a31453e1"
+    },
+    {
+      "path": "Editor/vox_import_info_inspector_plugin.gd.uid",
+      "sha256": "fcce881be478eb550e29400c4e331b10f3f35cdbcab02afeaa0408f2776dfbde"
+    },
+    {
+      "path": "Editor/vox_import_info_panel.gd",
+      "sha256": "1c4cb1f3c40fc1f4126c12eebca3fc20e03e3492b62159cb3cc76d9a4fc0a8fd"
+    },
+    {
+      "path": "Editor/vox_import_info_panel.gd.uid",
+      "sha256": "0993e4df2390959a62353c8ff39f3a11954dda97aa65f5c14f1d6b3e657f152f"
+    },
+    {
+      "path": "MeshGenerators/CulledMeshGenerator.gd",
+      "sha256": "cba4070f654ac08d28f94068dade0a2abe5a53059bc0b54cb1886086ecc7fdee"
+    },
+    {
+      "path": "MeshGenerators/CulledMeshGenerator.gd.uid",
+      "sha256": "611553c1b78bb2feb806685aebca8ded791c79b71803650c4a7fd43c598f1296"
+    },
+    {
+      "path": "MeshGenerators/Faces.gd",
+      "sha256": "a51a9bd4d557fb472945e2dcdf816aec1fab66ad899590c222fe5002a48b8367"
+    },
+    {
+      "path": "MeshGenerators/Faces.gd.uid",
+      "sha256": "12515bc496bcf9d0223dbffc389963edb0c32d25a6bd643ebd589035ed52ed03"
+    },
+    {
+      "path": "MeshGenerators/GreedyMeshGenerator.gd",
+      "sha256": "0d496d9bb43689438fb3eb217e8bcec20d27d9514b0a1f028a06c7a0fc864fb4"
+    },
+    {
+      "path": "MeshGenerators/GreedyMeshGenerator.gd.uid",
+      "sha256": "3f69d1c704e481481cbe5ee6b6cece74c1f02a447a22321870277c7ccda79e52"
+    },
+    {
+      "path": "Runtime/framed_mesh_instance.gd",
+      "sha256": "c828d8be22a9b42227a36441d87d7236b896f94c5f7d9c564916de52d6b54624"
+    },
+    {
+      "path": "Runtime/framed_mesh_instance.gd.uid",
+      "sha256": "301a3b137847510a7cfda6c2cec9f0b86608a1cc439a1a30e1c9d1bf98a4f23f"
+    },
+    {
+      "path": "VoxFormat/Model.gd",
+      "sha256": "a8c9dee02938401e9fd65ab8b5929365ee2fee867d68d37442fa957df012ae7e"
+    },
+    {
+      "path": "VoxFormat/Model.gd.uid",
+      "sha256": "f735e8e3abbafc0a2d39698f906bc978d3ad34493a95cfe8d2a6938592056b1e"
+    },
+    {
+      "path": "VoxFormat/VoxData.gd",
+      "sha256": "9fcf5593ebdb9076f8af7b3d26b4bdbc7e6be6fd402721eb0f105426e079ab9e"
+    },
+    {
+      "path": "VoxFormat/VoxData.gd.uid",
+      "sha256": "a2053361463a664a0cb2f98d24e4f731c3645b5533df60674b5645d5966cbbf8"
+    },
+    {
+      "path": "VoxFormat/VoxFile.gd",
+      "sha256": "0201fcc4459d4533410fead187be9529368700321e3dfce1aa6b5f155125e3d1"
+    },
+    {
+      "path": "VoxFormat/VoxFile.gd.uid",
+      "sha256": "55490b4077500e3e68402b859f1e5c7aef02c486b375d327348571c152ba0dbd"
+    },
+    {
+      "path": "VoxFormat/VoxLayer.gd",
+      "sha256": "0c67afadf2c4ca96bd32783fef86ce68bbbc007f890aa452bd461bf08d6f6685"
+    },
+    {
+      "path": "VoxFormat/VoxLayer.gd.uid",
+      "sha256": "26ef9bc1a67649fadadc26551e02bcd8e3f40b04e2e7b517f3e70c8ff19ba306"
+    },
+    {
+      "path": "VoxFormat/VoxMaterial.gd",
+      "sha256": "44dbfb04146b5bb351a2b584ead86bd0fff40dd0bacac1a6f4964c5cf06cda32"
+    },
+    {
+      "path": "VoxFormat/VoxMaterial.gd.uid",
+      "sha256": "3ec0ccbc5873ebe6fb2fee95a8f8dd8f7821dda5c2a3d0e9b2dc008918f44c30"
+    },
+    {
+      "path": "VoxFormat/VoxNode.gd",
+      "sha256": "abe7960a43005c3ec07ace25321f8c92c6dd8e6c3986cd45a400b58349a3eafc"
+    },
+    {
+      "path": "VoxFormat/VoxNode.gd.uid",
+      "sha256": "3ed8091b21737d90ef7beadcb3630f9c36b6434b14bc90cd8fa21b6f98b5ef6b"
+    },
+    {
+      "path": "VoxImporter/vox-importer-common.gd",
+      "sha256": "cf79026088605ff38cb46756a85fdc03507da2dc228cc545b5a2e32948504956"
+    },
+    {
+      "path": "VoxImporter/vox-importer-common.gd.uid",
+      "sha256": "6c133dd9db346d8768efea684551c97674f9188256032056c443ec658d6750c1"
+    },
+    {
+      "path": "VoxImporter/vox-importer-mesh.gd",
+      "sha256": "2f8de71cc7b81fe50677efa53af6a11dbf0ec139cbf2c5a3fa3ecca675e680a0"
+    },
+    {
+      "path": "VoxImporter/vox-importer-mesh.gd.uid",
+      "sha256": "c661543372c7305825034d39442aaf2046e0afcce93707f6d2f75f5738582f7d"
+    },
+    {
+      "path": "VoxImporter/vox-importer-meshLibrary.gd",
+      "sha256": "834ec50881d30ad85ee02af38f602d2f2bbc347c3e6b522d247ffbb199408050"
+    },
+    {
+      "path": "VoxImporter/vox-importer-meshLibrary.gd.uid",
+      "sha256": "8f1f11e971e763a4bc8e0bbfc149d71baf50cea2bac41b29ee152cb6d1e38d17"
+    },
+    {
+      "path": "VoxImporter/vox-importer-scene.gd",
+      "sha256": "3363852ba7691e9227f03f4d6d75c7a3f041cfe8fef23888bb351567acff1718"
+    },
+    {
+      "path": "VoxImporter/vox-importer-scene.gd.uid",
+      "sha256": "4a134e7b49e8326a6badc20b1d924c58808e403df15bc8a72076d2ba95f904a3"
+    },
+    {
+      "path": "VoxImporter/VoxSceneBuilder.gd",
+      "sha256": "faa282355105dc27c54af30c652c70859754dafcb4128e2d6d2b6dfddb91e59e"
+    },
+    {
+      "path": "VoxImporter/VoxSceneBuilder.gd.uid",
+      "sha256": "118ef5359e4d5a6754552eec23ef7b85dab01dc692bea1b2aa80f511759f9190"
+    }
+  ]
+}

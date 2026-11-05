@@ -1,0 +1,787 @@
+{
+  "source": {
+    "source": "poke_o.png",
+    "size": [
+      640,
+      640
+    ],
+    "sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6"
+  },
+  "families": [
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_FallenLog",
+      "kind": "log",
+      "size": [
+        14,
+        32,
+        14
+      ],
+      "crop": [
+        286,
+        141,
+        320,
+        162
+      ],
+      "bark": [
+        93,
+        77,
+        49
+      ],
+      "wood": [
+        156,
+        127,
+        82
+      ]
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_CutStump",
+      "kind": "stump",
+      "size": [
+        20,
+        20,
+        10
+      ],
+      "crop": [
+        276,
+        109,
+        301,
+        134
+      ],
+      "bark": [
+        91,
+        77,
+        53
+      ],
+      "wood": [
+        150,
+        126,
+        88
+      ]
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_SplinteredStump",
+      "kind": "broken",
+      "size": [
+        24,
+        24,
+        10
+      ],
+      "crop": [
+        225,
+        93,
+        251,
+        114
+      ],
+      "bark": [
+        110,
+        78,
+        41
+      ],
+      "wood": [
+        178,
+        139,
+        80
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_o/PokeO_FallenLog.vox",
+      "family": "PokeO_FallenLog",
+      "style": "Base",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4241,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        4241
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        13,
+        31,
+        12
+      ],
+      "sha256": "ac010398e9571d5c943da4b3b8aee2a9702369bc979a21d16922df7a8a63ea3f",
+      "palette_sha256": "dfb15da07750f09bbe74f2368d443e70092ea8fe1d83abd0c3f723d58936ef7a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_Cartoon.vox",
+      "family": "PokeO_FallenLog",
+      "style": "Cartoon",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        12,
+        31,
+        12
+      ],
+      "sha256": "7fc3d0c84ce25e15ea1f929a26879576b7486b52a7436b6c60adb84450f3bb66",
+      "palette_sha256": "dfb15da07750f09bbe74f2368d443e70092ea8fe1d83abd0c3f723d58936ef7a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_CratePalette.vox",
+      "family": "PokeO_FallenLog",
+      "style": "CratePalette",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4241,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        4241
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        13,
+        31,
+        12
+      ],
+      "sha256": "9f0e781c89285f7233ff808e3768e864af1f82a9772686bd5c9dfbf179818555",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_TwoColor.vox",
+      "family": "PokeO_FallenLog",
+      "style": "TwoColor",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4241,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        4241
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        13,
+        31,
+        12
+      ],
+      "sha256": "d601a63cfcc7dc431ed305107f83698b67b53c313c89b79368c46370db284a69",
+      "palette_sha256": "f6fe9d807462bf7ebdf2ecf1ffe7141d728514cc9b8f39e895259c9dd4fa680d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_Cartoon_TwoColor.vox",
+      "family": "PokeO_FallenLog",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        12,
+        31,
+        12
+      ],
+      "sha256": "36af720a7bad3aa737bb0e936ef6af4b378a20218f18e0bf032de8e9f40dd923",
+      "palette_sha256": "f6fe9d807462bf7ebdf2ecf1ffe7141d728514cc9b8f39e895259c9dd4fa680d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_CratePalette_TwoColor.vox",
+      "family": "PokeO_FallenLog",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4241,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        4241
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        13,
+        31,
+        12
+      ],
+      "sha256": "2c5f33a09bfe29c87d100fa884c1279b66bc7649d989d23f5a186379b5f30e0e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_FallenLog_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_FallenLog",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        14,
+        32,
+        14
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "228": "wood"
+      },
+      "components": [
+        4096
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        12,
+        31,
+        12
+      ],
+      "sha256": "b00102bad5ad8d842cda43dfd9cb342d4a1254794d8dfe5b0a2be580b3efe49c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump.vox",
+      "family": "PokeO_CutStump",
+      "style": "Base",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1378,
+      "colors": 6,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        1378
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        18,
+        9
+      ],
+      "sha256": "753c745b09e2e79b2a80e0e6376ffefdd43db8b60df18514ab82a6981069b267",
+      "palette_sha256": "6c95a0cf5f0c6b74ccf34a02672d9e7ad608bdc48646b1505f432b59833699b3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_Cartoon.vox",
+      "family": "PokeO_CutStump",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1404,
+      "colors": 4,
+      "groups": {
+        "1": "bark",
+        "2": "wood",
+        "3": "wood",
+        "4": "wood"
+      },
+      "components": [
+        1404
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        19,
+        9
+      ],
+      "sha256": "307f652f2fb0bc2c13a24f3ed4ecbbe89ef5ae15016b840dfa5d7abd00a07b7d",
+      "palette_sha256": "caa97822a9bed75b801ba38e2e2e91b19c2e40f196c27931a8d01cc9e36a3256",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_CratePalette.vox",
+      "family": "PokeO_CutStump",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1378,
+      "colors": 3,
+      "groups": {
+        "234": "bark",
+        "228": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1378
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        18,
+        9
+      ],
+      "sha256": "378fbc919b080d268907743c7ad403534fee1368be47d6510458ef27872524fe",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_TwoColor.vox",
+      "family": "PokeO_CutStump",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1378,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        1378
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        18,
+        9
+      ],
+      "sha256": "c10c89cc4ac019049c86e4e59f189df27ac3cb9a841c55ca78130d564ee741bc",
+      "palette_sha256": "23c01586aa9c003f4e49955ec9d2be1df6dfd8f323531286f8c00ff77bcb519d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_Cartoon_TwoColor.vox",
+      "family": "PokeO_CutStump",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1404,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        1404
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        19,
+        9
+      ],
+      "sha256": "a62724500f2cf2f545f76497e154b136f24ad75e04dcfb74b84e69b4334fbeb3",
+      "palette_sha256": "23c01586aa9c003f4e49955ec9d2be1df6dfd8f323531286f8c00ff77bcb519d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_CratePalette_TwoColor.vox",
+      "family": "PokeO_CutStump",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1378,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "236": "wood"
+      },
+      "components": [
+        1378
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        19,
+        18,
+        9
+      ],
+      "sha256": "350d3bed1cd317328f482c8d25db5805ee5d3a541072f951dc68f52d03169cc3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_CutStump_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_CutStump",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        20,
+        10
+      ],
+      "voxels": 1404,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "236": "wood"
+      },
+      "components": [
+        1404
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        19,
+        9
+      ],
+      "sha256": "2ffadec530c78750f68f8d2ef1cba7b08962e69ee54efde847b05b12badbe280",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "Base",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1098,
+      "colors": 6,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        1098
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        22,
+        8
+      ],
+      "sha256": "0a9ed71004f63a962835610f97a549b029fdd4703aaf6e34d69bd2a76f71567c",
+      "palette_sha256": "facd63a37ef78a4a0392b4526b3310ba86a82f84319a67d6cc726c06dc8db83f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_Cartoon.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1184,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "wood",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        1184
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        8
+      ],
+      "sha256": "99247a4a96dd4d07c5e555f0307bb0690c7120a92d1946b7e661db347ac3c15e",
+      "palette_sha256": "9cb15d3847ebc90c0c2d52e528f37d12eda0197faa12bcd724ba70a037f47bb7",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_CratePalette.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1098,
+      "colors": 4,
+      "groups": {
+        "179": "bark",
+        "234": "bark",
+        "228": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1098
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        22,
+        8
+      ],
+      "sha256": "d49a494e3df5af6ba9d6076d0aa9f8f0de888aa01132eba80b191bfec653fd1a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_TwoColor.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1098,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        1098
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        22,
+        8
+      ],
+      "sha256": "4dce0151da4e58f309963ae7c99660eae17e4338ff76c8ccd047e308650a8d15",
+      "palette_sha256": "44ed8e89d0285811a0e42cbb636331f5916ac599a1fd9bd4a420e7485cb7aaba",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_Cartoon_TwoColor.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1184,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        1184
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        8
+      ],
+      "sha256": "b6fdff6b772072f9cc922c829f2c7824795e7d1915e929314e72c8d1b4839b26",
+      "palette_sha256": "44ed8e89d0285811a0e42cbb636331f5916ac599a1fd9bd4a420e7485cb7aaba",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_CratePalette_TwoColor.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1098,
+      "colors": 2,
+      "groups": {
+        "179": "bark",
+        "236": "wood"
+      },
+      "components": [
+        1098
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        23,
+        22,
+        8
+      ],
+      "sha256": "fd946dfccebb56a3f3d45782be61e432bbf542e960fa58367d37cc12ba460387",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_o/PokeO_SplinteredStump_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeO_SplinteredStump",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        10
+      ],
+      "voxels": 1184,
+      "colors": 2,
+      "groups": {
+        "179": "bark",
+        "236": "wood"
+      },
+      "components": [
+        1184
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        8
+      ],
+      "sha256": "cd7f9456bdf8d759ee0329f3a52e1b5c47e1da7f8c36e456cf12622d8c058eaa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

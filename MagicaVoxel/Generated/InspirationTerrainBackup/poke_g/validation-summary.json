@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-27",
+  "models": 21,
+  "families": 3,
+  "source_image_sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Passed dimensions, bounds, connectivity, exact reference palette, symmetry, recolor coordinates and independent semantic two-color checks.",
+  "import_render": "All 21 models passed the current VCOM whole Mesh importer at 0.0625, preserving voxel counts and ground alignment.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per tree; four azimuths per Base and Cartoon.",
+    "findings": "Broad and tiered crowns and narrow sapling remain distinct. Matching recolor geometry, palette treatments and C4 symmetry remain readable.",
+    "limitations": "Source sprite interpretation; depth and unseen geometry inferred."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "0eeac4b249ac0cc79025c801e9c2f27b5c9033778df4918f13741a7fd8263e47",
+  "sculpt_sha256": "1203bce1e41990a9cf9568f3e6bcfea4893420744f7c1900f2db9f1b7d58d717",
+  "dependency_hashes": {
+    "output\\poke_g\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_g\\reference\\regions.json": "983978269d48ddc2cb6a6a0896e9eaf103b148b644c96977d2bb35c5cdc9689d",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeG_BroadCrown.vox": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30",
+    "PokeG_BroadCrown_Cartoon.vox": "57833d5a6a67723c0553d71d523e4013259a65b075849f00685df82a5aeaf928",
+    "PokeG_BroadCrown_CratePalette.vox": "aaa44ffa15be61403fb3b0533fd8e6fce3c1a08fbd7ad47704499591c18f12f1",
+    "PokeG_BroadCrown_TwoColor.vox": "d37eab9d24d1d865896d86e6b9e08bec6db683647cfe828d824dd08d1b882251",
+    "PokeG_BroadCrown_Cartoon_TwoColor.vox": "cb7772d74a4f512c868927aebe7d468582b70118949cff29e5260b51abbbaa05",
+    "PokeG_BroadCrown_CratePalette_TwoColor.vox": "4f19f3e5812768d1c8561ad9bf36aa9917b1c24435bdcad9742afbaab0c49632",
+    "PokeG_BroadCrown_Cartoon_CratePalette_TwoColor.vox": "a804eed81c1a217985c415aad5503817a313e3a5fe9c35f828511421460a92eb",
+    "PokeG_TieredCrown.vox": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a",
+    "PokeG_TieredCrown_Cartoon.vox": "c3e78d64e0772a8d9b5421b961a00b10763e3b62097dcbea9ea6b33ad8a29d70",
+    "PokeG_TieredCrown_CratePalette.vox": "308cb4e40d2f9fc93ca65cd02c4e7e9e46885ff030ab1c7c5fe6f2809e3c5dbc",
+    "PokeG_TieredCrown_TwoColor.vox": "c22830364c45bf7f5c147836746c7f3ed57cc3c0e2e4b9430067372bbfddbaea",
+    "PokeG_TieredCrown_Cartoon_TwoColor.vox": "8fa57303597e282f78c1c842815c26b18ee0f9d5a4cc593e17b856d3a6be339e",
+    "PokeG_TieredCrown_CratePalette_TwoColor.vox": "cf9dbb297d1de8c75493924308b7ce9fe6aac989bf1b08b657803eaf3aada7af",
+    "PokeG_TieredCrown_Cartoon_CratePalette_TwoColor.vox": "272f1568009dfd55720cbd3a891405d01fafa3c6b5b771339ba9c3692af60cef",
+    "PokeG_Sapling.vox": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368",
+    "PokeG_Sapling_Cartoon.vox": "135d68c637a9a53ca91fffee1156317b36c139f8c2f49b87bca728f205b0ed42",
+    "PokeG_Sapling_CratePalette.vox": "4a934b5c463b5cfa3d5879b5fdc94d6ca6e1983c24f8b9595023cdc39f3aea59",
+    "PokeG_Sapling_TwoColor.vox": "4d7431b75a0f087f589e2905981a318c404c95d7cf7968a2b4438638a7bbf8f9",
+    "PokeG_Sapling_Cartoon_TwoColor.vox": "86a3949d46332f4be8b9b3fc2e50051b04ca4d2b05e9a3f5f4b1f9cdb7b8f07c",
+    "PokeG_Sapling_CratePalette_TwoColor.vox": "ecf8f7f3b32767b072bf60985a5e043f5979aa299a2ab9968f9362634a2dfec3",
+    "PokeG_Sapling_Cartoon_CratePalette_TwoColor.vox": "5d18c4dc5a362a30c229b6c232acfd8dc9388158358694f13e91f13644218ede"
+  }
+}

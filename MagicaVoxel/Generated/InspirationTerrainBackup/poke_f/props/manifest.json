@@ -1,0 +1,502 @@
+{
+  "source": "poke_f.png",
+  "review": {
+    "source": "poke_f.png",
+    "reviewed": true,
+    "families": [
+      "PokeF_AntlerMonument",
+      "PokeF_GardenNoticeboard"
+    ],
+    "notes": "Antler-like monument on a pedestal and dark-framed garden noticeboard. The monument is a stylized interpretation of a small sprite, not a character replica.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_AntlerMonument",
+      "kind": "antler",
+      "crop": [
+        184,
+        301,
+        217,
+        352
+      ],
+      "size": [
+        28,
+        20,
+        40
+      ],
+      "tone": "slate"
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_GardenNoticeboard",
+      "kind": "board",
+      "crop": [
+        225,
+        489,
+        253,
+        515
+      ],
+      "size": [
+        24,
+        10,
+        24
+      ],
+      "tone": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "Base",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 3959,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "components": [
+        3959
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "2d94a92c570d5a81ed3d637ba9c469336d5d0189f37d9bec9fef3dcaf1cb60dd",
+      "palette_sha256": "528ad0a3f4777a5915cec524a4feed649f4a7e82ea98c85863488889b61d9068",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "Cartoon",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 4312,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        4312
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "7033d43eddd0a1967e2fb8d2c82455b60864e047951d799a9365651ec4454964",
+      "palette_sha256": "c6eefbf035863b49e1fbcf37d346648ca52ccc109832d5438b5971dcadad041c",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_CratePalette.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "CratePalette",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 3959,
+      "colors": 2,
+      "groups": {
+        "206": "stone",
+        "193": "stone"
+      },
+      "components": [
+        3959
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "af6dc475b9f401d575009f8afe0f1a55f12678db463bddcf12c13f2079459724",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_TwoColor.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "TwoColor",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 3959,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        3959
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "71104e6f55d150782905b6a6054bdce6687f4489a125d4bb93c0bff68ab10229",
+      "palette_sha256": "c6eefbf035863b49e1fbcf37d346648ca52ccc109832d5438b5971dcadad041c",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon_TwoColor.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 4312,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "components": [
+        4312
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "69f04ad559530a896f7fd813ad27bd858bda5a5bde61b9947949503ca9be92e2",
+      "palette_sha256": "c6eefbf035863b49e1fbcf37d346648ca52ccc109832d5438b5971dcadad041c",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_CratePalette_TwoColor.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 3959,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "components": [
+        3959
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "a441a7159fa5bb8e9989b5856eac73adf621f223d5a0a9a284cf89b892bb3f31",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeF_AntlerMonument",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        28,
+        20,
+        40
+      ],
+      "voxels": 4312,
+      "colors": 1,
+      "groups": {
+        "206": "stone"
+      },
+      "components": [
+        4312
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        25,
+        17,
+        39
+      ],
+      "sha256": "3a1e9e9f9036a63771407fdb1495ef380baadd2b07066d1a6d66809c59c38bae",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "Base",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "f0d707b721a2d1474eb60a386e310157060f9d8368e2c7c33e37913448cc161a",
+      "palette_sha256": "e826ceb42bab7a8607cb6af24c3bc7afaa0f8ff4ce5b5cc2cb93c1c601c4bb8a",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2646,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        2646
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "90b5bef9ffe672f180c5a160e59cb041de0eef8b6cd4b5ccd0b3fdd7c1b1bf82",
+      "palette_sha256": "7849b2cea9538a6ac95450a2d80b66f20b8255ca08f135f8cd1e4e94c8ce50cd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_CratePalette.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 3,
+      "groups": {
+        "193": "face",
+        "1": "frame",
+        "205": "ink"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "48025a03b6dd0d6a23fe719a87c46deb5fdaa4568f26220d30d0d6890d4df2c8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_TwoColor.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "0bb1f3c53ea5826f970fe017485370d5db201e5949bddc45a92e28797ec70fe6",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon_TwoColor.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2646,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        2646
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "ad424cf315833c00e6ec3664cb968a3381baa398bfc664a818fc27feb4649b6d",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_CratePalette_TwoColor.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2582,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        2582
+      ],
+      "occupied_min": [
+        2,
+        0,
+        0
+      ],
+      "occupied_max": [
+        21,
+        8,
+        22
+      ],
+      "sha256": "caaedf490e5f3f9096ed1f9e508534e51e95cbc7419616f786c53be0092524c0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeF_GardenNoticeboard",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        10,
+        24
+      ],
+      "voxels": 2646,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        2646
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        8,
+        22
+      ],
+      "sha256": "2e4483b02577977a70f60374f70a53bac278ada855f5de507dd8943854659cf9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

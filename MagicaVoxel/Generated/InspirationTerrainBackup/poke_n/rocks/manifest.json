@@ -1,0 +1,467 @@
+{
+  "source": "poke_n.png",
+  "families": [
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_OchreBankBoulder",
+      "shape": "boulder",
+      "size": [
+        24,
+        20,
+        22
+      ],
+      "crop": [
+        465,
+        379,
+        497,
+        416
+      ],
+      "color": "tan",
+      "scale": 1,
+      "note": "Warm ochre boulder east of the path, with a broad pale facet.",
+      "seed": 36
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_OchreRiverBoulder",
+      "shape": "boulder",
+      "size": [
+        24,
+        20,
+        18
+      ],
+      "crop": [
+        222,
+        620,
+        252,
+        650
+      ],
+      "color": "tan",
+      "scale": 1,
+      "note": "Lower rounded partly submerged river boulder. Whole underside inferred; no water included.",
+      "seed": 37
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "Base",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6343,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        19,
+        21
+      ],
+      "sha256": "4e9587622c3cfb97ea066b42f7665273172a375b0d0a54c2c9d90d0b77706a7a",
+      "palette_sha256": "55b3088bd6d955fcc0f2cd6a160d5d0af0f63e7455ba142fb34da6c4b84796c8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_Cartoon.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6176,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        21
+      ],
+      "sha256": "8d109c419c00ade24f65a937162d7e6a209516fc929a385367926955cc361651",
+      "palette_sha256": "abaa7140a89ddb64aefe54c0a72efba623e94e54cc0d6eef42de0d395154e242",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_CratePalette.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6343,
+      "colors": 3,
+      "groups": {
+        "227": "stone",
+        "235": "stone",
+        "236": "stone"
+      },
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        19,
+        21
+      ],
+      "sha256": "edaa76fb9877c8cb06d46030e00469f06a34919fb669ccc9a7575e234d73419c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_TwoColor.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6343,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        19,
+        21
+      ],
+      "sha256": "0e438b41b3982c15dddb1083c40ec15779141e0c355886a3d1ab71795c982a91",
+      "palette_sha256": "326072d35805d233a94ccfbe3135dcf8a7522178aaacab8fc0ad5b5d64fdc8a1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6176,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        21
+      ],
+      "sha256": "59d213a78d996d479c4ca3a0a169edd346cafaa6465486c923aa5ba6032d7645",
+      "palette_sha256": "326072d35805d233a94ccfbe3135dcf8a7522178aaacab8fc0ad5b5d64fdc8a1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6343,
+      "colors": 1,
+      "groups": {
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        22,
+        19,
+        21
+      ],
+      "sha256": "03815f2a66e18ba3da0bc2c9fa7d7b75f63d24f25d37ab118b6c0732a3b55782",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreBankBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_OchreBankBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        22
+      ],
+      "voxels": 6176,
+      "colors": 1,
+      "groups": {
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        21
+      ],
+      "sha256": "0b68eef85b176d8a1709a2481ecc7a871fcad59874cd12e84dff4af2aa7f8a3c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "Base",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5004,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "2a5b2cec7c82ef5bf51d51084e7ea8464bb43668947072b1a81d718aa6d38f54",
+      "palette_sha256": "55b3088bd6d955fcc0f2cd6a160d5d0af0f63e7455ba142fb34da6c4b84796c8",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_Cartoon.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5012,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "dab80818a8274bad4419485201cef6450488f19a4d9f8aeeec71caa5fb32b458",
+      "palette_sha256": "abaa7140a89ddb64aefe54c0a72efba623e94e54cc0d6eef42de0d395154e242",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_CratePalette.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5004,
+      "colors": 3,
+      "groups": {
+        "227": "stone",
+        "235": "stone",
+        "236": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "7db7269fe290ebb8b9bba59872de22ebf11b1f9ad19701cedd323e263d6edc96",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_TwoColor.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5004,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "b0f1b01c64ba75e5df4c7d3f324898e24f1a3b06f6e9c65ff9cbd54e54bc08df",
+      "palette_sha256": "326072d35805d233a94ccfbe3135dcf8a7522178aaacab8fc0ad5b5d64fdc8a1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_Cartoon_TwoColor.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5012,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "7fde16c38994b37a4b62865d9b7de39817af9858ce71fc9c751d9580d16a5d19",
+      "palette_sha256": "326072d35805d233a94ccfbe3135dcf8a7522178aaacab8fc0ad5b5d64fdc8a1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_CratePalette_TwoColor.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5004,
+      "colors": 1,
+      "groups": {
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "f1fcf7dfd58d5f6cd8f9a8c4639d587d22a67d706428a82be5f923c624809ab8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    },
+    {
+      "file": "output/poke_n/PokeN_OchreRiverBoulder_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_OchreRiverBoulder",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        18
+      ],
+      "voxels": 5012,
+      "colors": 1,
+      "groups": {
+        "235": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        17
+      ],
+      "sha256": "6827417816bd6502e73926e83a670d5b52f5b47db3031dc27bd9fcc6db0c81fa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y"
+    }
+  ]
+}

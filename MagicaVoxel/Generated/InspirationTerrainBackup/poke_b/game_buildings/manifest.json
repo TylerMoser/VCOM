@@ -1,0 +1,7983 @@
+{
+ "source_image": "poke_b.png",
+ "source_sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7",
+ "generator_sha256": "c399fedb1187f82a9afcde9a6bfdc54a9bd12253be9300bd9c24ed91dd169c17",
+ "dependencies": {
+  "sculpt.py": "936617d479e432b41a534a79582eb6db8b7aa9d405bee23155c8a80c5ad178ed",
+  "palettes.py": "eb9c10a026b29b7ea0ce58d07eb77cf504dbc6e4eacbb940e1800128d261f320",
+  "voxlib.py": "e86a6b925bae34e221a811636112f19719d9304efe60659eb4e83799c1652b29"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+ "minimal_palette_sha256": {
+  "DomeLab": "a8700511944068c0cec064d277d5d8a4f4ab70820235a15e9033321eca8bdda7",
+  "RedClinic": "2bb86f5670e9c27f4bf4d2b73613775297c695d45418f602c14145f51c13ff45",
+  "GrayEntryHouse": "aa01a4bbb11e89bbe245971489e6fbb7846fd94fdd4976161bb598cc61a2b6c4",
+  "GrayWindowHouse": "7f7380425540b15ae6aa5a3fe123fe660039805a104f8f166d8974e374a3c164",
+  "CyanEntryHouse": "bbd1cc72ef41fba72823e41a2202a21cfbdbf7594471e25de0f3ed3192bdb540",
+  "FlowerCottage": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "beside": "ChatGPT's poke_b buildings (PokeB_DomeLab and the rest, output/poke_b/buildings/) are kept as they were: these are the game-ready redo, named PokeB_Game..., the user's choice to keep both.",
+ "command": "python output/poke_b/game_buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeB_GameDomeLab",
+   "kind": "DomeLab",
+   "title": "Domed lab",
+   "drawn": "The large building at the top left: two storeys under a flat red roof inside a parapet with a raised middle, a dome with a glazed band, fluted corner pilasters, a glass door under a sign.",
+   "source_regions_xyxy_exclusive": [
+    [
+     222,
+     244,
+     356,
+     404
+    ]
+   ],
+   "canvas_xyz": [
+    128,
+    80,
+    192
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ],
+    [
+     6,
+     0
+    ],
+    [
+     6,
+     1
+    ],
+    [
+     6,
+     2
+    ],
+    [
+     6,
+     3
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     3,
+     0,
+     1
+    ],
+    [
+     "ey",
+     3,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       5,
+       1
+      ],
+      [
+       5,
+       2
+      ],
+      [
+       5,
+       3
+      ],
+      [
+       6,
+       0
+      ],
+      [
+       6,
+       1
+      ],
+      [
+       6,
+       2
+      ],
+      [
+       6,
+       3
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    },
+    {
+     "stand_level": 5,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       5,
+       1
+      ],
+      [
+       5,
+       2
+      ],
+      [
+       5,
+       3
+      ],
+      [
+       6,
+       0
+      ],
+      [
+       6,
+       1
+      ],
+      [
+       6,
+       2
+      ],
+      [
+       6,
+       3
+      ]
+     ],
+     "entered_by": "closed off (no way up drawn)",
+     "cut_away_from": 8
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "lab_cream",
+     "lab_cream_dark",
+     "lab_cream_light",
+     "lab_cream_mid",
+     "lab_dome",
+     "lab_dome_shade",
+     "lab_emblem_light",
+     "lab_frame",
+     "lab_wall",
+     "lab_wall_shade",
+     "lab_white",
+     "tiles",
+     "tiles_line"
+    ],
+    "dark": [
+     "found",
+     "found_dark",
+     "lab_black",
+     "lab_brown",
+     "lab_emblem"
+    ],
+    "glass": [
+     "glass_lab"
+    ],
+    "red": [
+     "lab_ring",
+     "lab_roof",
+     "lab_roof_dark"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     228,
+     217,
+     209
+    ],
+    "dark": [
+     114,
+     84,
+     65
+    ],
+    "glass": [
+     158,
+     194,
+     226
+    ],
+    "red": [
+     231,
+     124,
+     109
+    ]
+   },
+   "folded_groups": {
+    "wood": "dark"
+   },
+   "crate_group_indices": {
+    "light": 238,
+    "dark": 234,
+    "glass": 253,
+    "red": 222
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "lab_cream": 238,
+    "lab_cream_dark": 236,
+    "lab_cream_light": 238,
+    "lab_cream_mid": 237,
+    "lab_dome": 196,
+    "lab_dome_shade": 238,
+    "lab_emblem_light": 196,
+    "lab_frame": 194,
+    "lab_wall": 196,
+    "lab_wall_shade": 195,
+    "lab_white": 196,
+    "tiles": 195,
+    "tiles_line": 194,
+    "found": 206,
+    "found_dark": 205,
+    "lab_black": 204,
+    "lab_brown": 234,
+    "lab_emblem": 193,
+    "glass_lab": 253,
+    "lab_ring": 221,
+    "lab_roof": 222,
+    "lab_roof_dark": 221
+   }
+  },
+  {
+   "asset_id": "PokeB_GameRedClinic",
+   "kind": "RedClinic",
+   "title": "Red clinic",
+   "drawn": "The red-roofed building at the top middle: a white parapet, a skylight, dark corner pillars, a red portico over the door with a roundel on it, a sign, a tank and a dark teal window.",
+   "source_regions_xyxy_exclusive": [
+    [
+     410,
+     288,
+     528,
+     400
+    ]
+   ],
+   "canvas_xyz": [
+    112,
+    80,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     0,
+     1
+    ],
+    [
+     "ey",
+     2,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       5,
+       1
+      ],
+      [
+       5,
+       2
+      ],
+      [
+       5,
+       3
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 5
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "cl_trim",
+     "cl_trim_dark",
+     "cl_wall",
+     "cl_wall_dark",
+     "cl_wall_mid",
+     "cl_white",
+     "tiles",
+     "tiles_line"
+    ],
+    "dark": [
+     "cl_frame",
+     "cl_frame_dark",
+     "cl_green_dark",
+     "cl_pillar",
+     "cl_pillar_dark",
+     "cl_pillar_mid",
+     "found",
+     "found_dark",
+     "m_handle"
+    ],
+    "red": [
+     "cl_red",
+     "cl_red_dark",
+     "cl_red_deep",
+     "cl_red_light",
+     "cl_red_mid",
+     "cl_red_shadow"
+    ],
+    "glass": [
+     "glass_clinic",
+     "glass_sky",
+     "glass_teal"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     194,
+     205,
+     199
+    ],
+    "dark": [
+     81,
+     89,
+     94
+    ],
+    "red": [
+     219,
+     94,
+     57
+    ],
+    "glass": [
+     130,
+     192,
+     214
+    ]
+   },
+   "folded_groups": {
+    "wood": "dark"
+   },
+   "crate_group_indices": {
+    "light": 195,
+    "dark": 205,
+    "red": 221,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "cl_trim": 195,
+    "cl_trim_dark": 193,
+    "cl_wall": 195,
+    "cl_wall_dark": 193,
+    "cl_wall_mid": 194,
+    "cl_white": 196,
+    "tiles": 195,
+    "tiles_line": 194,
+    "cl_frame": 204,
+    "cl_frame_dark": 204,
+    "cl_green_dark": 206,
+    "cl_pillar": 205,
+    "cl_pillar_dark": 205,
+    "cl_pillar_mid": 206,
+    "found": 206,
+    "found_dark": 205,
+    "m_handle": 229,
+    "cl_red": 221,
+    "cl_red_dark": 221,
+    "cl_red_deep": 220,
+    "cl_red_light": 222,
+    "cl_red_mid": 221,
+    "cl_red_shadow": 179,
+    "glass_clinic": 253,
+    "glass_sky": 253,
+    "glass_teal": 253
+   }
+  },
+  {
+   "asset_id": "PokeB_GameGrayEntryHouse",
+   "kind": "GrayEntryHouse",
+   "title": "Gray mansard house with a door",
+   "drawn": "The middle house: a grey mansard storey with two dormers and a chimney over tan boards on a stone base; a door up a stair, a window, a shallow bay.",
+   "source_regions_xyxy_exclusive": [
+    [
+     282,
+     464,
+     372,
+     580
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    80,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     1,
+     2
+    ],
+    [
+     "ey",
+     2,
+     1,
+     3
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 2,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "climb",
+     "cut_away_from": 4
+    },
+    {
+     "stand_level": 5,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "closed off (no way up drawn)",
+     "cut_away_from": 7
+    }
+   ],
+   "stair_tiles": {
+    "2,0": 2
+   },
+   "labels_by_group": {
+    "wood": [
+     "a_board",
+     "a_board_light",
+     "a_board_line",
+     "a_board_shade",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "m_handle",
+     "sh",
+     "sh_dark",
+     "sh_edge",
+     "sh_light",
+     "sh_mid"
+    ],
+    "light": [
+     "ceiling",
+     "m_cheek",
+     "m_cheek_mid",
+     "m_flue_top",
+     "m_light",
+     "m_pale",
+     "m_riser",
+     "m_tread",
+     "m_white"
+    ],
+    "stone": [
+     "found",
+     "found_dark",
+     "m_black",
+     "m_door",
+     "m_door_dark",
+     "m_door_light",
+     "m_dormer_frame",
+     "m_riser_dark",
+     "m_roof_line",
+     "m_stone",
+     "m_stone_dark",
+     "m_stone_deep",
+     "m_stone_light",
+     "m_stone_mid"
+    ],
+    "glass": [
+     "glass_house"
+    ],
+    "grey": [
+     "m_cheek_grey",
+     "m_flue",
+     "m_flue_shade",
+     "m_flue_side",
+     "m_roof",
+     "m_roof_black",
+     "m_roof_dark",
+     "m_roof_mid",
+     "m_roof_shade"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     204,
+     141,
+     92
+    ],
+    "light": [
+     206,
+     221,
+     227
+    ],
+    "stone": [
+     109,
+     137,
+     159
+    ],
+    "glass": [
+     132,
+     176,
+     220
+    ],
+    "grey": [
+     156,
+     152,
+     143
+    ]
+   },
+   "folded_groups": {
+    "dark": "stone"
+   },
+   "crate_group_indices": {
+    "wood": 236,
+    "light": 195,
+    "stone": 206,
+    "glass": 253,
+    "grey": 193
+   },
+   "crate_label_indices": {
+    "a_board": 236,
+    "a_board_light": 236,
+    "a_board_line": 234,
+    "a_board_shade": 235,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "m_handle": 229,
+    "sh": 179,
+    "sh_dark": 234,
+    "sh_edge": 233,
+    "sh_light": 235,
+    "sh_mid": 235,
+    "ceiling": 195,
+    "m_cheek": 195,
+    "m_cheek_mid": 195,
+    "m_flue_top": 195,
+    "m_light": 195,
+    "m_pale": 194,
+    "m_riser": 193,
+    "m_tread": 195,
+    "m_white": 196,
+    "found": 206,
+    "found_dark": 205,
+    "m_black": 201,
+    "m_door": 193,
+    "m_door_dark": 206,
+    "m_door_light": 194,
+    "m_dormer_frame": 252,
+    "m_riser_dark": 206,
+    "m_roof_line": 205,
+    "m_stone": 193,
+    "m_stone_dark": 206,
+    "m_stone_deep": 206,
+    "m_stone_light": 194,
+    "m_stone_mid": 206,
+    "glass_house": 253,
+    "m_cheek_grey": 206,
+    "m_flue": 206,
+    "m_flue_shade": 206,
+    "m_flue_side": 193,
+    "m_roof": 193,
+    "m_roof_black": 205,
+    "m_roof_dark": 206,
+    "m_roof_mid": 193,
+    "m_roof_shade": 206
+   }
+  },
+  {
+   "asset_id": "PokeB_GameGrayWindowHouse",
+   "kind": "GrayWindowHouse",
+   "title": "Gray mansard house with three windows",
+   "drawn": "The house to its right: the same mansard storey over brown boards with three windows and two shutters, no door on its front.",
+   "source_regions_xyxy_exclusive": [
+    [
+     394,
+     464,
+     484,
+     566
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    64,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ]
+   ],
+   "doors": [],
+   "storeys": [
+    {
+     "stand_level": 2,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "entered_by": "climb",
+     "cut_away_from": 4
+    },
+    {
+     "stand_level": 5,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "entered_by": "closed off (no way up drawn)",
+     "cut_away_from": 7
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "wood": [
+     "b_board",
+     "b_board_dark",
+     "b_board_light",
+     "b_board_line",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "sh",
+     "sh_dark",
+     "sh_edge",
+     "sh_light",
+     "sh_mid"
+    ],
+    "light": [
+     "ceiling",
+     "m_flue_top",
+     "m_light",
+     "m_pale",
+     "m_white"
+    ],
+    "stone": [
+     "found",
+     "found_dark",
+     "m_dormer_frame",
+     "m_roof_line",
+     "m_stone",
+     "m_stone_dark",
+     "m_stone_deep",
+     "m_stone_light",
+     "m_stone_mid"
+    ],
+    "glass": [
+     "glass_house"
+    ],
+    "grey": [
+     "m_cheek_grey",
+     "m_flue",
+     "m_flue_shade",
+     "m_flue_side",
+     "m_roof",
+     "m_roof_black",
+     "m_roof_dark",
+     "m_roof_mid",
+     "m_roof_shade"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     128,
+     96,
+     56
+    ],
+    "light": [
+     206,
+     221,
+     227
+    ],
+    "stone": [
+     109,
+     137,
+     159
+    ],
+    "glass": [
+     132,
+     176,
+     220
+    ],
+    "grey": [
+     156,
+     152,
+     143
+    ]
+   },
+   "folded_groups": {
+    "dark": "stone"
+   },
+   "crate_group_indices": {
+    "wood": 179,
+    "light": 195,
+    "stone": 206,
+    "glass": 253,
+    "grey": 193
+   },
+   "crate_label_indices": {
+    "b_board": 179,
+    "b_board_dark": 234,
+    "b_board_light": 235,
+    "b_board_line": 233,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "sh": 179,
+    "sh_dark": 234,
+    "sh_edge": 233,
+    "sh_light": 235,
+    "sh_mid": 235,
+    "ceiling": 195,
+    "m_flue_top": 195,
+    "m_light": 195,
+    "m_pale": 194,
+    "m_white": 196,
+    "found": 206,
+    "found_dark": 205,
+    "m_dormer_frame": 252,
+    "m_roof_line": 205,
+    "m_stone": 193,
+    "m_stone_dark": 206,
+    "m_stone_deep": 206,
+    "m_stone_light": 194,
+    "m_stone_mid": 206,
+    "glass_house": 253,
+    "m_cheek_grey": 206,
+    "m_flue": 206,
+    "m_flue_shade": 206,
+    "m_flue_side": 193,
+    "m_roof": 193,
+    "m_roof_black": 205,
+    "m_roof_dark": 206,
+    "m_roof_mid": 193,
+    "m_roof_shade": 206
+   }
+  },
+  {
+   "asset_id": "PokeB_GameCyanEntryHouse",
+   "kind": "CyanEntryHouse",
+   "title": "Cyan mansard house",
+   "drawn": "The house at the bottom left: the middle house again, its mansard teal, its boards brown, its door orange.",
+   "source_regions_xyxy_exclusive": [
+    [
+     188,
+     640,
+     276,
+     760
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    80,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     1,
+     2
+    ],
+    [
+     "ey",
+     2,
+     1,
+     3
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 2,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "climb",
+     "cut_away_from": 4
+    },
+    {
+     "stand_level": 5,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "closed off (no way up drawn)",
+     "cut_away_from": 7
+    }
+   ],
+   "stair_tiles": {
+    "2,0": 2
+   },
+   "labels_by_group": {
+    "wood": [
+     "b_board",
+     "b_board_light",
+     "b_board_line",
+     "cy_board",
+     "cy_door",
+     "cy_door_dark",
+     "cy_door_light",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "m_handle",
+     "sh",
+     "sh_dark",
+     "sh_edge",
+     "sh_light",
+     "sh_mid"
+    ],
+    "light": [
+     "ceiling",
+     "m_cheek",
+     "m_cheek_mid",
+     "m_flue_top",
+     "m_light",
+     "m_pale",
+     "m_riser",
+     "m_tread",
+     "m_white"
+    ],
+    "teal": [
+     "cy_roof",
+     "cy_roof_black",
+     "cy_roof_dark",
+     "cy_roof_mid",
+     "cy_roof_shade",
+     "m_cheek_grey",
+     "m_flue",
+     "m_flue_shade",
+     "m_flue_side"
+    ],
+    "stone": [
+     "found",
+     "found_dark",
+     "m_black",
+     "m_dormer_frame",
+     "m_riser_dark",
+     "m_stone",
+     "m_stone_dark",
+     "m_stone_deep",
+     "m_stone_light",
+     "m_stone_mid"
+    ],
+    "glass": [
+     "glass_house"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     144,
+     112,
+     72
+    ],
+    "light": [
+     206,
+     221,
+     227
+    ],
+    "teal": [
+     132,
+     192,
+     196
+    ],
+    "stone": [
+     109,
+     137,
+     159
+    ],
+    "glass": [
+     132,
+     176,
+     220
+    ]
+   },
+   "folded_groups": {
+    "grey": "teal",
+    "dark": "stone"
+   },
+   "crate_group_indices": {
+    "wood": 235,
+    "light": 195,
+    "teal": 254,
+    "stone": 206,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "b_board": 179,
+    "b_board_light": 235,
+    "b_board_line": 233,
+    "cy_board": 235,
+    "cy_door": 179,
+    "cy_door_dark": 179,
+    "cy_door_light": 228,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "m_handle": 229,
+    "sh": 179,
+    "sh_dark": 234,
+    "sh_edge": 233,
+    "sh_light": 235,
+    "sh_mid": 235,
+    "ceiling": 195,
+    "m_cheek": 195,
+    "m_cheek_mid": 195,
+    "m_flue_top": 195,
+    "m_light": 195,
+    "m_pale": 194,
+    "m_riser": 193,
+    "m_tread": 195,
+    "m_white": 196,
+    "cy_roof": 254,
+    "cy_roof_black": 206,
+    "cy_roof_dark": 252,
+    "cy_roof_mid": 252,
+    "cy_roof_shade": 252,
+    "m_cheek_grey": 206,
+    "m_flue": 206,
+    "m_flue_shade": 206,
+    "m_flue_side": 193,
+    "found": 206,
+    "found_dark": 205,
+    "m_black": 201,
+    "m_dormer_frame": 252,
+    "m_riser_dark": 206,
+    "m_stone": 193,
+    "m_stone_dark": 206,
+    "m_stone_deep": 206,
+    "m_stone_light": 194,
+    "m_stone_mid": 206,
+    "glass_house": 253
+   }
+  },
+  {
+   "asset_id": "PokeB_GameFlowerCottage",
+   "kind": "FlowerCottage",
+   "title": "Flower cottage",
+   "drawn": "The cottage at the bottom right: cream walls, a bell-cast roof with two roof lights, flower boxes under the upper windows, a hooded door and bay, an outside stair on its right.",
+   "source_regions_xyxy_exclusive": [
+    [
+     408,
+     636,
+     524,
+     742
+    ]
+   ],
+   "canvas_xyz": [
+    112,
+    64,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     0
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     0,
+     1
+    ],
+    [
+     "ey",
+     1,
+     0,
+     2
+    ],
+    [
+     "ex",
+     5,
+     2,
+     4
+    ],
+    [
+     "ex",
+     5,
+     2,
+     5
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 3
+    },
+    {
+     "stand_level": 4,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "entered_by": "stair",
+     "cut_away_from": 6
+    }
+   ],
+   "stair_tiles": {
+    "5,0": 2,
+    "5,1": 3,
+    "5,2": 4
+   },
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "co_band",
+     "co_brass",
+     "co_frame",
+     "co_frame_dark",
+     "co_landing",
+     "co_riser",
+     "co_tread",
+     "co_wall",
+     "co_wall_mid",
+     "co_white"
+    ],
+    "dark": [
+     "co_band_dark",
+     "co_box",
+     "co_box_dark",
+     "co_landing_dark",
+     "co_riser_dark",
+     "co_roof_black",
+     "co_sky_frame",
+     "co_sky_frame_dark",
+     "co_stringer_black",
+     "co_timber",
+     "co_timber_dark",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark"
+    ],
+    "teal": [
+     "co_door",
+     "co_door_dark",
+     "co_door_mid"
+    ],
+    "flower": [
+     "co_flower_orange",
+     "co_flower_pink",
+     "co_flower_yellow"
+    ],
+    "leaf": [
+     "co_leaf",
+     "co_leaf_dark"
+    ],
+    "red": [
+     "co_roof",
+     "co_roof_dark",
+     "co_roof_edge",
+     "co_roof_hi",
+     "co_roof_light",
+     "co_roof_mid",
+     "co_stringer",
+     "co_stringer_dark"
+    ],
+    "glass": [
+     "glass_cottage",
+     "glass_dark"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     230,
+     202,
+     140
+    ],
+    "dark": [
+     87,
+     73,
+     45
+    ],
+    "teal": [
+     74,
+     137,
+     126
+    ],
+    "flower": [
+     247,
+     115,
+     66
+    ],
+    "leaf": [
+     49,
+     156,
+     107
+    ],
+    "red": [
+     184,
+     84,
+     48
+    ],
+    "glass": [
+     128,
+     172,
+     216
+    ]
+   },
+   "folded_groups": {
+    "wood": "dark"
+   },
+   "crate_group_indices": {
+    "light": 237,
+    "dark": 178,
+    "teal": 206,
+    "flower": 222,
+    "leaf": 243,
+    "red": 221,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "co_band": 236,
+    "co_brass": 230,
+    "co_frame": 194,
+    "co_frame_dark": 193,
+    "co_landing": 193,
+    "co_riser": 235,
+    "co_tread": 237,
+    "co_wall": 237,
+    "co_wall_mid": 236,
+    "co_white": 196,
+    "co_band_dark": 234,
+    "co_box": 234,
+    "co_box_dark": 225,
+    "co_landing_dark": 206,
+    "co_riser_dark": 234,
+    "co_roof_black": 225,
+    "co_sky_frame": 193,
+    "co_sky_frame_dark": 206,
+    "co_stringer_black": 225,
+    "co_timber": 178,
+    "co_timber_dark": 225,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "co_door": 206,
+    "co_door_dark": 205,
+    "co_door_mid": 206,
+    "co_flower_orange": 222,
+    "co_flower_pink": 212,
+    "co_flower_yellow": 229,
+    "co_leaf": 243,
+    "co_leaf_dark": 243,
+    "co_roof": 221,
+    "co_roof_dark": 179,
+    "co_roof_edge": 178,
+    "co_roof_hi": 221,
+    "co_roof_light": 221,
+    "co_roof_mid": 179,
+    "co_stringer": 221,
+    "co_stringer_dark": 220,
+    "glass_cottage": 253,
+    "glass_dark": 253
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeB_GameDomeLab.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "Base",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    176
+   ],
+   "voxels": 361108,
+   "sha256": "66e59f20aac24aabb9e71cc5f8c3f22a6622433b26e398c2f06860efd9b54e56",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    6,
+    7,
+    8,
+    11,
+    12,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    131
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     206,
+     202,
+     192,
+     255
+    ],
+    [
+     168,
+     164,
+     156,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     223,
+     223,
+     223,
+     255
+    ],
+    [
+     193,
+     193,
+     193,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     228,
+     217,
+     209,
+     255
+    ],
+    [
+     217,
+     199,
+     187,
+     255
+    ],
+    [
+     206,
+     183,
+     168,
+     255
+    ],
+    [
+     188,
+     157,
+     137,
+     255
+    ],
+    [
+     114,
+     84,
+     65,
+     255
+    ],
+    [
+     40,
+     40,
+     40,
+     255
+    ],
+    [
+     231,
+     124,
+     109,
+     255
+    ],
+    [
+     226,
+     102,
+     84,
+     255
+    ],
+    [
+     216,
+     60,
+     37,
+     255
+    ],
+    [
+     239,
+     233,
+     228,
+     255
+    ],
+    [
+     223,
+     208,
+     198,
+     255
+    ],
+    [
+     122,
+     138,
+     182,
+     255
+    ],
+    [
+     228,
+     237,
+     255,
+     255
+    ],
+    [
+     158,
+     194,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "131": 0.7
+   },
+   "glass_voxels": 7184,
+   "geometry_source": "PokeB_GameDomeLab.vox",
+   "geometry_source_sha256": "66e59f20aac24aabb9e71cc5f8c3f22a6622433b26e398c2f06860efd9b54e56"
+  },
+  {
+   "file": "PokeB_GameDomeLab_Cartoon.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "Cartoon",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    183
+   ],
+   "voxels": 378461,
+   "sha256": "8bbf6de865594289d9dfbdded4735f125531bbce3bb34b0cd29a591c2ee9b2fc",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    6,
+    7,
+    8,
+    11,
+    12,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    28,
+    131
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     206,
+     202,
+     192,
+     255
+    ],
+    [
+     168,
+     164,
+     156,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     223,
+     223,
+     223,
+     255
+    ],
+    [
+     193,
+     193,
+     193,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     228,
+     217,
+     209,
+     255
+    ],
+    [
+     217,
+     199,
+     187,
+     255
+    ],
+    [
+     206,
+     183,
+     168,
+     255
+    ],
+    [
+     188,
+     157,
+     137,
+     255
+    ],
+    [
+     114,
+     84,
+     65,
+     255
+    ],
+    [
+     40,
+     40,
+     40,
+     255
+    ],
+    [
+     231,
+     124,
+     109,
+     255
+    ],
+    [
+     226,
+     102,
+     84,
+     255
+    ],
+    [
+     216,
+     60,
+     37,
+     255
+    ],
+    [
+     239,
+     233,
+     228,
+     255
+    ],
+    [
+     122,
+     138,
+     182,
+     255
+    ],
+    [
+     158,
+     194,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "131": 0.7
+   },
+   "glass_voxels": 6920,
+   "geometry_source": "PokeB_GameDomeLab_Cartoon.vox",
+   "geometry_source_sha256": "8bbf6de865594289d9dfbdded4735f125531bbce3bb34b0cd29a591c2ee9b2fc"
+  },
+  {
+   "file": "PokeB_GameDomeLab_CratePalette.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "CratePalette",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    176
+   ],
+   "voxels": 361108,
+   "sha256": "067085a6a4467923e4bbe08ecdda8f47bad7dda064263be316d7e902e1a0ea40",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    193,
+    194,
+    195,
+    196,
+    204,
+    205,
+    206,
+    221,
+    222,
+    234,
+    236,
+    237,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 7184,
+   "geometry_source": "PokeB_GameDomeLab.vox",
+   "geometry_source_sha256": "66e59f20aac24aabb9e71cc5f8c3f22a6622433b26e398c2f06860efd9b54e56"
+  },
+  {
+   "file": "PokeB_GameDomeLab_TwoColor.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "TwoColor",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    176
+   ],
+   "voxels": 361108,
+   "sha256": "1ec9b5e086c0a8bcd6d12ef180bda8957f5cbeffdf3b9daa8e37c1728d7f75c2",
+   "palette_sha256": "a8700511944068c0cec064d277d5d8a4f4ab70820235a15e9033321eca8bdda7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     228,
+     217,
+     209,
+     255
+    ],
+    [
+     231,
+     124,
+     109,
+     255
+    ],
+    [
+     114,
+     84,
+     65,
+     255
+    ],
+    [
+     158,
+     194,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 7184,
+   "geometry_source": "PokeB_GameDomeLab.vox",
+   "geometry_source_sha256": "66e59f20aac24aabb9e71cc5f8c3f22a6622433b26e398c2f06860efd9b54e56"
+  },
+  {
+   "file": "PokeB_GameDomeLab_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    183
+   ],
+   "voxels": 378461,
+   "sha256": "1b0f5488807c0da90107a55dad6a01760ad7eda4e1a0c68e328921f7cff7596d",
+   "palette_sha256": "a8700511944068c0cec064d277d5d8a4f4ab70820235a15e9033321eca8bdda7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     228,
+     217,
+     209,
+     255
+    ],
+    [
+     231,
+     124,
+     109,
+     255
+    ],
+    [
+     114,
+     84,
+     65,
+     255
+    ],
+    [
+     158,
+     194,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 6920,
+   "geometry_source": "PokeB_GameDomeLab_Cartoon.vox",
+   "geometry_source_sha256": "8bbf6de865594289d9dfbdded4735f125531bbce3bb34b0cd29a591c2ee9b2fc"
+  },
+  {
+   "file": "PokeB_GameDomeLab_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    176
+   ],
+   "voxels": 361108,
+   "sha256": "5407567262e7b8331037f55e576ab40b57dfd03aa73112bf343b7b74a9307508",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    222,
+    234,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 7184,
+   "geometry_source": "PokeB_GameDomeLab.vox",
+   "geometry_source_sha256": "66e59f20aac24aabb9e71cc5f8c3f22a6622433b26e398c2f06860efd9b54e56"
+  },
+  {
+   "file": "PokeB_GameDomeLab_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameDomeLab",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    128,
+    80,
+    192
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    123,
+    75,
+    183
+   ],
+   "voxels": 378461,
+   "sha256": "ce3254e20e7514a405f046bbcabf7973b190861da1189d3911b1002d6f24ed5c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    222,
+    234,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 6920,
+   "geometry_source": "PokeB_GameDomeLab_Cartoon.vox",
+   "geometry_source_sha256": "8bbf6de865594289d9dfbdded4735f125531bbce3bb34b0cd29a591c2ee9b2fc"
+  },
+  {
+   "file": "PokeB_GameRedClinic.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "Base",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    5,
+    0,
+    0
+   ],
+   "occupied_max": [
+    106,
+    74,
+    91
+   ],
+   "voxels": 218969,
+   "sha256": "2c40c55ad97dc9523c19cd909dbfc4bcd4840a5a2038cbf59fc2d1482e599668",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    6,
+    7,
+    8,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    75,
+    132,
+    133,
+    134
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     206,
+     202,
+     192,
+     255
+    ],
+    [
+     168,
+     164,
+     156,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     219,
+     94,
+     57,
+     255
+    ],
+    [
+     220,
+     103,
+     69,
+     255
+    ],
+    [
+     224,
+     117,
+     86,
+     255
+    ],
+    [
+     198,
+     72,
+     36,
+     255
+    ],
+    [
+     167,
+     62,
+     31,
+     255
+    ],
+    [
+     141,
+     52,
+     27,
+     255
+    ],
+    [
+     233,
+     237,
+     235,
+     255
+    ],
+    [
+     194,
+     205,
+     199,
+     255
+    ],
+    [
+     181,
+     193,
+     186,
+     255
+    ],
+    [
+     139,
+     160,
+     147,
+     255
+    ],
+    [
+     204,
+     201,
+     220,
+     255
+    ],
+    [
+     156,
+     155,
+     160,
+     255
+    ],
+    [
+     81,
+     89,
+     94,
+     255
+    ],
+    [
+     88,
+     98,
+     103,
+     255
+    ],
+    [
+     70,
+     77,
+     81,
+     255
+    ],
+    [
+     62,
+     56,
+     47,
+     255
+    ],
+    [
+     51,
+     46,
+     38,
+     255
+    ],
+    [
+     98,
+     119,
+     106,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     130,
+     192,
+     214,
+     255
+    ],
+    [
+     96,
+     150,
+     138,
+     255
+    ],
+    [
+     160,
+     196,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "132": 0.7,
+    "133": 0.5,
+    "134": 0.7
+   },
+   "glass_voxels": 1947,
+   "geometry_source": "PokeB_GameRedClinic.vox",
+   "geometry_source_sha256": "2c40c55ad97dc9523c19cd909dbfc4bcd4840a5a2038cbf59fc2d1482e599668"
+  },
+  {
+   "file": "PokeB_GameRedClinic_Cartoon.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "Cartoon",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    91
+   ],
+   "voxels": 230702,
+   "sha256": "9611156a01a2dadbe175c64596ec307b7f23875e9e9f871027d8e00d3d9e75ba",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    6,
+    7,
+    8,
+    30,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    40,
+    41,
+    42,
+    43,
+    45,
+    46,
+    47,
+    48,
+    75,
+    132,
+    133,
+    134
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     206,
+     202,
+     192,
+     255
+    ],
+    [
+     168,
+     164,
+     156,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     219,
+     94,
+     57,
+     255
+    ],
+    [
+     224,
+     117,
+     86,
+     255
+    ],
+    [
+     198,
+     72,
+     36,
+     255
+    ],
+    [
+     167,
+     62,
+     31,
+     255
+    ],
+    [
+     141,
+     52,
+     27,
+     255
+    ],
+    [
+     233,
+     237,
+     235,
+     255
+    ],
+    [
+     194,
+     205,
+     199,
+     255
+    ],
+    [
+     181,
+     193,
+     186,
+     255
+    ],
+    [
+     139,
+     160,
+     147,
+     255
+    ],
+    [
+     204,
+     201,
+     220,
+     255
+    ],
+    [
+     156,
+     155,
+     160,
+     255
+    ],
+    [
+     81,
+     89,
+     94,
+     255
+    ],
+    [
+     70,
+     77,
+     81,
+     255
+    ],
+    [
+     62,
+     56,
+     47,
+     255
+    ],
+    [
+     51,
+     46,
+     38,
+     255
+    ],
+    [
+     98,
+     119,
+     106,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     130,
+     192,
+     214,
+     255
+    ],
+    [
+     96,
+     150,
+     138,
+     255
+    ],
+    [
+     160,
+     196,
+     226,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "132": 0.7,
+    "133": 0.5,
+    "134": 0.7
+   },
+   "glass_voxels": 2035,
+   "geometry_source": "PokeB_GameRedClinic_Cartoon.vox",
+   "geometry_source_sha256": "9611156a01a2dadbe175c64596ec307b7f23875e9e9f871027d8e00d3d9e75ba"
+  },
+  {
+   "file": "PokeB_GameRedClinic_CratePalette.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "CratePalette",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    5,
+    0,
+    0
+   ],
+   "occupied_max": [
+    106,
+    74,
+    91
+   ],
+   "voxels": 218969,
+   "sha256": "39fd81e657674dd75facd05b148e6b7837fa58c9f8586e46069fed7821968117",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    179,
+    193,
+    194,
+    195,
+    196,
+    204,
+    205,
+    206,
+    220,
+    221,
+    222,
+    229,
+    253
+   ],
+   "used_rgba": [
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1947,
+   "geometry_source": "PokeB_GameRedClinic.vox",
+   "geometry_source_sha256": "2c40c55ad97dc9523c19cd909dbfc4bcd4840a5a2038cbf59fc2d1482e599668"
+  },
+  {
+   "file": "PokeB_GameRedClinic_TwoColor.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "TwoColor",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    5,
+    0,
+    0
+   ],
+   "occupied_max": [
+    106,
+    74,
+    91
+   ],
+   "voxels": 218969,
+   "sha256": "b36337a5a7a9b338f678caddf892520f176f6c3ba5868d73a77b876c96c56754",
+   "palette_sha256": "2bb86f5670e9c27f4bf4d2b73613775297c695d45418f602c14145f51c13ff45",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     194,
+     205,
+     199,
+     255
+    ],
+    [
+     219,
+     94,
+     57,
+     255
+    ],
+    [
+     81,
+     89,
+     94,
+     255
+    ],
+    [
+     130,
+     192,
+     214,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 1947,
+   "geometry_source": "PokeB_GameRedClinic.vox",
+   "geometry_source_sha256": "2c40c55ad97dc9523c19cd909dbfc4bcd4840a5a2038cbf59fc2d1482e599668"
+  },
+  {
+   "file": "PokeB_GameRedClinic_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    91
+   ],
+   "voxels": 230702,
+   "sha256": "834843bb284fc9e58c678a0f3995656d12f9c2f6169659f711487b8317cf41db",
+   "palette_sha256": "2bb86f5670e9c27f4bf4d2b73613775297c695d45418f602c14145f51c13ff45",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     194,
+     205,
+     199,
+     255
+    ],
+    [
+     219,
+     94,
+     57,
+     255
+    ],
+    [
+     81,
+     89,
+     94,
+     255
+    ],
+    [
+     130,
+     192,
+     214,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 2035,
+   "geometry_source": "PokeB_GameRedClinic_Cartoon.vox",
+   "geometry_source_sha256": "9611156a01a2dadbe175c64596ec307b7f23875e9e9f871027d8e00d3d9e75ba"
+  },
+  {
+   "file": "PokeB_GameRedClinic_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    5,
+    0,
+    0
+   ],
+   "occupied_max": [
+    106,
+    74,
+    91
+   ],
+   "voxels": 218969,
+   "sha256": "6ab122a4e4882278ad62f7d65f505385467bf85cdc04133687d766370ffbf7c3",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    205,
+    221,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1947,
+   "geometry_source": "PokeB_GameRedClinic.vox",
+   "geometry_source_sha256": "2c40c55ad97dc9523c19cd909dbfc4bcd4840a5a2038cbf59fc2d1482e599668"
+  },
+  {
+   "file": "PokeB_GameRedClinic_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameRedClinic",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    112
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    107,
+    75,
+    91
+   ],
+   "voxels": 230702,
+   "sha256": "b34167ed03f8a3bd1acc69bbcdcb22f538fd69bdc22122873cbdc3a6b8e933f0",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    205,
+    221,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2035,
+   "geometry_source": "PokeB_GameRedClinic_Cartoon.vox",
+   "geometry_source_sha256": "9611156a01a2dadbe175c64596ec307b7f23875e9e9f871027d8e00d3d9e75ba"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "Base",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "ab8da9c8d6a8825c66f68a5f5df12e813b4ffac1494a477c3ef0f7b4c42df829",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     191,
+     211,
+     219,
+     255
+    ],
+    [
+     173,
+     200,
+     209,
+     255
+    ],
+    [
+     196,
+     196,
+     215,
+     255
+    ],
+    [
+     147,
+     147,
+     149,
+     255
+    ],
+    [
+     112,
+     115,
+     137,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     139,
+     133,
+     123,
+     255
+    ],
+    [
+     130,
+     124,
+     114,
+     255
+    ],
+    [
+     106,
+     102,
+     93,
+     255
+    ],
+    [
+     88,
+     85,
+     78,
+     255
+    ],
+    [
+     65,
+     63,
+     65,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     11,
+     11,
+     11,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     204,
+     141,
+     92,
+     255
+    ],
+    [
+     222,
+     160,
+     111,
+     255
+    ],
+    [
+     168,
+     118,
+     81,
+     255
+    ],
+    [
+     137,
+     98,
+     69,
+     255
+    ],
+    [
+     152,
+     128,
+     88,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameGrayEntryHouse.vox",
+   "geometry_source_sha256": "ab8da9c8d6a8825c66f68a5f5df12e813b4ffac1494a477c3ef0f7b4c42df829"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_Cartoon.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "6c1059f39d079347fe1a6943a0d4cca210ffb98c891a488fbc75500f8b34a3cf",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    78,
+    79,
+    82,
+    83,
+    84,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     191,
+     211,
+     219,
+     255
+    ],
+    [
+     196,
+     196,
+     215,
+     255
+    ],
+    [
+     147,
+     147,
+     149,
+     255
+    ],
+    [
+     112,
+     115,
+     137,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     139,
+     133,
+     123,
+     255
+    ],
+    [
+     130,
+     124,
+     114,
+     255
+    ],
+    [
+     106,
+     102,
+     93,
+     255
+    ],
+    [
+     65,
+     63,
+     65,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     11,
+     11,
+     11,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     204,
+     141,
+     92,
+     255
+    ],
+    [
+     168,
+     118,
+     81,
+     255
+    ],
+    [
+     137,
+     98,
+     69,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameGrayEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "6c1059f39d079347fe1a6943a0d4cca210ffb98c891a488fbc75500f8b34a3cf"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_CratePalette.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "3c635e5b660244f7024b3ebe7a61b9af49ed5b37340b0a32508a4f9920ff8c89",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    195,
+    196,
+    201,
+    205,
+    206,
+    229,
+    233,
+    234,
+    235,
+    236,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     9,
+     10,
+     20,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameGrayEntryHouse.vox",
+   "geometry_source_sha256": "ab8da9c8d6a8825c66f68a5f5df12e813b4ffac1494a477c3ef0f7b4c42df829"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_TwoColor.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "6eb4b52df64146eada74a32da6588ae7e4990d7f26cb5ad25c13ca45c8505949",
+   "palette_sha256": "aa01a4bbb11e89bbe245971489e6fbb7846fd94fdd4976161bb598cc61a2b6c4",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     204,
+     141,
+     92,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameGrayEntryHouse.vox",
+   "geometry_source_sha256": "ab8da9c8d6a8825c66f68a5f5df12e813b4ffac1494a477c3ef0f7b4c42df829"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "a3affad4303cbd2b0e56e519ab22fc9f3c89415789f9a2870db1becf918bf4c2",
+   "palette_sha256": "aa01a4bbb11e89bbe245971489e6fbb7846fd94fdd4976161bb598cc61a2b6c4",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     204,
+     141,
+     92,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameGrayEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "6c1059f39d079347fe1a6943a0d4cca210ffb98c891a488fbc75500f8b34a3cf"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "56c8d56726fc3802066e23fac957e794337cacfc5787bed64126820941862132",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    193,
+    195,
+    206,
+    236,
+    253
+   ],
+   "used_rgba": [
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameGrayEntryHouse.vox",
+   "geometry_source_sha256": "ab8da9c8d6a8825c66f68a5f5df12e813b4ffac1494a477c3ef0f7b4c42df829"
+  },
+  {
+   "file": "PokeB_GameGrayEntryHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameGrayEntryHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "fb40548a62c197b3904ed5868f01c6193511b8d39e3e01d87887a8a77b31f61c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    193,
+    195,
+    206,
+    236,
+    253
+   ],
+   "used_rgba": [
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameGrayEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "6c1059f39d079347fe1a6943a0d4cca210ffb98c891a488fbc75500f8b34a3cf"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "Base",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    91,
+    59,
+    127
+   ],
+   "voxels": 222670,
+   "sha256": "fa2c71737ce41182861afb090659f0f3320d4d8f3bf372b3bdcc67a49f53dcdc",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    80,
+    81,
+    82,
+    83,
+    84,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     139,
+     133,
+     123,
+     255
+    ],
+    [
+     130,
+     124,
+     114,
+     255
+    ],
+    [
+     106,
+     102,
+     93,
+     255
+    ],
+    [
+     88,
+     85,
+     78,
+     255
+    ],
+    [
+     65,
+     63,
+     65,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     152,
+     128,
+     88,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 1896,
+   "geometry_source": "PokeB_GameGrayWindowHouse.vox",
+   "geometry_source_sha256": "fa2c71737ce41182861afb090659f0f3320d4d8f3bf372b3bdcc67a49f53dcdc"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_Cartoon.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    60,
+    127
+   ],
+   "voxels": 229437,
+   "sha256": "64c20a510e3b441b80fa58af7ab0c500976062bcced0b9c421c48cabe8bd078e",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    62,
+    63,
+    64,
+    65,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    82,
+    83,
+    84,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     139,
+     133,
+     123,
+     255
+    ],
+    [
+     130,
+     124,
+     114,
+     255
+    ],
+    [
+     106,
+     102,
+     93,
+     255
+    ],
+    [
+     65,
+     63,
+     65,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 2456,
+   "geometry_source": "PokeB_GameGrayWindowHouse_Cartoon.vox",
+   "geometry_source_sha256": "64c20a510e3b441b80fa58af7ab0c500976062bcced0b9c421c48cabe8bd078e"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_CratePalette.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    91,
+    59,
+    127
+   ],
+   "voxels": 222670,
+   "sha256": "f91e5467aa042042778b80dde7888fce684023a70272745f7877ec0abf73c97e",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    195,
+    196,
+    205,
+    206,
+    233,
+    234,
+    235,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1896,
+   "geometry_source": "PokeB_GameGrayWindowHouse.vox",
+   "geometry_source_sha256": "fa2c71737ce41182861afb090659f0f3320d4d8f3bf372b3bdcc67a49f53dcdc"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_TwoColor.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    91,
+    59,
+    127
+   ],
+   "voxels": 222670,
+   "sha256": "f88c29682c5e617ecbdfd2ffbeab2b5e946c0ef826038df021ee6e8f4e4aadb8",
+   "palette_sha256": "7f7380425540b15ae6aa5a3fe123fe660039805a104f8f166d8974e374a3c164",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1896,
+   "geometry_source": "PokeB_GameGrayWindowHouse.vox",
+   "geometry_source_sha256": "fa2c71737ce41182861afb090659f0f3320d4d8f3bf372b3bdcc67a49f53dcdc"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    60,
+    127
+   ],
+   "voxels": 229437,
+   "sha256": "986eda9ed0cc8af4006da7166e2389e9771eb89cee6eb3b792cbd91fdf7d8cdd",
+   "palette_sha256": "7f7380425540b15ae6aa5a3fe123fe660039805a104f8f166d8974e374a3c164",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     156,
+     152,
+     143,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 2456,
+   "geometry_source": "PokeB_GameGrayWindowHouse_Cartoon.vox",
+   "geometry_source_sha256": "64c20a510e3b441b80fa58af7ab0c500976062bcced0b9c421c48cabe8bd078e"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    91,
+    59,
+    127
+   ],
+   "voxels": 222670,
+   "sha256": "50f01151f20ee1a85d4818334da888c8cc27643f9f1f5b3eae8e29ef9ac260b0",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    179,
+    193,
+    195,
+    206,
+    253
+   ],
+   "used_rgba": [
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1896,
+   "geometry_source": "PokeB_GameGrayWindowHouse.vox",
+   "geometry_source_sha256": "fa2c71737ce41182861afb090659f0f3320d4d8f3bf372b3bdcc67a49f53dcdc"
+  },
+  {
+   "file": "PokeB_GameGrayWindowHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameGrayWindowHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    60,
+    127
+   ],
+   "voxels": 229437,
+   "sha256": "532039ca1d314826ee02231536db819db2b432d50b0ad9a88a9858f025abee2b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    179,
+    193,
+    195,
+    206,
+    253
+   ],
+   "used_rgba": [
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2456,
+   "geometry_source": "PokeB_GameGrayWindowHouse_Cartoon.vox",
+   "geometry_source_sha256": "64c20a510e3b441b80fa58af7ab0c500976062bcced0b9c421c48cabe8bd078e"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "Base",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "4ba17f4cba8de701f40de9209846d0dc9cc2956976783c78f7f8dc56025e12ef",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    59,
+    60,
+    61,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     191,
+     211,
+     219,
+     255
+    ],
+    [
+     173,
+     200,
+     209,
+     255
+    ],
+    [
+     196,
+     196,
+     215,
+     255
+    ],
+    [
+     147,
+     147,
+     149,
+     255
+    ],
+    [
+     112,
+     115,
+     137,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     11,
+     11,
+     11,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     152,
+     128,
+     88,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     192,
+     196,
+     255
+    ],
+    [
+     104,
+     179,
+     183,
+     255
+    ],
+    [
+     87,
+     170,
+     174,
+     255
+    ],
+    [
+     77,
+     157,
+     162,
+     255
+    ],
+    [
+     65,
+     134,
+     137,
+     255
+    ],
+    [
+     162,
+     85,
+     34,
+     255
+    ],
+    [
+     192,
+     102,
+     41,
+     255
+    ],
+    [
+     140,
+     74,
+     30,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameCyanEntryHouse.vox",
+   "geometry_source_sha256": "4ba17f4cba8de701f40de9209846d0dc9cc2956976783c78f7f8dc56025e12ef"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_Cartoon.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "30cd0cd8627ea95c0690f2fbd9fe10754d30497680fcdd59122eaaf4821c13b1",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    14,
+    15,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    59,
+    60,
+    61,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    90,
+    91,
+    135
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     176,
+     176,
+     178,
+     255
+    ],
+    [
+     224,
+     224,
+     242,
+     255
+    ],
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     141,
+     165,
+     184,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     109,
+     124,
+     141,
+     255
+    ],
+    [
+     85,
+     102,
+     121,
+     255
+    ],
+    [
+     89,
+     102,
+     117,
+     255
+    ],
+    [
+     191,
+     211,
+     219,
+     255
+    ],
+    [
+     196,
+     196,
+     215,
+     255
+    ],
+    [
+     147,
+     147,
+     149,
+     255
+    ],
+    [
+     112,
+     115,
+     137,
+     255
+    ],
+    [
+     112,
+     126,
+     131,
+     255
+    ],
+    [
+     201,
+     199,
+     201,
+     255
+    ],
+    [
+     113,
+     111,
+     113,
+     255
+    ],
+    [
+     141,
+     148,
+     141,
+     255
+    ],
+    [
+     109,
+     116,
+     109,
+     255
+    ],
+    [
+     56,
+     123,
+     175,
+     255
+    ],
+    [
+     11,
+     11,
+     11,
+     255
+    ],
+    [
+     193,
+     173,
+     72,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     128,
+     96,
+     56,
+     255
+    ],
+    [
+     112,
+     80,
+     48,
+     255
+    ],
+    [
+     80,
+     56,
+     32,
+     255
+    ],
+    [
+     132,
+     192,
+     196,
+     255
+    ],
+    [
+     104,
+     179,
+     183,
+     255
+    ],
+    [
+     87,
+     170,
+     174,
+     255
+    ],
+    [
+     77,
+     157,
+     162,
+     255
+    ],
+    [
+     162,
+     85,
+     34,
+     255
+    ],
+    [
+     192,
+     102,
+     41,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "135": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameCyanEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "30cd0cd8627ea95c0690f2fbd9fe10754d30497680fcdd59122eaaf4821c13b1"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_CratePalette.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "b270c300f2f66016a75645cc7a1e444d618265548f7f55624ccb4ea8a907f41b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    195,
+    196,
+    201,
+    205,
+    206,
+    228,
+    229,
+    233,
+    234,
+    235,
+    252,
+    253,
+    254
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     9,
+     10,
+     20,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     190,
+     119,
+     43,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ],
+    [
+     164,
+     221,
+     219,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameCyanEntryHouse.vox",
+   "geometry_source_sha256": "4ba17f4cba8de701f40de9209846d0dc9cc2956976783c78f7f8dc56025e12ef"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_TwoColor.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "996917918277fb4a174c60e719f13713e731de718652682e6b8bab96c3e80e95",
+   "palette_sha256": "bbd1cc72ef41fba72823e41a2202a21cfbdbf7594471e25de0f3ed3192bdb540",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     132,
+     192,
+     196,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameCyanEntryHouse.vox",
+   "geometry_source_sha256": "4ba17f4cba8de701f40de9209846d0dc9cc2956976783c78f7f8dc56025e12ef"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "67e1f101584abab084e8d84547934c93a2714c4d3c914d422378d1becccd2195",
+   "palette_sha256": "bbd1cc72ef41fba72823e41a2202a21cfbdbf7594471e25de0f3ed3192bdb540",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     206,
+     221,
+     227,
+     255
+    ],
+    [
+     109,
+     137,
+     159,
+     255
+    ],
+    [
+     132,
+     192,
+     196,
+     255
+    ],
+    [
+     144,
+     112,
+     72,
+     255
+    ],
+    [
+     132,
+     176,
+     220,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameCyanEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "30cd0cd8627ea95c0690f2fbd9fe10754d30497680fcdd59122eaaf4821c13b1"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    4,
+    0,
+    0
+   ],
+   "occupied_max": [
+    91,
+    75,
+    127
+   ],
+   "voxels": 237750,
+   "sha256": "7fa894d8087d8e5e44640a39984581721497f9c77698bb532f45ef476949c444",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    206,
+    235,
+    253,
+    254
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ],
+    [
+     164,
+     221,
+     219,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1368,
+   "geometry_source": "PokeB_GameCyanEntryHouse.vox",
+   "geometry_source_sha256": "4ba17f4cba8de701f40de9209846d0dc9cc2956976783c78f7f8dc56025e12ef"
+  },
+  {
+   "file": "PokeB_GameCyanEntryHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameCyanEntryHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    0,
+    0
+   ],
+   "occupied_max": [
+    92,
+    76,
+    127
+   ],
+   "voxels": 243989,
+   "sha256": "e8d156cf45650e0905ea036c836f6de63a549cb111fdb5e9c3809a0583054908",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    206,
+    235,
+    253,
+    254
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ],
+    [
+     164,
+     221,
+     219,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1716,
+   "geometry_source": "PokeB_GameCyanEntryHouse_Cartoon.vox",
+   "geometry_source_sha256": "30cd0cd8627ea95c0690f2fbd9fe10754d30497680fcdd59122eaaf4821c13b1"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "Base",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    104,
+    60,
+    120
+   ],
+   "voxels": 196583,
+   "sha256": "54ec8ce6eb2f6e24af4f6b1297eec34d881b2326a4a84d7ca30e516d3747b8a2",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    8,
+    93,
+    94,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120,
+    121,
+    122,
+    123,
+    125,
+    126,
+    127,
+    128,
+    129,
+    130,
+    136,
+    137
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     202,
+     163,
+     129,
+     255
+    ],
+    [
+     184,
+     155,
+     103,
+     255
+    ],
+    [
+     132,
+     107,
+     62,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     55,
+     49,
+     43,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     182,
+     182,
+     184,
+     255
+    ],
+    [
+     148,
+     148,
+     152,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     145,
+     65,
+     38,
+     255
+    ],
+    [
+     159,
+     72,
+     42,
+     255
+    ],
+    [
+     216,
+     105,
+     65,
+     255
+    ],
+    [
+     203,
+     96,
+     59,
+     255
+    ],
+    [
+     112,
+     50,
+     29,
+     255
+    ],
+    [
+     67,
+     31,
+     18,
+     255
+    ],
+    [
+     146,
+     164,
+     144,
+     255
+    ],
+    [
+     118,
+     130,
+     112,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     63,
+     116,
+     106,
+     255
+    ],
+    [
+     48,
+     80,
+     73,
+     255
+    ],
+    [
+     223,
+     188,
+     106,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     41,
+     132,
+     90,
+     255
+    ],
+    [
+     173,
+     74,
+     156,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     255,
+     156,
+     49,
+     255
+    ],
+    [
+     203,
+     180,
+     130,
+     255
+    ],
+    [
+     151,
+     125,
+     99,
+     255
+    ],
+    [
+     128,
+     104,
+     81,
+     255
+    ],
+    [
+     168,
+     75,
+     45,
+     255
+    ],
+    [
+     72,
+     33,
+     19,
+     255
+    ],
+    [
+     152,
+     152,
+     154,
+     255
+    ],
+    [
+     120,
+     120,
+     122,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ],
+    [
+     86,
+     92,
+     88,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "136": 0.7,
+    "137": 0.45
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage.vox",
+   "geometry_source_sha256": "54ec8ce6eb2f6e24af4f6b1297eec34d881b2326a4a84d7ca30e516d3747b8a2"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_Cartoon.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "Cartoon",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    105,
+    60,
+    124
+   ],
+   "voxels": 200746,
+   "sha256": "0d908126516869467b968b6f1a8b36581ad2254f58977ec2c765caef150b04eb",
+   "palette_sha256": "186e96ead51af81d7e99582741f742b4944f48144951384c53b4664a3b711161",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    8,
+    93,
+    97,
+    98,
+    99,
+    100,
+    101,
+    103,
+    104,
+    105,
+    106,
+    108,
+    109,
+    110,
+    112,
+    113,
+    115,
+    116,
+    117,
+    118,
+    120,
+    121,
+    123,
+    125,
+    126,
+    127,
+    129,
+    130,
+    136,
+    137
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     155,
+     103,
+     255
+    ],
+    [
+     132,
+     107,
+     62,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     55,
+     49,
+     43,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     148,
+     148,
+     152,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     145,
+     65,
+     38,
+     255
+    ],
+    [
+     159,
+     72,
+     42,
+     255
+    ],
+    [
+     203,
+     96,
+     59,
+     255
+    ],
+    [
+     112,
+     50,
+     29,
+     255
+    ],
+    [
+     67,
+     31,
+     18,
+     255
+    ],
+    [
+     118,
+     130,
+     112,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     48,
+     80,
+     73,
+     255
+    ],
+    [
+     223,
+     188,
+     106,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     173,
+     74,
+     156,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     203,
+     180,
+     130,
+     255
+    ],
+    [
+     151,
+     125,
+     99,
+     255
+    ],
+    [
+     128,
+     104,
+     81,
+     255
+    ],
+    [
+     168,
+     75,
+     45,
+     255
+    ],
+    [
+     152,
+     152,
+     154,
+     255
+    ],
+    [
+     120,
+     120,
+     122,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ],
+    [
+     86,
+     92,
+     88,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "136": 0.7,
+    "137": 0.45
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage_Cartoon.vox",
+   "geometry_source_sha256": "0d908126516869467b968b6f1a8b36581ad2254f58977ec2c765caef150b04eb"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_CratePalette.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "CratePalette",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    104,
+    60,
+    120
+   ],
+   "voxels": 196583,
+   "sha256": "b49b901d6df55ed765c05b04c22b430029f923b5f1b249fbaea480da15dd1e45",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    193,
+    194,
+    195,
+    196,
+    205,
+    206,
+    212,
+    220,
+    221,
+    222,
+    225,
+    229,
+    230,
+    234,
+    235,
+    236,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     162,
+     62,
+     140,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     52,
+     28,
+     39,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage.vox",
+   "geometry_source_sha256": "54ec8ce6eb2f6e24af4f6b1297eec34d881b2326a4a84d7ca30e516d3747b8a2"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_TwoColor.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "TwoColor",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    104,
+    60,
+    120
+   ],
+   "voxels": 196583,
+   "sha256": "050a61c3c050ee1c75d01640e2fa437adaf154b82200a1c7f1e4c6de74cdf016",
+   "palette_sha256": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "used_rgba": [
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "7": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage.vox",
+   "geometry_source_sha256": "54ec8ce6eb2f6e24af4f6b1297eec34d881b2326a4a84d7ca30e516d3747b8a2"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_Cartoon_TwoColor.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    105,
+    60,
+    124
+   ],
+   "voxels": 200746,
+   "sha256": "834a1511f6a6fa31eb5a5b5a8b3a0072db1472c2ce461d33d7e4724c219de7cf",
+   "palette_sha256": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "used_rgba": [
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "7": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage_Cartoon.vox",
+   "geometry_source_sha256": "0d908126516869467b968b6f1a8b36581ad2254f58977ec2c765caef150b04eb"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    104,
+    60,
+    120
+   ],
+   "voxels": 196583,
+   "sha256": "b8dab44ab46ee6de70d663f182dce1dad99057458abc2542e44ee2a2e25e17d2",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    206,
+    221,
+    222,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage.vox",
+   "geometry_source_sha256": "54ec8ce6eb2f6e24af4f6b1297eec34d881b2326a4a84d7ca30e516d3747b8a2"
+  },
+  {
+   "file": "PokeB_GameFlowerCottage_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeB_GameFlowerCottage",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    112,
+    64,
+    128
+   ],
+   "occupied_min": [
+    3,
+    1,
+    0
+   ],
+   "occupied_max": [
+    105,
+    60,
+    124
+   ],
+   "voxels": 200746,
+   "sha256": "3a37172c89bc375296ce10f31679d11ebafcda33958ed58cdba7d7488e665bc4",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    206,
+    221,
+    222,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeB_GameFlowerCottage_Cartoon.vox",
+   "geometry_source_sha256": "0d908126516869467b968b6f1a8b36581ad2254f58977ec2c765caef150b04eb"
+  }
+ ]
+}

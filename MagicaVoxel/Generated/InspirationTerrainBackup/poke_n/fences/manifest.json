@@ -1,0 +1,263 @@
+{
+  "source": {
+    "source": "poke_n.png",
+    "size": [
+      638,
+      766
+    ],
+    "sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954"
+  },
+  "families": [
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_WhitePicket",
+      "kind": "picket",
+      "crop": [
+        346,
+        252,
+        410,
+        274
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        199,
+        211,
+        208
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_n/PokeN_WhitePicket.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "2495b3b49832a746c0cff79f07ee869d0461ca54d0453bc2c405c98acea280d1",
+      "palette_sha256": "743931d089980ae2663cf2e579b06cd69861229d26ba5e255e43f78bff1e6fd1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_Cartoon.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "42e558669c18c6fec4f45b5d5196887690a6209a04202bf5eeae60f304c1e287",
+      "palette_sha256": "e6bde64d598b251c6498526b6ce3af705736ac86f50e9da32ec28c715047d40d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_CratePalette.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 3,
+      "groups": {
+        "194": "wood",
+        "195": "wood",
+        "196": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "b8c41b51b2f32d48200afc7901fda92fd20b88dbaf6671e6ba9ac893406925db",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_TwoColor.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "3c6f9afa49ab7ab48a418d4d07a4ab9c2ebb24a5449175a87764546f5aa07b41",
+      "palette_sha256": "e6bde64d598b251c6498526b6ce3af705736ac86f50e9da32ec28c715047d40d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_Cartoon_TwoColor.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "ea827091860711f072d0373850146005c7259d4ebfc2ab19fe4af00bd7f51972",
+      "palette_sha256": "e6bde64d598b251c6498526b6ce3af705736ac86f50e9da32ec28c715047d40d",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_CratePalette_TwoColor.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 1,
+      "groups": {
+        "195": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "9357b54132e74248e2e7021cc74cbdffbef43e203c2498007bbb052eb537d7fd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_WhitePicket_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_WhitePicket",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1824,
+      "colors": 1,
+      "groups": {
+        "195": "wood"
+      },
+      "components": [
+        1824
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "2a759d5a75d5ab40ec4de8903a9aff277230cbf79cae09cff9cbdebc880d0414",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

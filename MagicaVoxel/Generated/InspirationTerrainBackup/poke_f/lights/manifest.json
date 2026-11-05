@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_f.png",
+    "name": "PokeF_TwinGlobeStreetlight",
+    "shape": "twin",
+    "size": [
+      32,
+      12,
+      48
+    ],
+    "crop": [
+      207,
+      235,
+      242,
+      291
+    ],
+    "scale": 1,
+    "metal": [
+      142,
+      137,
+      128
+    ],
+    "light": [
+      222,
+      245,
+      243
+    ],
+    "power": 2,
+    "note": "Paired low-domed lamps on rising Y arms and one ringed pedestal. Two heads in one complete file."
+  },
+  "models": [
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Base",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "f18cdd91869def095f8b620fbcf1d39a2c2f5d9c7d4560a2bd7494c7c30ca4d7",
+      "palette_sha256": "0f926c54225e9dd096f4364b1b91f1166a80661d8db70d9cd9593ee7cf134335",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "d88d2e7dd7fb90a8ca7d317bc9bf3a5d9664c4e95e70f51fc1fd35ae02d50ca7",
+      "palette_sha256": "0f926c54225e9dd096f4364b1b91f1166a80661d8db70d9cd9593ee7cf134335",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_CratePalette.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure",
+        "206": "structure",
+        "194": "structure"
+      },
+      "colors": 4,
+      "sha256": "2f7a938b8476da2bb39ae4367a4edbb3a5c58d2f75b39f3944ec313cc0dbb71b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "c2ceeb3c7bb75d877c77313eb95fa32da4a205129375669eb3cab3961b28d93a",
+      "palette_sha256": "4688ba209d9b60f49e9d04760bca2c9e40539c9d01aa3827b0df3a8c49c63524",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "0dc29b1c387d26759094203b29c2285e4a06cb30437b0be35b5342bf5f4daec0",
+      "palette_sha256": "4688ba209d9b60f49e9d04760bca2c9e40539c9d01aa3827b0df3a8c49c63524",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "dab06704b3d6d2452e28ec8a73cb07a318678e21ed0c9b781dbcb28d2bad0ab0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "b33b46a64848e5e2a0da2948f67891b8f2dcb2a5ed72a3069af1bef1e9b49707",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    }
+  ]
+}

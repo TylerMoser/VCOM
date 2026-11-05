@@ -1,0 +1,395 @@
+## Alternates the player's turn and the enemies' turn.
+##
+## The player's turn ends once every squad member has spent all their
+## actions, or early by holding Shift for [member end_turn_hold_time]
+## seconds. Enemies then act one at a time, the camera bringing each into
+## view before it acts, keeping it there as it walks, and showing both ends of
+## each of its shots, as XCOM 2's does: it moves only for an enemy, a walk or a
+## shot not in view already ([method CameraRig.bring_into_view],
+## [method CameraRig.follow], [method _show_shot]). A turn that opens with a
+## shot is brought into view by framing the shot, in one move. An enemy is
+## seen before it acts, wherever it walks or steps out to shoot from, and so is
+## the squad member it shoots at, and the one selected as the player's turn
+## starts: the floor changed to show any hidden with what is cut away or lost
+## inside a house ([method CombatGrid.show_floor_of]).
+##
+## What an enemy does is up to its [member Unit.ai]. The turn manager asks it
+## for one [AIAction] at a time and carries each out, charging what the squad
+## would pay: an action per [member Unit.move_range] tiles walked, one per
+## shot. Enemies walk through [Reactions], which gives squad members on
+## overwatch their chance to fire at them on the way, and the camera is
+## handed back from any reaction view once each enemy's turn is over.
+##
+## The battle is decided the moment one side is gone, whoever's turn it is:
+## won when the last enemy dies, lost when the last squad member does. The
+## turns stop, "Victory" or "Defeat" is announced, and either way the game
+## goes back to the world map the battle was started from (see
+## [method Campaign.end_battle]). Whoever of the squad still stands earns
+## their experience then, and whatever gold their skills find, called over
+## their heads ([method PlayerSquad.award_survivors]), and a win
+## earns the party [member victory_gold] and every coin still lying on the map
+## ([method Coins.sweep]). The side left standing cheers while the banner is
+## up. A battle opened on its own stays open, over.
+##
+##   End turn - hold Shift, or View on the gamepad. Letting go, or pressing
+##              any other key or button, cancels.
+class_name TurnManager
+extends Node
+
+enum Side { PLAYER, ENEMY }
+enum Outcome { UNDECIDED, WON, LOST }
+
+signal turn_started(side: Side)
+## Progress of the end-turn hold, from 0 to 1. 0 also means not holding.
+signal end_turn_hold_changed(progress: float)
+
+@export var enemy_group := &"enemies"
+@export var end_turn_hold_time := 1.0
+## Gold the party earns for winning the battle.
+@export var victory_gold := 10
+
+@export_group("Enemy pacing")
+@export var seconds_per_enemy_step := 0.2
+## Pause after the camera arrives on an enemy and after each of its actions.
+@export var enemy_action_pause := 0.35
+## How long an enemy's sight line hangs there before its shot goes off, so
+## the player can see where the fire is coming from.
+@export var enemy_aim_seconds := 0.45
+
+@export_group("Nodes")
+@export var squad_path: NodePath = ^"../PlayerSquad"
+@export var controller_path: NodePath = ^"../ActionController"
+@export var grid_path: NodePath = ^"../CombatGrid"
+@export var camera_rig_path: NodePath = ^"../CameraRig"
+@export var banner_path: NodePath = ^"../HUD/TurnBanner"
+@export var overlay_path: NodePath = ^"../HUD/ShotOverlay"
+@export var reactions_path: NodePath = ^"../Reactions"
+@export var coins_path: NodePath = ^"../Coins"
+
+var side := Side.PLAYER
+## How the battle went, once one side is gone. No turn starts or ends after
+## it is decided.
+var outcome := Outcome.UNDECIDED
+
+var _squad: PlayerSquad
+var _controller: ActionController
+var _grid: CombatGrid
+var _camera_rig: CameraRig
+var _banner: TurnBanner
+var _reactions: Reactions
+var _coins: Coins
+var _enemy_fire: ShotPlayback
+var _overlay: ShotOverlay
+
+var _hold := 0.0
+## Set when another key is pressed during a hold, so Shift+Tab and the like
+## never end the turn. Cleared once Shift is released.
+var _hold_spoiled := false
+
+
+func _ready() -> void:
+	_squad = get_node_or_null(squad_path) as PlayerSquad
+	_controller = get_node_or_null(controller_path) as ActionController
+	_grid = get_node_or_null(grid_path) as CombatGrid
+	_camera_rig = get_node_or_null(camera_rig_path) as CameraRig
+	_banner = get_node_or_null(banner_path) as TurnBanner
+	# The overlay only draws enemy fire and calls gold found, so a scene
+	# without one still plays.
+	_overlay = get_node_or_null(overlay_path) as ShotOverlay
+	if _overlay == null:
+		push_error("TurnManager: no ShotOverlay at '%s'." % overlay_path)
+	# Without reactions, enemies simply walk and the squad cannot answer.
+	_reactions = get_node_or_null(reactions_path) as Reactions
+	if _reactions == null:
+		push_error("TurnManager: no Reactions at '%s'." % reactions_path)
+	# Without coins, a win pays only the victory's gold.
+	_coins = get_node_or_null(coins_path) as Coins
+	if _coins == null:
+		push_error("TurnManager: no Coins at '%s'." % coins_path)
+	if _squad == null or _controller == null or _grid == null or _camera_rig == null or _banner == null:
+		push_error("TurnManager: missing a node it depends on.")
+		set_process(false)
+		return
+
+	_enemy_fire = ShotPlayback.new(_grid, _overlay)
+	_enemy_fire.step_out_seconds = seconds_per_enemy_step
+	_enemy_fire.aim_seconds = enemy_aim_seconds
+
+	_controller.changed.connect(_on_controller_changed)
+	_squad.found_gold.connect(_on_gold_found)
+	for node in get_tree().get_nodes_in_group(enemy_group):
+		var enemy := node as Unit
+		if enemy != null:
+			enemy.died.connect(_on_unit_died)
+	for member in _squad.members:
+		member.died.connect(_on_unit_died)
+	# Let the HUD finish setting up before the first banner.
+	_start_player_turn.call_deferred(false)
+
+
+## A battle is on while the turn manager is in the tree, so the pause menu
+## holds equipment still (see [member Campaign.in_mission]).
+func _enter_tree() -> void:
+	Campaign.in_mission = true
+
+
+func _exit_tree() -> void:
+	Campaign.in_mission = false
+
+
+func _input(event: InputEvent) -> void:
+	# Any other key or gamepad button pressed during the hold spoils it.
+	var pressed := (event is InputEventKey or event is InputEventJoypadButton) and event.is_pressed()
+	if pressed and not event.is_echo() and not event.is_action(&"end_turn"):
+		if Input.is_action_pressed(&"end_turn"):
+			_hold_spoiled = true
+
+
+func _process(delta: float) -> void:
+	if not Input.is_action_pressed(&"end_turn"):
+		_hold_spoiled = false
+	var holding := (
+		side == Side.PLAYER
+		and not is_over()
+		and Input.is_action_pressed(&"end_turn")
+		and not _hold_spoiled
+		and not _controller.busy
+	)
+	_set_hold(_hold + delta if holding else 0.0)
+	if _hold >= end_turn_hold_time:
+		end_player_turn()
+
+
+## Ends the player's turn and plays out the enemies' turn.
+func end_player_turn() -> void:
+	if side != Side.PLAYER or _controller.busy or is_over():
+		return
+	side = Side.ENEMY
+	_set_hold(0.0)
+	_controller.enabled = false
+	turn_started.emit(side)
+
+	await _banner.announce("Enemy Turn")
+	for node in get_tree().get_nodes_in_group(enemy_group):
+		var enemy := node as Unit
+		if enemy != null:
+			await _take_enemy_turn(enemy)
+			if _reactions != null:
+				_reactions.release_view()
+		# A reaction may have finished the last enemy, or a shot the last of
+		# the squad.
+		if is_over():
+			return
+	_start_player_turn(true)
+
+
+func _start_player_turn(focus_camera: bool) -> void:
+	side = Side.PLAYER
+	for unit in _squad.members:
+		unit.start_turn()
+	if _squad.selected != null:
+		# The squad member the turn starts on is seen, inside a house or not.
+		_show_floor_of([_squad.selected.global_position])
+	if focus_camera and _squad.selected != null:
+		_camera_rig.focus_on(_squad.selected.global_position)
+	_controller.enabled = true
+	turn_started.emit(side)
+	_banner.announce("Player Turn")
+
+
+## Plays out [param enemy]'s turn: asks its AI what to do with each action
+## and carries it out, until it is out of actions, its AI ends the turn, or a
+## reaction finishes it.
+func _take_enemy_turn(enemy: Unit) -> void:
+	enemy.start_turn()
+	if enemy.ai == null:
+		push_warning("TurnManager: '%s' has no ai, so it sits its turn out." % enemy.name)
+		return
+	# Its first action is chosen before the camera moves, so a turn that opens
+	# with a shot is shown by framing the shot, which has the enemy in it: one
+	# camera move, where bringing the enemy into view and then framing its shot
+	# would send the camera toward the enemy and then off to the shot. Nothing
+	# the AI reads changes while the camera moves, so choosing early changes
+	# nothing it does.
+	var action := _next_action(enemy)
+	var opens_with_shot := action != null and action.kind == AIAction.Kind.SHOOT
+	# An enemy acting is seen before the camera comes to it: on the floor it is
+	# on, if it is hidden with what is cut away or inside a house.
+	if action != null and action.kind != AIAction.Kind.END_TURN:
+		_show_floor_of([enemy.global_position])
+	if not opens_with_shot:
+		await _bring_into_view(enemy)
+		await get_tree().create_timer(enemy_action_pause, false).timeout
+
+	while action != null and action.kind != AIAction.Kind.END_TURN:
+		if action.kind == AIAction.Kind.MOVE:
+			await _move_enemy(enemy, action.path)
+			# A reaction on the way may have finished it, and the node with it.
+			if not is_instance_valid(enemy) or enemy.health <= 0:
+				return
+		elif action.kind == AIAction.Kind.RELOAD:
+			_show_floor_of([enemy.global_position])
+			enemy.spend_actions(enemy.reload_cost())
+			await enemy.reload()
+			await enemy.recover()
+		else:
+			enemy.spend_actions(ShootAction.COST)
+			# The enemy, where it steps out to shoot from, and the squad member it
+			# shoots at, all at once, so a floor showing one never hides another:
+			# before the camera frames them.
+			_grid.show_shot(enemy, action.shot)
+			var framed: bool = await _show_shot(enemy, action.shot)
+			if opens_with_shot:
+				# The pause any enemy gets once the camera arrives on it.
+				opens_with_shot = false
+				await get_tree().create_timer(enemy_action_pause, false).timeout
+			await _enemy_fire.play(enemy, action.shot, action.estimate)
+			if framed:
+				_camera_rig.release_frame(false)
+		await get_tree().create_timer(enemy_action_pause, false).timeout
+		action = _next_action(enemy)
+
+
+## What [param enemy]'s AI does next, or null once it has no action left or the
+## battle is decided.
+func _next_action(enemy: Unit) -> AIAction:
+	if enemy.actions_remaining <= 0 or is_over():
+		return null
+	return enemy.ai.choose_action(Tactics.new(enemy, _grid, _squad.members))
+
+
+## Walks [param enemy] along [param path], through [Reactions] so the squad
+## can answer. It pays what the squad would: an action per
+## [member Unit.move_range] tiles, and at least one, so an AI that asks for
+## nothing still spends the action and the turn always runs out. A path
+## longer than the enemy has actions for is cut short.
+func _move_enemy(enemy: Unit, path: Array[Vector3i]) -> void:
+	var walked := path.slice(0, enemy.actions_remaining * enemy.move_range)
+	enemy.spend_actions(maxi(ceili(float(walked.size()) / enemy.move_range), 1))
+	if walked.is_empty():
+		return
+
+	var points: Array[Vector3] = []
+	for tile in walked:
+		points.append(_grid.tile_position(tile))
+	# Where it stands and every tile it walks are shown before it sets off, so
+	# it is never lost from sight on the way, as far as one floor can show them.
+	var seen: Array[Vector3] = [enemy.global_position]
+	seen.append_array(points)
+	_show_floor_of(seen)
+	var vaults := _grid.vaults_along(_grid.tile_at(enemy.global_position), walked)
+	# The camera stays put if the whole walk is in view, and follows it if
+	# not, unless a reaction view is holding it.
+	_camera_rig.follow(enemy, points)
+	if _reactions != null:
+		await _reactions.walk(enemy, points, seconds_per_enemy_step, vaults)
+	else:
+		await enemy.walk(points, seconds_per_enemy_step, false, vaults)
+	_camera_rig.stop_following()
+
+
+## Changes the floor, if it must, for units standing at [param feet] to be
+## seen: none hidden with what is cut away, none lost inside a house that a
+## floor would show ([method CombatGrid.show_floor_of]).
+func _show_floor_of(feet: Array[Vector3]) -> void:
+	_grid.show_floor_of(feet)
+
+
+## Has the camera bring [param unit] into view, as XCOM 2's does before a unit
+## acts, and returns once it is in view: inside the framing margins, though the
+## camera may still be gliding the rest of the way. A unit in view already, or
+## in the view the camera is settling on, is not moved to. The player taking
+## the camera back mid-glide ends the wait as well.
+func _bring_into_view(unit: Unit) -> void:
+	_camera_rig.bring_into_view(unit)
+	while is_instance_valid(unit) and _camera_rig.is_gliding() and not _camera_rig.has_in_view(unit):
+		await get_tree().process_frame
+
+
+## Has the camera show [param shooter] taking [param shot], as XCOM 2 frames an
+## enemy's shot (its X2Camera_Midpoint): the shooter, where it steps out to,
+## and the target, where it stands and where it is seen leaning out, all in
+## view. The camera stays put if the view it is settling on holds them all;
+## otherwise it frames them at its usual pitch, no nearer than the player's
+## zoom, and this returns once they are in view. Returns whether it framed
+## them, for the frame to be let go once the shot is over.
+func _show_shot(shooter: Unit, shot: LineOfSight.Shot) -> bool:
+	var feet: Array[Vector3] = [
+		shooter.global_position,
+		_grid.tile_position(shot.from),
+		shot.target.global_position,
+		_grid.tile_position(shot.seen_at),
+	]
+	var points: Array[Vector3] = []
+	for at in feet:
+		points.append_array(CameraRig.standing(at))
+	var framed := not _camera_rig.will_be_in_view(points)
+	if framed:
+		_camera_rig.frame(points, _camera_rig.view_pitch, false)
+	while _camera_rig.is_gliding() and not _camera_rig.is_in_view(points):
+		await get_tree().process_frame
+	return framed
+
+
+## Whether the battle has been decided, one way or the other.
+func is_over() -> bool:
+	return outcome != Outcome.UNDECIDED
+
+
+func _on_unit_died() -> void:
+	# A dying unit leaves its groups, and the squad, only after it has said
+	# so, so count who is left once it has.
+	_end_if_decided.call_deferred()
+
+
+## Ends the battle once either side is gone: stops the turns, announces how
+## it went, then goes back to the world map the battle was started from.
+func _end_if_decided() -> void:
+	if is_over():
+		return
+	if get_tree().get_nodes_in_group(enemy_group).is_empty():
+		outcome = Outcome.WON
+	elif _squad.members.is_empty():
+		outcome = Outcome.LOST
+	else:
+		return
+	_squad.award_survivors()
+	if outcome == Outcome.WON:
+		Campaign.gold += victory_gold
+		if _coins != null:
+			_coins.sweep()
+	for node in get_tree().get_nodes_in_group(&"players" if outcome == Outcome.WON else enemy_group):
+		var winner := node as Unit
+		if winner != null:
+			winner.celebrate()
+	_set_hold(0.0)
+	_controller.enabled = false
+	await _banner.announce("Victory" if outcome == Outcome.WON else "Defeat")
+	Campaign.end_battle()
+
+
+## Calls the gold a survivor's skills found over its head, as a coin it had
+## picked up would be.
+func _on_gold_found(unit: Unit, gold: int) -> void:
+	if _overlay != null:
+		_overlay.flash_pickup(_grid.cell_center(LineOfSight.eye_cell(_grid.tile_at(unit.global_position))), "+%d Gold" % gold)
+
+
+func _on_controller_changed() -> void:
+	if side != Side.PLAYER or _controller.busy:
+		return
+	# With nobody left to give orders to, nothing ends the turn either, so
+	# the loop stops here rather than spinning through empty turns.
+	if _squad.members.is_empty():
+		return
+	for unit in _squad.members:
+		if unit.actions_remaining > 0:
+			return
+	end_player_turn.call_deferred()
+
+
+func _set_hold(seconds: float) -> void:
+	if is_equal_approx(seconds, _hold):
+		return
+	_hold = seconds
+	end_turn_hold_changed.emit(clampf(_hold / end_turn_hold_time, 0.0, 1.0))

@@ -1,0 +1,363 @@
+{
+  "source_review": {
+    "source": "poke_m.png",
+    "sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+    "reviewed": true,
+    "decision": "New complete crossings authored from the visible source.",
+    "new_families": [
+      "PokeM_DiagonalDeckBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_DiagonalDeckBridge",
+      "kind": "wood",
+      "size": [
+        80,
+        48,
+        40
+      ],
+      "crop": [
+        350,
+        686,
+        435,
+        742
+      ],
+      "deck": 24,
+      "tile_pixels": 16,
+      "rail": "none",
+      "diagonal": true,
+      "bolts": true,
+      "wood": [
+        191,
+        149,
+        64
+      ],
+      "note": "Gold diagonal-board deck, timber border and four light metal L-corner plates. Hidden beams/short bank supports inferred; no rail added.",
+      "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "crate_mapping": {
+        "1": 229,
+        "2": 180,
+        "3": 229,
+        "4": 228,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          191,
+          149,
+          64,
+          255
+        ],
+        [
+          147,
+          115,
+          49,
+          255
+        ],
+        [
+          220,
+          171,
+          74,
+          255
+        ],
+        [
+          172,
+          134,
+          58,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge.vox",
+      "source": "poke_m.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 19296,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "4e72df17707a62c620bab5cd231f8f794f60ba8b74cd024db3c9d577465b1148",
+      "geometry_source": "PokeM_DiagonalDeckBridge",
+      "geometry_sha256": "6b7dee1404fb28663c4c0cf07f009bb977139ee0d38226563f15ba428c3f0d3c"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_Cartoon.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 20648,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "12e80a516e5f0802806d1c4d066eb10bb51337c3a716728c3133cd0bcd060201",
+      "geometry_source": "PokeM_DiagonalDeckBridge_Cartoon",
+      "geometry_sha256": "80282b326f4a1249c2c7d25d2cbfab59e9ab258fa15a9123c24a9fbbe2720af6"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_CratePalette.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 19296,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "42a607710198b1f34ccbe8140888926f626218b8d1d4ba9b0ad2b6673d4033b7",
+      "geometry_source": "PokeM_DiagonalDeckBridge",
+      "geometry_sha256": "6b7dee1404fb28663c4c0cf07f009bb977139ee0d38226563f15ba428c3f0d3c"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 19296,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "8c3aca0700d8ff774eb4f2144df5814c557707f1374df8da4b65a69444888b36",
+      "geometry_source": "PokeM_DiagonalDeckBridge",
+      "geometry_sha256": "6b7dee1404fb28663c4c0cf07f009bb977139ee0d38226563f15ba428c3f0d3c"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_Cartoon_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 20648,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "0b100f85fdd4b6236b406aa557a23ad683d5f3f1ffd50acdf495f7fee5ac2fc9",
+      "geometry_source": "PokeM_DiagonalDeckBridge_Cartoon",
+      "geometry_sha256": "80282b326f4a1249c2c7d25d2cbfab59e9ab258fa15a9123c24a9fbbe2720af6"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 19296,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "249e056f9b42c21d40c55899c777e202d80ca478ee4d173caebb0c5d0a18a4fa",
+      "geometry_source": "PokeM_DiagonalDeckBridge",
+      "geometry_sha256": "6b7dee1404fb28663c4c0cf07f009bb977139ee0d38226563f15ba428c3f0d3c"
+    },
+    {
+      "family": "PokeM_DiagonalDeckBridge",
+      "file": "output/poke_m/PokeM_DiagonalDeckBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        48,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 20648,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        79,
+        45,
+        25
+      ],
+      "sha256": "ecbb7adad2290990deb8077dd8f28d40020c4a936ee0106a90800a2abcdeebde",
+      "geometry_source": "PokeM_DiagonalDeckBridge_Cartoon",
+      "geometry_sha256": "80282b326f4a1249c2c7d25d2cbfab59e9ab258fa15a9123c24a9fbbe2720af6"
+    }
+  ]
+}

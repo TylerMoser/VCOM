@@ -1,0 +1,371 @@
+{
+  "source_review": {
+    "source": "poke_s.jpg",
+    "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+    "reviewed": true,
+    "decision": "Eastern river bridge included; western pale walkway/edging is garden masonry already covered by ruins/fences.",
+    "new_families": [
+      "PokeS_IvyStoneBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_IvyStoneBridge",
+      "kind": "stone",
+      "size": [
+        112,
+        48,
+        80
+      ],
+      "crop": [
+        580,
+        335,
+        657,
+        385
+      ],
+      "deck": 48,
+      "tile_pixels": 10,
+      "rail": "stone",
+      "bays": [
+        0,
+        112
+      ],
+      "stone": [
+        190,
+        194,
+        173
+      ],
+      "paving": [
+        190,
+        194,
+        173
+      ],
+      "ivy": true,
+      "note": "Eastern pale garden bridge over water: slab paving, single open arch, solid coping and ivy. Other pale linear details are garden walls/edging, already covered.",
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 180,
+        "2": 234,
+        "3": 235,
+        "4": 179,
+        "5": 194,
+        "6": 193,
+        "7": 195,
+        "8": 194,
+        "9": 194,
+        "10": 193,
+        "11": 195,
+        "12": 194,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          150,
+          109,
+          65,
+          255
+        ],
+        [
+          116,
+          84,
+          50,
+          255
+        ],
+        [
+          172,
+          125,
+          75,
+          255
+        ],
+        [
+          135,
+          98,
+          58,
+          255
+        ],
+        [
+          190,
+          194,
+          173,
+          255
+        ],
+        [
+          146,
+          149,
+          133,
+          255
+        ],
+        [
+          218,
+          223,
+          199,
+          255
+        ],
+        [
+          171,
+          175,
+          156,
+          255
+        ],
+        [
+          190,
+          194,
+          173,
+          255
+        ],
+        [
+          146,
+          149,
+          133,
+          255
+        ],
+        [
+          218,
+          223,
+          199,
+          255
+        ],
+        [
+          171,
+          175,
+          156,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 116968,
+      "colors": 8,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "86ff2946ad0072d99c2e838d7bca04e124c2d7e1f0c143c41fd4361ba4901cb6",
+      "geometry_source": "PokeS_IvyStoneBridge",
+      "geometry_sha256": "800557fd70ff832e7ad6ff241bf2b5f243aa1fbc70c0078be460bcef221d1284"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 119512,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "e786b909dc3fed648601743176c1e7e23941e8ed15ef0a72793b868ec8375ffc",
+      "geometry_source": "PokeS_IvyStoneBridge_Cartoon",
+      "geometry_sha256": "0a2ae092c8055d3741e2102b5d751adcd5b7794c8f297d3530f82843440ec66a"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 116968,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "956193dd89d1ead6876c5f0a790e5080230e3208811f7deee384ec2b55e43b13",
+      "geometry_source": "PokeS_IvyStoneBridge",
+      "geometry_sha256": "800557fd70ff832e7ad6ff241bf2b5f243aa1fbc70c0078be460bcef221d1284"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 116968,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "94c52638cdf25263e093a22d833db016250873af9db1bc36200be0e5673149cc",
+      "geometry_source": "PokeS_IvyStoneBridge",
+      "geometry_sha256": "800557fd70ff832e7ad6ff241bf2b5f243aa1fbc70c0078be460bcef221d1284"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 119512,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "8a00e207b760fc1a0fb9a23b104346db7c0f44ec44de4a11a65c1fdfbbcb639a",
+      "geometry_source": "PokeS_IvyStoneBridge_Cartoon",
+      "geometry_sha256": "0a2ae092c8055d3741e2102b5d751adcd5b7794c8f297d3530f82843440ec66a"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 116968,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "244c8aa2638b3888f113333238ef2f7ae55955f2c3eee5f4f26c082666074178",
+      "geometry_source": "PokeS_IvyStoneBridge",
+      "geometry_sha256": "800557fd70ff832e7ad6ff241bf2b5f243aa1fbc70c0078be460bcef221d1284"
+    },
+    {
+      "family": "PokeS_IvyStoneBridge",
+      "file": "output/poke_s/PokeS_IvyStoneBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 119512,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        111,
+        47,
+        68
+      ],
+      "sha256": "3299e743dc910e466b7e253c2b268e6cd2adf08ae330ca7e0c807ea3fd2685e1",
+      "geometry_source": "PokeS_IvyStoneBridge_Cartoon",
+      "geometry_sha256": "0a2ae092c8055d3741e2102b5d751adcd5b7794c8f297d3530f82843440ec66a"
+    }
+  ]
+}

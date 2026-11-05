@@ -1,0 +1,608 @@
+{
+  "models": [
+    {
+      "file": "PokeA_ForestTree_Large_Cartoon.vox",
+      "source": "PokeA_ForestTree_Large.vox",
+      "source_sha256": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        63
+      ],
+      "voxels": 23156,
+      "used_indices": [
+        4,
+        6,
+        8,
+        13
+      ],
+      "used_rgba": [
+        [
+          40,
+          91,
+          67,
+          255
+        ],
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          98,
+          156,
+          85,
+          255
+        ],
+        [
+          91,
+          63,
+          37,
+          255
+        ]
+      ],
+      "sha256": "8890667f367b57d9bfaf6f0c80ce58b8eecfb034fa61600681fc41ffdd6b5131",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": false,
+        "quarter_turn_geometry_and_color_symmetry": true,
+        "exactly_two_colors": false
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Large_CratePalette.vox",
+      "source": "PokeA_ForestTree_Large.vox",
+      "source_sha256": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        63
+      ],
+      "voxels": 24888,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "5f89b8e840e3ecf85d14b25dc235156d9d2fe7805569cb24c627358522b5088b",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": false
+      },
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "index_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 242,
+        "6": 243,
+        "7": 243,
+        "8": 244,
+        "9": 244,
+        "10": 245,
+        "12": 178,
+        "13": 178,
+        "14": 179
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Large_TwoColor.vox",
+      "source": "PokeA_ForestTree_Large.vox",
+      "source_sha256": "5ad6c8e6d15f03dcc366e51e232af33f77560ec34fa9659ee86261b51eaeb60f",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        64
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        63
+      ],
+      "voxels": 24888,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          116,
+          80,
+          45,
+          255
+        ]
+      ],
+      "sha256": "73aeaefb11332e60ff6098386eb58026ac58c09880f998df47b7f00c79a571f0",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": true
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_Cartoon.vox",
+      "source": "PokeA_ForestTree.vox",
+      "source_sha256": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2376,
+      "used_indices": [
+        4,
+        6,
+        8,
+        13
+      ],
+      "used_rgba": [
+        [
+          40,
+          91,
+          67,
+          255
+        ],
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          98,
+          156,
+          85,
+          255
+        ],
+        [
+          91,
+          63,
+          37,
+          255
+        ]
+      ],
+      "sha256": "9332c1c944efc2cf60c0455f5633de66a9af1e75b504abf0f782a2a600818f3a",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": false,
+        "quarter_turn_geometry_and_color_symmetry": true,
+        "exactly_two_colors": false
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_CratePalette.vox",
+      "source": "PokeA_ForestTree.vox",
+      "source_sha256": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 2183,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "7446113039420053d9f32e7dbaae25dc1755020cfa9dec7e14c1744962230f10",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": false
+      },
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "index_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 242,
+        "6": 243,
+        "7": 243,
+        "8": 244,
+        "9": 244,
+        "12": 178,
+        "13": 178,
+        "14": 179
+      }
+    },
+    {
+      "file": "PokeA_ForestTree_TwoColor.vox",
+      "source": "PokeA_ForestTree.vox",
+      "source_sha256": "e6d83e530b44ba9c692678fc2005df95a823b3266de170a667c2fcf480e62d2e",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        27
+      ],
+      "voxels": 2183,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          116,
+          80,
+          45,
+          255
+        ]
+      ],
+      "sha256": "686954eecd6e769171e5ce3735b6273382abc8b62017d46ec6444434362d0389",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": true
+      }
+    },
+    {
+      "file": "PokeA_Sapling_Cartoon.vox",
+      "source": "PokeA_Sapling.vox",
+      "source_sha256": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        14
+      ],
+      "voxels": 308,
+      "used_indices": [
+        4,
+        6,
+        8,
+        13
+      ],
+      "used_rgba": [
+        [
+          40,
+          91,
+          67,
+          255
+        ],
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          98,
+          156,
+          85,
+          255
+        ],
+        [
+          91,
+          63,
+          37,
+          255
+        ]
+      ],
+      "sha256": "6868357833e5d65e5369eab020d43834761ea2c0b0ecdd70edabd48387c43334",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": false,
+        "quarter_turn_geometry_and_color_symmetry": true,
+        "exactly_two_colors": false
+      }
+    },
+    {
+      "file": "PokeA_Sapling_CratePalette.vox",
+      "source": "PokeA_Sapling.vox",
+      "source_sha256": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        11,
+        10,
+        14
+      ],
+      "voxels": 291,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "5cb05aad6ffb21460d2723e999ea7c92c8146ee15c915e9e39450db6a26e96ca",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": false
+      },
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "index_mapping": {
+        "1": 241,
+        "2": 241,
+        "3": 242,
+        "4": 242,
+        "5": 242,
+        "6": 243,
+        "7": 243,
+        "8": 244,
+        "9": 244,
+        "13": 178,
+        "14": 179
+      }
+    },
+    {
+      "file": "PokeA_Sapling_TwoColor.vox",
+      "source": "PokeA_Sapling.vox",
+      "source_sha256": "262b1aa5d321553526d686c2c5ccd76ed468a23970bdc597dcfbcf2bf3602bba",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        11,
+        10,
+        14
+      ],
+      "voxels": 291,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          61,
+          123,
+          75,
+          255
+        ],
+        [
+          116,
+          80,
+          45,
+          255
+        ]
+      ],
+      "sha256": "efecc48959639834c4edf8b9d64ef0f3b6a6438a152566a7a61e3d025831bea8",
+      "checks": {
+        "single_connected_component": true,
+        "geometry_preserved": true,
+        "quarter_turn_geometry_and_color_symmetry": false,
+        "exactly_two_colors": true
+      }
+    }
+  ],
+  "interpretation": "Three independent styles of each of the three existing complete trees, not cumulative combinations.",
+  "crate_palette_source": "C:\\Users\\tandm\\Documents\\Projects\\VoxelXCOM\\MagicaVoxel\\Blocks\\BrightCrate1.vox",
+  "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2"
+}

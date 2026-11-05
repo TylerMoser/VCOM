@@ -1,0 +1,2752 @@
+{
+  "sources": [
+    {
+      "source": "mario.jpg",
+      "size": [
+        720,
+        480
+      ],
+      "sha256": "1e586aac976f0aa83ba36f1abcc4e360d6f8f111cfac271fd64202022f423c51",
+      "families": [
+        "Mario_BladeClump",
+        "Mario_SerratedBush"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "size": [
+        720,
+        720
+      ],
+      "sha256": "568eb4b917b257866b7675a4fad7c331883ff9d604cf213231a52ec8f57ffe87",
+      "families": [
+        "PixelwoodA_WhiteDaisy",
+        "PixelwoodA_PurpleFlowerSpike",
+        "PixelwoodA_ShortGrassPatch"
+      ],
+      "reuse": [
+        "output/pixelwood_a/PixelwoodA_SquareShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "size": [
+        1210,
+        1210
+      ],
+      "sha256": "e40c952bfe11e1b30c496133c17fee79961614ae0c2f481aa41f6f3296982881",
+      "families": [],
+      "reuse": [
+        "output/pixelwood_a/PixelwoodA_SquareShrub.vox",
+        "output/pixelwood_a/PixelwoodA_WhiteDaisy.vox",
+        "output/pixelwood_a/PixelwoodA_ShortGrassPatch.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "families": [
+        "PixelwoodC_Cattail",
+        "PixelwoodC_LilyPad"
+      ],
+      "reuse": [
+        "output/pixelwood_a/PixelwoodA_SquareShrub.vox",
+        "output/pixelwood_a/PixelwoodA_WhiteDaisy.vox",
+        "output/pixelwood_a/PixelwoodA_PurpleFlowerSpike.vox",
+        "output/pixelwood_a/PixelwoodA_ShortGrassPatch.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_a.jpg",
+      "size": [
+        735,
+        480
+      ],
+      "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "families": [
+        "PokeA_LeafyTallGrass",
+        "PokeA_YellowFlowerBed",
+        "PokeA_PinkWildflowers",
+        "PokeA_WaterLily",
+        "PokeA_ShortGrassPatch"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_b.png",
+      "size": [
+        656,
+        960
+      ],
+      "sha256": "afa94988b252fdb5b485d3ac322d0d71bd256c959116cf1d262bc01fccbc72a7",
+      "families": [
+        "PokeB_ShortGrassPatch",
+        "PokeB_PinkDaisies",
+        "PokeB_GardenBlades",
+        "PokeB_GardenFlower"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_c.png",
+      "size": [
+        800,
+        752
+      ],
+      "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "families": [
+        "PokeC_ShortGrassPatch",
+        "PokeC_WhiteDaisies",
+        "PokeC_TallMeadowGrass",
+        "PokeC_RiverReeds",
+        "PokeC_FloatingLeafCluster"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_d.png",
+      "size": [
+        864,
+        848
+      ],
+      "sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "families": [
+        "PokeD_DryTallGrass",
+        "PokeD_ShortGrassPatch",
+        "PokeD_GoldenLeafClump"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_e.png",
+      "size": [
+        480,
+        480
+      ],
+      "sha256": "f56dbeef65a3e5a29d63a58831ea4f3d1b0578f02961ae705985877da22d078a",
+      "families": [
+        "PokeE_ShortGrassPatch",
+        "PokeE_MeadowGrass",
+        "PokeE_BlueDaisyBed",
+        "PokeE_WhiteDaisies",
+        "PokeE_RedFlower"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_f.png",
+      "size": [
+        576,
+        672
+      ],
+      "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+      "families": [
+        "PokeF_PinkFlowerBed",
+        "PokeF_WaterLily",
+        "PokeF_ShortGrassPatch"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_g.png",
+      "size": [
+        560,
+        768
+      ],
+      "sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+      "families": [
+        "PokeG_ShortGrassPatch",
+        "PokeG_PinkWhiteDaisies",
+        "PokeG_OrangeDaisies",
+        "PokeG_RedFlowerSpray"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_h.png",
+      "size": [
+        560,
+        560
+      ],
+      "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+      "families": [
+        "PokeH_ShortGrassPatch",
+        "PokeH_GoldenWheat",
+        "PokeH_PinkWhiteDaisies",
+        "PokeH_PurpleDaisies"
+      ],
+      "reuse": [
+        "output/poke_h/PokeH_CompactFruitBush.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_i.jpg",
+      "size": [
+        736,
+        559
+      ],
+      "sha256": "506e197f527526e6375ce6ca314e1eab029c47194fe7b2b7644c5b6422be3f79",
+      "families": [
+        "PokeI_ShortGrassPatch",
+        "PokeI_YellowFlowerBed",
+        "PokeI_PaleWildflowers",
+        "PokeI_CropSeedlings",
+        "PokeI_LeafyTallGrass",
+        "PokeI_WaterLily"
+      ],
+      "reuse": [
+        "output/poke_i/PokeI_HedgeShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_j.jpg",
+      "size": [
+        735,
+        565
+      ],
+      "sha256": "ade8525fa4a3d29c357dc6b2b037cf9ff6d3c2cbab799faf927206151b1cd80d",
+      "families": [
+        "PokeJ_ShortGrassPatch",
+        "PokeJ_WhiteWildflowers",
+        "PokeJ_WaterLily"
+      ],
+      "reuse": [
+        "output/poke_j/PokeJ_RoundedShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_k.jpg",
+      "size": [
+        736,
+        736
+      ],
+      "sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+      "families": [
+        "PokeK_ShortGrassPatch",
+        "PokeK_TallGrass",
+        "PokeK_WhiteWildflowers",
+        "PokeK_WaterLily"
+      ],
+      "reuse": [
+        "output/poke_k/PokeK_RoundedShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_l.png",
+      "size": [
+        272,
+        192
+      ],
+      "sha256": "a52b81b3660091d6c6ea5ee847f1bb3163171bddc28f427176e5bb03ebc12637",
+      "families": [
+        "PokeL_GroundRosette",
+        "PokeL_ShortGrassPatch"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_m.png",
+      "size": [
+        800,
+        880
+      ],
+      "sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "families": [
+        "PokeM_BankReeds",
+        "PokeM_LowMeadowGrass",
+        "PokeM_SubmergedReeds",
+        "PokeM_AquaticRosette",
+        "PokeM_WaterLily",
+        "PokeM_PinkWildflowers",
+        "PokeM_BlueWildflowers",
+        "PokeM_OrangeWildflowers"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_n.png",
+      "size": [
+        638,
+        766
+      ],
+      "sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+      "families": [
+        "PokeN_ShortGrassPatch",
+        "PokeN_PurpleFlowerSpikes",
+        "PokeN_YellowStarFlowers",
+        "PokeN_PinkWhiteDaisies",
+        "PokeN_SubmergedFern",
+        "PokeN_FloatingLeafCluster"
+      ],
+      "reuse": [
+        "output/poke_n/PokeN_RoundShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_o.png",
+      "size": [
+        640,
+        640
+      ],
+      "sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6",
+      "families": [
+        "PokeO_ShortGrassPatch",
+        "PokeO_BeachGrass",
+        "PokeO_DenseMeadowGrass",
+        "PokeO_WhiteDaisies",
+        "PokeO_OrangeDaisies"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_p.png",
+      "size": [
+        960,
+        1348
+      ],
+      "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "families": [
+        "PokeP_ShortGrassPatch",
+        "PokeP_TealTallGrass",
+        "PokeP_PinkRoundFlower",
+        "PokeP_RedRoundFlower",
+        "PokeP_BlueRoundFlower",
+        "PokeP_WhiteRoundFlower",
+        "PokeP_YellowRoundFlower",
+        "PokeP_PurpleRoundFlower",
+        "PokeP_PinkFlowerSpikes",
+        "PokeP_TinyPinkDaisyPatch",
+        "PokeP_SubmergedFern",
+        "PokeP_DryBankReeds"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_q.png",
+      "size": [
+        800,
+        800
+      ],
+      "sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe",
+      "families": [
+        "PokeQ_ShortGrassPatch",
+        "PokeQ_GiantRedFlower",
+        "PokeQ_PurpleBellFlower",
+        "PokeQ_PurpleSpatheFlower",
+        "PokeQ_DenseGroundHedge",
+        "PokeQ_TropicalLeafRosette",
+        "PokeQ_WhiteDaisies",
+        "PokeQ_OrangeDaisies"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_r.png",
+      "size": [
+        896,
+        640
+      ],
+      "sha256": "76827ddcfe71c99d4822de00a2d5d4f51bb15eebc906a653e1e32d6ef97bff51",
+      "families": [
+        "PokeR_ShortGrassPatch",
+        "PokeR_GardenTallGrass",
+        "PokeR_WhiteDaisies"
+      ],
+      "reuse": [
+        "output/poke_r/PokeR_RoundShrub.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_s.jpg",
+      "size": [
+        894,
+        894
+      ],
+      "sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "families": [
+        "PokeS_ShortGrassPatch",
+        "PokeS_PinkFlowerCarpet",
+        "PokeS_Sunflower",
+        "PokeS_GardenTallGrass",
+        "PokeS_FloatingLeaves"
+      ],
+      "reuse": [
+        "output/poke_s/PokeS_ShrubMint.vox",
+        "output/poke_s/PokeS_ShrubTeal.vox",
+        "output/poke_s/PokeS_ShrubPink.vox"
+      ],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_t.png",
+      "size": [
+        1008,
+        1024
+      ],
+      "sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "families": [
+        "PokeT_LowGrassClump",
+        "PokeT_SparseBeachGrass",
+        "PokeT_SubmergedReeds",
+        "PokeT_SubmergedRosette"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    },
+    {
+      "source": "poke_u.jpg",
+      "size": [
+        384,
+        384
+      ],
+      "sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "families": [
+        "PokeU_ShortGrassPatch",
+        "PokeU_PaleTallGrass",
+        "PokeU_PinkWhiteDaisies",
+        "PokeU_OrangeDaisies"
+      ],
+      "reuse": [],
+      "assessment": "Reviewed for independent flowers, bushes, grass and aquatic foliage; repeated placements consolidated. Existing trees and their attached blooms, mushrooms, creatures, terrain, harvested hay and architecture excluded."
+    }
+  ],
+  "families": [
+    {
+      "source": "mario.jpg",
+      "name": "Mario_BladeClump",
+      "shape": "grass",
+      "size": [
+        12,
+        12,
+        12
+      ],
+      "crop": [
+        568,
+        346,
+        608,
+        384
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.3333333333333333,
+      "note": "Dark outlined V-shaped grass; volumetric radial interpretation of side-view artwork.",
+      "seed": 11
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_SerratedBush",
+      "shape": "hedge",
+      "size": [
+        32,
+        16,
+        16
+      ],
+      "crop": [
+        244,
+        170,
+        344,
+        234
+      ],
+      "leaf": "deep",
+      "petal": "white",
+      "scale": 0.3333333333333333,
+      "note": "Low jagged silhouette in background, interpreted as freestanding bush; not the blue hill characters.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_WhiteDaisy",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        601,
+        40,
+        649,
+        92
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.3333333333333333,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_PurpleFlowerSpike",
+      "shape": "spike",
+      "size": [
+        12,
+        12,
+        20
+      ],
+      "crop": [
+        45,
+        397,
+        84,
+        449
+      ],
+      "leaf": "olive",
+      "petal": "plum",
+      "scale": 0.3333333333333333,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        357,
+        56,
+        416,
+        92
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.3333333333333333,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Cattail",
+      "shape": "cattail",
+      "size": [
+        12,
+        12,
+        20
+      ],
+      "crop": [
+        502,
+        250,
+        545,
+        300
+      ],
+      "leaf": "olive",
+      "petal": "orange",
+      "scale": 0.32605151613955,
+      "note": "Orange-brown upright seed head and low green leaves; not a light source.",
+      "seed": 11
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_LilyPad",
+      "shape": "pad",
+      "size": [
+        14,
+        14,
+        2
+      ],
+      "crop": [
+        454,
+        370,
+        504,
+        420
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.32605151613955,
+      "note": "Flat notched floating leaf; placement datum is water surface.",
+      "seed": 11
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_LeafyTallGrass",
+      "shape": "leafmat",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        352,
+        142,
+        384,
+        175
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_YellowFlowerBed",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        450,
+        32,
+        501,
+        78
+      ],
+      "leaf": "olive",
+      "petal": "yellow",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_PinkWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        405,
+        231,
+        430,
+        252
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        235,
+        323,
+        260,
+        342
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        431,
+        335,
+        452,
+        358
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        375,
+        99,
+        397,
+        120
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_PinkDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        7
+      ],
+      "crop": [
+        363,
+        108,
+        385,
+        130
+      ],
+      "leaf": "pale",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_GardenBlades",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        22
+      ],
+      "crop": [
+        554,
+        706,
+        581,
+        736
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_GardenFlower",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        16
+      ],
+      "crop": [
+        541,
+        693,
+        563,
+        719
+      ],
+      "leaf": "green",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        600,
+        518,
+        624,
+        540
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        8
+      ],
+      "crop": [
+        25,
+        255,
+        53,
+        284
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_TallMeadowGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        24
+      ],
+      "crop": [
+        555,
+        620,
+        593,
+        660
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_RiverReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        22
+      ],
+      "crop": [
+        348,
+        284,
+        371,
+        313
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "Emergent narrow blades: water is excluded, model rooted at its placement datum.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_FloatingLeafCluster",
+      "shape": "pads",
+      "size": [
+        16,
+        16,
+        3
+      ],
+      "crop": [
+        369,
+        445,
+        401,
+        467
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 1,
+      "note": "Small floating green leaf clusters; not rocks or creatures.",
+      "seed": 11
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_DryTallGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        588,
+        85,
+        621,
+        121
+      ],
+      "leaf": "dry",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        701,
+        346,
+        729,
+        368
+      ],
+      "leaf": "dry",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_GoldenLeafClump",
+      "shape": "rosette",
+      "size": [
+        24,
+        24,
+        20
+      ],
+      "crop": [
+        640,
+        143,
+        674,
+        178
+      ],
+      "leaf": "gold",
+      "petal": "white",
+      "scale": 1,
+      "note": "Low pointed golden leaf mass on east bank, distinct from the woody gold tree families.",
+      "seed": 11
+    },
+    {
+      "source": "poke_e.png",
+      "name": "PokeE_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        236,
+        68,
+        259,
+        88
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_e.png",
+      "name": "PokeE_MeadowGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        238,
+        99,
+        271,
+        132
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_e.png",
+      "name": "PokeE_BlueDaisyBed",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        409,
+        110,
+        443,
+        148
+      ],
+      "leaf": "green",
+      "petal": "blue",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_e.png",
+      "name": "PokeE_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        243,
+        176,
+        261,
+        192
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_e.png",
+      "name": "PokeE_RedFlower",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        16
+      ],
+      "crop": [
+        272,
+        79,
+        289,
+        98
+      ],
+      "leaf": "green",
+      "petal": "red",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_PinkFlowerBed",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        224,
+        463,
+        250,
+        491
+      ],
+      "leaf": "olive",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        188,
+        377,
+        209,
+        402
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        189,
+        281,
+        210,
+        301
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        139,
+        131,
+        159,
+        151
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_PinkWhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        8
+      ],
+      "crop": [
+        62,
+        141,
+        84,
+        161
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_OrangeDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        8
+      ],
+      "crop": [
+        109,
+        155,
+        132,
+        177
+      ],
+      "leaf": "mint",
+      "petal": "orange",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_RedFlowerSpray",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        12
+      ],
+      "crop": [
+        287,
+        124,
+        305,
+        146
+      ],
+      "leaf": "green",
+      "petal": "red",
+      "scale": 1,
+      "note": "Three reddish-brown flower heads on short stems beside paths.",
+      "seed": 11
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        143,
+        262,
+        162,
+        282
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_GoldenWheat",
+      "shape": "wheat",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        223,
+        79,
+        257,
+        115
+      ],
+      "leaf": "gold",
+      "petal": "white",
+      "scale": 1,
+      "note": "Standing cereal grass with stalks and seed heads. Harvested hay bales and tools excluded.",
+      "seed": 11
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_PinkWhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        7
+      ],
+      "crop": [
+        286,
+        156,
+        309,
+        178
+      ],
+      "leaf": "pale",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_PurpleDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        413,
+        446,
+        434,
+        466
+      ],
+      "leaf": "pale",
+      "petal": "purple",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        640,
+        244,
+        714,
+        334
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_YellowFlowerBed",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        267,
+        238,
+        304,
+        278
+      ],
+      "leaf": "olive",
+      "petal": "yellow",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_PaleWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        449,
+        155,
+        474,
+        177
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_CropSeedlings",
+      "shape": "seedlings",
+      "size": [
+        16,
+        16,
+        8
+      ],
+      "crop": [
+        382,
+        169,
+        414,
+        198
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Small green shoots from cultivated rows; tilled soil excluded.",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_LeafyTallGrass",
+      "shape": "leafmat",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        551,
+        117,
+        581,
+        136
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        271,
+        354,
+        295,
+        373
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        374,
+        287,
+        397,
+        305
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_WhiteWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        347,
+        170,
+        371,
+        188
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        348,
+        266,
+        374,
+        288
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_k.jpg",
+      "name": "PokeK_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        633,
+        331,
+        654,
+        351
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_k.jpg",
+      "name": "PokeK_TallGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        22
+      ],
+      "crop": [
+        522,
+        85,
+        556,
+        126
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_k.jpg",
+      "name": "PokeK_WhiteWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        570,
+        320,
+        595,
+        340
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_k.jpg",
+      "name": "PokeK_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        229,
+        350,
+        255,
+        370
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 0.6666666666666666,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_GroundRosette",
+      "shape": "twoleaf",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        242,
+        174,
+        259,
+        192
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Isolated two overlapping broad leaves at bottom-right of sheet.",
+      "seed": 11
+    },
+    {
+      "source": "poke_l.png",
+      "name": "PokeL_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        189,
+        33,
+        210,
+        50
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BankReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        206,
+        92,
+        230,
+        131
+      ],
+      "leaf": "deep",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_LowMeadowGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        120,
+        717,
+        154,
+        750
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_SubmergedReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        303,
+        159,
+        326,
+        191
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "Underwater color appearance, opaque geometry; water surface not included.",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_AquaticRosette",
+      "shape": "rosette",
+      "size": [
+        16,
+        16,
+        6
+      ],
+      "crop": [
+        221,
+        303,
+        244,
+        325
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_WaterLily",
+      "shape": "lily",
+      "size": [
+        12,
+        12,
+        5
+      ],
+      "crop": [
+        315,
+        285,
+        340,
+        307
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_PinkWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        665,
+        316,
+        689,
+        339
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BlueWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        650,
+        332,
+        672,
+        352
+      ],
+      "leaf": "mint",
+      "petal": "blue",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_OrangeWildflowers",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        687,
+        382,
+        708,
+        401
+      ],
+      "leaf": "mint",
+      "petal": "orange",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        366,
+        230,
+        388,
+        252
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_PurpleFlowerSpikes",
+      "shape": "spike",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        382,
+        190,
+        427,
+        224
+      ],
+      "leaf": "green",
+      "petal": "purple",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_YellowStarFlowers",
+      "shape": "star",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        287,
+        416,
+        315,
+        441
+      ],
+      "leaf": "green",
+      "petal": "yellow",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_PinkWhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        7
+      ],
+      "crop": [
+        460,
+        157,
+        488,
+        189
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_SubmergedFern",
+      "shape": "fern",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        29,
+        687,
+        56,
+        715
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_FloatingLeafCluster",
+      "shape": "pads",
+      "size": [
+        16,
+        16,
+        3
+      ],
+      "crop": [
+        82,
+        657,
+        116,
+        685
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        184,
+        270,
+        206,
+        290
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_BeachGrass",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        12
+      ],
+      "crop": [
+        463,
+        92,
+        485,
+        115
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "Sparse curved wind-bent blades; Cartoon uses balanced outward blades.",
+      "seed": 11
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_DenseMeadowGrass",
+      "shape": "leafmat",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        410,
+        179,
+        446,
+        210
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        8
+      ],
+      "crop": [
+        193,
+        286,
+        208,
+        308
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_o.png",
+      "name": "PokeO_OrangeDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        8
+      ],
+      "crop": [
+        383,
+        282,
+        402,
+        303
+      ],
+      "leaf": "mint",
+      "petal": "orange",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        450,
+        195,
+        472,
+        217
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_TealTallGrass",
+      "shape": "leafmat",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        353,
+        490,
+        383,
+        522
+      ],
+      "leaf": "teal",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_PinkRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        124,
+        124,
+        144,
+        144
+      ],
+      "leaf": "teal",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_RedRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        173,
+        156,
+        194,
+        177
+      ],
+      "leaf": "teal",
+      "petal": "red",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_BlueRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        174,
+        125,
+        195,
+        146
+      ],
+      "leaf": "teal",
+      "petal": "blue",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_WhiteRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        191,
+        140,
+        210,
+        162
+      ],
+      "leaf": "teal",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_YellowRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        462,
+        173,
+        483,
+        194
+      ],
+      "leaf": "teal",
+      "petal": "yellow",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_PurpleRoundFlower",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        218,
+        360,
+        240,
+        386
+      ],
+      "leaf": "teal",
+      "petal": "purple",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_PinkFlowerSpikes",
+      "shape": "spike",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        710,
+        209,
+        765,
+        243
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_TinyPinkDaisyPatch",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        5
+      ],
+      "crop": [
+        611,
+        221,
+        656,
+        250
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_SubmergedFern",
+      "shape": "fern",
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "crop": [
+        363,
+        350,
+        387,
+        377
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_DryBankReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        271,
+        316,
+        304,
+        353
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        661,
+        605,
+        683,
+        625
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_GiantRedFlower",
+      "shape": "giant",
+      "size": [
+        40,
+        40,
+        24
+      ],
+      "crop": [
+        235,
+        330,
+        280,
+        371
+      ],
+      "leaf": "deep",
+      "petal": "red",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_PurpleBellFlower",
+      "shape": "bell",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        523,
+        351,
+        545,
+        385
+      ],
+      "leaf": "green",
+      "petal": "purple",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_PurpleSpatheFlower",
+      "shape": "bud",
+      "size": [
+        24,
+        24,
+        40
+      ],
+      "crop": [
+        302,
+        713,
+        330,
+        749
+      ],
+      "leaf": "green",
+      "petal": "plum",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_DenseGroundHedge",
+      "shape": "hedge",
+      "size": [
+        32,
+        32,
+        20
+      ],
+      "crop": [
+        351,
+        351,
+        393,
+        396
+      ],
+      "leaf": "deep",
+      "petal": "white",
+      "scale": 1,
+      "note": "Dense low finely textured ground hedge; separate from tree canopy. Repeat this complete patch for broad beds.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_TropicalLeafRosette",
+      "shape": "rosette",
+      "size": [
+        24,
+        24,
+        16
+      ],
+      "crop": [
+        370,
+        478,
+        400,
+        513
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        242,
+        254,
+        261,
+        274
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_OrangeDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        348,
+        236,
+        371,
+        258
+      ],
+      "leaf": "mint",
+      "petal": "orange",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_r.png",
+      "name": "PokeR_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        373,
+        242,
+        398,
+        264
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_r.png",
+      "name": "PokeR_GardenTallGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        28
+      ],
+      "crop": [
+        356,
+        350,
+        385,
+        391
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_r.png",
+      "name": "PokeR_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        6
+      ],
+      "crop": [
+        349,
+        239,
+        373,
+        262
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        371,
+        434,
+        390,
+        448
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1.6,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_PinkFlowerCarpet",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        320,
+        374,
+        355,
+        395
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1.6,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Sunflower",
+      "shape": "sunflower",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        700,
+        151,
+        714,
+        174
+      ],
+      "leaf": "green",
+      "petal": "yellow",
+      "scale": 1.6,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_GardenTallGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        398,
+        239,
+        423,
+        261
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1.6,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_FloatingLeaves",
+      "shape": "pads",
+      "size": [
+        16,
+        16,
+        3
+      ],
+      "crop": [
+        133,
+        239,
+        146,
+        251
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1.6,
+      "note": "Small green aquatic leaf cluster; no clear flower in compressed source.",
+      "seed": 11
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_LowGrassClump",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        14
+      ],
+      "crop": [
+        352,
+        463,
+        380,
+        492
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SparseBeachGrass",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        10
+      ],
+      "crop": [
+        399,
+        378,
+        420,
+        404
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        570,
+        189,
+        595,
+        215
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_SubmergedRosette",
+      "shape": "rosette",
+      "size": [
+        16,
+        16,
+        6
+      ],
+      "crop": [
+        540,
+        176,
+        563,
+        198
+      ],
+      "leaf": "water",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        150,
+        267,
+        170,
+        279
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_PaleTallGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        24
+      ],
+      "crop": [
+        112,
+        325,
+        145,
+        364
+      ],
+      "leaf": "pale",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_PinkWhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        7
+      ],
+      "crop": [
+        171,
+        269,
+        197,
+        291
+      ],
+      "leaf": "mint",
+      "petal": "pink",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_OrangeDaisies",
+      "shape": "flowers",
+      "size": [
+        12,
+        12,
+        7
+      ],
+      "crop": [
+        204,
+        301,
+        228,
+        319
+      ],
+      "leaf": "mint",
+      "petal": "orange",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    }
+  ]
+}

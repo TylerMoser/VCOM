@@ -1,0 +1,310 @@
+{
+  "source": "pixelwood_c.jpg",
+  "review": {
+    "source": "pixelwood_c.jpg",
+    "reviewed": true,
+    "families": [
+      "PixelwoodC_TreasureChest"
+    ],
+    "notes": "Metal-banded treasure chest. Reuse Pixelwood A mushrooms. Stone plinth/terrain and water crossing remain with prior collections or architecture.",
+    "reuse": [
+      "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_TreasureChest",
+      "kind": "chest",
+      "crop": [
+        315,
+        325,
+        400,
+        393
+      ],
+      "size": [
+        24,
+        18,
+        20
+      ],
+      "tone": "brown"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "Base",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6044,
+      "colors": 7,
+      "groups": {
+        "1": "ink",
+        "2": "trim",
+        "3": "trim",
+        "4": "trim",
+        "5": "wood",
+        "6": "wood",
+        "7": "wood"
+      },
+      "components": [
+        6044
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        17
+      ],
+      "sha256": "f3559232d148f55fde47dc7e9d089406bf123b1a79d8c3548e79365e086ee554",
+      "palette_sha256": "1608054bd45ca68c7a3a513db2da0f8e6486fda7cff0262a2e08a36e00dba032",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6308,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "trim",
+        "3": "wood"
+      },
+      "components": [
+        6308
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        18
+      ],
+      "sha256": "9078a34945def8cd633a891822ef20b931ba90f830d4f383ca21ce45a2be7dac",
+      "palette_sha256": "50479582387fd79e6038ca95d1206561a3a1936db50fab89f9cc5a07b305f27b",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_CratePalette.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6044,
+      "colors": 6,
+      "groups": {
+        "205": "ink",
+        "229": "trim",
+        "230": "trim",
+        "178": "wood",
+        "179": "wood",
+        "234": "wood"
+      },
+      "components": [
+        6044
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        17
+      ],
+      "sha256": "f9d621de14c4c2ab88db95f426db5ef428af4c47a6ad68383f41b3c9d6eb4f5b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_TwoColor.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6044,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "trim",
+        "3": "wood"
+      },
+      "components": [
+        6044
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        17
+      ],
+      "sha256": "2d9fc7c30aaa27d6300b073fc9f8ad831fa041472ecbb3c1eddb1a7f1342d421",
+      "palette_sha256": "50479582387fd79e6038ca95d1206561a3a1936db50fab89f9cc5a07b305f27b",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6308,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "trim",
+        "3": "wood"
+      },
+      "components": [
+        6308
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        18
+      ],
+      "sha256": "cbe2cd7a23ef7bba086ced37af44c8007b07d3c2c0f0f4476c020c1130e43902",
+      "palette_sha256": "50479582387fd79e6038ca95d1206561a3a1936db50fab89f9cc5a07b305f27b",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6044,
+      "colors": 3,
+      "groups": {
+        "205": "ink",
+        "229": "trim",
+        "179": "wood"
+      },
+      "components": [
+        6044
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        17
+      ],
+      "sha256": "a5081750e7065dc67dded8969b412f7899c4f455e42482aa456c580637cc1841",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_TreasureChest",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        18,
+        20
+      ],
+      "voxels": 6308,
+      "colors": 3,
+      "groups": {
+        "205": "ink",
+        "229": "trim",
+        "179": "wood"
+      },
+      "components": [
+        6308
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        22,
+        16,
+        18
+      ],
+      "sha256": "8fc329fb7cdb226ccbf4757ee6c637d73c1004fcce5009dd400bfa162eeaf133",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox",
+      "sha256": "56aca21d91846ae666eb756c25a2c114f514fb8386434a6fdd58468670e3fa36"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon.vox",
+      "sha256": "86f5ee5871f8120c46634d9f03965d54393d3e5117f994e0b165c364f4f6f95a"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette.vox",
+      "sha256": "bfe472940d5635a8f7b6b78055273617be54883ec124e88c31b82b59ead793c4"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_TwoColor.vox",
+      "sha256": "2cf72e94fa92cc2bba9efe98b1b5f6c896cd05c827737b13ba03afca8af00f07"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_TwoColor.vox",
+      "sha256": "ef61c159764f279735b0156456fb3aa40d482d65d70a23ea7c3a4de4750ba645"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette_TwoColor.vox",
+      "sha256": "8a8533e1dad1b6c66f677fec224fffccb2118875949e0a1b50404dd6f4525e2c"
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "0dbc1f562c9bf3f11132ecd3b948d98bc23af594d4ae5b49d43aee921fe989cb"
+    }
+  ]
+}

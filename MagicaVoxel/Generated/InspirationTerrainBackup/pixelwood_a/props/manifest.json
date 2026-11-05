@@ -1,0 +1,509 @@
+{
+  "source": "pixelwood_a.jpg",
+  "review": {
+    "source": "pixelwood_a.jpg",
+    "reviewed": true,
+    "families": [
+      "PixelwoodA_DirectionSign",
+      "PixelwoodA_SpottedMushroom"
+    ],
+    "notes": "Two-arrow direction sign and spotted red mushroom. Lantern, tent, trees, flowers, rocks and deadwood already exist.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_DirectionSign",
+      "kind": "direction",
+      "crop": [
+        467,
+        362,
+        551,
+        463
+      ],
+      "size": [
+        28,
+        10,
+        36
+      ],
+      "tone": "brown"
+    },
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_SpottedMushroom",
+      "kind": "mushroom",
+      "crop": [
+        399,
+        200,
+        432,
+        232
+      ],
+      "size": [
+        12,
+        12,
+        12
+      ],
+      "tone": "red"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "Base",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 1736,
+      "colors": 4,
+      "groups": {
+        "1": "frame",
+        "2": "frame",
+        "3": "frame",
+        "4": "ink"
+      },
+      "components": [
+        1736
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "63d9758333afe6ced8d489ab75abd522e9795faac5c78be180bf993b1a65e767",
+      "palette_sha256": "e2e66059cea992eec23690d53b42316f3977eb0ef2e328d001d532503a860a97",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "Cartoon",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 2088,
+      "colors": 2,
+      "groups": {
+        "1": "frame",
+        "2": "ink"
+      },
+      "components": [
+        2088
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "a637bb8fc7559724ff0480802d32dca62d6e4817d6bf4cbf42006285e797724a",
+      "palette_sha256": "6688238cc44d0f2048912bca2fe416b9974b1f7e815b4bed434c6300a0f45cf7",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_CratePalette.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "CratePalette",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 1736,
+      "colors": 3,
+      "groups": {
+        "234": "frame",
+        "235": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1736
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "11f48379faf8de14c7ca37f3a01525ef5e85d37940d45a6bd282692eebafafeb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_TwoColor.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "TwoColor",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 1736,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1736
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "adc5931890ae04555df12b4b15071fc2169c3f2e577581406d0d9dabfed9e746",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon_TwoColor.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 2088,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        2088
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "0a736de89d4530ca0fa66b513eb99a586b4425d23abd5a8d2865bd56a6cc98dc",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 1736,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1736
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "6d13efd2e5b4e6fbdf527524800871258363717ab1d2231eeefbfb66232f90cd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_DirectionSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        28,
+        10,
+        36
+      ],
+      "voxels": 2088,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        2088
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        35
+      ],
+      "sha256": "c5cdbb70f5d71cfdeec963f9eac4a01e920b8b380c8d909161f8d7c5b658c6b7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 596,
+      "colors": 5,
+      "groups": {
+        "1": "cap",
+        "2": "cap",
+        "3": "cap",
+        "4": "stem",
+        "5": "stem"
+      },
+      "components": [
+        596
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "56aca21d91846ae666eb756c25a2c114f514fb8386434a6fdd58468670e3fa36",
+      "palette_sha256": "44967a0e947ebe227a8212db2c7f0525d615d981c2d68e41de088c366f603d52",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 656,
+      "colors": 3,
+      "groups": {
+        "1": "cap",
+        "2": "stem",
+        "3": "stem"
+      },
+      "components": [
+        656
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "86f5ee5871f8120c46634d9f03965d54393d3e5117f994e0b165c364f4f6f95a",
+      "palette_sha256": "bd2fb24e5ea782d8dcaa1aea02b18776fb80852a3afa8ccf9a61df0659ceed01",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 596,
+      "colors": 4,
+      "groups": {
+        "220": "cap",
+        "221": "cap",
+        "196": "stem",
+        "238": "stem"
+      },
+      "components": [
+        596
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "bfe472940d5635a8f7b6b78055273617be54883ec124e88c31b82b59ead793c4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_TwoColor.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 596,
+      "colors": 2,
+      "groups": {
+        "1": "cap",
+        "2": "stem"
+      },
+      "components": [
+        596
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "2cf72e94fa92cc2bba9efe98b1b5f6c896cd05c827737b13ba03afca8af00f07",
+      "palette_sha256": "1885dfae9d41354785908d92ed2b00db72d4bcf63581834c8436f5c82d54b6bf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_TwoColor.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 656,
+      "colors": 2,
+      "groups": {
+        "1": "cap",
+        "2": "stem"
+      },
+      "components": [
+        656
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "ef61c159764f279735b0156456fb3aa40d482d65d70a23ea7c3a4de4750ba645",
+      "palette_sha256": "1885dfae9d41354785908d92ed2b00db72d4bcf63581834c8436f5c82d54b6bf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 596,
+      "colors": 2,
+      "groups": {
+        "220": "cap",
+        "238": "stem"
+      },
+      "components": [
+        596
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "8a8533e1dad1b6c66f677fec224fffccb2118875949e0a1b50404dd6f4525e2c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_SpottedMushroom",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        12
+      ],
+      "voxels": 656,
+      "colors": 2,
+      "groups": {
+        "220": "cap",
+        "238": "stem"
+      },
+      "components": [
+        656
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        11
+      ],
+      "sha256": "0dbc1f562c9bf3f11132ecd3b948d98bc23af594d4ae5b49d43aee921fe989cb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

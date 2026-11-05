@@ -1,0 +1,4963 @@
+{
+  "date": "2026-11-03",
+  "author": "Codex",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Codex_CurtainWaterfall",
+      "kind": "waterfall",
+      "width": 64,
+      "drop": 32,
+      "crop": [
+        254,
+        127,
+        477,
+        269
+      ],
+      "tile_pixels": 48,
+      "water": [
+        77,
+        145,
+        179
+      ],
+      "foam": [
+        153,
+        202,
+        193
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "broad",
+      "note": "Broad blue curtain with a lighter central ribbon and comb-shaped lip/foot foam. 48 displayed pixels per tile; no standing stone or chest included.",
+      "size": [
+        80,
+        40,
+        48
+      ],
+      "source_sha256": "572382c83e2c94f658ae0f09da77b2232416197b5138341244f15cb72adbbf53",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 194,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_Codex_TerraceWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 32,
+      "crop": [
+        35,
+        209,
+        90,
+        259
+      ],
+      "tile_pixels": 10.5,
+      "water": [
+        79,
+        163,
+        205
+      ],
+      "foam": [
+        214,
+        240,
+        225
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Repeated short bright-blue terrace falls; western and bridge-adjacent examples share this size. Small white shoreline corners are not separate falls.",
+      "size": [
+        64,
+        40,
+        48
+      ],
+      "source_sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_Codex_FiveTierCascade",
+      "kind": "waterfall",
+      "width": 112,
+      "drop": 80,
+      "crop": [
+        333,
+        154,
+        468,
+        245
+      ],
+      "tile_pixels": 16,
+      "water": [
+        31,
+        169,
+        224
+      ],
+      "foam": [
+        218,
+        245,
+        220
+      ],
+      "tiers": 5,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Wide upper five-band cascade interpreted as five shallow descending sheets linked by shelves.",
+      "size": [
+        128,
+        64,
+        96
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_Codex_ThreeTierCascade",
+      "kind": "waterfall",
+      "width": 96,
+      "drop": 48,
+      "crop": [
+        332,
+        474,
+        438,
+        533
+      ],
+      "tile_pixels": 16,
+      "water": [
+        31,
+        169,
+        224
+      ],
+      "foam": [
+        218,
+        245,
+        220
+      ],
+      "tiers": 3,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Lower three-band cascade, narrower and shorter than the northern waterfall.",
+      "size": [
+        112,
+        48,
+        64
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_UpperWaterfall",
+      "kind": "waterfall",
+      "width": 80,
+      "drop": 48,
+      "crop": [
+        324,
+        0,
+        423,
+        72
+      ],
+      "tile_pixels": 16,
+      "water": [
+        66,
+        130,
+        116
+      ],
+      "foam": [
+        213,
+        240,
+        210
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Northern green-water fall with irregular pale crest and a curling foam foot. Inlet is clipped by the image; a short inlet tab is inferred.",
+      "size": [
+        96,
+        40,
+        64
+      ],
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 206,
+        "2": 205,
+        "3": 206,
+        "4": 206,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_WideSpillway",
+      "kind": "waterfall",
+      "width": 112,
+      "drop": 24,
+      "crop": [
+        274,
+        388,
+        397,
+        433
+      ],
+      "tile_pixels": 16,
+      "water": [
+        66,
+        130,
+        116
+      ],
+      "foam": [
+        213,
+        240,
+        210
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Wide shallow central spillway between rock banks; stretched lip and brief falling curtain.",
+      "size": [
+        128,
+        40,
+        48
+      ],
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 206,
+        "2": 205,
+        "3": 206,
+        "4": 206,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_Codex_NarrowWaterfall",
+      "kind": "waterfall",
+      "width": 64,
+      "drop": 48,
+      "crop": [
+        156,
+        428,
+        238,
+        486
+      ],
+      "tile_pixels": 16,
+      "water": [
+        66,
+        130,
+        116
+      ],
+      "foam": [
+        213,
+        240,
+        210
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Narrower southwest curtain; the adjacent boulders are existing rock assets.",
+      "size": [
+        80,
+        40,
+        64
+      ],
+      "source_sha256": "0740d43c46471e5a19233c2ab22ffbad262132f35735add82a16b5cf0f16a27b",
+      "crate_mapping": {
+        "1": 206,
+        "2": 205,
+        "3": 206,
+        "4": 206,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_Codex_FoamySpillway",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 16,
+      "crop": [
+        301,
+        452,
+        367,
+        487
+      ],
+      "tile_pixels": 16,
+      "water": [
+        81,
+        165,
+        148
+      ],
+      "foam": [
+        221,
+        248,
+        225
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Low foamy river lip repeated at about (411,608) and (420,834). Reeds and shore outlines are excluded.",
+      "size": [
+        64,
+        40,
+        32
+      ],
+      "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "crate_mapping": {
+        "1": 252,
+        "2": 206,
+        "3": 252,
+        "4": 206,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_TallGardenWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 112,
+      "crop": [
+        103,
+        99,
+        147,
+        189
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Tall northwestern bounded fall; repeated foam ribs are surface flow bands, not separate solid terraces.",
+      "size": [
+        64,
+        40,
+        128
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_MediumGardenWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 80,
+      "crop": [
+        601,
+        86,
+        641,
+        157
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Northeastern bounded waterfall; rounded foam foot below several flow bands.",
+      "size": [
+        64,
+        40,
+        96
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_LowGardenWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 32,
+      "crop": [
+        581,
+        213,
+        622,
+        252
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Low central-east terrace fall, distinct from the longer northern curtain.",
+      "size": [
+        64,
+        40,
+        48
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_NarrowGardenWaterfall",
+      "kind": "waterfall",
+      "width": 32,
+      "drop": 48,
+      "crop": [
+        166,
+        337,
+        211,
+        384
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Narrow western garden drop; short top-edge and west-central copies reuse this appearance.",
+      "size": [
+        48,
+        40,
+        64
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_WideGardenWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 48,
+      "crop": [
+        605,
+        400,
+        644,
+        441
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Wider short drop below the eastern bridge; matching western drops reuse this family.",
+      "size": [
+        64,
+        40,
+        64
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_LongIslandWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 160,
+      "crop": [
+        594,
+        539,
+        638,
+        649
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Long central floating-island fall, extended down toward lower water. Foot mist is inferred; no invented rocky bottom basin.",
+      "size": [
+        64,
+        40,
+        176
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_IslandWaterfall",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 112,
+      "crop": [
+        706,
+        536,
+        750,
+        636
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Other long island-edge curtains, including the west (about 118,530), use this shorter length. Depth and hidden termination are inferred.",
+      "size": [
+        64,
+        40,
+        128
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_NarrowIslandWaterfall",
+      "kind": "waterfall",
+      "width": 32,
+      "drop": 80,
+      "crop": [
+        123,
+        680,
+        161,
+        735
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Slender lower-west island drop, partly obscured near the lower end; completed with modest attached mist.",
+      "size": [
+        48,
+        40,
+        96
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_Codex_SoutheastWaterfall",
+      "kind": "waterfall",
+      "width": 32,
+      "drop": 96,
+      "crop": [
+        838,
+        728,
+        878,
+        800
+      ],
+      "tile_pixels": 10,
+      "water": [
+        63,
+        153,
+        198
+      ],
+      "foam": [
+        205,
+        242,
+        230
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Southeastern narrow curtain terminating into the visible lower stream; differs from the long unbounded curtains.",
+      "size": [
+        48,
+        40,
+        112
+      ],
+      "source_sha256": "15c9f3147cec50da4cd66505b41af4ede3394d7d13b4f56e64771ba0c64722a4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_Codex_UpperRibbonFall",
+      "kind": "waterfall",
+      "width": 16,
+      "drop": 64,
+      "crop": [
+        180,
+        0,
+        215,
+        48
+      ],
+      "tile_pixels": 16,
+      "water": [
+        68,
+        142,
+        170
+      ],
+      "foam": [
+        177,
+        216,
+        221
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Thin blue falling-water ribbon behind the northern house; inlet and lower end are occluded/cropped. 64-voxel completed length is an explicit estimate.",
+      "size": [
+        32,
+        40,
+        80
+      ],
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 254,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_Codex_LowerRibbonFall",
+      "kind": "waterfall",
+      "width": 16,
+      "drop": 48,
+      "crop": [
+        158,
+        302,
+        216,
+        361
+      ],
+      "tile_pixels": 16,
+      "water": [
+        68,
+        142,
+        170
+      ],
+      "foam": [
+        177,
+        216,
+        221
+      ],
+      "tiers": 1,
+      "free": true,
+      "pattern": "streaks",
+      "note": "Lower island notch ribbon with a pale mist foot. Blue atmospheric gaps without a visible water ribbon are excluded.",
+      "size": [
+        32,
+        40,
+        64
+      ],
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 254,
+        "6": 194,
+        "7": 254,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Codex_RockCaveEntrance",
+      "kind": "cave",
+      "size": [
+        48,
+        40,
+        48
+      ],
+      "crop": [
+        269,
+        88,
+        321,
+        132
+      ],
+      "opening": [
+        20,
+        32
+      ],
+      "rock": [
+        134,
+        112,
+        88
+      ],
+      "tile_pixels": 16,
+      "note": "Small pointed pale-rock surround in the upper gully, with a real open tunnel and a recessed earthy floor. Unseen depth is inferred.",
+      "source_sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_Codex_AmberCaveEntrance",
+      "kind": "cave",
+      "size": [
+        48,
+        40,
+        48
+      ],
+      "crop": [
+        912,
+        414,
+        962,
+        463
+      ],
+      "opening": [
+        24,
+        32
+      ],
+      "rock": [
+        151,
+        111,
+        70
+      ],
+      "tile_pixels": 16,
+      "note": "Eastern warm brown rounded cave mouth near the sign; real arch opening, faceted rock brow and short through-tunnel.",
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 180,
+        "9": 234,
+        "10": 235,
+        "11": 179,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_Codex_DeepCavernEntrance",
+      "kind": "cave",
+      "size": [
+        80,
+        56,
+        80
+      ],
+      "crop": [
+        470,
+        887,
+        528,
+        956
+      ],
+      "opening": [
+        36,
+        56
+      ],
+      "rock": [
+        151,
+        111,
+        70
+      ],
+      "tile_pixels": 16,
+      "note": "Large irregular southern dark recess reconstructed as a deep cavern mouth. The source black void beyond the entrance is background, not exported geometry; hidden roof/rear tunnel are inferred.",
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 252,
+        "2": 251,
+        "3": 252,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 180,
+        "9": 234,
+        "10": 235,
+        "11": 179,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "dc4673466b451c1942283fd185ab7fd0a584564e5fcc789cab0ff3566b0c8a68"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "c9210bee3905414732c1cb45ce52a504cf7a5cda0394f3cdf567e391624de13d"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_CratePalette.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 2,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "8c26b1befb3c4339c85d7ef90277e2a03a05c60cebf1f03369126e18fa88ad05"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "460b34f184e6e77a87ab2bc71623fa9b14b26863e795e5be4924a2fa3ecde180"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "82316e7b8caddcc7196a91eedeb0dfebda92279b15acfd5293aab3d54b8f4648"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_CratePalette_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 16865,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "609ae16bfb5ad4ffd2faeb104e2f1a24f6231be7ba4c773f974f650bbbc9a6c4"
+    },
+    {
+      "family": "PixelwoodC_Codex_CurtainWaterfall",
+      "file": "output/pixelwood_c/PixelwoodC_Codex_CurtainWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 18698,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        37
+      ],
+      "sha256": "1fbeea2a4c959ed4942bd070c3b3de2e7f0c058cb607d8ca7c6d765226c60ded"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall.vox",
+      "source": "poke_a.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "3b05f7dbb8182330378fdb19a0d05ff1574f2a1c31efea1b14d6996660fe36e4"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "d6226c24acf1b5b13517a886865578d8343a55a2f3fd0cd43c953273432abc4e"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_CratePalette.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "bf24745082f767d136e1e1034fab3931735f70ecdea365ec2a5ea26e6aa22bea"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "73e44709a069c0eba4508de9f6f411d60de789eab3dbcc27a361d5cd32297480"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "cda8c89717916784342feda6d029393c9f04a0cf5dc2c8c4a46b313762041056"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "a5d1526d5faab9e06b7369cd4daed8b5261c5efcf71cca88f47f9ddd47368894"
+    },
+    {
+      "family": "PokeA_Codex_TerraceWaterfall",
+      "file": "output/poke_a/PokeA_Codex_TerraceWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "bf9fe035221d141880d6ab56a8284d74e74e0056de279926bba00cba2246bf33"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "e1cb77e89599055a7984a2cf6b9038f694154e86ea9afa0336e141ca995258c6"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "b5f468f34a1de011d50a476cce1f670cc5f18c7c426fc3a4f8b2eb207d803f2a"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "bc21873cc5a084585d1d758e31b6bcfb5f2705f960ebc997e9f3b1c1beca5e4e"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "187a8cb8edebdb2b0146efbc238b1e2467c17eb5f7b2502da1d14fef036dbce9"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "662a6798f1a4d9bcb87dfab159da3e51ec4a56a26aa5965ea313ae2440b6892c"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "1be65ae68a325973aa0ee3bad9da9d567f72fe942111e0ff911baa898fe9569e"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "875ec96e897ee0e6c2427bc3dee2e7602c587fdb3b50e484cff8053f51200a53"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "cd803f50688eed282e9b070ca80a366d86ff79d3b54e3eb84fd9fb54d1cbcfcb"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5dad5a1f32270751d8754de83b1becf3a6d5282a4636ae669a741f4eeae0a046"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5c88f115bd536f0adfa579f3439711b1f1d34e4b3ba6c97d7fa177742b5677c6"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "f6a7c4dc4f792bfd0bb2408eccf42529ccdf8c9f4fff59bdf9087cb8e710cf57"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "4c6654bc89a2a7ad1593ea5a3b96f7546872123f419cb8c4107fc747b2c13570"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5472733d3204f94bdad013f35106c1efb1fad451e10a23d974554c24acfd7dc0"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "a69194244d3178faa02fe3ebab53ed536bc8192c3be943f2ef785c5b409cdaf9"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 25053,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "94c728a2c8a1aae54731ab4aaedc9a5a745374d419cdb2c581eddb9251fe36c1"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 28650,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "ff584c2f148c4bd1d1d205e76bc191ddc46851754278e4c582f99a040d4e720f"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 25053,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "5b5bad0994c632a7dc4e7f994a6ad6d3d8c17162dd25d59cc92d25831e6e61a4"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 25053,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "84e0be20d957a596297fd7d549d1953f633ff0a34cb3d797f1b309050d61623d"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 28650,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "d6a895c82bc403619fc64507bac820c015e6e5c88abd07c5fd87fbbcce07a585"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 25053,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "05be78585a6c457ead5d739567445523d069e2f79e9ee04617ea20f0438b4ddc"
+    },
+    {
+      "family": "PokeD_Codex_UpperWaterfall",
+      "file": "output/poke_d/PokeD_Codex_UpperWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        96,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 28650,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        90,
+        22,
+        53
+      ],
+      "sha256": "f1d430eec84c978d17ea10abd31c8e18fec1b275b600ff8f617bdc6394d6bf17"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 26184,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "8d640830c1583047304f898b2bd14eb335ad37cf56b23469da93c122e0be605d"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28424,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "9ac8bcd037c3ad203ee0b0d3d86c282b21a27c22d33071f01bf45ebf73e0f192"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 26184,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "236d2894ef6c566d47b40e7d7ef7d050374ccec633ee3be20fe311c500eaf7ed"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 26184,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "8490ce74a529a31b46000b76991ccc1e134813ae829ae381cb5fa798570cf006"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28424,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "6394d0f6ebc573a5b6bcd094e1949c1e63a4e97d5dc4f8fa45bb80a4237f0514"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 26184,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "2779178781bf88be0e1ce95c66d57541d5753df3d80a670404370410717e8111"
+    },
+    {
+      "family": "PokeD_Codex_WideSpillway",
+      "file": "output/poke_d/PokeD_Codex_WideSpillway_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        128,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28424,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        22,
+        29
+      ],
+      "sha256": "55c5bf2b8e20410945c3a6c5f01a3a012c3d681a7b1910ee7d96c58afdf1df16"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall.vox",
+      "source": "poke_d.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 20161,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "ed88a00bc59f6466d6b11805538f75851a1157dadaf42e941bd3f69d56dae184"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_Cartoon.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 23050,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "2c0f80c1bb56952bd2bbe83be65378d6430e56519472d8be7a088e7a2961a55e"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_CratePalette.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 20161,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "01c17eb4daf989fc8f904fe9d9a46d3902edeb7ff340e113512302810ad7c172"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 20161,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "cebc4ab818f83fb5f935e039978efd3340bd7ff25f2c06ebe2081965fb758fb8"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 23050,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "64cf0e0249fa952338680c402f497932dd0015541c619dfbc69e44e4a7738c18"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 20161,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "8cb37680e66ba00d7437b41782bc8d789d21afd1b96d07c8a38a159a91a591c8"
+    },
+    {
+      "family": "PokeD_Codex_NarrowWaterfall",
+      "file": "output/poke_d/PokeD_Codex_NarrowWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_d.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 23050,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        74,
+        22,
+        53
+      ],
+      "sha256": "2547e433cfae7b696f9f34dd26d99734d8ad731ea48c0d6374c745340cae5de0"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway.vox",
+      "source": "poke_m.png",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "6c0cb1063ab2393484ee452e85cbf2e0f689896c58c4ff202818fa497d281977"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "4a0d02c1e115aa351f3d4dccfbb15b95dbab43e9822a8ee838ea93b5f78d2145"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_CratePalette.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "d4461813ec2de91fab6813510c1550daa2d1c4eaaf973100cef2f0bca70d8239"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "8cdcda22138fbd52f01cfc2222c1929bbc958e5d7e459a021b8825b16f238943"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "e944c059c9a4914c8bfb697b1c6ed8c774ea6202194dfc8bb7945d5a968cde79"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "764529aff0542c52dfe14580f00d44371e807aee5488acdc58c743c0666ced35"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "9a7c38816d69381a6e4cf974cf1d49e2bdd2d512f0f3566c8ba6ef1645ea977a"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 25355,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "996011f0a3af7e14b3aac7d8085d8dff1a7131e12fa30e50f85235cc1a8c5cd7"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 30534,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "7c587a68fbb077c7177b1a615c1a70a5387530f43d7571639717c9fa357f9ce8"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 25355,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "5de3c1bc150b4f4a6821533d2ba8ab417b2df1f9aad8897ccf46bf3f20fc3842"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 25355,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "c9560ff8db095d79c58ecf0ce56c40096f5197c67ff16e41064835f031941d88"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 30534,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "a5ba2b212c6970c4e8223da194aa634457592b0f8889022836ed50ba1afef585"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 25355,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "3558149119c1000cd5ce9e478869d107c14842af736a371e5214e74e079c25e6"
+    },
+    {
+      "family": "PokeS_Codex_TallGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_TallGardenWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 30534,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "e4dd04d30d55df64e45f5e04030a9860ac5bfc46bb6b7574886c34e9362c32a8"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 20363,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "4ae0e9e337732e096d2c27f0534a58ca9cb13f67d57193a0e422221a47f58d80"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 24006,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "e434154e19ac24560123bd404aa37629a6c806145f24a69fb7d17d7c07b71d38"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 20363,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "bb07fedcb92f46ae106aaea0b3ec5d0f92f959842d7ae4c063350d64a985a959"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 20363,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "c2a4e0a32a35f7d4494e2778fd97cf81f5c2aa3987d67966ce8114a78af3985b"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 24006,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "402c528f38cd487402a8ed7fb0887772dde22da47aeec4e8085b55f569315b56"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 20363,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "7a3cfcb4a6db9ce33fb99842ec18e4e7c00cf11f5a20efc07376f167f546a468"
+    },
+    {
+      "family": "PokeS_Codex_MediumGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_MediumGardenWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 24006,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        85
+      ],
+      "sha256": "2be446100da09b932315b69febeaab5c39251a28af6c1017d3aadd814a6ca7ad"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "373a4bb1d88bf9362674d9bf3a0d15b7ad43d628c507d034fd8667ac9a23f5c2"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "88c4eafe229f9bca5fc2293a0c252471132e9fee5e7b3243a87dee776a68434b"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "e2f14ff4e54b37102f839864d020a25935ce0e0daa4d4ba4d1dbc1c64eb6a9b2"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "995c270ed9f570382d86b7b76fe2b3ae74b9359de88d4a44acc663c8371894ee"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "3ce19e55f70bbec7b16ff59492d53b8df6e96c6e7aaa39f6b83ac4609304871b"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 12875,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "d0f7e4702e45f9f8f4e94ede994f9b0f1dd8fe8daa59baedb5fd91c5c777beaf"
+    },
+    {
+      "family": "PokeS_Codex_LowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LowGardenWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 14214,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        37
+      ],
+      "sha256": "d23eafa1f1b9a9f07f50535848a782649685c25ae86120388936791580238aff"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 10476,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "895e2fca75881fb042c0fa789b0b8154c16f45045a75d535ad235447368dac37"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 11882,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "6f9386ae98c98bd7d28a5c86d51d44b99df7d2a2dde0bc7274e475311075070a"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 10476,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "217fb65c3e23f8e20eaefaa0ed8de853f9955ea586c40596feb902d4f1b6f719"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 10476,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "3da4f7e586dd6a060d881162c1f41e8c220fde59a48290e3b70ce9981634e50b"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 11882,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "60fa79c68851279b29d5913edec0930588bcd3420332423e1345968804265098"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 10476,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "73640aedb14b28c079e854783794fc2e3c3b574bfd0fd3106c4e01b381870001"
+    },
+    {
+      "family": "PokeS_Codex_NarrowGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowGardenWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 11882,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        53
+      ],
+      "sha256": "2ed4728d4464f7e8b9e828d2547d1f6f038749d48a75b45352d343bb9893bdfc"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 15371,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "32287378e525a438540a8eea224edd40b692f76b4217e087ba40c9159720ce4d"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 17478,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "a329dc0c3ca160ee01b30c5d601bb9d4a10dc324ffe8cca102485d29e655efa8"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 15371,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "fcacdc68f9380490de7ece5fda90c69389091574dcedccf24face68e796dc98b"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 15371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "3b7ae79495c945af4183da204635aba3acdcac3998034a6eb59088ca893e3dc2"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 17478,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "5aa864b2f5c87f6590eedfc61a5a3eb3ae969354c4ad3f2aaaf3e8c27ce4d7a6"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 15371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "a8b21ee89660725340fccd0cb56b3665af821d154b84628d628c42d40c88e489"
+    },
+    {
+      "family": "PokeS_Codex_WideGardenWaterfall",
+      "file": "output/poke_s/PokeS_Codex_WideGardenWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 17478,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        53
+      ],
+      "sha256": "4897737e0c923d0a64b177100f365480e5839892a099acf27e81fa562918dffb"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 29949,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "2c1344f429593d3a58195029a4f941cca99df88cd9b6f8224fcb9fb5fcb8237e"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 37494,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "341a100af2fb4e29a71fe707a2cce4948102b997dc368fe780390984c360fec2"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 29949,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "7749b1090c800761619fdec9a6458367199af454d27d84e2a1d031e9a7f22d57"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 29949,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "dad6994a8bd7c94996ef69fd681f1769348505ca45d37d50ffb05e7c191cca1b"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 37494,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "cb6fec19f4277e22914d109768a0f2f7cb0438253e27911d2eb557eb58c6483c"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 29949,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "24f4d94350600e1a90d47d564542c0ee326a26f943bdf852cadd77ebc9a43f8d"
+    },
+    {
+      "family": "PokeS_Codex_LongIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_LongIslandWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        176
+      ],
+      "scene_models": 1,
+      "voxels": 37494,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        165
+      ],
+      "sha256": "d888f8ee11a7ccffb17323742594b32fd91468bb84237039c9d621dab17a3a4c"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 22461,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "89afe69c0ab3f722927d76f1e4d49695a8959f5e3d5095cc9295aa489a221eef"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 27702,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "629b25d6f861559ba61e958925a025af58bdf06ce5700443463bf8dcaa295b12"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 22461,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "5654c8ac76eefa7abe380cf93e73799f9f1524ab77a7b80b80894eb0e2a407dd"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 22461,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "a3c540b9aac83a0d42732cbed54635d107b31cd45f30587bc144972d8dd12506"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 27702,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "fe57f84b4490625f4f6d63ae927a9e25cc1ff521eaff368c41091506fb8b9c3d"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 22461,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "8d5223ba7f5fa1f1422b8a0243b82d199deec0a25f27996945f42d4dfb15308d"
+    },
+    {
+      "family": "PokeS_Codex_IslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_IslandWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        128
+      ],
+      "scene_models": 1,
+      "voxels": 27702,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        117
+      ],
+      "sha256": "c97b4b10e89e328b015de7a62b693c19f4d8bd8cbcbad63d49220d8b35075855"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 11766,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "973c9dbcd48d5a90c7b8e9e8d713d6bfc99e90699ccf6af7a794bd1a185438de"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 14240,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "6088c380f9ecac4c199cf60ff6d75d42dc170f43d0eb3605f4c940a63bcad719"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 11766,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "2987823d4cc8d67e56bf17818cbe6b7317526094ca08f68f1330d19f708dd35a"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 11766,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "4f479e2741873bb01e4c46c459433afe1c1c2bf7b1edaad56aa3165476d34fed"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 14240,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "ab20deb701569cf77dc1155d406d001b45134df90bfe0594ddfe0a1158ab6aa1"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 11766,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "0b0885b6c0b97a005e7b68f7f691a813d63c4c776e93613791fe62d39c4a371c"
+    },
+    {
+      "family": "PokeS_Codex_NarrowIslandWaterfall",
+      "file": "output/poke_s/PokeS_Codex_NarrowIslandWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 14240,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        85
+      ],
+      "sha256": "ada58a90924c783e00f34f9458221e85589350bae28b7ef1bd07629093ddb8aa"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall.vox",
+      "source": "poke_s.jpg",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 15468,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "c488175d27632656c900637d92c590f4495505540e5a84058855b751b0aba67e"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_Cartoon.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 18410,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "65431dd12effcaf503f64f0eae1c383338b86f28fa0f61443e5355c2955021df"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_CratePalette.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 15468,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "d00820b18d3215fec16547719281155009ea665802261596e4028e293a555ec9"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 15468,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "8f56e05e5843f35ad7dd57cc18896aa53c240f57fc29b33a506b23eb266e3ec3"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_Cartoon_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 18410,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "1f5706536a9e63dec23af5b52cb1fd4d259a5e723f174906f6b2a3390f998085"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 15468,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "f41c18207cbe8ce7a11de5b7f6af5265d0d7f776b794484c06a964f17961b0f3"
+    },
+    {
+      "family": "PokeS_Codex_SoutheastWaterfall",
+      "file": "output/poke_s/PokeS_Codex_SoutheastWaterfall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_s.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        112
+      ],
+      "scene_models": 1,
+      "voxels": 18410,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        42,
+        22,
+        101
+      ],
+      "sha256": "4285e56a7e22f8f8057da82370da37f3f503af775c170e3d2becedd2c5bacc5f"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "71289feb8219db662bae82571ba27e99ac3caeb5f83923acabd5962683879dab"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "c6df9dc2d1a89b4c9e20cfd4ec73b18ee7d5eaec17e5667d46ab4b8b60f91321"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "f37c7b116e70cf116c8295c276d674ad2676a3c46701c470b211a6f815e2b2c7"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "abd82c0bd47357bce75b13efb1afb462cf6bb7fa67359572c5965848c88e318f"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "3938f54428cfcb352a4a1e3b50267f7777d27e511aad4b2789731ace792d46c8"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 5203,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "186e9b6f432749ff6a6d571903e404d6981ed604668dd0096f83c6b883d342e6"
+    },
+    {
+      "family": "PokeU_Codex_UpperRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_UpperRibbonFall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 6190,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        69
+      ],
+      "sha256": "7262c8de15f604af6728d11bdffadf326f8b2caf8868905cf6c39e9870b8953f"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "ced5378a664f06a278f58a3379581dd386401302f5cd4806d15d1a81b7125a16"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "f3a8a42932f29593f292cb5b433faa4e00641242ff71fab9bb4d32b7170e0f9b"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "54b53da929a107f715afc08b6f3cf63dc01328c42c6098515766382e249335a0"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "1d0948069744f4c07d906ab1039913ec9e090ae87b500244ed5119a15dcc927f"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "33c90f5d364f7e4999efcbb8500224c5b9979a4ab9d1c0f73d47fc6f5fd53c1e"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 4371,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "198fce0e548ada36c275e1f03b105fe92a8fdeab7141583f52463291834f5576"
+    },
+    {
+      "family": "PokeU_Codex_LowerRibbonFall",
+      "file": "output/poke_u/PokeU_Codex_LowerRibbonFall_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        40,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 5102,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        4,
+        0
+      ],
+      "occupied_max": [
+        26,
+        22,
+        53
+      ],
+      "sha256": "fd1c039e922cafbc6b800dbffc1f73d76789e96b8b2398fed5b5efb0a5a67f43"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance.vox",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "47c7121347cae22678d1d0e6ec430fbe389170a53d0c1d27ad8808e0bbef78ab"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "fb8fb25b0357369aba2043292c14d1bf45d4a86dab0bb28fc9ec57f2f7bf3529"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_CratePalette.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "c2d8975ef899ea1a2ad06d53e20ddcd1101d504f8faff27dbe7a5524b3c1efeb"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "ef873ad790ddb5b8b8158b226f7ee55dbf1c2820e6e8047efebbd9e785cbb094"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "94fd5f6ec89c44dda16ebd2d1b52b2efbb0b76c72a3abe4fa5dce18be00e234d"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38794,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "b5b18b135aa0d26111b405f7d6e8bd0c177bc1f80253599d2fdf8a0e73242141"
+    },
+    {
+      "family": "PokeP_Codex_RockCaveEntrance",
+      "file": "output/poke_p/PokeP_Codex_RockCaveEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 43208,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "329dfb3d85913f5f0a60773ef118369f812ea998929437cdb15c5c2eab5b412f"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "5a3177bec81662812c53cee242c715351ae50406d6991b3f442ac2005f1599b8"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "c273c271f12129a6ba7a2488c6be1f5f4456583b37577a2fcb12999c1137d0a7"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 3,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "2a6156e308be7919305303fb50adb9cf87aeaa2ae6a88e7d8b3ffb8217bbb97c"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "b02a62ab41f0958855866a1da9b54f4c08ee10efdd420f71c059074862dc77d4"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "ac00337db0a79ac8dc91627b408b0f6fdc11ddef0791c23f4dd0623aa941f7fb"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 34572,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "bc19e7c4663e7f7d4a4f11e48f9f2db1a08401013db0e7109ad2531260d65890"
+    },
+    {
+      "family": "PokeT_Codex_AmberCaveEntrance",
+      "file": "output/poke_t/PokeT_Codex_AmberCaveEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        48,
+        40,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 38986,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        46,
+        39,
+        41
+      ],
+      "sha256": "3e445014248791259f69511f10341ce22ddd96a8db08875f2ee8edf4e1055150"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 5,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "51e6c6dba6961838c0a527ad35d48a3cfc9e6bba6a6b48328e4a535499121d18"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 4,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "60cc61c6d0bd7394df99f644ee76e8b5f1a4e4160d1da9518d56e05976297237"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 3,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "c0e476c046fdca73ec2528d2cfd76ef8c73663814f6bc1c3d87f67dc1ca9d83a"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "31e4d1d1322654f56efb14769fe12e9e55b5358014666708a7aaf631c9613e73"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "fe99752aae4aaaf74300bd929273f05427cd67843ed14989d0771b669249632e"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 171885,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "796916d51de176ede7638424689789ff66fe793408cc0849218417fb4cd3931c"
+    },
+    {
+      "family": "PokeT_Codex_DeepCavernEntrance",
+      "file": "output/poke_t/PokeT_Codex_DeepCavernEntrance_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        80,
+        56,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 182266,
+      "colors": 2,
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        78,
+        55,
+        74
+      ],
+      "sha256": "95a96821832ea266aa6ec45872d1a63fdbb24ed22a755e669594fec210a42e85"
+    }
+  ]
+}

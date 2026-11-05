@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_g.png",
+    "name": "PokeG_RoundStreetlight",
+    "shape": "drum",
+    "size": [
+      16,
+      16,
+      48
+    ],
+    "crop": [
+      397,
+      155,
+      420,
+      211
+    ],
+    "scale": 1,
+    "metal": [
+      140,
+      134,
+      126
+    ],
+    "light": [
+      220,
+      246,
+      241
+    ],
+    "power": 2,
+    "note": "Wide low-domed gray head, short pale diffuser band, slender stem and tiered round base."
+  },
+  "models": [
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "6e699202b8dc2e7ef3643bc0e89148f01cd9bbfec1877454bc6430152d31a391",
+      "palette_sha256": "44cc8c4166f57cb7fcfbae93c2e3df5f97f709956dcc8758fd2a9ca375a251dc",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "9e79b71b79d2529ff7ed427c236f68bb0a38961e352de55a9a71fa06bc0c68d0",
+      "palette_sha256": "44cc8c4166f57cb7fcfbae93c2e3df5f97f709956dcc8758fd2a9ca375a251dc",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_CratePalette.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure",
+        "206": "structure",
+        "194": "structure"
+      },
+      "colors": 4,
+      "sha256": "421332bd5d46e5a50e4708198734beef153d83167377d08d2f85e1b1c034baa0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "5f8341a62a14d77d93c21522c8e1a8bc1de5e6d8fdcf79bf3f801c32b3130c3a",
+      "palette_sha256": "e69635e583242613d0ce14f87d9bf09c644a9b383dd6c0b40c99563a5bdfc506",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "60031d9610ff4939ae14f8e438d8ee0755d6c5e11495b3acaf903ef28c0268fc",
+      "palette_sha256": "e69635e583242613d0ce14f87d9bf09c644a9b383dd6c0b40c99563a5bdfc506",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "e3b9189d9aa9791247e49707e8650b5cfa31f283487b23319bc4031eabaf1f1e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "66153ab8a6a180900133896be7cee741e6a935a845b781a6843784292c843687",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    }
+  ]
+}

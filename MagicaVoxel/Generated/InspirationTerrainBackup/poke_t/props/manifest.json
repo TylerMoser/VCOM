@@ -1,0 +1,761 @@
+{
+  "source": "poke_t.png",
+  "review": {
+    "source": "poke_t.png",
+    "reviewed": true,
+    "families": [
+      "PokeT_Barrel",
+      "PokeT_CaveSign",
+      "PokeT_CaveMushroom"
+    ],
+    "notes": "Barrel, cave trail sign and tiny red mushroom. Cave walls, bridges and stairs are architecture; rocks and tubular railings already covered.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_Barrel",
+      "kind": "barrel",
+      "crop": [
+        717,
+        109,
+        754,
+        146
+      ],
+      "size": [
+        24,
+        24,
+        28
+      ],
+      "tone": "brown"
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_CaveSign",
+      "kind": "sign",
+      "crop": [
+        877,
+        420,
+        901,
+        449
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    },
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_CaveMushroom",
+      "kind": "mushroom",
+      "crop": [
+        110,
+        495,
+        132,
+        516
+      ],
+      "size": [
+        12,
+        12,
+        10
+      ],
+      "tone": "red"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_t/PokeT_Barrel.vox",
+      "family": "PokeT_Barrel",
+      "style": "Base",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9384,
+      "colors": 5,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "wood",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        9384
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "sha256": "d216f631a035345653f24bbd738a356c80f703a00b331a12f4b2a2199a8ce4d3",
+      "palette_sha256": "95028e3caee6b6625fbaa9db27f1e6b29dd852bd884aa0bc67e23572f110098b",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon.vox",
+      "family": "PokeT_Barrel",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9896,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        9896
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        27
+      ],
+      "sha256": "5e8bf420f9827a372b9f750a9ed173536314c7e3b5d57354fe8d5d81a304a3d2",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_CratePalette.vox",
+      "family": "PokeT_Barrel",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9384,
+      "colors": 4,
+      "groups": {
+        "205": "metal",
+        "206": "metal",
+        "179": "wood",
+        "235": "wood"
+      },
+      "components": [
+        9384
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "sha256": "286e54e0b18ed785e5fe0e77def91bf817fa625b1b4c424e3ff81c009fc412e3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_TwoColor.vox",
+      "family": "PokeT_Barrel",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9384,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        9384
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "sha256": "367db128b062606e8204ced998e068b1b380480b0dffe1620c80dedd4a65e2c8",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon_TwoColor.vox",
+      "family": "PokeT_Barrel",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9896,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        9896
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        27
+      ],
+      "sha256": "1494d1ccac796334a721bf3ee1fc26d3bdc905bb611bfeb4d2a3f554727923b6",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_CratePalette_TwoColor.vox",
+      "family": "PokeT_Barrel",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9384,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        9384
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "sha256": "623addee9ddc846a0581f8c234bb210e5722b47512917ba74147346d4845feae",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_Barrel",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 9896,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        9896
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        23,
+        27
+      ],
+      "sha256": "acb870423d1efdc7d46bf0e48cb89c137e125dc1e7b7a06e7c2107cf1b2af932",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign.vox",
+      "family": "PokeT_CaveSign",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "e89337d2a3e4df3a01de9cc4637b63149d7f51879db6f3c7699084e5cb38c03a",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon.vox",
+      "family": "PokeT_CaveSign",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "57b6f571a7c10b625b93976aec3ad394593ffc682f89798bfb662e6a617fc66d",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_CratePalette.vox",
+      "family": "PokeT_CaveSign",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "79e0d0000a73faccccc7b695d4a1bc7b2983991aa855a8ba4bbb657816d6bcc2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_TwoColor.vox",
+      "family": "PokeT_CaveSign",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "422b4b426202f157085093570103a3f8d51892a2037e94b11e87f6f975c1f9b3",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon_TwoColor.vox",
+      "family": "PokeT_CaveSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "38d0049ea98c107d1fdacbaf1a45f905421fe0f22f7d0b042c99a19bbf22341a",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_CratePalette_TwoColor.vox",
+      "family": "PokeT_CaveSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "e3e09bb24472a81dd54dd20c5a45a2509b4a41e8950280cbcf27e1cfe8dfdb8f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_CaveSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "2464a42a8929e4b147908232e668ced31d72cac333b9198721c158b461502ea0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 488,
+      "colors": 5,
+      "groups": {
+        "1": "cap",
+        "2": "cap",
+        "3": "cap",
+        "4": "stem",
+        "5": "stem"
+      },
+      "components": [
+        488
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "005b1dd7eff448a008e339f73022815d6128db7ff3efb8b153951ad58aa37856",
+      "palette_sha256": "44967a0e947ebe227a8212db2c7f0525d615d981c2d68e41de088c366f603d52",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 548,
+      "colors": 3,
+      "groups": {
+        "1": "cap",
+        "2": "stem",
+        "3": "stem"
+      },
+      "components": [
+        548
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "9e5734a9e198f2ce5d7decb879ce1fe076cfd2b2d6af592e1a7e9de21451418f",
+      "palette_sha256": "bd2fb24e5ea782d8dcaa1aea02b18776fb80852a3afa8ccf9a61df0659ceed01",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_CratePalette.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 488,
+      "colors": 4,
+      "groups": {
+        "220": "cap",
+        "221": "cap",
+        "196": "stem",
+        "238": "stem"
+      },
+      "components": [
+        488
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "4ee6750b91a2797616901ce124bd1fbbb0962b964c207d466071ed7ebe12332f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_TwoColor.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 488,
+      "colors": 2,
+      "groups": {
+        "1": "cap",
+        "2": "stem"
+      },
+      "components": [
+        488
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "11567c4e23bb4a20acb890397854fea77b56d8e5a93b443e1a957155e79065ca",
+      "palette_sha256": "1885dfae9d41354785908d92ed2b00db72d4bcf63581834c8436f5c82d54b6bf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon_TwoColor.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 548,
+      "colors": 2,
+      "groups": {
+        "1": "cap",
+        "2": "stem"
+      },
+      "components": [
+        548
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "e890d2ef182f724af13eda23bcf44063743cbb28d77599e5fc059a76ec3a273f",
+      "palette_sha256": "1885dfae9d41354785908d92ed2b00db72d4bcf63581834c8436f5c82d54b6bf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_CratePalette_TwoColor.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 488,
+      "colors": 2,
+      "groups": {
+        "220": "cap",
+        "238": "stem"
+      },
+      "components": [
+        488
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "9cb333b94a1800049feac970909aa78f4036f70230d8dbdd9325bfd93f2c3177",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeT_CaveMushroom",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        10
+      ],
+      "voxels": 548,
+      "colors": 2,
+      "groups": {
+        "220": "cap",
+        "238": "stem"
+      },
+      "components": [
+        548
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        9
+      ],
+      "sha256": "abc77d65f37c6757effa17e05e4974da4d326aa190f2d1e3d53e63a6a33c2753",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

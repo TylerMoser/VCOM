@@ -1,0 +1,519 @@
+{
+  "source": "poke_i.jpg",
+  "review": {
+    "source": "poke_i.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeI_TimberSign",
+      "PokeI_RedMailbox"
+    ],
+    "notes": "Timber sign and red mailbox. Source is reduced; approximately 9.5 displayed pixels represent a native 16-pixel tile. Buildings and fences already covered.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_TimberSign",
+      "kind": "sign",
+      "crop": [
+        316,
+        310,
+        338,
+        334
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    },
+    {
+      "source": "poke_i.jpg",
+      "name": "PokeI_RedMailbox",
+      "kind": "mailbox",
+      "crop": [
+        533,
+        292,
+        548,
+        315
+      ],
+      "size": [
+        12,
+        12,
+        24
+      ],
+      "tone": "red"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_i/PokeI_TimberSign.vox",
+      "family": "PokeI_TimberSign",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "804770f8790533125e66880bfc0d4d70a8bc6ef7ead16c726533ed0eed5fcc9c",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon.vox",
+      "family": "PokeI_TimberSign",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "461275322058e78489b309e2049a2f9024ccbf8dc05ac75c749336db5f296a33",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_CratePalette.vox",
+      "family": "PokeI_TimberSign",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "e2a59d93914cfa46c9a342821aa4ee9c10bef506ba2fd3c207644e212fd14543",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_TwoColor.vox",
+      "family": "PokeI_TimberSign",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "86e3b2ba76a028cdcc7e0a16475d90793bc3d6e1c84720cedb38d071650eed97",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon_TwoColor.vox",
+      "family": "PokeI_TimberSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "16b50bdee5adfab096565e87fa43c3861706c2e4363b059c61b30d3e338a3560",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_CratePalette_TwoColor.vox",
+      "family": "PokeI_TimberSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "f313694ca4fe0d9b2fa20d6e2f7be55a553c30ecd1e19ff6254caf9b5d99e0bd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_TimberSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "596abffd45e7b8bc8549ae9754135fafccf6635fd9400af8cce5bfba3398c135",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 6,
+      "groups": {
+        "1": "body",
+        "2": "body",
+        "3": "body",
+        "4": "ink",
+        "5": "metal",
+        "6": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "d9bf5f84993c362a87c60facf3aa4000cf420c25874494684a216f88d2abc54d",
+      "palette_sha256": "5a5b23079b43867b0c4c0dea54a953d6ccbc0d5e40c9c459c477e711db04a376",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "aaa02cd5aad1a04233f7bdaf691861d7a73d9e0ed2d0eaa39a1cbee4c9dedb22",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_CratePalette.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 4,
+      "groups": {
+        "220": "body",
+        "221": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "2d5e58cff382e43c6e793309284275735e39932ef1aafae6f78f3a2681fd30ee",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_TwoColor.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "4265232a5ac828dc03f7176e47b2ef8b85e5d797a6c3a124769c9d7808c1ee23",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon_TwoColor.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "1": "body",
+        "2": "ink",
+        "3": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "d0be522a6201fdfa3c1d076440786703c064d36b4544eef7bcfbcc6fef402e36",
+      "palette_sha256": "aad5e58c850ccd0ccb5cc230ed49bcd741b3e71d9cc7c1d2713d10688c321553",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_CratePalette_TwoColor.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 842,
+      "colors": 3,
+      "groups": {
+        "220": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        842
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        21
+      ],
+      "sha256": "9c9679d8b61c1b3d12540ca7659f56bbd053804404fe184fceb916db83812394",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeI_RedMailbox",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        24
+      ],
+      "voxels": 866,
+      "colors": 3,
+      "groups": {
+        "220": "body",
+        "205": "ink",
+        "206": "metal"
+      },
+      "components": [
+        866
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        22
+      ],
+      "sha256": "641d2780bc28f713b8c4d6c49d1d15865345369d785b0878174ae0b96d892101",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

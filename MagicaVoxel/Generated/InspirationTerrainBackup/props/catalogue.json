@@ -1,0 +1,784 @@
+[
+  {
+    "source": "mario.jpg",
+    "name": "Mario_NoticeSign",
+    "kind": "sign",
+    "crop": [
+      469,
+      179,
+      537,
+      235
+    ],
+    "size": [
+      24,
+      8,
+      24
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "mario.jpg",
+    "name": "Mario_QuestionBlock",
+    "kind": "question",
+    "crop": [
+      140,
+      0,
+      186,
+      48
+    ],
+    "size": [
+      16,
+      16,
+      16
+    ],
+    "tone": "gold"
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_DirectionSign",
+    "kind": "direction",
+    "crop": [
+      467,
+      362,
+      551,
+      463
+    ],
+    "size": [
+      28,
+      10,
+      36
+    ],
+    "tone": "brown"
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "name": "PixelwoodA_SpottedMushroom",
+    "kind": "mushroom",
+    "crop": [
+      399,
+      200,
+      432,
+      232
+    ],
+    "size": [
+      12,
+      12,
+      12
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "name": "PixelwoodC_TreasureChest",
+    "kind": "chest",
+    "crop": [
+      315,
+      325,
+      400,
+      393
+    ],
+    "size": [
+      24,
+      18,
+      20
+    ],
+    "tone": "brown"
+  },
+  {
+    "source": "poke_a.jpg",
+    "name": "PokeA_TrailSign",
+    "kind": "sign",
+    "crop": [
+      152,
+      280,
+      171,
+      307
+    ],
+    "size": [
+      16,
+      8,
+      20
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_BluePlaque",
+    "kind": "board",
+    "crop": [
+      383,
+      540,
+      402,
+      562
+    ],
+    "size": [
+      16,
+      10,
+      20
+    ],
+    "tone": "blue"
+  },
+  {
+    "source": "poke_b.png",
+    "name": "PokeB_RedMailbox",
+    "kind": "mailbox",
+    "crop": [
+      482,
+      732,
+      495,
+      754
+    ],
+    "size": [
+      12,
+      12,
+      24
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_TimberNoticeboard",
+    "kind": "board",
+    "crop": [
+      223,
+      610,
+      258,
+      643
+    ],
+    "size": [
+      32,
+      10,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_c.png",
+    "name": "PokeC_PaleNoticeboard",
+    "kind": "board",
+    "crop": [
+      654,
+      690,
+      692,
+      723
+    ],
+    "size": [
+      32,
+      10,
+      24
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_AntlerMonument",
+    "kind": "antler",
+    "crop": [
+      184,
+      301,
+      217,
+      352
+    ],
+    "size": [
+      28,
+      20,
+      40
+    ],
+    "tone": "slate"
+  },
+  {
+    "source": "poke_f.png",
+    "name": "PokeF_GardenNoticeboard",
+    "kind": "board",
+    "crop": [
+      225,
+      489,
+      253,
+      515
+    ],
+    "size": [
+      24,
+      10,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_ParkBench",
+    "kind": "bench",
+    "crop": [
+      140,
+      72,
+      179,
+      98
+    ],
+    "size": [
+      32,
+      18,
+      24
+    ],
+    "tone": "gray"
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_TimberSign",
+    "kind": "sign",
+    "crop": [
+      90,
+      103,
+      116,
+      127
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_PaleNotice",
+    "kind": "kiosk",
+    "crop": [
+      220,
+      517,
+      245,
+      549
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_UtilityStand",
+    "kind": "terminal",
+    "crop": [
+      218,
+      373,
+      246,
+      403
+    ],
+    "size": [
+      20,
+      12,
+      24
+    ],
+    "tone": "slate"
+  },
+  {
+    "source": "poke_g.png",
+    "name": "PokeG_ItemBall",
+    "kind": "ball",
+    "crop": [
+      128,
+      80,
+      144,
+      96
+    ],
+    "size": [
+      10,
+      10,
+      10
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_HayBale",
+    "kind": "bale",
+    "crop": [
+      127,
+      238,
+      148,
+      260
+    ],
+    "size": [
+      16,
+      16,
+      16
+    ],
+    "tone": "straw"
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_BaleStack",
+    "kind": "balestack",
+    "crop": [
+      369,
+      149,
+      418,
+      207
+    ],
+    "size": [
+      32,
+      24,
+      32
+    ],
+    "tone": "straw"
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_HayMound",
+    "kind": "hay",
+    "crop": [
+      175,
+      324,
+      208,
+      356
+    ],
+    "size": [
+      28,
+      28,
+      24
+    ],
+    "tone": "straw"
+  },
+  {
+    "source": "poke_h.png",
+    "name": "PokeH_Pitchfork",
+    "kind": "fork",
+    "crop": [
+      305,
+      88,
+      321,
+      118
+    ],
+    "size": [
+      12,
+      8,
+      28
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_TimberSign",
+    "kind": "sign",
+    "crop": [
+      316,
+      310,
+      338,
+      334
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_i.jpg",
+    "name": "PokeI_RedMailbox",
+    "kind": "mailbox",
+    "crop": [
+      533,
+      292,
+      548,
+      315
+    ],
+    "size": [
+      12,
+      12,
+      24
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "poke_m.png",
+    "name": "PokeM_ArrowSign",
+    "kind": "direction",
+    "crop": [
+      61,
+      764,
+      97,
+      795
+    ],
+    "size": [
+      28,
+      10,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_GreenBench",
+    "kind": "bench",
+    "crop": [
+      444,
+      538,
+      481,
+      563
+    ],
+    "size": [
+      32,
+      18,
+      24
+    ],
+    "tone": "olive"
+  },
+  {
+    "source": "poke_n.png",
+    "name": "PokeN_TimberNotice",
+    "kind": "sign",
+    "crop": [
+      314,
+      212,
+      338,
+      241
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_TimberSign",
+    "kind": "sign",
+    "crop": [
+      270,
+      348,
+      290,
+      372
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_RedMailbox",
+    "kind": "mailbox",
+    "crop": [
+      365,
+      145,
+      388,
+      172
+    ],
+    "size": [
+      12,
+      12,
+      24
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_BluePlaque",
+    "kind": "plaque",
+    "crop": [
+      300,
+      351,
+      326,
+      375
+    ],
+    "size": [
+      24,
+      8,
+      20
+    ],
+    "tone": "blue"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_FlowerPlanter",
+    "kind": "planter",
+    "crop": [
+      285,
+      316,
+      309,
+      353
+    ],
+    "size": [
+      20,
+      32,
+      16
+    ],
+    "tone": "brown"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_ParkedScooter",
+    "kind": "scooter",
+    "crop": [
+      346,
+      173,
+      383,
+      197
+    ],
+    "size": [
+      32,
+      12,
+      24
+    ],
+    "tone": "blue"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_BeachParasol",
+    "kind": "parasol",
+    "crop": [
+      426,
+      30,
+      469,
+      71
+    ],
+    "size": [
+      32,
+      32,
+      36
+    ],
+    "tone": "orange"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_BeachLounger",
+    "kind": "lounger",
+    "crop": [
+      528,
+      363,
+      546,
+      402
+    ],
+    "size": [
+      16,
+      32,
+      16
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_o.png",
+    "name": "PokeO_Sandcastle",
+    "kind": "sandcastle",
+    "crop": [
+      596,
+      441,
+      640,
+      487
+    ],
+    "size": [
+      32,
+      32,
+      24
+    ],
+    "tone": "sand"
+  },
+  {
+    "source": "poke_p.png",
+    "name": "PokeP_TrailSign",
+    "kind": "board",
+    "crop": [
+      523,
+      793,
+      547,
+      823
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_q.png",
+    "name": "PokeQ_TrailSign",
+    "kind": "sign",
+    "crop": [
+      500,
+      566,
+      529,
+      593
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_BlueMailbox",
+    "kind": "mailbox",
+    "crop": [
+      256,
+      409,
+      276,
+      433
+    ],
+    "size": [
+      12,
+      12,
+      24
+    ],
+    "tone": "blue"
+  },
+  {
+    "source": "poke_r.png",
+    "name": "PokeR_LowInfoPanel",
+    "kind": "sign",
+    "crop": [
+      558,
+      518,
+      594,
+      539
+    ],
+    "size": [
+      28,
+      8,
+      16
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_TieredFountain",
+    "kind": "fountain",
+    "crop": [
+      409,
+      328,
+      460,
+      370
+    ],
+    "size": [
+      48,
+      48,
+      32
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_s.jpg",
+    "name": "PokeS_CourtyardStatue",
+    "kind": "statue",
+    "crop": [
+      418,
+      19,
+      445,
+      73
+    ],
+    "size": [
+      24,
+      20,
+      48
+    ],
+    "tone": "white"
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_Barrel",
+    "kind": "barrel",
+    "crop": [
+      717,
+      109,
+      754,
+      146
+    ],
+    "size": [
+      24,
+      24,
+      28
+    ],
+    "tone": "brown"
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_CaveSign",
+    "kind": "sign",
+    "crop": [
+      877,
+      420,
+      901,
+      449
+    ],
+    "size": [
+      20,
+      8,
+      24
+    ],
+    "tone": "wood"
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_SmallGreenNotice",
+    "kind": "board",
+    "crop": [
+      159,
+      99,
+      192,
+      131
+    ],
+    "size": [
+      24,
+      10,
+      24
+    ],
+    "tone": "green"
+  },
+  {
+    "source": "poke_u.jpg",
+    "name": "PokeU_WideGreenNotice",
+    "kind": "board",
+    "crop": [
+      190,
+      194,
+      241,
+      226
+    ],
+    "size": [
+      48,
+      10,
+      24
+    ],
+    "tone": "green"
+  },
+  {
+    "source": "poke_t.png",
+    "name": "PokeT_CaveMushroom",
+    "kind": "mushroom",
+    "crop": [
+      110,
+      495,
+      132,
+      516
+    ],
+    "size": [
+      12,
+      12,
+      10
+    ],
+    "tone": "red"
+  },
+  {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_StackedTimber",
+    "kind": "timberpile",
+    "crop": [
+      492,
+      243,
+      547,
+      263
+    ],
+    "size": [
+      32,
+      16,
+      16
+    ],
+    "tone": "brown"
+  }
+]

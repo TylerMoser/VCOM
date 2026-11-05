@@ -1,0 +1,361 @@
+{
+  "source_review": {
+    "source": "poke_h.png",
+    "sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+    "reviewed": true,
+    "decision": "Far end is cropped; complete ten-tile model is an explicitly inferred extension of the visible span.",
+    "new_families": [
+      "PokeH_FarmPicketBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_FarmPicketBridge",
+      "kind": "wood",
+      "size": [
+        160,
+        64,
+        64
+      ],
+      "crop": [
+        430,
+        433,
+        560,
+        501
+      ],
+      "deck": 32,
+      "tile_pixels": 16,
+      "rail": "picket",
+      "wood": [
+        151,
+        106,
+        60
+      ],
+      "note": "Image clips the far end. Visible 128-pixel span is completed to a symmetric ten-tile bridge; full unseen length is an explicit estimate.",
+      "source_sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+      "crate_mapping": {
+        "1": 180,
+        "2": 179,
+        "3": 235,
+        "4": 179,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          151,
+          106,
+          60,
+          255
+        ],
+        [
+          116,
+          82,
+          46,
+          255
+        ],
+        [
+          174,
+          122,
+          69,
+          255
+        ],
+        [
+          136,
+          95,
+          54,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge.vox",
+      "source": "poke_h.png",
+      "style": "Base",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59352,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "f7b31704802c0066f59c33826323fb50e5e5872d08d179fb9861179df9d703ee",
+      "geometry_source": "PokeH_FarmPicketBridge",
+      "geometry_sha256": "302e741207dc2ad55badccafef87e21a75a80f6d477474b2aaf138da55dfec8f"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_Cartoon.vox",
+      "source": "poke_h.png",
+      "style": "Cartoon",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 68104,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "c0958b0df181035526dc829c586b0cdc58699876a87f5d1db7fe0b6bbc0b5e3a",
+      "geometry_source": "PokeH_FarmPicketBridge_Cartoon",
+      "geometry_sha256": "e4a2ad5cca9a75e880b279b3c0b5e2d12868542c2eff10e0f26367dee5929f16"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_CratePalette.vox",
+      "source": "poke_h.png",
+      "style": "CratePalette",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59352,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "53c59d1a007fdb71fd178f90ed516e156fcbb4e3dfd65cad68d5d53a1ef14e54",
+      "geometry_source": "PokeH_FarmPicketBridge",
+      "geometry_sha256": "302e741207dc2ad55badccafef87e21a75a80f6d477474b2aaf138da55dfec8f"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_TwoColor.vox",
+      "source": "poke_h.png",
+      "style": "TwoColor",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59352,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "97e85246ba0f9e9724284f596fd6e8fe1361e47a56a37cbca7a074c4793b33aa",
+      "geometry_source": "PokeH_FarmPicketBridge",
+      "geometry_sha256": "302e741207dc2ad55badccafef87e21a75a80f6d477474b2aaf138da55dfec8f"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_Cartoon_TwoColor.vox",
+      "source": "poke_h.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 68104,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "b6099df78ebe8253aa0af7d6728d35a0c4b1a2295fffc0d3a859d4b1a25f7df2",
+      "geometry_source": "PokeH_FarmPicketBridge_Cartoon",
+      "geometry_sha256": "e4a2ad5cca9a75e880b279b3c0b5e2d12868542c2eff10e0f26367dee5929f16"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_CratePalette_TwoColor.vox",
+      "source": "poke_h.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 59352,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "44765b38309c2416191456fc80d71056da42225b7bb8fb0bc528b40fdfd50a2a",
+      "geometry_source": "PokeH_FarmPicketBridge",
+      "geometry_sha256": "302e741207dc2ad55badccafef87e21a75a80f6d477474b2aaf138da55dfec8f"
+    },
+    {
+      "family": "PokeH_FarmPicketBridge",
+      "file": "output/poke_h/PokeH_FarmPicketBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_h.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        160,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 68104,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        159,
+        61,
+        47
+      ],
+      "sha256": "5f75f8d905f46ebf94976fc9536aef449c2ad48dd4cb08fdfc18d845c350da71",
+      "geometry_source": "PokeH_FarmPicketBridge_Cartoon",
+      "geometry_sha256": "e4a2ad5cca9a75e880b279b3c0b5e2d12868542c2eff10e0f26367dee5929f16"
+    }
+  ]
+}

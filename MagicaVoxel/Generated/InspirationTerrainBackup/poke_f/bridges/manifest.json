@@ -1,0 +1,365 @@
+{
+  "source_review": {
+    "source": "poke_f.png",
+    "sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+    "reviewed": true,
+    "decision": "New complete crossings authored from the visible source.",
+    "new_families": [
+      "PokeF_PondSlatCrossing"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_PondSlatCrossing",
+      "kind": "wood",
+      "size": [
+        32,
+        48,
+        32
+      ],
+      "crop": [
+        268,
+        398,
+        323,
+        434
+      ],
+      "deck": 16,
+      "tile_pixels": 16,
+      "rail": "none",
+      "slats": 8,
+      "gap": 2,
+      "wood": [
+        182,
+        168,
+        110
+      ],
+      "bolts": true,
+      "nopiles": true,
+      "note": "Four broad planks across the pond neck, with visible gaps and end fasteners; underside stringers inferred.",
+      "source_sha256": "cd0723cdea30adbe2d4b26c207484d70095d72127a5c15a51ef25d3729e340dc",
+      "crate_mapping": {
+        "1": 236,
+        "2": 235,
+        "3": 237,
+        "4": 236,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          182,
+          168,
+          110,
+          255
+        ],
+        [
+          140,
+          129,
+          85,
+          255
+        ],
+        [
+          209,
+          193,
+          126,
+          255
+        ],
+        [
+          164,
+          151,
+          99,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing.vox",
+      "source": "poke_f.png",
+      "style": "Base",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7088,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "7aa5b71934c4539bbd8571feed8e12875f5debd0a6f6084d6ca10e937db939e2",
+      "geometry_source": "PokeF_PondSlatCrossing",
+      "geometry_sha256": "db8b28954abcfee6e3939899fb5adf8b0c51cc4b315039d73436f4dcccfb7a90"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_Cartoon.vox",
+      "source": "poke_f.png",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7280,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "e17ce84000e04d52921128320094dad3ff35883d01b92d5d2df56637760c8fb2",
+      "geometry_source": "PokeF_PondSlatCrossing_Cartoon",
+      "geometry_sha256": "f53b1a6de32c72793689b35f87cbea0b1ddd6cefb38b89a530fc0dd46a417d17"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_CratePalette.vox",
+      "source": "poke_f.png",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7088,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "26fdb7a303161702ad10d76a63bdebaf7ea0fd25da3ddf8665af06dc2487f443",
+      "geometry_source": "PokeF_PondSlatCrossing",
+      "geometry_sha256": "db8b28954abcfee6e3939899fb5adf8b0c51cc4b315039d73436f4dcccfb7a90"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_TwoColor.vox",
+      "source": "poke_f.png",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7088,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "40a7f3df792b8a9a0ed6612d0e2382b4e191cd93f2c03d4e2d0e448d47179151",
+      "geometry_source": "PokeF_PondSlatCrossing",
+      "geometry_sha256": "db8b28954abcfee6e3939899fb5adf8b0c51cc4b315039d73436f4dcccfb7a90"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_Cartoon_TwoColor.vox",
+      "source": "poke_f.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7280,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "795d1d70d5808cf3cd74be8620b8a77ede68f629b09bc56088251f5deabef020",
+      "geometry_source": "PokeF_PondSlatCrossing_Cartoon",
+      "geometry_sha256": "f53b1a6de32c72793689b35f87cbea0b1ddd6cefb38b89a530fc0dd46a417d17"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_CratePalette_TwoColor.vox",
+      "source": "poke_f.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7088,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "b74c3fa951dc77a29a915f819d548a410cb1f51777d2302717743595106a5e30",
+      "geometry_source": "PokeF_PondSlatCrossing",
+      "geometry_sha256": "db8b28954abcfee6e3939899fb5adf8b0c51cc4b315039d73436f4dcccfb7a90"
+    },
+    {
+      "family": "PokeF_PondSlatCrossing",
+      "file": "output/poke_f/PokeF_PondSlatCrossing_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_f.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        48,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 7280,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        8,
+        0
+      ],
+      "occupied_max": [
+        31,
+        39,
+        15
+      ],
+      "sha256": "c74b68fafbc2972a155f35b8eac999611be103b190c76e978a9cb456a2e8e2cd",
+      "geometry_source": "PokeF_PondSlatCrossing_Cartoon",
+      "geometry_sha256": "f53b1a6de32c72793689b35f87cbea0b1ddd6cefb38b89a530fc0dd46a417d17"
+    }
+  ]
+}

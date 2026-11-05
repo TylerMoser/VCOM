@@ -1,0 +1,42 @@
+{
+ "source": "poke_u.jpg",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeU_Cottage": {
+   "title": "Cottage",
+   "regions_xyxy_exclusive": [
+    [
+     48,
+     56,
+     128,
+     148
+    ],
+    [
+     192,
+     24,
+     272,
+     116
+    ],
+    [
+     64,
+     152,
+     144,
+     244
+    ]
+   ],
+   "drawn": "Three copies of the cottage: a steep gable roof of red tiles with its ridge front to back; a timber frame at the front, posts standing out from the corners under a beam across it, the gable over it dark between a post under the ridge and two braces, two windows in it; cream walls; the red door with a window, two windows of two panes with flower boxes; two beige chimney stacks on the right slope."
+  },
+  "PokeU_WingHouse": {
+   "title": "Wing house",
+   "regions_xyxy_exclusive": [
+    [
+     252,
+     80,
+     356,
+     178
+    ]
+   ],
+   "drawn": "The big house at the right: a wing on the right a tile ahead of the rest under a gable roof of red tiles with its ridge front to back, its gable dark with a window of two panes over a beam on timber posts; the part to its left under a lean-to of red tiles, hipped at its left end, over a beam on a timber post, with the red door and a small window with a flower box; a window with a flower box in the wing (the rest of its front hidden by a tree); two beige chimney stacks on the wing's right slope."
+  }
+ }
+}

@@ -1,0 +1,258 @@
+{
+  "source": "poke_j.jpg",
+  "families": [
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_ForestStairs",
+      "crop": [
+        158,
+        201,
+        210,
+        237
+      ],
+      "width": 64,
+      "run": 32,
+      "rise": 32,
+      "steps": 8,
+      "landing": 8,
+      "tile_pixels": 12.25,
+      "stone": [
+        171,
+        173,
+        175
+      ],
+      "edge": [
+        139,
+        94,
+        62
+      ],
+      "rail": "wood",
+      "note": "Both forest flights share eight gray treads. Scale follows the building calibration.",
+      "size": [
+        40,
+        64,
+        48
+      ],
+      "source_sha256": "ade8525fa4a3d29c357dc6b2b037cf9ff6d3c2cbab799faf927206151b1cd80d",
+      "crate_mapping": {
+        "1": 194,
+        "2": 193,
+        "3": 195,
+        "4": 194,
+        "5": 179,
+        "6": 234,
+        "7": 180,
+        "8": 234,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 5,
+        "6": 5,
+        "7": 5,
+        "8": 5,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "5": 5,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs.vox",
+      "source": "poke_j.jpg",
+      "style": "Base",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "1e6e280083e39d920e7e1243abacf91382b6308998475efc4a979873df57620d"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_Cartoon.vox",
+      "source": "poke_j.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "5f7ac8b3d6d13989bda095b98e7ff28ea98e57b1fd3fe8549dac8fa9d3b5399c"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_CratePalette.vox",
+      "source": "poke_j.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "751516f3c27a5ff24a0cffdc7a5e70cfb638cce7fdc5894719b3f3c2103ee6d0"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_TwoColor.vox",
+      "source": "poke_j.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "0e4ebb31b7afeb5cc3009b740565764d8425275608dde8e565fd2f3c593710e7"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_Cartoon_TwoColor.vox",
+      "source": "poke_j.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "82e9307682a87b8f1bae29b552a14097e04ab8f247e010e592e4a4a89129f1d4"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_CratePalette_TwoColor.vox",
+      "source": "poke_j.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 49388,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "6d2f82a688154dfc1af8cb64cec3a50cfd0266106681f5c684d3cbaa95a4c482"
+    },
+    {
+      "family": "PokeJ_ForestStairs",
+      "file": "output/poke_j/PokeJ_ForestStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_j.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        64,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 50220,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        62,
+        42
+      ],
+      "sha256": "46fc774fc1c52ba23a70b2a4742d94a2234836f4ceb7ceae526e7b156bfa3e91"
+    }
+  ]
+}

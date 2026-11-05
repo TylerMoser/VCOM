@@ -1,0 +1,78 @@
+{
+ "source": "poke_b.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context",
+ "families": {
+  "PokeB_GameDomeLab": {
+   "title": "Domed lab",
+   "regions_xyxy_exclusive": [
+    [
+     222,
+     244,
+     356,
+     404
+    ]
+   ],
+   "drawn": "The large building at the top left: two storeys under a flat red roof inside a parapet with a raised middle, a dome with a glazed band, fluted corner pilasters, a glass door under a sign."
+  },
+  "PokeB_GameRedClinic": {
+   "title": "Red clinic",
+   "regions_xyxy_exclusive": [
+    [
+     410,
+     288,
+     528,
+     400
+    ]
+   ],
+   "drawn": "The red-roofed building at the top middle: a white parapet, a skylight, dark corner pillars, a red portico over the door with a roundel on it, a sign, a tank and a dark teal window."
+  },
+  "PokeB_GameGrayEntryHouse": {
+   "title": "Gray mansard house with a door",
+   "regions_xyxy_exclusive": [
+    [
+     282,
+     464,
+     372,
+     580
+    ]
+   ],
+   "drawn": "The middle house: a grey mansard storey with two dormers and a chimney over tan boards on a stone base; a door up a stair, a window, a shallow bay."
+  },
+  "PokeB_GameGrayWindowHouse": {
+   "title": "Gray mansard house with three windows",
+   "regions_xyxy_exclusive": [
+    [
+     394,
+     464,
+     484,
+     566
+    ]
+   ],
+   "drawn": "The house to its right: the same mansard storey over brown boards with three windows and two shutters, no door on its front."
+  },
+  "PokeB_GameCyanEntryHouse": {
+   "title": "Cyan mansard house",
+   "regions_xyxy_exclusive": [
+    [
+     188,
+     640,
+     276,
+     760
+    ]
+   ],
+   "drawn": "The house at the bottom left: the middle house again, its mansard teal, its boards brown, its door orange."
+  },
+  "PokeB_GameFlowerCottage": {
+   "title": "Flower cottage",
+   "regions_xyxy_exclusive": [
+    [
+     408,
+     636,
+     524,
+     742
+    ]
+   ],
+   "drawn": "The cottage at the bottom right: cream walls, a bell-cast roof with two roof lights, flower boxes under the upper windows, a hooded door and bay, an outside stair on its right."
+  }
+ }
+}

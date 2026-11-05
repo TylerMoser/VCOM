@@ -1,0 +1,2220 @@
+{
+  "source": "pixelwood_c.jpg",
+  "families": [
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_River",
+      "kind": "calm",
+      "crop": [
+        288,
+        386,
+        310,
+        413
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        80,
+        143,
+        186
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_BrokenPavers",
+      "kind": "broken",
+      "crop": [
+        596,
+        481,
+        654,
+        538
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        187,
+        189,
+        200
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_TrailEdge",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "Edge",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodA_Ground_WarmDirt"
+      ],
+      "crop": [
+        363,
+        390,
+        413,
+        426
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_TrailOuterCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "OuterCorner",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodA_Ground_WarmDirt"
+      ],
+      "crop": [
+        363,
+        390,
+        413,
+        426
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_TrailInnerCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "InnerCorner",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodA_Ground_WarmDirt"
+      ],
+      "crop": [
+        363,
+        390,
+        413,
+        426
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_ShoreEdge",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "Edge",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodC_Ground_River"
+      ],
+      "crop": [
+        287,
+        272,
+        323,
+        311
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_ShoreOuterCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "OuterCorner",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodC_Ground_River"
+      ],
+      "crop": [
+        287,
+        272,
+        323,
+        311
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "pixelwood_c.jpg",
+      "name": "PixelwoodC_Ground_ShoreInnerCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "InnerCorner",
+      "materials": [
+        "PixelwoodA_Ground_Meadow",
+        "PixelwoodC_Ground_River"
+      ],
+      "crop": [
+        287,
+        272,
+        323,
+        311
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          1,
+          2
+        ]
+      },
+      "sha256": "75b2d49f63fe80b4d861a935deed78e2be81d8c2acbe970fe64efc076c11b2e7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_Cartoon.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          1,
+          2
+        ]
+      },
+      "sha256": "7e83cb7ad61465b72cf9240844558f77a1074d8864d6844bca969a24be6f41d2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_CratePalette.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "034c90c24fabe4d552bfbc68dbc08087da1e39db2491a47bd812e4458520623d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_TwoColor.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          1
+        ]
+      },
+      "sha256": "f1b12ce6998a26a76bce3024da72a2306f6fe5cbb4655470e289eedcbfcb2dd3",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          1
+        ]
+      },
+      "sha256": "036046f8a0d1177f5a5b25906b0bdaf888dcc5dd33329b128768c521d7e69ca6",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "a1de299274ec5a1116afd7ebe38fa708b784a07abe208456e46de0915a045740",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_River_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_River",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "b051e235de553522996282bf7a665db154e4bedf9a050f18a1dac799d30504ef",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4021,
+      "colors": 4,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          1
+        ],
+        "PixelwoodC_Ground_BrokenPavers:substrate": [
+          2,
+          3
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          4
+        ]
+      },
+      "sha256": "9b742866db9ddfb2ddc22fbfa5743fdc3acb6e8ee15fd58dede870676fbb01e7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_Cartoon.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4036,
+      "colors": 3,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          1
+        ],
+        "PixelwoodC_Ground_BrokenPavers:substrate": [
+          2
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          3
+        ]
+      },
+      "sha256": "d28941abfa796e3f72ef8f5be3b56b3e0768879ae1529ea536f41a32ac40f016",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_CratePalette.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4021,
+      "colors": 4,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          244
+        ],
+        "PixelwoodC_Ground_BrokenPavers:substrate": [
+          236,
+          237
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          195
+        ]
+      },
+      "sha256": "bc4452862b519140713465f4c63ef050bf27e817690984f1b0d40a574b423fa9",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_TwoColor.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4021,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          1
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          2
+        ]
+      },
+      "sha256": "c2f727497fbd3ed037bea49a8cb197b54a64d6f49b8ddb64156e1304c9e4d45f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4036,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          1
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          2
+        ]
+      },
+      "sha256": "6dd61cbb9b622dd2b4d875d4f4b9ee7bddadbefe867c0f2771daa8e0fb04c787",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4021,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          244
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          195
+        ]
+      },
+      "sha256": "30f6e78e4f06fb82590013cf08a097167b6a9dd25d07bb285f0494dd2fa3b770",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_BrokenPavers_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_BrokenPavers",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4036,
+      "colors": 2,
+      "groups": {
+        "PixelwoodC_Ground_BrokenPavers:moss": [
+          244
+        ],
+        "PixelwoodC_Ground_BrokenPavers:surface": [
+          195
+        ]
+      },
+      "sha256": "84be796a1af15fbe454210bf84b4582e18d3483f109da928749e54d861ef72b7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 9,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          5,
+          6
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          7,
+          8,
+          9
+        ]
+      },
+      "sha256": "cd7043e77cc680ffc61e95f5cad4db839af31b5bc08ac68ddf7317fa078250ac",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_Cartoon.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "db157bbda0cb289def1fa8fcf10c0c5df943c2e33217a976ff4008f0813a08d7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_CratePalette.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "2e497adc978697c337e305a1b9cea45d76631a3671484f338f287831b2b47a8c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "10264eb308a4719464596a320bed77a7e5ee5f9b7b4c532ca8e9295481bf7eef",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "80709212d1c6068ddb9eed233c048c08e3445238dcd47f3d5965f312a75033dc",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "f7a4f185fd51058d84d05d4a8771f58a3244012bfd2121c7c9791c1533679eac",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailEdge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "22c1ca59cd00cc566e321654cef9f031e8c89ef5d4ee0b4cfe667d949d010c7c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 9,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          5,
+          6
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          7,
+          8,
+          9
+        ]
+      },
+      "sha256": "b116da75f618ec41be847ba4e9a50a24182a0611f0e26aabb30d37119e4bccd2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_Cartoon.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "c332934348f23e4e742959ac2549e1fe7794628e3ebf6ace6708e006edcca5b5",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_CratePalette.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "0fd9aedf5d440944cc28ac6faab6c75ed71c44d9c12fa7b23503732cd2cec2a1",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "666fa167b63d6976d33a569a5fd1d511e7253c742b60cf8cca254c85a30e88f7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "df6d9cb7682dbf95e87ca38df1922b8e05b312b9ff55a4f4368ca940e74acb34",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "9f24efc596dcce9bd697308a40a806ef4cedf38416ee09266bb742b3cf15c093",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "c7df438cb8ebb3bcc9d4eed05a45c6f72c464d2c2d0fde95e721a03501b0a567",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 9,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          5,
+          6
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          7,
+          8,
+          9
+        ]
+      },
+      "sha256": "62906d20bd252347d8c5779dddcd5df7d74682cb1e67e0050c34e06c836804d5",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_Cartoon.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          4
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "21acb4827d455cefb666c82771966c12535e705a4e1941be164c88347ac97c73",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_CratePalette.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "9846a9e42d6c2a86d435559c5f39aa16a4486742aabb2a6d641176c4397df018",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "2f2cbc03be82d13fa206173741a25a5bd08cb4ff7b579e04eb7b351045ca0c42",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          3
+        ]
+      },
+      "sha256": "52cdbffbb35eeec403195d0f064ffd09d1fe126b39f60380ac3b68bcaf5c6265",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "3f6b191cfe3385ddb4bb6396063e49f4ebc0b636029b8a82d3f04b6c5f41f084",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_TrailInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_TrailInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodA_Ground_WarmDirt:surface": [
+          235
+        ]
+      },
+      "sha256": "1781fc11d6f1f9adc36ffc5d21e68f008e787a5209e043bfd866fdaf5401b155",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "b51e037bea7e439e2b1baba48401c54d853338d9463f95eb2486379c4943f131",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_Cartoon.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 5,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          4,
+          5
+        ]
+      },
+      "sha256": "594d48bb9029745cd6ebc65805fe4e05762704db0b273e1dc1fea88e29b69853",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_CratePalette.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "a2f7f1d60f094e735e15072b4b070ef9e53a8975e916b71e95276a21f7ddbba1",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "0bfc5e830698c4f1f6bd0e03874e208abcf89a4f4c84c48b20736f7ee9219146",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "45dc78b8e7e98d89da5892a3519d8510beb6c49da55c4978e6ce49e64a990833",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "7ae5edb7f8bf83bfdb9396ba9d9f364c8bdabaa01ad70061eeb69b2d3a71621e",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreEdge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreEdge",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "f09d80e8735e4c41381557fa27443029a3950bb7dd3448387b240040daf0a8ca",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "e2d6585711b7113ff4dd58a27b2fa5742dfc9af50dc94f36f2985f65e2c80f8f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_Cartoon.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 5,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          4,
+          5
+        ]
+      },
+      "sha256": "9b9d0cb3454a8ffc5376b8e4ecafb801011ac1d6b88d2f988b26166217328b64",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_CratePalette.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "4c6b5fcc5ce5497442374c6e54793828f3316624bb78caf79a39dbdeebda8338",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "f7ad0c7c099d230fae7cc2b78101443d79674a775ed16e35557ff2cbf40a2431",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "51978aa63bc50d5e20dcf9ff9b6a9510af185c1621066a87085ee4e9e2fb244a",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "2e202ec109606b124039684eb87749b4c2126df925db9808b822bc6baa487e30",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreOuterCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "7f1de062c722cfb04ab7a3c3ee960f136b2bd9ae06e04e44a895702162b5d4d5",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 6,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          3,
+          4
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "01f546b746a6041f06f0252c8a118a8e3ad812df59770deec2e1771ffc5268c7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_Cartoon.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 5,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2,
+          3
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          4,
+          5
+        ]
+      },
+      "sha256": "66a4a955d0aeb0c4e81eded6d571d4bd1bfb7034adf9bb4df5b330d04c21448d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_CratePalette.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 4,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "0fa4864c592e136b68b1b8e20fad303eb9bd8c0e9e08beac3fcbf5b044639c21",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "d0f6a6d320ba647faa34ed92d57bda3767da04592d2f0bd5e6536d0671aa1477",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_Cartoon_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          1
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          2
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          3
+        ]
+      },
+      "sha256": "2370fd0339a683606798e9af9649edf52a6256517641821d86e17d63d212a93b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "5b6df0b49fccd6626decf8ca3c3b72dcaa36e77f2494d392236abd05b99ea391",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_Ground_ShoreInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodC_Ground_ShoreInnerCorner",
+      "source": "pixelwood_c.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PixelwoodA_Ground_Meadow:substrate": [
+          234
+        ],
+        "PixelwoodA_Ground_Meadow:surface": [
+          244
+        ],
+        "PixelwoodC_Ground_River:surface": [
+          252
+        ]
+      },
+      "sha256": "e77f674dfe473966b23bb4069bfc20751bcc4d1abb62e9c54be709876298c20d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    }
+  ],
+  "reuse": [
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow.vox",
+      "sha256": "866a309241ef34d578f8a92980d3b45bb1a1a7b17859704c32180be8f63c2f91"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon.vox",
+      "sha256": "3d8a6f46fb480dc73e33c04833441119b5a7744bce8ef256b719aa6a1da6acdf"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette.vox",
+      "sha256": "9b5992d80f7d64c8325636ae0f32896da6f225cb177f810f268498e39405bdca"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_TwoColor.vox",
+      "sha256": "d8b76c5fc1027c2033db6cf8cff0cb7816d793a33e04347ceb68ce5b6a08af1e"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_TwoColor.vox",
+      "sha256": "4868ddc5a14d2aacb6e1fa421f489893f5699bbab58cb8ad53eeebed7743b8b9"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette_TwoColor.vox",
+      "sha256": "732662c6f5779c45b92742bcac2f89b8e08b99e080ff9a4752c7a4e11e434bf8"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "35d3e87f765d879c834582b070b20f962e79a7839fa24ea94f8a4b990bbe1ee3"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt.vox",
+      "sha256": "b892ca32fe72abe25bc6645c859ef479fce5fa2a18494356dc7e281fd00bec19"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon.vox",
+      "sha256": "00db3a08e81da9fc8fba7da46080f3e8d7a5cbe28774f2ce960ed4cd9b3323c2"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette.vox",
+      "sha256": "a5cc5382d904f94340fd883629acf89b3f5c7f4ce3d03ac0c4c3943f9673edb2"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_TwoColor.vox",
+      "sha256": "d6113fc6375896373a017cbc36bbd4ad4a71b0486772ba2acbcc5c55ad913e75"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_TwoColor.vox",
+      "sha256": "f84a71336c8e5875da1b7fd0d7df92efa19f72f87eddd4ab9275f2d1776dc504"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette_TwoColor.vox",
+      "sha256": "6c90ee7ee0cddca33b7750da8c0d23c374167388668b711e7481474716a9dd9c"
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "9ef85ea3faf1de2e641cb8d4cd755e8d96d81b96fa3eca8b5ec8e90c9aadd046"
+    }
+  ]
+}

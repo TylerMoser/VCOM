@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_m.png",
+    "name": "PokeM_BronzePostLantern",
+    "shape": "hood",
+    "size": [
+      16,
+      16,
+      48
+    ],
+    "crop": [
+      25,
+      844,
+      55,
+      880
+    ],
+    "scale": 1,
+    "metal": [
+      122,
+      112,
+      80
+    ],
+    "light": [
+      243,
+      243,
+      211
+    ],
+    "power": 2,
+    "note": "Visible at lower image edge: bronze pointed hood, broad cream chamber and thin pole. Base and lower stem are cropped away; inferred matching stepped pedestal, total height 48."
+  },
+  "models": [
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "7a04fbe6a0e8e44ccac8c566cc6bef0506ba13ba4470b116aaaea0b349d39a92",
+      "palette_sha256": "c2120c5d41b7de1c05381f938cec46d9671b536278ab4ad8136ad28ae6770f6f",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "c67bf7fb046196c9aae2159d4629e38982af50b465d0f688aa4fba16a86e44ad",
+      "palette_sha256": "c2120c5d41b7de1c05381f938cec46d9671b536278ab4ad8136ad28ae6770f6f",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_CratePalette.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure",
+        "185": "structure",
+        "235": "structure"
+      },
+      "colors": 4,
+      "sha256": "8ca5ffefd4ae47295ebcb5c531f647740b040fcd5bf298392f1bbb3cfb04c61e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "2bb23d5e9c93d478cb9d33b33f5b0d690eaf72073fb1139c3cdfa1f876306399",
+      "palette_sha256": "e8565e67c27a5ff7911b2dc1cbe7e21499b903f1de53366650e9241348d5e84c",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "b994d4a87c481648111c78665d5e35146cb7ce922d7d5f6c70c4935102ee4b85",
+      "palette_sha256": "e8565e67c27a5ff7911b2dc1cbe7e21499b903f1de53366650e9241348d5e84c",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_CratePalette_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure"
+      },
+      "colors": 2,
+      "sha256": "133161db8ad5ca03d506619a8e00d70db37fcad8ad5500e99b0ca963e098859c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure"
+      },
+      "colors": 2,
+      "sha256": "30c77d8990bfa3c29f84de3461d526909452af829da5df38a89f8c2f0f8f0e28",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1943 @@
+{
+  "models": 322,
+  "families": 46,
+  "sources_reviewed": 25,
+  "preserved_previous_models": 2814,
+  "checks": [
+    {
+      "file": "output/mario/Mario_NoticeSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_NoticeSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/mario/Mario_QuestionBlock_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_DirectionSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_SpottedMushroom_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/pixelwood_c/PixelwoodC_TreasureChest_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_a/PokeA_TrailSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_BluePlaque_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_b/PokeB_RedMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberNoticeboard_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_c/PokeC_PaleNoticeboard_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_AntlerMonument_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_f/PokeF_GardenNoticeboard_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_i/PokeI_RedMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_RedMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BluePlaque_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_FlowerPlanter_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_ParkedScooter_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachParasol_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_BeachLounger_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_o/PokeO_Sandcastle_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_p/PokeP_TrailSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_q/PokeQ_TrailSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_BlueMailbox_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_r/PokeR_LowInfoPanel_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_TieredFountain_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_s/PokeS_CourtyardStatue_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_Barrel_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveSign_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_SmallGreenNotice_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_u/PokeU_WideGreenNotice_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_t/PokeT_CaveMushroom_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_CratePalette.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    },
+    {
+      "file": "output/poke_j/PokeJ_StackedTimber_Cartoon_CratePalette_TwoColor.vox",
+      "structure_geometry_palette_grounding": "pass",
+      "runtime_hash_match": "pass",
+      "VoxelModel_supported": true
+    }
+  ],
+  "runtime_supported_models": 322,
+  "oversized_imported_mesh_models": 0,
+  "level_integration": "not performed"
+}

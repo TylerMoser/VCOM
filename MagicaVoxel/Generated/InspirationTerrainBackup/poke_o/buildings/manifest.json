@@ -1,0 +1,3600 @@
+{
+ "source_image": "poke_o.png",
+ "source_sha256": "e60edc89f45be88ed7971d818145bfd4c36849816aed6ce7718c435ff7edcdd6",
+ "generator_sha256": "eeaf3bac7503af122bead42b49af3c8b86ac18eb1c60faab5139108ccb0df6ac",
+ "dependencies": {
+  "sculpt.py": "619a1875dc4e6c7646047ea133f7bf65a5b4d5a3d70dbb0f78ac755f5b440542",
+  "palettes.py": "fe9a3c18a907658b809f833a13c986614e46f6f684469c16bcc2ea5b2e4634cb",
+  "voxlib.py": "1e58d03f11c0c1bd631a9a2a4023a063f6426e68958ecba49852cbf61500a59f"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+ "minimal_palette_sha256": {
+  "GableHouse": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+  "SkylightHouse": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+  "WideHouse": "2f3545d41afa0d4876961274efedfae78dfdd63d24931c33badea40dc2b73511"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_o/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeO_GableHouse",
+   "kind": "GableHouse",
+   "title": "Gabled house",
+   "drawn": "Three copies of the gabled house: a pink front gable roof with its ridge front to back in stripes under a light band, a dormer with a triangular window on its left slope, a khaki gable with a small window over a light board, cream walls, the red door and a window, a teal strip along the foot.",
+   "source_regions_xyxy_exclusive": [
+    [
+     172,
+     2,
+     244,
+     80
+    ],
+    [
+     444,
+     402,
+     516,
+     480
+    ],
+    [
+     140,
+     370,
+     212,
+     448
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    48,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     0,
+     1
+    ],
+    [
+     "ey",
+     1,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "frame",
+     "sill",
+     "wall",
+     "wall_light",
+     "wall_line"
+    ],
+    "door": [
+     "door",
+     "door_band",
+     "door_dark",
+     "door_line",
+     "door_pane",
+     "handle",
+     "handle_dark"
+    ],
+    "dark": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark",
+     "gable",
+     "gable_dark",
+     "lintel",
+     "teal",
+     "teal_dark"
+    ],
+    "glass": [
+     "glass",
+     "glass_dark"
+    ],
+    "roof": [
+     "roof",
+     "roof_deep",
+     "roof_light",
+     "roof_line",
+     "roof_mid"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     220,
+     203,
+     159
+    ],
+    "door": [
+     177,
+     101,
+     101
+    ],
+    "dark": [
+     159,
+     151,
+     101
+    ],
+    "glass": [
+     120,
+     185,
+     235
+    ],
+    "roof": [
+     229,
+     126,
+     134
+    ]
+   },
+   "folded_groups": {
+    "grey": "light",
+    "teal": "dark"
+   },
+   "crate_group_indices": {
+    "light": 238,
+    "door": 235,
+    "dark": 236,
+    "glass": 253,
+    "roof": 214
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "frame": 194,
+    "sill": 196,
+    "wall": 237,
+    "wall_light": 238,
+    "wall_line": 236,
+    "door": 235,
+    "door_band": 178,
+    "door_dark": 220,
+    "door_line": 178,
+    "door_pane": 204,
+    "handle": 229,
+    "handle_dark": 235,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "gable": 236,
+    "gable_dark": 234,
+    "lintel": 234,
+    "teal": 252,
+    "teal_dark": 205,
+    "glass": 253,
+    "glass_dark": 253,
+    "roof": 214,
+    "roof_deep": 220,
+    "roof_light": 214,
+    "roof_line": 219,
+    "roof_mid": 213
+   }
+  },
+  {
+   "asset_id": "PokeO_SkylightHouse",
+   "kind": "SkylightHouse",
+   "title": "Skylight house",
+   "drawn": "Two copies of the skylight house: a pink split roof, flat on the right with a skylight in it and on the left a facet in courses sloping down to its eave; a band of wall with a small high window under its front edge, a light board, cream walls, the red door and a window, a teal strip along the foot.",
+   "source_regions_xyxy_exclusive": [
+    [
+     172,
+     196,
+     244,
+     274
+    ],
+    [
+     316,
+     276,
+     388,
+     354
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    48,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     0,
+     1
+    ],
+    [
+     "ey",
+     1,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "frame",
+     "sill",
+     "wall",
+     "wall_light",
+     "wall_line"
+    ],
+    "door": [
+     "door",
+     "door_band",
+     "door_dark",
+     "door_line",
+     "door_pane",
+     "handle",
+     "handle_dark"
+    ],
+    "dark": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark",
+     "lintel",
+     "teal",
+     "teal_dark"
+    ],
+    "glass": [
+     "glass",
+     "glass_dark"
+    ],
+    "roof": [
+     "roof",
+     "roof_dark",
+     "roof_deep",
+     "roof_light",
+     "roof_line",
+     "roof_mid"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     220,
+     203,
+     159
+    ],
+    "door": [
+     177,
+     101,
+     101
+    ],
+    "dark": [
+     159,
+     151,
+     101
+    ],
+    "glass": [
+     120,
+     185,
+     235
+    ],
+    "roof": [
+     229,
+     126,
+     134
+    ]
+   },
+   "folded_groups": {
+    "grey": "light",
+    "teal": "dark"
+   },
+   "crate_group_indices": {
+    "light": 238,
+    "door": 235,
+    "dark": 236,
+    "glass": 253,
+    "roof": 214
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "frame": 194,
+    "sill": 196,
+    "wall": 237,
+    "wall_light": 238,
+    "wall_line": 236,
+    "door": 235,
+    "door_band": 178,
+    "door_dark": 220,
+    "door_line": 178,
+    "door_pane": 204,
+    "handle": 229,
+    "handle_dark": 235,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "lintel": 234,
+    "teal": 252,
+    "teal_dark": 205,
+    "glass": 253,
+    "glass_dark": 253,
+    "roof": 214,
+    "roof_dark": 213,
+    "roof_deep": 220,
+    "roof_light": 214,
+    "roof_line": 219,
+    "roof_mid": 213
+   }
+  },
+  {
+   "asset_id": "PokeO_WideHouse",
+   "kind": "WideHouse",
+   "title": "Wide house",
+   "drawn": "The wide house at the top right: the skylight house's split roof six tiles wide with two grey rooftop units on its flat part; in front of its middle a wing under a lower split roof, the red door in it, a mailbox and a small tree before it; two high windows over a window on the main block's front, cream walls, a teal strip along the foot.",
+   "source_regions_xyxy_exclusive": [
+    [
+     346,
+     66,
+     452,
+     162
+    ]
+   ],
+   "canvas_xyz": [
+    112,
+    64,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     0,
+     1
+    ],
+    [
+     "ey",
+     2,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       5,
+       1
+      ],
+      [
+       5,
+       2
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "sill",
+     "wall",
+     "wall_light",
+     "wall_line"
+    ],
+    "door": [
+     "door",
+     "door_band",
+     "door_dark",
+     "door_line",
+     "door_pane",
+     "handle",
+     "handle_dark"
+    ],
+    "dark": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark",
+     "lintel",
+     "teal",
+     "teal_dark"
+    ],
+    "grey": [
+     "frame",
+     "unit",
+     "unit_dark",
+     "unit_foot",
+     "unit_grille",
+     "unit_light",
+     "unit_mid"
+    ],
+    "glass": [
+     "glass",
+     "glass_dark"
+    ],
+    "roof": [
+     "roof",
+     "roof_dark",
+     "roof_deep",
+     "roof_light",
+     "roof_line",
+     "roof_mid"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     220,
+     203,
+     159
+    ],
+    "door": [
+     177,
+     101,
+     101
+    ],
+    "dark": [
+     159,
+     151,
+     101
+    ],
+    "grey": [
+     139,
+     139,
+     141
+    ],
+    "glass": [
+     120,
+     185,
+     235
+    ],
+    "roof": [
+     229,
+     126,
+     134
+    ]
+   },
+   "folded_groups": {
+    "teal": "dark"
+   },
+   "crate_group_indices": {
+    "light": 238,
+    "door": 235,
+    "dark": 236,
+    "grey": 193,
+    "glass": 253,
+    "roof": 214
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "sill": 196,
+    "wall": 237,
+    "wall_light": 238,
+    "wall_line": 236,
+    "door": 235,
+    "door_band": 178,
+    "door_dark": 220,
+    "door_line": 178,
+    "door_pane": 204,
+    "handle": 229,
+    "handle_dark": 235,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "lintel": 234,
+    "teal": 252,
+    "teal_dark": 205,
+    "frame": 194,
+    "unit": 193,
+    "unit_dark": 206,
+    "unit_foot": 205,
+    "unit_grille": 204,
+    "unit_light": 196,
+    "unit_mid": 194,
+    "glass": 253,
+    "glass_dark": 253,
+    "roof": 214,
+    "roof_dark": 213,
+    "roof_deep": 220,
+    "roof_light": 214,
+    "roof_line": 219,
+    "roof_mid": 213
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeO_GableHouse.vox",
+   "family": "PokeO_GableHouse",
+   "style": "Base",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69570,
+   "sha256": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     126,
+     117,
+     77,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 1234,
+   "geometry_source": "PokeO_GableHouse.vox",
+   "geometry_source_sha256": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638"
+  },
+  {
+   "file": "PokeO_GableHouse_Cartoon.vox",
+   "family": "PokeO_GableHouse",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69912,
+   "sha256": "1608e871c613d02ff81afb43883c23481ff875eee9cbeb0e69cbf8fc802464b0",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     126,
+     117,
+     77,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 904,
+   "geometry_source": "PokeO_GableHouse_Cartoon.vox",
+   "geometry_source_sha256": "1608e871c613d02ff81afb43883c23481ff875eee9cbeb0e69cbf8fc802464b0"
+  },
+  {
+   "file": "PokeO_GableHouse_CratePalette.vox",
+   "family": "PokeO_GableHouse",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69570,
+   "sha256": "3ec3c947b077486500540cd7287c81b120f97eaea6e83721ccdf7cda6eaef78d",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    194,
+    195,
+    196,
+    204,
+    205,
+    206,
+    213,
+    214,
+    219,
+    220,
+    229,
+    234,
+    235,
+    236,
+    237,
+    238,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     198,
+     81,
+     151,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     117,
+     36,
+     56,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1234,
+   "geometry_source": "PokeO_GableHouse.vox",
+   "geometry_source_sha256": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638"
+  },
+  {
+   "file": "PokeO_GableHouse_TwoColor.vox",
+   "family": "PokeO_GableHouse",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69570,
+   "sha256": "3c83cb360b2f5fa26a57e588b3d8618515c1905fd19aa8970e27410bad4c3260",
+   "palette_sha256": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1234,
+   "geometry_source": "PokeO_GableHouse.vox",
+   "geometry_source_sha256": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638"
+  },
+  {
+   "file": "PokeO_GableHouse_Cartoon_TwoColor.vox",
+   "family": "PokeO_GableHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69912,
+   "sha256": "855d9ba231eb7a3a33739988d1aa236d7615e6b7970d5a8e07e3edd5844b1fe4",
+   "palette_sha256": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 904,
+   "geometry_source": "PokeO_GableHouse_Cartoon.vox",
+   "geometry_source_sha256": "1608e871c613d02ff81afb43883c23481ff875eee9cbeb0e69cbf8fc802464b0"
+  },
+  {
+   "file": "PokeO_GableHouse_CratePalette_TwoColor.vox",
+   "family": "PokeO_GableHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69570,
+   "sha256": "06dd181c8b87b7a499521980b76df42ad9f0e7df8f52394ec90891b0cb4b8467",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1234,
+   "geometry_source": "PokeO_GableHouse.vox",
+   "geometry_source_sha256": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638"
+  },
+  {
+   "file": "PokeO_GableHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeO_GableHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    4,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    101
+   ],
+   "voxels": 69912,
+   "sha256": "fefe7a4797f6d4c0bc895d0457ae49666150ba7f698e83c5c32ee4f0ff587090",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 904,
+   "geometry_source": "PokeO_GableHouse_Cartoon.vox",
+   "geometry_source_sha256": "1608e871c613d02ff81afb43883c23481ff875eee9cbeb0e69cbf8fc802464b0"
+  },
+  {
+   "file": "PokeO_SkylightHouse.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "Base",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71050,
+   "sha256": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     194,
+     85,
+     93,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 1098,
+   "geometry_source": "PokeO_SkylightHouse.vox",
+   "geometry_source_sha256": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9"
+  },
+  {
+   "file": "PokeO_SkylightHouse_Cartoon.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71330,
+   "sha256": "368e087029a5f56cf2db72edd213c3669ff1b44e4a58e2106db327cceccccc4b",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     194,
+     85,
+     93,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 830,
+   "geometry_source": "PokeO_SkylightHouse_Cartoon.vox",
+   "geometry_source_sha256": "368e087029a5f56cf2db72edd213c3669ff1b44e4a58e2106db327cceccccc4b"
+  },
+  {
+   "file": "PokeO_SkylightHouse_CratePalette.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71050,
+   "sha256": "192c55934493d3d6e316275d33ff225742642fc64946eb4792aaa64a2fce8ebb",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    194,
+    195,
+    196,
+    204,
+    205,
+    206,
+    213,
+    214,
+    219,
+    220,
+    229,
+    234,
+    235,
+    236,
+    237,
+    238,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     198,
+     81,
+     151,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     117,
+     36,
+     56,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1098,
+   "geometry_source": "PokeO_SkylightHouse.vox",
+   "geometry_source_sha256": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9"
+  },
+  {
+   "file": "PokeO_SkylightHouse_TwoColor.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71050,
+   "sha256": "b807e29337a19e27d9ae14f62b3966bc6b7e3ec8a78439bb59eed32dea4c2976",
+   "palette_sha256": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 1098,
+   "geometry_source": "PokeO_SkylightHouse.vox",
+   "geometry_source_sha256": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9"
+  },
+  {
+   "file": "PokeO_SkylightHouse_Cartoon_TwoColor.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71330,
+   "sha256": "8bd3b7f44f0e3da5e503b430ab7971489c6ba71db69e838795bf32d6493d6df0",
+   "palette_sha256": "31772c10c8666fa9ebf9d7d5b90a87d902e09452e5433e90f04816f8a4e1b8a9",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "5": 0.7
+   },
+   "glass_voxels": 830,
+   "geometry_source": "PokeO_SkylightHouse_Cartoon.vox",
+   "geometry_source_sha256": "368e087029a5f56cf2db72edd213c3669ff1b44e4a58e2106db327cceccccc4b"
+  },
+  {
+   "file": "PokeO_SkylightHouse_CratePalette_TwoColor.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71050,
+   "sha256": "c5fbcf27753fb05a5d79f9a249296fe6f0adab330d1ff53f076eaef1ffc3a9ab",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1098,
+   "geometry_source": "PokeO_SkylightHouse.vox",
+   "geometry_source_sha256": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9"
+  },
+  {
+   "file": "PokeO_SkylightHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeO_SkylightHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    43,
+    96
+   ],
+   "voxels": 71330,
+   "sha256": "a84146e527dcaaf56ed67dfe7baeabfd443ade3bc122109f2149399d41c7499b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 830,
+   "geometry_source": "PokeO_SkylightHouse_Cartoon.vox",
+   "geometry_source_sha256": "368e087029a5f56cf2db72edd213c3669ff1b44e4a58e2106db327cceccccc4b"
+  },
+  {
+   "file": "PokeO_WideHouse.vox",
+   "family": "PokeO_WideHouse",
+   "style": "Base",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125372,
+   "sha256": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     194,
+     85,
+     93,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     139,
+     139,
+     141,
+     255
+    ],
+    [
+     222,
+     222,
+     238,
+     255
+    ],
+    [
+     174,
+     174,
+     177,
+     255
+    ],
+    [
+     112,
+     112,
+     114,
+     255
+    ],
+    [
+     44,
+     44,
+     50,
+     255
+    ],
+    [
+     83,
+     83,
+     83,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 1350,
+   "geometry_source": "PokeO_WideHouse.vox",
+   "geometry_source_sha256": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c"
+  },
+  {
+   "file": "PokeO_WideHouse_Cartoon.vox",
+   "family": "PokeO_WideHouse",
+   "style": "Cartoon",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125798,
+   "sha256": "7b1f28e91be79f5756a714f94fdb79e29745c2c284c59a3aa9c932968139f04f",
+   "palette_sha256": "affb5d165331a972c879c3dee147d30913a8044b2e6d79549dc6bd5a64430f76",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    16,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     238,
+     151,
+     151,
+     255
+    ],
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     212,
+     101,
+     109,
+     255
+    ],
+    [
+     194,
+     85,
+     93,
+     255
+    ],
+    [
+     168,
+     69,
+     77,
+     255
+    ],
+    [
+     126,
+     61,
+     61,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     203,
+     177,
+     134,
+     255
+    ],
+    [
+     88,
+     81,
+     56,
+     255
+    ],
+    [
+     11,
+     126,
+     159,
+     255
+    ],
+    [
+     11,
+     101,
+     126,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     159,
+     69,
+     69,
+     255
+    ],
+    [
+     117,
+     32,
+     25,
+     255
+    ],
+    [
+     96,
+     17,
+     11,
+     255
+    ],
+    [
+     46,
+     46,
+     46,
+     255
+    ],
+    [
+     191,
+     170,
+     72,
+     255
+    ],
+    [
+     142,
+     130,
+     58,
+     255
+    ],
+    [
+     168,
+     168,
+     170,
+     255
+    ],
+    [
+     220,
+     220,
+     240,
+     255
+    ],
+    [
+     139,
+     139,
+     141,
+     255
+    ],
+    [
+     222,
+     222,
+     238,
+     255
+    ],
+    [
+     174,
+     174,
+     177,
+     255
+    ],
+    [
+     112,
+     112,
+     114,
+     255
+    ],
+    [
+     44,
+     44,
+     50,
+     255
+    ],
+    [
+     83,
+     83,
+     83,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ],
+    [
+     60,
+     100,
+     150,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.7
+   },
+   "glass_voxels": 936,
+   "geometry_source": "PokeO_WideHouse_Cartoon.vox",
+   "geometry_source_sha256": "7b1f28e91be79f5756a714f94fdb79e29745c2c284c59a3aa9c932968139f04f"
+  },
+  {
+   "file": "PokeO_WideHouse_CratePalette.vox",
+   "family": "PokeO_WideHouse",
+   "style": "CratePalette",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125372,
+   "sha256": "069307bc83090c1779be23e222fec4b35d6a1d31947d77fdc5ddde8598c2d861",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    193,
+    194,
+    195,
+    196,
+    204,
+    205,
+    206,
+    213,
+    214,
+    219,
+    220,
+    229,
+    234,
+    235,
+    236,
+    237,
+    238,
+    252,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     198,
+     81,
+     151,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     117,
+     36,
+     56,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     79,
+     143,
+     186,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1350,
+   "geometry_source": "PokeO_WideHouse.vox",
+   "geometry_source_sha256": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c"
+  },
+  {
+   "file": "PokeO_WideHouse_TwoColor.vox",
+   "family": "PokeO_WideHouse",
+   "style": "TwoColor",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125372,
+   "sha256": "328a798f92586ab824f98c3790dfffac24349c20dccee4282ff94d4b8787abc8",
+   "palette_sha256": "2f3545d41afa0d4876961274efedfae78dfdd63d24931c33badea40dc2b73511",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     139,
+     139,
+     141,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "6": 0.7
+   },
+   "glass_voxels": 1350,
+   "geometry_source": "PokeO_WideHouse.vox",
+   "geometry_source_sha256": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c"
+  },
+  {
+   "file": "PokeO_WideHouse_Cartoon_TwoColor.vox",
+   "family": "PokeO_WideHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125798,
+   "sha256": "2bcb47a62836288c62cca798115e45f72a746288deaecad173d552206aa7ad42",
+   "palette_sha256": "2f3545d41afa0d4876961274efedfae78dfdd63d24931c33badea40dc2b73511",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "used_rgba": [
+    [
+     229,
+     126,
+     134,
+     255
+    ],
+    [
+     220,
+     203,
+     159,
+     255
+    ],
+    [
+     159,
+     151,
+     101,
+     255
+    ],
+    [
+     177,
+     101,
+     101,
+     255
+    ],
+    [
+     139,
+     139,
+     141,
+     255
+    ],
+    [
+     120,
+     185,
+     235,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "6": 0.7
+   },
+   "glass_voxels": 936,
+   "geometry_source": "PokeO_WideHouse_Cartoon.vox",
+   "geometry_source_sha256": "7b1f28e91be79f5756a714f94fdb79e29745c2c284c59a3aa9c932968139f04f"
+  },
+  {
+   "file": "PokeO_WideHouse_CratePalette_TwoColor.vox",
+   "family": "PokeO_WideHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125372,
+   "sha256": "0d0c6d8732e7c0304ce144b52cb30551a3f2b267b8828f59c83c93175c369ba0",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    193,
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1350,
+   "geometry_source": "PokeO_WideHouse.vox",
+   "geometry_source_sha256": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c"
+  },
+  {
+   "file": "PokeO_WideHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeO_WideHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    112,
+    64,
+    112
+   ],
+   "occupied_min": [
+    4,
+    5,
+    0
+   ],
+   "occupied_max": [
+    107,
+    59,
+    111
+   ],
+   "voxels": 125798,
+   "sha256": "dfa1f9be768b1cda68367b94f566198e7d74121abda790167349218ada42a85f",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    193,
+    214,
+    235,
+    236,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     223,
+     132,
+     165,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 936,
+   "geometry_source": "PokeO_WideHouse_Cartoon.vox",
+   "geometry_source_sha256": "7b1f28e91be79f5756a714f94fdb79e29745c2c284c59a3aa9c932968139f04f"
+  }
+ ]
+}

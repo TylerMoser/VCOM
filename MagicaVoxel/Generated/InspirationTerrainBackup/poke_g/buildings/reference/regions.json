@@ -1,0 +1,114 @@
+{
+ "source": "poke_g.png",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeG_GreenHouse": {
+   "title": "Stepped green house",
+   "regions_xyxy_exclusive": [
+    [
+     104,
+     306,
+     184,
+     408
+    ],
+    [
+     456,
+     306,
+     536,
+     408
+    ]
+   ],
+   "drawn": "Two of the three green houses with a stepped roof: a block of two storeys two tiles wide and a one-storey wing beside it with the door, green standing-seam roofs, brown panels in dark timber lines, cream window frames, a beam between the storeys."
+  },
+  "PokeG_GreenHouseMirrored": {
+   "title": "Stepped green house, mirrored",
+   "regions_xyxy_exclusive": [
+    [
+     344,
+     306,
+     424,
+     408
+    ]
+   ],
+   "drawn": "The third stepped green house, drawn mirrored (its wing on the left): a model of its own, the user's choice, since the game turns pieces but cannot mirror them."
+  },
+  "PokeG_GreenWideHouse": {
+   "title": "Wide green house",
+   "regions_xyxy_exclusive": [
+    [
+     24,
+     480,
+     104,
+     586
+    ],
+    [
+     456,
+     480,
+     536,
+     586
+    ],
+    [
+     312,
+     608,
+     392,
+     710
+    ],
+    [
+     136,
+     608,
+     216,
+     710
+    ]
+   ],
+   "drawn": "Four copies of the green house with one roof over four tiles: two storeys, two windows in a cream panel upstairs, the door and a window below."
+  },
+  "PokeG_DomeCenter": {
+   "title": "Domed centre",
+   "regions_xyxy_exclusive": [
+    [
+     196,
+     236,
+     332,
+     366
+    ]
+   ],
+   "drawn": "The building in the middle: poke_f's domed centre drawn again with red-brown tiles for its blue panels, the red dome of a Poke Ball (its band and button, as drawn), white walls, purple-blue windows, a glass double door, banded wooden pillars."
+  },
+  "PokeG_RedCenter": {
+   "title": "Red centre",
+   "regions_xyxy_exclusive": [
+    [
+     310,
+     470,
+     410,
+     590
+    ]
+   ],
+   "drawn": "The red-roofed building at the bottom middle: a roof of three red sections, a light blue-grey building with rounded white corners, the Poke Ball emblem over a red canopy (as drawn), the glass door, dark grey pillars."
+  },
+  "PokeG_Mart": {
+   "title": "Mart",
+   "regions_xyxy_exclusive": [
+    [
+     118,
+     486,
+     206,
+     590
+    ]
+   ],
+   "drawn": "The shop at the bottom left: a blue slab of a roof with pale dots, the MART sign in front of it (as drawn), light blue-grey walls white at the corners, the glass door and the shop window between dark grey columns."
+  },
+  "PokeG_WoodLodge": {
+   "title": "Wooden lodge",
+   "regions_xyxy_exclusive": [
+    [
+     380,
+     20,
+     500,
+     160
+    ]
+   ],
+   "drawn": "The lodge at the top right: a thick flat roof of planks with a board fascia and a raised part on it, windows of small panes, the door under a porch on two posts."
+  }
+ }
+}

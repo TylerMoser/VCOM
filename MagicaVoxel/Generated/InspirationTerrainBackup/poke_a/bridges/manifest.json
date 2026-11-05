@@ -1,0 +1,361 @@
+{
+  "source_review": {
+    "source": "poke_a.jpg",
+    "sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+    "reviewed": true,
+    "decision": "New complete crossings authored from the visible source.",
+    "new_families": [
+      "PokeA_CompletePicketBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_a.jpg",
+      "name": "PokeA_CompletePicketBridge",
+      "kind": "wood",
+      "size": [
+        112,
+        64,
+        64
+      ],
+      "crop": [
+        215,
+        263,
+        295,
+        324
+      ],
+      "deck": 32,
+      "tile_pixels": 10.5,
+      "rail": "picket",
+      "wood": [
+        180,
+        137,
+        83
+      ],
+      "note": "Seven-tile timber span with close pickets, caps, deck, beams and four inferred bank piles.",
+      "source_sha256": "fd0a19947af8836963ce17e209ec967b0f37788f1f612a11bdf00b51a935061c",
+      "crate_mapping": {
+        "1": 235,
+        "2": 179,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          180,
+          137,
+          83,
+          255
+        ],
+        [
+          139,
+          105,
+          64,
+          255
+        ],
+        [
+          207,
+          158,
+          95,
+          255
+        ],
+        [
+          162,
+          123,
+          75,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge.vox",
+      "source": "poke_a.jpg",
+      "style": "Base",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43992,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "f81943b4283241a6b4e6844372def985a46fe99d08c9ec96c893f3af894b718f",
+      "geometry_source": "PokeA_CompletePicketBridge",
+      "geometry_sha256": "06a6c68d5464800d3f9b4e54056136735b6c91f568e7ee749b936c47cd401f76"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_Cartoon.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 50248,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "b3a1cbf7a159bfbf45a86753a345df130acb7558825bdad85f019fcd8c81432d",
+      "geometry_source": "PokeA_CompletePicketBridge_Cartoon",
+      "geometry_sha256": "65fabbac7b23d2e5f02045731eb9dcf3f23556c8cd17cf13ef735730d119f548"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_CratePalette.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43992,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "e02b019f3e89586afade6302706ab5e547053426f15f54a9df52dea6b8aeeddd",
+      "geometry_source": "PokeA_CompletePicketBridge",
+      "geometry_sha256": "06a6c68d5464800d3f9b4e54056136735b6c91f568e7ee749b936c47cd401f76"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43992,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "76e96d1ff7c9f40b9b19d25c154650f51e3c36760bc5ddbb9ece2cb863f2d117",
+      "geometry_source": "PokeA_CompletePicketBridge",
+      "geometry_sha256": "06a6c68d5464800d3f9b4e54056136735b6c91f568e7ee749b936c47cd401f76"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_Cartoon_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 50248,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "aff7222c2a05e63fb5020bc435a325877cd8994360e730c44e2f08d4ababe23c",
+      "geometry_source": "PokeA_CompletePicketBridge_Cartoon",
+      "geometry_sha256": "65fabbac7b23d2e5f02045731eb9dcf3f23556c8cd17cf13ef735730d119f548"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 43992,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "bc489a70113f21244b76b03b7c7008a85d8f303d9c9cd8d40636c5974cbc2855",
+      "geometry_source": "PokeA_CompletePicketBridge",
+      "geometry_sha256": "06a6c68d5464800d3f9b4e54056136735b6c91f568e7ee749b936c47cd401f76"
+    },
+    {
+      "family": "PokeA_CompletePicketBridge",
+      "file": "output/poke_a/PokeA_CompletePicketBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_a.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        112,
+        64,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 50248,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        111,
+        61,
+        47
+      ],
+      "sha256": "e518e8ec17352763d84722b0ae994d344292b25dee0dc15e6ee2f9d3ed8ad24c",
+      "geometry_source": "PokeA_CompletePicketBridge_Cartoon",
+      "geometry_sha256": "65fabbac7b23d2e5f02045731eb9dcf3f23556c8cd17cf13ef735730d119f548"
+    }
+  ]
+}

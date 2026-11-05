@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://Scripts/WorldMap/MapLine.gdshader" id="1_line"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_line")
+shader_parameter/dash = 2.4
+shader_parameter/gap = 1.3
+shader_parameter/round_dashes = true

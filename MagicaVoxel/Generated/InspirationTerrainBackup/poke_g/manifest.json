@@ -1,0 +1,1576 @@
+{
+  "source_image": "poke_g.png",
+  "source_sha256": "6bb6465dccc7c39c5f83b3e7799b0e48122403a17ea23ac54c920e885a94425c",
+  "specification_version": "1.0",
+  "generator_sha256": "0eeac4b249ac0cc79025c801e9c2f27b5c9033778df4918f13741a7fd8263e47",
+  "sculpt_sha256": "1203bce1e41990a9cf9568f3e6bcfea4893420744f7c1900f2db9f1b7d58d717",
+  "command": "python output/poke_g/generate.py",
+  "seed": "fixed deterministic integer hash, no random state",
+  "scale": 0.0625,
+  "scene_translation": "0 0 floor(canvas height/2)",
+  "delivery": "Complete models only, no per-cell files",
+  "palette_snapshot": "knowledge/palettes/crate-palette.json",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "asset_id": "PokeG_BroadCrown",
+      "source_image": "poke_g.png",
+      "source_region_xyxy_exclusive": [
+        248,
+        80,
+        280,
+        128
+      ],
+      "shape": "broad",
+      "appearance": "dark",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        40
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy leaves, including hidden foliage. No fruit or flower ornaments in this image.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); indices 1-6 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          98,
+          124,
+          63,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        178
+      ],
+      "crate_mapping": {
+        "1": 242,
+        "2": 242,
+        "3": 243,
+        "4": 243,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 178,
+        "9": 179,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeG_BroadCrown.vox",
+        "PokeG_BroadCrown_Cartoon.vox",
+        "PokeG_BroadCrown_CratePalette.vox",
+        "PokeG_BroadCrown_TwoColor.vox",
+        "PokeG_BroadCrown_Cartoon_TwoColor.vox",
+        "PokeG_BroadCrown_CratePalette_TwoColor.vox",
+        "PokeG_BroadCrown_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeG_TieredCrown",
+      "source_image": "poke_g.png",
+      "source_region_xyxy_exclusive": [
+        360,
+        192,
+        392,
+        240
+      ],
+      "shape": "tiered",
+      "appearance": "bright",
+      "decoration": null,
+      "canvas_xyz": [
+        32,
+        32,
+        36
+      ],
+      "approximate_tiles_xyz": [
+        2.0,
+        2.0,
+        2.25
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy leaves, including hidden foliage. No fruit or flower ornaments in this image.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); indices 1-6 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          119,
+          146,
+          65,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        244,
+        178
+      ],
+      "crate_mapping": {
+        "1": 242,
+        "2": 242,
+        "3": 243,
+        "4": 244,
+        "5": 245,
+        "6": 245,
+        "7": 178,
+        "8": 178,
+        "9": 179,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeG_TieredCrown.vox",
+        "PokeG_TieredCrown_Cartoon.vox",
+        "PokeG_TieredCrown_CratePalette.vox",
+        "PokeG_TieredCrown_TwoColor.vox",
+        "PokeG_TieredCrown_Cartoon_TwoColor.vox",
+        "PokeG_TieredCrown_CratePalette_TwoColor.vox",
+        "PokeG_TieredCrown_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeG_Sapling",
+      "source_image": "poke_g.png",
+      "source_region_xyxy_exclusive": [
+        336,
+        368,
+        352,
+        404
+      ],
+      "shape": "sapling",
+      "appearance": "sapling",
+      "decoration": null,
+      "canvas_xyz": [
+        12,
+        12,
+        28
+      ],
+      "approximate_tiles_xyz": [
+        0.75,
+        0.75,
+        1.75
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy leaves, including hidden foliage. No fruit or flower ornaments in this image.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); indices 1-6 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          102,
+          127,
+          56,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        178
+      ],
+      "crate_mapping": {
+        "1": 242,
+        "2": 242,
+        "3": 243,
+        "4": 243,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 178,
+        "9": 179,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeG_Sapling.vox",
+        "PokeG_Sapling_Cartoon.vox",
+        "PokeG_Sapling_CratePalette.vox",
+        "PokeG_Sapling_TwoColor.vox",
+        "PokeG_Sapling_Cartoon_TwoColor.vox",
+        "PokeG_Sapling_CratePalette_TwoColor.vox",
+        "PokeG_Sapling_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "PokeG_BroadCrown.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          49,
+          66,
+          39,
+          255
+        ],
+        [
+          64,
+          82,
+          46,
+          255
+        ],
+        [
+          78,
+          101,
+          55,
+          255
+        ],
+        [
+          98,
+          124,
+          63,
+          255
+        ],
+        [
+          123,
+          147,
+          75,
+          255
+        ],
+        [
+          57,
+          47,
+          29,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ],
+        [
+          118,
+          102,
+          64,
+          255
+        ]
+      ],
+      "sha256": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30",
+      "palette_sha256": "65b877c5086018ce54817d5823327dd4489a7559823cdd9edeb81668c27f20fa",
+      "geometry_source": "PokeG_BroadCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30"
+    },
+    {
+      "file": "PokeG_BroadCrown_Cartoon.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          78,
+          101,
+          55,
+          255
+        ],
+        [
+          123,
+          147,
+          75,
+          255
+        ],
+        [
+          164,
+          180,
+          94,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "57833d5a6a67723c0553d71d523e4013259a65b075849f00685df82a5aeaf928",
+      "palette_sha256": "65b877c5086018ce54817d5823327dd4489a7559823cdd9edeb81668c27f20fa",
+      "geometry_source": "PokeG_BroadCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "57833d5a6a67723c0553d71d523e4013259a65b075849f00685df82a5aeaf928"
+    },
+    {
+      "file": "PokeG_BroadCrown_CratePalette.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        178,
+        179,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "aaa44ffa15be61403fb3b0533fd8e6fce3c1a08fbd7ad47704499591c18f12f1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_BroadCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30"
+    },
+    {
+      "file": "PokeG_BroadCrown_TwoColor.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          98,
+          124,
+          63,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "d37eab9d24d1d865896d86e6b9e08bec6db683647cfe828d824dd08d1b882251",
+      "palette_sha256": "94328c945bc41b185d0e06b148c6bdd385f3b1fcd18c0166833ddd310eb13bea",
+      "geometry_source": "PokeG_BroadCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30"
+    },
+    {
+      "file": "PokeG_BroadCrown_Cartoon_TwoColor.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          98,
+          124,
+          63,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "cb7772d74a4f512c868927aebe7d468582b70118949cff29e5260b51abbbaa05",
+      "palette_sha256": "94328c945bc41b185d0e06b148c6bdd385f3b1fcd18c0166833ddd310eb13bea",
+      "geometry_source": "PokeG_BroadCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "57833d5a6a67723c0553d71d523e4013259a65b075849f00685df82a5aeaf928"
+    },
+    {
+      "file": "PokeG_BroadCrown_CratePalette_TwoColor.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        178,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "4f19f3e5812768d1c8561ad9bf36aa9917b1c24435bdcad9742afbaab0c49632",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_BroadCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0170f00fc02043dfb2b69dbb16303a87a73d8551f311b258758c4583d0abeb30"
+    },
+    {
+      "file": "PokeG_BroadCrown_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_BroadCrown",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        40
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        31,
+        31,
+        39
+      ],
+      "voxels": 15804,
+      "used_indices": [
+        178,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "a804eed81c1a217985c415aad5503817a313e3a5fe9c35f828511421460a92eb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_BroadCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "57833d5a6a67723c0553d71d523e4013259a65b075849f00685df82a5aeaf928"
+    },
+    {
+      "file": "PokeG_TieredCrown.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "Base",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12740,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          54,
+          73,
+          40,
+          255
+        ],
+        [
+          71,
+          92,
+          46,
+          255
+        ],
+        [
+          91,
+          116,
+          54,
+          255
+        ],
+        [
+          119,
+          146,
+          65,
+          255
+        ],
+        [
+          151,
+          174,
+          81,
+          255
+        ],
+        [
+          187,
+          199,
+          110,
+          255
+        ],
+        [
+          57,
+          47,
+          29,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ],
+        [
+          118,
+          102,
+          64,
+          255
+        ]
+      ],
+      "sha256": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a",
+      "palette_sha256": "e8f1dcb34ea746909b7c1008b03caddfcc8ac2841f9a348802d51ebeaea275a8",
+      "geometry_source": "PokeG_TieredCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a"
+    },
+    {
+      "file": "PokeG_TieredCrown_Cartoon.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12684,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          91,
+          116,
+          54,
+          255
+        ],
+        [
+          151,
+          174,
+          81,
+          255
+        ],
+        [
+          187,
+          199,
+          110,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "c3e78d64e0772a8d9b5421b961a00b10763e3b62097dcbea9ea6b33ad8a29d70",
+      "palette_sha256": "e8f1dcb34ea746909b7c1008b03caddfcc8ac2841f9a348802d51ebeaea275a8",
+      "geometry_source": "PokeG_TieredCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c3e78d64e0772a8d9b5421b961a00b10763e3b62097dcbea9ea6b33ad8a29d70"
+    },
+    {
+      "file": "PokeG_TieredCrown_CratePalette.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12740,
+      "used_indices": [
+        178,
+        179,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "308cb4e40d2f9fc93ca65cd02c4e7e9e46885ff030ab1c7c5fe6f2809e3c5dbc",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_TieredCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a"
+    },
+    {
+      "file": "PokeG_TieredCrown_TwoColor.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12740,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          119,
+          146,
+          65,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "c22830364c45bf7f5c147836746c7f3ed57cc3c0e2e4b9430067372bbfddbaea",
+      "palette_sha256": "857f13da3a044642d0bade36ce078da1d102bc89a771a0d6ad9ce9a7e4849019",
+      "geometry_source": "PokeG_TieredCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a"
+    },
+    {
+      "file": "PokeG_TieredCrown_Cartoon_TwoColor.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12684,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          119,
+          146,
+          65,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "8fa57303597e282f78c1c842815c26b18ee0f9d5a4cc593e17b856d3a6be339e",
+      "palette_sha256": "857f13da3a044642d0bade36ce078da1d102bc89a771a0d6ad9ce9a7e4849019",
+      "geometry_source": "PokeG_TieredCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c3e78d64e0772a8d9b5421b961a00b10763e3b62097dcbea9ea6b33ad8a29d70"
+    },
+    {
+      "file": "PokeG_TieredCrown_CratePalette_TwoColor.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12740,
+      "used_indices": [
+        178,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "cf9dbb297d1de8c75493924308b7ce9fe6aac989bf1b08b657803eaf3aada7af",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_TieredCrown.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "8e1f6544a3465ffac32e01abf333c978262de80b47b0cecd8e16c49cc6a3fa0a"
+    },
+    {
+      "file": "PokeG_TieredCrown_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_TieredCrown",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        32,
+        36
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        30,
+        35
+      ],
+      "voxels": 12684,
+      "used_indices": [
+        178,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "272f1568009dfd55720cbd3a891405d01fafa3c6b5b771339ba9c3692af60cef",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_TieredCrown_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c3e78d64e0772a8d9b5421b961a00b10763e3b62097dcbea9ea6b33ad8a29d70"
+    },
+    {
+      "file": "PokeG_Sapling.vox",
+      "family": "PokeG_Sapling",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          45,
+          65,
+          34,
+          255
+        ],
+        [
+          61,
+          82,
+          40,
+          255
+        ],
+        [
+          78,
+          103,
+          46,
+          255
+        ],
+        [
+          102,
+          127,
+          56,
+          255
+        ],
+        [
+          130,
+          152,
+          70,
+          255
+        ],
+        [
+          166,
+          182,
+          95,
+          255
+        ],
+        [
+          57,
+          47,
+          29,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ],
+        [
+          118,
+          102,
+          64,
+          255
+        ]
+      ],
+      "sha256": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368",
+      "palette_sha256": "55508cf5452f21c7c2e76574693dc337bfc8f09365b1f0d65560589765c08409",
+      "geometry_source": "PokeG_Sapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368"
+    },
+    {
+      "file": "PokeG_Sapling_Cartoon.vox",
+      "family": "PokeG_Sapling",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          78,
+          103,
+          46,
+          255
+        ],
+        [
+          130,
+          152,
+          70,
+          255
+        ],
+        [
+          166,
+          182,
+          95,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "135d68c637a9a53ca91fffee1156317b36c139f8c2f49b87bca728f205b0ed42",
+      "palette_sha256": "55508cf5452f21c7c2e76574693dc337bfc8f09365b1f0d65560589765c08409",
+      "geometry_source": "PokeG_Sapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "135d68c637a9a53ca91fffee1156317b36c139f8c2f49b87bca728f205b0ed42"
+    },
+    {
+      "file": "PokeG_Sapling_CratePalette.vox",
+      "family": "PokeG_Sapling",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        178,
+        179,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "4a934b5c463b5cfa3d5879b5fdc94d6ca6e1983c24f8b9595023cdc39f3aea59",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_Sapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368"
+    },
+    {
+      "file": "PokeG_Sapling_TwoColor.vox",
+      "family": "PokeG_Sapling",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          102,
+          127,
+          56,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "4d7431b75a0f087f589e2905981a318c404c95d7cf7968a2b4438638a7bbf8f9",
+      "palette_sha256": "3cf6a6772e3a62cf31e7047517779220c4199128c8a24bca6ea74c5157083e0a",
+      "geometry_source": "PokeG_Sapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368"
+    },
+    {
+      "file": "PokeG_Sapling_Cartoon_TwoColor.vox",
+      "family": "PokeG_Sapling",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          102,
+          127,
+          56,
+          255
+        ],
+        [
+          86,
+          72,
+          43,
+          255
+        ]
+      ],
+      "sha256": "86a3949d46332f4be8b9b3fc2e50051b04ca4d2b05e9a3f5f4b1f9cdb7b8f07c",
+      "palette_sha256": "3cf6a6772e3a62cf31e7047517779220c4199128c8a24bca6ea74c5157083e0a",
+      "geometry_source": "PokeG_Sapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "135d68c637a9a53ca91fffee1156317b36c139f8c2f49b87bca728f205b0ed42"
+    },
+    {
+      "file": "PokeG_Sapling_CratePalette_TwoColor.vox",
+      "family": "PokeG_Sapling",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        178,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "ecf8f7f3b32767b072bf60985a5e043f5979aa299a2ab9968f9362634a2dfec3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_Sapling.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "873b697d00db7d9ea146fd06b74faef770a8ac0d1468036269531173d138b368"
+    },
+    {
+      "file": "PokeG_Sapling_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_Sapling",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        28
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        27
+      ],
+      "voxels": 1184,
+      "used_indices": [
+        178,
+        243
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "5d18c4dc5a362a30c229b6c232acfd8dc9388158358694f13e91f13644218ede",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeG_Sapling_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "135d68c637a9a53ca91fffee1156317b36c139f8c2f49b87bca728f205b0ed42"
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "family": {
+    "source": "pixelwood_b.gif",
+    "name": "PixelwoodB_Campfire",
+    "shape": "fire",
+    "size": [
+      24,
+      24,
+      28
+    ],
+    "crop": [
+      540,
+      820,
+      680,
+      975
+    ],
+    "scale": 0.2,
+    "metal": [
+      81,
+      85,
+      98
+    ],
+    "light": [
+      244,
+      154,
+      62
+    ],
+    "power": 1.5,
+    "note": "Five GIF frames reviewed. Static flame inspired by frame 0; eight-sided rock ring and charred logs; no animation or detached sparks."
+  },
+  "models": [
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Base",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        1,
+        2
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "emitter",
+        "3": "stone",
+        "4": "stone",
+        "5": "wood",
+        "6": "wood"
+      },
+      "colors": 6,
+      "sha256": "1f5311c8cbbe9d5e6c2aede4f6746f8e6f0f3b596dab3044b6ad5dcdf58e0a82",
+      "palette_sha256": "2d063cd618b138d550811cff2b56f966e49092a4ce516335ed16c870a20ed968",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        1,
+        2
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "emitter",
+        "3": "stone",
+        "4": "wood",
+        "5": "wood"
+      },
+      "colors": 5,
+      "sha256": "643a903013ec33db4d4df8cc78fe7152eeba485734a1ef3e52bbc5f9205f9dc3",
+      "palette_sha256": "7f10662340341642ae2d453b862421d607f48ceeb5d86e8a8c5c969d0e123e50",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_CratePalette.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        229,
+        230
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "230": "emitter",
+        "206": "stone",
+        "193": "stone",
+        "178": "wood",
+        "225": "wood"
+      },
+      "colors": 6,
+      "sha256": "6aefe42c74e9460957d51c8abbc4928c1feb9e239f6bfb87e8b8df15f0eb9043",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "wood"
+      },
+      "colors": 3,
+      "sha256": "e55c550555bd5a8698acf98e66be72cb838a3da1ffa04ca45018aae7c1c955d4",
+      "palette_sha256": "aa62012ff0452114c0028b26b7554010c0faf4f0c75882acefc808fda1c0b940",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "wood"
+      },
+      "colors": 3,
+      "sha256": "aca2096f469d41f709bf1c5430ac2748bd48a9950cf06cc3833d80cbf35ec770",
+      "palette_sha256": "aa62012ff0452114c0028b26b7554010c0faf4f0c75882acefc808fda1c0b940",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        229
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "206": "stone",
+        "178": "wood"
+      },
+      "colors": 3,
+      "sha256": "b9b3e246a57ae5ca306ff4d2bb3246b8b9e226e04a386d48ce6c82d63efdf26b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        229
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "206": "stone",
+        "178": "wood"
+      },
+      "colors": 3,
+      "sha256": "5f739ac443d7dc9252cf0c2d44bca0b4e8cdbeeb9c89e42aecbec57f5a26ef7f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    }
+  ]
+}

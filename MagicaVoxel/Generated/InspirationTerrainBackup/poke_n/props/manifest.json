@@ -1,0 +1,514 @@
+{
+  "source": "poke_n.png",
+  "review": {
+    "source": "poke_n.png",
+    "reviewed": true,
+    "families": [
+      "PokeN_GreenBench",
+      "PokeN_TimberNotice"
+    ],
+    "notes": "Slatted bench and timber notice sign. Source lettering is represented by short strokes; no invented readable wording.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_GreenBench",
+      "kind": "bench",
+      "crop": [
+        444,
+        538,
+        481,
+        563
+      ],
+      "size": [
+        32,
+        18,
+        24
+      ],
+      "tone": "olive"
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_TimberNotice",
+      "kind": "sign",
+      "crop": [
+        314,
+        212,
+        338,
+        241
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_n/PokeN_GreenBench.vox",
+      "family": "PokeN_GreenBench",
+      "style": "Base",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 6,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "180d716bd2b03a260d78a911469bc19eea19dd5fd0a14c4f7b61cf13b62697d8",
+      "palette_sha256": "1c4ea9472982fb6fc9355ddc5fd1327ee0f4f436d4ce99be93c6df0a56f494d3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon.vox",
+      "family": "PokeN_GreenBench",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "fb85164e62e24bde5f0f6fe1d2ec8a71441588bf8b0f3205333d1a3734a7644c",
+      "palette_sha256": "cde0aead9f871ba8d28610d0bfa62b116dce7b15df9a3f6a0384b209075499ab",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_CratePalette.vox",
+      "family": "PokeN_GreenBench",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 4,
+      "groups": {
+        "205": "metal",
+        "206": "metal",
+        "234": "wood",
+        "235": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "bbddc19adb6dfebd158873da8ce00631b06d4119c146ddbbf5a83668abdbe437",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_TwoColor.vox",
+      "family": "PokeN_GreenBench",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "b4a0f0031530135475eb515f33dd97e7755aeddf7e492bd221c62a761ec11b62",
+      "palette_sha256": "cde0aead9f871ba8d28610d0bfa62b116dce7b15df9a3f6a0384b209075499ab",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon_TwoColor.vox",
+      "family": "PokeN_GreenBench",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "f0125fdf9068960569149ab47b0024e8565528653e9fac0ecc4c9bc1d84dc691",
+      "palette_sha256": "cde0aead9f871ba8d28610d0bfa62b116dce7b15df9a3f6a0384b209075499ab",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_CratePalette_TwoColor.vox",
+      "family": "PokeN_GreenBench",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "235": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "d6039f0bb168e05b7fe914ae8a0a80e8adc9424ede539e649dd166d0af318a66",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_GreenBench_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_GreenBench",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "235": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "97428b1bf0e4a70eb83ea1dd7a3740b071e64ecd61ae64476b36c9e37e0c9c7f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "74db397f6faa5af05a2a49279c676c73842c9b9a3e471a781a358c218235e848",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "878a75c058226c45bab05887a7b029f92bf5dc9220e69f0afd0f171aab0bf261",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_CratePalette.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "fb37a3f207175e8c1d85104173921125745579693acdb16282877dd3de1d0afe",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_TwoColor.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "53ce9a22c239a4c3768587f8878c25e1a0ac8e6d96055e385b19a8bb195e12f6",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon_TwoColor.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "6258d4d6a254d51456583d3f5b36a53d8cc7e92c4d629e4fd14c93e840b6a335",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_CratePalette_TwoColor.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "cf832ac2b89ca72c6ecdd4fadda040029f50b39694cde2a8958972029c035e17",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_n/PokeN_TimberNotice_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_TimberNotice",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "67952b7532a16ad723c5ca99f3d8733d8ec361b6ba35fdefb4628b19d44beb49",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

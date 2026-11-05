@@ -1,0 +1,1639 @@
+{
+  "source": {
+    "source": "poke_c.png",
+    "size": [
+      800,
+      752
+    ],
+    "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192"
+  },
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_ShortGrassPatch",
+      "shape": "turf",
+      "size": [
+        16,
+        16,
+        4
+      ],
+      "crop": [
+        600,
+        518,
+        624,
+        540
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "One tile of short grass accents, without soil or a solid terrain slab. Repeating placements share this model.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_WhiteDaisies",
+      "shape": "flowers",
+      "size": [
+        16,
+        16,
+        8
+      ],
+      "crop": [
+        25,
+        255,
+        53,
+        284
+      ],
+      "leaf": "mint",
+      "petal": "white",
+      "scale": 1,
+      "note": "Flower heads and leaves are solid forms; stems and depth are inferred from the overhead sprite.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_TallMeadowGrass",
+      "shape": "grass_tile",
+      "size": [
+        16,
+        16,
+        24
+      ],
+      "crop": [
+        555,
+        620,
+        593,
+        660
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_RiverReeds",
+      "shape": "grass",
+      "size": [
+        16,
+        16,
+        22
+      ],
+      "crop": [
+        348,
+        284,
+        371,
+        313
+      ],
+      "leaf": "green",
+      "petal": "white",
+      "scale": 1,
+      "note": "Emergent narrow blades: water is excluded, model rooted at its placement datum.",
+      "seed": 11
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_FloatingLeafCluster",
+      "shape": "pads",
+      "size": [
+        16,
+        16,
+        3
+      ],
+      "crop": [
+        369,
+        445,
+        401,
+        467
+      ],
+      "leaf": "olive",
+      "petal": "white",
+      "scale": 1,
+      "note": "Small floating green leaf clusters; not rocks or creatures.",
+      "seed": 11
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 121,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 64,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 31,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 26,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        2
+      ],
+      "sha256": "3791cb6a0bff8ae0fad486531d1ac7f3844cef3875b3bca09559d92ae646cd63",
+      "palette_sha256": "c07b45163ba11a88f8e4d128d8c832308d3db7af574ef1abc874679138da547d",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 108,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        2
+      ],
+      "sha256": "f3bdef456cbea01c1f3fa26f5460e7e67719032b2cd69f64fa42a99f7faed7f6",
+      "palette_sha256": "c07b45163ba11a88f8e4d128d8c832308d3db7af574ef1abc874679138da547d",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_CratePalette.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 121,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 64,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 31,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 26,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        2
+      ],
+      "sha256": "1a938e8f8ed89515b9fd5b65a51aa1a9a9b07430fe857647ddef01387d5ab4aa",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_TwoColor.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 121,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 64,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 31,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 26,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        2
+      ],
+      "sha256": "e86d09730d8caaf02256a6a2691b44f308b1733b56ac4cb8afbaf3cd1bc28d99",
+      "palette_sha256": "e9eec44e650e6436bbae11af2dbbc52b9c87e8c0a99c0c4fc3a801c7029ece90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon_TwoColor.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 108,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        2
+      ],
+      "sha256": "ed123d5b92393054e1428c71716cd681b63356a644384e3ddc397e7179dc0508",
+      "palette_sha256": "e9eec44e650e6436bbae11af2dbbc52b9c87e8c0a99c0c4fc3a801c7029ece90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_CratePalette_TwoColor.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 121,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 64,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 31,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 26,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        13,
+        2
+      ],
+      "sha256": "b3774436ab617a04498479977d2c5e1cec73681cf4c727410af4b38d676de850",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_ShortGrassPatch_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_ShortGrassPatch",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        4
+      ],
+      "voxels": 108,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 27,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        2
+      ],
+      "sha256": "baca77a804c1c7aad519da630f30ff4cb2f704f5c942d76e0348cd1edf2bff42",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 140,
+      "colors": 7,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "petal",
+        "4": "petal",
+        "5": "petal",
+        "6": "seed",
+        "7": "seed"
+      },
+      "components": [
+        {
+          "voxels": 51,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 46,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 43,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "599293b1bfb0269e44a07daef05f6d080ac189e51ca12cd40a02a449aa721e53",
+      "palette_sha256": "a26ebc8f679b921f6557889e83b3471e77990829cdaa1c76934d1035f35736a1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 236,
+      "colors": 6,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "petal",
+        "4": "petal",
+        "5": "seed",
+        "6": "seed"
+      },
+      "components": [
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "bc67359b366bb3c494ba921538932bcd0039c4b6ee0bffb8f0afd53f7bd2c0a2",
+      "palette_sha256": "11589e047d3829e6ab817440a68725ece6888256e2e03b1e2640e940a8fd2569",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_CratePalette.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 140,
+      "colors": 6,
+      "groups": {
+        "244": "leaf",
+        "195": "petal",
+        "196": "petal",
+        "248": "petal",
+        "229": "seed",
+        "230": "seed"
+      },
+      "components": [
+        {
+          "voxels": 51,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 46,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 43,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "01c1811041326493f647229045238e2586d832ed8cbc0d49ed164a296ae02059",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_TwoColor.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 140,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "petal",
+        "3": "seed"
+      },
+      "components": [
+        {
+          "voxels": 51,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 46,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 43,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "02f917fb05bb1c69e03108a3d9aa75a7dcdeba45dd6e6da3e9eb0bff49523e68",
+      "palette_sha256": "c4ab8fa9b07aaa37224c86b0f8ac4a93ffe5e75f49b8b8ccf2197bf94e6900bd",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon_TwoColor.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 236,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "petal",
+        "3": "seed"
+      },
+      "components": [
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "efee31213525311ec056fa7364acad2513e35cb21d44c00a46eeb13e2ef3159e",
+      "palette_sha256": "c4ab8fa9b07aaa37224c86b0f8ac4a93ffe5e75f49b8b8ccf2197bf94e6900bd",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_CratePalette_TwoColor.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 140,
+      "colors": 3,
+      "groups": {
+        "244": "leaf",
+        "196": "petal",
+        "229": "seed"
+      },
+      "components": [
+        {
+          "voxels": 51,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 46,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 43,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "85c11a8a93fef737f5c32c0e4d396d4f30756fbc9141493c04d595466da32680",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_WhiteDaisies_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_WhiteDaisies",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        8
+      ],
+      "voxels": 236,
+      "colors": 3,
+      "groups": {
+        "244": "leaf",
+        "196": "petal",
+        "229": "seed"
+      },
+      "components": [
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 59,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        6
+      ],
+      "sha256": "89beffcec456fbb46c527df0482afd8e2fb28d7671325d88d111662901de4447",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 865,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 453,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 412,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        21
+      ],
+      "sha256": "3f38f30d745efec0a45a8894aac2cecab4eb748c186e2c39e72cf58db8310fcd",
+      "palette_sha256": "ee393362bedb19e594a6307a75c9e476d69fd03c281e99c46b5721b2e5555608",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 1048,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 1048,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        21
+      ],
+      "sha256": "c026e8a8d427232bf1593c4850591228b7afe5dc2dd1ee1c2c0c4551faaafc67",
+      "palette_sha256": "ee393362bedb19e594a6307a75c9e476d69fd03c281e99c46b5721b2e5555608",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_CratePalette.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 865,
+      "colors": 2,
+      "groups": {
+        "243": "leaf",
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 453,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 412,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        21
+      ],
+      "sha256": "f3b3b8e57a73aee1ed0d2bc409c4171426d8422c26447baf17002f4e09795852",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_TwoColor.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 865,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 453,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 412,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        21
+      ],
+      "sha256": "5291bf145ec467d8603cb709eef9eba6dbd42425a2d01fb59db73df2e5dce744",
+      "palette_sha256": "c77c6c41425d0dfcc8fc6871fec20629135cd8a89c2f319f1c462d921cd067ae",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon_TwoColor.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 1048,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 1048,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        21
+      ],
+      "sha256": "2a55b55a5c73818e504e7bb625289cf66ea149b08653996ed83c422093d8112d",
+      "palette_sha256": "c77c6c41425d0dfcc8fc6871fec20629135cd8a89c2f319f1c462d921cd067ae",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_CratePalette_TwoColor.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 865,
+      "colors": 1,
+      "groups": {
+        "243": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 453,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 412,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        21
+      ],
+      "sha256": "2783e4e962d5f5d5bdeca5297951665673935b6d4bc0b3e7301bf7f098856afb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_TallMeadowGrass_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_TallMeadowGrass",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        24
+      ],
+      "voxels": 1048,
+      "colors": 1,
+      "groups": {
+        "243": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 1048,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        21
+      ],
+      "sha256": "e898778c3a443c4e73e9560429b32edf31a591fbcfceac872b8bacc7b06d1092",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 281,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 281,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "sha256": "d173868246f4ce47f02c16d6e5dfeece1f8695f8649ea940f21e75136e6d0eec",
+      "palette_sha256": "ee393362bedb19e594a6307a75c9e476d69fd03c281e99c46b5721b2e5555608",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 452,
+      "colors": 3,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf",
+        "3": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 452,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        20
+      ],
+      "sha256": "082cad5371b49f8a8e461ee86976867614bf9435b4ba8aa7fdaa5ffcf7406b2f",
+      "palette_sha256": "ee393362bedb19e594a6307a75c9e476d69fd03c281e99c46b5721b2e5555608",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_CratePalette.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 281,
+      "colors": 2,
+      "groups": {
+        "243": "leaf",
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 281,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "sha256": "57089c7473f1b7792165a07ebfca410aa505823b5383b861e65eb7a3921a0ca6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_TwoColor.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 281,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 281,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "sha256": "17941b14759ef989ec16ddee525e92225ab87b9e2e58580515171b4a618689c2",
+      "palette_sha256": "c77c6c41425d0dfcc8fc6871fec20629135cd8a89c2f319f1c462d921cd067ae",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon_TwoColor.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 452,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 452,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        20
+      ],
+      "sha256": "81fd9b0fdff82e757d29cb5b192e45f87a42d06bc10611b07eade64544bd20b4",
+      "palette_sha256": "c77c6c41425d0dfcc8fc6871fec20629135cd8a89c2f319f1c462d921cd067ae",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_CratePalette_TwoColor.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 281,
+      "colors": 1,
+      "groups": {
+        "243": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 281,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "sha256": "8ef950a63d9cbe9f440165085f1ebb72b20c289e2f9e96087219b8766b97fdba",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_RiverReeds_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_RiverReeds",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        22
+      ],
+      "voxels": 452,
+      "colors": 1,
+      "groups": {
+        "243": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 452,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        20
+      ],
+      "sha256": "27ca648d64d9d9def8ac849834dcdc7ef65aa94345f9838af412381bb93ffe37",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 137,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 53,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        14,
+        1
+      ],
+      "sha256": "dc8891dd023e258884822200f4273fc6360efed3bceece6aeddb1079bf28b605",
+      "palette_sha256": "2f8c715a42167f8ab836d7120599f483dec2858a8179ec3c48c65cb2cffa37b1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 120,
+      "colors": 2,
+      "groups": {
+        "1": "leaf",
+        "2": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        1
+      ],
+      "sha256": "7bffe0cb4723dae3c645567872445c9619313a8800f81ce558b7e363a173f568",
+      "palette_sha256": "2f8c715a42167f8ab836d7120599f483dec2858a8179ec3c48c65cb2cffa37b1",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_CratePalette.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 137,
+      "colors": 2,
+      "groups": {
+        "243": "leaf",
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 53,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        14,
+        1
+      ],
+      "sha256": "9694984a26b726e94a65c6104673575a7c929016a3e9e3e7126f8dbfa5ad6185",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_TwoColor.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 137,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 53,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        14,
+        1
+      ],
+      "sha256": "0d00b463866e29c196c6283edec6ab23e6222b51ea958eaec9865b7f2c702dd3",
+      "palette_sha256": "852d55ba7efbbac82a107daddc746b52788d8f0074e127b867f7d75ee2c3ca90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon_TwoColor.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 120,
+      "colors": 1,
+      "groups": {
+        "1": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        1
+      ],
+      "sha256": "ae8ea5651eaa6a53e45314b00eb3ee8b64db99d4dde4d1f9232f0f23b5cbfa96",
+      "palette_sha256": "852d55ba7efbbac82a107daddc746b52788d8f0074e127b867f7d75ee2c3ca90",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_CratePalette_TwoColor.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 137,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 53,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 42,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        14,
+        1
+      ],
+      "sha256": "071a2b1fb9c3bfe1818d458466f9cfd3f34d5207f845dfb32a85126e28608a8d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    },
+    {
+      "file": "output/poke_c/PokeC_FloatingLeafCluster_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_FloatingLeafCluster",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        3
+      ],
+      "voxels": 120,
+      "colors": 1,
+      "groups": {
+        "244": "leaf"
+      },
+      "components": [
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        },
+        {
+          "voxels": 30,
+          "minimum_z": 0
+        }
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        1
+      ],
+      "sha256": "1c130ccc6689cceeaf342119b7e76d3dd7efe9ec1a9c0c7861befe70d7646008",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X and Y",
+      "grounding": "Every separate clump touches z=0; pads use water surface datum."
+    }
+  ],
+  "reuse": []
+}

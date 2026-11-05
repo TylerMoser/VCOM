@@ -1,0 +1,1032 @@
+{
+  "source": "poke_h.png",
+  "review": {
+    "source": "poke_h.png",
+    "reviewed": true,
+    "families": [
+      "PokeH_HayBale",
+      "PokeH_BaleStack",
+      "PokeH_HayMound",
+      "PokeH_Pitchfork"
+    ],
+    "notes": "Single tied bale, three-bale stack, hay mound and pitchfork. Wheat is in vegetation. Characters, animals and held tools are excluded. Reuse the item ball from poke_g.",
+    "reuse": [
+      "output/poke_g/PokeG_ItemBall.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_HayBale",
+      "kind": "bale",
+      "crop": [
+        127,
+        238,
+        148,
+        260
+      ],
+      "size": [
+        16,
+        16,
+        16
+      ],
+      "tone": "straw"
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_BaleStack",
+      "kind": "balestack",
+      "crop": [
+        369,
+        149,
+        418,
+        207
+      ],
+      "size": [
+        32,
+        24,
+        32
+      ],
+      "tone": "straw"
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_HayMound",
+      "kind": "hay",
+      "crop": [
+        175,
+        324,
+        208,
+        356
+      ],
+      "size": [
+        28,
+        28,
+        24
+      ],
+      "tone": "straw"
+    },
+    {
+      "source": "poke_h.png",
+      "name": "PokeH_Pitchfork",
+      "kind": "fork",
+      "crop": [
+        305,
+        88,
+        321,
+        118
+      ],
+      "size": [
+        12,
+        8,
+        28
+      ],
+      "tone": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_h/PokeH_HayBale.vox",
+      "family": "PokeH_HayBale",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2940,
+      "colors": 5,
+      "groups": {
+        "1": "rope",
+        "2": "rope",
+        "3": "straw",
+        "4": "straw",
+        "5": "straw"
+      },
+      "components": [
+        2940
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "b935600790dcf618c63767115f23b682d7300d8c40fd1b7cb5402d5129a1cd75",
+      "palette_sha256": "f1996370aeda95285c5f6aa960cef0a6e851a72e5a3e157ed26581bb49135c6f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon.vox",
+      "family": "PokeH_HayBale",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2880,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        2880
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "74ee7c8be84dcf279d0de45db74c0c6e26a95a7cab1c3258825d81741304e346",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_CratePalette.vox",
+      "family": "PokeH_HayBale",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2940,
+      "colors": 4,
+      "groups": {
+        "179": "rope",
+        "235": "rope",
+        "228": "straw",
+        "229": "straw"
+      },
+      "components": [
+        2940
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "5dfcfd2cc1917df7a2f97f4b4197d2ea90617048a448e6025bbbc002fd4b109f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_TwoColor.vox",
+      "family": "PokeH_HayBale",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2940,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        2940
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "d24469255159b0ca9624471ab2cc05f2f37adf4eff24cb3d6ef2a9ba368c39f5",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon_TwoColor.vox",
+      "family": "PokeH_HayBale",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2880,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        2880
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "bf38bc5c15b47775f530f43056a3beb2e08af9e33d56faa4adfd524b49fe424e",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_CratePalette_TwoColor.vox",
+      "family": "PokeH_HayBale",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2940,
+      "colors": 2,
+      "groups": {
+        "179": "rope",
+        "228": "straw"
+      },
+      "components": [
+        2940
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "e6172ccc6481ae6a3b4824c83bbad9347103d2f590a8fdb8de7006f7bcbe1fd4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayBale_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeH_HayBale",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 2880,
+      "colors": 2,
+      "groups": {
+        "179": "rope",
+        "228": "straw"
+      },
+      "components": [
+        2880
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        14
+      ],
+      "sha256": "41486320e01c1163f0c9ac80f9097a314454284f8a0d7ce76a1ac3ba9f001d03",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack.vox",
+      "family": "PokeH_BaleStack",
+      "style": "Base",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11368,
+      "colors": 6,
+      "groups": {
+        "1": "rope",
+        "2": "rope",
+        "3": "rope",
+        "4": "straw",
+        "5": "straw",
+        "6": "straw"
+      },
+      "components": [
+        11368
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "da2c966e4fd9ae0b9c957d8472895953fc494e00c2aa94debf952364ef347bdd",
+      "palette_sha256": "a7e486a7147af3370b2ee8233ea33fa421c63caab0a0d75b9ad9ac084b3b4dfe",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon.vox",
+      "family": "PokeH_BaleStack",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11340,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        11340
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "03c8a489d8d187fc4f8d9b39fd9ead0ae56f8fa2c9054ed0c55f9b72bc42209e",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_CratePalette.vox",
+      "family": "PokeH_BaleStack",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11368,
+      "colors": 4,
+      "groups": {
+        "179": "rope",
+        "235": "rope",
+        "228": "straw",
+        "229": "straw"
+      },
+      "components": [
+        11368
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "9572711b11815cfceb94c46d4a9b61b1225c1a6e59fd2e66481503909139c904",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_TwoColor.vox",
+      "family": "PokeH_BaleStack",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11368,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        11368
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "854c14818f84f9ab051468e47fa39766d256b7495a3b838b13804d15e9a0dac9",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon_TwoColor.vox",
+      "family": "PokeH_BaleStack",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11340,
+      "colors": 2,
+      "groups": {
+        "1": "rope",
+        "2": "straw"
+      },
+      "components": [
+        11340
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "3f784063b134e932411b5c2414f39256e9fd2a9d4f24c666c4cb3d56ea499070",
+      "palette_sha256": "f462db8bc69aed967ea817a5684d8bb00f38c0143084deeccb8f5cd139178dfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_CratePalette_TwoColor.vox",
+      "family": "PokeH_BaleStack",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11368,
+      "colors": 2,
+      "groups": {
+        "179": "rope",
+        "228": "straw"
+      },
+      "components": [
+        11368
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "cfb75093b331cc5212a2f734342ae88b6fce24234382c671babea2fa2027a325",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_BaleStack_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeH_BaleStack",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        24,
+        32
+      ],
+      "voxels": 11340,
+      "colors": 2,
+      "groups": {
+        "179": "rope",
+        "228": "straw"
+      },
+      "components": [
+        11340
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        30,
+        20,
+        27
+      ],
+      "sha256": "4d61d4fc2509bd4273f05ec41a4f1ce5d4133da98622a616bd56626aeee37635",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound.vox",
+      "family": "PokeH_HayMound",
+      "style": "Base",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5896,
+      "colors": 3,
+      "groups": {
+        "1": "straw",
+        "2": "straw",
+        "3": "straw"
+      },
+      "components": [
+        5896
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        21
+      ],
+      "sha256": "9a89c3282c9b82368cd3982251f7340e7c66bbc17daa5ce577cb1ad2337b13f9",
+      "palette_sha256": "1e9cf1406e122d1a23660573835a5792beb44a7c609b2d79e3bd6a847d920dbb",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon.vox",
+      "family": "PokeH_HayMound",
+      "style": "Cartoon",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5996,
+      "colors": 1,
+      "groups": {
+        "1": "straw"
+      },
+      "components": [
+        5996
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        23
+      ],
+      "sha256": "42157bec85bdef876f220171c55396322914fa3c3ccac1b37b94188a1d64ee79",
+      "palette_sha256": "774629921de5e7d30efa79b4b792b2672503510c79cbdfc4083df089c09c6e62",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_CratePalette.vox",
+      "family": "PokeH_HayMound",
+      "style": "CratePalette",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5896,
+      "colors": 2,
+      "groups": {
+        "228": "straw",
+        "229": "straw"
+      },
+      "components": [
+        5896
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        21
+      ],
+      "sha256": "1d76354ab91cfa2cb022c6141beffb52c6ef2e0e4aa8c59d97554268e18c5f5c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_TwoColor.vox",
+      "family": "PokeH_HayMound",
+      "style": "TwoColor",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5896,
+      "colors": 1,
+      "groups": {
+        "1": "straw"
+      },
+      "components": [
+        5896
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        21
+      ],
+      "sha256": "b738b763b530d2e5fe2ea1f2879c1e69a59fbea153708e0935abec9499aadbf3",
+      "palette_sha256": "774629921de5e7d30efa79b4b792b2672503510c79cbdfc4083df089c09c6e62",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon_TwoColor.vox",
+      "family": "PokeH_HayMound",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5996,
+      "colors": 1,
+      "groups": {
+        "1": "straw"
+      },
+      "components": [
+        5996
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        23
+      ],
+      "sha256": "dce079fe8691c1b3019782c85f98b907990f41c05641d43f837fc08cc540b486",
+      "palette_sha256": "774629921de5e7d30efa79b4b792b2672503510c79cbdfc4083df089c09c6e62",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_CratePalette_TwoColor.vox",
+      "family": "PokeH_HayMound",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5896,
+      "colors": 1,
+      "groups": {
+        "228": "straw"
+      },
+      "components": [
+        5896
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        21
+      ],
+      "sha256": "6023325aa5c4332937939560a8269ebfc511316c1301da645ba4d3b61803d1de",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_HayMound_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeH_HayMound",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        28,
+        28,
+        24
+      ],
+      "voxels": 5996,
+      "colors": 1,
+      "groups": {
+        "228": "straw"
+      },
+      "components": [
+        5996
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        26,
+        26,
+        23
+      ],
+      "sha256": "19f6d124c581be4870c92d436ff3adab264159a465623bf83baad0d579fbfb73",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "Base",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 188,
+      "colors": 4,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "wood",
+        "4": "wood"
+      },
+      "components": [
+        188
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        9,
+        4,
+        26
+      ],
+      "sha256": "fc56454f460c83a3146090362455b65a8e57136ea58b178b64e01f57e9eb12e4",
+      "palette_sha256": "d86a02881ad917d3953f6a414b36ac3a911233fff3121ab87b97b1e3d831bdc3",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 224,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        224
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        5,
+        26
+      ],
+      "sha256": "a1986e79afd38fe3d1b16a7bc4124fb92dcc58f8247672670f516a341af395d8",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_CratePalette.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 188,
+      "colors": 3,
+      "groups": {
+        "206": "metal",
+        "179": "wood",
+        "235": "wood"
+      },
+      "components": [
+        188
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        9,
+        4,
+        26
+      ],
+      "sha256": "ed7a6e68781d8747513fbdc21af33b229dcca1c641f7e691a4f08ad1b3d8925e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_TwoColor.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 188,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        188
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        9,
+        4,
+        26
+      ],
+      "sha256": "548948fb391498d7f2f58ab5e003038d00b37fba740592f2b3e4a1d6ca886ea6",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon_TwoColor.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 224,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        224
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        5,
+        26
+      ],
+      "sha256": "b6c240f33222f51a5fba157665d35eac2f93f863a393b5377ed14cd9ecb2c4b6",
+      "palette_sha256": "c8e92c712dddf9c8bf0045b362fb54d7b43883db045ee8e3c2a3c609abc91114",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_CratePalette_TwoColor.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 188,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        188
+      ],
+      "occupied_min": [
+        2,
+        3,
+        0
+      ],
+      "occupied_max": [
+        9,
+        4,
+        26
+      ],
+      "sha256": "d6708d9c982870350392b81ff236f451cddb466c329022faf0ffa8c9f2fa82ed",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_h/PokeH_Pitchfork_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeH_Pitchfork",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        8,
+        28
+      ],
+      "voxels": 224,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "179": "wood"
+      },
+      "components": [
+        224
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        9,
+        5,
+        26
+      ],
+      "sha256": "fef49d43ea396ca8f6a71dad01d70e1ffffbab4d3e47ef383049cf3428b18bc8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall.vox",
+      "sha256": "b74814afb1152291dc8510d30907401f6b0d21e315cc3adbfaee2cd0bf682fc1"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon.vox",
+      "sha256": "7ffec2f0ae76ef435af990272947f5e6b50038dfe757704dbdb00d08bcbd1b1c"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette.vox",
+      "sha256": "25d799797d2fdecfdf13cb4b51712a73d4301626d85b58781630a68c3b5734f4"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_TwoColor.vox",
+      "sha256": "c7e9991ec196baca17fb5e31a57c8461c69d34579572691ea5f561c66914a0e5"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_TwoColor.vox",
+      "sha256": "f89a1cd0dcccef37ea640fe5fc0b763d052fb4b136fe7b4f9c6ff7b4f34e614d"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette_TwoColor.vox",
+      "sha256": "5f28fdc03e2e6b9164569ebf645d0684016a8789183741cd9e6ff335e800c35c"
+    },
+    {
+      "source": "poke_h.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "62551dc4dd773e50348f34a12f4dd3e7a932ffa665b3e79055290f20702b4a13"
+    }
+  ]
+}

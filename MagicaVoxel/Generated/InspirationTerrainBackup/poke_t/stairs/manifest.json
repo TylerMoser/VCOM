@@ -1,0 +1,257 @@
+{
+  "source": "poke_t.png",
+  "families": [
+    {
+      "source": "poke_t.png",
+      "name": "PokeT_CaveStairs",
+      "crop": [
+        170,
+        487,
+        228,
+        534
+      ],
+      "width": 48,
+      "run": 32,
+      "rise": 24,
+      "steps": 6,
+      "landing": 8,
+      "tile_pixels": 16,
+      "stone": [
+        150,
+        141,
+        119
+      ],
+      "edge": [
+        190,
+        182,
+        157
+      ],
+      "rail": "stone",
+      "note": "Six warm stone treads with pale curbs; repeated cave-bank side views reuse rotations. No cave wall or mouth included.",
+      "size": [
+        40,
+        48,
+        48
+      ],
+      "source_sha256": "b98529c6b2a40e4ed2efabeebaf61926acabb176f2538d7af6d600f94010f77d",
+      "crate_mapping": {
+        "1": 193,
+        "2": 206,
+        "3": 236,
+        "4": 235,
+        "5": 237,
+        "6": 193,
+        "7": 238,
+        "8": 194,
+        "9": 243,
+        "10": 243,
+        "11": 244,
+        "12": 243,
+        "13": 243,
+        "14": 242,
+        "15": 243,
+        "16": 243
+      },
+      "semantic_groups": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1,
+        "5": 1,
+        "6": 1,
+        "7": 1,
+        "8": 1,
+        "9": 9,
+        "10": 9,
+        "11": 9,
+        "12": 9,
+        "13": 13,
+        "14": 13,
+        "15": 13,
+        "16": 13
+      },
+      "flat_representatives": {
+        "1": 1,
+        "13": 13,
+        "9": 9
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs.vox",
+      "source": "poke_t.png",
+      "style": "Base",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "d14e65077725e691a316b167cae74d743bcef74acba27dec36ebe7b481ea94c0"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_Cartoon.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "7be197d6b38be0f257b5f4c883d997aa09611cd840e0184626009685e5444d06"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_CratePalette.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 6,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "bc5351e8fceb784707d1ec375d2bb9d1c8095167000d19b70ab9082035b7b9d1"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "af43e6970bf15094b38f4a39e41de75af10235e94a81554b37e35f2107bd6d29"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_Cartoon_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "78c38a2141ab6286e3f111867ce9d4c656244e09166b2f260374b991570dc80f"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28004,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "754c86bac96a343fb8772823ac1463a6e5639850e434effa5ded4f2de2a8313a"
+    },
+    {
+      "family": "PokeT_CaveStairs",
+      "file": "output/poke_t/PokeT_CaveStairs_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_t.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        48,
+        48
+      ],
+      "scene_models": 1,
+      "voxels": 28836,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        46,
+        34
+      ],
+      "sha256": "ffaa67a11fc0c738de1848aa55e3ceeb882338f6c4a90fe28c08ef469a2523fd"
+    }
+  ]
+}

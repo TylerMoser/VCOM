@@ -1,0 +1,266 @@
+{
+  "models": {
+    "output/new_1/New1_Codex_MossRoofCottage.vox": "bf54955de4c327cafc7ba12a4328178c88b3cd62c0563f4a4ca21f003d19a30f",
+    "output/new_1/New1_Codex_MossRoofCottage_Cartoon.vox": "b112806e7aacb5255ba6f7c5c8dbd3636702393241938222e496dae78f5f1207",
+    "output/new_1/New1_Codex_MossRoofCottage_CratePalette.vox": "80cb1b26e721bd92d517dd39da2d22870d7602acd7a87fd3a433fd08349dacfe",
+    "output/new_1/New1_Codex_MossRoofCottage_TwoColor.vox": "ae0f60a311e6ef200e742ef71cc0eed99aee697ede7adc3c0641dd444e86c6ea",
+    "output/new_1/New1_Codex_MossRoofCottage_Cartoon_TwoColor.vox": "f73fe6a76d0473bbc57955022236786ba962cf91b071ca3e4696a1a363f0cdc5",
+    "output/new_1/New1_Codex_MossRoofCottage_CratePalette_TwoColor.vox": "08d8075651121484967c85024281fac68bd60ed9acb43624ac280197cec93069",
+    "output/new_1/New1_Codex_MossRoofCottage_Cartoon_CratePalette_TwoColor.vox": "c7c730d626573f5e958d9e2beaa4e277cd62c3931a669aeb959a254701c5bc9f"
+  },
+  "checks": {
+    "Base": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 69,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          360416,
+          "1411493879383604429",
+          360416,
+          "1411493879383604429"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 3190,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "Cartoon": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 66,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          369465,
+          "1503500796047658356",
+          369465,
+          "1503500796047658356"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 2880,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "Cartoon_CratePalette_TwoColor": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 55,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          369465,
+          "1503501042417641370",
+          369465,
+          "1503501042417641370"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 2880,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "Cartoon_TwoColor": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 55,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          369465,
+          "1503500798417452426",
+          369465,
+          "1503500798417452426"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 2880,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "CratePalette": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 69,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          360416,
+          "1411493991549226877",
+          360416,
+          "1411493991549226877"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 3190,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "CratePalette_TwoColor": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 55,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          360416,
+          "1411494118579544637",
+          360416,
+          "1411494118579544637"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 3190,
+        "unreached": [],
+        "windows": 5
+      }
+    },
+    "TwoColor": {
+      "checks": {
+        "blocked_steps": true,
+        "cutaway": true,
+        "floors_are_tiles": true,
+        "reachable": true,
+        "sight": true,
+        "stamped_exactly": true,
+        "under_building": true,
+        "vaults": true,
+        "walls_and_doors_shut": true,
+        "windows_open": true
+      },
+      "notes": {
+        "cut_pieces": 86,
+        "floors_not_tiles": [],
+        "kinds": 55,
+        "no_vault": [],
+        "not_under": [],
+        "open_where_shut": [],
+        "pieces": 1706,
+        "shut_where_open": [],
+        "sight_wrong": [],
+        "stamped": [
+          360416,
+          "1411493907587871205",
+          360416,
+          "1411493907587871205"
+        ],
+        "stepped_through": [],
+        "tiles": 1568,
+        "triangles": 3190,
+        "unreached": [],
+        "windows": 5
+      }
+    }
+  },
+  "failed": []
+}

@@ -1,0 +1,299 @@
+{
+  "source": "poke_m.png",
+  "review": {
+    "source": "poke_m.png",
+    "reviewed": true,
+    "families": [
+      "PokeM_ArrowSign"
+    ],
+    "notes": "One-way arrow sign. Red/white round pickup is recorded as reuse of the poke_g item ball, not a second mushroom. Characters, buildings and cut logs/stumps remain outside this new set.",
+    "reuse": [
+      "output/poke_g/PokeG_ItemBall.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_ArrowSign",
+      "kind": "direction",
+      "crop": [
+        61,
+        764,
+        97,
+        795
+      ],
+      "size": [
+        28,
+        10,
+        24
+      ],
+      "tone": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_m/PokeM_ArrowSign.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "Base",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 964,
+      "colors": 4,
+      "groups": {
+        "1": "frame",
+        "2": "frame",
+        "3": "frame",
+        "4": "ink"
+      },
+      "components": [
+        964
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "99847ebf9304ad321e47d03f0be80da120bca34c10807e8c4dbae0fec1bc1174",
+      "palette_sha256": "e2e66059cea992eec23690d53b42316f3977eb0ef2e328d001d532503a860a97",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "Cartoon",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 1152,
+      "colors": 2,
+      "groups": {
+        "1": "frame",
+        "2": "ink"
+      },
+      "components": [
+        1152
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "1c322cb07f1c60d7be6df557dfae6854f0e65d1002bfea31bc58145bf8e14ffd",
+      "palette_sha256": "6688238cc44d0f2048912bca2fe416b9974b1f7e815b4bed434c6300a0f45cf7",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_CratePalette.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "CratePalette",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 964,
+      "colors": 3,
+      "groups": {
+        "234": "frame",
+        "235": "frame",
+        "205": "ink"
+      },
+      "components": [
+        964
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "61e02574c76d41959ba1e215033c8877bfcd855a205d352c87959a64c4146174",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_TwoColor.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "TwoColor",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 964,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        964
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "f58d77bd2311e76c6e8d556709f4e25ab3b73c045d000e8816f5680cb6cb03b8",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon_TwoColor.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 1152,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1152
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "5710427ebdb2a5c339e6d68ed0beafc1b1ce23679e30dedb58a80f5986fbcee7",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_CratePalette_TwoColor.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 964,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        964
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "4b82cd322672087c4bab0f3e22e182e553c0b335e92b85919cdfccec29682151",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_m/PokeM_ArrowSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeM_ArrowSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        28,
+        10,
+        24
+      ],
+      "voxels": 1152,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1152
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        26,
+        6,
+        23
+      ],
+      "sha256": "279ca6a852879e9a32fe7caa9fcba3d0986024deb2eb2eaafd93e00a84b860b8",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": [
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall.vox",
+      "sha256": "b74814afb1152291dc8510d30907401f6b0d21e315cc3adbfaee2cd0bf682fc1"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon.vox",
+      "sha256": "7ffec2f0ae76ef435af990272947f5e6b50038dfe757704dbdb00d08bcbd1b1c"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette.vox",
+      "sha256": "25d799797d2fdecfdf13cb4b51712a73d4301626d85b58781630a68c3b5734f4"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_TwoColor.vox",
+      "sha256": "c7e9991ec196baca17fb5e31a57c8461c69d34579572691ea5f561c66914a0e5"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_TwoColor.vox",
+      "sha256": "f89a1cd0dcccef37ea640fe5fc0b763d052fb4b136fe7b4f9c6ff7b4f34e614d"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette_TwoColor.vox",
+      "sha256": "5f28fdc03e2e6b9164569ebf645d0684016a8789183741cd9e6ff335e800c35c"
+    },
+    {
+      "source": "poke_m.png",
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_CratePalette_TwoColor.vox",
+      "sha256": "62551dc4dd773e50348f34a12f4dd3e7a932ffa665b3e79055290f20702b4a13"
+    }
+  ]
+}

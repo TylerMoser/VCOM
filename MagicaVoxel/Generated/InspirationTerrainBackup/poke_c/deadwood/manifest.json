@@ -1,0 +1,270 @@
+{
+  "source": {
+    "source": "poke_c.png",
+    "size": [
+      800,
+      752
+    ],
+    "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192"
+  },
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_ForkedDriftwood",
+      "kind": "drift",
+      "size": [
+        12,
+        24,
+        10
+      ],
+      "crop": [
+        390,
+        120,
+        430,
+        149
+      ],
+      "bark": [
+        123,
+        100,
+        59
+      ],
+      "wood": [
+        181,
+        161,
+        105
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "Base",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 506,
+      "colors": 5,
+      "groups": {
+        "1": "bark",
+        "2": "bark",
+        "3": "bark",
+        "4": "wood",
+        "5": "wood"
+      },
+      "components": [
+        506
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "09eefa1e83ac49fb0feffd251d07f244d21024757930d1783ca74a75401b91c0",
+      "palette_sha256": "89208c5513c60dcca1431005b4f8bb8d423adc5e46d21aaf02d67d46c707b665",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_Cartoon.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 564,
+      "colors": 3,
+      "groups": {
+        "1": "bark",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "c36fd9a6f7e69607997e8f9bd35e5852ddc404e2d81af9d4886d31b087b8545a",
+      "palette_sha256": "3f017a4d4814721fdf73b26021a11751ba9a430e1a72bd7f7001c6b961aaf776",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_CratePalette.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 506,
+      "colors": 3,
+      "groups": {
+        "234": "bark",
+        "235": "bark",
+        "236": "wood"
+      },
+      "components": [
+        506
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "b983eb8229f565acc137a3f4f5a226da62267158f719bb89aae49d077d89b6bc",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_TwoColor.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 506,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        506
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "3e434c6d56f369a2a121acfd6cf6f49bd02e0008b31b5116f392da7cce6d946e",
+      "palette_sha256": "8b77430533359e88fb83a71b0e8cf6cd15284f8adb971c1f3df3f243b3fd2828",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_Cartoon_TwoColor.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 564,
+      "colors": 2,
+      "groups": {
+        "1": "bark",
+        "2": "wood"
+      },
+      "components": [
+        564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "d4f1907f666c4801f2601b28a702f6c003ca03892379c668c59bc16b3bb6c1a1",
+      "palette_sha256": "8b77430533359e88fb83a71b0e8cf6cd15284f8adb971c1f3df3f243b3fd2828",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_CratePalette_TwoColor.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 506,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "236": "wood"
+      },
+      "components": [
+        506
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "da4b13afea5b20727a7ded10182fc9b217ed1aa64a2d0b5654ad5ce148a1c072",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_ForkedDriftwood_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_ForkedDriftwood",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        24,
+        10
+      ],
+      "voxels": 564,
+      "colors": 2,
+      "groups": {
+        "234": "bark",
+        "236": "wood"
+      },
+      "components": [
+        564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        23,
+        4
+      ],
+      "sha256": "2bfc6df94466eae046f5086d148b4e7af31c9f5d512576820a131e6b29e4fb89",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

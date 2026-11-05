@@ -1,0 +1,508 @@
+{
+  "source": {
+    "source": "poke_c.png",
+    "size": [
+      800,
+      752
+    ],
+    "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192"
+  },
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_WhitePicket",
+      "kind": "picket",
+      "crop": [
+        527,
+        412,
+        578,
+        435
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        224,
+        228,
+        207
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_TimberGuardrail",
+      "kind": "rail",
+      "crop": [
+        322,
+        610,
+        432,
+        623
+      ],
+      "size": [
+        40,
+        8,
+        12
+      ],
+      "wood": [
+        102,
+        76,
+        57
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_c/PokeC_WhitePicket.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1248,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1248
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        13
+      ],
+      "sha256": "6a213b985809aac12ec0e4e11b7b0376feebbc3cc36f7e95b364dc643ced41b3",
+      "palette_sha256": "9a542fe862a3df61a40365db0ba9755aa7af2ad042b533941e55f6b723812e7e",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_Cartoon.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "44b60262e024d28786e339136835f551aa0af70f9ca6c6037ad48230dd094e8a",
+      "palette_sha256": "aabb9dacaed7bea28d0101c61956bd6c777532d5e61467933d8e0b1cceccf46f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_CratePalette.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1248,
+      "colors": 2,
+      "groups": {
+        "195": "wood",
+        "196": "wood"
+      },
+      "components": [
+        1248
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        13
+      ],
+      "sha256": "3561b06d13efe3339f6a43f5b9aa7f52b1a382d9ae5164540156b3ff6f2786f0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_TwoColor.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1248,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1248
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        13
+      ],
+      "sha256": "34026e9a2a4550d7dae80ec8552a0bf4c14dcbd64ad8228fca2c8afa2ca9484e",
+      "palette_sha256": "aabb9dacaed7bea28d0101c61956bd6c777532d5e61467933d8e0b1cceccf46f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_Cartoon_TwoColor.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "6aa9be2951b2ebe19419e313e6bbacc8f9513b33b08861fc9c0fbbb1676cc240",
+      "palette_sha256": "aabb9dacaed7bea28d0101c61956bd6c777532d5e61467933d8e0b1cceccf46f",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_CratePalette_TwoColor.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1248,
+      "colors": 1,
+      "groups": {
+        "196": "wood"
+      },
+      "components": [
+        1248
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        13
+      ],
+      "sha256": "34e637c2aa3987a9b4612cff753e3bff3f5d8cbb3001b03a0a14282cb364c4a2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_WhitePicket_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_WhitePicket",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1744,
+      "colors": 1,
+      "groups": {
+        "196": "wood"
+      },
+      "components": [
+        1744
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        13
+      ],
+      "sha256": "ab6d5061a3212819d14e7a65a6644c94e88ce4dd9db605ce8d5263d460120e94",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 664,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        664
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        11
+      ],
+      "sha256": "7cf8023dccc93ecae16b49db2809af9b2f7f08869eec4a9c6e76548962bbcbf9",
+      "palette_sha256": "e390be9477c418b19f020176d38fdb5572a9fc3f8cf5d55fb10f2386976719c4",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_Cartoon.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 932,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        932
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        11
+      ],
+      "sha256": "26f4e1597b125d915318a1febd32ab9a0d104b74579fff39c050d1e800c39891",
+      "palette_sha256": "7843e8305ecaf11b9704446f72be76794432d30866658afacf1ef61101c18436",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_CratePalette.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 664,
+      "colors": 1,
+      "groups": {
+        "234": "wood"
+      },
+      "components": [
+        664
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        11
+      ],
+      "sha256": "05b0b36f9152d451474c3d827baa922eec3eca6b526b11b46a73efc6ed152f89",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_TwoColor.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 664,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        664
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        11
+      ],
+      "sha256": "7d1f8641c9e410e2a856bbedee0fef2121f7a2c526c0d1b778044bfd8cf9bc1e",
+      "palette_sha256": "7843e8305ecaf11b9704446f72be76794432d30866658afacf1ef61101c18436",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_Cartoon_TwoColor.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 932,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        932
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        11
+      ],
+      "sha256": "0333e531d4a1c1b04030af05a1aeacecfc5caaff88cfbcaeafc755103e67198f",
+      "palette_sha256": "7843e8305ecaf11b9704446f72be76794432d30866658afacf1ef61101c18436",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_CratePalette_TwoColor.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 664,
+      "colors": 1,
+      "groups": {
+        "234": "wood"
+      },
+      "components": [
+        664
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        11
+      ],
+      "sha256": "e1f18c58e9d0f674815a4b849061dfc930a1b0234ba11a4046e054a2695f8bac",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_c/PokeC_TimberGuardrail_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_TimberGuardrail",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        12
+      ],
+      "voxels": 932,
+      "colors": 1,
+      "groups": {
+        "234": "wood"
+      },
+      "components": [
+        932
+      ],
+      "occupied_min": [
+        0,
+        1,
+        0
+      ],
+      "occupied_max": [
+        39,
+        6,
+        11
+      ],
+      "sha256": "c4eb4e7ec05780fcc2b3c217fd141f58a65cf5603721357a1cbccbb1d5b01ca1",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

@@ -1,0 +1,260 @@
+[
+  {
+    "source": "mario.jpg",
+    "reviewed": true,
+    "families": [
+      "Mario_NoticeSign",
+      "Mario_QuestionBlock"
+    ],
+    "notes": "Notice sign and question block. Existing carved stone stacks are reused from rocks. Characters, backdrop faces and HUD are excluded. The block is a static prop, not an implemented pickup.",
+    "reuse": [
+      "output/mario/Mario_TallStoneStack.vox",
+      "output/mario/Mario_ShortStoneStack.vox"
+    ]
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "reviewed": true,
+    "families": [
+      "PixelwoodA_DirectionSign",
+      "PixelwoodA_SpottedMushroom"
+    ],
+    "notes": "Two-arrow direction sign and spotted red mushroom. Lantern, tent, trees, flowers, rocks and deadwood already exist.",
+    "reuse": []
+  },
+  {
+    "source": "pixelwood_b.gif",
+    "reviewed": true,
+    "families": [],
+    "notes": "No new unique small props. Reuse the Pixelwood A mushroom. House, campfire, vegetation and stones already exist.",
+    "reuse": [
+      "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox"
+    ]
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "reviewed": true,
+    "families": [
+      "PixelwoodC_TreasureChest"
+    ],
+    "notes": "Metal-banded treasure chest. Reuse Pixelwood A mushrooms. Stone plinth/terrain and water crossing remain with prior collections or architecture.",
+    "reuse": [
+      "output/pixelwood_a/PixelwoodA_SpottedMushroom.vox"
+    ]
+  },
+  {
+    "source": "poke_a.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeA_TrailSign"
+    ],
+    "notes": "Small trail sign. Trees, plants, boulders and bridge railing already covered; whole bridges and terrain are architecture.",
+    "reuse": []
+  },
+  {
+    "source": "poke_b.png",
+    "reviewed": true,
+    "families": [
+      "PokeB_BluePlaque",
+      "PokeB_RedMailbox"
+    ],
+    "notes": "Blue/red-emblem gray information plaque and mailbox. Existing building signs/trim remain part of buildings. Lamps, fences and plants already covered. Loose item-ball sprites can reuse poke_g.",
+    "reuse": [
+      "output/poke_g/PokeG_ItemBall.vox"
+    ]
+  },
+  {
+    "source": "poke_c.png",
+    "reviewed": true,
+    "families": [
+      "PokeC_TimberNoticeboard",
+      "PokeC_PaleNoticeboard"
+    ],
+    "notes": "Two freestanding noticeboard appearances: warm timber and pale framed green board. Characters and building-mounted signs are excluded.",
+    "reuse": []
+  },
+  {
+    "source": "poke_d.png",
+    "reviewed": true,
+    "families": [],
+    "notes": "No new discrete signs, benches or clearly identifiable small props beyond existing stone lanterns, rocks, vegetation and architecture.",
+    "reuse": []
+  },
+  {
+    "source": "poke_e.png",
+    "reviewed": true,
+    "families": [],
+    "notes": "No new discrete small props beyond existing plants, trees, rocks and fences.",
+    "reuse": []
+  },
+  {
+    "source": "poke_f.png",
+    "reviewed": true,
+    "families": [
+      "PokeF_AntlerMonument",
+      "PokeF_GardenNoticeboard"
+    ],
+    "notes": "Antler-like monument on a pedestal and dark-framed garden noticeboard. The monument is a stylized interpretation of a small sprite, not a character replica.",
+    "reuse": []
+  },
+  {
+    "source": "poke_g.png",
+    "reviewed": true,
+    "families": [
+      "PokeG_ParkBench",
+      "PokeG_TimberSign",
+      "PokeG_PaleNotice",
+      "PokeG_UtilityStand",
+      "PokeG_ItemBall"
+    ],
+    "notes": "Park bench, timber sign, ground-standing pale notice, arched utility stand and item ball. Utility function is uncertain, so its visible arch, face and three red marks are modeled without assigning gameplay behavior.",
+    "reuse": []
+  },
+  {
+    "source": "poke_h.png",
+    "reviewed": true,
+    "families": [
+      "PokeH_HayBale",
+      "PokeH_BaleStack",
+      "PokeH_HayMound",
+      "PokeH_Pitchfork"
+    ],
+    "notes": "Single tied bale, three-bale stack, hay mound and pitchfork. Wheat is in vegetation. Characters, animals and held tools are excluded. Reuse the item ball from poke_g.",
+    "reuse": [
+      "output/poke_g/PokeG_ItemBall.vox"
+    ]
+  },
+  {
+    "source": "poke_i.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeI_TimberSign",
+      "PokeI_RedMailbox"
+    ],
+    "notes": "Timber sign and red mailbox. Source is reduced; approximately 9.5 displayed pixels represent a native 16-pixel tile. Buildings and fences already covered.",
+    "reuse": []
+  },
+  {
+    "source": "poke_j.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeJ_StackedTimber"
+    ],
+    "notes": "Low stacked timber decoration near the modern building, interpreted as round log ends. Previously overlooked by deadwood/fence passes. Other props are already-covered lamps, plants and building trim.",
+    "reuse": []
+  },
+  {
+    "source": "poke_k.jpg",
+    "reviewed": true,
+    "families": [],
+    "notes": "No new discrete small props beyond existing vegetation, rocks and terrain/stair architecture.",
+    "reuse": []
+  },
+  {
+    "source": "poke_l.png",
+    "reviewed": true,
+    "families": [],
+    "notes": "Tilesheet contains vegetation, rocks, cliffs and hoop edging, all already covered; no new small prop identified.",
+    "reuse": []
+  },
+  {
+    "source": "poke_m.png",
+    "reviewed": true,
+    "families": [
+      "PokeM_ArrowSign"
+    ],
+    "notes": "One-way arrow sign. Red/white round pickup is recorded as reuse of the poke_g item ball, not a second mushroom. Characters, buildings and cut logs/stumps remain outside this new set.",
+    "reuse": [
+      "output/poke_g/PokeG_ItemBall.vox"
+    ]
+  },
+  {
+    "source": "poke_n.png",
+    "reviewed": true,
+    "families": [
+      "PokeN_GreenBench",
+      "PokeN_TimberNotice"
+    ],
+    "notes": "Slatted bench and timber notice sign. Source lettering is represented by short strokes; no invented readable wording.",
+    "reuse": []
+  },
+  {
+    "source": "poke_o.png",
+    "reviewed": true,
+    "families": [
+      "PokeO_TimberSign",
+      "PokeO_RedMailbox",
+      "PokeO_BluePlaque",
+      "PokeO_FlowerPlanter",
+      "PokeO_ParkedScooter",
+      "PokeO_BeachParasol",
+      "PokeO_BeachLounger",
+      "PokeO_Sandcastle"
+    ],
+    "notes": "Timber sign, red mailbox, metal-framed blue plaque, planted flower box, parked scooter, open beach parasol, white lounger and four-turret sandcastle. Enlarged crops corrected initial thumbnail guesses of a vending machine, bicycle and volleyball net. Characters and swimmers are excluded.",
+    "reuse": []
+  },
+  {
+    "source": "poke_p.png",
+    "reviewed": true,
+    "families": [
+      "PokeP_TrailSign"
+    ],
+    "notes": "Small timber board by the bridge. Existing stumps, bridge uprights, plants and rocks are reused.",
+    "reuse": []
+  },
+  {
+    "source": "poke_q.png",
+    "reviewed": true,
+    "families": [
+      "PokeQ_TrailSign"
+    ],
+    "notes": "Timber trail sign. Skull posts, chain fence and bamboo already exist in fences. Shrine, stairs and terrain are architectural; creatures are excluded.",
+    "reuse": [
+      "output/poke_q/PokeQ_SkullPost.vox",
+      "output/poke_q/PokeQ_ChainFence.vox",
+      "output/poke_q/PokeQ_BambooFence.vox"
+    ]
+  },
+  {
+    "source": "poke_r.png",
+    "reviewed": true,
+    "families": [
+      "PokeR_BlueMailbox",
+      "PokeR_LowInfoPanel"
+    ],
+    "notes": "Blue mailbox and low pale information panel. Other small outlined markers are treated as the same information-sign family. Houses, fences and vegetation already covered.",
+    "reuse": []
+  },
+  {
+    "source": "poke_s.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeS_TieredFountain",
+      "PokeS_CourtyardStatue"
+    ],
+    "notes": "Tiered fountain and slender courtyard monument. Small reduced-image details and backs are inferred. Tiny brown marks remain ambiguous; they are not confidently classified as separate props. Larger arches, columns, terraces and ruins are architecture; lamps, vegetation and balustrades already covered.",
+    "reuse": []
+  },
+  {
+    "source": "poke_t.png",
+    "reviewed": true,
+    "families": [
+      "PokeT_Barrel",
+      "PokeT_CaveSign",
+      "PokeT_CaveMushroom"
+    ],
+    "notes": "Barrel, cave trail sign and tiny red mushroom. Cave walls, bridges and stairs are architecture; rocks and tubular railings already covered.",
+    "reuse": []
+  },
+  {
+    "source": "poke_u.jpg",
+    "reviewed": true,
+    "families": [
+      "PokeU_SmallGreenNotice",
+      "PokeU_WideGreenNotice"
+    ],
+    "notes": "Small and wide pale-trimmed green noticeboards. Characters, green creatures and building-mounted signs are excluded.",
+    "reuse": []
+  }
+]

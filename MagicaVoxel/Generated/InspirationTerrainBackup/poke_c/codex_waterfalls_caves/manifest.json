@@ -1,0 +1,460 @@
+{
+  "author": "Codex",
+  "source": "poke_c.png",
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_Codex_FiveTierCascade",
+      "kind": "waterfall",
+      "width": 112,
+      "drop": 80,
+      "crop": [
+        333,
+        154,
+        468,
+        245
+      ],
+      "tile_pixels": 16,
+      "water": [
+        31,
+        169,
+        224
+      ],
+      "foam": [
+        218,
+        245,
+        220
+      ],
+      "tiers": 5,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Wide upper five-band cascade interpreted as five shallow descending sheets linked by shelves.",
+      "size": [
+        128,
+        64,
+        96
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_Codex_ThreeTierCascade",
+      "kind": "waterfall",
+      "width": 96,
+      "drop": 48,
+      "crop": [
+        332,
+        474,
+        438,
+        533
+      ],
+      "tile_pixels": 16,
+      "water": [
+        31,
+        169,
+        224
+      ],
+      "foam": [
+        218,
+        245,
+        220
+      ],
+      "tiers": 3,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Lower three-band cascade, narrower and shorter than the northern waterfall.",
+      "size": [
+        112,
+        48,
+        64
+      ],
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 252,
+        "2": 252,
+        "3": 253,
+        "4": 252,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "e1cb77e89599055a7984a2cf6b9038f694154e86ea9afa0336e141ca995258c6"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "b5f468f34a1de011d50a476cce1f670cc5f18c7c426fc3a4f8b2eb207d803f2a"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "bc21873cc5a084585d1d758e31b6bcfb5f2705f960ebc997e9f3b1c1beca5e4e"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "187a8cb8edebdb2b0146efbc238b1e2467c17eb5f7b2502da1d14fef036dbce9"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "662a6798f1a4d9bcb87dfab159da3e51ec4a56a26aa5965ea313ae2440b6892c"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 68260,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "1be65ae68a325973aa0ee3bad9da9d567f72fe942111e0ff911baa898fe9569e"
+    },
+    {
+      "family": "PokeC_Codex_FiveTierCascade",
+      "file": "output/poke_c/PokeC_Codex_FiveTierCascade_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        128,
+        64,
+        96
+      ],
+      "scene_models": 1,
+      "voxels": 75264,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        122,
+        54,
+        85
+      ],
+      "sha256": "875ec96e897ee0e6c2427bc3dee2e7602c587fdb3b50e484cff8053f51200a53"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "cd803f50688eed282e9b070ca80a366d86ff79d3b54e3eb84fd9fb54d1cbcfcb"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5dad5a1f32270751d8754de83b1becf3a6d5282a4636ae669a741f4eeae0a046"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5c88f115bd536f0adfa579f3439711b1f1d34e4b3ba6c97d7fa177742b5677c6"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "f6a7c4dc4f792bfd0bb2408eccf42529ccdf8c9f4fff59bdf9087cb8e710cf57"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "4c6654bc89a2a7ad1593ea5a3b96f7546872123f419cb8c4107fc747b2c13570"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 39257,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "5472733d3204f94bdad013f35106c1efb1fad451e10a23d974554c24acfd7dc0"
+    },
+    {
+      "family": "PokeC_Codex_ThreeTierCascade",
+      "file": "output/poke_c/PokeC_Codex_ThreeTierCascade_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        112,
+        48,
+        64
+      ],
+      "scene_models": 1,
+      "voxels": 42902,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        106,
+        38,
+        53
+      ],
+      "sha256": "a69194244d3178faa02fe3ebab53ed536bc8192c3be943f2ef785c5b409cdaf9"
+    }
+  ]
+}

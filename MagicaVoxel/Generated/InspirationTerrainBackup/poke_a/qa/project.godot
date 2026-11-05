@@ -1,0 +1,11 @@
+config_version=5
+[application]
+config/name="Poke A tree validation"
+[display]
+window/size/viewport_width=1000
+window/size/viewport_height=800
+[rendering]
+renderer/rendering_method="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.105,0.13,0.15,1)
+[shader_globals]
+tile_grid={"type":"float","value":0.0}

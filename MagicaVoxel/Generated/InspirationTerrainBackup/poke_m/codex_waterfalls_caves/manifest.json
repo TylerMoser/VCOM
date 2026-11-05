@@ -1,0 +1,234 @@
+{
+  "author": "Codex",
+  "source": "poke_m.png",
+  "families": [
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_Codex_FoamySpillway",
+      "kind": "waterfall",
+      "width": 48,
+      "drop": 16,
+      "crop": [
+        301,
+        452,
+        367,
+        487
+      ],
+      "tile_pixels": 16,
+      "water": [
+        81,
+        165,
+        148
+      ],
+      "foam": [
+        221,
+        248,
+        225
+      ],
+      "tiers": 1,
+      "free": false,
+      "pattern": "streaks",
+      "note": "Low foamy river lip repeated at about (411,608) and (420,834). Reeds and shore outlines are excluded.",
+      "size": [
+        64,
+        40,
+        32
+      ],
+      "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+      "crate_mapping": {
+        "1": 252,
+        "2": 206,
+        "3": 252,
+        "4": 206,
+        "5": 196,
+        "6": 195,
+        "7": 196,
+        "8": 235,
+        "9": 234,
+        "10": 235,
+        "11": 234,
+        "12": 234,
+        "13": 178,
+        "14": 234,
+        "15": 234
+      }
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway.vox",
+      "source": "poke_m.png",
+      "style": "Base",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "6c0cb1063ab2393484ee452e85cbf2e0f689896c58c4ff202818fa497d281977"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 5,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "4a0d02c1e115aa351f3d4dccfbb15b95dbab43e9822a8ee838ea93b5f78d2145"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_CratePalette.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 4,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "d4461813ec2de91fab6813510c1550daa2d1c4eaaf973100cef2f0bca70d8239"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "8cdcda22138fbd52f01cfc2222c1929bbc958e5d7e459a021b8825b16f238943"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "e944c059c9a4914c8bfb697b1c6ed8c774ea6202194dfc8bb7945d5a968cde79"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10379,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "764529aff0542c52dfe14580f00d44371e807aee5488acdc58c743c0666ced35"
+    },
+    {
+      "family": "PokeM_Codex_FoamySpillway",
+      "file": "output/poke_m/PokeM_Codex_FoamySpillway_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_m.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        40,
+        32
+      ],
+      "scene_models": 1,
+      "voxels": 10950,
+      "colors": 1,
+      "occupied_min": [
+        5,
+        0,
+        0
+      ],
+      "occupied_max": [
+        58,
+        22,
+        21
+      ],
+      "sha256": "9a7c38816d69381a6e4cf974cf1d49e2bdd2d512f0f3566c8ba6ef1645ea977a"
+    }
+  ]
+}

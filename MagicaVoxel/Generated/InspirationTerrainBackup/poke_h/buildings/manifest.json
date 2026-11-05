@@ -1,0 +1,1672 @@
+{
+ "source_image": "poke_h.png",
+ "source_sha256": "9c46a15dbf85fb80bc0f468c2c92629be47589d548d1cccc69d8535869d8de2b",
+ "generator_sha256": "c7e22469949f12511a12c3eb63f8a14e0f6b38eb1e32f734b7bf69405a5a5e79",
+ "dependencies": {
+  "sculpt.py": "53339cf2946b30d7a638ba885a17fbfbad3aac20ccc8ea6d5d0e94aaa564385f",
+  "palettes.py": "2b83af0dd3721052726376ccb8c696f000120f7f568dad558cdeb1aa21eb401d",
+  "voxlib.py": "73465be718bac86d3717042b3990bdd0823abc99d7b808265b216a4f2917ee2a"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "68c5cc9c9e6be28bd922eae1ef5df6d1f789486b49e27dd4d67065176d64b987",
+ "minimal_palette_sha256": {
+  "Farmhouse": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_h/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeH_Farmhouse",
+   "kind": "Farmhouse",
+   "title": "Farmhouse",
+   "drawn": "The farmhouse in the middle of the fields: poke_b's flower cottage drawn again with a porch across its front, a shingled roof on two posts wrapped in flowering vines, vines up its outside stair; the red bell-cast roof with two roof lights, cream walls, flower boxes under the upper windows, the teal door and the bay window under the porch.",
+   "source_regions_xyxy_exclusive": [
+    [
+     292,
+     308,
+     420,
+     436
+    ]
+   ],
+   "canvas_xyz": [
+    112,
+    80,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     3
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ],
+    [
+     4,
+     3
+    ],
+    [
+     5,
+     1
+    ],
+    [
+     5,
+     2
+    ],
+    [
+     5,
+     3
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     1,
+     1
+    ],
+    [
+     "ey",
+     1,
+     1,
+     2
+    ],
+    [
+     "ex",
+     5,
+     3,
+     4
+    ],
+    [
+     "ex",
+     5,
+     3,
+     5
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 3
+    },
+    {
+     "stand_level": 4,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       0,
+       3
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       1,
+       3
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       2,
+       3
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       3,
+       3
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ],
+      [
+       4,
+       3
+      ]
+     ],
+     "entered_by": "stair",
+     "cut_away_from": 6
+    }
+   ],
+   "stair_tiles": {
+    "5,1": 2,
+    "5,2": 3,
+    "5,3": 4
+   },
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "co_band",
+     "co_brass",
+     "co_frame",
+     "co_frame_dark",
+     "co_landing",
+     "co_riser",
+     "co_tread",
+     "co_tread_mid",
+     "co_wall",
+     "co_wall_mid",
+     "co_white"
+    ],
+    "dark": [
+     "co_band_dark",
+     "co_box",
+     "co_box_dark",
+     "co_landing_dark",
+     "co_riser_dark",
+     "co_roof_black",
+     "co_sky_frame",
+     "co_sky_frame_dark",
+     "co_stringer_black",
+     "co_timber",
+     "co_timber_dark",
+     "fh_post",
+     "fh_post_dark",
+     "fh_post_mid",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark"
+    ],
+    "teal": [
+     "co_door",
+     "co_door_dark",
+     "co_door_mid"
+    ],
+    "flower": [
+     "co_flower_orange",
+     "co_flower_pink",
+     "co_flower_yellow",
+     "fh_flower_rose"
+    ],
+    "leaf": [
+     "co_leaf",
+     "co_leaf_dark"
+    ],
+    "red": [
+     "co_roof",
+     "co_roof_dark",
+     "co_roof_edge",
+     "co_roof_hi",
+     "co_roof_light",
+     "co_roof_mid",
+     "co_stringer",
+     "co_stringer_dark"
+    ],
+    "glass": [
+     "glass_cottage",
+     "glass_dark"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     230,
+     202,
+     140
+    ],
+    "dark": [
+     87,
+     73,
+     45
+    ],
+    "teal": [
+     74,
+     137,
+     126
+    ],
+    "flower": [
+     247,
+     115,
+     66
+    ],
+    "leaf": [
+     49,
+     156,
+     107
+    ],
+    "red": [
+     184,
+     84,
+     48
+    ],
+    "glass": [
+     128,
+     172,
+     216
+    ]
+   },
+   "folded_groups": {
+    "wood": "dark"
+   },
+   "crate_group_indices": {
+    "light": 237,
+    "dark": 178,
+    "teal": 206,
+    "flower": 222,
+    "leaf": 243,
+    "red": 221,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "co_band": 236,
+    "co_brass": 230,
+    "co_frame": 194,
+    "co_frame_dark": 193,
+    "co_landing": 193,
+    "co_riser": 235,
+    "co_tread": 237,
+    "co_tread_mid": 236,
+    "co_wall": 237,
+    "co_wall_mid": 236,
+    "co_white": 196,
+    "co_band_dark": 234,
+    "co_box": 234,
+    "co_box_dark": 225,
+    "co_landing_dark": 206,
+    "co_riser_dark": 234,
+    "co_roof_black": 225,
+    "co_sky_frame": 193,
+    "co_sky_frame_dark": 206,
+    "co_stringer_black": 225,
+    "co_timber": 178,
+    "co_timber_dark": 225,
+    "fh_post": 180,
+    "fh_post_dark": 233,
+    "fh_post_mid": 234,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "co_door": 206,
+    "co_door_dark": 205,
+    "co_door_mid": 206,
+    "co_flower_orange": 222,
+    "co_flower_pink": 212,
+    "co_flower_yellow": 229,
+    "fh_flower_rose": 213,
+    "co_leaf": 243,
+    "co_leaf_dark": 243,
+    "co_roof": 221,
+    "co_roof_dark": 179,
+    "co_roof_edge": 178,
+    "co_roof_hi": 221,
+    "co_roof_light": 221,
+    "co_roof_mid": 179,
+    "co_stringer": 221,
+    "co_stringer_dark": 220,
+    "glass_cottage": 253,
+    "glass_dark": 253
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeH_Farmhouse.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "Base",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    4,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    120
+   ],
+   "voxels": 225695,
+   "sha256": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931",
+   "palette_sha256": "68c5cc9c9e6be28bd922eae1ef5df6d1f789486b49e27dd4d67065176d64b987",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     202,
+     163,
+     129,
+     255
+    ],
+    [
+     184,
+     155,
+     103,
+     255
+    ],
+    [
+     132,
+     107,
+     62,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     55,
+     49,
+     43,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     182,
+     182,
+     184,
+     255
+    ],
+    [
+     148,
+     148,
+     152,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     145,
+     65,
+     38,
+     255
+    ],
+    [
+     159,
+     72,
+     42,
+     255
+    ],
+    [
+     216,
+     105,
+     65,
+     255
+    ],
+    [
+     203,
+     96,
+     59,
+     255
+    ],
+    [
+     112,
+     50,
+     29,
+     255
+    ],
+    [
+     67,
+     31,
+     18,
+     255
+    ],
+    [
+     146,
+     164,
+     144,
+     255
+    ],
+    [
+     118,
+     130,
+     112,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     63,
+     116,
+     106,
+     255
+    ],
+    [
+     48,
+     80,
+     73,
+     255
+    ],
+    [
+     223,
+     188,
+     106,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     41,
+     132,
+     90,
+     255
+    ],
+    [
+     173,
+     74,
+     156,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     255,
+     156,
+     49,
+     255
+    ],
+    [
+     203,
+     180,
+     130,
+     255
+    ],
+    [
+     179,
+     149,
+     120,
+     255
+    ],
+    [
+     151,
+     125,
+     99,
+     255
+    ],
+    [
+     128,
+     104,
+     81,
+     255
+    ],
+    [
+     168,
+     75,
+     45,
+     255
+    ],
+    [
+     72,
+     33,
+     19,
+     255
+    ],
+    [
+     152,
+     152,
+     154,
+     255
+    ],
+    [
+     120,
+     120,
+     122,
+     255
+    ],
+    [
+     156,
+     115,
+     66,
+     255
+    ],
+    [
+     74,
+     66,
+     57,
+     255
+    ],
+    [
+     214,
+     82,
+     132,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ],
+    [
+     86,
+     92,
+     88,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "46": 0.7,
+    "47": 0.45
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse.vox",
+   "geometry_source_sha256": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931"
+  },
+  {
+   "file": "PokeH_Farmhouse_Cartoon.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "Cartoon",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    124
+   ],
+   "voxels": 232456,
+   "sha256": "44b667a877faf757fc46e2dc10d11fc17e4fff87243b00b49c7e84b48e5797a0",
+   "palette_sha256": "68c5cc9c9e6be28bd922eae1ef5df6d1f789486b49e27dd4d67065176d64b987",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    24,
+    25,
+    27,
+    28,
+    29,
+    30,
+    32,
+    33,
+    34,
+    35,
+    37,
+    38,
+    39,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     155,
+     103,
+     255
+    ],
+    [
+     132,
+     107,
+     62,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     55,
+     49,
+     43,
+     255
+    ],
+    [
+     238,
+     238,
+     247,
+     255
+    ],
+    [
+     148,
+     148,
+     152,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     145,
+     65,
+     38,
+     255
+    ],
+    [
+     159,
+     72,
+     42,
+     255
+    ],
+    [
+     216,
+     105,
+     65,
+     255
+    ],
+    [
+     203,
+     96,
+     59,
+     255
+    ],
+    [
+     112,
+     50,
+     29,
+     255
+    ],
+    [
+     67,
+     31,
+     18,
+     255
+    ],
+    [
+     118,
+     130,
+     112,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     48,
+     80,
+     73,
+     255
+    ],
+    [
+     223,
+     188,
+     106,
+     255
+    ],
+    [
+     112,
+     83,
+     48,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     173,
+     74,
+     156,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     255,
+     156,
+     49,
+     255
+    ],
+    [
+     203,
+     180,
+     130,
+     255
+    ],
+    [
+     151,
+     125,
+     99,
+     255
+    ],
+    [
+     128,
+     104,
+     81,
+     255
+    ],
+    [
+     168,
+     75,
+     45,
+     255
+    ],
+    [
+     152,
+     152,
+     154,
+     255
+    ],
+    [
+     120,
+     120,
+     122,
+     255
+    ],
+    [
+     156,
+     115,
+     66,
+     255
+    ],
+    [
+     74,
+     66,
+     57,
+     255
+    ],
+    [
+     214,
+     82,
+     132,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ],
+    [
+     86,
+     92,
+     88,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "46": 0.7,
+    "47": 0.45
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse_Cartoon.vox",
+   "geometry_source_sha256": "44b667a877faf757fc46e2dc10d11fc17e4fff87243b00b49c7e84b48e5797a0"
+  },
+  {
+   "file": "PokeH_Farmhouse_CratePalette.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "CratePalette",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    4,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    120
+   ],
+   "voxels": 225695,
+   "sha256": "f1a7df9049fab0d58696f4a8a89be2a20c8813077032334ee1c7774cd16858f0",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    180,
+    193,
+    194,
+    195,
+    196,
+    205,
+    206,
+    212,
+    213,
+    220,
+    221,
+    222,
+    225,
+    229,
+    230,
+    233,
+    234,
+    235,
+    236,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     129,
+     151,
+     150,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     162,
+     62,
+     140,
+     255
+    ],
+    [
+     198,
+     81,
+     151,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     52,
+     28,
+     39,
+     255
+    ],
+    [
+     222,
+     158,
+     65,
+     255
+    ],
+    [
+     232,
+     193,
+     112,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse.vox",
+   "geometry_source_sha256": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931"
+  },
+  {
+   "file": "PokeH_Farmhouse_TwoColor.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "TwoColor",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    4,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    120
+   ],
+   "voxels": 225695,
+   "sha256": "cda3c46e6758f172448d0fd46d7f8feac3241d81bc62980d761df053d9715539",
+   "palette_sha256": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "used_rgba": [
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "7": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse.vox",
+   "geometry_source_sha256": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931"
+  },
+  {
+   "file": "PokeH_Farmhouse_Cartoon_TwoColor.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    124
+   ],
+   "voxels": 232456,
+   "sha256": "85d8ab46dc1947ea94d90111ed72581e241df5f9b906ea6ef7a736b991697a4d",
+   "palette_sha256": "c21e369d978e6e889c7064ef7217f8a66d67e1ce8d8966bfbe204f4a0a0d6f08",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "used_rgba": [
+    [
+     230,
+     202,
+     140,
+     255
+    ],
+    [
+     184,
+     84,
+     48,
+     255
+    ],
+    [
+     87,
+     73,
+     45,
+     255
+    ],
+    [
+     74,
+     137,
+     126,
+     255
+    ],
+    [
+     49,
+     156,
+     107,
+     255
+    ],
+    [
+     247,
+     115,
+     66,
+     255
+    ],
+    [
+     128,
+     172,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "7": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse_Cartoon.vox",
+   "geometry_source_sha256": "44b667a877faf757fc46e2dc10d11fc17e4fff87243b00b49c7e84b48e5797a0"
+  },
+  {
+   "file": "PokeH_Farmhouse_CratePalette_TwoColor.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    4,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    120
+   ],
+   "voxels": 225695,
+   "sha256": "d7eb78289cdb559f8afdbff1c0a4ddd694ce117da7df74e0321e5a4a674c38e5",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    206,
+    221,
+    222,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse.vox",
+   "geometry_source_sha256": "9cbb7eefe68573e4e1b14ec5e2db9cb2834d498b6002e9fd06a01e5fbd01b931"
+  },
+  {
+   "file": "PokeH_Farmhouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeH_Farmhouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    112,
+    80,
+    128
+   ],
+   "occupied_min": [
+    3,
+    3,
+    0
+   ],
+   "occupied_max": [
+    106,
+    76,
+    124
+   ],
+   "voxels": 232456,
+   "sha256": "deb0a76ca1a4f20202340807d5898d80de1b7442a29291971fc0bcb792553da9",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    206,
+    221,
+    222,
+    237,
+    243,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     218,
+     134,
+     62,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     70,
+     130,
+     50,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 2117,
+   "geometry_source": "PokeH_Farmhouse_Cartoon.vox",
+   "geometry_source_sha256": "44b667a877faf757fc46e2dc10d11fc17e4fff87243b00b49c7e84b48e5797a0"
+  }
+ ]
+}

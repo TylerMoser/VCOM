@@ -1,0 +1,3124 @@
+{
+  "source": "poke_p.png",
+  "families": [
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_Meadow",
+      "kind": "grass",
+      "crop": [
+        746,
+        274,
+        758,
+        286
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "sampling": "Clean surface swatch located by RGB proximity within the visually reviewed source; used for palette only, motifs rebuilt to tile.",
+      "representative_rgb": [
+        166,
+        232,
+        166
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_PaleTrail",
+      "kind": "sand",
+      "crop": [
+        803,
+        461,
+        834,
+        486
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        233,
+        221,
+        192
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_RockyGully",
+      "kind": "gravel",
+      "crop": [
+        277,
+        145,
+        311,
+        178
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        159,
+        130,
+        108
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_ShallowPool",
+      "kind": "dapple",
+      "crop": [
+        332,
+        381,
+        348,
+        404
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        119,
+        181,
+        203
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_DeepPool",
+      "kind": "calm",
+      "crop": [
+        229,
+        1091,
+        251,
+        1110
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        61,
+        154,
+        135
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_Deck",
+      "kind": "planks",
+      "crop": [
+        705,
+        427,
+        732,
+        442
+      ],
+      "role": "surface",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "representative_rgb": [
+        231,
+        190,
+        147
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_TrailEdge",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "Edge",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_PaleTrail"
+      ],
+      "crop": [
+        803,
+        461,
+        834,
+        486
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_TrailOuterCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "OuterCorner",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_PaleTrail"
+      ],
+      "crop": [
+        803,
+        461,
+        834,
+        486
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_TrailInnerCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "InnerCorner",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_PaleTrail"
+      ],
+      "crop": [
+        803,
+        461,
+        834,
+        486
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_ShoreEdge",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "Edge",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_ShallowPool"
+      ],
+      "crop": [
+        332,
+        381,
+        348,
+        404
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_ShoreOuterCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "OuterCorner",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_ShallowPool"
+      ],
+      "crop": [
+        332,
+        381,
+        348,
+        404
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_Ground_ShoreInnerCorner",
+      "kind": "transition",
+      "role": "transition",
+      "contour": "InnerCorner",
+      "materials": [
+        "PokeP_Ground_Meadow",
+        "PokeP_Ground_ShallowPool"
+      ],
+      "crop": [
+        332,
+        381,
+        348,
+        404
+      ],
+      "canvas": [
+        16,
+        16,
+        16
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "2b280ff42e41c056b705a3ef724d10733fa4fe55d3863b6502c5769f9df6c9f1",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_Cartoon.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ]
+      },
+      "sha256": "c12a1e7db08595c06b9ac81db3f30d4e4d45363aa83c678e6e2f7c7daa079209",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_CratePalette.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ]
+      },
+      "sha256": "5e19da82a6063cf82793cdffae7484e7e9b20ff11239da0609d00532afca90e0",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_TwoColor.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ]
+      },
+      "sha256": "ced2bf79222418e27fd7c7398254de7066b7be525b30b5bf401657f282bd0b35",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ]
+      },
+      "sha256": "5e4cf17d74302785e1b3346845d568b4aa5688e9ad22e5ac24f9a415494ca902",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ]
+      },
+      "sha256": "9660ad41b42134abfa7f0baa15038f305b2d2a845141b9d00d66006fdefe025d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_Meadow",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ]
+      },
+      "sha256": "ac481da55eba6503b30a476d4bf3893e5178a8495135d6bdb706474aa79b031c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_PaleTrail:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "818562abb1bcdf6cfd7971ac3c5d7c09bccf3fe22d790dba84700fbcd4cba97f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_Cartoon.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_PaleTrail:substrate": [
+          1
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          2,
+          3
+        ]
+      },
+      "sha256": "ab1219d6449ce162b1150e0399045328d483c9633eeab8cfe9d36614c0c3fbc6",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_CratePalette.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_PaleTrail:substrate": [
+          237
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "4a6291ed5dfebf461ed436d030f3d850cacb89e174a4ad0c4e436ff24c691f07",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_TwoColor.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_PaleTrail:surface": [
+          1
+        ]
+      },
+      "sha256": "1396b72af0f7c645479547f34510eb6b55d5b8a629bd8f03ad92c3ae4c5b016a",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_PaleTrail:surface": [
+          1
+        ]
+      },
+      "sha256": "53a601f54b02405850fe23691fc9ec5646b612262a6569c6a9a59f228ee06b54",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "aaa319b8246d6d93390757ce3cc824197c68e5f231959dd977e07ed2eaecb3d1",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_PaleTrail_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_PaleTrail",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "32a65abd4a11e417a56cf77581cca02da8008f95fa7ee685792676a3e36bc93d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_RockyGully:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_RockyGully:surface": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "26100afca95e5dc8f453e2671503b8685e2aacbb35c13438ad0f87f61780f6cf",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_Cartoon.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 4,
+      "groups": {
+        "PokeP_Ground_RockyGully:substrate": [
+          1
+        ],
+        "PokeP_Ground_RockyGully:surface": [
+          2,
+          3,
+          4
+        ]
+      },
+      "sha256": "4d873c2029842be6107d0594eb0a16162917b55a153ad40fa4dbed95540f5ca3",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_CratePalette.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_RockyGully:substrate": [
+          234,
+          235
+        ],
+        "PokeP_Ground_RockyGully:surface": [
+          235,
+          236
+        ]
+      },
+      "sha256": "90a96928038ee1126761bae68d0706c5b643585ce3f57407efbaa1887e59764c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_TwoColor.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_RockyGully:surface": [
+          1
+        ]
+      },
+      "sha256": "e595afbcad9e2b3b2ca4336ef22069a70daaa402d4fc413035b12958337db1ed",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_RockyGully:surface": [
+          1
+        ]
+      },
+      "sha256": "59905770764e6d4a2480bf2c7efe0a91e4c46428819c4e6396c315e55f0e6547",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_RockyGully:surface": [
+          235
+        ]
+      },
+      "sha256": "6e57bf7393942e5e4fe8fa1b59422854a3518ccfee730522f6f390114835a414",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_RockyGully_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_RockyGully",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_RockyGully:surface": [
+          235
+        ]
+      },
+      "sha256": "60d9ae26cc6fbfc5ae32de7f863c93b670297e13a3cd3d688ca9dc522a2220f6",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          1,
+          2,
+          3
+        ]
+      },
+      "sha256": "ee9a8ba8b29988ee5a42963b3ca3c618564a2cd7806cca0c329733f7f51abd7e",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_Cartoon.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          1,
+          2
+        ]
+      },
+      "sha256": "cb8d684e2fc906e66e07b90b4f9573355ef1f66fd20269f89638ac9deda156fd",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_CratePalette.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          252,
+          253
+        ]
+      },
+      "sha256": "8d9c3f44391759aa6733503737875543ff83ce860e2dd40cb420127fc089e48a",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_TwoColor.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          1
+        ]
+      },
+      "sha256": "7fe35ea93927b75ab2d51f6d1272daa654853ed46adccb628690d9710d50ce15",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          1
+        ]
+      },
+      "sha256": "c766efcc53fb30a562ddcb2501daa55d9807729f3e63d47592b80b5ee63f0826",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "741c2ae780a72600fdd2005dce739a861172139851b1e94769480047bce41df9",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShallowPool_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShallowPool",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "3a6c8a0507096e9b21bb3bfaa3f6c1f1d9458223c6674bac44586779f8e632e2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          1,
+          2
+        ]
+      },
+      "sha256": "32c93bcd8aa84348a543e31d99236285aa4e59bb075f401522082f1e0985e2a8",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_Cartoon.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 2,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          1,
+          2
+        ]
+      },
+      "sha256": "5bc6b0ca15b9951d4afe675ebe23949adc2a20bbc7d72a1602d3424660660fe4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_CratePalette.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          252
+        ]
+      },
+      "sha256": "de76b6cf2fcf0a19ff22a2352d92112cb815a24afad612585618147c34d5f57f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_TwoColor.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          1
+        ]
+      },
+      "sha256": "2372c18df700d5f2f95c60d8d243aebb6ce5554c2217556f2c657c8054cbf3c4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          1
+        ]
+      },
+      "sha256": "c9b85de068a3e915222ba28213bb5a21d3f9a3ea85c6534c9d0aedf1b19cc5ae",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          252
+        ]
+      },
+      "sha256": "1883389394110e10f228ef5ba8056347846a371cd3913319c89742e9609c8fb4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_DeepPool_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_DeepPool",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3584,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_DeepPool:surface": [
+          252
+        ]
+      },
+      "sha256": "496196445e816a6e5a5f7ad281b9d36f582fe7e9444b9fedbe60e02169a7e8f4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        13
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Deck:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Deck:wood": [
+          3,
+          4,
+          5
+        ]
+      },
+      "sha256": "f88d65b15189db643e43d74b7648f89aa9cf326b79131e770b17e92a78db4a06",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_Cartoon.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 4,
+      "groups": {
+        "PokeP_Ground_Deck:substrate": [
+          1
+        ],
+        "PokeP_Ground_Deck:wood": [
+          2,
+          3,
+          4
+        ]
+      },
+      "sha256": "62a4ecfe92bfdf29f53f6505c58fd13bd0361d16d73e1766bf19f49ff7eb1673",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_CratePalette.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Deck:substrate": [
+          236
+        ],
+        "PokeP_Ground_Deck:wood": [
+          237,
+          238
+        ]
+      },
+      "sha256": "45349fd0fe1223ba24b252ac9fb0b69bf72c348f97dd756b6d741ae3e8c42b31",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_TwoColor.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_Deck:wood": [
+          1
+        ]
+      },
+      "sha256": "2ae1be900b0103ee843fd07bcf83dd676231d1d5ce1f500191a7006d106d35ce",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_Deck:wood": [
+          1
+        ]
+      },
+      "sha256": "f0b547da184ae98a967e7f86661455a1e19aaf5803e859fbf3498469049cb07b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_Deck:wood": [
+          237
+        ]
+      },
+      "sha256": "36861a5bafa5b098cdb61997a0fd568c0c37a757d1e3044442acefe56b6e4a40",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_Deck_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_Deck",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4032,
+      "colors": 1,
+      "groups": {
+        "PokeP_Ground_Deck:wood": [
+          237
+        ]
+      },
+      "sha256": "75bebc79bb3c72d7bce1918cd86c7dd6bf22c5c43c1cc062355d0da43e3397cf",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          6,
+          7
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "8375a4bb4a484b4da23dcd6e94603776d56d79c75924c6d2e3301938219be81d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_Cartoon.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          5
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "5b2546e3d80890b378fd21f8520aed563afde4ef2145af147647ea7449372982",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_CratePalette.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          237
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "25d07fe22dde2167a9f7336df4480cd8707962758b496640fd40ddd6514d2a0c",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_TwoColor.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "83f94b392e6a0e62114ebc1b5d2b8e4c576f5c0e1db28f3bc4e257fb0a97400f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "d286a29c7c3ab7459aa91c8332a9b3e6637f7cec31963fff45b35439db3ac2e4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "4a4ce22af02343cefb75e9c2a3195e6b8581c261c0193861c47e67430defd295",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailEdge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "adda53b0b2355c37a79afd9bb8f57bdd033ce083dde035ccf1907039d1c2dfa9",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          6,
+          7
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "433d55d7a2f3141374f7b01c7c7998e98ed31f0af6088d9c95ce106286a8d62b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_Cartoon.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          5
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "acc89b47f3fcc8e025f4edf3e66c662a8790e575000f62608ccb5e8e8b2481cf",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_CratePalette.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          237
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "8e686b369e6f6343b41ace4ec24e61da0be3e98dec0d3f1d329bc7afc7900cc2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_TwoColor.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "61b743244157409a9195abefef07c445cb6aafe3202c5f7b2470afe789102e35",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "0ea83508523542fa8b6486aae0ece3c97519eddf63e843f1060ace655af5ff73",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "1fdae8fc56195373fe86057a7ed968e392cafd6223a7e143cf9816b4038ca508",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "9df4db8de020afd1ad67ad9b7b84ad90ee61ff8228baad3bff22720f1a786d84",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 10,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          6,
+          7
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          8,
+          9,
+          10
+        ]
+      },
+      "sha256": "b663b413168c7bb02fe97eb054abf708909b051e7876126f80f189b9566050e2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_Cartoon.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 7,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          5
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "2ec50a259010cc37de5e9888627e8b43d52b6031931e2599de0b4cae31d35466",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_CratePalette.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:substrate": [
+          237
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "85cae76c593c37d6319e9f72041eb772fa22d460f402c0d50f798101ad9794e1",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_TwoColor.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "287a31df4bbc976c15b509e6d0ac1cc33a0102307a28268d8dd34e5b50aaef7d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          3
+        ]
+      },
+      "sha256": "f94c9ca1ea63cf89f936e68723541e7cf959e73daeb46a1653313dd621070d67",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "ad57dd4907dfc4a809c71d2a2f8b5f64e9535fe18f677316fc37441e99572240",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_TrailInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_TrailInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 4096,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_PaleTrail:surface": [
+          238
+        ]
+      },
+      "sha256": "84c7519312615d0d54eb19080ec49091e15af7c800bc64fa5294bfac0015d215",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 8,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          6,
+          7,
+          8
+        ]
+      },
+      "sha256": "e43b47b551ea9dda0e59e31e9c0b67e95729cae20dc4616c8ce31aecb1a62b6a",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_Cartoon.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 6,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "09269d588355d670a6e7dab3d769b40f7579c6322bdeb7b3cb3ff58f862fb723",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_CratePalette.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          252,
+          253
+        ]
+      },
+      "sha256": "daf6285d572cf5f88b799ea9552c83da002f6bd9b6a26a3c566ee033253a510d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "24fb9554afe7330b1192e93790afbe8d95c6a6a3d757aa1969ec5887a28521ca",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "14fcb70005d40a82e8ab46f4084bfb4a6e09a2084ba9607933b8cc577b166490",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "ec5c5988290911849ae7c9db604c3363689c1fb56f798747622526ab8743e9e2",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreEdge_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreEdge",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3840,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "79e718f38506038f7c6ee384ed5fcf1b3a68a5ae95707a4baa5f8b34e23c95d4",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 8,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          6,
+          7,
+          8
+        ]
+      },
+      "sha256": "a3c8a695c3437128f874dc1f97ec35a92a81d68062ffe2543cd7b59aeb8a1d41",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_Cartoon.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 6,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "07d03d2f3d7bf80e75eab90487881c5dcf0aa02b06129c83d4cc69706978f0f7",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_CratePalette.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          252,
+          253
+        ]
+      },
+      "sha256": "ba580833a262516079b6c03eac467ec7327dc188c15eab5acbc1fcce282fbd92",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "c9d27b260caeff7475201bd2ef9ef356feb70a7850401bca7df8a8d19195304b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "86c53bfe60a90641a11ebe7d9780fa28b70b08bbb5663331b45ea349ea3c27ca",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "6472baef20bca4a3a58ccc1f5820cb128a2124b3a8c65dae95a706a04c3d4f87",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreOuterCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreOuterCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3712,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "8a3ccbe84f42d0573fc97e9c6943d4b1b42a22749960a96d0e0f64e34ed5b69b",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 7,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1,
+          2
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          3,
+          4,
+          5
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          6,
+          7
+        ]
+      },
+      "sha256": "eab943efbb95736f6da65f5e32919a5a4a6c38fd5413c82f7c5f208ac4fd48db",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_Cartoon.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 6,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2,
+          3,
+          4
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          5,
+          6
+        ]
+      },
+      "sha256": "29e8797ca957dca8d283faafaf8269536cd905fb432701fe0854df8abc751e9d",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_CratePalette.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 5,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          233,
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          252,
+          253
+        ]
+      },
+      "sha256": "a617d7f8e1f99cd957873702675de5ebbf3eaac68844aa888d461a58fed8a59f",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "5f59d43f4b405c6fe2a14238d2643ad98016e3e445a2c87aba754c490d355352",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_Cartoon_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          1
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          2
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          3
+        ]
+      },
+      "sha256": "3b4bad3b7e570d6cce84ea7a652cb518fdd20d1cd47fbf29df47065543081c38",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "85c5cc80fad84d972f58634148e1d503c3386619888375b7df8cf6ab69518b54",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    },
+    {
+      "file": "output/poke_p/PokeP_Ground_ShoreInnerCorner_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_Ground_ShoreInnerCorner",
+      "source": "poke_p.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        16
+      ],
+      "voxels": 3968,
+      "colors": 3,
+      "groups": {
+        "PokeP_Ground_Meadow:substrate": [
+          234
+        ],
+        "PokeP_Ground_Meadow:surface": [
+          246
+        ],
+        "PokeP_Ground_ShallowPool:surface": [
+          253
+        ]
+      },
+      "sha256": "af853df740537fdba05aef009808e480e834a7e76c1947cf44fc953de516a771",
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        15
+      ]
+    }
+  ],
+  "reuse": []
+}

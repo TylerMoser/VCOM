@@ -1,0 +1,42 @@
+{
+ "validated": "2026-11-03",
+ "files": 21,
+ "families": [
+  "PokeO_GableHouse",
+  "PokeO_SkylightHouse",
+  "PokeO_WideHouse"
+ ],
+ "file_sha256": {
+  "PokeO_GableHouse.vox": "948304f7a6723b7adf94366a69bf3e30b17efd0ea941a1126be055a339139638",
+  "PokeO_GableHouse_Cartoon.vox": "1608e871c613d02ff81afb43883c23481ff875eee9cbeb0e69cbf8fc802464b0",
+  "PokeO_GableHouse_CratePalette.vox": "3ec3c947b077486500540cd7287c81b120f97eaea6e83721ccdf7cda6eaef78d",
+  "PokeO_GableHouse_TwoColor.vox": "3c83cb360b2f5fa26a57e588b3d8618515c1905fd19aa8970e27410bad4c3260",
+  "PokeO_GableHouse_Cartoon_TwoColor.vox": "855d9ba231eb7a3a33739988d1aa236d7615e6b7970d5a8e07e3edd5844b1fe4",
+  "PokeO_GableHouse_CratePalette_TwoColor.vox": "06dd181c8b87b7a499521980b76df42ad9f0e7df8f52394ec90891b0cb4b8467",
+  "PokeO_GableHouse_Cartoon_CratePalette_TwoColor.vox": "fefe7a4797f6d4c0bc895d0457ae49666150ba7f698e83c5c32ee4f0ff587090",
+  "PokeO_SkylightHouse.vox": "231ee7d6ee0ff4f03571dea0bf72b7e7e5c9277228d352b2b6c96b0b960446a9",
+  "PokeO_SkylightHouse_Cartoon.vox": "368e087029a5f56cf2db72edd213c3669ff1b44e4a58e2106db327cceccccc4b",
+  "PokeO_SkylightHouse_CratePalette.vox": "192c55934493d3d6e316275d33ff225742642fc64946eb4792aaa64a2fce8ebb",
+  "PokeO_SkylightHouse_TwoColor.vox": "b807e29337a19e27d9ae14f62b3966bc6b7e3ec8a78439bb59eed32dea4c2976",
+  "PokeO_SkylightHouse_Cartoon_TwoColor.vox": "8bd3b7f44f0e3da5e503b430ab7971489c6ba71db69e838795bf32d6493d6df0",
+  "PokeO_SkylightHouse_CratePalette_TwoColor.vox": "c5fbcf27753fb05a5d79f9a249296fe6f0adab330d1ff53f076eaef1ffc3a9ab",
+  "PokeO_SkylightHouse_Cartoon_CratePalette_TwoColor.vox": "a84146e527dcaaf56ed67dfe7baeabfd443ade3bc122109f2149399d41c7499b",
+  "PokeO_WideHouse.vox": "ccacee7357a0b5c75d23dc73d739242a8b4fd3904972ae14bae4692349bbde8c",
+  "PokeO_WideHouse_Cartoon.vox": "7b1f28e91be79f5756a714f94fdb79e29745c2c284c59a3aa9c932968139f04f",
+  "PokeO_WideHouse_CratePalette.vox": "069307bc83090c1779be23e222fec4b35d6a1d31947d77fdc5ddde8598c2d861",
+  "PokeO_WideHouse_TwoColor.vox": "328a798f92586ab824f98c3790dfffac24349c20dccee4282ff94d4b8787abc8",
+  "PokeO_WideHouse_Cartoon_TwoColor.vox": "2bcb47a62836288c62cca798115e45f72a746288deaecad173d552206aa7ad42",
+  "PokeO_WideHouse_CratePalette_TwoColor.vox": "0d0c6d8732e7c0304ce144b52cb30551a3f2b267b8828f59c83c93175c369ba0",
+  "PokeO_WideHouse_Cartoon_CratePalette_TwoColor.vox": "dfa1f9be768b1cda68367b94f566198e7d74121abda790167349218ada42a85f"
+ },
+ "structure": "pass: tools/inspect_vox.py, 21 files, no errors or warnings (structural-audit.json)",
+ "geometry": "pass: canvases, grounded at z 0, one connected model each, recolours on their source's exact voxels, Cartoon a different shape from Base",
+ "palettes": "pass: CratePalette files the pinned crate palette byte for byte; TwoColor files one colour a group (each family's own colours, folded groups resolved)",
+ "glass": "pass: MagicaVoxel Glass (_type _glass, _trans 0.45-0.7) on exactly the glass indices",
+ "grid": "pass: nothing in the middle of a storey's tiles at the two levels units fill; no glass in a sill course outside a door's slot",
+ "whole_import": "pass: every file read and meshed whole by the game's MagicaVoxel importer at Scale 0.0625 (qa/whole-import.json)",
+ "integration": "pass: 21 scenes (every treatment of the three families), cut into the game's pieces in a scratch copy of VCOM: the level the game stamps is each model voxel for voxel, and every rules check passed: blocked_steps, climbs, closed_off, cutaway, floors_are_tiles, reachable, sight, stamped_exactly, under_building, vaults, walks, walls_and_doors_shut, windows_open (qa/integration-report.json)",
+ "visual_review": "done: in-game renders by day, dusk and night, cut away at each storey, from four sides and the game's camera, and each Base drawn in the art's projection beside the source (previews/)",
+ "preserved": "pass: 217 files of ChatGPT's in output/poke_o/ from before these buildings unchanged (its models, generator, records and previews)",
+ "not_tested": "the files opened in MagicaVoxel's own editor; the pieces added to the game's Pieces.tres and painted in the level editor; play in a battle (units fighting through them, destruction, blood)"
+}

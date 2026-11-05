@@ -1,0 +1,469 @@
+{
+  "source": "mario.jpg",
+  "families": [
+    {
+      "source": "mario.jpg",
+      "name": "Mario_TallStoneStack",
+      "shape": "stack",
+      "size": [
+        24,
+        20,
+        48
+      ],
+      "crop": [
+        20,
+        5,
+        94,
+        138
+      ],
+      "color": "purple",
+      "scale": 0.3333333333333333,
+      "note": "Two broad stones with shallow pitted marks; lower edge partly hidden. Depth inferred from the side-view artwork.",
+      "seed": 1
+    },
+    {
+      "source": "mario.jpg",
+      "name": "Mario_ShortStoneStack",
+      "shape": "stack",
+      "size": [
+        16,
+        16,
+        32
+      ],
+      "crop": [
+        119,
+        49,
+        176,
+        143
+      ],
+      "color": "purple",
+      "scale": 0.3333333333333333,
+      "note": "Narrow three-section stack; shallow face-like pits retained as carvings.",
+      "seed": 2
+    }
+  ],
+  "models": [
+    {
+      "file": "output/mario/Mario_TallStoneStack.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "Base",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13380,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        18,
+        47
+      ],
+      "sha256": "dd6849ef01fef40e932b4c4c2f2cdadae361f6ec9412e9acfcb31ede6aac1169",
+      "palette_sha256": "7016106afb00e6a672bb76d1ae6059771a9bcf522ca04c493c4908969453971c",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_Cartoon.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13192,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        47
+      ],
+      "sha256": "fa2d82a5a4c85789cf65c896b95ec13ed92581e38ec07052c378ea042387f3de",
+      "palette_sha256": "d12573c091076f197c3d7eafcc84e335c94f61832ad6091c0df41db084a18326",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_CratePalette.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13380,
+      "colors": 4,
+      "groups": {
+        "210": "stone",
+        "185": "stone",
+        "211": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        18,
+        47
+      ],
+      "sha256": "3dc5d00adbab9eb1fa6f0f2b9c516b540a4253c8c93ec21a12286fc1d3d26bee",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_TwoColor.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13380,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        18,
+        47
+      ],
+      "sha256": "43cc19163844220c76a536b3de0264aa7eb9294011eb1aa4489e397794cf0d1b",
+      "palette_sha256": "4146ce2c5cb8a96f9f698e8c2dcfb321e1f401ca7ccdd26a719f025d489d10f6",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_Cartoon_TwoColor.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13192,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        47
+      ],
+      "sha256": "33a0f70ffccdfbd3935b371010275fb09366ee2e863226366cbe013d5b1f7b54",
+      "palette_sha256": "4146ce2c5cb8a96f9f698e8c2dcfb321e1f401ca7ccdd26a719f025d489d10f6",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_CratePalette_TwoColor.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13380,
+      "colors": 1,
+      "groups": {
+        "185": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        18,
+        47
+      ],
+      "sha256": "213276f393ee41c1600c75edc021a123e32345af839b97d063938f75ba64a3cd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_TallStoneStack_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_TallStoneStack",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        20,
+        48
+      ],
+      "voxels": 13192,
+      "colors": 1,
+      "groups": {
+        "185": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        23,
+        19,
+        47
+      ],
+      "sha256": "b4ddc973ddc10573b9253080023e0eb535c7397e3bcb47226d51c8b830c77955",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4478,
+      "colors": 4,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        31
+      ],
+      "sha256": "4c0577d206f058755d571a5dd0609afe5fdc20a8f9c968879b460867fdbc8a04",
+      "palette_sha256": "7016106afb00e6a672bb76d1ae6059771a9bcf522ca04c493c4908969453971c",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4856,
+      "colors": 3,
+      "groups": {
+        "1": "stone",
+        "2": "stone",
+        "3": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        31
+      ],
+      "sha256": "6d69cdc4aa6666c6c412a8f1d6738674c632056f1f4eafe7560526d13274b1ed",
+      "palette_sha256": "d12573c091076f197c3d7eafcc84e335c94f61832ad6091c0df41db084a18326",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_CratePalette.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4478,
+      "colors": 4,
+      "groups": {
+        "210": "stone",
+        "185": "stone",
+        "211": "stone",
+        "193": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        31
+      ],
+      "sha256": "1877d31aaf095004555a15416d460cdcf92ad9577a9b1a98f979cac1b817131b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_TwoColor.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4478,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        31
+      ],
+      "sha256": "d4f172184f7b4066a274f6c81d8f61d039317564d26dafd33ff3d976f54df366",
+      "palette_sha256": "4146ce2c5cb8a96f9f698e8c2dcfb321e1f401ca7ccdd26a719f025d489d10f6",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon_TwoColor.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4856,
+      "colors": 1,
+      "groups": {
+        "1": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        31
+      ],
+      "sha256": "b7e9ded2151998458918bc8f81b1be7d9d7fd7b7ad5db53e4d656cf3870ec943",
+      "palette_sha256": "4146ce2c5cb8a96f9f698e8c2dcfb321e1f401ca7ccdd26a719f025d489d10f6",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_CratePalette_TwoColor.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4478,
+      "colors": 1,
+      "groups": {
+        "185": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        14,
+        31
+      ],
+      "sha256": "58f7c35dd6e0468bbb0e081d0a7fb5eeae160cb90afc40c6bb305713a4444f3b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    },
+    {
+      "file": "output/mario/Mario_ShortStoneStack_Cartoon_CratePalette_TwoColor.vox",
+      "family": "Mario_ShortStoneStack",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        32
+      ],
+      "voxels": 4856,
+      "colors": 1,
+      "groups": {
+        "185": "stone"
+      },
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        31
+      ],
+      "sha256": "0712c8911e7abf19e91c8b0ca634ac1b6f697c8efd21d60c71a69c625286146f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse",
+      "symmetry": "bilateral X"
+    }
+  ]
+}

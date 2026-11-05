@@ -1,0 +1,60 @@
+{
+ "source": "poke_i.jpg",
+ "note": "image x0 y0 x1 y1, top-left origin, right and bottom exclusive; each the building and a little context; the first of a family the one modelled from",
+ "families": {
+  "PokeI_SmallHouse": {
+   "title": "Small house",
+   "regions_xyxy_exclusive": [
+    [
+     328,
+     108,
+     384,
+     164
+    ],
+    [
+     624,
+     194,
+     680,
+     250
+    ],
+    [
+     156,
+     270,
+     212,
+     326
+    ]
+   ],
+   "drawn": "Three copies of the small house: an orange gable roof with its ridge front to back, a light band along the ridge and a light batten across its left slope, a gable of dark boards, brown board walls, the red door and a window in a white frame."
+  },
+  "PokeI_ChimneyHouse": {
+   "title": "Chimney house",
+   "regions_xyxy_exclusive": [
+    [
+     470,
+     250,
+     532,
+     318
+    ],
+    [
+     107,
+     393,
+     169,
+     461
+    ]
+   ],
+   "drawn": "Two copies of the house with the chimney: a steep orange gable roof, a stone chimney on its right slope, a cream gable with two windows and dark boards under the ridge, brown board walls, a beam, the red door and a window in a cream panel."
+  },
+  "PokeI_DayCare": {
+   "title": "Day care",
+   "regions_xyxy_exclusive": [
+    [
+     444,
+     68,
+     542,
+     146
+    ]
+   ],
+   "drawn": "The large building at the top by its fenced yard: a hall whose middle rises in a clerestory with a flat top and two light rails, hipped roofs of orange tiles over its sides and over a wing on its right, cream walls between dark timber posts, the double door of dark glass under a tiled canopy, windows."
+  }
+ }
+}

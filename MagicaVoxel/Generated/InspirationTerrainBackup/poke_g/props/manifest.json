@@ -1,0 +1,1287 @@
+{
+  "source": "poke_g.png",
+  "review": {
+    "source": "poke_g.png",
+    "reviewed": true,
+    "families": [
+      "PokeG_ParkBench",
+      "PokeG_TimberSign",
+      "PokeG_PaleNotice",
+      "PokeG_UtilityStand",
+      "PokeG_ItemBall"
+    ],
+    "notes": "Park bench, timber sign, ground-standing pale notice, arched utility stand and item ball. Utility function is uncertain, so its visible arch, face and three red marks are modeled without assigning gameplay behavior.",
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_ParkBench",
+      "kind": "bench",
+      "crop": [
+        140,
+        72,
+        179,
+        98
+      ],
+      "size": [
+        32,
+        18,
+        24
+      ],
+      "tone": "gray"
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_TimberSign",
+      "kind": "sign",
+      "crop": [
+        90,
+        103,
+        116,
+        127
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "wood"
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_PaleNotice",
+      "kind": "kiosk",
+      "crop": [
+        220,
+        517,
+        245,
+        549
+      ],
+      "size": [
+        20,
+        8,
+        24
+      ],
+      "tone": "white"
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_UtilityStand",
+      "kind": "terminal",
+      "crop": [
+        218,
+        373,
+        246,
+        403
+      ],
+      "size": [
+        20,
+        12,
+        24
+      ],
+      "tone": "slate"
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_ItemBall",
+      "kind": "ball",
+      "crop": [
+        128,
+        80,
+        144,
+        96
+      ],
+      "size": [
+        10,
+        10,
+        10
+      ],
+      "tone": "red"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_g/PokeG_ParkBench.vox",
+      "family": "PokeG_ParkBench",
+      "style": "Base",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 6,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "6709ccf26858a7651179f54b71c0551bd6b393b2291c8b872bb1e8c743603aef",
+      "palette_sha256": "c2144d40aec80c876c8aea733c9769d40150d6c4d51bea2f2c6798949c61dfd1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon.vox",
+      "family": "PokeG_ParkBench",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "3406915cefe21a2c3142aa557ac1436b2a882475c06dfc567c850f1c13a04b10",
+      "palette_sha256": "75103ba2338ffbf8a0ec3cbe22624f01274d489fad717f242ab203f70441dbf8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_CratePalette.vox",
+      "family": "PokeG_ParkBench",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 4,
+      "groups": {
+        "205": "metal",
+        "206": "metal",
+        "193": "wood",
+        "194": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "0271b9b0585b7f5e72e504a145e8c0ed0cb0f957f8041e8bf6a02e84407f010a",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_TwoColor.vox",
+      "family": "PokeG_ParkBench",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "c59b336d0f45891f14ae4dd9ad6fca5e0939cd53c4be3ef8fad0cd21fb0a15ae",
+      "palette_sha256": "75103ba2338ffbf8a0ec3cbe22624f01274d489fad717f242ab203f70441dbf8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon_TwoColor.vox",
+      "family": "PokeG_ParkBench",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "e232957724bade20c00642805d0ab1a8e6ad13743246c03057bc52736007389e",
+      "palette_sha256": "75103ba2338ffbf8a0ec3cbe22624f01274d489fad717f242ab203f70441dbf8",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_CratePalette_TwoColor.vox",
+      "family": "PokeG_ParkBench",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2116,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "193": "wood"
+      },
+      "components": [
+        2116
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        30,
+        16,
+        23
+      ],
+      "sha256": "78a30964b01effb80c5791a0b890b84ff13ac00ca01436e7d0c38cbf8c2f4d57",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ParkBench_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_ParkBench",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        18,
+        24
+      ],
+      "voxels": 2398,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "193": "wood"
+      },
+      "components": [
+        2398
+      ],
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        31,
+        16,
+        23
+      ],
+      "sha256": "7320611e3d489a72ed0d6faa3ff4fd300f61ebf10b9b8fa2b78b1514d1619071",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign.vox",
+      "family": "PokeG_TimberSign",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 6,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "1757032b8903c5aaccee57314dbe540342d052ca71cfe86a71e7759db09e41c1",
+      "palette_sha256": "bdc21ac69ddbae15047dccd01b1fbf98e30013c09405042107d1048d5e3a5330",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon.vox",
+      "family": "PokeG_TimberSign",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 3,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "d188241615595853e49b883f368ca7c71f0b40271dca307ead21c35bc18f8c5e",
+      "palette_sha256": "761f80e4ae4d620ffd475b23a99cf85e989be16eb12d2529ccbfff7247f23201",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_CratePalette.vox",
+      "family": "PokeG_TimberSign",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 5,
+      "groups": {
+        "235": "face",
+        "236": "face",
+        "234": "frame",
+        "180": "frame",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "b72123f071ac3934fba923788c8950271a852f28026b480d4b6aaed8e64cc960",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_TwoColor.vox",
+      "family": "PokeG_TimberSign",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "98c7ab75f6c6c13daa92c3cb97e83e9470f337eb2d744d1c3c271e358a14748d",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon_TwoColor.vox",
+      "family": "PokeG_TimberSign",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "1": "wood",
+        "2": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "cfbe415924acd1f77a9a2bedfd462d2b1a2a316501e26aa0674f1422044b56e4",
+      "palette_sha256": "510860278c9fab327e9b1723fba291e6db67aa94b459faa1cf5cd5c188fd9e98",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_CratePalette_TwoColor.vox",
+      "family": "PokeG_TimberSign",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1902,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1902
+      ],
+      "occupied_min": [
+        1,
+        0,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "24921f9e741f9468d6e62f2c4849c613758394642be26778b8c6bd529db99b90",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_TimberSign_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_TimberSign",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 1926,
+      "colors": 2,
+      "groups": {
+        "179": "wood",
+        "205": "ink"
+      },
+      "components": [
+        1926
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        19,
+        6,
+        22
+      ],
+      "sha256": "5208c486ecd79e509e15402b03d9d2911d2848fee9ed9993c90c9b85376dc435",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "Base",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2032,
+      "colors": 9,
+      "groups": {
+        "1": "face",
+        "2": "face",
+        "3": "frame",
+        "4": "frame",
+        "5": "frame",
+        "6": "ink",
+        "7": "mark",
+        "8": "mark",
+        "9": "mark"
+      },
+      "components": [
+        2032
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        6,
+        22
+      ],
+      "sha256": "abd5a7d1c4736f64c6b5d1091d877c38245b5498dd0752f74ae2c46176db7af6",
+      "palette_sha256": "c4eae0caae75b2b5501ce475386dd98e84ff5703bc203069893b08c8a2d4c3cf",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2068,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2068
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "1fec50848cb1ac3d0808686aaf495b36febc64a4b7041b8cd0c400084da3eeed",
+      "palette_sha256": "0dc2841156ccf4b3f4a21a7b44820ef5d8782143510ecaea5edb76ccd6817bcd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_CratePalette.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2032,
+      "colors": 7,
+      "groups": {
+        "195": "face",
+        "196": "face",
+        "193": "frame",
+        "194": "frame",
+        "205": "ink",
+        "238": "mark",
+        "248": "mark"
+      },
+      "components": [
+        2032
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        6,
+        22
+      ],
+      "sha256": "d1dfb2fea5018248bc4f2f35b4cffbdddaf9924b24832b1ec0a2939b3a524317",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_TwoColor.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2032,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2032
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        6,
+        22
+      ],
+      "sha256": "06e60deb9df219e73c943601d4d5f8c099ee5d21e0b9ef4904248c9b7318b014",
+      "palette_sha256": "0dc2841156ccf4b3f4a21a7b44820ef5d8782143510ecaea5edb76ccd6817bcd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon_TwoColor.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2068,
+      "colors": 4,
+      "groups": {
+        "1": "face",
+        "2": "frame",
+        "3": "ink",
+        "4": "mark"
+      },
+      "components": [
+        2068
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "e9c8be1852597cd5d6f801e4d5873cdfaf17c070954de7f2560b2fc4f31e378f",
+      "palette_sha256": "0dc2841156ccf4b3f4a21a7b44820ef5d8782143510ecaea5edb76ccd6817bcd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_CratePalette_TwoColor.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2032,
+      "colors": 4,
+      "groups": {
+        "195": "face",
+        "194": "frame",
+        "205": "ink",
+        "196": "mark"
+      },
+      "components": [
+        2032
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        6,
+        22
+      ],
+      "sha256": "622ee0625e99ca0e9c0a666ae0eec86e206c8a1d0f682ed05745db44ff519ab6",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_PaleNotice_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_PaleNotice",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        8,
+        24
+      ],
+      "voxels": 2068,
+      "colors": 4,
+      "groups": {
+        "195": "face",
+        "194": "frame",
+        "205": "ink",
+        "196": "mark"
+      },
+      "components": [
+        2068
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        6,
+        22
+      ],
+      "sha256": "455e1f0ccaa08254b3e1966cf444eb258b7f4750a49319235906d160a1402aa7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "Base",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1864,
+      "colors": 7,
+      "groups": {
+        "1": "body",
+        "2": "body",
+        "3": "body",
+        "4": "button",
+        "5": "ink",
+        "6": "metal",
+        "7": "metal"
+      },
+      "components": [
+        1864
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        9,
+        22
+      ],
+      "sha256": "41a8a8e40d8713afdb26f29d612546a7bbb26cd35bb8424e9d05e55e73244eff",
+      "palette_sha256": "77fb3cea95dab517aecb7d7f6e949d5992865e69183f9d8912ab4f8cae5bc18c",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "Cartoon",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1962,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "button",
+        "3": "ink",
+        "4": "metal"
+      },
+      "components": [
+        1962
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        10,
+        22
+      ],
+      "sha256": "678896941ada8755b5916de6f126621aa00c0f023d5fd5e575f330d359267ebb",
+      "palette_sha256": "5be4e2ded272c076d5c0e5f965b62d1c7c155c76bede128eac4f527c7a23f2f1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_CratePalette.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "CratePalette",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1864,
+      "colors": 5,
+      "groups": {
+        "206": "body",
+        "193": "body",
+        "220": "button",
+        "205": "ink",
+        "1": "metal"
+      },
+      "components": [
+        1864
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        9,
+        22
+      ],
+      "sha256": "5f7241a422dfbd1b5ff49742c0b076e02cb38100663581310d14c61964ded991",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_TwoColor.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "TwoColor",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1864,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "button",
+        "3": "ink",
+        "4": "metal"
+      },
+      "components": [
+        1864
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        9,
+        22
+      ],
+      "sha256": "3a6fced09eee59e496498cbac3c3ba4563c17f16f76128c8e9eb03d11bdefa28",
+      "palette_sha256": "5be4e2ded272c076d5c0e5f965b62d1c7c155c76bede128eac4f527c7a23f2f1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon_TwoColor.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1962,
+      "colors": 4,
+      "groups": {
+        "1": "body",
+        "2": "button",
+        "3": "ink",
+        "4": "metal"
+      },
+      "components": [
+        1962
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        10,
+        22
+      ],
+      "sha256": "643706b3ff123d1b40bf4f2a93382a0548a516e81aa708d3d02c5538b852a989",
+      "palette_sha256": "5be4e2ded272c076d5c0e5f965b62d1c7c155c76bede128eac4f527c7a23f2f1",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_CratePalette_TwoColor.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1864,
+      "colors": 4,
+      "groups": {
+        "206": "body",
+        "220": "button",
+        "205": "ink",
+        "1": "metal"
+      },
+      "components": [
+        1864
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        17,
+        9,
+        22
+      ],
+      "sha256": "b139aac4c670da835ba9094bb223b9d3d769e5b7fa37428732f7f6c327a7c325",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_UtilityStand_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_UtilityStand",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        20,
+        12,
+        24
+      ],
+      "voxels": 1962,
+      "colors": 4,
+      "groups": {
+        "206": "body",
+        "220": "button",
+        "205": "ink",
+        "1": "metal"
+      },
+      "components": [
+        1962
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        18,
+        10,
+        22
+      ],
+      "sha256": "02bcc5abf05f1adda4fd13da229ca58f2a599b3f3110e30db71ff61b26078144",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall.vox",
+      "family": "PokeG_ItemBall",
+      "style": "Base",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 552,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "red",
+        "3": "white"
+      },
+      "components": [
+        552
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "b74814afb1152291dc8510d30907401f6b0d21e315cc3adbfaee2cd0bf682fc1",
+      "palette_sha256": "060625754c81ad5a3372c8f1b1ea94efde0c66cd31e44201bf64a141f51c8e27",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon.vox",
+      "family": "PokeG_ItemBall",
+      "style": "Cartoon",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 560,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "red",
+        "3": "white"
+      },
+      "components": [
+        560
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "7ffec2f0ae76ef435af990272947f5e6b50038dfe757704dbdb00d08bcbd1b1c",
+      "palette_sha256": "060625754c81ad5a3372c8f1b1ea94efde0c66cd31e44201bf64a141f51c8e27",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette.vox",
+      "family": "PokeG_ItemBall",
+      "style": "CratePalette",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 552,
+      "colors": 3,
+      "groups": {
+        "205": "ink",
+        "220": "red",
+        "196": "white"
+      },
+      "components": [
+        552
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "25d799797d2fdecfdf13cb4b51712a73d4301626d85b58781630a68c3b5734f4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_TwoColor.vox",
+      "family": "PokeG_ItemBall",
+      "style": "TwoColor",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 552,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "red",
+        "3": "white"
+      },
+      "components": [
+        552
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "c7e9991ec196baca17fb5e31a57c8461c69d34579572691ea5f561c66914a0e5",
+      "palette_sha256": "060625754c81ad5a3372c8f1b1ea94efde0c66cd31e44201bf64a141f51c8e27",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_TwoColor.vox",
+      "family": "PokeG_ItemBall",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 560,
+      "colors": 3,
+      "groups": {
+        "1": "ink",
+        "2": "red",
+        "3": "white"
+      },
+      "components": [
+        560
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "f89a1cd0dcccef37ea640fe5fc0b763d052fb4b136fe7b4f9c6ff7b4f34e614d",
+      "palette_sha256": "060625754c81ad5a3372c8f1b1ea94efde0c66cd31e44201bf64a141f51c8e27",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_CratePalette_TwoColor.vox",
+      "family": "PokeG_ItemBall",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 552,
+      "colors": 3,
+      "groups": {
+        "205": "ink",
+        "220": "red",
+        "196": "white"
+      },
+      "components": [
+        552
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "5f28fdc03e2e6b9164569ebf645d0684016a8789183741cd9e6ff335e800c35c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_g/PokeG_ItemBall_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_ItemBall",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        10
+      ],
+      "voxels": 560,
+      "colors": 3,
+      "groups": {
+        "205": "ink",
+        "220": "red",
+        "196": "white"
+      },
+      "components": [
+        560
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        9,
+        9,
+        9
+      ],
+      "sha256": "62551dc4dd773e50348f34a12f4dd3e7a932ffa665b3e79055290f20702b4a13",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

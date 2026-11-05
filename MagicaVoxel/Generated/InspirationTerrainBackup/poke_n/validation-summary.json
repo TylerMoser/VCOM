@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-27",
+  "models": 28,
+  "families": 4,
+  "source_image": "poke_n.png",
+  "source_image_sha256": "4e6ed0ae4cb7e7e8fdfad369f66137a62469191b7b7ff32c478c24e72b055954",
+  "structural_audit": {
+    "errors": 0,
+    "warnings": 0,
+    "evidence": "structural-audit.json"
+  },
+  "serialized_invariants": "Checked by generate.py and validate.py: bounds, connectivity, exact recolor geometry, semantic two-color reduction, C4 geometry and paint, pinned crate palette.",
+  "import_render": "All 28 models imported and rendered using the current VCOM whole Mesh importer at scale 0.0625; voxel counts preserved and bounds grounded.",
+  "visual_review": {
+    "status": "reviewed",
+    "evidence": [
+      "previews/contact_01.png",
+      "previews/geometry_01.png"
+    ],
+    "scope": "All seven treatments per appearance; Base and Cartoon at four azimuths. Original and enlarged source regions reviewed.",
+    "findings": "Rounded olive, dark pointed and fuller golden crown shapes remain readable with distinct source colors. Small shrub retains low rounded mass. Cartoon symmetry and recolor consistency reviewed. Golden crate variants intentionally shift to existing warm colors; its TwoColor mixtures use ochre foliage distinct from brown wood.",
+    "limitations": "Canopy depth and unseen structure inferred. Existing crate palette lacks a matching golden-olive ramp. Preview lighting adds shading to flat two-color paint."
+  },
+  "gameplay": "not tested or integrated",
+  "generator_sha256": "57841e2a8243316d7aa68e9492215b91481a1a0af301ad78a393d4cb7a855fa7",
+  "sculpt_sha256": "bc975ff57c9a9a1ded4d8656183b7b54de256067fe52adacc3c04d7dd9abff16",
+  "dependency_hashes": {
+    "output\\poke_n\\voxlib.py": "60ce5c50c73d905f04c130c53e04f7f02977c403841b18354d292c5e0ece88f3",
+    "output\\poke_n\\reference\\regions.json": "24b767ac21c30eed7c0f00ee33ae8a13dfa11f51ab37afc0035f099b8f33a6c0",
+    "knowledge\\palettes\\crate-palette.json": "2c654659b0d16b7538fc0e589dfe68ce6c010ce8f38b67fada9680bbb25c2ab3"
+  },
+  "model_hashes": {
+    "PokeN_RoundedOliveTree.vox": "b58c7100918b04aa5d16800f88234e6967bb76948552b9cf2e781d942a133894",
+    "PokeN_RoundedOliveTree_Cartoon.vox": "822d98efdef8ba09d621af4f9fea01026610d47a28df06d23e442ee794226498",
+    "PokeN_RoundedOliveTree_CratePalette.vox": "fb996b575226c98af13f04cad6f8b7d085bde5c82abe547d14d0c891a433c6c6",
+    "PokeN_RoundedOliveTree_TwoColor.vox": "562d604fd38d2fc5c0beed93c1b62da6357cb89805770cb58385dc481ffa1c2e",
+    "PokeN_RoundedOliveTree_Cartoon_TwoColor.vox": "2a8d7d955c533a37438525ba965812e219dfb5d905cb05a4441c3e5439d453ec",
+    "PokeN_RoundedOliveTree_CratePalette_TwoColor.vox": "f9ca0fcac38c1e00b43a55575716450f4020e38371415f79a373869e6043f18b",
+    "PokeN_RoundedOliveTree_Cartoon_CratePalette_TwoColor.vox": "b865b148deb5e9046e6de735b011205db8e02858c56e4450e6f21aef4fdab625",
+    "PokeN_DarkPointedTree.vox": "6130a3b83503d0ca72def6e67a081cc9a2189dfe6747188a18e92e895c5bfeec",
+    "PokeN_DarkPointedTree_Cartoon.vox": "79919e41e7dca35f84ca15f46136a92e77d4cd2c8a11183b6cf07ad514b877d5",
+    "PokeN_DarkPointedTree_CratePalette.vox": "601d05b1b23acc94395cd38e28b9bf231ed980e646d5ece87a5f4730ca8c0f46",
+    "PokeN_DarkPointedTree_TwoColor.vox": "2500c92d46c3e6b4a8e67a67d4b5c8a3ad4ae99a1d7b5980817c0ca7dd44b525",
+    "PokeN_DarkPointedTree_Cartoon_TwoColor.vox": "6609ccad36996de2e406a123e9d12f5794bf9651968cafcb63c80db5b2f87a97",
+    "PokeN_DarkPointedTree_CratePalette_TwoColor.vox": "194449ba436579534c41b487646d76edf993c9bc22d93315339cdf44cfd04ad1",
+    "PokeN_DarkPointedTree_Cartoon_CratePalette_TwoColor.vox": "a86a21c8bf3af049e6b9995f51eb50fdfb683736d9e1de48975ec45d18ed357b",
+    "PokeN_GoldenOliveTree.vox": "13c0ea4d742f1f4f76a0af3a16348a4fc1821d0adf0c07b62cb0f54ff9a50775",
+    "PokeN_GoldenOliveTree_Cartoon.vox": "a7fcd0192ef61077a540e64c6e37d5a56f985cfcb4d72d45f01733af76067909",
+    "PokeN_GoldenOliveTree_CratePalette.vox": "8b2b55760819d46cfe78d6576d7bd098e4b740a2ac8ddf8d7caf06dd5d2b1857",
+    "PokeN_GoldenOliveTree_TwoColor.vox": "306890ac7d455db8d652d5c244f23f6ef803531597148deafdb70ee0699c701b",
+    "PokeN_GoldenOliveTree_Cartoon_TwoColor.vox": "17f0157141582e33d4fa3600c9cb8a73451f0d3e6481024efd59f554440ce789",
+    "PokeN_GoldenOliveTree_CratePalette_TwoColor.vox": "ae696cded434e1040659a2b8549619346d12ede19fdf9d01b5bbf625c4ec98d6",
+    "PokeN_GoldenOliveTree_Cartoon_CratePalette_TwoColor.vox": "cfe87059917cbaaba5e0f7973cbfc0e54ab3883900a9bc554a1867c9ac534b40",
+    "PokeN_RoundShrub.vox": "d4f982fb41801886705d008b407b79c406a09d2dab2e78dfbfbae51d35c3d69a",
+    "PokeN_RoundShrub_Cartoon.vox": "e8580e481cde53310833445a71851dd7033fd3e00b2902674b2271d289622123",
+    "PokeN_RoundShrub_CratePalette.vox": "108f993123472e99b8c36ab8359c2ebb41e6581623bf9b0e611f59f648b4eb2a",
+    "PokeN_RoundShrub_TwoColor.vox": "470caf3a7de43544cad3376fed86a227d14e31dc683ab293f1acfa00704de66a",
+    "PokeN_RoundShrub_Cartoon_TwoColor.vox": "de92bd40e02e6640f5655b5e054f4a990e76a44ce66f99a4d2fbd58937cd47ba",
+    "PokeN_RoundShrub_CratePalette_TwoColor.vox": "c4836bd90710b3ad69b0b7bd7a09713e0ab033670de30ebfe0cbbfd0fa8cb940",
+    "PokeN_RoundShrub_Cartoon_CratePalette_TwoColor.vox": "3f0a583e160c6e404deca951c0dc8a447e0c4616b8917ee1a650af8936957509"
+  }
+}

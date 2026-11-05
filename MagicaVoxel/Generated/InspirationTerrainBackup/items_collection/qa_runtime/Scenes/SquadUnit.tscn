@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://bci1llum4d32l" path="res://Scripts/Unit.gd" id="1_unit"]
+[ext_resource type="PackedScene" path="res://Scenes/Character_Bigger.tscn" id="90_character_bigger"]
+
+[node name="SquadUnit" type="Node3D" groups=["players"]]
+script = ExtResource("1_unit")
+
+[node name="Model" parent="." instance=ExtResource("90_character_bigger")]

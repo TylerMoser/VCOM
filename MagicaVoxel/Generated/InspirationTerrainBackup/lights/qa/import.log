@@ -1,0 +1,263 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (185 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   1% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   2% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   3% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   4% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   5% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   6% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   7% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   8% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[   9% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  10% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | ActionController[39m[0m
+[  11% ] [90m[1mupdate_scripts_classes[22m | HunkerDownAction[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | MoveAction[39m[0m
+[  12% ] [90m[1mupdate_scripts_classes[22m | OverwatchAction[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | ReloadAction[39m[0m
+[  13% ] [90m[1mupdate_scripts_classes[22m | ShootAction[39m[0m
+[  14% ] [90m[1mupdate_scripts_classes[22m | StrikeAction[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | ThrowGrenadeAction[39m[0m
+[  15% ] [90m[1mupdate_scripts_classes[22m | UnitAction[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | UseMedkitAction[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | AIAction[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | AssaultAI[39m[0m
+[  17% ] [90m[1mupdate_scripts_classes[22m | EnemyAI[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Tactics[39m[0m
+[  18% ] [90m[1mupdate_scripts_classes[22m | Blood[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | BloodFlow[39m[0m
+[  19% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  20% ] [90m[1mupdate_scripts_classes[22m | CharacterModel[39m[0m
+[  21% ] [90m[1mupdate_scripts_classes[22m | FigureVoxels[39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  22% ] [90m[1mupdate_scripts_classes[22m | Postures[39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | Ballistics[39m[0m
+[  24% ] [90m[1mupdate_scripts_classes[22m | Coin[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | Coins[39m[0m
+[  25% ] [90m[1mupdate_scripts_classes[22m | CombatGrid[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Cutaway[39m[0m
+[  26% ] [90m[1mupdate_scripts_classes[22m | Explosion[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | HitChance[39m[0m
+[  27% ] [90m[1mupdate_scripts_classes[22m | Lamps[39m[0m
+[  28% ] [90m[1mupdate_scripts_classes[22m | LineOfSight[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | MuzzleFlash[39m[0m
+[  29% ] [90m[1mupdate_scripts_classes[22m | ShotPlayback[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | Throwing[39m[0m
+[  30% ] [90m[1mupdate_scripts_classes[22m | ThrownGrenade[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | TileCursor[39m[0m
+[  31% ] [90m[1mupdate_scripts_classes[22m | TileGrid[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | TileHighlights[39m[0m
+[  32% ] [90m[1mupdate_scripts_classes[22m | TimeOfDay[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Weapon[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | Armor[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | BattleItem[39m[0m
+[  34% ] [90m[1mupdate_scripts_classes[22m | Grenade[39m[0m
+[  35% ] [90m[1mupdate_scripts_classes[22m | Inventory[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | Item[39m[0m
+[  36% ] [90m[1mupdate_scripts_classes[22m | ItemStack[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | Medkit[39m[0m
+[  37% ] [90m[1mupdate_scripts_classes[22m | ChunkMesher[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | LampLight[39m[0m
+[  38% ] [90m[1mupdate_scripts_classes[22m | LevelCutaway[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | LevelData[39m[0m
+[  39% ] [90m[1mupdate_scripts_classes[22m | LevelEditing[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | LevelImport[39m[0m
+[  40% ] [90m[1mupdate_scripts_classes[22m | LevelRenderer[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | LevelRules[39m[0m
+[  41% ] [90m[1mupdate_scripts_classes[22m | PieceBrush[39m[0m
+[  42% ] [90m[1mupdate_scripts_classes[22m | PieceKind[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | PieceLibrary[39m[0m
+[  43% ] [90m[1mupdate_scripts_classes[22m | SceneryRenderer[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | VoxelLevel[39m[0m
+[  44% ] [90m[1mupdate_scripts_classes[22m | VoxelVolume[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | Character[39m[0m
+[  45% ] [90m[1mupdate_scripts_classes[22m | CharacterClass[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | Roster[39m[0m
+[  46% ] [90m[1mupdate_scripts_classes[22m | Species[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | SubSpecies[39m[0m
+[  47% ] [90m[1mupdate_scripts_classes[22m | CombatGold[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | Skill[39m[0m
+[  48% ] [90m[1mupdate_scripts_classes[22m | SkillEffect[39m[0m
+[  49% ] [90m[1mupdate_scripts_classes[22m | SkillLevel[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | SkillPointGrant[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | SkillSource[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | SkillTree[39m[0m
+[  51% ] [90m[1mupdate_scripts_classes[22m | SkillTreeNode[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | StatBonus[39m[0m
+[  52% ] [90m[1mupdate_scripts_classes[22m | Blast[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | Destruction[39m[0m
+[  53% ] [90m[1mupdate_scripts_classes[22m | FallingBlock[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | GlassShards[39m[0m
+[  54% ] [90m[1mupdate_scripts_classes[22m | SceneryGround[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | ScriptedDestruction[39m[0m
+[  55% ] [90m[1mupdate_scripts_classes[22m | TerrainDestruction[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | VoxelBody[39m[0m
+[  56% ] [90m[1mupdate_scripts_classes[22m | VoxelDebris[39m[0m
+[  57% ] [90m[1mupdate_scripts_classes[22m | VoxelDestruction[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | VoxelModel[39m[0m
+[  58% ] [90m[1mupdate_scripts_classes[22m | VoxelShape[39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | VoxelTerrain[39m[0m
+[  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | ActionButton[39m[0m
+[  60% ] [90m[1mupdate_scripts_classes[22m | ActionPip[39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  61% ] [90m[1mupdate_scripts_classes[22m | ButtonGlyph[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | CampaignTab[39m[0m
+[  62% ] [90m[1mupdate_scripts_classes[22m | CharacterBrowser[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | CharacterButton[39m[0m
+[  63% ] [90m[1mupdate_scripts_classes[22m | CharacterPage[39m[0m
+[  64% ] [90m[1mupdate_scripts_classes[22m | ControlHints[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | DetailsPage[39m[0m
+[  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | EquipmentPage[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | FloorSelector[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | FocusChain[39m[0m
+[  67% ] [90m[1mupdate_scripts_classes[22m | HiringBoardTab[39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | HoldButton[39m[0m
+[  68% ] [90m[1mupdate_scripts_classes[22m | HunkerBadge[39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | InventoryTab[39m[0m
+[  69% ] [90m[1mupdate_scripts_classes[22m | ItemBrowser[39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | ItemSquare[39m[0m
+[  70% ] [90m[1mupdate_scripts_classes[22m | LocationTab[39m[0m
+[  71% ] [90m[1mupdate_scripts_classes[22m | MarketTab[39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  72% ] [90m[1mupdate_scripts_classes[22m | PurchaseBar[39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | ReactionPip[39m[0m
+[  73% ] [90m[1mupdate_scripts_classes[22m | ReactionPrompts[39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | RosterTab[39m[0m
+[  74% ] [90m[1mupdate_scripts_classes[22m | ShotOverlay[39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | SkillButton[39m[0m
+[  75% ] [90m[1mupdate_scripts_classes[22m | SkillsPage[39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | SkillTooltip[39m[0m
+[  76% ] [90m[1mupdate_scripts_classes[22m | SkillTreeView[39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | SlotButton[39m[0m
+[  77% ] [90m[1mupdate_scripts_classes[22m | SquadMenu[39m[0m
+[  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | SquadTab[39m[0m
+[  79% ] [90m[1mupdate_scripts_classes[22m | SubTabs[39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | SystemTab[39m[0m
+[  80% ] [90m[1mupdate_scripts_classes[22m | TabbedMenu[39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | TargetPanel[39m[0m
+[  81% ] [90m[1mupdate_scripts_classes[22m | TurnBanner[39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | UnitCard[39m[0m
+[  82% ] [90m[1mupdate_scripts_classes[22m | VillageMenu[39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | BorderSwitch[39m[0m
+[  84% ] [90m[1mupdate_scripts_classes[22m | Destination[39m[0m
+[  85% ] [90m[1mupdate_scripts_classes[22m | Forest[39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | GameOver[39m[0m
+[  86% ] [90m[1mupdate_scripts_classes[22m | HiringBoard[39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | Location[39m[0m
+[  87% ] [90m[1mupdate_scripts_classes[22m | MapCamera[39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | MapClock[39m[0m
+[  88% ] [90m[1mupdate_scripts_classes[22m | MapDetail[39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | MapNavigation[39m[0m
+[  89% ] [90m[1mupdate_scripts_classes[22m | MapNavigationBaker[39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | MapNavigationData[39m[0m
+[  90% ] [90m[1mupdate_scripts_classes[22m | MapReticle[39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | MapRoute[39m[0m
+[  91% ] [90m[1mupdate_scripts_classes[22m | MapRouter[39m[0m
+[  92% ] [90m[1mupdate_scripts_classes[22m | MapWater[39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | Market[39m[0m
+[  93% ] [90m[1mupdate_scripts_classes[22m | Party[39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | WorldMapCamera[39m[0m
+[  94% ] [90m[1mupdate_scripts_classes[22m | WorldMapTerrain[39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | CameraRig[39m[0m
+[  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | InputDevice[39m[0m
+[  96% ] [90m[1mupdate_scripts_classes[22m | PlayerSquad[39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | Reactions[39m[0m
+[  97% ] [90m[1mupdate_scripts_classes[22m | SquadStart[39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | TurnManager[39m[0m
+[  98% ] [90m[1mupdate_scripts_classes[22m | Unit[39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (14 steps)[39m[0m
+[   0% ] [90m[1m_update_scan_actions[22m | framed_mesh_instance.png[39m[0m
+[   6% ] [90m[1m_update_scan_actions[22m | icon.png[39m[0m
+[  13% ] [90m[1m_update_scan_actions[22m | black_tick.png[39m[0m
+[  20% ] [90m[1m_update_scan_actions[22m | floor_level.svg[39m[0m
+[  26% ] [90m[1m_update_scan_actions[22m | floor_top.svg[39m[0m
+[  33% ] [90m[1m_update_scan_actions[22m | white_tick.png[39m[0m
+[  40% ] [90m[1m_update_scan_actions[22m | City.png[39m[0m
+[  46% ] [90m[1m_update_scan_actions[22m | Forest 1.png[39m[0m
+[  53% ] [90m[1m_update_scan_actions[22m | Hamlet.png[39m[0m
+[  60% ] [90m[1m_update_scan_actions[22m | Town.png[39m[0m
+[  66% ] [90m[1m_update_scan_actions[22m | Trees 1.png[39m[0m
+[  73% ] [90m[1m_update_scan_actions[22m | Village.png[39m[0m
+[  80% ] [90m[1m_update_scan_actions[22m | WorldMapV1.png[39m[0m
+[  86% ] [90m[1m_update_scan_actions[22m | WorldMapV1LandMask.png[39m[0m
+[92m[ DONE ][39m [1m_update_scan_actions[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (14 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+[   0% ] [90m[1mreimport[22m | framed_mesh_instance.png[39m[0m
+[   6% ] [90m[1mreimport[22m | icon.png[39m[0m
+[  13% ] [90m[1mreimport[22m | black_tick.png[39m[0m
+[  20% ] [90m[1mreimport[22m | floor_level.svg[39m[0m
+[  26% ] [90m[1mreimport[22m | floor_top.svg[39m[0m
+[  33% ] [90m[1mreimport[22m | white_tick.png[39m[0m
+[  40% ] [90m[1mreimport[22m | City.png[39m[0m
+[  46% ] [90m[1mreimport[22m | Forest 1.png[39m[0m
+[  53% ] [90m[1mreimport[22m | Hamlet.png[39m[0m
+[  60% ] [90m[1mreimport[22m | Town.png[39m[0m
+[  66% ] [90m[1mreimport[22m | Trees 1.png[39m[0m
+[  73% ] [90m[1mreimport[22m | Village.png[39m[0m
+[  80% ] [90m[1mreimport[22m | WorldMapV1.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  86% ] [90m[1mreimport[22m | WorldMapV1LandMask.png[39m[0m
+[  93% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (14 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m

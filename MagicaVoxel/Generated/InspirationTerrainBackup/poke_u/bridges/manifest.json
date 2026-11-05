@@ -1,0 +1,713 @@
+{
+  "source_review": {
+    "source": "poke_u.jpg",
+    "sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+    "reviewed": true,
+    "decision": "New complete crossings authored from the visible source.",
+    "new_families": [
+      "PokeU_ShortIslandBridge",
+      "PokeU_LongIslandBridge"
+    ],
+    "reuse": []
+  },
+  "families": [
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_ShortIslandBridge",
+      "kind": "wood",
+      "size": [
+        64,
+        32,
+        40
+      ],
+      "crop": [
+        126,
+        46,
+        161,
+        113
+      ],
+      "deck": 24,
+      "tile_pixels": 16,
+      "rail": "none",
+      "slats": 16,
+      "gap": 1,
+      "sag": 2,
+      "wood": [
+        160,
+        145,
+        111
+      ],
+      "note": "Upper floating-island crossing, four broad plank sections; low underside ties and bank anchors inferred, no handrail.",
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 236,
+        "2": 234,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          160,
+          145,
+          111,
+          255
+        ],
+        [
+          123,
+          112,
+          85,
+          255
+        ],
+        [
+          184,
+          167,
+          128,
+          255
+        ],
+        [
+          144,
+          130,
+          100,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    },
+    {
+      "source": "poke_u.jpg",
+      "name": "PokeU_LongIslandBridge",
+      "kind": "wood",
+      "size": [
+        96,
+        32,
+        40
+      ],
+      "crop": [
+        272,
+        238,
+        304,
+        339
+      ],
+      "deck": 24,
+      "tile_pixels": 16,
+      "rail": "none",
+      "slats": 16,
+      "gap": 1,
+      "sag": 3,
+      "wood": [
+        160,
+        145,
+        111
+      ],
+      "note": "Lower crossing is six plank sections long. Shallow sag and hidden ties inferred; same source palette as upper span.",
+      "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+      "crate_mapping": {
+        "1": 236,
+        "2": 234,
+        "3": 236,
+        "4": 235,
+        "5": 193,
+        "6": 206,
+        "7": 194,
+        "8": 193,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          160,
+          145,
+          111,
+          255
+        ],
+        [
+          123,
+          112,
+          85,
+          255
+        ],
+        [
+          184,
+          167,
+          128,
+          255
+        ],
+        [
+          144,
+          130,
+          100,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          150,
+          151,
+          133,
+          255
+        ],
+        [
+          116,
+          116,
+          102,
+          255
+        ],
+        [
+          172,
+          174,
+          153,
+          255
+        ],
+        [
+          135,
+          136,
+          120,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 10424,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "5d24f67e7356ef64a27e88ea899270b05828b8039adfac6fe4f1585ff4f688a5",
+      "geometry_source": "PokeU_ShortIslandBridge",
+      "geometry_sha256": "d4af998afd3bd6e0a9340bcebe0adb77495da8b2cd1708bd625c4a2ee80fa5ea"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 11252,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "8f26d4108f8ff22aef095ae3f5648186a3409d1cc9c059b2b02d3df465667e76",
+      "geometry_source": "PokeU_ShortIslandBridge_Cartoon",
+      "geometry_sha256": "24a8cd86fb064dd1899f6d708c141d86645667d86410f935d8ea7283c5aaf2d5"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 10424,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "f499cfd1851bdb16435b73c89606d545825c15d2d0ee19b8a257701c4449a36d",
+      "geometry_source": "PokeU_ShortIslandBridge",
+      "geometry_sha256": "d4af998afd3bd6e0a9340bcebe0adb77495da8b2cd1708bd625c4a2ee80fa5ea"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 10424,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "02635666cb0864a86cd5980e19de25ea8d830f914d4715be226e79ab18079bec",
+      "geometry_source": "PokeU_ShortIslandBridge",
+      "geometry_sha256": "d4af998afd3bd6e0a9340bcebe0adb77495da8b2cd1708bd625c4a2ee80fa5ea"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 11252,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "be8d14bd64df63ff53b090a4399103028938f37ccdb1407da41aaca3c9e2077b",
+      "geometry_source": "PokeU_ShortIslandBridge_Cartoon",
+      "geometry_sha256": "24a8cd86fb064dd1899f6d708c141d86645667d86410f935d8ea7283c5aaf2d5"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 10424,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "613c10ff94034532b8a01a8c8b6ad404c8cc4d661e8c53cff02d21572b4cb08a",
+      "geometry_source": "PokeU_ShortIslandBridge",
+      "geometry_sha256": "d4af998afd3bd6e0a9340bcebe0adb77495da8b2cd1708bd625c4a2ee80fa5ea"
+    },
+    {
+      "family": "PokeU_ShortIslandBridge",
+      "file": "output/poke_u/PokeU_ShortIslandBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        64,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 11252,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        63,
+        29,
+        23
+      ],
+      "sha256": "ec3ca1df9ac99a4423dc4e069cb2978445f998ae7577650a890d022ea4506d53",
+      "geometry_source": "PokeU_ShortIslandBridge_Cartoon",
+      "geometry_sha256": "24a8cd86fb064dd1899f6d708c141d86645667d86410f935d8ea7283c5aaf2d5"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge.vox",
+      "source": "poke_u.jpg",
+      "style": "Base",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13400,
+      "colors": 4,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "2e76616532c25be811596897b77ba78901272085b60e633ee5be10b02609ca0d",
+      "geometry_source": "PokeU_LongIslandBridge",
+      "geometry_sha256": "01ab414626c8aaec286a2907e46f6b19ed86dbcabb2fcd47815167cf25af927a"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_Cartoon.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14412,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "8d38087782a253cdc8672e493e307a802e66f90d8497188527895657e108f36d",
+      "geometry_source": "PokeU_LongIslandBridge_Cartoon",
+      "geometry_sha256": "68d4e0c03c804b3a4e99107804e5bd3e6fa2863fd7454c836f2d31a1cf02e08f"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_CratePalette.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13400,
+      "colors": 3,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "9ad678dafe117726467151f2e6ad184147c2b804f6b4eeebab028015c7529212",
+      "geometry_source": "PokeU_LongIslandBridge",
+      "geometry_sha256": "01ab414626c8aaec286a2907e46f6b19ed86dbcabb2fcd47815167cf25af927a"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "TwoColor",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13400,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "981c8fdbe8487decba59d3c7bde1fe614a5f5cee4ca353248cf1bb108dea6b6e",
+      "geometry_source": "PokeU_LongIslandBridge",
+      "geometry_sha256": "01ab414626c8aaec286a2907e46f6b19ed86dbcabb2fcd47815167cf25af927a"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_Cartoon_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14412,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "53bf05767b3aecdc5208ba6cb547658d371e6dee0e6751620e4e48d9665076d7",
+      "geometry_source": "PokeU_LongIslandBridge_Cartoon",
+      "geometry_sha256": "68d4e0c03c804b3a4e99107804e5bd3e6fa2863fd7454c836f2d31a1cf02e08f"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 13400,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "91eba035900cc7a41af381c6e283712881859e2378117d5654275a859c9f75a8",
+      "geometry_source": "PokeU_LongIslandBridge",
+      "geometry_sha256": "01ab414626c8aaec286a2907e46f6b19ed86dbcabb2fcd47815167cf25af927a"
+    },
+    {
+      "family": "PokeU_LongIslandBridge",
+      "file": "output/poke_u/PokeU_LongIslandBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_u.jpg",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        96,
+        32,
+        40
+      ],
+      "scene_models": 1,
+      "voxels": 14412,
+      "colors": 1,
+      "occupied_min": [
+        0,
+        2,
+        0
+      ],
+      "occupied_max": [
+        95,
+        29,
+        23
+      ],
+      "sha256": "84579d69ecfadecd0e5adc22b45cd9da78b23dcd35712a323df29886ca59224e",
+      "geometry_source": "PokeU_LongIslandBridge_Cartoon",
+      "geometry_sha256": "68d4e0c03c804b3a4e99107804e5bd3e6fa2863fd7454c836f2d31a1cf02e08f"
+    }
+  ]
+}

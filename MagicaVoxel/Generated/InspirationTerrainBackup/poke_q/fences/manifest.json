@@ -1,0 +1,777 @@
+{
+  "source": {
+    "source": "poke_q.png",
+    "size": [
+      800,
+      800
+    ],
+    "sha256": "d435692772394d40414fb9fbdb3e76c296a679ae5502161ec3aaeeadf8c84fbe"
+  },
+  "families": [
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_BambooFence",
+      "kind": "bamboo",
+      "crop": [
+        236,
+        292,
+        273,
+        318
+      ],
+      "size": [
+        40,
+        8,
+        24
+      ],
+      "wood": [
+        107,
+        111,
+        72
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_SkullPost",
+      "kind": "skull",
+      "crop": [
+        257,
+        159,
+        289,
+        194
+      ],
+      "size": [
+        16,
+        12,
+        32
+      ],
+      "wood": [
+        178,
+        149,
+        100
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    },
+    {
+      "source": "poke_q.png",
+      "name": "PokeQ_ChainFence",
+      "kind": "chain",
+      "crop": [
+        223,
+        237,
+        242,
+        302
+      ],
+      "size": [
+        40,
+        8,
+        32
+      ],
+      "wood": [
+        178,
+        137,
+        75
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "metal"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_q/PokeQ_BambooFence.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 1976,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        1976
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        21
+      ],
+      "sha256": "8defdd4897bb5e4e29ac87be1b11b6986c5dbe3654b2a7737ad5306edbc864e6",
+      "palette_sha256": "df374f936d3143475998c7db827ce4cb53a7ffd7e96f5b4216e25ea6691d5cfd",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 2884,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        2884
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        21
+      ],
+      "sha256": "1dc8a7f417072018f457d1b02474e90865675063f3e9582af072c8dc9c85c4ee",
+      "palette_sha256": "232f9e1177dbce472d1f3813616d6676d735cdb1409fa31376ee04f369ac0858",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_CratePalette.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 1976,
+      "colors": 2,
+      "groups": {
+        "234": "wood",
+        "235": "wood"
+      },
+      "components": [
+        1976
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        21
+      ],
+      "sha256": "508c4578919f7f4c8f8cac4ab9964ee0b982edf6281c5f4aeebabf0c5d782a78",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_TwoColor.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 1976,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        1976
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        21
+      ],
+      "sha256": "a15b74a43017e1d276e645ebe4285e3aab5ce2ae569c2b8c86181740ebca4496",
+      "palette_sha256": "232f9e1177dbce472d1f3813616d6676d735cdb1409fa31376ee04f369ac0858",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon_TwoColor.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 2884,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        2884
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        21
+      ],
+      "sha256": "c80af537d51ab12ed735e6f85dbfd72cb47259993f8db1320d1b8c93b4aaf32d",
+      "palette_sha256": "232f9e1177dbce472d1f3813616d6676d735cdb1409fa31376ee04f369ac0858",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_CratePalette_TwoColor.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 1976,
+      "colors": 1,
+      "groups": {
+        "234": "wood"
+      },
+      "components": [
+        1976
+      ],
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        37,
+        6,
+        21
+      ],
+      "sha256": "769b8150f13a118a710895c7e0a562f0d2a8d82c7f0fc2e4f6ccac0ae26b7512",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_BambooFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeQ_BambooFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        24
+      ],
+      "voxels": 2884,
+      "colors": 1,
+      "groups": {
+        "234": "wood"
+      },
+      "components": [
+        2884
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        38,
+        6,
+        21
+      ],
+      "sha256": "6aecce08d420567bd0f7dccfffb12336d692e8791ab0f0c4acdf5232e0a88624",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "Base",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2252,
+      "colors": 6,
+      "groups": {
+        "1": "bone",
+        "2": "bone",
+        "3": "bone",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        2252
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "eb25f9cc21cee6c4cf0fceb4fd71b47aed5637e0285ba7a9a3c6e7472d8dec1c",
+      "palette_sha256": "7ae153aadaf9ceb29173ba03fbbf99aa09bf2d86a00ee4353292aa6fab978191",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2240,
+      "colors": 2,
+      "groups": {
+        "1": "bone",
+        "2": "wood"
+      },
+      "components": [
+        2240
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "1b8c777f08a3f5929ef826cc0644784ccbc8062ca2d1d09745c2c31b3889a8e5",
+      "palette_sha256": "50c69c4fc56fe32e6942e968bea83c59c98acf5425ef1dc7e51e175ae8577570",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_CratePalette.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2252,
+      "colors": 4,
+      "groups": {
+        "238": "bone",
+        "196": "bone",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        2252
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "e9e0bf789b7619401f5fe0cc2ac7e10e648cc25a436ceab73c74207c1d526d39",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_TwoColor.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2252,
+      "colors": 2,
+      "groups": {
+        "1": "bone",
+        "2": "wood"
+      },
+      "components": [
+        2252
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "14ba7990018cc6d92cc8dc2a71ae4db56d09b29658753956a658af0345817d5f",
+      "palette_sha256": "50c69c4fc56fe32e6942e968bea83c59c98acf5425ef1dc7e51e175ae8577570",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon_TwoColor.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2240,
+      "colors": 2,
+      "groups": {
+        "1": "bone",
+        "2": "wood"
+      },
+      "components": [
+        2240
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "35124585fc12f305fed4747259fbae50c0540a48d1c33efda362c00bd9a736ce",
+      "palette_sha256": "50c69c4fc56fe32e6942e968bea83c59c98acf5425ef1dc7e51e175ae8577570",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_CratePalette_TwoColor.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2252,
+      "colors": 2,
+      "groups": {
+        "238": "bone",
+        "236": "wood"
+      },
+      "components": [
+        2252
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "f7741522c89e65e7da7cc189af2b250c616aa4e96d15a7469d0398930bbf26de",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_SkullPost_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeQ_SkullPost",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        12,
+        32
+      ],
+      "voxels": 2240,
+      "colors": 2,
+      "groups": {
+        "238": "bone",
+        "236": "wood"
+      },
+      "components": [
+        2240
+      ],
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        9,
+        31
+      ],
+      "sha256": "3f31d0dd58845de53ea53d0d8b8627656f26dcc2b38782c97301d8517e8af608",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1564,
+      "colors": 6,
+      "groups": {
+        "1": "metal",
+        "2": "metal",
+        "3": "metal",
+        "4": "wood",
+        "5": "wood",
+        "6": "wood"
+      },
+      "components": [
+        1564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "8eefd85ff05464f7b4e287b81e9be6f5abfe6b99ea4bf02b5cca2e3915bac53d",
+      "palette_sha256": "2b9eade6a9f39f7cf4a21b2acfc8b39e8a77b2ab124d4d54572d94a2ce273db5",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1608,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        1608
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "b7f0bdf32067938b28fdd57cd5bfbb99430d321de08f3ebfefca73803574c4e4",
+      "palette_sha256": "e3673e83ff37ef896be7509039cb48878ee6f12a314032c925310228b1650b88",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_CratePalette.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1564,
+      "colors": 5,
+      "groups": {
+        "1": "metal",
+        "206": "metal",
+        "180": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        1564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "898803f2a642e9e46a9625aec33e846862c34bb3fe97f28689caf100da16c4d3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_TwoColor.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1564,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        1564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "c3a99e8cd852a164e54ab2a429e15cf9a1b02ddf975bf01c8a912fa84617112b",
+      "palette_sha256": "e3673e83ff37ef896be7509039cb48878ee6f12a314032c925310228b1650b88",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon_TwoColor.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1608,
+      "colors": 2,
+      "groups": {
+        "1": "metal",
+        "2": "wood"
+      },
+      "components": [
+        1608
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "509e443e778b559ed1de1cbed1c5e120ef0bf80e18fd0b14048bb46041dd4c1d",
+      "palette_sha256": "e3673e83ff37ef896be7509039cb48878ee6f12a314032c925310228b1650b88",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_CratePalette_TwoColor.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1564,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "235": "wood"
+      },
+      "components": [
+        1564
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "035954bf3b080ca05cee208d72e3820527a05e5b91008e1e20bbcefe272fd0a5",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_q/PokeQ_ChainFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeQ_ChainFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        32
+      ],
+      "voxels": 1608,
+      "colors": 2,
+      "groups": {
+        "206": "metal",
+        "235": "wood"
+      },
+      "components": [
+        1608
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        39,
+        7,
+        30
+      ],
+      "sha256": "30c3628a2f82d55532a871d719be7f9bd2b7046d013bd7c11e34de9bf25f4e92",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

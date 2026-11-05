@@ -1,0 +1,382 @@
+{
+  "source_review": {
+    "source": "poke_c.png",
+    "sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+    "reviewed": true,
+    "decision": "New downstream uncovered bridge; preserve/reuse the existing covered-bridge pavilion and span.",
+    "new_families": [
+      "PokeC_DownstreamStoneBridge"
+    ],
+    "reuse": [
+      "output/poke_c/PokeC_BridgePavilion.vox",
+      "output/poke_c/PokeC_BridgeSpan.vox"
+    ]
+  },
+  "families": [
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_DownstreamStoneBridge",
+      "kind": "stone",
+      "size": [
+        208,
+        48,
+        80
+      ],
+      "crop": [
+        317,
+        608,
+        530,
+        680
+      ],
+      "deck": 48,
+      "tile_pixels": 16,
+      "bays": [
+        0,
+        28,
+        76,
+        124,
+        172,
+        208
+      ],
+      "rail": "woodsolid",
+      "stone": [
+        75,
+        83,
+        90
+      ],
+      "paving": [
+        163,
+        163,
+        128
+      ],
+      "wood": [
+        102,
+        66,
+        48
+      ],
+      "note": "Downstream uncovered bridge: dark masonry, three principal arch bays and small end openings, pale slab paving, solid brown timber guards.",
+      "source_sha256": "4c3b1db1e3cfad8c92ac159347e7b91869c7046bffd712c813581ce2282fd192",
+      "crate_mapping": {
+        "1": 178,
+        "2": 233,
+        "3": 234,
+        "4": 178,
+        "5": 205,
+        "6": 205,
+        "7": 206,
+        "8": 205,
+        "9": 193,
+        "10": 206,
+        "11": 194,
+        "12": 193,
+        "13": 194,
+        "14": 193,
+        "15": 195,
+        "16": 244,
+        "17": 244,
+        "18": 243
+      },
+      "palette_rgb": [
+        [
+          102,
+          66,
+          48,
+          255
+        ],
+        [
+          79,
+          51,
+          37,
+          255
+        ],
+        [
+          117,
+          76,
+          55,
+          255
+        ],
+        [
+          92,
+          59,
+          43,
+          255
+        ],
+        [
+          75,
+          83,
+          90,
+          255
+        ],
+        [
+          58,
+          64,
+          69,
+          255
+        ],
+        [
+          86,
+          95,
+          103,
+          255
+        ],
+        [
+          68,
+          75,
+          81,
+          255
+        ],
+        [
+          163,
+          163,
+          128,
+          255
+        ],
+        [
+          126,
+          126,
+          99,
+          255
+        ],
+        [
+          187,
+          187,
+          147,
+          255
+        ],
+        [
+          147,
+          147,
+          115,
+          255
+        ],
+        [
+          167,
+          178,
+          180,
+          255
+        ],
+        [
+          112,
+          129,
+          134,
+          255
+        ],
+        [
+          205,
+          215,
+          210,
+          255
+        ],
+        [
+          102,
+          148,
+          82,
+          255
+        ],
+        [
+          131,
+          171,
+          103,
+          255
+        ],
+        [
+          75,
+          114,
+          65,
+          255
+        ]
+      ]
+    }
+  ],
+  "models": [
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge.vox",
+      "source": "poke_c.png",
+      "style": "Base",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 252096,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "24f03e0fe60cc5f3d84a6ec05c06c0b3356ede9bb4cd7fd69c00ee0180287ab2",
+      "geometry_source": "PokeC_DownstreamStoneBridge",
+      "geometry_sha256": "15fbe8b748c9b2365d8537b7f3d20d14c8cb120d0fe58d766795d3fa7d458e2d"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_Cartoon.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 256608,
+      "colors": 7,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "b8dfeab5f3c68d4052d0be6e11dc49e34c609a8817b55a1060e87823cdc83415",
+      "geometry_source": "PokeC_DownstreamStoneBridge_Cartoon",
+      "geometry_sha256": "e16a971b13b1c7bd7ad8eee1555bee5ac0a0cb50a93285e4f42bef9ff529716c"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_CratePalette.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 252096,
+      "colors": 5,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "b68fbe0e536433841dd5ab850114bb5a2a63a86e40562269c0874589fc752693",
+      "geometry_source": "PokeC_DownstreamStoneBridge",
+      "geometry_sha256": "15fbe8b748c9b2365d8537b7f3d20d14c8cb120d0fe58d766795d3fa7d458e2d"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "TwoColor",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 252096,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "ace90b0fb9a8d813fc54f8c1140924d1df0d9b1e73c76443890a37ea40c4fec0",
+      "geometry_source": "PokeC_DownstreamStoneBridge",
+      "geometry_sha256": "15fbe8b748c9b2365d8537b7f3d20d14c8cb120d0fe58d766795d3fa7d458e2d"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_Cartoon_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 256608,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "34e9518a0cdcfae8abebf40712fcf54c8765fc901092f21cef5cd9b9dec46d0b",
+      "geometry_source": "PokeC_DownstreamStoneBridge_Cartoon",
+      "geometry_sha256": "e16a971b13b1c7bd7ad8eee1555bee5ac0a0cb50a93285e4f42bef9ff529716c"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 252096,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "afb2f2dffe027b91820dc7cd460d8c26333dc7935c31b1588ddd322679a4181a",
+      "geometry_source": "PokeC_DownstreamStoneBridge",
+      "geometry_sha256": "15fbe8b748c9b2365d8537b7f3d20d14c8cb120d0fe58d766795d3fa7d458e2d"
+    },
+    {
+      "family": "PokeC_DownstreamStoneBridge",
+      "file": "output/poke_c/PokeC_DownstreamStoneBridge_Cartoon_CratePalette_TwoColor.vox",
+      "source": "poke_c.png",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        208,
+        48,
+        80
+      ],
+      "scene_models": 1,
+      "voxels": 256608,
+      "colors": 2,
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        207,
+        47,
+        68
+      ],
+      "sha256": "7bed3c281245e133563b604c50bd2d2845703d5b29a43ab567ed76dbe774d301",
+      "geometry_source": "PokeC_DownstreamStoneBridge_Cartoon",
+      "geometry_sha256": "e16a971b13b1c7bd7ad8eee1555bee5ac0a0cb50a93285e4f42bef9ff529716c"
+    }
+  ]
+}

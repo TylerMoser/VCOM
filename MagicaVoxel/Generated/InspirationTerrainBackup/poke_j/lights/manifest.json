@@ -1,0 +1,340 @@
+{
+  "family": {
+    "source": "poke_j.jpg",
+    "name": "PokeJ_DarkStreetLantern",
+    "shape": "cap",
+    "size": [
+      10,
+      10,
+      28
+    ],
+    "crop": [
+      190,
+      130,
+      215,
+      174
+    ],
+    "scale": 0.6666666666666666,
+    "metal": [
+      54,
+      66,
+      68
+    ],
+    "light": [
+      227,
+      236,
+      220
+    ],
+    "power": 1.5,
+    "note": "Small dark lantern left of north house. JPEG obscures detail; inferred faceted cap and small luminous chamber. Existing scale estimate: 24 displayed pixels per tile."
+  },
+  "models": [
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Base",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "a1538e99f8a5066393bbf2cae9687980512f729b597b57d178add0103244fe3b",
+      "palette_sha256": "54a7ef355f67c26cd5dc52d862d82925490001e37a4f9b9b8fd3b447fc3a1523",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "ee12c7bc5ab04fcd6242eabba8d9d58266c0176efb55bc74f74ade6f2a215b5a",
+      "palette_sha256": "54a7ef355f67c26cd5dc52d862d82925490001e37a4f9b9b8fd3b447fc3a1523",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_CratePalette.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "CratePalette",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure",
+        "203": "structure",
+        "185": "structure"
+      },
+      "colors": 4,
+      "sha256": "e23e893b51bca56cb5cc2d54263b5fb430dca65d65aabe38d6aa3c5353e21346",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "eacef75086bf36bc09bf45e8adbf829f3aaa12f6e5edbb6694d0ab22758555bd",
+      "palette_sha256": "e2174ba17e68f8aca1659f701ab5d0706e6b1cb3910218f1e60f3fd1505a8d4c",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "86eed1c3a6350bcab67c7cedc20e1f14b7203962f5ec07277c5c7833923ded3b",
+      "palette_sha256": "e2174ba17e68f8aca1659f701ab5d0706e6b1cb3910218f1e60f3fd1505a8d4c",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_CratePalette_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "cc6434069a2880e209be7deb87b44af92ba0450c47124b0cfe8e180f5d30dc9f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "0c74f49f8dc834d3196c08ee66d0ed2f6324a2256aa7bdd381319c8cd2faf16e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    }
+  ]
+}

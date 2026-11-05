@@ -1,0 +1,1576 @@
+{
+  "source_image": "poke_k.jpg",
+  "source_sha256": "0e16b44b41da48e91438c053aa7e43b34eed1e7cce721daa650e83405c68fb33",
+  "specification_version": "1.0",
+  "generator_sha256": "abc8b2b35191f3d7f871e093383d1bf13387e34e60f217d3499966b1e7074516",
+  "sculpt_sha256": "10dc48d14210ed7e86ef5c008300f3582c1fdfa7aab783d9525e798b5ec7445c",
+  "command": "python output/poke_k/generate.py",
+  "seed": "fixed deterministic integer hash, no random state",
+  "scale": 0.0625,
+  "scene_translation": "0 0 floor(canvas height/2)",
+  "delivery": "Complete models only, no per-cell files",
+  "palette_snapshot": "knowledge/palettes/crate-palette.json",
+  "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+  "families": [
+    {
+      "asset_id": "PokeK_LimeForestTree",
+      "source_image": "poke_k.jpg",
+      "source_region_xyxy_exclusive": [
+        452,
+        226,
+        490,
+        277
+      ],
+      "shape": "roundforest",
+      "appearance": "limeforest",
+      "decoration": null,
+      "canvas_xyz": [
+        16,
+        16,
+        28
+      ],
+      "approximate_tiles_xyz": [
+        1.0,
+        1.0,
+        1.75
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          78,
+          134,
+          66,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        243,
+        179
+      ],
+      "crate_mapping": {
+        "1": 241,
+        "2": 242,
+        "3": 243,
+        "4": 243,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeK_LimeForestTree.vox",
+        "PokeK_LimeForestTree_Cartoon.vox",
+        "PokeK_LimeForestTree_CratePalette.vox",
+        "PokeK_LimeForestTree_TwoColor.vox",
+        "PokeK_LimeForestTree_Cartoon_TwoColor.vox",
+        "PokeK_LimeForestTree_CratePalette_TwoColor.vox",
+        "PokeK_LimeForestTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeK_SlateForestTree",
+      "source_image": "poke_k.jpg",
+      "source_region_xyxy_exclusive": [
+        170,
+        519,
+        209,
+        572
+      ],
+      "shape": "roundforest",
+      "appearance": "slateforest",
+      "decoration": null,
+      "canvas_xyz": [
+        16,
+        16,
+        28
+      ],
+      "approximate_tiles_xyz": [
+        1.0,
+        1.0,
+        1.75
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          73,
+          107,
+          90,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        206,
+        179
+      ],
+      "crate_mapping": {
+        "1": 204,
+        "2": 205,
+        "3": 205,
+        "4": 206,
+        "5": 206,
+        "6": 193,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeK_SlateForestTree.vox",
+        "PokeK_SlateForestTree_Cartoon.vox",
+        "PokeK_SlateForestTree_CratePalette.vox",
+        "PokeK_SlateForestTree_TwoColor.vox",
+        "PokeK_SlateForestTree_Cartoon_TwoColor.vox",
+        "PokeK_SlateForestTree_CratePalette_TwoColor.vox",
+        "PokeK_SlateForestTree_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    },
+    {
+      "asset_id": "PokeK_RoundedShrub",
+      "source_image": "poke_k.jpg",
+      "source_region_xyxy_exclusive": [
+        453,
+        274,
+        489,
+        298
+      ],
+      "shape": "roundshrub",
+      "appearance": "shrub",
+      "decoration": null,
+      "canvas_xyz": [
+        12,
+        12,
+        8
+      ],
+      "approximate_tiles_xyz": [
+        0.75,
+        0.75,
+        0.5
+      ],
+      "symmetry": "Cartoon: exact quarter turn and paint around Z, center ((width-1)/2,(depth-1)/2). Base: intentional natural asymmetry.",
+      "semantic_groups": {
+        "foliage": "All canopy foliage and attached fruit; fruit joins foliage color in TwoColor.",
+        "wood": "Trunk, roots, hidden core, branches."
+      },
+      "group_assignment": "Explicit per-coordinate dictionaries returned by sculpt.build(); original indices 1-6 and 10-11 foliage, 7-9 wood.",
+      "two_color_rgba": [
+        [
+          99,
+          149,
+          72,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "two_color_crate_indices": [
+        244,
+        179
+      ],
+      "crate_mapping": {
+        "1": 242,
+        "2": 242,
+        "3": 243,
+        "4": 244,
+        "5": 244,
+        "6": 245,
+        "7": 178,
+        "8": 179,
+        "9": 180,
+        "10": 221,
+        "11": 229
+      },
+      "models": [
+        "PokeK_RoundedShrub.vox",
+        "PokeK_RoundedShrub_Cartoon.vox",
+        "PokeK_RoundedShrub_CratePalette.vox",
+        "PokeK_RoundedShrub_TwoColor.vox",
+        "PokeK_RoundedShrub_Cartoon_TwoColor.vox",
+        "PokeK_RoundedShrub_CratePalette_TwoColor.vox",
+        "PokeK_RoundedShrub_Cartoon_CratePalette_TwoColor.vox"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "file": "PokeK_LimeForestTree.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          33,
+          65,
+          49,
+          255
+        ],
+        [
+          43,
+          83,
+          57,
+          255
+        ],
+        [
+          57,
+          106,
+          62,
+          255
+        ],
+        [
+          78,
+          134,
+          66,
+          255
+        ],
+        [
+          111,
+          167,
+          80,
+          255
+        ],
+        [
+          155,
+          198,
+          102,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357",
+      "palette_sha256": "eed7cff8f0d71e7881180ab5f9d66286c36a822ab99e50e698ba83907e86ea3b",
+      "geometry_source": "PokeK_LimeForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357"
+    },
+    {
+      "file": "PokeK_LimeForestTree_Cartoon.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          57,
+          106,
+          62,
+          255
+        ],
+        [
+          111,
+          167,
+          80,
+          255
+        ],
+        [
+          155,
+          198,
+          102,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "00aef26ec5f1ffbd2aee7ae8722ba2bf0cc8422670ad170fbf07400c64618732",
+      "palette_sha256": "eed7cff8f0d71e7881180ab5f9d66286c36a822ab99e50e698ba83907e86ea3b",
+      "geometry_source": "PokeK_LimeForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "00aef26ec5f1ffbd2aee7ae8722ba2bf0cc8422670ad170fbf07400c64618732"
+    },
+    {
+      "file": "PokeK_LimeForestTree_CratePalette.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        178,
+        179,
+        241,
+        242,
+        243,
+        244,
+        245
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          25,
+          51,
+          45,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ],
+        [
+          168,
+          202,
+          88,
+          255
+        ]
+      ],
+      "sha256": "e52efb0b7c87df4f910f602d51e30e4f0cd1be96e56bc2d354fa0ac93d127bc2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_LimeForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357"
+    },
+    {
+      "file": "PokeK_LimeForestTree_TwoColor.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          78,
+          134,
+          66,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "12e776719b16d52b2a36ae88e26ed4284aa14756fa619e55f703761fe156251c",
+      "palette_sha256": "741e419438631541fde5131cc8b9e162665de5ac0bdc6e9aa4df959745e5b903",
+      "geometry_source": "PokeK_LimeForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357"
+    },
+    {
+      "file": "PokeK_LimeForestTree_Cartoon_TwoColor.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          78,
+          134,
+          66,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "019f6189cf09e7741ed5519001b3f9f799f489ed03cb595f4bcdfa4e76fa78dd",
+      "palette_sha256": "741e419438631541fde5131cc8b9e162665de5ac0bdc6e9aa4df959745e5b903",
+      "geometry_source": "PokeK_LimeForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "00aef26ec5f1ffbd2aee7ae8722ba2bf0cc8422670ad170fbf07400c64618732"
+    },
+    {
+      "file": "PokeK_LimeForestTree_CratePalette_TwoColor.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "8ceb6e941e686f0bf665c52f52e519a125435d7074ecdc39a3b58f838e4ad0fb",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_LimeForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "79aaa6a49f4f815faab0b5123832422c43732c6fc6c6cd1f607d66dffc7e3357"
+    },
+    {
+      "file": "PokeK_LimeForestTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeK_LimeForestTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        179,
+        243
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ]
+      ],
+      "sha256": "281b80d10aaf67a5ec7fd21a98690ec66e29f783a4da995914459817708ee52e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_LimeForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "00aef26ec5f1ffbd2aee7ae8722ba2bf0cc8422670ad170fbf07400c64618732"
+    },
+    {
+      "file": "PokeK_SlateForestTree.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "used_rgba": [
+        [
+          39,
+          58,
+          55,
+          255
+        ],
+        [
+          48,
+          73,
+          67,
+          255
+        ],
+        [
+          60,
+          88,
+          79,
+          255
+        ],
+        [
+          73,
+          107,
+          90,
+          255
+        ],
+        [
+          91,
+          129,
+          105,
+          255
+        ],
+        [
+          121,
+          152,
+          125,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb",
+      "palette_sha256": "1e809654ad5a53fcfe3d82311621a6e37bbcd00fd32bc3910c61aa3b89c832c2",
+      "geometry_source": "PokeK_SlateForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb"
+    },
+    {
+      "file": "PokeK_SlateForestTree_Cartoon.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          60,
+          88,
+          79,
+          255
+        ],
+        [
+          91,
+          129,
+          105,
+          255
+        ],
+        [
+          121,
+          152,
+          125,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "0beec3dbb005fb40fd8d0f61e5adb91aec21a911caa094a1f845ef5648a7afcf",
+      "palette_sha256": "1e809654ad5a53fcfe3d82311621a6e37bbcd00fd32bc3910c61aa3b89c832c2",
+      "geometry_source": "PokeK_SlateForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0beec3dbb005fb40fd8d0f61e5adb91aec21a911caa094a1f845ef5648a7afcf"
+    },
+    {
+      "file": "PokeK_SlateForestTree_CratePalette.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        178,
+        179,
+        193,
+        204,
+        205,
+        206
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          129,
+          151,
+          150,
+          255
+        ],
+        [
+          32,
+          46,
+          55,
+          255
+        ],
+        [
+          57,
+          74,
+          80,
+          255
+        ],
+        [
+          87,
+          114,
+          119,
+          255
+        ]
+      ],
+      "sha256": "e7923e8948c95b242fbb895693c2ed40c7d5241415e12180e79db8143a98401c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_SlateForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb"
+    },
+    {
+      "file": "PokeK_SlateForestTree_TwoColor.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          73,
+          107,
+          90,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "4c3b8794c8a5950197ec1010ae6ce2892742b1a597a62836a607f8d3c31d4444",
+      "palette_sha256": "32af219f473d8a33d041a20a600a54cc7fccf2adab34c681093321938b80d6a3",
+      "geometry_source": "PokeK_SlateForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb"
+    },
+    {
+      "file": "PokeK_SlateForestTree_Cartoon_TwoColor.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          73,
+          107,
+          90,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "a02aefed9cafe1892029eecaf265c171005b446f312aaa8080c666cccaee15cd",
+      "palette_sha256": "32af219f473d8a33d041a20a600a54cc7fccf2adab34c681093321938b80d6a3",
+      "geometry_source": "PokeK_SlateForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0beec3dbb005fb40fd8d0f61e5adb91aec21a911caa094a1f845ef5648a7afcf"
+    },
+    {
+      "file": "PokeK_SlateForestTree_CratePalette_TwoColor.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2265,
+      "used_indices": [
+        179,
+        206
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          87,
+          114,
+          119,
+          255
+        ]
+      ],
+      "sha256": "528567c81753143d9e352e8d744a0a21ff31365692704b0f4ecdf80f7f7bb375",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_SlateForestTree.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "c34f0cf929988a63e165db66105d428fbf1396b4a28c9eac26155c8a6cb7d3fb"
+    },
+    {
+      "file": "PokeK_SlateForestTree_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeK_SlateForestTree",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        28
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        15,
+        15,
+        27
+      ],
+      "voxels": 2260,
+      "used_indices": [
+        179,
+        206
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          87,
+          114,
+          119,
+          255
+        ]
+      ],
+      "sha256": "6e833ca29c15fbb8607379df9575fd8486c3c9e114f0a07a2797bb7cdae94e0f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_SlateForestTree_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "0beec3dbb005fb40fd8d0f61e5adb91aec21a911caa094a1f845ef5648a7afcf"
+    },
+    {
+      "file": "PokeK_RoundedShrub.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 390,
+      "used_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9
+      ],
+      "used_rgba": [
+        [
+          44,
+          78,
+          47,
+          255
+        ],
+        [
+          58,
+          100,
+          54,
+          255
+        ],
+        [
+          76,
+          124,
+          62,
+          255
+        ],
+        [
+          99,
+          149,
+          72,
+          255
+        ],
+        [
+          129,
+          174,
+          86,
+          255
+        ],
+        [
+          72,
+          46,
+          24,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ],
+        [
+          148,
+          107,
+          55,
+          255
+        ]
+      ],
+      "sha256": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3",
+      "palette_sha256": "34d96111051114d9e144cbc0b4d750cfed7af6d66052702923ec1f2e958ad964",
+      "geometry_source": "PokeK_RoundedShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3"
+    },
+    {
+      "file": "PokeK_RoundedShrub_Cartoon.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 392,
+      "used_indices": [
+        3,
+        5,
+        6,
+        8
+      ],
+      "used_rgba": [
+        [
+          76,
+          124,
+          62,
+          255
+        ],
+        [
+          129,
+          174,
+          86,
+          255
+        ],
+        [
+          160,
+          196,
+          106,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "1f4cb11bd31f28dfef1c75f1af0081b1f9a1b30d78d1fdeec2b5a0ad19618232",
+      "palette_sha256": "34d96111051114d9e144cbc0b4d750cfed7af6d66052702923ec1f2e958ad964",
+      "geometry_source": "PokeK_RoundedShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "not_applicable",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1f4cb11bd31f28dfef1c75f1af0081b1f9a1b30d78d1fdeec2b5a0ad19618232"
+    },
+    {
+      "file": "PokeK_RoundedShrub_CratePalette.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 390,
+      "used_indices": [
+        178,
+        179,
+        180,
+        242,
+        243,
+        244
+      ],
+      "used_rgba": [
+        [
+          96,
+          44,
+          44,
+          255
+        ],
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          178,
+          104,
+          72,
+          255
+        ],
+        [
+          37,
+          86,
+          46,
+          255
+        ],
+        [
+          70,
+          130,
+          50,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "7e9a98e1188e06e7f53f4c12f9fb98fb89f093abb894bd6e88e431457f1c099f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_RoundedShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "not_applicable",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3"
+    },
+    {
+      "file": "PokeK_RoundedShrub_TwoColor.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 390,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          149,
+          72,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "70068bfd6777a0ec9c436b99a457b3a5315df026bd6ed171aaf229736af994bc",
+      "palette_sha256": "47adab73e2f1755d725f15acc121a6eecff75b4c4ecd7923d962962a135fa838",
+      "geometry_source": "PokeK_RoundedShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3"
+    },
+    {
+      "file": "PokeK_RoundedShrub_Cartoon_TwoColor.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 392,
+      "used_indices": [
+        1,
+        2
+      ],
+      "used_rgba": [
+        [
+          99,
+          149,
+          72,
+          255
+        ],
+        [
+          109,
+          74,
+          36,
+          255
+        ]
+      ],
+      "sha256": "ac6da39e66f5d57addbe3f47851c5a1aa7e8dbb82295c0e558e5c4fca1709fcb",
+      "palette_sha256": "47adab73e2f1755d725f15acc121a6eecff75b4c4ecd7923d962962a135fa838",
+      "geometry_source": "PokeK_RoundedShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "not_applicable",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1f4cb11bd31f28dfef1c75f1af0081b1f9a1b30d78d1fdeec2b5a0ad19618232"
+    },
+    {
+      "file": "PokeK_RoundedShrub_CratePalette_TwoColor.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 390,
+      "used_indices": [
+        179,
+        244
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "08eed8399fb719021a6285c3ebe4873edea3f1cc7a436d4141a2e0dcf15df9fd",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_RoundedShrub.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "not_applicable",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "eb894e3a9071e13311c278534746e8e69e9ef47a3537e060da6a2a96b21137f3"
+    },
+    {
+      "file": "PokeK_RoundedShrub_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeK_RoundedShrub",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        8
+      ],
+      "occupied_min": [
+        0,
+        0,
+        0
+      ],
+      "occupied_max": [
+        11,
+        11,
+        7
+      ],
+      "voxels": 392,
+      "used_indices": [
+        179,
+        244
+      ],
+      "used_rgba": [
+        [
+          136,
+          75,
+          43,
+          255
+        ],
+        [
+          117,
+          167,
+          67,
+          255
+        ]
+      ],
+      "sha256": "05985a4be92d061c3926fe851ed33ec8424188eeec1f229167ae771533c22b05",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "geometry_source": "PokeK_RoundedShrub_Cartoon.vox",
+      "checks": {
+        "serialization_round_trip": "pass",
+        "geometry_source_equality": "pass",
+        "connected": "pass",
+        "symmetry": "pass",
+        "two_colors": "pass",
+        "crate_palette": "pass",
+        "gameplay": "not_run"
+      },
+      "geometry_source_sha256": "1f4cb11bd31f28dfef1c75f1af0081b1f9a1b30d78d1fdeec2b5a0ad19618232"
+    }
+  ]
+}

@@ -1,0 +1,612 @@
+[
+  {
+    "source": "mario.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "Mario_Ground_Meadow",
+      "Mario_Ground_PeachDirt"
+    ],
+    "transition_helpers": [
+      "Mario_Ground_TrailEdge",
+      "Mario_Ground_TrailOuterCorner",
+      "Mario_Ground_TrailInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "pixelwood_a.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PixelwoodA_Ground_Meadow",
+      "PixelwoodA_Ground_WarmDirt"
+    ],
+    "transition_helpers": [
+      "PixelwoodA_Ground_TrailEdge",
+      "PixelwoodA_Ground_TrailOuterCorner",
+      "PixelwoodA_Ground_TrailInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "pixelwood_b.gif",
+    "reviewed": true,
+    "new_surfaces": [
+      "PixelwoodB_Ground_SlateLedge"
+    ],
+    "transition_helpers": [],
+    "reuse": [
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow.vox",
+        "sha256": "866a309241ef34d578f8a92980d3b45bb1a1a7b17859704c32180be8f63c2f91"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon.vox",
+        "sha256": "3d8a6f46fb480dc73e33c04833441119b5a7744bce8ef256b719aa6a1da6acdf"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette.vox",
+        "sha256": "9b5992d80f7d64c8325636ae0f32896da6f225cb177f810f268498e39405bdca"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_TwoColor.vox",
+        "sha256": "d8b76c5fc1027c2033db6cf8cff0cb7816d793a33e04347ceb68ce5b6a08af1e"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_TwoColor.vox",
+        "sha256": "4868ddc5a14d2aacb6e1fa421f489893f5699bbab58cb8ad53eeebed7743b8b9"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette_TwoColor.vox",
+        "sha256": "732662c6f5779c45b92742bcac2f89b8e08b99e080ff9a4752c7a4e11e434bf8"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+        "sha256": "35d3e87f765d879c834582b070b20f962e79a7839fa24ea94f8a4b990bbe1ee3"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt.vox",
+        "sha256": "b892ca32fe72abe25bc6645c859ef479fce5fa2a18494356dc7e281fd00bec19"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon.vox",
+        "sha256": "00db3a08e81da9fc8fba7da46080f3e8d7a5cbe28774f2ce960ed4cd9b3323c2"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette.vox",
+        "sha256": "a5cc5382d904f94340fd883629acf89b3f5c7f4ce3d03ac0c4c3943f9673edb2"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_TwoColor.vox",
+        "sha256": "d6113fc6375896373a017cbc36bbd4ad4a71b0486772ba2acbcc5c55ad913e75"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_TwoColor.vox",
+        "sha256": "f84a71336c8e5875da1b7fd0d7df92efa19f72f87eddd4ab9275f2d1776dc504"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette_TwoColor.vox",
+        "sha256": "6c90ee7ee0cddca33b7750da8c0d23c374167388668b711e7481474716a9dd9c"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_CratePalette_TwoColor.vox",
+        "sha256": "9ef85ea3faf1de2e641cb8d4cd755e8d96d81b96fa3eca8b5ec8e90c9aadd046"
+      }
+    ],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "pixelwood_c.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PixelwoodC_Ground_River",
+      "PixelwoodC_Ground_BrokenPavers"
+    ],
+    "transition_helpers": [
+      "PixelwoodC_Ground_TrailEdge",
+      "PixelwoodC_Ground_TrailOuterCorner",
+      "PixelwoodC_Ground_TrailInnerCorner",
+      "PixelwoodC_Ground_ShoreEdge",
+      "PixelwoodC_Ground_ShoreOuterCorner",
+      "PixelwoodC_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow.vox",
+        "sha256": "866a309241ef34d578f8a92980d3b45bb1a1a7b17859704c32180be8f63c2f91"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon.vox",
+        "sha256": "3d8a6f46fb480dc73e33c04833441119b5a7744bce8ef256b719aa6a1da6acdf"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette.vox",
+        "sha256": "9b5992d80f7d64c8325636ae0f32896da6f225cb177f810f268498e39405bdca"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_TwoColor.vox",
+        "sha256": "d8b76c5fc1027c2033db6cf8cff0cb7816d793a33e04347ceb68ce5b6a08af1e"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_TwoColor.vox",
+        "sha256": "4868ddc5a14d2aacb6e1fa421f489893f5699bbab58cb8ad53eeebed7743b8b9"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_CratePalette_TwoColor.vox",
+        "sha256": "732662c6f5779c45b92742bcac2f89b8e08b99e080ff9a4752c7a4e11e434bf8"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_Meadow_Cartoon_CratePalette_TwoColor.vox",
+        "sha256": "35d3e87f765d879c834582b070b20f962e79a7839fa24ea94f8a4b990bbe1ee3"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt.vox",
+        "sha256": "b892ca32fe72abe25bc6645c859ef479fce5fa2a18494356dc7e281fd00bec19"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon.vox",
+        "sha256": "00db3a08e81da9fc8fba7da46080f3e8d7a5cbe28774f2ce960ed4cd9b3323c2"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette.vox",
+        "sha256": "a5cc5382d904f94340fd883629acf89b3f5c7f4ce3d03ac0c4c3943f9673edb2"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_TwoColor.vox",
+        "sha256": "d6113fc6375896373a017cbc36bbd4ad4a71b0486772ba2acbcc5c55ad913e75"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_TwoColor.vox",
+        "sha256": "f84a71336c8e5875da1b7fd0d7df92efa19f72f87eddd4ab9275f2d1776dc504"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_CratePalette_TwoColor.vox",
+        "sha256": "6c90ee7ee0cddca33b7750da8c0d23c374167388668b711e7481474716a9dd9c"
+      },
+      {
+        "file": "output/pixelwood_a/PixelwoodA_Ground_WarmDirt_Cartoon_CratePalette_TwoColor.vox",
+        "sha256": "9ef85ea3faf1de2e641cb8d4cd755e8d96d81b96fa3eca8b5ec8e90c9aadd046"
+      }
+    ],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_a.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeA_Ground_Meadow",
+      "PokeA_Ground_PaleTrail",
+      "PokeA_Ground_River",
+      "PokeA_Ground_BridgeDeck"
+    ],
+    "transition_helpers": [
+      "PokeA_Ground_TrailEdge",
+      "PokeA_Ground_TrailOuterCorner",
+      "PokeA_Ground_TrailInnerCorner",
+      "PokeA_Ground_ShoreEdge",
+      "PokeA_Ground_ShoreOuterCorner",
+      "PokeA_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_b.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeB_Ground_Meadow",
+      "PokeB_Ground_Herringbone",
+      "PokeB_Ground_WarmHerringbone",
+      "PokeB_Ground_Lake",
+      "PokeB_Ground_GardenSoil"
+    ],
+    "transition_helpers": [
+      "PokeB_Ground_TrailEdge",
+      "PokeB_Ground_TrailOuterCorner",
+      "PokeB_Ground_TrailInnerCorner",
+      "PokeB_Ground_ShoreEdge",
+      "PokeB_Ground_ShoreOuterCorner",
+      "PokeB_Ground_ShoreInnerCorner",
+      "PokeB_Ground_PavingEdge",
+      "PokeB_Ground_PavingOuterCorner",
+      "PokeB_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_c.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeC_Ground_Meadow",
+      "PokeC_Ground_Flagstone",
+      "PokeC_Ground_Sand",
+      "PokeC_Ground_River"
+    ],
+    "transition_helpers": [
+      "PokeC_Ground_TrailEdge",
+      "PokeC_Ground_TrailOuterCorner",
+      "PokeC_Ground_TrailInnerCorner",
+      "PokeC_Ground_ShoreEdge",
+      "PokeC_Ground_ShoreOuterCorner",
+      "PokeC_Ground_ShoreInnerCorner",
+      "PokeC_Ground_PavingEdge",
+      "PokeC_Ground_PavingOuterCorner",
+      "PokeC_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_d.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeD_Ground_OchreFloor",
+      "PokeD_Ground_PaleTrail",
+      "PokeD_Ground_Cobblestone",
+      "PokeD_Ground_River",
+      "PokeD_Ground_GrayRock"
+    ],
+    "transition_helpers": [
+      "PokeD_Ground_TrailEdge",
+      "PokeD_Ground_TrailOuterCorner",
+      "PokeD_Ground_TrailInnerCorner",
+      "PokeD_Ground_ShoreEdge",
+      "PokeD_Ground_ShoreOuterCorner",
+      "PokeD_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_e.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeE_Ground_Meadow",
+      "PokeE_Ground_PaleTrail",
+      "PokeE_Ground_Herringbone",
+      "PokeE_Ground_Lake"
+    ],
+    "transition_helpers": [
+      "PokeE_Ground_TrailEdge",
+      "PokeE_Ground_TrailOuterCorner",
+      "PokeE_Ground_TrailInnerCorner",
+      "PokeE_Ground_ShoreEdge",
+      "PokeE_Ground_ShoreOuterCorner",
+      "PokeE_Ground_ShoreInnerCorner",
+      "PokeE_Ground_PavingEdge",
+      "PokeE_Ground_PavingOuterCorner",
+      "PokeE_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_f.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeF_Ground_DryMeadow",
+      "PokeF_Ground_PaleTrail",
+      "PokeF_Ground_Pond"
+    ],
+    "transition_helpers": [
+      "PokeF_Ground_TrailEdge",
+      "PokeF_Ground_TrailOuterCorner",
+      "PokeF_Ground_TrailInnerCorner",
+      "PokeF_Ground_ShoreEdge",
+      "PokeF_Ground_ShoreOuterCorner",
+      "PokeF_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_g.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeG_Ground_Meadow",
+      "PokeG_Ground_PaleTrail",
+      "PokeG_Ground_RoundedPavers",
+      "PokeG_Ground_Pond"
+    ],
+    "transition_helpers": [
+      "PokeG_Ground_TrailEdge",
+      "PokeG_Ground_TrailOuterCorner",
+      "PokeG_Ground_TrailInnerCorner",
+      "PokeG_Ground_ShoreEdge",
+      "PokeG_Ground_ShoreOuterCorner",
+      "PokeG_Ground_ShoreInnerCorner",
+      "PokeG_Ground_PavingEdge",
+      "PokeG_Ground_PavingOuterCorner",
+      "PokeG_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_h.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeH_Ground_Meadow",
+      "PokeH_Ground_FarmDirt",
+      "PokeH_Ground_Pond",
+      "PokeH_Ground_BridgeDeck"
+    ],
+    "transition_helpers": [
+      "PokeH_Ground_TrailEdge",
+      "PokeH_Ground_TrailOuterCorner",
+      "PokeH_Ground_TrailInnerCorner",
+      "PokeH_Ground_ShoreEdge",
+      "PokeH_Ground_ShoreOuterCorner",
+      "PokeH_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_i.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeI_Ground_Meadow",
+      "PokeI_Ground_PaleTrail",
+      "PokeI_Ground_FurrowedSoil",
+      "PokeI_Ground_Pond",
+      "PokeI_Ground_BridgeDeck"
+    ],
+    "transition_helpers": [
+      "PokeI_Ground_TrailEdge",
+      "PokeI_Ground_TrailOuterCorner",
+      "PokeI_Ground_TrailInnerCorner",
+      "PokeI_Ground_ShoreEdge",
+      "PokeI_Ground_ShoreOuterCorner",
+      "PokeI_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_j.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeJ_Ground_Meadow",
+      "PokeJ_Ground_PaleTrail",
+      "PokeJ_Ground_Pond"
+    ],
+    "transition_helpers": [
+      "PokeJ_Ground_TrailEdge",
+      "PokeJ_Ground_TrailOuterCorner",
+      "PokeJ_Ground_TrailInnerCorner",
+      "PokeJ_Ground_ShoreEdge",
+      "PokeJ_Ground_ShoreOuterCorner",
+      "PokeJ_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_k.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeK_Ground_Meadow",
+      "PokeK_Ground_PaleTrail",
+      "PokeK_Ground_Lake"
+    ],
+    "transition_helpers": [
+      "PokeK_Ground_TrailEdge",
+      "PokeK_Ground_TrailOuterCorner",
+      "PokeK_Ground_TrailInnerCorner",
+      "PokeK_Ground_ShoreEdge",
+      "PokeK_Ground_ShoreOuterCorner",
+      "PokeK_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_l.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeL_Ground_Meadow",
+      "PokeL_Ground_TerraceEarth"
+    ],
+    "transition_helpers": [],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_m.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeM_Ground_Meadow",
+      "PokeM_Ground_PaleTrail",
+      "PokeM_Ground_ShallowWater",
+      "PokeM_Ground_ChannelWater",
+      "PokeM_Ground_PebbleCourt",
+      "PokeM_Ground_Deck"
+    ],
+    "transition_helpers": [
+      "PokeM_Ground_TrailEdge",
+      "PokeM_Ground_TrailOuterCorner",
+      "PokeM_Ground_TrailInnerCorner",
+      "PokeM_Ground_ShoreEdge",
+      "PokeM_Ground_ShoreOuterCorner",
+      "PokeM_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_n.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeN_Ground_Meadow",
+      "PokeN_Ground_PaleTrail",
+      "PokeN_Ground_DeepLake",
+      "PokeN_Ground_ShallowLake",
+      "PokeN_Ground_BridgeDeck"
+    ],
+    "transition_helpers": [
+      "PokeN_Ground_TrailEdge",
+      "PokeN_Ground_TrailOuterCorner",
+      "PokeN_Ground_TrailInnerCorner",
+      "PokeN_Ground_ShoreEdge",
+      "PokeN_Ground_ShoreOuterCorner",
+      "PokeN_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_o.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeO_Ground_Meadow",
+      "PokeO_Ground_Herringbone",
+      "PokeO_Ground_BeachSand",
+      "PokeO_Ground_Sea",
+      "PokeO_Ground_DeepSea",
+      "PokeO_Ground_InlandPool"
+    ],
+    "transition_helpers": [
+      "PokeO_Ground_TrailEdge",
+      "PokeO_Ground_TrailOuterCorner",
+      "PokeO_Ground_TrailInnerCorner",
+      "PokeO_Ground_ShoreEdge",
+      "PokeO_Ground_ShoreOuterCorner",
+      "PokeO_Ground_ShoreInnerCorner",
+      "PokeO_Ground_PavingEdge",
+      "PokeO_Ground_PavingOuterCorner",
+      "PokeO_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_p.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeP_Ground_Meadow",
+      "PokeP_Ground_PaleTrail",
+      "PokeP_Ground_RockyGully",
+      "PokeP_Ground_ShallowPool",
+      "PokeP_Ground_DeepPool",
+      "PokeP_Ground_Deck"
+    ],
+    "transition_helpers": [
+      "PokeP_Ground_TrailEdge",
+      "PokeP_Ground_TrailOuterCorner",
+      "PokeP_Ground_TrailInnerCorner",
+      "PokeP_Ground_ShoreEdge",
+      "PokeP_Ground_ShoreOuterCorner",
+      "PokeP_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_q.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeQ_Ground_Meadow",
+      "PokeQ_Ground_BeachSand",
+      "PokeQ_Ground_CrackedTrail",
+      "PokeQ_Ground_TerraceClay",
+      "PokeQ_Ground_Sea"
+    ],
+    "transition_helpers": [
+      "PokeQ_Ground_TrailEdge",
+      "PokeQ_Ground_TrailOuterCorner",
+      "PokeQ_Ground_TrailInnerCorner",
+      "PokeQ_Ground_ShoreEdge",
+      "PokeQ_Ground_ShoreOuterCorner",
+      "PokeQ_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_r.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeR_Ground_Meadow",
+      "PokeR_Ground_PaleTrail",
+      "PokeR_Ground_GardenSoil",
+      "PokeR_Ground_Pond"
+    ],
+    "transition_helpers": [
+      "PokeR_Ground_TrailEdge",
+      "PokeR_Ground_TrailOuterCorner",
+      "PokeR_Ground_TrailInnerCorner",
+      "PokeR_Ground_ShoreEdge",
+      "PokeR_Ground_ShoreOuterCorner",
+      "PokeR_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_s.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeS_Ground_Meadow",
+      "PokeS_Ground_PaleTrail",
+      "PokeS_Ground_PaleBrickPaving",
+      "PokeS_Ground_River",
+      "PokeS_Ground_CliffRock"
+    ],
+    "transition_helpers": [
+      "PokeS_Ground_TrailEdge",
+      "PokeS_Ground_TrailOuterCorner",
+      "PokeS_Ground_TrailInnerCorner",
+      "PokeS_Ground_ShoreEdge",
+      "PokeS_Ground_ShoreOuterCorner",
+      "PokeS_Ground_ShoreInnerCorner",
+      "PokeS_Ground_PavingEdge",
+      "PokeS_Ground_PavingOuterCorner",
+      "PokeS_Ground_PavingInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_t.png",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeT_Ground_CaveSand",
+      "PokeT_Ground_DampCaveFloor",
+      "PokeT_Ground_CaveRock",
+      "PokeT_Ground_ShallowPool",
+      "PokeT_Ground_DeepPool",
+      "PokeT_Ground_BridgeDeck"
+    ],
+    "transition_helpers": [
+      "PokeT_Ground_ShoreEdge",
+      "PokeT_Ground_ShoreOuterCorner",
+      "PokeT_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  },
+  {
+    "source": "poke_u.jpg",
+    "reviewed": true,
+    "new_surfaces": [
+      "PokeU_Ground_Meadow",
+      "PokeU_Ground_PaleTrail",
+      "PokeU_Ground_Pond",
+      "PokeU_Ground_Deck",
+      "PokeU_Ground_CliffRock"
+    ],
+    "transition_helpers": [
+      "PokeU_Ground_TrailEdge",
+      "PokeU_Ground_TrailOuterCorner",
+      "PokeU_Ground_TrailInnerCorner",
+      "PokeU_Ground_ShoreEdge",
+      "PokeU_Ground_ShoreOuterCorner",
+      "PokeU_Ground_ShoreInnerCorner"
+    ],
+    "reuse": [],
+    "scope": "Ground materials and tile contours; exclusion rationale in collection README."
+  }
+]

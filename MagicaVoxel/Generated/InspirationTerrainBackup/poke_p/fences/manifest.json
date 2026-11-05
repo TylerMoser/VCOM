@@ -1,0 +1,291 @@
+{
+  "source": {
+    "source": "poke_p.png",
+    "size": [
+      960,
+      1348
+    ],
+    "sha256": "2780c13a44a72f2b44bdcd271ffdda79be0129c1e91c9c0e0ab249d97a1fb467"
+  },
+  "families": [
+    {
+      "source": "poke_p.png",
+      "name": "PokeP_RusticFence",
+      "kind": "picket",
+      "crop": [
+        768,
+        385,
+        795,
+        416
+      ],
+      "size": [
+        40,
+        8,
+        16
+      ],
+      "wood": [
+        172,
+        127,
+        69
+      ],
+      "accent": [
+        229,
+        222,
+        189
+      ],
+      "material": "wood"
+    }
+  ],
+  "models": [
+    {
+      "file": "output/poke_p/PokeP_RusticFence.vox",
+      "family": "PokeP_RusticFence",
+      "style": "Base",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1160,
+      "colors": 3,
+      "groups": {
+        "1": "wood",
+        "2": "wood",
+        "3": "wood"
+      },
+      "components": [
+        232,
+        232,
+        232,
+        232,
+        232
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "d3f2ff096469d56a1eb47ea21f8560c592ecd2b71e9bc0c1675de98a9cbb3940",
+      "palette_sha256": "f0bc6ea7914fdf3f371be111224711b3e741c71d88c27313fc910a55551b5185",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_Cartoon.vox",
+      "family": "PokeP_RusticFence",
+      "style": "Cartoon",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1760,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        352,
+        352,
+        352,
+        352,
+        352
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "9833b41f7cb85e6ed144858275c155253ec11b191eb8bf9f9387dbca01850c69",
+      "palette_sha256": "06e0edfed49d697edf9ea7f87a96ccae2cd979eb55792a9eb23d3e9de6256312",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_CratePalette.vox",
+      "family": "PokeP_RusticFence",
+      "style": "CratePalette",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1160,
+      "colors": 3,
+      "groups": {
+        "180": "wood",
+        "235": "wood",
+        "236": "wood"
+      },
+      "components": [
+        232,
+        232,
+        232,
+        232,
+        232
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "434fca8379586cdeea956b65493b8b4ff0395d88574d67c4d80a29675b7a77d7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_TwoColor.vox",
+      "family": "PokeP_RusticFence",
+      "style": "TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1160,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        232,
+        232,
+        232,
+        232,
+        232
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "02d9bb36b35c9e1e5a6ae0da3397c7869074f3a0358a560b6dba7433d97b3d7a",
+      "palette_sha256": "06e0edfed49d697edf9ea7f87a96ccae2cd979eb55792a9eb23d3e9de6256312",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_Cartoon_TwoColor.vox",
+      "family": "PokeP_RusticFence",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1760,
+      "colors": 1,
+      "groups": {
+        "1": "wood"
+      },
+      "components": [
+        352,
+        352,
+        352,
+        352,
+        352
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "b58eb2d7bb1ee2d9eee8300582bb44bc886de598c0f49412ee4aa56d2afa1dce",
+      "palette_sha256": "06e0edfed49d697edf9ea7f87a96ccae2cd979eb55792a9eb23d3e9de6256312",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_CratePalette_TwoColor.vox",
+      "family": "PokeP_RusticFence",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1160,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        232,
+        232,
+        232,
+        232,
+        232
+      ],
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        37,
+        5,
+        14
+      ],
+      "sha256": "6cb8533b6ee94db372eb93ff0767032df6a286197c438e4b8d27501bb56f933b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    },
+    {
+      "file": "output/poke_p/PokeP_RusticFence_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeP_RusticFence",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        40,
+        8,
+        16
+      ],
+      "voxels": 1760,
+      "colors": 1,
+      "groups": {
+        "235": "wood"
+      },
+      "components": [
+        352,
+        352,
+        352,
+        352,
+        352
+      ],
+      "occupied_min": [
+        1,
+        2,
+        0
+      ],
+      "occupied_max": [
+        38,
+        5,
+        14
+      ],
+      "sha256": "d49d52510743ccb3dee03c6716a0624d38d29e3eed151993fba1e1dbe90be4df",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "material": "opaque diffuse"
+    }
+  ],
+  "reuse": []
+}

@@ -1,0 +1,1882 @@
+{
+ "source_image": "poke_m.png",
+ "source_sha256": "e84982fcdac7f2f5c70c5f42816e8b6f9942bc98b3d7bc7715da72adfcafa0dd",
+ "generator_sha256": "87cb4ca3d3896621ba75e7ff96fb61e21befd498431d3f5f08ee0fc154d86772",
+ "dependencies": {
+  "sculpt.py": "a461707a8df15ae0823aa693108694a2c1f85078bd57bd422ac94a65f4c6bfba",
+  "palettes.py": "854afc455f8982709684abb769e921f9c2ddb074389b60b0a3f04d208dd2b64e",
+  "voxlib.py": "1e58d03f11c0c1bd631a9a2a4023a063f6426e68958ecba49852cbf61500a59f"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "a515c0da473d93e7fe9e15b24c01e9cca57990fdd0110dee9a94dab4f0eab05d",
+ "minimal_palette_sha256": {
+  "LogCabin": "29f735899dc481c52092c5abccff9ec82e51d71d84629f5e6f01eea9acbb5be2",
+  "Lodge": "2db4da40a633b6393c36c06b4818cbc6659ccb6c9a5224855758b7a1e18b5dc5"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_m/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeM_LogCabin",
+   "kind": "LogCabin",
+   "title": "Log cabin",
+   "drawn": "The log cabin by the marsh: a steep gable roof of grey slates with its ridge front to back under a raised ridge cap, log walls whose side logs run out past the corners in round ends, a gable of dark boards over a light beam with a king post and rafters, the plank door and a window of two panes.",
+   "source_regions_xyxy_exclusive": [
+    [
+     580,
+     290,
+     670,
+     380
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    48,
+    96
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     1,
+     0,
+     1
+    ],
+    [
+     "ey",
+     1,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 3
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "wood": [
+     "ceiling",
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "lc_door_light",
+     "lc_end",
+     "lc_frame",
+     "lc_gable",
+     "lc_handle",
+     "lc_log",
+     "lc_log_dark",
+     "lc_log_light",
+     "lc_log_shade"
+    ],
+    "roof": [
+     "found",
+     "found_dark",
+     "lc_outline",
+     "lc_slate",
+     "lc_slate_dark",
+     "lc_slate_light",
+     "lc_slate_mid"
+    ],
+    "glass": [
+     "glass_lc",
+     "glass_lc_light"
+    ]
+   },
+   "minimal_colours": {
+    "wood": [
+     148,
+     106,
+     64
+    ],
+    "roof": [
+     100,
+     96,
+     96
+    ],
+    "glass": [
+     160,
+     210,
+     216
+    ]
+   },
+   "folded_groups": {
+    "light": "wood",
+    "dark": "roof"
+   },
+   "crate_group_indices": {
+    "wood": 180,
+    "roof": 206,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "lc_door_light": 237,
+    "lc_end": 237,
+    "lc_frame": 235,
+    "lc_gable": 178,
+    "lc_handle": 196,
+    "lc_log": 180,
+    "lc_log_dark": 178,
+    "lc_log_light": 235,
+    "lc_log_shade": 234,
+    "found": 206,
+    "found_dark": 205,
+    "lc_outline": 204,
+    "lc_slate": 206,
+    "lc_slate_dark": 205,
+    "lc_slate_light": 206,
+    "lc_slate_mid": 205,
+    "glass_lc": 253,
+    "glass_lc_light": 253
+   }
+  },
+  {
+   "asset_id": "PokeM_Lodge",
+   "kind": "Lodge",
+   "title": "Lodge",
+   "drawn": "Two copies, each cut off by the image's edge: at the bottom left the front but for its left end, at the bottom only the roof, whole across. A skirt roof of brown boards over a dark fascia round cream brick walls between big timber corner posts, an upper part of light boards under a low gable roof with a light ridge board, a window and the door between two posts under a porch beam.",
+   "source_regions_xyxy_exclusive": [
+    [
+     0,
+     724,
+     80,
+     822
+    ],
+    [
+     104,
+     820,
+     200,
+     880
+    ]
+   ],
+   "canvas_xyz": [
+    80,
+    48,
+    112
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     2,
+     0,
+     1
+    ],
+    [
+     "ey",
+     2,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "light": [
+     "ceiling",
+     "lg_band",
+     "lg_band_line",
+     "lg_brick",
+     "lg_handle",
+     "lg_mortar"
+    ],
+    "wood": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "found",
+     "found_dark",
+     "lg_door",
+     "lg_door_frame",
+     "lg_door_light",
+     "lg_door_line",
+     "lg_frame",
+     "lg_plinth",
+     "lg_plinth_dark",
+     "lg_post",
+     "lg_post_light",
+     "lg_post_line",
+     "lg_post_shade",
+     "lg_sill",
+     "lg_soffit",
+     "lg_soffit_dark",
+     "lg_transom"
+    ],
+    "glass": [
+     "glass_lg",
+     "glass_lg_light"
+    ],
+    "roof": [
+     "lg_roof",
+     "lg_roof_dark",
+     "lg_roof_light",
+     "lg_roof_line"
+    ]
+   },
+   "minimal_colours": {
+    "light": [
+     251,
+     249,
+     187
+    ],
+    "wood": [
+     170,
+     131,
+     85
+    ],
+    "glass": [
+     160,
+     210,
+     216
+    ],
+    "roof": [
+     170,
+     108,
+     58
+    ]
+   },
+   "folded_groups": {
+    "dark": "wood"
+   },
+   "crate_group_indices": {
+    "light": 238,
+    "wood": 235,
+    "glass": 253,
+    "roof": 180
+   },
+   "crate_label_indices": {
+    "ceiling": 195,
+    "lg_band": 237,
+    "lg_band_line": 236,
+    "lg_brick": 238,
+    "lg_handle": 196,
+    "lg_mortar": 237,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "found": 206,
+    "found_dark": 205,
+    "lg_door": 235,
+    "lg_door_frame": 225,
+    "lg_door_light": 236,
+    "lg_door_line": 234,
+    "lg_frame": 234,
+    "lg_plinth": 206,
+    "lg_plinth_dark": 206,
+    "lg_post": 235,
+    "lg_post_light": 236,
+    "lg_post_line": 178,
+    "lg_post_shade": 179,
+    "lg_sill": 225,
+    "lg_soffit": 234,
+    "lg_soffit_dark": 225,
+    "lg_transom": 235,
+    "glass_lg": 253,
+    "glass_lg_light": 253,
+    "lg_roof": 180,
+    "lg_roof_dark": 234,
+    "lg_roof_light": 236,
+    "lg_roof_line": 233
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeM_LogCabin.vox",
+   "family": "PokeM_LogCabin",
+   "style": "Base",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 63774,
+   "sha256": "8b39b588f661583d67422a989acf9ddcffdcef69588c1055fa0560d5aae099ea",
+   "palette_sha256": "a515c0da473d93e7fe9e15b24c01e9cca57990fdd0110dee9a94dab4f0eab05d",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     118,
+     114,
+     114,
+     255
+    ],
+    [
+     100,
+     96,
+     96,
+     255
+    ],
+    [
+     85,
+     80,
+     80,
+     255
+    ],
+    [
+     70,
+     66,
+     66,
+     255
+    ],
+    [
+     42,
+     41,
+     38,
+     255
+    ],
+    [
+     188,
+     137,
+     85,
+     255
+    ],
+    [
+     148,
+     106,
+     64,
+     255
+    ],
+    [
+     112,
+     82,
+     51,
+     255
+    ],
+    [
+     87,
+     61,
+     37,
+     255
+    ],
+    [
+     211,
+     174,
+     135,
+     255
+    ],
+    [
+     246,
+     240,
+     226,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ],
+    [
+     236,
+     240,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.5
+   },
+   "glass_voxels": 720,
+   "geometry_source": "PokeM_LogCabin.vox",
+   "geometry_source_sha256": "8b39b588f661583d67422a989acf9ddcffdcef69588c1055fa0560d5aae099ea"
+  },
+  {
+   "file": "PokeM_LogCabin_Cartoon.vox",
+   "family": "PokeM_LogCabin",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 64086,
+   "sha256": "92cfc98f6af50e144f2da58f4e59fc9bb2b0f1f4a8ccef8427e88d67caab480c",
+   "palette_sha256": "a515c0da473d93e7fe9e15b24c01e9cca57990fdd0110dee9a94dab4f0eab05d",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    35
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     118,
+     114,
+     114,
+     255
+    ],
+    [
+     100,
+     96,
+     96,
+     255
+    ],
+    [
+     85,
+     80,
+     80,
+     255
+    ],
+    [
+     70,
+     66,
+     66,
+     255
+    ],
+    [
+     42,
+     41,
+     38,
+     255
+    ],
+    [
+     188,
+     137,
+     85,
+     255
+    ],
+    [
+     148,
+     106,
+     64,
+     255
+    ],
+    [
+     112,
+     82,
+     51,
+     255
+    ],
+    [
+     87,
+     61,
+     37,
+     255
+    ],
+    [
+     211,
+     174,
+     135,
+     255
+    ],
+    [
+     246,
+     240,
+     226,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7
+   },
+   "glass_voxels": 520,
+   "geometry_source": "PokeM_LogCabin_Cartoon.vox",
+   "geometry_source_sha256": "92cfc98f6af50e144f2da58f4e59fc9bb2b0f1f4a8ccef8427e88d67caab480c"
+  },
+  {
+   "file": "PokeM_LogCabin_CratePalette.vox",
+   "family": "PokeM_LogCabin",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 63774,
+   "sha256": "4e542fc5ac61af6570d38570c350ad94af7ac7e3f9a8976a9a0901ca7b694587",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    180,
+    195,
+    196,
+    204,
+    205,
+    206,
+    234,
+    235,
+    237,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     32,
+     46,
+     55,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 720,
+   "geometry_source": "PokeM_LogCabin.vox",
+   "geometry_source_sha256": "8b39b588f661583d67422a989acf9ddcffdcef69588c1055fa0560d5aae099ea"
+  },
+  {
+   "file": "PokeM_LogCabin_TwoColor.vox",
+   "family": "PokeM_LogCabin",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 63774,
+   "sha256": "77050a5bf3bdf07d330465511b4be930bfd5f5b078b2015373a4156dc1f44082",
+   "palette_sha256": "29f735899dc481c52092c5abccff9ec82e51d71d84629f5e6f01eea9acbb5be2",
+   "used_indices": [
+    1,
+    2,
+    3
+   ],
+   "used_rgba": [
+    [
+     100,
+     96,
+     96,
+     255
+    ],
+    [
+     148,
+     106,
+     64,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "3": 0.7
+   },
+   "glass_voxels": 720,
+   "geometry_source": "PokeM_LogCabin.vox",
+   "geometry_source_sha256": "8b39b588f661583d67422a989acf9ddcffdcef69588c1055fa0560d5aae099ea"
+  },
+  {
+   "file": "PokeM_LogCabin_Cartoon_TwoColor.vox",
+   "family": "PokeM_LogCabin",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 64086,
+   "sha256": "aae8a40bae7ca8949f380122c829804e532ad3b13267620cff1418dd8c58a12b",
+   "palette_sha256": "29f735899dc481c52092c5abccff9ec82e51d71d84629f5e6f01eea9acbb5be2",
+   "used_indices": [
+    1,
+    2,
+    3
+   ],
+   "used_rgba": [
+    [
+     100,
+     96,
+     96,
+     255
+    ],
+    [
+     148,
+     106,
+     64,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "3": 0.7
+   },
+   "glass_voxels": 520,
+   "geometry_source": "PokeM_LogCabin_Cartoon.vox",
+   "geometry_source_sha256": "92cfc98f6af50e144f2da58f4e59fc9bb2b0f1f4a8ccef8427e88d67caab480c"
+  },
+  {
+   "file": "PokeM_LogCabin_CratePalette_TwoColor.vox",
+   "family": "PokeM_LogCabin",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 63774,
+   "sha256": "1d4b4ba0ca3b079e4c4ca7a10fc75129b37d6c10d3a521f784af2ea535b15113",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    206,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 720,
+   "geometry_source": "PokeM_LogCabin.vox",
+   "geometry_source_sha256": "8b39b588f661583d67422a989acf9ddcffdcef69588c1055fa0560d5aae099ea"
+  },
+  {
+   "file": "PokeM_LogCabin_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeM_LogCabin",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    96
+   ],
+   "occupied_min": [
+    4,
+    3,
+    0
+   ],
+   "occupied_max": [
+    75,
+    44,
+    77
+   ],
+   "voxels": 64086,
+   "sha256": "6c26e4186ef12ed2564d9471f7873221b1d0a5f34334d265ffd147b96b859a4a",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    206,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 520,
+   "geometry_source": "PokeM_LogCabin_Cartoon.vox",
+   "geometry_source_sha256": "92cfc98f6af50e144f2da58f4e59fc9bb2b0f1f4a8ccef8427e88d67caab480c"
+  },
+  {
+   "file": "PokeM_Lodge.vox",
+   "family": "PokeM_Lodge",
+   "style": "Base",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    4,
+    0
+   ],
+   "occupied_max": [
+    79,
+    43,
+    109
+   ],
+   "voxels": 90960,
+   "sha256": "3c37783959ceae4977391e295f7966aa04e3e05e7483da655ced163db1f5595d",
+   "palette_sha256": "a515c0da473d93e7fe9e15b24c01e9cca57990fdd0110dee9a94dab4f0eab05d",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     246,
+     240,
+     226,
+     255
+    ],
+    [
+     210,
+     150,
+     102,
+     255
+    ],
+    [
+     170,
+     108,
+     58,
+     255
+    ],
+    [
+     120,
+     82,
+     52,
+     255
+    ],
+    [
+     80,
+     55,
+     34,
+     255
+    ],
+    [
+     201,
+     185,
+     142,
+     255
+    ],
+    [
+     150,
+     135,
+     95,
+     255
+    ],
+    [
+     251,
+     249,
+     187,
+     255
+    ],
+    [
+     105,
+     103,
+     93,
+     255
+    ],
+    [
+     96,
+     94,
+     83,
+     255
+    ],
+    [
+     107,
+     96,
+     74,
+     255
+    ],
+    [
+     56,
+     50,
+     40,
+     255
+    ],
+    [
+     198,
+     169,
+     108,
+     255
+    ],
+    [
+     170,
+     131,
+     85,
+     255
+    ],
+    [
+     143,
+     93,
+     63,
+     255
+    ],
+    [
+     90,
+     61,
+     44,
+     255
+    ],
+    [
+     138,
+     125,
+     97,
+     255
+    ],
+    [
+     176,
+     162,
+     131,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ],
+    [
+     236,
+     240,
+     236,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7,
+    "36": 0.5
+   },
+   "glass_voxels": 1050,
+   "geometry_source": "PokeM_Lodge.vox",
+   "geometry_source_sha256": "3c37783959ceae4977391e295f7966aa04e3e05e7483da655ced163db1f5595d"
+  },
+  {
+   "file": "PokeM_Lodge_Cartoon.vox",
+   "family": "PokeM_Lodge",
+   "style": "Cartoon",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    79,
+    44,
+    109
+   ],
+   "voxels": 97590,
+   "sha256": "38768d0c1ec2c4ad2f709deb4b9a73a53747d91b7bf768ffa19c8057d5d4c616",
+   "palette_sha256": "a515c0da473d93e7fe9e15b24c01e9cca57990fdd0110dee9a94dab4f0eab05d",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     246,
+     240,
+     226,
+     255
+    ],
+    [
+     210,
+     150,
+     102,
+     255
+    ],
+    [
+     170,
+     108,
+     58,
+     255
+    ],
+    [
+     120,
+     82,
+     52,
+     255
+    ],
+    [
+     80,
+     55,
+     34,
+     255
+    ],
+    [
+     201,
+     185,
+     142,
+     255
+    ],
+    [
+     150,
+     135,
+     95,
+     255
+    ],
+    [
+     251,
+     249,
+     187,
+     255
+    ],
+    [
+     105,
+     103,
+     93,
+     255
+    ],
+    [
+     96,
+     94,
+     83,
+     255
+    ],
+    [
+     107,
+     96,
+     74,
+     255
+    ],
+    [
+     56,
+     50,
+     40,
+     255
+    ],
+    [
+     198,
+     169,
+     108,
+     255
+    ],
+    [
+     170,
+     131,
+     85,
+     255
+    ],
+    [
+     143,
+     93,
+     63,
+     255
+    ],
+    [
+     90,
+     61,
+     44,
+     255
+    ],
+    [
+     138,
+     125,
+     97,
+     255
+    ],
+    [
+     176,
+     162,
+     131,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "35": 0.7
+   },
+   "glass_voxels": 780,
+   "geometry_source": "PokeM_Lodge_Cartoon.vox",
+   "geometry_source_sha256": "38768d0c1ec2c4ad2f709deb4b9a73a53747d91b7bf768ffa19c8057d5d4c616"
+  },
+  {
+   "file": "PokeM_Lodge_CratePalette.vox",
+   "family": "PokeM_Lodge",
+   "style": "CratePalette",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    4,
+    0
+   ],
+   "occupied_max": [
+    79,
+    43,
+    109
+   ],
+   "voxels": 90960,
+   "sha256": "141801dbbd6d1a0a15b257d045cac4a41b47f7afa1549086758c6d09a7291d59",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    180,
+    195,
+    196,
+    205,
+    206,
+    225,
+    233,
+    234,
+    235,
+    236,
+    237,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     52,
+     28,
+     39,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1050,
+   "geometry_source": "PokeM_Lodge.vox",
+   "geometry_source_sha256": "3c37783959ceae4977391e295f7966aa04e3e05e7483da655ced163db1f5595d"
+  },
+  {
+   "file": "PokeM_Lodge_TwoColor.vox",
+   "family": "PokeM_Lodge",
+   "style": "TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    4,
+    0
+   ],
+   "occupied_max": [
+    79,
+    43,
+    109
+   ],
+   "voxels": 90960,
+   "sha256": "8c394470982bd969eb1733819d92bf46907f208fb18388011442e38911d1ec8c",
+   "palette_sha256": "2db4da40a633b6393c36c06b4818cbc6659ccb6c9a5224855758b7a1e18b5dc5",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     170,
+     108,
+     58,
+     255
+    ],
+    [
+     170,
+     131,
+     85,
+     255
+    ],
+    [
+     251,
+     249,
+     187,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 1050,
+   "geometry_source": "PokeM_Lodge.vox",
+   "geometry_source_sha256": "3c37783959ceae4977391e295f7966aa04e3e05e7483da655ced163db1f5595d"
+  },
+  {
+   "file": "PokeM_Lodge_Cartoon_TwoColor.vox",
+   "family": "PokeM_Lodge",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    79,
+    44,
+    109
+   ],
+   "voxels": 97590,
+   "sha256": "4c2d456560d66ea8ce20ddedbf127052125a53ed5f160c12343590f72ca19282",
+   "palette_sha256": "2db4da40a633b6393c36c06b4818cbc6659ccb6c9a5224855758b7a1e18b5dc5",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     170,
+     108,
+     58,
+     255
+    ],
+    [
+     170,
+     131,
+     85,
+     255
+    ],
+    [
+     251,
+     249,
+     187,
+     255
+    ],
+    [
+     160,
+     210,
+     216,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 780,
+   "geometry_source": "PokeM_Lodge_Cartoon.vox",
+   "geometry_source_sha256": "38768d0c1ec2c4ad2f709deb4b9a73a53747d91b7bf768ffa19c8057d5d4c616"
+  },
+  {
+   "file": "PokeM_Lodge_CratePalette_TwoColor.vox",
+   "family": "PokeM_Lodge",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    4,
+    0
+   ],
+   "occupied_max": [
+    79,
+    43,
+    109
+   ],
+   "voxels": 90960,
+   "sha256": "c66071a5e35c85011270d3e77429965824e8a8aade08b688176da949263dd34c",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    235,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 1050,
+   "geometry_source": "PokeM_Lodge.vox",
+   "geometry_source_sha256": "3c37783959ceae4977391e295f7966aa04e3e05e7483da655ced163db1f5595d"
+  },
+  {
+   "file": "PokeM_Lodge_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeM_Lodge",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    80,
+    48,
+    112
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    79,
+    44,
+    109
+   ],
+   "voxels": 97590,
+   "sha256": "bf884831491fa302245c9f8419156987bac5d0398d2aff4c1fe83a15ea1a80a2",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    180,
+    235,
+    238,
+    253
+   ],
+   "used_rgba": [
+    [
+     178,
+     104,
+     72,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     231,
+     213,
+     179,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 780,
+   "geometry_source": "PokeM_Lodge_Cartoon.vox",
+   "geometry_source_sha256": "38768d0c1ec2c4ad2f709deb4b9a73a53747d91b7bf768ffa19c8057d5d4c616"
+  }
+ ]
+}

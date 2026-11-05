@@ -1,0 +1,2309 @@
+{
+ "source_image": "poke_u.jpg",
+ "source_sha256": "4efb82e1541aa8ce2b00e0222d6218f596a01d5286ba951c61b3a6d39a70cfe4",
+ "generator_sha256": "191d645df2d9301f3eb49f6a777462a7edbf48dbad8136842bb0cea2b94797d9",
+ "dependencies": {
+  "sculpt.py": "aefccf28965f73ee0da3e4cb5e1e6d1f9eef9be6fb3e13d36e3fa0e68a860742",
+  "palettes.py": "0531192713c7b21be515cb90909532439fe5d4ceceeb937136c6afe1e28172cd",
+  "voxlib.py": "1e58d03f11c0c1bd631a9a2a4023a063f6426e68958ecba49852cbf61500a59f"
+ },
+ "crate_palette": "knowledge/palettes/crate-palette.json",
+ "crate_palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+ "base_palette_sha256": "9cd186cb92fad7c37863f7512f3ebfa191f240502be18fd59533230c65fd25dd",
+ "minimal_palette_sha256": {
+  "Cottage": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7",
+  "WingHouse": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7"
+ },
+ "scale": 0.0625,
+ "front": "local -Y (Godot +Z)",
+ "scene_translation": "0 0 floor(canvas height / 2)",
+ "grid": "tile boundaries at x = 8 + 16i, y = 8 + 16j; levels z = 16k; level 0 the floor; walls two voxels thick across their boundary",
+ "delivery": "Complete buildings only, one .vox per treatment; no cell files or brushes.",
+ "command": "python output/poke_u/buildings/generate.py",
+ "families": [
+  {
+   "asset_id": "PokeU_Cottage",
+   "kind": "Cottage",
+   "title": "Cottage",
+   "drawn": "Three copies of the cottage: a steep gable roof of red tiles with its ridge front to back; a timber frame at the front, posts standing out from the corners under a beam across it, the gable over it dark between a post under the ridge and two braces, two windows in it; cream walls; the red door with a window, two windows of two panes with flower boxes; two beige chimney stacks on the right slope.",
+   "source_regions_xyxy_exclusive": [
+    [
+     48,
+     56,
+     128,
+     148
+    ],
+    [
+     192,
+     24,
+     272,
+     116
+    ],
+    [
+     64,
+     152,
+     144,
+     244
+    ]
+   ],
+   "canvas_xyz": [
+    64,
+    48,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     0,
+     0,
+     1
+    ],
+    [
+     "ey",
+     0,
+     0,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       0
+      ],
+      [
+       0,
+       1
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "roof": [
+     "box",
+     "box_dark",
+     "door",
+     "door_dark",
+     "door_frame",
+     "door_light",
+     "roof",
+     "roof_edge",
+     "roof_light",
+     "roof_line",
+     "roof_ridge",
+     "roof_under"
+    ],
+    "light": [
+     "ceiling",
+     "chimney",
+     "chimney_band",
+     "chimney_light",
+     "flower",
+     "frame",
+     "knob",
+     "wall"
+    ],
+    "dark": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "flue",
+     "found",
+     "found_dark",
+     "frame_dark",
+     "gable",
+     "leaf",
+     "timber",
+     "timber_dark",
+     "timber_light"
+    ],
+    "glass": [
+     "glass_house"
+    ]
+   },
+   "minimal_colours": {
+    "roof": [
+     189,
+     86,
+     47
+    ],
+    "light": [
+     196,
+     190,
+     176
+    ],
+    "dark": [
+     144,
+     118,
+     91
+    ],
+    "glass": [
+     140,
+     150,
+     245
+    ]
+   },
+   "folded_groups": {
+    "gable": "dark",
+    "door": "roof",
+    "box": "roof"
+   },
+   "crate_group_indices": {
+    "roof": 221,
+    "light": 195,
+    "dark": 235,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "box": 179,
+    "box_dark": 178,
+    "door": 220,
+    "door_dark": 220,
+    "door_frame": 179,
+    "door_light": 221,
+    "roof": 221,
+    "roof_edge": 179,
+    "roof_light": 221,
+    "roof_line": 220,
+    "roof_ridge": 220,
+    "roof_under": 178,
+    "ceiling": 195,
+    "chimney": 236,
+    "chimney_band": 236,
+    "chimney_light": 237,
+    "flower": 237,
+    "frame": 196,
+    "knob": 237,
+    "wall": 194,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "flue": 233,
+    "found": 206,
+    "found_dark": 205,
+    "frame_dark": 205,
+    "gable": 234,
+    "leaf": 244,
+    "timber": 235,
+    "timber_dark": 178,
+    "timber_light": 237,
+    "glass_house": 253
+   }
+  },
+  {
+   "asset_id": "PokeU_WingHouse",
+   "kind": "WingHouse",
+   "title": "Wing house",
+   "drawn": "The big house at the right: a wing on the right a tile ahead of the rest under a gable roof of red tiles with its ridge front to back, its gable dark with a window of two panes over a beam on timber posts; the part to its left under a lean-to of red tiles, hipped at its left end, over a beam on a timber post, with the red door and a small window with a flower box; a window with a flower box in the wing (the rest of its front hidden by a tree); two beige chimney stacks on the wing's right slope.",
+   "source_regions_xyxy_exclusive": [
+    [
+     252,
+     80,
+     356,
+     178
+    ]
+   ],
+   "canvas_xyz": [
+    96,
+    64,
+    128
+   ],
+   "footprint_tiles": [
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     0
+    ],
+    [
+     2,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     0
+    ],
+    [
+     3,
+     1
+    ],
+    [
+     3,
+     2
+    ],
+    [
+     4,
+     0
+    ],
+    [
+     4,
+     1
+    ],
+    [
+     4,
+     2
+    ]
+   ],
+   "doors": [
+    [
+     "ey",
+     0,
+     1,
+     1
+    ],
+    [
+     "ey",
+     0,
+     1,
+     2
+    ]
+   ],
+   "storeys": [
+    {
+     "stand_level": 1,
+     "tiles": [
+      [
+       0,
+       1
+      ],
+      [
+       0,
+       2
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       1,
+       2
+      ],
+      [
+       2,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       2,
+       2
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       3,
+       1
+      ],
+      [
+       3,
+       2
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       4,
+       1
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "entered_by": "vault",
+     "cut_away_from": 4
+    }
+   ],
+   "stair_tiles": {},
+   "labels_by_group": {
+    "roof": [
+     "box",
+     "box_dark",
+     "door",
+     "door_dark",
+     "door_frame",
+     "door_light",
+     "roof",
+     "roof_edge",
+     "roof_light",
+     "roof_line",
+     "roof_ridge",
+     "roof_under"
+    ],
+    "light": [
+     "ceiling",
+     "chimney",
+     "chimney_band",
+     "chimney_light",
+     "flower",
+     "frame",
+     "knob",
+     "wall"
+    ],
+    "dark": [
+     "floor",
+     "floor_dark",
+     "floor_gap",
+     "flue",
+     "found",
+     "found_dark",
+     "frame_dark",
+     "gable",
+     "leaf",
+     "timber",
+     "timber_dark",
+     "timber_light"
+    ],
+    "glass": [
+     "glass_house"
+    ]
+   },
+   "minimal_colours": {
+    "roof": [
+     189,
+     86,
+     47
+    ],
+    "light": [
+     196,
+     190,
+     176
+    ],
+    "dark": [
+     144,
+     118,
+     91
+    ],
+    "glass": [
+     140,
+     150,
+     245
+    ]
+   },
+   "folded_groups": {
+    "gable": "dark",
+    "door": "roof",
+    "box": "roof"
+   },
+   "crate_group_indices": {
+    "roof": 221,
+    "light": 195,
+    "dark": 235,
+    "glass": 253
+   },
+   "crate_label_indices": {
+    "box": 179,
+    "box_dark": 178,
+    "door": 220,
+    "door_dark": 220,
+    "door_frame": 179,
+    "door_light": 221,
+    "roof": 221,
+    "roof_edge": 179,
+    "roof_light": 221,
+    "roof_line": 220,
+    "roof_ridge": 220,
+    "roof_under": 178,
+    "ceiling": 195,
+    "chimney": 236,
+    "chimney_band": 236,
+    "chimney_light": 237,
+    "flower": 237,
+    "frame": 196,
+    "knob": 237,
+    "wall": 194,
+    "floor": 235,
+    "floor_dark": 234,
+    "floor_gap": 178,
+    "flue": 233,
+    "found": 206,
+    "found_dark": 205,
+    "frame_dark": 205,
+    "gable": 234,
+    "leaf": 244,
+    "timber": 235,
+    "timber_dark": 178,
+    "timber_light": 237,
+    "glass_house": 253
+   }
+  }
+ ],
+ "models": [
+  {
+   "file": "PokeU_Cottage.vox",
+   "family": "PokeU_Cottage",
+   "style": "Base",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 69645,
+   "sha256": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e",
+   "palette_sha256": "9cd186cb92fad7c37863f7512f3ebfa191f240502be18fd59533230c65fd25dd",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     206,
+     104,
+     70,
+     255
+    ],
+    [
+     166,
+     70,
+     33,
+     255
+    ],
+    [
+     161,
+     61,
+     26,
+     255
+    ],
+    [
+     147,
+     57,
+     14,
+     255
+    ],
+    [
+     96,
+     34,
+     10,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     194,
+     168,
+     137,
+     255
+    ],
+    [
+     86,
+     63,
+     40,
+     255
+    ],
+    [
+     93,
+     80,
+     60,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     225,
+     225,
+     245,
+     255
+    ],
+    [
+     70,
+     78,
+     95,
+     255
+    ],
+    [
+     190,
+     60,
+     45,
+     255
+    ],
+    [
+     205,
+     80,
+     65,
+     255
+    ],
+    [
+     160,
+     45,
+     30,
+     255
+    ],
+    [
+     150,
+     85,
+     60,
+     255
+    ],
+    [
+     220,
+     180,
+     140,
+     255
+    ],
+    [
+     125,
+     58,
+     36,
+     255
+    ],
+    [
+     80,
+     24,
+     6,
+     255
+    ],
+    [
+     215,
+     190,
+     150,
+     255
+    ],
+    [
+     140,
+     150,
+     110,
+     255
+    ],
+    [
+     185,
+     167,
+     136,
+     255
+    ],
+    [
+     200,
+     187,
+     159,
+     255
+    ],
+    [
+     165,
+     142,
+     114,
+     255
+    ],
+    [
+     81,
+     63,
+     43,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "33": 0.7
+   },
+   "glass_voxels": 596,
+   "geometry_source": "PokeU_Cottage.vox",
+   "geometry_source_sha256": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e"
+  },
+  {
+   "file": "PokeU_Cottage_Cartoon.vox",
+   "family": "PokeU_Cottage",
+   "style": "Cartoon",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 72950,
+   "sha256": "b4e6084a8159073677ee6f0ad149f3c82901fd2227ec4ab23c261c0824d26edf",
+   "palette_sha256": "9cd186cb92fad7c37863f7512f3ebfa191f240502be18fd59533230c65fd25dd",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     166,
+     70,
+     33,
+     255
+    ],
+    [
+     161,
+     61,
+     26,
+     255
+    ],
+    [
+     147,
+     57,
+     14,
+     255
+    ],
+    [
+     96,
+     34,
+     10,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     194,
+     168,
+     137,
+     255
+    ],
+    [
+     86,
+     63,
+     40,
+     255
+    ],
+    [
+     93,
+     80,
+     60,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     225,
+     225,
+     245,
+     255
+    ],
+    [
+     70,
+     78,
+     95,
+     255
+    ],
+    [
+     190,
+     60,
+     45,
+     255
+    ],
+    [
+     205,
+     80,
+     65,
+     255
+    ],
+    [
+     160,
+     45,
+     30,
+     255
+    ],
+    [
+     150,
+     85,
+     60,
+     255
+    ],
+    [
+     220,
+     180,
+     140,
+     255
+    ],
+    [
+     125,
+     58,
+     36,
+     255
+    ],
+    [
+     80,
+     24,
+     6,
+     255
+    ],
+    [
+     215,
+     190,
+     150,
+     255
+    ],
+    [
+     140,
+     150,
+     110,
+     255
+    ],
+    [
+     185,
+     167,
+     136,
+     255
+    ],
+    [
+     200,
+     187,
+     159,
+     255
+    ],
+    [
+     165,
+     142,
+     114,
+     255
+    ],
+    [
+     81,
+     63,
+     43,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "33": 0.7
+   },
+   "glass_voxels": 290,
+   "geometry_source": "PokeU_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "b4e6084a8159073677ee6f0ad149f3c82901fd2227ec4ab23c261c0824d26edf"
+  },
+  {
+   "file": "PokeU_Cottage_CratePalette.vox",
+   "family": "PokeU_Cottage",
+   "style": "CratePalette",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 69645,
+   "sha256": "9feff48d1b3fe7683dfd0a9b36a0cf67836012fae9e05250d02ffd1f8db3251b",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    194,
+    195,
+    196,
+    205,
+    206,
+    220,
+    221,
+    233,
+    234,
+    235,
+    236,
+    237,
+    244,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 596,
+   "geometry_source": "PokeU_Cottage.vox",
+   "geometry_source_sha256": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e"
+  },
+  {
+   "file": "PokeU_Cottage_TwoColor.vox",
+   "family": "PokeU_Cottage",
+   "style": "TwoColor",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 69645,
+   "sha256": "27c71c8f7031c7f6d2e0fad3eb6ddc0d8eba666785e5759e6c32ac16ab8c7b12",
+   "palette_sha256": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 596,
+   "geometry_source": "PokeU_Cottage.vox",
+   "geometry_source_sha256": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e"
+  },
+  {
+   "file": "PokeU_Cottage_Cartoon_TwoColor.vox",
+   "family": "PokeU_Cottage",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 72950,
+   "sha256": "70fa19c1b52d6b92198558aaaadd89dc957be162dbc0e5882989c308f77269f5",
+   "palette_sha256": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 290,
+   "geometry_source": "PokeU_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "b4e6084a8159073677ee6f0ad149f3c82901fd2227ec4ab23c261c0824d26edf"
+  },
+  {
+   "file": "PokeU_Cottage_CratePalette_TwoColor.vox",
+   "family": "PokeU_Cottage",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 69645,
+   "sha256": "fe07c2b2a00a5124912b88b025c2482896c48a38f2002149b7aec7e5fedadfa2",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    221,
+    235,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 596,
+   "geometry_source": "PokeU_Cottage.vox",
+   "geometry_source_sha256": "c8535485abe51dca0e4bc2093522a1951af10f1e8235819f2e7cb407dac9de8e"
+  },
+  {
+   "file": "PokeU_Cottage_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeU_Cottage",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    64,
+    48,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    63,
+    45,
+    114
+   ],
+   "voxels": 72950,
+   "sha256": "62f4dde4cdaa342641528fc8a243d8ac7cc226bca303e7ff0084dab93064d9c1",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    221,
+    235,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 290,
+   "geometry_source": "PokeU_Cottage_Cartoon.vox",
+   "geometry_source_sha256": "b4e6084a8159073677ee6f0ad149f3c82901fd2227ec4ab23c261c0824d26edf"
+  },
+  {
+   "file": "PokeU_WingHouse.vox",
+   "family": "PokeU_WingHouse",
+   "style": "Base",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 116770,
+   "sha256": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4",
+   "palette_sha256": "9cd186cb92fad7c37863f7512f3ebfa191f240502be18fd59533230c65fd25dd",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     124,
+     90,
+     58,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     206,
+     104,
+     70,
+     255
+    ],
+    [
+     166,
+     70,
+     33,
+     255
+    ],
+    [
+     161,
+     61,
+     26,
+     255
+    ],
+    [
+     147,
+     57,
+     14,
+     255
+    ],
+    [
+     96,
+     34,
+     10,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     194,
+     168,
+     137,
+     255
+    ],
+    [
+     86,
+     63,
+     40,
+     255
+    ],
+    [
+     93,
+     80,
+     60,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     225,
+     225,
+     245,
+     255
+    ],
+    [
+     70,
+     78,
+     95,
+     255
+    ],
+    [
+     190,
+     60,
+     45,
+     255
+    ],
+    [
+     205,
+     80,
+     65,
+     255
+    ],
+    [
+     160,
+     45,
+     30,
+     255
+    ],
+    [
+     150,
+     85,
+     60,
+     255
+    ],
+    [
+     220,
+     180,
+     140,
+     255
+    ],
+    [
+     125,
+     58,
+     36,
+     255
+    ],
+    [
+     80,
+     24,
+     6,
+     255
+    ],
+    [
+     215,
+     190,
+     150,
+     255
+    ],
+    [
+     140,
+     150,
+     110,
+     255
+    ],
+    [
+     185,
+     167,
+     136,
+     255
+    ],
+    [
+     200,
+     187,
+     159,
+     255
+    ],
+    [
+     165,
+     142,
+     114,
+     255
+    ],
+    [
+     81,
+     63,
+     43,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "33": 0.7
+   },
+   "glass_voxels": 828,
+   "geometry_source": "PokeU_WingHouse.vox",
+   "geometry_source_sha256": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4"
+  },
+  {
+   "file": "PokeU_WingHouse_Cartoon.vox",
+   "family": "PokeU_WingHouse",
+   "style": "Cartoon",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 119461,
+   "sha256": "d7432bd156fe67d5e90e0b2e82169084f6cba209a7b338bbb03490f7d33767ca",
+   "palette_sha256": "9cd186cb92fad7c37863f7512f3ebfa191f240502be18fd59533230c65fd25dd",
+   "used_indices": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33
+   ],
+   "used_rgba": [
+    [
+     112,
+     106,
+     96,
+     255
+    ],
+    [
+     92,
+     86,
+     78,
+     255
+    ],
+    [
+     150,
+     112,
+     74,
+     255
+    ],
+    [
+     96,
+     68,
+     44,
+     255
+    ],
+    [
+     214,
+     210,
+     200,
+     255
+    ],
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     166,
+     70,
+     33,
+     255
+    ],
+    [
+     161,
+     61,
+     26,
+     255
+    ],
+    [
+     147,
+     57,
+     14,
+     255
+    ],
+    [
+     96,
+     34,
+     10,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     194,
+     168,
+     137,
+     255
+    ],
+    [
+     86,
+     63,
+     40,
+     255
+    ],
+    [
+     93,
+     80,
+     60,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     225,
+     225,
+     245,
+     255
+    ],
+    [
+     70,
+     78,
+     95,
+     255
+    ],
+    [
+     190,
+     60,
+     45,
+     255
+    ],
+    [
+     205,
+     80,
+     65,
+     255
+    ],
+    [
+     160,
+     45,
+     30,
+     255
+    ],
+    [
+     150,
+     85,
+     60,
+     255
+    ],
+    [
+     220,
+     180,
+     140,
+     255
+    ],
+    [
+     125,
+     58,
+     36,
+     255
+    ],
+    [
+     80,
+     24,
+     6,
+     255
+    ],
+    [
+     215,
+     190,
+     150,
+     255
+    ],
+    [
+     140,
+     150,
+     110,
+     255
+    ],
+    [
+     185,
+     167,
+     136,
+     255
+    ],
+    [
+     200,
+     187,
+     159,
+     255
+    ],
+    [
+     165,
+     142,
+     114,
+     255
+    ],
+    [
+     81,
+     63,
+     43,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "33": 0.7
+   },
+   "glass_voxels": 458,
+   "geometry_source": "PokeU_WingHouse_Cartoon.vox",
+   "geometry_source_sha256": "d7432bd156fe67d5e90e0b2e82169084f6cba209a7b338bbb03490f7d33767ca"
+  },
+  {
+   "file": "PokeU_WingHouse_CratePalette.vox",
+   "family": "PokeU_WingHouse",
+   "style": "CratePalette",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 116770,
+   "sha256": "8ddc410c1026d198fffaf81ade8794f8380ad9ffaca00c1fddfec48b867b03fd",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    178,
+    179,
+    194,
+    195,
+    196,
+    205,
+    206,
+    220,
+    221,
+    233,
+    234,
+    235,
+    236,
+    237,
+    244,
+    253
+   ],
+   "used_rgba": [
+    [
+     96,
+     44,
+     44,
+     255
+    ],
+    [
+     136,
+     75,
+     43,
+     255
+    ],
+    [
+     168,
+     181,
+     178,
+     255
+    ],
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     235,
+     237,
+     233,
+     255
+    ],
+    [
+     57,
+     74,
+     80,
+     255
+    ],
+    [
+     87,
+     114,
+     119,
+     255
+    ],
+    [
+     165,
+     48,
+     48,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     77,
+     43,
+     50,
+     255
+    ],
+    [
+     122,
+     72,
+     65,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     192,
+     148,
+     115,
+     255
+    ],
+    [
+     215,
+     181,
+     148,
+     255
+    ],
+    [
+     117,
+     167,
+     67,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 828,
+   "geometry_source": "PokeU_WingHouse.vox",
+   "geometry_source_sha256": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4"
+  },
+  {
+   "file": "PokeU_WingHouse_TwoColor.vox",
+   "family": "PokeU_WingHouse",
+   "style": "TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 116770,
+   "sha256": "5190fbd1f3306ae6d2e6606bbfdc945c51b17f8531de8b3bc823dacc79840982",
+   "palette_sha256": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 828,
+   "geometry_source": "PokeU_WingHouse.vox",
+   "geometry_source_sha256": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4"
+  },
+  {
+   "file": "PokeU_WingHouse_Cartoon_TwoColor.vox",
+   "family": "PokeU_WingHouse",
+   "style": "Cartoon_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 119461,
+   "sha256": "d9798c8864b4152fd4e21fc8d5743c023d2c689fe8e303587e2a251d42513314",
+   "palette_sha256": "aa55655c7a0bdfa1cdc4519ecd3546119ee64aac3a4ba33bb3a2d90aafb9cee7",
+   "used_indices": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "used_rgba": [
+    [
+     189,
+     86,
+     47,
+     255
+    ],
+    [
+     196,
+     190,
+     176,
+     255
+    ],
+    [
+     144,
+     118,
+     91,
+     255
+    ],
+    [
+     140,
+     150,
+     245,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "4": 0.7
+   },
+   "glass_voxels": 458,
+   "geometry_source": "PokeU_WingHouse_Cartoon.vox",
+   "geometry_source_sha256": "d7432bd156fe67d5e90e0b2e82169084f6cba209a7b338bbb03490f7d33767ca"
+  },
+  {
+   "file": "PokeU_WingHouse_CratePalette_TwoColor.vox",
+   "family": "PokeU_WingHouse",
+   "style": "CratePalette_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 116770,
+   "sha256": "88b5977bf6e6fd69102fe6cb260cae56043781f322ce6047eacd50d6b8b815ac",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    221,
+    235,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 828,
+   "geometry_source": "PokeU_WingHouse.vox",
+   "geometry_source_sha256": "b2e84a816db6df6e6ace3b333b231f9ded6417799532b73922055472e84f1df4"
+  },
+  {
+   "file": "PokeU_WingHouse_Cartoon_CratePalette_TwoColor.vox",
+   "family": "PokeU_WingHouse",
+   "style": "Cartoon_CratePalette_TwoColor",
+   "canvas": [
+    96,
+    64,
+    128
+   ],
+   "occupied_min": [
+    0,
+    3,
+    0
+   ],
+   "occupied_max": [
+    92,
+    57,
+    109
+   ],
+   "voxels": 119461,
+   "sha256": "a544c37dab13e69283acbca451f28d4aed15c0129c75b97dc51fa73e756172a0",
+   "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+   "used_indices": [
+    195,
+    221,
+    235,
+    253
+   ],
+   "used_rgba": [
+    [
+     199,
+     207,
+     204,
+     255
+    ],
+    [
+     207,
+     87,
+     60,
+     255
+    ],
+    [
+     173,
+     119,
+     87,
+     255
+    ],
+    [
+     115,
+     190,
+     211,
+     255
+    ]
+   ],
+   "glass_indices": {
+    "253": 0.7
+   },
+   "glass_voxels": 458,
+   "geometry_source": "PokeU_WingHouse_Cartoon.vox",
+   "geometry_source_sha256": "d7432bd156fe67d5e90e0b2e82169084f6cba209a7b338bbb03490f7d33767ca"
+  }
+ ]
+}

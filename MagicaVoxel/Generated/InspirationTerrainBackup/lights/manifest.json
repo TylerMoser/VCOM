@@ -1,0 +1,3736 @@
+{
+  "date": "2026-10-28",
+  "emission": 0.75,
+  "power_contract": "Energy=2^Power; reach=3.5*2^(Power-1) cells for registered level pieces.",
+  "models": [
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure",
+        "4": "structure",
+        "5": "structure"
+      },
+      "colors": 5,
+      "sha256": "7452378ffb1eee866dfd38318146f2473f2998b8a5fc3894e80735f96c35a8f3",
+      "palette_sha256": "ec8caa27e3c25ec0bc8e3c125212cecce3c68d325a118f066dbeaebaba7bd8c6",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure",
+        "4": "structure",
+        "5": "structure"
+      },
+      "colors": 5,
+      "sha256": "2bad47bb10ead067c1952e0b0e41e6d16b7c69b3a17097010b16b412edbeea24",
+      "palette_sha256": "ec8caa27e3c25ec0bc8e3c125212cecce3c68d325a118f066dbeaebaba7bd8c6",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_CratePalette.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure",
+        "206": "structure"
+      },
+      "colors": 4,
+      "sha256": "e73328e0200591c22e2b91b0efe002168f98a28668fca5265ed8e628cf26e4d2",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure"
+      },
+      "colors": 3,
+      "sha256": "4aef88e357c450c1f77a127c56e601c86876a65e8826c737b886bde401f8f09c",
+      "palette_sha256": "9ff245fdffbed9dd4e1b98120d9658e80c0d12b6916a1e469a07e6a9217355c0",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        2
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        1
+      ],
+      "groups": {
+        "1": "frame",
+        "2": "emitter",
+        "3": "structure"
+      },
+      "colors": 3,
+      "sha256": "16f420743a6458b0d8111be2b6f271ade92e2fef199f1fbc195c72663bd00097",
+      "palette_sha256": "9ff245fdffbed9dd4e1b98120d9658e80c0d12b6916a1e469a07e6a9217355c0",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 2868,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        2868
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure"
+      },
+      "colors": 3,
+      "sha256": "ce7ffc7c1acfe9e6753e9fe6a13a3c5a01388c56e24f3d12d8aaaac44f837b7e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_a/PixelwoodA_PostLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodA_PostLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 3016,
+      "occupied_min": [
+        2,
+        2,
+        0
+      ],
+      "occupied_max": [
+        13,
+        13,
+        39
+      ],
+      "components": [
+        3016
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 960,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [
+        205
+      ],
+      "groups": {
+        "205": "frame",
+        "230": "emitter",
+        "185": "structure"
+      },
+      "colors": 3,
+      "sha256": "7557a10602ed48de481b73b55543f4cfe7b7352c7fe465bc533dff792f987c15",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        26.0
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Base",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        1,
+        2
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "emitter",
+        "3": "stone",
+        "4": "stone",
+        "5": "wood",
+        "6": "wood"
+      },
+      "colors": 6,
+      "sha256": "1f5311c8cbbe9d5e6c2aede4f6746f8e6f0f3b596dab3044b6ad5dcdf58e0a82",
+      "palette_sha256": "2d063cd618b138d550811cff2b56f966e49092a4ce516335ed16c870a20ed968",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        1,
+        2
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "emitter",
+        "3": "stone",
+        "4": "wood",
+        "5": "wood"
+      },
+      "colors": 5,
+      "sha256": "643a903013ec33db4d4df8cc78fe7152eeba485734a1ef3e52bbc5f9205f9dc3",
+      "palette_sha256": "7f10662340341642ae2d453b862421d607f48ceeb5d86e8a8c5c969d0e123e50",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_CratePalette.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        229,
+        230
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "230": "emitter",
+        "206": "stone",
+        "193": "stone",
+        "178": "wood",
+        "225": "wood"
+      },
+      "colors": 6,
+      "sha256": "6aefe42c74e9460957d51c8abbc4928c1feb9e239f6bfb87e8b8df15f0eb9043",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "wood"
+      },
+      "colors": 3,
+      "sha256": "e55c550555bd5a8698acf98e66be72cb838a3da1ffa04ca45018aae7c1c955d4",
+      "palette_sha256": "aa62012ff0452114c0028b26b7554010c0faf4f0c75882acefc808fda1c0b940",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "wood"
+      },
+      "colors": 3,
+      "sha256": "aca2096f469d41f709bf1c5430ac2748bd48a9950cf06cc3833d80cbf35ec770",
+      "palette_sha256": "aa62012ff0452114c0028b26b7554010c0faf4f0c75882acefc808fda1c0b940",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 2695,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        2695
+      ],
+      "emission_indices": [
+        229
+      ],
+      "emission_voxels": 1571,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "206": "stone",
+        "178": "wood"
+      },
+      "colors": 3,
+      "sha256": "b9b3e246a57ae5ca306ff4d2bb3246b8b9e226e04a386d48ce6c82d63efdf26b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.082431572246977,
+        12.028325907065563,
+        11.018777848504138
+      ]
+    },
+    {
+      "file": "output/pixelwood_b/PixelwoodB_Campfire_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PixelwoodB_Campfire",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        24,
+        28
+      ],
+      "voxels": 3056,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        22,
+        22,
+        27
+      ],
+      "components": [
+        3056
+      ],
+      "emission_indices": [
+        229
+      ],
+      "emission_voxels": 1764,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "229": "emitter",
+        "206": "stone",
+        "178": "wood"
+      },
+      "colors": 3,
+      "sha256": "5f739ac443d7dc9252cf0c2d44bca0b4e8cdbeeb9c89e42aecbec57f5a26ef7f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        12.0,
+        12.0,
+        10.901360544217686
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "6b42459da44cfc57a65d58191dc8aca788b724fd07e9d529f9eef9b142511baa",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_Cartoon.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "0c48d8ea2d0dd645bdf1c76d1d47fc5ef5b676c4e7825cd3c072bc12ecf92c32",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_CratePalette.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure",
+        "185": "structure",
+        "193": "structure"
+      },
+      "colors": 4,
+      "sha256": "12fc249c982bca260596a0145ebce4c27faa27c6d03a9dd617699f1ab4bfa887",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_TwoColor.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "9b0f2604d8ff62b390def303a71d815e314e32942a7147997e0c1a9aeef2f14a",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_Cartoon_TwoColor.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "2797757d5dd667a9811d12759673f3a459ca89b47598aea87b96067a0fa47084",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_CratePalette_TwoColor.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "500458e87037ac17c05bca9e1b8546090d2d60dae8eaf7a8ad57d89941bc9e7d",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_b/PokeB_SilverStreetLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeB_SilverStreetLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "9a17057582eb5126fdde10798a683d9dbe31621c8bd0c3829a5e94febdc958a9",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Base",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "d16c1f209f07a88d228b08e34ffea426a09e80d8f815ac6f5c15c7686a189bd5",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "29c5a7833782d447fc12ebd84421bf8059d2a7ddf1e1468fa2be749214c6ba16",
+      "palette_sha256": "ad04694cb1e3cde1065be6343a90479ed15bbb3a88b9bc5520d16db26af6aeec",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_CratePalette.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "CratePalette",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure",
+        "185": "structure",
+        "193": "structure"
+      },
+      "colors": 4,
+      "sha256": "104e3fd2e7c6723f249576dd81fc5c33bec212c2471d960c0b4fe0242131b8d7",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "2f704d22ca026162085c55b6a553233ef830004c7664e7b591041a483fa1accf",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "3559f5f3778bc0112f238dae0abf99266af00dbf65b41c421ad0d214210b6020",
+      "palette_sha256": "bed273a17902168c5a62da5f92780d0e71dac7dc031994be10545f5c54f9a176",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_CratePalette_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1220,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1220
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "ca0651ee0677911b36ed6153567d7eea2979987f7722ae35d7ae509fa2d2d478",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_c/PokeC_SilverStreetLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeC_SilverStreetLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        12,
+        12,
+        40
+      ],
+      "voxels": 1396,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        10,
+        10,
+        39
+      ],
+      "components": [
+        1396
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 388,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "206": "structure"
+      },
+      "colors": 2,
+      "sha256": "1b755026e381fd385ce121ea060c60ec76907e84ac73de17c884267bb5f317f3",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        6.0,
+        6.0,
+        32.623711340206185
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "colors": 4,
+      "sha256": "93e06ced25698395d3398ba7b531090eacd20f6c444a5a151103d72110357d00",
+      "palette_sha256": "96f5f2d79c00dc42d2234ad5378603f5e70d3b462c3111d24a15e1b7c6651a72",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone",
+        "3": "stone",
+        "4": "stone"
+      },
+      "colors": 4,
+      "sha256": "6c4dc248ba14081945bad13bdf914200a3546e22a3ee6eb99fe816de02f8c14a",
+      "palette_sha256": "96f5f2d79c00dc42d2234ad5378603f5e70d3b462c3111d24a15e1b7c6651a72",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_CratePalette.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone",
+        "206": "stone"
+      },
+      "colors": 3,
+      "sha256": "fc59bcd9be23d70121d97ffe3b573bdf92bf445ff5c3e0d913d4d703be52fc36",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone"
+      },
+      "colors": 2,
+      "sha256": "6c80061f405f7a8d31b6081611acb05e16b4f8d3a871cbb40fe4b791f905a965",
+      "palette_sha256": "8e8267011fea8e51d76a6b52bb40089ae673894181ed2fe49505e12420ce5d57",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "stone"
+      },
+      "colors": 2,
+      "sha256": "356d5d848238aa24aeeb68d79569c011f4503d2d4785d3c6128bf529b3d32908",
+      "palette_sha256": "8e8267011fea8e51d76a6b52bb40089ae673894181ed2fe49505e12420ce5d57",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_CratePalette_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1540,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1540
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone"
+      },
+      "colors": 2,
+      "sha256": "196ad6db22994a04bbe1f1276a2b87dd984a0da9b7e5b09cb8054d0b32d7bd0b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_d/PokeD_StoneLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeD_StoneLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        20
+      ],
+      "voxels": 1612,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        19
+      ],
+      "components": [
+        1612
+      ],
+      "emission_indices": [
+        230
+      ],
+      "emission_voxels": 80,
+      "emission": 0.75,
+      "power": 1,
+      "shadowless_colors": [],
+      "groups": {
+        "230": "emitter",
+        "194": "stone"
+      },
+      "colors": 2,
+      "sha256": "d05c3124974f11b2fabc77bf62914441fa3a9ccbbb8cad458802106058e41d5c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        9.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Base",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "f18cdd91869def095f8b620fbcf1d39a2c2f5d9c7d4560a2bd7494c7c30ca4d7",
+      "palette_sha256": "0f926c54225e9dd096f4364b1b91f1166a80661d8db70d9cd9593ee7cf134335",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "d88d2e7dd7fb90a8ca7d317bc9bf3a5d9664c4e95e70f51fc1fd35ae02d50ca7",
+      "palette_sha256": "0f926c54225e9dd096f4364b1b91f1166a80661d8db70d9cd9593ee7cf134335",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_CratePalette.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure",
+        "206": "structure",
+        "194": "structure"
+      },
+      "colors": 4,
+      "sha256": "2f7a938b8476da2bb39ae4367a4edbb3a5c58d2f75b39f3944ec313cc0dbb71b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "c2ceeb3c7bb75d877c77313eb95fa32da4a205129375669eb3cab3961b28d93a",
+      "palette_sha256": "4688ba209d9b60f49e9d04760bca2c9e40539c9d01aa3827b0df3a8c49c63524",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "0dc29b1c387d26759094203b29c2285e4a06cb30437b0be35b5342bf5f4daec0",
+      "palette_sha256": "4688ba209d9b60f49e9d04760bca2c9e40539c9d01aa3827b0df3a8c49c63524",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 1644,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        1644
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 360,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "dab06704b3d6d2452e28ec8a73cb07a318678e21ed0c9b781dbcb28d2bad0ab0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_f/PokeF_TwinGlobeStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeF_TwinGlobeStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        32,
+        12,
+        48
+      ],
+      "voxels": 2128,
+      "occupied_min": [
+        2,
+        1,
+        0
+      ],
+      "occupied_max": [
+        29,
+        10,
+        47
+      ],
+      "components": [
+        2128
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 480,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "b33b46a64848e5e2a0da2948f67891b8f2dcb2a5ed72a3069af1bef1e9b49707",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        16.0,
+        6.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "6e699202b8dc2e7ef3643bc0e89148f01cd9bbfec1877454bc6430152d31a391",
+      "palette_sha256": "44cc8c4166f57cb7fcfbae93c2e3df5f97f709956dcc8758fd2a9ca375a251dc",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "9e79b71b79d2529ff7ed427c236f68bb0a38961e352de55a9a71fa06bc0c68d0",
+      "palette_sha256": "44cc8c4166f57cb7fcfbae93c2e3df5f97f709956dcc8758fd2a9ca375a251dc",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_CratePalette.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure",
+        "206": "structure",
+        "194": "structure"
+      },
+      "colors": 4,
+      "sha256": "421332bd5d46e5a50e4708198734beef153d83167377d08d2f85e1b1c034baa0",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "5f8341a62a14d77d93c21522c8e1a8bc1de5e6d8fdcf79bf3f801c32b3130c3a",
+      "palette_sha256": "e69635e583242613d0ce14f87d9bf09c644a9b383dd6c0b40c99563a5bdfc506",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "60031d9610ff4939ae14f8e438d8ee0755d6c5e11495b3acaf903ef28c0268fc",
+      "palette_sha256": "e69635e583242613d0ce14f87d9bf09c644a9b383dd6c0b40c99563a5bdfc506",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1492,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1492
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "e3b9189d9aa9791247e49707e8650b5cfa31f283487b23319bc4031eabaf1f1e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_g/PokeG_RoundStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeG_RoundStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1876,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1876
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "193": "structure"
+      },
+      "colors": 2,
+      "sha256": "66153ab8a6a180900133896be7cee741e6a935a845b781a6843784292c843687",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        43.5
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Base",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "a1538e99f8a5066393bbf2cae9687980512f729b597b57d178add0103244fe3b",
+      "palette_sha256": "54a7ef355f67c26cd5dc52d862d82925490001e37a4f9b9b8fd3b447fc3a1523",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "ee12c7bc5ab04fcd6242eabba8d9d58266c0176efb55bc74f74ade6f2a215b5a",
+      "palette_sha256": "54a7ef355f67c26cd5dc52d862d82925490001e37a4f9b9b8fd3b447fc3a1523",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_CratePalette.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "CratePalette",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure",
+        "203": "structure",
+        "185": "structure"
+      },
+      "colors": 4,
+      "sha256": "e23e893b51bca56cb5cc2d54263b5fb430dca65d65aabe38d6aa3c5353e21346",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "eacef75086bf36bc09bf45e8adbf829f3aaa12f6e5edbb6694d0ab22758555bd",
+      "palette_sha256": "e2174ba17e68f8aca1659f701ab5d0706e6b1cb3910218f1e60f3fd1505a8d4c",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "86eed1c3a6350bcab67c7cedc20e1f14b7203962f5ec07277c5c7833923ded3b",
+      "palette_sha256": "e2174ba17e68f8aca1659f701ab5d0706e6b1cb3910218f1e60f3fd1505a8d4c",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_CratePalette_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 620,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        620
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "cc6434069a2880e209be7deb87b44af92ba0450c47124b0cfe8e180f5d30dc9f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_j/PokeJ_DarkStreetLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeJ_DarkStreetLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        10,
+        10,
+        28
+      ],
+      "voxels": 732,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        8,
+        8,
+        27
+      ],
+      "components": [
+        732
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 72,
+      "emission": 0.75,
+      "power": 1.5,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "0c74f49f8dc834d3196c08ee66d0ed2f6324a2256aa7bdd381319c8cd2faf16e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        5.0,
+        5.0,
+        22.72222222222222
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "7a04fbe6a0e8e44ccac8c566cc6bef0506ba13ba4470b116aaaea0b349d39a92",
+      "palette_sha256": "c2120c5d41b7de1c05381f938cec46d9671b536278ab4ad8136ad28ae6770f6f",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "c67bf7fb046196c9aae2159d4629e38982af50b465d0f688aa4fba16a86e44ad",
+      "palette_sha256": "c2120c5d41b7de1c05381f938cec46d9671b536278ab4ad8136ad28ae6770f6f",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_CratePalette.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure",
+        "185": "structure",
+        "235": "structure"
+      },
+      "colors": 4,
+      "sha256": "8ca5ffefd4ae47295ebcb5c531f647740b040fcd5bf298392f1bbb3cfb04c61e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "2bb23d5e9c93d478cb9d33b33f5b0d690eaf72073fb1139c3cdfa1f876306399",
+      "palette_sha256": "e8565e67c27a5ff7911b2dc1cbe7e21499b903f1de53366650e9241348d5e84c",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "b994d4a87c481648111c78665d5e35146cb7ce922d7d5f6c70c4935102ee4b85",
+      "palette_sha256": "e8565e67c27a5ff7911b2dc1cbe7e21499b903f1de53366650e9241348d5e84c",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_CratePalette_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 1860,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        1860
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure"
+      },
+      "colors": 2,
+      "sha256": "133161db8ad5ca03d506619a8e00d70db37fcad8ad5500e99b0ca963e098859c",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_m/PokeM_BronzePostLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeM_BronzePostLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        48
+      ],
+      "voxels": 2100,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        47
+      ],
+      "components": [
+        2100
+      ],
+      "emission_indices": [
+        196
+      ],
+      "emission_voxels": 784,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "196": "emitter",
+        "234": "structure"
+      },
+      "colors": 2,
+      "sha256": "30c77d8990bfa3c29f84de3461d526909452af829da5df38a89f8c2f0f8f0e28",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Base",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "1e0c0a31d65cbe21933abd9140faed34c3b733d7a7cc7a0664e9bfbd4cd3b763",
+      "palette_sha256": "f03489d9974afaff121cbce499888cf1cd9b3d465e7b6b465e339c2453be31bb",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "6c53b7d812bf09c012a957010f68ba4d38597c0a9d0764ee26c9f89911e7108a",
+      "palette_sha256": "f03489d9974afaff121cbce499888cf1cd9b3d465e7b6b465e339c2453be31bb",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_CratePalette.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "CratePalette",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure",
+        "204": "structure",
+        "206": "structure"
+      },
+      "colors": 4,
+      "sha256": "d9fa1cc31eb7e5a30ee0f3ba89c24610f6351cd16d8f781bc8a76b2de83c324e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "0972ee3a2c4beb7ac5eb2c9ef8beec3ca603ee690d3469f9cf0d159edc1d59ed",
+      "palette_sha256": "ae691ea8ab147bbd3b750c667324db467e89a629f57845fc2cd963be65cc5321",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "7d84ca09866908a0f01535cecc52f5f2c90f381f2a28879db6fcd1ac8f1d1aec",
+      "palette_sha256": "ae691ea8ab147bbd3b750c667324db467e89a629f57845fc2cd963be65cc5321",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_CratePalette_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1460,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1460
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 372,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "7ca3815792e029f447624dd83d77b153586a9fc4162aa3a2d97511e8b368482e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_n/PokeN_TealStreetlight_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeN_TealStreetlight",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        16,
+        16,
+        40
+      ],
+      "voxels": 1780,
+      "occupied_min": [
+        1,
+        1,
+        0
+      ],
+      "occupied_max": [
+        14,
+        14,
+        39
+      ],
+      "components": [
+        1780
+      ],
+      "emission_indices": [
+        254
+      ],
+      "emission_voxels": 468,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "254": "emitter",
+        "205": "structure"
+      },
+      "colors": 2,
+      "sha256": "2914cbc10ad37222cba9e2eb59644cc1ac9963a3f277a1fc333766f96c30d4e4",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        8.0,
+        8.0,
+        35.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Base",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "539814438ea690496d2c7470d2ca69b680acc609d6d5a07b986e17bf7e0f03c1",
+      "palette_sha256": "646e78c89da8864db18030345c897cbcf28e0e011da4b7cbdb519ebc4ef972a1",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure",
+        "3": "structure",
+        "4": "structure"
+      },
+      "colors": 4,
+      "sha256": "92e3ceb085b7311f1b79a9bbf08cc0e9de615d2ff7795767f29456ddc1c78978",
+      "palette_sha256": "646e78c89da8864db18030345c897cbcf28e0e011da4b7cbdb519ebc4ef972a1",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_CratePalette.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "CratePalette",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure",
+        "237": "structure",
+        "196": "structure"
+      },
+      "colors": 4,
+      "sha256": "12d0949561ffdf43d4218db2af36f4bcce0024414649d1479ac135294e90393e",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "b7bd951c0a5ef433100e3ae8085c5c251051927b655601b074e87c9a2d670f6c",
+      "palette_sha256": "4908a9cc810e7425888cc3b4df08e636455cd264a1f38a4f847d65da9edb4c92",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        1
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "1": "emitter",
+        "2": "structure"
+      },
+      "colors": 2,
+      "sha256": "7dc64ff7ecf2592feb145b6c00db3c87ff05fb81d48ef954b8223348f351a98e",
+      "palette_sha256": "4908a9cc810e7425888cc3b4df08e636455cd264a1f38a4f847d65da9edb4c92",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_CratePalette_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "CratePalette_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1180,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1180
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure"
+      },
+      "colors": 2,
+      "sha256": "b1963aa9d8428bb31b3ef45a2fe351e54e210c0468d32d87749335a88f69e13f",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    },
+    {
+      "file": "output/poke_s/PokeS_IvoryScrollLantern_Cartoon_CratePalette_TwoColor.vox",
+      "family": "PokeS_IvoryScrollLantern",
+      "style": "Cartoon_CratePalette_TwoColor",
+      "canvas": [
+        24,
+        16,
+        56
+      ],
+      "voxels": 1408,
+      "occupied_min": [
+        4,
+        4,
+        0
+      ],
+      "occupied_max": [
+        22,
+        11,
+        55
+      ],
+      "components": [
+        1408
+      ],
+      "emission_indices": [
+        238
+      ],
+      "emission_voxels": 224,
+      "emission": 0.75,
+      "power": 2,
+      "shadowless_colors": [],
+      "groups": {
+        "238": "emitter",
+        "195": "structure"
+      },
+      "colors": 2,
+      "sha256": "c23bbfcc050210e1c7dd106620e2253a7051bc0c64777c4c1e75b7a6dd4d0f5b",
+      "palette_sha256": "b1a4e811c89d143b006c0a421443dd2e1b3b9da0b6588b176c4d072b67c279c2",
+      "emitter_centroid": [
+        19.0,
+        8.0,
+        39.5
+      ]
+    }
+  ],
+  "families": [
+    {
+      "source": "pixelwood_a.jpg",
+      "name": "PixelwoodA_PostLantern",
+      "shape": "pixelwood",
+      "size": [
+        16,
+        16,
+        40
+      ],
+      "crop": [
+        99,
+        207,
+        154,
+        340
+      ],
+      "scale": 0.3333333333333333,
+      "metal": [
+        81,
+        85,
+        98
+      ],
+      "light": [
+        255,
+        205,
+        115
+      ],
+      "power": 1.5,
+      "note": "Square amber lantern, dark corner mullions, broad hipped cap and squared foot. Three source pixels per voxel."
+    },
+    {
+      "source": "pixelwood_b.gif",
+      "name": "PixelwoodB_Campfire",
+      "shape": "fire",
+      "size": [
+        24,
+        24,
+        28
+      ],
+      "crop": [
+        540,
+        820,
+        680,
+        975
+      ],
+      "scale": 0.2,
+      "metal": [
+        81,
+        85,
+        98
+      ],
+      "light": [
+        244,
+        154,
+        62
+      ],
+      "power": 1.5,
+      "note": "Five GIF frames reviewed. Static flame inspired by frame 0; eight-sided rock ring and charred logs; no animation or detached sparks."
+    },
+    {
+      "source": "poke_b.png",
+      "name": "PokeB_SilverStreetLantern",
+      "shape": "cap",
+      "size": [
+        12,
+        12,
+        40
+      ],
+      "crop": [
+        414,
+        182,
+        435,
+        227
+      ],
+      "scale": 1,
+      "metal": [
+        100,
+        113,
+        104
+      ],
+      "light": [
+        211,
+        246,
+        247
+      ],
+      "power": 2,
+      "note": "Tapered pale-blue diffuser, faceted silver cap and finial, narrow stem, square-reading stepped pedestal."
+    },
+    {
+      "source": "poke_c.png",
+      "name": "PokeC_SilverStreetLantern",
+      "shape": "cap",
+      "size": [
+        12,
+        12,
+        40
+      ],
+      "crop": [
+        63,
+        254,
+        85,
+        305
+      ],
+      "scale": 1,
+      "metal": [
+        100,
+        113,
+        104
+      ],
+      "light": [
+        211,
+        246,
+        247
+      ],
+      "power": 2,
+      "note": "Same silver lantern artwork as poke_b. Reuses its complete geometry and palette under this image folder; not an additional design."
+    },
+    {
+      "source": "poke_d.png",
+      "name": "PokeD_StoneLantern",
+      "shape": "stone",
+      "size": [
+        16,
+        16,
+        20
+      ],
+      "crop": [
+        458,
+        198,
+        486,
+        229
+      ],
+      "scale": 1,
+      "metal": [
+        172,
+        171,
+        151
+      ],
+      "light": [
+        255,
+        205,
+        128
+      ],
+      "power": 1,
+      "note": "Small stone garden lantern: broad rounded cap and finial, open chamber, short feet. Source unlit dark chamber; small warm burner inferred for usable night lighting."
+    },
+    {
+      "source": "poke_f.png",
+      "name": "PokeF_TwinGlobeStreetlight",
+      "shape": "twin",
+      "size": [
+        32,
+        12,
+        48
+      ],
+      "crop": [
+        207,
+        235,
+        242,
+        291
+      ],
+      "scale": 1,
+      "metal": [
+        142,
+        137,
+        128
+      ],
+      "light": [
+        222,
+        245,
+        243
+      ],
+      "power": 2,
+      "note": "Paired low-domed lamps on rising Y arms and one ringed pedestal. Two heads in one complete file."
+    },
+    {
+      "source": "poke_g.png",
+      "name": "PokeG_RoundStreetlight",
+      "shape": "drum",
+      "size": [
+        16,
+        16,
+        48
+      ],
+      "crop": [
+        397,
+        155,
+        420,
+        211
+      ],
+      "scale": 1,
+      "metal": [
+        140,
+        134,
+        126
+      ],
+      "light": [
+        220,
+        246,
+        241
+      ],
+      "power": 2,
+      "note": "Wide low-domed gray head, short pale diffuser band, slender stem and tiered round base."
+    },
+    {
+      "source": "poke_j.jpg",
+      "name": "PokeJ_DarkStreetLantern",
+      "shape": "cap",
+      "size": [
+        10,
+        10,
+        28
+      ],
+      "crop": [
+        190,
+        130,
+        215,
+        174
+      ],
+      "scale": 0.6666666666666666,
+      "metal": [
+        54,
+        66,
+        68
+      ],
+      "light": [
+        227,
+        236,
+        220
+      ],
+      "power": 1.5,
+      "note": "Small dark lantern left of north house. JPEG obscures detail; inferred faceted cap and small luminous chamber. Existing scale estimate: 24 displayed pixels per tile."
+    },
+    {
+      "source": "poke_m.png",
+      "name": "PokeM_BronzePostLantern",
+      "shape": "hood",
+      "size": [
+        16,
+        16,
+        48
+      ],
+      "crop": [
+        25,
+        844,
+        55,
+        880
+      ],
+      "scale": 1,
+      "metal": [
+        122,
+        112,
+        80
+      ],
+      "light": [
+        243,
+        243,
+        211
+      ],
+      "power": 2,
+      "note": "Visible at lower image edge: bronze pointed hood, broad cream chamber and thin pole. Base and lower stem are cropped away; inferred matching stepped pedestal, total height 48."
+    },
+    {
+      "source": "poke_n.png",
+      "name": "PokeN_TealStreetlight",
+      "shape": "drum",
+      "size": [
+        16,
+        16,
+        40
+      ],
+      "crop": [
+        266,
+        414,
+        290,
+        465
+      ],
+      "scale": 1,
+      "metal": [
+        63,
+        86,
+        88
+      ],
+      "light": [
+        166,
+        193,
+        193
+      ],
+      "power": 2,
+      "note": "Dark teal disc cap, recessed gray-blue diffuser band and flared pedestal. Luminescence inferred from identifiable lamp fixture in daytime source."
+    },
+    {
+      "source": "poke_s.jpg",
+      "name": "PokeS_IvoryScrollLantern",
+      "shape": "crook",
+      "size": [
+        24,
+        16,
+        56
+      ],
+      "crop": [
+        630,
+        59,
+        658,
+        104
+      ],
+      "scale": 1.6,
+      "metal": [
+        219,
+        218,
+        190
+      ],
+      "light": [
+        255,
+        238,
+        180
+      ],
+      "power": 2,
+      "note": "Ivory curved shepherd-hook fixture repeated beside waterfalls. Small compressed image: scroll and hanging lantern reconstructed; approx. 10 displayed pixels per tile. Bilateral depth symmetry, intentional offset lantern preserved."
+    }
+  ]
+}
