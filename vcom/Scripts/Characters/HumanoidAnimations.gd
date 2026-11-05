@@ -41,8 +41,8 @@ const STRIDE_TILES := 1.0
 ## in voxels: most of the way to the edge of its tile, which is half a tile
 ## (about 7.9) from where it stood. Shifting its weight and tipping its body
 ## take its head the rest of the way and past: some 12 voxels out, three
-## quarters of a tile, which a head 7 voxels wide needs to show past the edge
-## to someone straight in front of the cover.
+## quarters of a tile, which takes the whole of a head 9 voxels wide past the
+## edge, to be seen by someone straight in front of the cover.
 const LEAN_STEP := 6.5
 
 ## The stances, and the base poses (loops) every one of them has. A base pose
@@ -87,8 +87,9 @@ const ARMS_AND_HEAD: Array[StringName] = [
 ## where the figure is told to ([code]CharacterModel[/code]).
 const LEFT_ARM: Array[StringName] = [&"LeftUpperArm", &"LeftLowerArm", &"LeftHand"]
 ## Where the left hand holds a medkit to the figure's own middle, in rig voxels
-## from the chest joint: the [code]use_medkit_self[/code] clip.
-const SELF_MEDKIT := Vector3(0.4, -2.6, 3.2)
+## from the chest joint, but for its z, which is out from the front of the
+## chest: the [code]use_medkit_self[/code] clip.
+const SELF_MEDKIT := Vector3(0.4, -2.6, 2.2)
 const LEGS: Array[StringName] = [
 	&"Hips", &"LeftUpperLeg", &"LeftLowerLeg", &"LeftFoot", &"RightUpperLeg", &"RightLowerLeg", &"RightFoot",
 ]
@@ -109,7 +110,10 @@ var _parent := {}
 var _rest := {}
 ## Each hand's palm: the middle of its voxels, in its own space.
 var _palm := {}
-## The middle of the head's voxels, in its own space.
+## The box the head's voxels fill, in its own space, in voxels: what hands and
+## weapons are kept clear of, the head being wider than the shoulders and
+## reaching out in front of the chest; and its middle.
+var _head_box := AABB()
 var _head := Vector3.ZERO
 
 
@@ -122,7 +126,9 @@ func _init(voxel_rig: VoxelRig) -> void:
 	for side: StringName in [&"Left", &"Right"]:
 		var hand := StringName(side + "Hand")
 		_palm[side] = rig.bone_box(hand).get_center() / scale
-	_head = rig.bone_box(&"Head").get_center() / scale
+	var head := rig.bone_box(&"Head")
+	_head_box = AABB(head.position / scale, head.size / scale)
+	_head = _head_box.get_center()
 	# The rifle's barrel runs on from the forearm, as a pistol's does: along the
 	# right hand's length (-x), its top up the back of the hand.
 	rifle_grip = Transform3D(Basis(Vector3.UP, -PI / 2.0), _palm[&"Right"])
@@ -694,7 +700,7 @@ func _crouch(time: float, stance: StringName, aiming: bool, side := 0.0) -> Pose
 			pose.turn(&"Head", Vector3(-4.0, side * 16.0, side * 4.0))
 		match stance:
 			&"rifle":
-				_rifle(pose, _item(Vector3(-1.0, -0.5, 3.0), Vector3(0.45, 0.35, 0.8)).rotated_local(Vector3.RIGHT, deg_to_rad(breath)))
+				_rifle(pose, _item(Vector3(-1.0, -0.5, 3.5), Vector3(0.45, 0.35, 0.8)).rotated_local(Vector3.RIGHT, deg_to_rad(breath)))
 			&"melee":
 				var hip := pose.at(&"Hips")
 				var sword := hip * _item(Vector3(-3.5, 3.0, 4.0), Vector3(0.1, 0.9, 0.35), Vector3(0, 0, 1))
@@ -731,9 +737,13 @@ func _wall(time: float, stance: StringName, side := 0.0) -> Pose:
 		&"rifle":
 			_rifle(pose, _item(Vector3(-1.2, 0.2, 3.2), Vector3(0.15, 1.0, 0.25), Vector3(0, 0, 1)), Vector3(-1, -1, 0), Vector3(1, -1, 0))
 		&"melee":
-			var sword := pose.at(&"Chest") * _item(Vector3(-1.0, 0.0, 3.4), Vector3(0.05, 1.0, 0.15), Vector3(0, 0, 1))
+			# Upright out by the right shoulder, beside the head: in front of the
+			# face, which reaches out ahead of the chest, there is no room for a
+			# blade between it and the wall. The left hand braces in front.
+			var chest := pose.at(&"Chest")
+			var sword := chest * _item(Vector3(-_head_box.end.x - 1.0, 0.0, 2.0), Vector3(0.0, 1.0, 0.05), Vector3(0, 0, 1))
 			_hold(pose, &"Right", sword, sword_grip, Vector3(-1, -1, 0))
-			_hand(pose, &"Left", pose.at(&"Chest") * Vector3(1.2, 0.4, 3.4), Vector3(1, -1, 0))
+			_hand(pose, &"Left", chest * Vector3(1.4, 1.8 + 0.2 * breath, 3.6), Vector3(1, -1, 0))
 		_:
 			var chest := pose.at(&"Chest")
 			_hand(pose, &"Right", chest * Vector3(-1.4, 1.8 + 0.2 * breath, 3.6), Vector3(-1, -1, 0))
@@ -742,33 +752,44 @@ func _wall(time: float, stance: StringName, side := 0.0) -> Pose:
 
 
 ## Hunkered down behind cover of either height: on one knee as behind low
-## cover, but lower, bent well over the knee with the head bowed, and the weapon
-## hugged upright to the chest; with nothing in hand, the hands clasped over the
-## back of the head.
+## cover, but lower, bent over with the head bowed, and drawn back to the back
+## of its tile. A head bowed forward swings its top out ahead of it nearly as
+## far as it is tall, and this one is nearly as deep as it is wide, so bent
+## over in the middle of the tile it would reach into the cover; drawn back, it stays
+## behind the cover's face. The weapon is held upright at the right side, clear
+## of the bowed head, the free hand on the raised knee; with nothing in hand, a
+## hand on each knee: arms this short cannot reach round a head this wide to
+## the back of it.
 func _hunker(time: float, stance: StringName) -> Pose:
 	var pose := _pose()
 	var breath := sin(TAU * time / 3.2)
-	var hips_y: float = 3.6 - rig.joints[&"Hips"].y
-	pose.move(Vector3.ZERO, Vector3(-0.4, hips_y + 0.1 * breath, -1.8))
+	var hips_y: float = 3.2 - rig.joints[&"Hips"].y
+	pose.move(Vector3.ZERO, Vector3(-0.4, hips_y + 0.1 * breath, -5.4))
 	pose.turn(&"Hips", Vector3(0, -6.0, 0))
-	# The crouch's legs, the knee on the floor drawn in under the body.
-	_foot(pose, &"Right", _ankle(Vector3(-2.2, 0.4, -6.6)), -4.0, 55.0, Vector3(0, -1, 0.7))
-	_foot(pose, &"Left", _ankle(Vector3(2.0, 0, 2.0)), 6.0)
-	_torso(pose, 36.0 + breath * 1.5, 4.0, 0.0, 0.0)
-	pose.turn(&"Neck", Vector3(10.0, 0, 0))
-	pose.turn(&"Head", Vector3(14.0, 0, 0))
+	# The kneeling knee on the floor ahead of the hips, its shin back along the
+	# floor under them, its foot at the back edge of the tile; the other foot
+	# planted ahead.
+	_foot(pose, &"Right", _ankle(Vector3(-2.2, 0.4, -6.4)), -4.0, 55.0, Vector3(0, -1, 0.7))
+	_foot(pose, &"Left", _ankle(Vector3(2.0, 0, -1.2)), 6.0)
+	_torso(pose, 24.0 + breath * 1.5, 4.0, 0.0, 0.0)
+	pose.turn(&"Neck", Vector3(12.0, 0, 0))
+	pose.turn(&"Head", Vector3(20.0, 0, 0))
+	var chest := pose.at(&"Chest")
+	# The raised knee, as the leg has been bent to it.
+	var knee := pose.at(&"LeftLowerLeg").origin
+	var out := _head_box.end.x + 1.0
 	match stance:
 		&"rifle":
-			_rifle(pose, _item(Vector3(-1.0, -0.5, 2.6), Vector3(0.1, 1.0, 0.1), Vector3(0, 0, 1)), Vector3(-1, -1, -0.3), Vector3(1, -1, 0))
+			var rifle := chest * _item(Vector3(-out, -3.0, 1.0), Vector3(0.0, 1.0, 0.05), Vector3(0, 0, 1))
+			_hold(pose, &"Right", rifle, rifle_grip, Vector3(-1, -0.5, -0.5))
+			_hand(pose, &"Left", knee + Vector3(0.4, 1.8, 0.4), Vector3(1, 0, -0.5))
 		&"melee":
-			var chest := pose.at(&"Chest")
-			var sword := chest * _item(Vector3(-1.0, -1.0, 2.8), Vector3(0.05, 1.0, 0.1), Vector3(0, 0, 1))
-			_hold(pose, &"Right", sword, sword_grip, Vector3(-1, -1, 0))
-			_hand(pose, &"Left", chest * Vector3(1.2, -0.4, 2.8), Vector3(1, -1, 0))
+			var sword := chest * _item(Vector3(-out, -2.0, 1.0), Vector3(0.0, 1.0, 0.1), Vector3(0, 0, 1))
+			_hold(pose, &"Right", sword, sword_grip, Vector3(-1, -0.5, -0.5))
+			_hand(pose, &"Left", knee + Vector3(0.4, 1.8, 0.4), Vector3(1, 0, -0.5))
 		_:
-			var head := pose.at(&"Head")
-			_hand(pose, &"Right", head * Vector3(-1.6, 4.0, -0.5), Vector3(-1, 0.3, 0.5))
-			_hand(pose, &"Left", head * Vector3(1.6, 4.0, -0.5), Vector3(1, 0.3, 0.5))
+			_hand(pose, &"Left", knee + Vector3(0.4, 1.8, 0.4), Vector3(1, 0, -0.5))
+			_hand(pose, &"Right", pose.at(&"RightLowerLeg").origin + Vector3(-0.4, 1.8, 0.4), Vector3(-1, 0, -0.5))
 	return pose
 
 
@@ -851,7 +872,7 @@ func _step(time: float, way: Vector2) -> Pose:
 	for index in 2:
 		var side: StringName = [&"Left", &"Right"][index]
 		var x: float = [2.4, -2.4][index]
-		var z: float = [1.6, -1.6][index]
+		var z: float = [2.0, -2.0][index]
 		var foot_phase := fposmod(phase + index * 0.5, 1.0)
 		var shift := sin(TAU * foot_phase) * 2.6
 		var lift := maxf(sin(TAU * foot_phase), 0.0) * 2.2
@@ -885,8 +906,10 @@ func _fall(time: float) -> Pose:
 	_foot(pose, &"Left", Vector3(2.4, 2.6 + kick * 1.5, 2.0 + kick * 1.5), 10.0, -20.0)
 	_foot(pose, &"Right", Vector3(-2.4, 2.6 - kick * 1.5, 2.0 - kick * 1.5), -10.0, -20.0)
 	var chest := pose.at(&"Chest")
-	_hand(pose, &"Right", chest * Vector3(-6.5, 7.0 + kick, 1.0), Vector3(-1, -0.5, -0.5))
-	_hand(pose, &"Left", chest * Vector3(6.5, 7.0 - kick, 1.0), Vector3(1, -0.5, -0.5))
+	# Flung up clear of the sides of the head, as the cheer's fists are.
+	var out := _head_box.end.x + 3.0
+	_hand(pose, &"Right", chest * Vector3(-out, 7.0 + kick, 1.0), Vector3(-1, -0.5, -0.5))
+	_hand(pose, &"Left", chest * Vector3(out, 7.0 - kick, 1.0), Vector3(1, -0.5, -0.5))
 	return pose
 
 
@@ -902,17 +925,18 @@ func _cheer(time: float, stance: StringName) -> Pose:
 	_foot(pose, &"Right", _ankle(Vector3(-2.4, bounce * 0.8, -0.4)), -12.0, bounce * 20.0)
 	var chest := pose.at(&"Chest")
 	var pump := 0.5 + 0.5 * beat
+	# The fists go up clear of the head, which is wider than the shoulders.
+	var out := _head_box.end.x + 3.0
 	match stance:
 		&"rifle":
-			var rifle := chest * _item(Vector3(-6.5, 8.0 + pump * 1.5, 1.0), Vector3(0.35, 0.8, 0.45), Vector3(-0.5, 0, 1))
+			var rifle := chest * _item(Vector3(-out, 8.0 + pump * 1.5, 1.0), Vector3(0.35, 0.8, 0.45), Vector3(-0.5, 0, 1))
 			_hold(pose, &"Right", rifle, rifle_grip, Vector3(-1, 0, -0.3))
 		&"melee":
-			var sword := chest * _item(Vector3(-6.5, 8.0 + pump * 1.5, 1.0), Vector3(0.25, 0.9, 0.35), Vector3(0, 0, 1))
+			var sword := chest * _item(Vector3(-out, 8.0 + pump * 1.5, 1.0), Vector3(0.25, 0.9, 0.35), Vector3(0, 0, 1))
 			_hold(pose, &"Right", sword, sword_grip, Vector3(-1, 0, -0.3))
 		_:
-			_hand(pose, &"Right", chest * Vector3(-6.5, 8.0 + pump * 1.5, 1.5), Vector3(-1, 0, -0.3))
-	# Clear of the head, which is wider than the shoulders.
-	_hand(pose, &"Left", chest * Vector3(6.5, 7.0 + (1.0 - pump) * 2.0, 1.5), Vector3(1, 0, -0.3))
+			_hand(pose, &"Right", chest * Vector3(-out, 8.0 + pump * 1.5, 1.5), Vector3(-1, 0, -0.3))
+	_hand(pose, &"Left", chest * Vector3(out, 7.0 + (1.0 - pump) * 2.0, 1.5), Vector3(1, 0, -0.3))
 	return pose
 
 
@@ -924,11 +948,14 @@ func _throw(time: float, stance: StringName, progress: float) -> Pose:
 	var pose := _pose()
 	var ready := progress < 0.0
 	var breath := sin(TAU * time / 2.0) if ready else 0.0
+	# Wound back and let go out by the side of the head, which is wider than
+	# the shoulders, so the grenade in hand passes it by.
+	var out := _head_box.end.x
 	# [time, twist (left shoulder back is +), weight forward, lean, hand x, y, z in the chest's space]
 	var keys := [
 		[0.00, Vector3(10.0, -0.3, 2.0), Vector3(3.2, 1.5, 3.4)],
-		[0.22, Vector3(42.0, -1.6, -6.0), Vector3(5.0, 7.5, -4.2)],
-		[0.36, Vector3(-18.0, 1.2, 12.0), Vector3(2.6, 9.5, 4.0)],
+		[0.22, Vector3(42.0, -1.6, -6.0), Vector3(out + 1.5, 7.5, -4.2)],
+		[0.36, Vector3(-18.0, 1.2, 12.0), Vector3(out + 2.0, 9.0, 3.5)],
 		[0.50, Vector3(-30.0, 1.8, 18.0), Vector3(-0.5, -1.5, 6.0)],
 		[0.80, Vector3(10.0, -0.3, 2.0), Vector3(3.2, 1.5, 3.4)],
 	]
@@ -962,13 +989,18 @@ func _strike(time: float, progress: float) -> Pose:
 		[0.42, Vector3(5.5, -38.0, 24.0)],
 		[0.75, Vector3(0.0, 12.0, 6.0)],
 	]
+	# The guard and the draw back hold the blade up out by the right side of the
+	# head, which is wider than the shoulders, and the recovery brings it back up
+	# in front before it rises to the guard there, rather than through the head.
+	var out := _head_box.end.x
 	# [time, grip in the chest's space, blade direction, which way its edge faces]
 	var sword_keys := [
-		[0.00, Vector3(-4.2, 4.0, 2.5), Vector3(-0.15, 0.85, -0.5), Vector3(0, 0.5, 1)],
-		[0.14, Vector3(-5.5, 7.0, -1.5), Vector3(0.1, 0.4, -0.91), Vector3(0, 1, 0.4)],
+		[0.00, Vector3(-out - 0.7, 4.0, 2.5), Vector3(-0.15, 0.85, -0.5), Vector3(0, 0.5, 1)],
+		[0.14, Vector3(-out - 2.0, 7.0, -1.5), Vector3(0.1, 0.4, -0.91), Vector3(0, 1, 0.4)],
 		[0.27, Vector3(0.0, -0.5, 6.0), Vector3(0.55, -0.45, 0.7), Vector3(0.5, -0.8, -0.1)],
 		[0.42, Vector3(1.0, -2.5, 3.5), Vector3(0.75, -0.6, 0.25), Vector3(0.3, -0.6, -0.7)],
-		[0.75, Vector3(-4.2, 4.0, 2.5), Vector3(-0.15, 0.85, -0.5), Vector3(0, 0.5, 1)],
+		[0.58, Vector3(-out - 1.5, 1.0, 4.5), Vector3(-0.2, 0.3, 0.93), Vector3(0, 1, -0.3)],
+		[0.75, Vector3(-out - 0.7, 4.0, 2.5), Vector3(-0.15, 0.85, -0.5), Vector3(0, 0.5, 1)],
 	]
 	var body: Vector3 = body_keys[0][1] if ready else _keyed(body_keys, time)
 	var grip: Vector3 = sword_keys[0][1] if ready else _keyed(sword_keys.map(func(key: Array) -> Array: return [key[0], key[1]]), time)
@@ -1003,9 +1035,11 @@ func _draw(time: float, drawing: bool) -> Pose:
 	for bone: StringName in pose.rotations:
 		pose.rotations[bone] = (from.rotations[bone] as Quaternion).slerp(to.rotations[bone], along)
 	pose.move(from.root.lerp(to.root, along), from.hips.lerp(to.hips, along))
-	# Reach over the right shoulder for the hilt.
+	# Reach over the right shoulder for the hilt, out by the side of the head,
+	# where the slung sword's hilt is (BakeCharacter's SwordSlot).
 	var chest := pose.at(&"Chest")
-	var hilt := chest * Vector3(-2.8, 5.5, -1.5)
+	var back: float = rig.bone_box(&"Chest").position.z / scale
+	var hilt := chest * Vector3(-_head_box.end.x - 1.0, 5.2, back - 1.2)
 	var hand := pose.at(&"RightHand")
 	_hand(pose, &"Right", (hand * _palm[&"Right"]).lerp(hilt, up), Vector3(-1, -0.4, -0.3), hand.basis)
 	return pose
@@ -1074,8 +1108,12 @@ func _medkit(time: float, on_self: bool) -> Pose:
 	pose.move(Vector3.ZERO, Vector3(0.0, -0.5, 0.0))
 	_torso(pose, 4.0, 8.0, 0.0, 0.5)
 	var chest := pose.at(&"Chest")
-	var belt := Vector3(4.2, -6.6, -1.2)
-	var out := SELF_MEDKIT if on_self else Vector3(1.6, 1.2, 7.2)
+	# The belt is at the back of the hips, the middle pressed is the front of
+	# the chest: both as far out as the body is deep.
+	var belt := Vector3(4.2, -6.6, rig.bone_box(&"Hips").position.z / scale - 0.2)
+	var front: float = rig.bone_box(&"Chest").end.z / scale
+	# Held out at arm's length, low enough to pass under a head bowed hunkering.
+	var out := SELF_MEDKIT + Vector3(0.0, 0.0, front) if on_self else Vector3(1.6, 0.0, 7.2)
 	# Held out, it is pushed a little toward the ally; on itself, pressed in.
 	var press := Vector3(0.0, -0.3, -0.5) if on_self else Vector3(0.0, -0.4, 0.3)
 	var keys := [

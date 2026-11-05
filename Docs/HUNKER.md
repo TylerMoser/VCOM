@@ -32,7 +32,10 @@ nothing to Tab through and nothing to repeat, the action is put away once taken,
 longer available is, so the player picks the next one from the bar. It is seen two ways:
 `Unit.hunkered` sets `CharacterModel.hunkered`, which holds `hunker_<stance>` over every base pose but
 a readied one (so the figure ducks low behind cover of either height, on overwatch too, rises to aim a
-shot and ducks again, and still cheers a win) and a lean out of its cover: a shot that sees it only
+shot and ducks again, and still cheers a win; since the bigger figure, 2026-11-04, it kneels at the
+back of its tile, bent forward with its head bowed and kept down rather than turned to its foe, so
+nothing of it enters the cover in front of it: `ANIMATIONS.md`, section 10) and a lean out of its
+cover: a shot that sees it only
 leaning out is aimed where it leans, so the figure leans out there for it, hunkered or not, and ducks
 again once it draws back (decided in the merge, not asked; the sight rule is untouched, so hunkering
 never hides a unit), and `UnitCard` shows a `HunkerBadge`, a blue shield over its portrait's corner,

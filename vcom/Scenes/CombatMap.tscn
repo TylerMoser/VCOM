@@ -28,7 +28,7 @@
 [ext_resource type="Script" uid="uid://dhltqnrat70f8" path="res://Scripts/Terrain/TerrainDestruction.gd" id="17_destruction"]
 [ext_resource type="Script" uid="uid://cvjbf5vvw3efo" path="res://Scripts/SquadStart.gd" id="19_squad_start"]
 [ext_resource type="PackedScene" path="res://Scenes/SquadUnit.tscn" id="20_squad_unit"]
-[ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
+[ext_resource type="PackedScene" path="res://Scenes/Character_Bigger.tscn" id="90_character_bigger"]
 [ext_resource type="Script" path="res://Scripts/Characters/Postures.gd" id="30_postures"]
 [ext_resource type="Script" path="res://Scripts/Combat/Coins.gd" id="31_coins"]
 [ext_resource type="Script" path="res://Scripts/Blood/Blood.gd" id="32_blood"]
@@ -98,7 +98,7 @@ display_name = "Enemy 1"
 weapon = ExtResource("15_rifle")
 ai = ExtResource("16_assault_ai")
 
-[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
+[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_character_bigger")]
 tint = Color(0.32, 0.35, 0.4, 1)
 
 [node name="SquadStarts" type="Node3D" parent="."]

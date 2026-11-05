@@ -51,21 +51,21 @@ cd /c/Users/tandm/Documents/Projects/VoxelXCOM/vcom
 ### Bake the character
 
 ```bash
-# Rebuild Scenes/BaseCharacter.tscn, Characters/BaseCharacterBody.res and
-# Characters/BaseCharacterAnimations.res from Characters/BaseCharacter.vox. Takes a few seconds.
+# Rebuild Scenes/Character_Bigger.tscn, Characters/Character_BiggerBody.res and
+# Characters/Character_BiggerAnimations.res from Characters/Character_Bigger.vox. Takes a few seconds.
 "$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 
 # The same, naming the model and the scene to write (any model with a layout, see 13.8).
-"$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd -- res://Characters/BaseCharacter.vox res://Scenes/BaseCharacter.tscn
+"$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd -- res://Characters/Character_Bigger.vox res://Scenes/Character_Bigger.tscn
 ```
 
 A good bake prints one line:
 
 ```
-BakeCharacter: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn: 536 voxels on 18 bones, 552 vertices, 56 animations.
+BakeCharacter: res://Characters/Character_Bigger.vox -> res://Scenes/Character_Bigger.tscn: 944 voxels on 18 bones, 552 vertices, 56 animations.
 ```
 
-Bake again after **any** change to `Characters/BaseCharacter.vox`, `Scripts/Characters/VoxelRig.gd`,
+Bake again after **any** change to `Characters/Character_Bigger.vox`, `Scripts/Characters/VoxelRig.gd`,
 `Scripts/Characters/HumanoidAnimations.gd`, `Scripts/Characters/BakeCharacter.gd`, or the rifle's
 `Foregrip` marker in `Scenes/Props/Rifle.tscn`. Changes to `CharacterModel.gd`, `AimModifier.gd` and
 `Postures.gd` need no bake: the scene refers to those scripts and they take effect at once.
@@ -73,8 +73,8 @@ Bake again after **any** change to `Characters/BaseCharacter.vox`, `Scripts/Char
 A script error does not end a `--script` run (Godot sits idle afterwards), so when scripting it give it
 a timeout: `timeout 180 "$G" --headless ...`.
 
-If the Godot editor is open while you bake, tell it to reload `Scenes/BaseCharacter.tscn` (and any map
-that is open) rather than saving it over the new one.
+If the Godot editor is open while you bake, tell it to reload `Scenes/Character_Bigger.tscn` (and any
+map that is open) rather than saving it over the new one.
 
 ### Look at animations
 
@@ -84,7 +84,7 @@ that is open) rather than saving it over the new one.
 "$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- stand_rifle run_rifle strike_sword
 
 # Options: --frames N (default 6), --view three_quarter|side|front|back|top, --out <folder>,
-# --scene <figure scene> (default res://Scenes/BaseCharacter.tscn), --over <base pose> (what an
+# --scene <figure scene> (default res://Scenes/Character_Bigger.tscn), --over <base pose> (what an
 # arms-and-head act such as reload_rifle, or a left-arm act such as use_medkit, plays over; default
 # stand_rifle).
 "$G" --path . --script res://Scripts/Characters/PreviewAnimations.gd --resolution 360x400 -- crouch_rifle --view side --frames 4
@@ -122,7 +122,7 @@ consulted while building it. There is nothing to credit or license.
 Each animation is a GDScript function in `vcom/Scripts/Characters/HumanoidAnimations.gd` that
 describes, as numbers, where the feet and hands go and how the body leans over time. The bake
 (`BakeCharacter.gd`) samples those functions into an ordinary Godot `AnimationLibrary`,
-`vcom/Characters/BaseCharacterAnimations.res`.
+`vcom/Characters/Character_BiggerAnimations.res`.
 
 The motion itself comes from general knowledge of how these movements work (how a run cycle is
 built, how soldiers carry and shoulder rifles, how a throw winds up and follows through) put into
@@ -134,9 +134,12 @@ numbers and then corrected by looking at rendered frames.
   user collected:
   - `Ex_Goblin.png`, `Ex_Ogre.png`, `Ex_Skeleton.png`: chibi voxel figures with big heads and limbs
     made of separate, rigid blocks.
-  - `Ex_Boy.vox` and `Ex_Girl.vox`: MagicaVoxel-style 32-cubed character templates. The base
-    character (`BaseCharacter.vox`) shares their proportions and scene layout: legs two voxels square
-    and nine tall, a five-wide torso, arms straight out at shoulder height, a 7x6x7 head.
+  - `Ex_Boy.vox` and `Ex_Girl.vox`: MagicaVoxel-style 32-cubed character templates. The first
+    figure (`BaseCharacter.vox`) shared their proportions and scene layout: legs two voxels square
+    and nine tall, a five-wide torso, arms straight out at shoulder height, a 7x6x7 head. The one
+    every unit wears since 2026-11-04, `Character_Bigger.vox`, is the user's bigger version of it:
+    the same heights and widths, but a 9x8x8 head and a torso, arms and legs three voxels deep
+    (section 19, "Later: the bigger figure").
   - `Ex_ADAM.vox`.
   - `Ex_Dwarves.url`, a link to <https://mrmgames.itch.io/voxel-dwarf-characters-pack>.
 
@@ -218,7 +221,7 @@ own camera, laid out as contact sheets. Several first attempts were wrong and fi
 - **The kneel was a squat.** The kneeling knee was being bent toward a forward-and-up pole; it
   needed to point down and forward to touch the floor (`_crouch`'s `Vector3(0, -1, 0.7)`).
 - **The cheer's fists were inside the head.** The head is wider than the shoulders, so the fists
-  moved out to ±6.5 voxels.
+  moved out to ±6.5 voxels (±7.5 on the bigger figure, placed by the head's box).
 - **The dead stood stiffly for a third of a second.** A balanced ragdoll on flat feet resists a light
   push. The knock went up and the shins were kicked the other way (`KNOCK_SHARES`). The ragdoll has
   since gone: the dead break apart (section 9.8).
@@ -240,8 +243,8 @@ Section 14 has how to repeat that.
  MagicaVoxel                       bake time (BakeCharacter.gd, by hand)                        run time
  -----------                       -----------------------------------------                    --------
 
- BaseCharacter.vox ──► VoxelRig.gd ──► Skeleton3D (18 bones, unrotated T-pose)
-   536 voxels,           layout:       Body: one skinned ArrayMesh (552 vertices,               Unit (rules) ──► CharacterModel.gd
+ Character_Bigger ───► VoxelRig.gd ──► Skeleton3D (18 bones, unrotated T-pose)
+   944 voxels,           layout:       Body: one skinned ArrayMesh (552 vertices,               Unit (rules) ──► CharacterModel.gd
    one colour            joints +        every vertex wholly one bone) ──► <model>Body.res        tells it what      drives the tree,
                          regions                                                                   happens            faces, hops, props,
                                          │                                                                            breaks apart on death
@@ -250,7 +253,7 @@ Section 14 has how to repeat that.
                                          (56 clips) ──► <model>Animations.res                   AimModifier.gd ───► bends spine/chest,
                                          AnimationNodeBlendTree (the tree)                        (on the skeleton)    turns the head
                                          │
-                                       BakeCharacter.gd ──► Scenes/BaseCharacter.tscn
+                                       BakeCharacter.gd ──► Scenes/Character_Bigger.tscn
                                          sockets (BoneAttachment3Ds), AnimationPlayer,
                                          AnimationTree, CharacterModel script on the root
 ```
@@ -292,17 +295,19 @@ Getting these wrong is the most common way to break a pose, so they come first.
 A model voxel `(x, y, z)` becomes the rig cell `(x, z, -y)`, then is centred: the cell's lowest corner
 lands at `(x - cx, z - z0, -y + cy - 1)` in rig voxels, where `cx` and `cy` are the middle of the
 model's voxels across and front to back, and `z0` the lowest. That is `VoxelRig._corner` (with
-`cx = 16.5`, `cy = 16`, `z0 = 0` for the base character). This is the same turn the MagicaVoxel
+`cx = 16.5`, `cy = 16`, `z0 = 0` for the figure: the middle of its box, which is the middle of its
+head, 8 deep at y 12 to 19; its 3-deep body, y 15 to 17, lies from rig z -2 to 1, its middle half a
+voxel behind). This is the same turn the MagicaVoxel
 importer makes (`vox_to_godot = Basis(RIGHT, FORWARD, UP)`), so the figure faces the way Godot's
 `MODEL_FRONT` does.
 
 ### Scale
 
-- **0.063 Godot units a voxel** (`VoxelRig.BASE_CHARACTER["scale"]`): what the plain import of the
-  model used, so the figure stands 27 × 0.063 = **1.701** cells tall. Blocks use 0.0625; the figure
-  is a hair larger, and props use 0.063 to match it.
+- **0.063 Godot units a voxel** (`VoxelRig.CHARACTER_BIGGER["scale"]`): what the plain import of the
+  first model used, so the figure stands 28 × 0.063 = **1.764** cells tall (the first, 27 voxels,
+  1.701). Blocks use 0.0625; the figure is a hair larger, and props use 0.063 to match it.
 - **A tile is 1 Godot unit, about 15.87 voxels.**
-- The figure's rest box (arms out) is 1.575 wide, 1.701 tall and 0.378 deep (the head's depth).
+- The figure's rest box (arms out) is 1.575 wide, 1.764 tall and 0.504 deep (the head's depth).
 
 ### Rotations
 
@@ -343,48 +348,62 @@ period dividing the length).
 ### Bones
 
 Eighteen bones, parent before child, from `VoxelRig.BONES`. Joints are in rig voxels; "offset" is
-the bone's rest position from its parent's joint; "voxels" is how many of the base character's
-voxels move with it.
+the bone's rest position from its parent's joint; "voxels" is how many of the figure's voxels move
+with it.
 
 | # | Bone | Parent | Joint (rig voxels) | Offset | Voxels | What it is |
 |---|---|---|---|---|---|---|
 | 0 | `Root` | — | (0, 0, 0) | — | 0 | the floor under the figure; moved by the strike's lunge |
-| 1 | `Hips` | Root | (0, 9, 0) | (0, 9, 0) | 30 | pelvis, 5x3x2; moved for bob, crouches, weight shifts |
-| 2 | `Spine` | Hips | (0, 12, 0) | (0, 3, 0) | 30 | lower torso, 5x3x2 |
-| 3 | `Chest` | Spine | (0, 15, 0) | (0, 3, 0) | 40 | upper torso to the shoulders, 5x4x2; arms and rifle poses ride on it |
-| 4 | `Neck` | Chest | (0, 19, 0) | (0, 4, 0) | 2 | one voxel column |
-| 5 | `Head` | Neck | (0, 20, 0) | (0, 1, 0) | 286 | the 7x7x6 head (over half the voxels) |
-| 6 | `LeftUpperArm` | Chest | (3.5, 18, 0) | (3.5, 3, 0) | 20 | 5x2x2 |
-| 7 | `LeftLowerArm` | LeftUpperArm | (7.5, 18, 0) | (4, 0, 0) | 12 | forearm, 3x2x2 |
-| 8 | `LeftHand` | LeftLowerArm | (10.5, 18, 0) | (3, 0, 0) | 4 | 2x1x2, the upper half of the arm's thickness |
-| 9 | `RightUpperArm` | Chest | (-3.5, 18, 0) | (-3.5, 3, 0) | 20 | |
-| 10 | `RightLowerArm` | RightUpperArm | (-7.5, 18, 0) | (-4, 0, 0) | 12 | |
-| 11 | `RightHand` | RightLowerArm | (-10.5, 18, 0) | (-3, 0, 0) | 4 | |
-| 12 | `LeftUpperLeg` | Hips | (1.5, 9, 0) | (1.5, 0, 0) | 16 | thigh, 2x4x2 |
-| 13 | `LeftLowerLeg` | LeftUpperLeg | (1.5, 5, 0) | (0, -4, 0) | 16 | shin, 2x4x2 |
-| 14 | `LeftFoot` | LeftLowerLeg | (1.5, 1, 0) | (0, -4, 0) | 6 | 2x1x3, toes forward |
-| 15 | `RightUpperLeg` | Hips | (-1.5, 9, 0) | (-1.5, 0, 0) | 16 | |
-| 16 | `RightLowerLeg` | RightUpperLeg | (-1.5, 5, 0) | (0, -4, 0) | 16 | |
-| 17 | `RightFoot` | RightLowerLeg | (-1.5, 1, 0) | (0, -4, 0) | 6 | |
+| 1 | `Hips` | Root | (0, 9, -0.5) | (0, 9, -0.5) | 45 | pelvis, 5x3x3; moved for bob, crouches, weight shifts |
+| 2 | `Spine` | Hips | (0, 12, -0.5) | (0, 3, 0) | 45 | lower torso, 5x3x3 |
+| 3 | `Chest` | Spine | (0, 15, -0.5) | (0, 3, 0) | 60 | upper torso to the shoulders, 5x4x3; arms and rifle poses ride on it |
+| 4 | `Neck` | Chest | (0, 19, -0.5) | (0, 4, 0) | 2 | one voxel column, 2 deep |
+| 5 | `Head` | Neck | (0, 20, -0.5) | (0, 1, 0) | 568 | the 9x8x8 head (60% of the voxels) |
+| 6 | `LeftUpperArm` | Chest | (3.5, 18, -0.5) | (3.5, 3, 0) | 30 | 5x2x3 |
+| 7 | `LeftLowerArm` | LeftUpperArm | (7.5, 18, -0.5) | (4, 0, 0) | 18 | forearm, 3x2x3 |
+| 8 | `LeftHand` | LeftLowerArm | (10.5, 18, -0.5) | (3, 0, 0) | 6 | 2x1x3, the upper half of the arm's thickness |
+| 9 | `RightUpperArm` | Chest | (-3.5, 18, -0.5) | (-3.5, 3, 0) | 30 | |
+| 10 | `RightLowerArm` | RightUpperArm | (-7.5, 18, -0.5) | (-4, 0, 0) | 18 | |
+| 11 | `RightHand` | RightLowerArm | (-10.5, 18, -0.5) | (-3, 0, 0) | 6 | |
+| 12 | `LeftUpperLeg` | Hips | (1.5, 9, -0.5) | (1.5, 0, 0) | 24 | thigh, 2x4x3 |
+| 13 | `LeftLowerLeg` | LeftUpperLeg | (1.5, 5, -0.5) | (0, -4, 0) | 24 | shin, 2x4x3 |
+| 14 | `LeftFoot` | LeftLowerLeg | (1.5, 1, -0.5) | (0, -4, 0) | 10 | 2x1x5, toes 3.5 ahead of the ankle, heel 1.5 behind |
+| 15 | `RightUpperLeg` | Hips | (-1.5, 9, -0.5) | (-1.5, 0, 0) | 24 | |
+| 16 | `RightLowerLeg` | RightUpperLeg | (-1.5, 5, -0.5) | (0, -4, 0) | 24 | |
+| 17 | `RightFoot` | RightLowerLeg | (-1.5, 1, -0.5) | (0, -4, 0) | 10 | |
 
-That is 536 voxels in all. The shoulder joints sit **one voxel in from where the arm meets the body**
-(the torso spans x -2.5 to 2.5, the joints are at ±3.5). With the pivot there, a lowered arm hangs
-flush beside the torso instead of sinking into it.
+That is 944 voxels in all (the first figure had 536: a 7x7x6 head of 286, everything else 2 deep,
+its joints at z 0). The shoulder joints sit **one voxel in from where the arm meets the body** (the
+torso spans x -2.5 to 2.5, the joints are at ±3.5). With the pivot there, a lowered arm hangs flush
+beside the torso instead of sinking into it. Every joint is at **z -0.5**, down the middle of the
+3-deep torso and limbs (they span rig z -2 to 1), so a bent elbow or knee lines up as a 2-deep one
+did about joints at z 0; the root stays under the middle of the head, which is centred on the model's
+box and so half a voxel forward of its joint.
 
 What the proportions mean for animating:
 
 - **Arm:** upper arm 4 voxels, forearm 3, palm centre 1 more: **8 voxels from shoulder to palm**.
 - **Leg:** thigh 4, shin 4: **8 voxels from hip to ankle**. The ankle is 1 voxel above the floor.
-- **Shoulders** at x ±3.5, y 18. **Hips** at x ±1.5, y 9.
+- **Shoulders** at x ±3.5, y 18. **Hips** at x ±1.5, y 9. Both at z -0.5, as every joint is.
 - **Palm centres** at (∓1, 0.5, 0) in each hand's own space: the middle of the hand's voxels
   (`VoxelRig.bone_box`).
+- **The body is 3 deep:** its front 1.5 ahead of the joints (rig z 1, where the first figure's front
+  was too), its back 1.5 behind (rig z -2). A hand or weapon placed in chest space sits half a voxel
+  closer to the chest's front than it did on the first figure; slung gear is placed from the back
+  (5, "The sockets").
+- **The head** is 9 wide (x ±4.5), 8 tall (y 20 to 28) and 8 deep, reaching 4.5 ahead of its joint
+  and 3.5 behind: a voxel wider each side than the shoulders' joints, and nearly as far ahead of them
+  as it is wide. Bowed forward it swings its top out ahead of it by nearly its height. Hands and
+  weapons near it are placed by its box (`HumanoidAnimations._head_box`, section 6.3), not by
+  numbers.
 
 ### The layout
 
-A model's layout is a dictionary in `VoxelRig.gd`. The base character's is `BASE_CHARACTER`:
+A model's layout is a dictionary in `VoxelRig.gd`. The figure's is `CHARACTER_BIGGER`; the first
+figure's was `BASE_CHARACTER`, the same but every joint at z 0 (git has it):
 
 - `"scale"`: Godot units a voxel (0.063).
-- `"joints"`: bone → joint in rig voxels (the table above).
+- `"joints"`: bone → joint in rig voxels (the table above, every one at z -0.5).
 - `"regions"`: `[bone, lowest corner, highest corner]`, inclusive, in **model voxel coordinates**
   (MagicaVoxel's, z up). The first region that holds a voxel takes it. The order matters: the head
   and arms are tested before the chest, so the chest's full-width box only gets what is left.
@@ -412,7 +431,9 @@ A model's layout is a dictionary in `VoxelRig.gd`. The base character's is `BASE
 A voxel no region takes goes to the bone whose joint is nearest, and the bake warns
 (`VoxelRig: N voxels are in no region; ...`). A clean bake prints no warning. The regions were
 found by printing the model as text, a front view and a side view of which voxels are filled, to see
-where the legs, torso, arms and head are.
+where the legs, torso, arms and head are. The bigger figure has the first one's heights and widths,
+deeper only front to back, so the first one's regions (which take every y) take its voxels as they
+are.
 
 ### The mesh
 
@@ -444,14 +465,15 @@ where the legs, torso, arms and head are.
   any other face shows through glass, a glass face only against nothing). In the editor it shows a
   pale see-through `StandardMaterial3D`; in play the figure's `VoxelModel` gives each surface its
   material, the glass drawn by the glass shaders, and `paint()` leaves a glass colour its own, so a
-  visor stays clear in any unit's colour. A figure without glass bakes exactly as it did, and the base
+  visor stays clear in any unit's colour. A figure without glass bakes exactly as it did, and the
   figure has none. `Docs/GLASS.md` has glass in full.
 - **A glowing colour**, one the `.vox` paints with MagicaVoxel's Emit material (a lamp on a helmet,
   say), glows on the figure at dusk and at night, as brightly as its Emission: `VoxelRig.load_vox()`
   reads it into the rig's `flags` as it reads glass, and `paint()` leaves it its own colour. It only
-  glows; only a level's pieces cast light (`Docs/LIGHTS.md`). The base figure has none.
+  glows; only a level's pieces cast light (`Docs/LIGHTS.md`). The figure has none.
 
-The base character becomes 552 vertices. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
+The figure becomes 552 vertices, as many as the first one: faces are merged by shape alone, and its
+deeper blocks merge as far. The skin is `Skeleton3D.create_skin_from_rest_transforms()`,
 saved with the scene.
 
 ### No ragdoll
@@ -474,15 +496,20 @@ grip goes and how it is turned. Origins below are in voxels in the bone's own sp
 | `RightHand/RifleGrip` | RightHand | (-1, 0.5, 0) | (-1, 0, 0): along the hand, as a pistol's barrel runs on from the forearm | (0, 1, 0) | 1 | the gun in hand |
 | `RightHand/SwordGrip` | RightHand | (-1, 0.5, 0) | (0, 0, 1): out of the fist on the thumb side | (0, 1, 0) | 1 | the sword in hand |
 | `LeftHand/GrenadeGrip` | LeftHand | (1, 0.5, 0) | (0, 0, 1) | (0, 1, 0) | 1 | a grenade being thrown |
-| `Back/RifleSlot` | Chest | (-1.25, -0.6, -2.6) | (0.51, 0.86, 0): up to the left shoulder | (0.86, -0.51, 0) | 1 | the gun, slung while the sword is out |
-| `Back/SwordSlot` | Chest | (-2.5, 4.0, -2.2) | (0.45, -0.89, 0): hilt over the right shoulder, blade down to the left | (-0.89, -0.45, 0) | 1 | the sword, slung while the gun is out |
-| `Belt/Grenade1` | Hips | (2.2, 1.5, -2.1) | (0, 0, 1) | (0.42, 0.91, 0): leaning 25° out to the left | 0.8 | stick grenades tucked into the back of the belt by their handles, heads up |
-| `Belt/Grenade2` | Hips | (-2.2, 1.5, -2.1) | (0, 0, 1) | (-0.42, 0.91, 0): leaning 25° out to the right | 0.8 | |
-| `Belt/Grenade3` | Hips | (0, 1.5, -2.7) | (0, 0, 1) | (0, 1, 0) | 0.8 | |
+| `Back/RifleSlot` | Chest | (-1.25, -0.6, -3.1) | (0.51, 0.86, 0): up to the left shoulder | (0.86, -0.51, 0) | 1 | the gun, slung while the sword is out |
+| `Back/SwordSlot` | Chest | (-3.5, 4.0, -2.7) | (0.45, -0.89, 0): hilt over the right shoulder, blade down to the left | (-0.89, -0.45, 0) | 1 | the sword, slung while the gun is out |
+| `Belt/Grenade1` | Hips | (2.2, 1.5, -2.6) | (0, 0, 1) | (0.42, 0.91, 0): leaning 25° out to the left | 0.8 | stick grenades tucked into the back of the belt by their handles, heads up |
+| `Belt/Grenade2` | Hips | (-2.2, 1.5, -2.6) | (0, 0, 1) | (-0.42, 0.91, 0): leaning 25° out to the right | 0.8 | |
+| `Belt/Grenade3` | Hips | (0, 1.5, -3.2) | (0, 0, 1) | (0, 1, 0) | 0.8 | |
 
 The three grip transforms come from `HumanoidAnimations` (`rifle_grip`, `sword_grip`, `grenade_grip`),
 so the sockets and the poses that put hands on props always agree. The back and belt slots are
-`BakeCharacter.SLOTS`; the belt's 0.8 is `BakeCharacter.BELT_SCALE`, so three grenades fit. Side by
+`BakeCharacter.SLOTS`, whose depths are measured back from the back of the bone's voxels (1.6
+behind the chest for the rifle, 1.2 for the sword, 1.1 and 1.7 behind the hips for the grenades), so
+gear sits as close to a deeper body as to a thinner one; the first figure's back was 1 voxel behind
+its joints, this one's 1.5. The sword's grip is at x -3.5, a voxel further out than on the first
+figure, so that its hilt, which rises above the shoulders, clears the side of the 9-wide head. The
+belt's 0.8 is `BakeCharacter.BELT_SCALE`, so three grenades fit. Side by
 side and upright, the stick grenades' heads made one solid band across the back with the handles
 hanging under it like a kilt; fanned out, the three heads stand apart. The grip socket holds a stick
 grenade mid-handle with its head out of the back of the hand, which reads as gripping the handle
@@ -496,8 +523,9 @@ The figure shapes its unit's physics bodies (`Unit._add_bodies()`), neither of w
   height, on `Unit.PICK_LAYER`. Before the rig it was the convex hull of the T-posed mesh, arms out.
   While the figure leans out of its cover (9.13) it stands where the figure leans to, `Unit.lean()`
   off its tile, so a click on the target of a shot that sees it there finds it.
-- **Debris capsule**: as before, as thick as the figure's body (0.189 radius, from the rest box's
-  depth), starting `Unit.BODY_CLEARANCE` above the feet.
+- **Debris capsule**: as before, as thick as the figure's body (0.252 radius, half the rest box's
+  depth, which is the head's; 0.189 on the first figure), starting `Unit.BODY_CLEARANCE` above the
+  feet.
 
 ---
 
@@ -608,9 +636,11 @@ A pole on the wrong side twists the limb 180° or bends it the wrong way; see se
 | `_shouldered()` | the rifle aimed: grip at chest (0, 2, 4.3), muzzle straight ahead |
 | `_torso(pose, lean, turn, tilt, steady)` | shares a lean (forward), turn (left) and tilt (right) between spine (45/40/50%) and chest (55/60/50%), and turns the neck and head back by `steady` of it so the head looks where it was |
 | `_carry(pose, stance, sway, left_free)` | what the hands do at rest per stance: rifle at low ready (or one-handed, muzzle down by the hip, if `left_free`), sword low at the right side, or empty hands hanging; `sway` bobs them with the breath |
+| `_head_box` (a field) | the box the head's voxels fill in its own space, in voxels: x ±4.5, y 0 to 8, z -3.5 to 4.5. Whatever is kept clear of the head is placed by it: the cheer's and the fall's fists at `end.x + 3`, the guard's grip at `-(end.x + 0.7)`, the throw's hand at `end.x + 1.5` and `+ 2`, the draw's reach for the hilt and the sword held at a wall at `-(end.x + 1)`, the hunker's weapon at `-(end.x + 1)` |
 
-"Chest space" means the `Chest` bone's own frame: origin at the chest joint (rig (0, 15, 0) at rest),
-turning with the torso. "Hip space" is the same for `Hips` (rig (0, 9, 0)).
+"Chest space" means the `Chest` bone's own frame: origin at the chest joint (rig (0, 15, -0.5) at
+rest), turning with the torso. "Hip space" is the same for `Hips` (rig (0, 9, -0.5)). The body's
+front is 1.5 ahead of either origin and its back 1.5 behind.
 
 ### 6.4 Prop grips
 
@@ -686,7 +716,7 @@ Moments the game waits on are stored on the clips (`Animation.set_meta`) and rea
 | `throw_rifle`, `throw_melee`, `throw_unarmed` | `release` | 0.36 s | the grenade leaves the hand then |
 | `draw_sword` | `swap` | 0.17 s | the sword comes into the hand, the gun goes on the back |
 | `stow_sword` | `swap` | 0.2 s | the reverse |
-| `wall_lean_*`, `crouch_lean_*` | `reach` | 0.759 (wall), 0.728 / 0.731 (crouch, left / right), in cells | how far out of the middle of its tile the lean puts the middle of the head: `CharacterModel.lean_reach()`, and through it where a shooter aims at a leaning target (`Unit.lean()`) |
+| `wall_lean_*`, `crouch_lean_*` | `reach` | 0.780 / 0.782 (wall, left / right), 0.750 / 0.754 (crouch), in cells (the first figure's 0.759 and 0.728 / 0.731) | how far out of the middle of its tile the lean puts the middle of the head: `CharacterModel.lean_reach()`, and through it where a shooter aims at a leaning target (`Unit.lean()`) |
 
 Change a moment in **both** places, the key table and the `set_meta` line in `make_library()`. The
 `reach` is the exception: `_lean()` measures it off the pose it has just sampled, at time 0, so it
@@ -697,8 +727,9 @@ follows any change to the lean by itself.
 These chibi arms reach only 8 voxels from shoulder to palm; the rifle is 18 long. Holding it in both
 hands therefore only works with:
 
-- **The aim** centred **under the chin**: grip at rig (0, 17, 4.3), the stock tucked into the chest
-  (it overlaps the chest by about a voxel), the muzzle 19.5 voxels (1.23 cells) up.
+- **The aim** centred **under the chin**: grip at chest (0, 2, 4.3), rig (0, 17, 3.8) at rest, the
+  stock tucked into the chest (it overlaps the chest by under two voxels: the chest's front is 1.5
+  ahead of its joint, a voxel on the first figure), the muzzle 19.5 voxels (1.23 cells) up.
 - **The off hand under the receiver** (the `Foregrip` marker at the rifle's (0, 1, 3)), not out on
   the fore-end, which neither hand could reach in an aim.
 - **The carried rifle** angled muzzle down and **to the left**, `(0.55, -0.35, 0.75)`, which brings
@@ -729,8 +760,8 @@ holds the rifle should be checked from the side and the front for this.
 
 ### What it does, step by step
 
-1. Reads the arguments: `[vox] [scene]`, defaulting to `res://Characters/BaseCharacter.vox` and
-   `res://Scenes/BaseCharacter.tscn`.
+1. Reads the arguments: `[vox] [scene]`, defaulting to `res://Characters/Character_Bigger.vox` and
+   `res://Scenes/Character_Bigger.tscn`.
 2. Looks the model's layout up in `LAYOUTS`, which is `VoxelRig.LAYOUTS` (fails if there is none).
 3. `VoxelRig.load_vox()` reads the voxels with the MagicaVoxel importer addon's own reader
    (`vox-importer-common.gd`) and shares them out by the layout.
@@ -740,7 +771,8 @@ holds the rifle should be checked from the side and the front for this.
    **`<model>Body.res`** beside the model, with its skin.
 6. Adds `Aim`, a `SkeletonModifier3D` with `AimModifier.gd`.
 7. Builds `HumanoidAnimations` for the rig, reads the rifle's foregrip from `RIFLE_SCENE`
-   (`res://Scenes/Props/Rifle.tscn`), and adds the sockets (section 5).
+   (`res://Scenes/Props/Rifle.tscn`), and adds the sockets (section 5), each slot's depth measured
+   back from the back of its bone's voxels (`rig.bone_box()`).
 8. `make_library()`, saved as **`<model>Animations.res`** beside the model, put on an
    `AnimationPlayer` as its default library (`""`).
 9. An `AnimationTree` with `make_tree()` as its root, `anim_player` = `../AnimationPlayer`, active.
@@ -750,9 +782,9 @@ holds the rifle should be checked from the side and the front for this.
 The resulting scene:
 
 ```
-BaseCharacter (Node3D)                         CharacterModel.gd
+Character_Bigger (Node3D)                      CharacterModel.gd
   Skeleton3D (Skeleton3D)                      18 bones, rest = T-pose
-    Body (MeshInstance3D)                      BaseCharacterBody.res, skin from the rest
+    Body (MeshInstance3D)                      Character_BiggerBody.res, skin from the rest
     Aim (SkeletonModifier3D)                   AimModifier.gd
     RightHand (BoneAttachment3D → RightHand)
       RifleGrip, SwordGrip (Node3D)
@@ -762,23 +794,25 @@ BaseCharacter (Node3D)                         CharacterModel.gd
       RifleSlot, SwordSlot (Node3D)
     Belt (BoneAttachment3D → Hips)
       Grenade1, Grenade2, Grenade3 (Node3D, scale 0.8)
-  AnimationPlayer (AnimationPlayer)            library "" = BaseCharacterAnimations.res
+  AnimationPlayer (AnimationPlayer)            library "" = Character_BiggerAnimations.res
   AnimationTree (AnimationTree)                the blend tree, embedded; anim_player = ../AnimationPlayer
 ```
 
 ### What it overwrites
 
 The scene and both `.res` files, every time. **Never edit them by hand or in the editor.** Change the
-scripts and bake. Changes made in the editor's animation panel to `BaseCharacterAnimations.res` are
-lost at the next bake (13.9 has how to keep hand-made clips).
+scripts and bake. Changes made in the editor's animation panel to `Character_BiggerAnimations.res`
+are lost at the next bake (13.9 has how to keep hand-made clips).
 
 ### Notes
 
 - The bake **does not** touch the props, the item resources, the maps or `CharacterModel.gd`.
-- The unit scenes (`SquadUnit.tscn` and every map) instance `Scenes/BaseCharacter.tscn` by path, so a
-  re-bake is picked up by all of them.
-- `Characters/BaseCharacter.vox.import` (the plain mesh import) still exists from before the rig.
-  Nothing uses its mesh now; it is harmless, and re-exporting the `.vox` re-imports it pointlessly.
+- The unit scenes (`SquadUnit.tscn` and every map) instance `Scenes/Character_Bigger.tscn` by path,
+  so a re-bake is picked up by all of them.
+- `Characters/Character_Bigger.vox.import` is the plain mesh import, set to the props' params (Scale
+  0.063, `MagicaVoxel.With.Extensions.To.Mesh`) as the first model's was; its default would have
+  been a scene at 0.1. Nothing uses its mesh; it is harmless, and re-exporting the `.vox` re-imports
+  it pointlessly.
 - A new `class_name` script (if you add one) needs `--headless --path . --import` once before a bake
   or a run can use it.
 - The bake takes a few seconds; building the library is about 80 ms of it.
@@ -1059,8 +1093,12 @@ the animations each frame (it changes the pose they leave and never builds up):
   front so the head never winds past `LOOK_YAW_LIMIT` (70°) side to side or `LOOK_PITCH_LIMIT` (35°)
   up and down, from `EYE_RISE` (0.2) above the head's joint. The weight is 1 toward the aim point
   while anything is readied, 1 toward the shooter while it leans out of cover, and 0.6 toward the
-  nearest foe (from `Postures`) otherwise, eased at 3 a second. The head is turned from the chest's
-  own frame, so it keeps whatever tilt the chest has: in a lean it tips with the body.
+  nearest foe (from `Postures`) otherwise, but 0 while it holds a hunker with nothing it attends to
+  (`_base` a `hunker_*` and no `_aim_point`): ducked, it keeps its head down as the pose bows it,
+  where lifted 60% toward its foe the big head would rise over its cover and into it (added with the
+  bigger figure, 2026-11-04). Attending to an ally with a medkit while hunkered, it looks at the
+  ally. Eased at 3 a second. The head is turned from the chest's own frame, so it keeps whatever tilt
+  the chest has: in a lean it tips with the body.
 
 ### 9.8 Death: breaking apart
 
@@ -1076,7 +1114,8 @@ dropping whole beside them. Nothing is animated: the pose it died in is what bre
      `crumbles_as.crumble_size` (3, `Resources/Destruction/Figure.tres`) across, on a grid shifted at
      random for each bone, so a lump is one bone's, turned as its bone is. A voxel is its colour on
      the figure (`FigureVoxels.body`): the unit's `tint`, or blood red where blood recoloured it. The
-     base figure's 536 voxels make some 60 to 90 lumps, about 39 kg in all (`density` 300). Its
+     figure's 944 voxels make some 105 to 116 lumps, about 71 kg in all (`density` 300; the first
+     figure's 536 made 60 to 90, about 39 kg). Its
      glass, if it has any, is left out of the lumps and shatters into shards instead, knocked as the
      lumps are (`FigureVoxels.glass_points()` -> `GlassShards.burst()`, `Docs/GLASS.md`).
    - `_figure_knock()` sets each lump moving: along a round's way or a blade's swing at
@@ -1178,7 +1217,8 @@ figure that reads its voxels while the game runs. Both go through **`FigureVoxel
 
 - **The rig, read again at run time.** `FigureVoxels` reads the `.vox` the figure was baked from
   (`CharacterModel.voxel_model`, which the bake sets) with the layout in `VoxelRig.LAYOUTS`, once per
-  model (about 10 ms for the base figure), and keeps each bone's voxels as a part of its own.
+  model (about 13 ms for the figure, 10 for the first one), and keeps each bone's voxels as a part of
+  its own.
 - **Posed as the skeleton is.** A bone's voxels stand where `skeleton.get_bone_global_pose()` puts
   the bone, less its joint (bones rest unrotated at their joints, section 5), grown from 0.0625 to
   0.063 a voxel. That is what drops of blood and wounds are traced against (`FigureVoxels.march()`),
@@ -1230,9 +1270,9 @@ targeting method) until the shooter has gone back into cover (`X2Action_EnterCov
   figure's left, -1 to its right (section 10). The whole figure moves `LEAN_STEP` (6.5 voxels)
   along the cover, by its hips' offset and the places its feet are put, not by its `Root`; its
   hips go 1.2 to 1.8 further over the outside foot and roll 5°; its torso tips 18° and turns 8°
-  that way. That puts the middle of the head some 12 voxels out, three quarters of a tile, with
-  the edge of the cover half a tile out: enough for the 7-voxel head to clear the edge as seen
-  from straight in front of the cover.
+  that way. That puts the middle of the head some 12 voxels out (12.4 standing, 12 kneeling), three
+  quarters of a tile, with the edge of the cover half a tile out (7.9): enough for the 9-voxel head
+  to clear the edge, just, as seen from straight in front of the cover.
 - **Looking.** The head is turned to `watch` by the aim modifier at full weight (9.7), up to 70°
   from the chest's front.
 - **Leaning back.** `lean_back()` only marks it; the figure stands back on its next frame, or once
@@ -1265,57 +1305,57 @@ bone's own space (section 6.3).
 
 | Clip | Kind | Length | Loop | Keyed | Keys | Meta |
 |---|---|---|---|---|---|---|
-| `stand_rifle` | base | 2.40 | loop | all + Root, Hips | 672 | |
-| `stand_melee` | base | 2.40 | loop | all + Root, Hips | 696 | |
-| `stand_unarmed` | base | 2.40 | loop | all + Root, Hips | 753 | |
-| `crouch_rifle` | base | 2.80 | loop | all + Root, Hips | 296 | |
-| `crouch_melee` | base | 2.80 | loop | all + Root, Hips | 297 | |
-| `crouch_unarmed` | base | 2.80 | loop | all + Root, Hips | 222 | |
-| `wall_rifle` | base | 2.60 | loop | all + Root, Hips | 382 | |
-| `wall_melee` | base | 2.60 | loop | all + Root, Hips | 380 | |
-| `wall_unarmed` | base | 2.60 | loop | all + Root, Hips | 474 | |
-| `hunker_rifle` | base | 3.20 | loop | all + Root, Hips | 291 | |
-| `hunker_melee` | base | 3.20 | loop | all + Root, Hips | 291 | |
-| `hunker_unarmed` | base | 3.20 | loop | all + Root, Hips | 250 | |
-| `wall_lean_left_rifle` | base | 2.60 | loop | all + Root, Hips | 338 | `reach` 0.759 |
-| `wall_lean_left_melee` | base | 2.60 | loop | all + Root, Hips | 336 | `reach` 0.759 |
-| `wall_lean_left_unarmed` | base | 2.60 | loop | all + Root, Hips | 430 | `reach` 0.759 |
-| `wall_lean_right_rifle` | base | 2.60 | loop | all + Root, Hips | 343 | `reach` 0.759 |
-| `wall_lean_right_melee` | base | 2.60 | loop | all + Root, Hips | 342 | `reach` 0.759 |
-| `wall_lean_right_unarmed` | base | 2.60 | loop | all + Root, Hips | 433 | `reach` 0.759 |
-| `crouch_lean_left_rifle` | base | 2.80 | loop | all + Root, Hips | 291 | `reach` 0.728 |
-| `crouch_lean_left_melee` | base | 2.80 | loop | all + Root, Hips | 274 | `reach` 0.728 |
-| `crouch_lean_left_unarmed` | base | 2.80 | loop | all + Root, Hips | 231 | `reach` 0.728 |
-| `crouch_lean_right_rifle` | base | 2.80 | loop | all + Root, Hips | 290 | `reach` 0.731 |
-| `crouch_lean_right_melee` | base | 2.80 | loop | all + Root, Hips | 286 | `reach` 0.731 |
-| `crouch_lean_right_unarmed` | base | 2.80 | loop | all + Root, Hips | 229 | `reach` 0.731 |
-| `ready_throw_rifle` | base | 2.00 | loop | all + Root, Hips | 521 | |
-| `ready_throw_melee` | base | 2.00 | loop | all + Root, Hips | 399 | |
-| `ready_throw_unarmed` | base | 2.00 | loop | all + Root, Hips | 474 | |
-| `cheer_rifle` | base | 1.00 | loop | all + Root, Hips | 338 | |
-| `cheer_melee` | base | 1.00 | loop | all + Root, Hips | 321 | |
-| `cheer_unarmed` | base | 1.00 | loop | all + Root, Hips | 308 | |
-| `aim_rifle` | base | 3.00 | loop | all + Root, Hips | 303 | |
-| `overwatch_rifle` | base | 4.00 | loop | all + Root, Hips | 1040 | |
-| `overwatch_crouch_rifle` | base | 4.00 | loop | all + Root, Hips | 709 | |
-| `ready_melee` | base | 2.00 | loop | all + Root, Hips | 498 | |
+| `stand_rifle` | base | 2.40 | loop | all + Root, Hips | 675 | |
+| `stand_melee` | base | 2.40 | loop | all + Root, Hips | 704 | |
+| `stand_unarmed` | base | 2.40 | loop | all + Root, Hips | 762 | |
+| `crouch_rifle` | base | 2.80 | loop | all + Root, Hips | 301 | |
+| `crouch_melee` | base | 2.80 | loop | all + Root, Hips | 294 | |
+| `crouch_unarmed` | base | 2.80 | loop | all + Root, Hips | 225 | |
+| `wall_rifle` | base | 2.60 | loop | all + Root, Hips | 376 | |
+| `wall_melee` | base | 2.60 | loop | all + Root, Hips | 433 | |
+| `wall_unarmed` | base | 2.60 | loop | all + Root, Hips | 473 | |
+| `hunker_rifle` | base | 3.20 | loop | all + Root, Hips | 293 | |
+| `hunker_melee` | base | 3.20 | loop | all + Root, Hips | 295 | |
+| `hunker_unarmed` | base | 3.20 | loop | all + Root, Hips | 264 | |
+| `wall_lean_left_rifle` | base | 2.60 | loop | all + Root, Hips | 348 | `reach` 0.780 |
+| `wall_lean_left_melee` | base | 2.60 | loop | all + Root, Hips | 415 | `reach` 0.780 |
+| `wall_lean_left_unarmed` | base | 2.60 | loop | all + Root, Hips | 441 | `reach` 0.780 |
+| `wall_lean_right_rifle` | base | 2.60 | loop | all + Root, Hips | 345 | `reach` 0.782 |
+| `wall_lean_right_melee` | base | 2.60 | loop | all + Root, Hips | 418 | `reach` 0.782 |
+| `wall_lean_right_unarmed` | base | 2.60 | loop | all + Root, Hips | 442 | `reach` 0.782 |
+| `crouch_lean_left_rifle` | base | 2.80 | loop | all + Root, Hips | 295 | `reach` 0.750 |
+| `crouch_lean_left_melee` | base | 2.80 | loop | all + Root, Hips | 271 | `reach` 0.750 |
+| `crouch_lean_left_unarmed` | base | 2.80 | loop | all + Root, Hips | 229 | `reach` 0.750 |
+| `crouch_lean_right_rifle` | base | 2.80 | loop | all + Root, Hips | 293 | `reach` 0.754 |
+| `crouch_lean_right_melee` | base | 2.80 | loop | all + Root, Hips | 291 | `reach` 0.754 |
+| `crouch_lean_right_unarmed` | base | 2.80 | loop | all + Root, Hips | 232 | `reach` 0.754 |
+| `ready_throw_rifle` | base | 2.00 | loop | all + Root, Hips | 537 | |
+| `ready_throw_melee` | base | 2.00 | loop | all + Root, Hips | 408 | |
+| `ready_throw_unarmed` | base | 2.00 | loop | all + Root, Hips | 481 | |
+| `cheer_rifle` | base | 1.00 | loop | all + Root, Hips | 334 | |
+| `cheer_melee` | base | 1.00 | loop | all + Root, Hips | 308 | |
+| `cheer_unarmed` | base | 1.00 | loop | all + Root, Hips | 306 | |
+| `aim_rifle` | base | 3.00 | loop | all + Root, Hips | 302 | |
+| `overwatch_rifle` | base | 4.00 | loop | all + Root, Hips | 1050 | |
+| `overwatch_crouch_rifle` | base | 4.00 | loop | all + Root, Hips | 702 | |
+| `ready_melee` | base | 2.00 | loop | all + Root, Hips | 491 | |
 | `run_rifle` | run | 0.40 | loop | all + Root, Hips | 221 | `speed` 5 |
 | `run_melee` | run | 0.40 | loop | all + Root, Hips | 215 | `speed` 5 |
 | `run_unarmed` | run | 0.40 | loop | all + Root, Hips | 206 | `speed` 5 |
-| `back_rifle` | run (blend point) | 0.40 | loop | all + Root, Hips | 90 | |
+| `back_rifle` | run (blend point) | 0.40 | loop | all + Root, Hips | 88 | |
 | `strafe_left_rifle` | run (blend point) | 0.40 | loop | all + Root, Hips | 93 | |
 | `strafe_right_rifle` | run (blend point) | 0.40 | loop | all + Root, Hips | 92 | |
-| `hop` | blend pose (legs) | 0.50 | loop | all + Root, Hips | 108 | |
-| `fall` | blend pose | 0.60 | loop | all + Root, Hips | 249 | |
-| `strike_sword` | act | 0.75 | once | all + Root, Hips | 401 | `impact` 0.27 |
-| `throw_rifle` | act | 0.80 | once | all + Root, Hips | 426 | `release` 0.36 |
-| `throw_melee` | act | 0.80 | once | all + Root, Hips | 403 | `release` 0.36 |
-| `throw_unarmed` | act | 0.80 | once | all + Root, Hips | 402 | `release` 0.36 |
-| `draw_sword` | act | 0.45 | once | all + Root, Hips | 221 | `swap` 0.17 |
-| `stow_sword` | act | 0.45 | once | all + Root, Hips | 221 | `swap` 0.2 |
+| `hop` | blend pose (legs) | 0.50 | loop | all + Root, Hips | 106 | |
+| `fall` | blend pose | 0.60 | loop | all + Root, Hips | 251 | |
+| `strike_sword` | act | 0.75 | once | all + Root, Hips | 403 | `impact` 0.27 |
+| `throw_rifle` | act | 0.80 | once | all + Root, Hips | 428 | `release` 0.36 |
+| `throw_melee` | act | 0.80 | once | all + Root, Hips | 404 | `release` 0.36 |
+| `throw_unarmed` | act | 0.80 | once | all + Root, Hips | 403 | `release` 0.36 |
+| `draw_sword` | act | 0.45 | once | all + Root, Hips | 222 | `swap` 0.17 |
+| `stow_sword` | act | 0.45 | once | all + Root, Hips | 222 | `swap` 0.2 |
 | `reload_rifle` | act (arms and head) | 1.20 | once | both arms, Neck, Head | 167 | `seat` 0.78 |
-| `use_medkit` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 72 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
-| `use_medkit_self` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 71 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
+| `use_medkit` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 62 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
+| `use_medkit_self` | act (left arm) | 1.40 | once | LeftUpperArm, LeftLowerArm, LeftHand | 64 | `take` 0.24, `apply` 0.58, `stow` 1.18 |
 | `fire_rifle` | react (additive) | 0.30 | once | Spine, Chest, Neck, Head | 40 | |
 | `hit_front` | react (additive) | 0.42 | once | Spine, Chest, Neck, Head | 56 | |
 | `hit_back` | react (additive) | 0.42 | once | Spine, Chest, Neck, Head | 56 | |
@@ -1351,8 +1391,9 @@ bone's own space (section 6.3).
     (0, -1, 0.7);
   - left foot planted ahead at (2, 0, 2.6), turned 6°.
 - **Hands:**
-  - rifle held across the chest, muzzle up and to the left (chest (-1, -0.5, 3), direction
-    (0.45, 0.35, 0.8));
+  - rifle held across the chest, muzzle up and to the left (chest (-1, -0.5, 3.5), direction
+    (0.45, 0.35, 0.8)), half a voxel further out than on the first figure, so the right forearm,
+    now 3 deep, stays out of the deeper torso;
   - sword upright in front (hip (-3.5, 3, 4), blade (0.1, 0.9, 0.35)), left hand on the front knee;
   - unarmed: both hands on and by the front knee.
 - **Notes:** the head clears a one-cell crate; from the three-quarter view the kneeling leg hides
@@ -1368,7 +1409,11 @@ bone's own space (section 6.3).
 - **Hands:**
   - rifle upright in front of the chest, muzzle up, its top toward the wall (chest (-1.2, 0.2, 3.2),
     direction (0.15, 1, 0.25));
-  - sword upright in front, left hand by it;
+  - sword upright out by the right shoulder, beside the head (chest (-(head half-width + 1), 0, 2),
+    5.5 out, blade (0, 1, 0.05)), the left hand braced in front at chest (1.4, 1.8 + 0.2 breath,
+    3.6). On the first figure it stood in front of the face; with the bigger head reaching 4.5 ahead
+    of its joint there is no room for a 4-wide blade between the face and the wall, which stands 6
+    to 8 voxels ahead (2026-11-04);
   - unarmed: both hands raised in front of the chest (chest (±1.4, 1.8, 3.6)), bracing.
 
 ### Base poses: hunkered down (`hunker_rifle`, `hunker_melee`, `hunker_unarmed`)
@@ -1378,24 +1423,36 @@ bone's own space (section 6.3).
   overwatch or not, until it moves or the player's next turn stands it up. Anything readied takes
   over meanwhile (lining up a shot, a strike or a throw, the cheer at a win), and so does a lean out
   of its cover while a shot sees it only there (9.13); it ducks again after.
-- **Body:**
-  - hips down to y 3.6, lower than the crouch's 5 (offset (-0.4, -5.4 + 0.1 breath, -1.8)), turned -6°;
-  - torso lean 36° + 1.5 breath, turn 4°, unsteadied (0), so the head goes down with it; neck +10°
-    and head +14° more, bowed.
-- **Legs:** the crouch's: right knee on the floor, its ankle drawn back to (-2.2, 1.4, -6.6); left
-  foot planted at (2, 0, 2), turned 6°.
+- **Body** (re-made for the bigger figure, 2026-11-04):
+  - hips down to y 3.2, lower than the crouch's 5, and drawn back 5.4 voxels toward the back of the
+    tile (offset (-0.4, -5.8 + 0.1 breath, -5.4)), turned -6°;
+  - torso lean 24° + 1.5 breath, turn 4°, unsteadied (0); neck +12° and head +20° more, bowed some
+    56° in all.
+- **Legs:** right knee on the floor ahead of the hips, its shin back along the floor under them, the
+  ankle at (-2.2, 1.4, -6.4), its foot at the back edge of the tile; left foot planted at
+  (2, 0, -1.2), turned 6°.
 - **Hands:**
-  - rifle hugged upright to the chest, muzzle up past the face (chest (-1, -0.5, 2.6), direction
-    (0.1, 1, 0.1)), as the wall's but closer;
-  - sword upright against the chest (chest (-1, -1, 2.8)), the left hand by it;
-  - unarmed: the hands clasped over the back of the bowed head (head (±1.6, 4, -0.5)).
-- **Notes:** from the front the rifle stands across the face; it reads as ducking from every side.
-  The head stays a little higher than a one-cell crate.
+  - rifle held upright at the right side, clear of the bowed head (chest (-(head half-width + 1),
+    -3, 1), 5.5 out, direction (0, 1, 0.05)), muzzle up beside the head; the left hand on the raised
+    knee (the knee's joint as the leg is bent, plus (0.4, 1.8, 0.4));
+  - sword upright at the right side the same way (chest (-5.5, -2, 1)), the left hand on the knee;
+  - unarmed: a hand on each knee.
+- **Why:** a head bowed forward swings its top out ahead of it nearly as far as it is tall. The first
+  hunker (hips 3.6 at -1.8, lean 36°, neck 10°, head 14°, the rifle hugged upright to the chest
+  in front of the face, unarmed hands on the back of the head) put the bigger head 10.7 voxels
+  ahead, into any cover (a block's face is 7.9 ahead, a stone wall's or a fence's 5.9, a building
+  wall's 6.9), and out through the far side of a building wall; the first figure's head already
+  reached 9.5. Drawn back, the head reaches 5.9 ahead and nothing of the figure enters any cover;
+  the rifle and the free hand had to leave the front of the body, where the bowed head now hangs.
+  The head's top is 20.8 voxels up (a one-cell crate is 15.9; the first figure's hunker 19.4).
+  Bowed near 90° on an upright body, as first tried, the cube head read as tilted back (16).
+- **Notes:** hunkered with nothing it attends to, the figure keeps its head down: the aim modifier's
+  look at its foe is off (9.7). It reads as ducking from every side.
 
 ### Base poses: leaning out of high cover (`wall_lean_left_*`, `wall_lean_right_*`)
 
 - **Function:** `_wall(time, stance, side)`, 2.6 s loop; `side` 1 for the figure's left, -1 for its
-  right. Meta `reach` 0.759 (cells; section 6.8).
+  right. Meta `reach` 0.780 (left) and 0.782 (right) (cells; section 6.8).
 - **When:** while a shot is lined up, or being played, that sees the unit only on the tile beside
   its high cover that it could lean out to (section 9.13). The figure faces the cover.
 - **Body:** everything `wall_*` does, moved `side` × `LEAN_STEP` (6.5) along the wall, and then:
@@ -1407,14 +1464,14 @@ bone's own space (section 6.3).
 - **Feet:** left (side × 6.5 + 2.2 + side × 0.6, 0, 0.6); right (side × 6.5 - 2.2 + side × 0.6, 0,
   -1.4); the outside foot turned out 12° more.
 - **Hands:** as `wall_*`, riding the chest: the rifle (or sword) upright, tipped out with the body.
-- **Result:** the middle of the head 12 voxels out from where the figure stood, the hips 8.3, the
-  feet 4.9 and 9.3: the edge of the cover is 7.9 out, so the head and the outside shoulder are
-  past it and the inside leg is behind it.
+- **Result:** the middle of the head 12.4 voxels out from where the figure stood, the hips 8.3, the
+  feet 4.9 and 9.3: the edge of the cover is 7.9 out, so the head (its inner side at 7.9) and the
+  outside shoulder are past it and the inside leg is behind it.
 
 ### Base poses: leaning out of low cover (`crouch_lean_left_*`, `crouch_lean_right_*`)
 
-- **Function:** `_crouch(time, stance, false, side)`, 2.8 s loop. Meta `reach` 0.728 (left) and
-  0.731 (right).
+- **Function:** `_crouch(time, stance, false, side)`, 2.8 s loop. Meta `reach` 0.750 (left) and
+  0.754 (right).
 - **When:** as the lean above, when the cover leaned out from is low: the unit stays on one knee.
 - **Body:** the kneel, moved side × 6.5 along the cover, and then:
   - hips (side × 7.7, -4 + 0.12 breath, -1.2): 1.2 over the side leaned to (the kneel's 0.4 toward
@@ -1461,8 +1518,9 @@ bone's own space (section 6.3).
 - **When:** while a strike is lined up (readiness `MELEE`), and between strikes.
 - **Body:** hips (0, -1.6 + 0.12 breath, 0); twist 12° left (hips 35%, torso 65%); lean 6°.
 - **Feet:** left forward (2.4, 0, 2.6) turned 8°; right back (-2.2, 0, -2.4) turned 24°.
-- **Sword:** grip at chest (-4.2, 4, 2.5), blade up and back (-0.15, 0.85, -0.5), edge forward. The
-  blade stands beside the right of the head, clear of it.
+- **Sword:** grip at chest (-(head half-width + 0.7), 4, 2.5), -5.2 out, blade up and back
+  (-0.15, 0.85, -0.5), edge forward. The blade stands beside the right of the head, clear of it (the
+  first figure's grip was at -4.2, its head a voxel narrower each side).
 - **Left hand:** a guard in front, chest (3, -0.5, 4.5).
 
 ### Base poses: grenade ready (`ready_throw_rifle`, `ready_throw_melee`, `ready_throw_unarmed`)
@@ -1487,11 +1545,12 @@ bone's own space (section 6.3).
   head up 8°.
 - **Feet:** left (2.4, bounce × 0.8, 0.8) turned 10°; right (-2.4, bounce × 0.8, -0.4) turned 12°.
 - **Right hand:**
-  - rifle thrust overhead, grip at chest (-6.5, 8 + 1.5 pump, 1), pointing up and forward;
+  - rifle thrust overhead, grip at chest (-7.5, 8 + 1.5 pump, 1), pointing up and forward;
   - sword overhead the same way;
-  - unarmed: a fist overhead at chest (-6.5, 8 + 1.5 pump, 1.5).
-- **Left fist:** pumping, chest (6.5, 7 + 2 (1 - pump), 1.5).
-- **Note:** the fists are at ±6.5 because the head is wider than the shoulders.
+  - unarmed: a fist overhead at chest (-7.5, 8 + 1.5 pump, 1.5).
+- **Left fist:** pumping, chest (7.5, 7 + 2 (1 - pump), 1.5).
+- **Note:** the fists are at ±(head half-width + 3), ±7.5, because the head is wider than the
+  shoulders (±6.5 on the first figure). The raised upper arm still brushes the head's side.
 
 ### Runs (`run_rifle`, `run_melee`, `run_unarmed`)
 
@@ -1514,8 +1573,9 @@ bone's own space (section 6.3).
   (-1, 0) toward its right.
 - **When:** a rifleman walking while keeping its facing: stepping out of cover to shoot and back,
   through the `run_rifle` blend space at the direction of travel in its own space.
-- **Legs:** shuffled steps that never cross: feet at x ±2.4, z ±1.6, each shifting ±2.6 along the
-  way and lifting up to 2.2.
+- **Legs:** shuffled steps that never cross: feet at x ±2.4, z ±2 (±1.6 on the first figure, whose
+  feet were 2 voxels shorter, so the feet passing each other sideways do not meet), each shifting
+  ±2.6 along the way and lifting up to 2.2.
 - **Body:** a small hop (hips -1.6 + 0.5 |sin|); hips turned -12°; torso lean 8°, turn 12°, tilt
   -4 × way.x.
 - **Rifle:** shouldered: they keep the gun on the target.
@@ -1537,7 +1597,7 @@ bone's own space (section 6.3).
 - **When:** `Unit.drop_to()` (the floor broke), blended in by `air` until the unit lands.
 - **Pose:** hips pitched -10°, rolling ±4°; torso leaning back 12°, turning ±8°; head -10°.
   - Legs kicking: feet at (±2.4, 2.6 ± 1.5, 2 ± 1.5).
-  - Arms flung up: palms at chest (±6.5, 7 ± 1, 1).
+  - Arms flung up: palms at chest (±7.5, 7 ± 1, 1), clear of the sides of the head as the cheer's.
   - The rifle goes up with the right hand.
 
 ### Strike (`strike_sword`)
@@ -1558,11 +1618,17 @@ bone's own space (section 6.3).
 
   | Time | Grip | Blade | Edge |
   |---|---|---|---|
-  | 0.00 | (-4.2, 4, 2.5) | (-0.15, 0.85, -0.5) | (0, 0.5, 1) |
-  | 0.14 | (-5.5, 7, -1.5) | (0.1, 0.4, -0.91) | (0, 1, 0.4) |
+  | 0.00 | (-5.2, 4, 2.5) | (-0.15, 0.85, -0.5) | (0, 0.5, 1) |
+  | 0.14 | (-6.5, 7, -1.5) | (0.1, 0.4, -0.91) | (0, 1, 0.4) |
   | 0.27 | (0, -0.5, 6) | (0.55, -0.45, 0.7) | (0.5, -0.8, -0.1) |
   | 0.42 | (1, -2.5, 3.5) | (0.75, -0.6, 0.25) | (0.3, -0.6, -0.7) |
+  | 0.58 | (-6, 1, 4.5) | (-0.2, 0.3, 0.93) | (0, 1, -0.3) |
   | 0.75 | as 0.00 | | |
+
+  The guard's and the wind-up's x are the head's half-width (4.5) plus 0.7 and 2 (-4.2 and -5.5 on
+  the first figure). The 0.58 key (2026-11-04) brings the blade back up in front, out to the right,
+  before it rises to the guard: straight from the follow-through to the guard the blade swept up
+  through the head, as it already did on the first figure.
 
 - **The lunge** moves `Root` forward (z), up to 5.5 voxels. The planted feet are placed at their spots
   minus the root, so they stay put while the body goes over them. The front (left) foot steps in by
@@ -1581,8 +1647,12 @@ bone's own space (section 6.3).
   | Time | Twist | Weight | Lean | Hand | |
   |---|---|---|---|---|---|
   | 0.00 | 10 | -0.3 | 2 | (3.2, 1.5, 3.4) | ready |
-  | 0.22 | 42 | -1.6 | -6 | (5, 7.5, -4.2) | wound back behind the head, weight back |
-  | **0.36** | -18 | 1.2 | 12 | (2.6, 9.5, 4) | **release**, over the head, in front |
+  | 0.22 | 42 | -1.6 | -6 | (6, 7.5, -4.2) | wound back behind the head, weight back |
+  | **0.36** | -18 | 1.2 | 12 | (6.5, 9, 3.5) | **release**, up by the side of the head, in front |
+
+  The wind-up's and the release's x are the head's half-width (4.5) plus 1.5 and 2 (2026-11-04): the
+  first figure released at (2.6, 9.5, 4), over its head, which the bigger head's front reached, the
+  grenade in hand passing through it.
   | 0.50 | -30 | 1.8 | 18 | (-0.5, -1.5, 6) | follow-through across the body |
   | 0.80 | 10 | -0.3 | 2 | (3.2, 1.5, 3.4) | back to ready |
 
@@ -1600,8 +1670,10 @@ bone's own space (section 6.3).
 - **Pose:**
   - every bone slerped from `stand_rifle` at 0 to `ready_melee` at 0 (the reverse to stow) by
     smoothstep over 0.45 s, the root and hips lerped the same way;
-  - the right palm pulled toward the hilt over the right shoulder, chest (-2.8, 5.5, -1.5), by
-    `sin(π t / 0.38)`, keeping the hand turned as the blend has it.
+  - the right palm pulled toward the hilt over the right shoulder, out by the side of the head
+    where the slung sword's hilt is, chest (-(head half-width + 1), 5.2, back - 1.2), (-5.5, 5.2,
+    -2.7), by `sin(π t / 0.38)`, keeping the hand turned as the blend has it (the first figure
+    reached (-2.8, 5.5, -1.5), into the back of its head);
 - **The swap** of the props happens at the hand's highest point, in `CharacterModel`, not in the clip.
 - **For a swordsman without a gun** (the sword is always in hand), neither plays.
 
@@ -1640,13 +1712,16 @@ bone's own space (section 6.3).
 - **When:** `CharacterModel.use_medkit()`, from `Unit.use_medkit()`: the squad's `UseMedkitAction`.
   The ally mends at `apply`; the medkit is in the left hand from `take` to `stow`.
 - **Pose:** the left palm, keyed in the chest's space: by the left hip, (4.6, -5.6, 1) (0), back to
-  the belt, (4.2, -6.6, -1.2) (0.24, taken), up past the waist, (3.4, -1.5, 5) (0.42), held out at
-  chest height, (1.6, 1.2, 7.2) (0.58, applied), a slight dip and back (0.8-0.98), the belt again
+  the belt, (4.2, -6.6, back of the hips - 0.2), -1.7 (0.24, taken), up past the waist,
+  (3.4, -1.5, 5) (0.42), held out a little below chest height, (1.6, 0, 7.2) (0.58, applied; y 1.2
+  before 2026-11-04: lowered to pass under a head bowed hunkering), a slight dip and back
+  (0.8-0.98), the belt again
   (1.18, hooked back on), the hip (1.4). The elbow's pole is out and down, (1, -1, -0.4). The head is
   not keyed: the aim modifier's look turns it to the ally (`attend()`).
 - **On itself** (`use_medkit_self`, the medic treating its own wounds): the same keys but three. On
   the way up it passes (3.6, -3, 4) (0.42), it is pressed to the figure's own middle, `SELF_MEDKIT`
-  (0.4, -2.6, 3.2), just below the rifle held across the chest, at 0.58, pressed in a little more,
+  (0.4, -2.6, 2.2) with its z out from the chest's front (1.5), so (0.4, -2.6, 3.7), just below the
+  rifle held across the chest, at 0.58, pressed in a little more,
   (0, -0.3, -0.5) on that, at 0.8, and eased back at 0.98. The figure does not turn; the look goes
   down in front of it (`CharacterModel.SELF_LOOK`, 0.6 m ahead of its feet and 0.7 m up, which the
   look's 35-degree limit stops short of). Previewed from the side, front and three-quarters, standing
@@ -1731,7 +1806,7 @@ bone's own space (section 6.3).
   The importer's default is 0.1. Write the `.import` with those params before the first import, or
   fix it after, and Godot fills in the rest.
 - **The source `.vox` lives in `MagicaVoxel/`** with a copy in `vcom/Items/`, as the character's does
-  (`MagicaVoxel/BaseCharacter.vox` and `vcom/Characters/BaseCharacter.vox`).
+  (`MagicaVoxel/Characters/Character_Bigger.vox` and `vcom/Characters/Character_Bigger.vox`).
 
 ### The three props
 
@@ -1841,7 +1916,7 @@ Every significant choice, why it was made, and what it costs.
     - *Cons:* hundreds of keys per clip, so editing a baked clip by hand in the editor is impractical
       (another reason not to).
 11. **Binary `.res` for the mesh and library** rather than text `.tres`.
-    - *Pros:* small (384 KB library, 28 KB mesh); fast to load.
+    - *Pros:* small (545 KB library, 43 KB mesh); fast to load.
     - *Cons:* not diffable, so the diff to review is the script's.
 12. **Three stances (rifle, melee, unarmed) as variants of shared pose functions.**
     - *Pros:* one body motion per action; the hands differ by `_carry`.
@@ -1899,7 +1974,8 @@ Every significant choice, why it was made, and what it costs.
 24. **The rifle aimed under the chin with the off hand on the magazine** (forced by the 8-voxel
     arms).
     - *Pros:* two-handed holds that the IK can actually reach.
-    - *Cons:* the stock sinks into the chest a little; looks chibi rather than realistic.
+    - *Cons:* the stock sinks into the chest a little (under two voxels on the bigger figure);
+      looks chibi rather than realistic.
 25. **A sword carried with a gun is slung on the back and drawn per strike**, as XCOM 2's Ranger does.
     - *Pros:* shows both weapons; the draw is clear feedback that Strike is lined up.
     - *Cons:* the gun teleports on to the back at the swap; a strike right after selecting waits for
@@ -1907,7 +1983,8 @@ Every significant choice, why it was made, and what it costs.
 26. **Grenades tucked into the back of the belt at 0.8 scale**, the outer two fanned out 25°.
     - *Pros:* clear of the legs and of arms hanging at the sides; three fit, and each head shows.
     - *Cons:* small, and mostly hidden from the front; the slung sword's blade and the slung
-      rifle's stock cross them.
+      rifle's stock cross them (the sword's more on the bigger figure, its grip moved out a voxel to
+      clear the head: up to 10 voxels of overlap, 4 to 6 before).
 27. **Props are scenes with markers** (`Item.model: PackedScene`) rather than bare meshes.
     - *Pros:* the muzzle and foregrip are data, and the animations follow the foregrip.
     - *Cons:* each prop has a scene to keep with its `.vox`.
@@ -1956,7 +2033,8 @@ Every significant choice, why it was made, and what it costs.
 
     *Cons:*
     - no fall is played: the figure bursts where it stands and its pieces drop;
-    - some 60 to 90 more bodies for the physics a death, until they sleep;
+    - some 105 to 116 more bodies for the physics a death, until they sleep (60 to 90 on the
+      first figure);
     - a bent joint's two bones share a little room, so their lumps can start overlapping;
     - lumps are drawn a block's voxels across, a shade smaller than the figure's.
 32. **The click body is a cylinder** rather than the T-posed hull.
@@ -1985,8 +2063,9 @@ Every significant choice, why it was made, and what it costs.
       space, so a moved root would have to be allowed for in every target.
     - *How far:* three quarters of a tile at the head. XCOM 2's peek is a lean of the head and
       shoulders, but its soldiers stand at the edge of their cover in tiles half as wide again;
-      here the figure stands in the middle of a one-metre tile with a head 0.44 wide, so anything
-      less left the head half behind the edge to someone straight in front of the cover.
+      here the figure stands in the middle of a one-metre tile with a head 0.44 wide (the first
+      figure's; the bigger one's is 0.57), so anything less left the head half behind the edge to
+      someone straight in front of the cover.
     - *Why its `reach` is measured, not written down:* the shooter aims, and the reticle sits, where
       the head is, so the number has to follow the pose; the bake reads it off the pose.
     - *Why it waits to lean back:* drawn back the moment the round landed, the figure was behind
@@ -1997,6 +2076,51 @@ Every significant choice, why it was made, and what it costs.
       chest show past the edge.
     - *Not done:* XCOM 2's idle peeks (a look out of cover every one to five seconds while enemies
       are in sight), and holding a peek when targeted but seen where it stands.
+
+### The bigger figure (2026-11-04)
+
+35. **Every unit wears `Character_Bigger.vox`** (the user's: *"Fully adopt the bigger character in
+    the game, updating all animations and documentation accordingly"*, after comparison
+    screenshots of the two in busy battles). The user drew it: the first figure with a 9x8x8 head and
+    a torso, arms and legs three voxels deep, feet five long; the same heights and widths.
+    - *Pros:* units stand out in a busy battle, the enemies' grey most of all.
+    - *Cons:* 944 voxels to the first's 536, so a death makes some 110 lumps (about 1 ms more on its
+      frame) and the rig takes 13 ms to read; the head comes closer to everything, so the poses
+      below were re-placed. The first figure's files left `vcom/` (its source stays in
+      `MagicaVoxel/Characters/`, and git has all of it); its layout, `BASE_CHARACTER`, went from
+      `VoxelRig.gd`.
+36. **Every joint at z -0.5**, the middle of the 3-deep limbs, rather than at z 0 as on the first
+    figure, which would have kept every placement in the chest's space where it was against the
+    front of the body (made without asking).
+    - *Pros:* a limb turns about its own middle, so a bent elbow or knee lines up as the first
+      figure's did; slung gear and every hand placed from the middle move out with the body evenly.
+    - *Cons:* a placement in chest or hip space is half a voxel closer to the body's front than it
+      was (the aim's stock sinks deeper); the figure stands half a voxel behind its tile's middle,
+      its head centred on it.
+37. **Placements near the head follow its box** (`_head_box`), not numbers: the cheer's and the
+    fall's fists, the guard and the wind-up, the throw, the draw's reach, the hunker's and the wall
+    sword's grip (made without asking). A model with another head gets them right by a bake.
+38. **The hunker re-made** to stay out of cover (made without asking; section 10): drawn back to the
+    back of its tile, bent over less, the weapon upright at the right side and the free hand on the
+    raised knee.
+    - *Pros:* no voxel of the figure enters any cover in front of it, blocks, stone walls, fences or
+      building walls, where the first hunker on the bigger head reached 10.7 voxels ahead and out
+      through a building wall; it still reads as ducked, the head bowed forward of the body.
+    - *Cons:* the head's top is 20.8 voxels up, higher than the first figure's 19.4 (a crate is
+      15.9); the kneeling foot is at the back edge of the tile; the rifle no longer stands across the
+      face, and the unarmed hands no longer cover the head (short arms cannot reach round a head
+      this wide).
+39. **A hunkered figure keeps its head down** (made without asking; 9.7): the look at its foe is off
+    while it holds a hunker with nothing it attends to. Lifted 60% toward the foe, as every idle head
+    was, the bowed head rose over its cover and into it; on the first figure it was what kept the
+    first hunker's head from reaching as far as the pose put it.
+40. **The sword held at a wall beside the head** rather than in front of the face (made without
+    asking; section 10): a 4-wide blade fits neither through the bigger head nor between it and the
+    wall.
+41. **Slung gear placed from the back of its bone** (`BakeCharacter.SLOTS`, made without asking):
+    a slot's depth is measured from the back of the bone's voxels, so the rifle, the sword and the
+    belt grenades sit as close to the deeper body as to the first; the sword's grip moved a voxel
+    out so its hilt clears the head.
 
 ---
 
@@ -2229,16 +2353,20 @@ Example: `pistol`, held one-handed.
 ### 13.8 Add a character model
 
 1. **Draw it in MagicaVoxel**, one model (the reader takes the first model in the file), standing
-   upright, facing -y, in a T-pose with straight arms. The base character's 32-cubed template
-   (`Ex_Boy.vox`) is a good start.
-2. **Copy it** to `vcom/Characters/<Name>.vox`.
-3. **Write its layout** in `VoxelRig.gd`, by the base character's (a constant like `BASE_CHARACTER`).
+   upright, facing -y, in a T-pose with straight arms. The figure's own model
+   (`MagicaVoxel/Characters/Character_Bigger.vox`), or the 32-cubed template the first one came from
+   (`Ex_Boy.vox`), is a good start.
+2. **Copy it** to `vcom/Characters/<Name>.vox`, and before its first import write its `.vox.import`
+   with the props' params (section 11): the importer's default is a scene at 0.1.
+3. **Write its layout** in `VoxelRig.gd`, by the figure's (a constant like `CHARACTER_BIGGER`).
    Dump its voxels as text to find the parts: a front view (x across, z up) and a side view (y across,
    z up) of which voxels are filled. Then:
    - **`"joints"`**, in rig voxels: x is the model's x minus the middle; y is the model's z minus the
      lowest; z is the middle minus the model's y. Shoulders a voxel into the arm; elbows, wrists,
      knees and ankles at segment boundaries; the hip joints at the top of each leg; the head joint at
-     the bottom of the head.
+     the bottom of the head. Put z down the middle of the limbs: the middle of the model's box is
+     the rig's z 0, so a body deeper at the back than its head puts its joints behind it (the
+     figure's at -0.5).
    - **`"regions"`**, in model voxels, most specific first, so the head and arms come before the
      torso's full-width boxes.
 4. **Add it to `VoxelRig.LAYOUTS`**: `"res://Characters/<Name>.vox": <NAME>`. The bake reads that
@@ -2250,15 +2378,22 @@ Example: `pistol`, held one-handed.
 6. **Preview** with `--scene res://Scenes/<Name>.tscn`. Watch for:
    - arms that cannot reach the rifle (section 6.9; move `_low_ready()` and `_shouldered()` or the
      foregrip, or give the model its own placements);
-   - hands inside a wider head (the cheer, the guard);
+   - hands and weapons inside the head: what is kept clear of it follows `_head_box`, but a head
+     much bigger again will want the poses near it looked at (the cheer, the guard, the throw, the
+     draw, the hunker);
+   - a body deeper or thinner than the figure's: chest-space placements are from the joints, slung
+     gear from the back;
+   - cover: a cover pose must not reach past the cover's face (14.6);
    - hip heights (`_crouch` puts the hips at y 5, written for these legs).
+   Measure the overlaps and the cover as 14.6 has it, against the figure's numbers before the
+   change.
 7. **Use it:** make it a unit's `Model` child (instance the new scene, set its `tint`), or point
    `Scenes/SquadUnit.tscn` at it. The animations were made for its proportions; the tree, the props
    and `CharacterModel` are shared.
 
 ### 13.9 Hand-keyed animations (editor, Blender), and what is missing
 
-You can play with the baked clips in the editor: open `Scenes/BaseCharacter.tscn`, turn the
+You can play with the baked clips in the editor: open `Scenes/Character_Bigger.tscn`, turn the
 `AnimationTree`'s **Active** off, select the `AnimationPlayer`, pick a clip and play or scrub it.
 Props are added at run time, so the editor shows the figure empty-handed.
 
@@ -2314,7 +2449,8 @@ The pattern every existing animation follows:
   `--headless --path . res://Scenes/BoundaryMap.tscn --quit-after 150` (and `LineOfSightTest.tscn`,
   `CombatMap.tscn`, `Map.tscn`).
 - Drive the action in a map and look (section 14).
-- If the Godot editor is open, reload `BaseCharacter.tscn` and any open map.
+- If the Godot editor is open, reload `Character_Bigger.tscn` and any open map.
+- For anything near the head, the body or the cover, measure it (14.6).
 
 ---
 
@@ -2343,7 +2479,7 @@ looking at them. Every claim in this file was checked that way.
 
 ### 14.2 In the editor
 
-Open `Scenes/BaseCharacter.tscn`, set the `AnimationTree` inactive, and scrub clips on the
+Open `Scenes/Character_Bigger.tscn`, set the `AnimationTree` inactive, and scrub clips on the
 `AnimationPlayer`. No props. Do not save the scene (the bake owns it).
 
 ### 14.3 In a map, through the real actions
@@ -2450,6 +2586,36 @@ each is now, `_moved_at[piece]` the last step it moved, its body asleep once at 
 seen in a window (`CLAUDE.md`'s Gotchas: the headless renderer keeps no MultiMesh instance data); they
 come to rest in 2-3 s, a blast's a little later.
 
+### 14.6 Overlaps and cover, measured
+
+At contact-sheet size a voxel or two of a hand in the head, a blade in the face or a head in a wall
+hides, so two headless probes measure them (kept outside the repo, as every probe is). They are how
+the poses were re-placed for the bigger figure (section 19), and what to run before and after any
+change near the head, the body or cover:
+
+- **Overlaps.** Play every clip as the preview does (whole clips straight from the
+  `AnimationPlayer`; the reactions through the tree; the arms-and-head and left-arm acts through the
+  tree too, over `stand_rifle`, `crouch_rifle` and `hunker_rifle`), the figure dressed as the game
+  dresses it (a rifle clip with the sword slung, a melee one with the rifle slung, `_drawn` set; two
+  grenades and a medkit on the belt; reset `_drawn` between clips, or a melee clip's carries on into
+  the next). At a dozen moments in each, pose the voxels: `model.voxels()`, its `_posed_at` set to -1
+  and `_pose()` called; a bone's voxels are then `_frames[bone] * rig.centers[bone][i]`, a prop's
+  `prop.frame() * shape.center_of(place)` for every place its `voxels` hold (`_gear` has the props).
+  For every pair of parts, count the voxels whose middles come within 0.8 of a voxel of the other's
+  (touching faces are 1 apart), leaving out a bone and its parent and a hand and what it grips, and
+  keep the worst moment of each pair in each clip. Compare two runs pair by pair: a few voxels more
+  between a limb and the torso is a thicker limb and does not show; anything with the head or a prop,
+  or a pair from none to many, is worth a look at that moment.
+- **Cover.** Pose a base pose the same way and count its voxels past each cover's face and below its
+  top, in figure voxels from the middle of the tile toward the cover it faces: a block in the next
+  cell (face 7.94, top 15.87), a stone wall or a fence on the edge (4 block voxels thick on the edge
+  line: face 5.95, top 15.87 or 12.9), a building wall (2 thick: face 6.95, any height). Nothing
+  should be past any of them. Print the head's top and front and the body's front, back and sides
+  beside them.
+
+The bigger figure's last run: no pair with the head or a slung prop worse than on the first figure
+but those in 15 ("Clipping here and there"), and nothing of any cover pose in any cover.
+
 ---
 
 ## 15. Known gaps and limitations
@@ -2458,7 +2624,7 @@ come to rest in 2-3 s, a blast's a little later.
 
 - **Enemies never strike or throw.** Their AI only shoots, so no enemy figure draws a sword or
   readies a grenade, though the same figure can.
-- **One figure for every unit.** Only `BaseCharacter.vox` has a layout; armor does not show; a
+- **One figure for every unit.** Only `Character_Bigger.vox` has a layout; armor does not show; a
   character's colour is the only thing that tells the squad apart.
 - **No wounded idle**, no idle fidgets beyond breathing and drift, no
   turn-in-place steps, no start or stop transitions on the run, no walk gait.
@@ -2483,7 +2649,7 @@ come to rest in 2-3 s, a blast's a little later.
 - **Hands drift off the rifle** during the 0.22 s base-pose cross-fades, which blend joint rotations.
 - **The left palm can stop up to a voxel short** of the foregrip where a pose is out of reach (0.15
   at most in the rifle's clips now).
-- **The stock overlaps the chest** in the aim (about a voxel).
+- **The stock overlaps the chest** in the aim (under two voxels).
 - **The slung rifle's muzzle stands above the left shoulder**, level with the top of the head: the
   rifle is 18 voxels long, and slung lower its stock would sink into the grenades on the belt.
 - **Joints open or overlap visibly when bent hard**, as rigid parts do: elbows, knees and shoulders
@@ -2491,7 +2657,8 @@ come to rest in 2-3 s, a blast's a little later.
 - **The aim modifier bends only the spine and chest.** Steep aims look stiff, and the pitch is
   measured from 1.25 cells above the feet, not from the muzzle, so the rifle points only roughly at a
   target well above or below.
-- **The head look** at the nearest foe ignores line of sight, and is limited to 70° and 35°.
+- **The head look** at the nearest foe ignores line of sight, and is limited to 70° and 35°; a
+  hunkered figure has none (9.7).
 - **Step-outs are tuned for a one-tile sidestep**; a diagonal step blends two cycles; a long strafe
   would shuffle.
 - **Hops** use the same arc and pose for every height (a two-level drop and a one-level climb look
@@ -2504,7 +2671,13 @@ come to rest in 2-3 s, a blast's a little later.
   - in high cover the figure faces the wall rather than turning its back to it, as XCOM 2's
     soldiers do;
   - overwatch in high cover looks like no overwatch;
-  - a figure readied for an action ignores cover until it stands easy.
+  - a figure readied for an action ignores cover until it stands easy;
+  - the bigger head's front is 1.6 voxels from a building wall's face up against high cover (2.6 on
+    the first figure), and 0.3 from a stone wall's;
+  - hunkered, the figure kneels at the back of its tile, its kneeling foot at the tile's back edge,
+    where a unit standing right behind it is touched; its head, 20.8 voxels up, shows above a
+    one-cell crate (15.9) more than the first figure's did (19.4), its body nearly upright and the
+    head bowed forward of it, kept out of the cover in front.
 - **Leaning out of cover** (9.13):
   - the figure slides along its cover to the edge in the 0.22 s cross-fade rather than stepping, and
     turns to face the cover as it goes if it was facing a foe elsewhere;
@@ -2526,17 +2699,30 @@ come to rest in 2-3 s, a blast's a little later.
     up, and armor, which does not show, does not drop;
   - dropped gear passes for good through the lumps it started inside, and a squad member's is only
     for show: it is back in the inventory already;
-  - some 60 to 90 lumps a death cost physics until they sleep, in 2 to 3 seconds.
+  - some 105 to 116 lumps a death (60 to 90 on the first figure) cost physics until they sleep, in 2
+    to 3 seconds.
 - **The cheer** only plays for the winners while the banner is up, then the battle closes.
 - **The editor** shows units in the tree's first base pose (`stand_rifle`) and without props, since
   the tree is active in the scene and props are added at run time.
 - **Forgetting to bake** after editing the `.vox` leaves the old rig in play. The plain import of
-  `BaseCharacter.vox` still runs on re-export and is unused.
+  `Character_Bigger.vox` still runs on re-export and is unused.
 - **A model drawn in an A-pose**, or with hands not running along x, would need new grip bases.
 - **The preview tool** shows the figure in its own grey, not a unit colour.
 - **The belt shows at most three grenades** (`BELT`).
-- **Clipping here and there:** an arm against the head in some poses, belt grenades against the arms,
-  the slung sword against the slung rifle (never both at once).
+- **Clipping here and there**, as measured (14.6) on the bigger figure:
+  - the strike's blade grazes the head mid-swing, for about a tenth of a second (as it did on the
+    first figure);
+  - the cheer's raised right upper arm brushes the side of the head;
+  - the slung sword's blade crosses the heads of the belt grenades, up to 10 voxels of overlap (4 to
+    6 on the first figure), its grip having moved out a voxel so its hilt clears the head;
+  - a held weapon through a forearm, now 3 deep: the rifle in the hop, the fall and the reload, the
+    sword in the run;
+  - a medkit taken from or hooked back on the belt passes through the thigh while kneeling or
+    hunkered, and held out to an ally while hunkered it brushes the bowed head unless the head has
+    lifted to look at the ally;
+  - belt grenades against the arms; the slung sword against the slung rifle (never both at once);
+  - in the draw and the stow the sword passes through the chest and the right arm (the preview shows
+    the sword in hand throughout; in play it is on the back until the swap).
 
 ---
 
@@ -2545,7 +2731,7 @@ come to rest in 2-3 s, a blast's a little later.
 | Symptom | Cause | Fix |
 |---|---|---|
 | `Could not find type "CharacterModel"` (or another new class) | a new `class_name` script created outside the editor is not in the class cache | `--headless --path . --import` once |
-| My edit to `BaseCharacter.tscn` or the animations vanished | the bake regenerates the scene and both `.res` | change the scripts, not the outputs; for hand-made clips see 13.9 |
+| My edit to `Character_Bigger.tscn` or the animations vanished | the bake regenerates the scene and both `.res` | change the scripts, not the outputs; for hand-made clips see 13.9 |
 | The open editor overwrote the new scene | it held the old one and was saved | reload changed scenes in the editor instead of saving them |
 | A new clip never plays | not in the tree (missing from `STANCE_POSES`, `RIFLE_POSES`, `MELEE_POSES`, `ACTS`, `UPPER_ACTS`, `LEFT_ACTS` or `REACTS`), not baked, or never requested by `CharacterModel` | add it, bake, and request it (`_base_pose()`, `_act()`, `_act_upper()`, `_act_left()`, `_react()`) |
 | An arms-and-head clip stands a kneeling figure up, or its legs go to the T-pose | played through `act` rather than `upper`: `act` replaces every bone, and the tree's deterministic blend pulls the bones the clip leaves unkeyed toward their rest | add it to `UPPER_ACTS` and play it with `_act_upper()` |
@@ -2553,7 +2739,10 @@ come to rest in 2-3 s, a blast's a little later.
 | An arm twists 180° or bends backwards | the IK pole points to the wrong side | flip or rotate the pole (section 6.2's table) |
 | A kneeling knee points up | the leg's default pole is forward and up | pass `knee = Vector3(0, -1, 0.7)` (as `_crouch` does) |
 | Hands off the rifle in a new pose | out of reach (8-voxel arms) | bring the rifle closer to the shoulders, or check the foregrip; preview from the side and the front |
-| A hand inside the head | the head is 7 voxels wide (x ±3.5) and starts at y 20 | keep raised hands at \|x\| ≥ 5.5 to 6.5 |
+| A hand or a weapon inside the head | the head is 9 voxels wide (x ±4.5), 8 tall from y 20, and reaches 4.5 ahead of its joint and 3.5 behind | place it by `_head_box` (6.3): raised fists 3 out from its side, a grip held beside it 0.7 to 2 out |
+| A bowed head reads as tilted back | a cube turned near 90° looks like one turned a little the other way | bow it 45-60° and let it hang forward of the body (the hunker, 10) |
+| A hunkered head rises toward the foe | the aim modifier's look at the nearest foe (0.6) over the pose | it is off while hunkered with nothing attended to (9.7); a new ducked pose wants the same |
+| A pose fine in the preview pokes into cover in a map | the preview has no cover; covers' faces are 5.9 to 7.9 voxels from the middle of the tile | measure it (14.6) |
 | A limb flips mid-animation | two keys on opposite quaternion hemispheres | `_sample()` handles it; only a concern if you key by hand |
 | The strafe pose flashes during ordinary walks | the run's blend position fed the velocity while turning | it is forward (0, 1) unless the walk keeps its facing; keep it so |
 | Forward in a blend space is backwards | `Vector2.UP` is (0, -1) | write `Vector2(0, 1)` |
@@ -2585,9 +2774,14 @@ animated figures:
 | All 15 `CharacterModel._process`es | about 0.25 ms |
 | One `Postures` run (every 0.2 s) | 0.13 ms |
 | The skinned mesh | 552 vertices a figure |
-| The library | 56 clips, 537 KB (binary); 38 clips and 384 KB before the leans, the hunker, the reload and the medkit |
+| The library | 56 clips, 545 KB (binary; the first figure's 537); 38 clips and 384 KB before the leans, the hunker, the reload and the medkit |
 | A bake | a few seconds (the library itself about 80 ms) |
-| A death, breaking apart (`BoundaryMap.tscn`) | about 1.6 ms on its frame: the lumps cut 0.7, made 0.6, the gear 0.1; about 3.8 with blood, which stains the killing wound at once |
+| A death, breaking apart (`BoundaryMap.tscn`) | about 1.6 ms on its frame: the lumps cut 0.7, made 0.6, the gear 0.1; about 3.8 with blood, which stains the killing wound at once. Measured again on 2026-11-04, with blood, in that build: 4.1 to 4.8 ms with the first figure (82 to 85 lumps), 4.9 to 5.8 with the bigger one (105 to 116) |
+
+On 2026-11-04, `LineOfSightTest.tscn` took 7.1 to 8.0 ms a frame headless with the first figure and
+7.3 to 7.8 with the bigger one, in the same build: the bigger figure costs nothing more a frame (the
+1.3 ms above is from before the levels of voxels, blood and lights). Its rig takes about 13 ms to
+read the first time (9.12).
 
 Windowed process times are dominated by GPU frame pacing (they swung between 7 and 18 ms even at the
 commit before the rig, with the editor open), so measure CPU costs headless, and time a single
@@ -2604,7 +2798,7 @@ each):
 
 ```
   Characters/          the rigged figure every unit wears, and how it is baked
-    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): drives its AnimationTree from what its unit
+    CharacterModel.gd  the figure's runtime (Character_Bigger.tscn's root): drives its AnimationTree from what its unit
                        does, facing, hops, gear in its sockets; lean_out() / lean_back() / leaning / lean_reach()
                        (out round the end of its cover, standing or on one knee, hunkered or not); hunkered;
                        reload() (over the arms and head, _act_upper()); use_medkit() (over the left arm,
@@ -2643,8 +2837,8 @@ each):
 | `vcom/Scripts/Characters/FigureVoxels.gd` | the figure's voxels at run time, which draw its body and which blood and breaking apart read (sections 9.12, 9.8) |
 | `vcom/Resources/Destruction/Figure.tres`, `Gear.tres` | how a figure breaks apart, and how the gear it drops wears (9.8) |
 | `vcom/Scripts/Combat/MuzzleFlash.gd` | a gun's flash (`class_name MuzzleFlash`) |
-| `vcom/Characters/BaseCharacterBody.res` | **generated**: the skinned mesh, each corner carrying its voxel |
-| `vcom/Characters/BaseCharacterAnimations.res` | **generated**: the animation library |
+| `vcom/Characters/BaseCharacterBody.res` (`Character_BiggerBody.res` since 2026-11-04) | **generated**: the skinned mesh, each corner carrying its voxel |
+| `vcom/Characters/BaseCharacterAnimations.res` (`Character_BiggerAnimations.res` since 2026-11-04) | **generated**: the animation library |
 | `vcom/Items/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` (+ `.import`) | the props, imported at 0.063 (they replaced the placeholders `Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox`) |
 | `MagicaVoxel/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` | the props' source copies |
 | `vcom/Scenes/Props/Rifle.tscn`, `Shortsword.tscn`, `FragGrenade.tscn` | the prop scenes and markers |
@@ -2656,7 +2850,7 @@ each):
 
 | File | Change |
 |---|---|
-| `vcom/Scenes/BaseCharacter.tscn` | **generated** now: was a plain `MeshInstance3D` of the imported `.vox`; is the rig |
+| `vcom/Scenes/BaseCharacter.tscn` (`Character_Bigger.tscn` since 2026-11-04) | **generated** now: was a plain `MeshInstance3D` of the imported `.vox`; is the rig |
 | `vcom/Scenes/SquadUnit.tscn`, `CombatMap.tscn`, `BoundaryMap.tscn`, `LineOfSightTest.tscn` | each unit's `Mesh` child is now `Model`, its `surface_material_override/0` now `body_material`; the three maps gained a `Postures` node |
 | `vcom/Scripts/Unit.gd` | `model`; `PICK_RADIUS`; presentational calls (`aim_at`, `aim_point`, `ready_strike`, `ready_throw`, `stand_easy`, `celebrate`, `dodge`, `recover`); `take_damage(amount, from, blasted)`; `shoot_at` takes aim, fires the figure, ducks misses; `strike` is a coroutine landing at the swing's impact; `throw_at` winds up and releases from the hand (`show_flight` gets the release point); `die` leaves the body as a ragdoll (since: the figure breaks apart, 9.8); `walk`/`start_walk` take `keep_facing`; `drop_to` sets the figure falling; `use_up` re-dresses; `_dress`, `_paint`, `_add_bodies` and `color` work through the figure |
 | `vcom/Scripts/Items/Item.gd` | `model: PackedScene` |
@@ -2675,10 +2869,26 @@ each):
 
 ### Unchanged but related
 
-- `vcom/Characters/BaseCharacter.vox`: the model, unchanged.
-- `vcom/Characters/BaseCharacter.vox.import`: the plain import, now unused.
+- `vcom/Characters/BaseCharacter.vox`: the model, unchanged (gone from `vcom/` since 2026-11-04,
+  when `Character_Bigger.vox` replaced it; both sources are in `MagicaVoxel/Characters/`).
+- `vcom/Characters/BaseCharacter.vox.import`: the plain import, unused (`Character_Bigger.vox.import`
+  likewise).
 - `vcom/addons/MagicaVoxel_Importer_with_Extensions/`: its reader is reused by `VoxelRig`.
 - `vcom/Scripts/Terrain/Blast.gd`: its `impulse_on` and `contact` were reused for ragdoll bodies.
+
+### The bigger figure (2026-11-04)
+
+| File | Change |
+|---|---|
+| `vcom/Characters/Character_Bigger.vox` (+ `.import`) | the model every unit wears, a copy of `MagicaVoxel/Characters/Character_Bigger.vox`; imported at the props' params |
+| `vcom/Characters/Character_BiggerBody.res`, `Character_BiggerAnimations.res`, `vcom/Scenes/Character_Bigger.tscn` | **generated** by the bake, in place of the `BaseCharacter` ones, which were removed with `vcom/Characters/BaseCharacter.vox` (+ `.import`) |
+| `vcom/Scripts/Characters/VoxelRig.gd` | `CHARACTER_BIGGER` (every joint at z -0.5, the first figure's regions), the only entry in `LAYOUTS`; `BASE_CHARACTER` gone |
+| `vcom/Scripts/Characters/HumanoidAnimations.gd` | `_head_box`, and the poses re-placed by it: the cheer, the fall, the throw, the strike's guard, wind-up and a new recovery key, the draw's reach; the hunker re-made; the wall's sword beside the head; the kneeling rifle, the step-out's feet, the medkit's belt, its held-out height and `SELF_MEDKIT` |
+| `vcom/Scripts/Characters/BakeCharacter.gd` | the defaults; `SLOTS`' depth from the back of the bone's voxels, the sword's grip a voxel further out |
+| `vcom/Scripts/Characters/CharacterModel.gd` | `voxel_model`'s default; no look at the foe while hunkered (9.7) |
+| `vcom/Scripts/Characters/PreviewAnimations.gd` | the default scene |
+| `vcom/Scenes/SquadUnit.tscn`, `BoundaryMap.tscn`, `CombatMap.tscn`, `LineOfSightTest.tscn`, `TestMap.tscn` | instance `Scenes/Character_Bigger.tscn` |
+| `CLAUDE.md`, `README.md`, `Docs/BLOOD.md`, `Docs/HUNKER.md`, `Docs/VOXELS.md`, `Styles/APPLYING.md`, `Styles/REVERT.md`, this file | documentation |
 
 ---
 
@@ -2897,6 +3107,40 @@ utilizing overlays" (`Docs/VOXELS.md` has the whole of it):
 Files: `Scripts/Characters/VoxelRig.gd`, `FigureVoxels.gd`, `CharacterModel.gd`, `Scripts/Unit.gd`;
 the scenes with units; the generated `Scenes/BaseCharacter.tscn` and `Characters/BaseCharacterBody.res`.
 
+### Later: the bigger figure (2026-11-04)
+
+The user drew `Character_Bigger.vox`, so that the figures stand out in a busy battle, and asked for
+comparison screenshots (`Images/CharacterBigger/`: the same seeded battle on `BoundaryMap.tscn` by
+day and at night, with each figure, side by side). Then: *"Fully adopt the bigger character in the
+game, updating all animations and documentation accordingly."* The model is the first one with a
+9x8x8 head (7x7x6 before), a torso, arms and legs three voxels deep (two before), feet five long
+(three), and the same heights and widths: 944 voxels to 536, 28 tall to 27.
+
+1. **The rig.** `CHARACTER_BIGGER`, the first layout's regions with every joint at z -0.5 (decision
+   36); the bake gave 944 voxels on 18 bones and 552 vertices with no voxel out of a region.
+2. **Measured, before anything was changed:** every clip of both figures rendered from four sides
+   and compared row by row, and the overlaps and the cover measured as 14.6 has it, the first figure
+   the baseline. The first figure already had a few (the strike's blade by the chin, the draw's hand
+   in the back of its head, the unarmed hunker's hands in its head, the hunker's head in a building
+   wall); the bigger head made those worse and added more: belt grenades in the deeper hips in every
+   clip, the slung sword's hilt in the back of the head, the guard's blade and the throw's grenade
+   through the head, the cheer's arm and the hunker's rifle in it, and the hunker's head 10.7 voxels
+   ahead, into every cover.
+3. **Fixed:** slung gear placed from the back of its bone and the sword's grip moved out (decision
+   41); everything near the head placed by its box (37); the strike's recovery key; the throw out by
+   the side of the head; the wall's sword beside the head (40); the hunker re-made (38) and its head
+   kept down (39), tried first upright with the head bowed hard, which read as a box head tilted
+   back (16), then drawn back to the back of the tile and bent forward again; small moves for the
+   kneeling rifle, the step-out's feet and the medkit. Each measured again, previewed, and seen in
+   `LineOfSightTest.tscn` at its crates and walls.
+4. **Checked in play:** a shot, a kill breaking apart, a strike, a medkit, a throw, a kneeling reload
+   and the cheer driven through the real actions in `LineOfSightTest.tscn` and rendered; three
+   seeded auto-battles (14.4) with each figure: seeds 7, 21 and 99 won in 4 turns each, with the
+   same shots, reactions and survivors for both figures, and no script errors; headless loads of
+   every map and the main scene.
+5. **Switched:** every scene with units instances `Scenes/Character_Bigger.tscn`; the first figure's
+   files left `vcom/` and its layout `VoxelRig.gd`; its source stays in `MagicaVoxel/Characters/`.
+
 ---
 
 ## 20. Glossary
@@ -2906,7 +3150,7 @@ the scenes with units; the generated `Scenes/BaseCharacter.tscn` and `Characters
 | **Act** | a one-shot clip played whole over the base pose (`act` in the tree): strike, throw, draw, stow |
 | **Additive** | a clip that is a change from the rest, added on top of other animation (`react`) |
 | **Bake** | running `BakeCharacter.gd`: `.vox` → rigged, animated scene |
-| **Base pose** | a looping clip held between actions, picked by `stance` (31 of them) |
+| **Base pose** | a looping clip held between actions, picked by `stance` (34 of them) |
 | **Body material** | the flat-colour material a unit put over its figure (`CharacterModel.body_material`), until 2026-10-20: now its `tint`, painted into the figure's palette |
 | **Cell / tile** | one Godot unit: a tile is a cell a unit can stand in; about 15.87 voxels |
 | **Chest space** | the `Chest` bone's own frame, turning with the torso; where rifle and sword poses are placed |
@@ -2916,7 +3160,7 @@ the scenes with units; the generated `Scenes/BaseCharacter.tscn` and `Characters
 | **Foregrip** | where the off hand holds the rifle (a marker in `Rifle.tscn`) |
 | **Grip** | where a hand holds a prop: the prop's origin; also the hand-to-prop transforms (`rifle_grip`…) |
 | **Hands (stance)** | the stance the hands are in now: `melee` while a gun carrier's sword is drawn, else its stance |
-| **Layout** | a model's joints and voxel regions (`VoxelRig.BASE_CHARACTER`) |
+| **Layout** | a model's joints and voxel regions (`VoxelRig.CHARACTER_BIGGER`) |
 | **Lean** | a figure out round the end of its cover, held while a shot sees its unit only there (9.13); also the forward `lean` of a torso in the pose helpers, which is another thing |
 | **Reach** | how far out of the middle of its tile a lean puts the head, in cells: a lean clip's metadata |
 | **Model voxels** | MagicaVoxel's own voxel coordinates (z up, face toward -y) |

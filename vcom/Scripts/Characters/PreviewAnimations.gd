@@ -40,7 +40,7 @@ const SWORD := preload("res://Resources/Items/Shortsword.tres")
 const GRENADE := preload("res://Resources/Items/FragGrenade.tres")
 const MEDKIT := preload("res://Resources/Items/Medkit.tres")
 
-const DEFAULT_SCENE := "res://Scenes/BaseCharacter.tscn"
+const DEFAULT_SCENE := "res://Scenes/Character_Bigger.tscn"
 const DEFAULT_OUT := "user://animation_preview"
 ## Seconds the tree is run in a pose before a clip's frames are taken, so the
 ## cross-fade into it is over.

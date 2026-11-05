@@ -13,7 +13,9 @@ block-sized models (ladder, stairs, fences, ground blocks, walls, props, plants)
 wall, tall grass); `MagicaVoxel/Buildings/` the building pieces, all four in the game (`SimpleWall1`,
 `SimpleTruss1`, `SimpleRoof1`, drawn by hand, and `SimpleWindow1`, made from the wall by its
 `make_windows.py`: `Docs/LEVELS.md` has their offset and turn); `MagicaVoxel/Lamps/` the street lamp,
-drawn whole and cut into the game's three pieces by its `make_street_lamp.py` (`Lamps/README.md`).
+drawn whole and cut into the game's three pieces by its `make_street_lamp.py` (`Lamps/README.md`);
+`MagicaVoxel/Characters/` the figure every unit wears, `Character_Bigger.vox`, and the first one it
+replaced, `BaseCharacter.vox`, no longer in the game.
 `Images/` holds screenshots of the game
 (the old world map and the new, the menus, battles just begun and long fought, clean and with blood, the level
 editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
@@ -183,7 +185,7 @@ vcom/Scripts/
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
   Characters/          the rigged figure every unit wears, and how it is baked (ANIMATIONS.md; its scripts in full in 18)
-    CharacterModel.gd  the figure's runtime (BaseCharacter.tscn's root): its AnimationTree, facing, hops, gear in its
+    CharacterModel.gd  the figure's runtime (Character_Bigger.tscn's root): its AnimationTree, facing, hops, gear in its
                        sockets, leaning out, the calls that only show things; break_apart(); tint / paint()
     FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body, posed bones, pick_wound(), crumble()
     AimModifier.gd     SkeletonModifier3D: bends spine + chest to aim up or down, turns the head to look
@@ -296,9 +298,10 @@ vcom/Scripts/
     Market.gd          Location: an Inventory of stock for sale at one village; one .tres per village
 ```
 
-Art beside the scripts: `vcom/Characters/` holds the figure's `.vox` and what `BakeCharacter.gd` makes
-of it (`BaseCharacterBody.res`, the skinned mesh; `BaseCharacterAnimations.res`, the animation
-library), `vcom/Items/` the props' `.vox` (copies of `MagicaVoxel/`'s), and `vcom/Scenes/Props/` a scene
+Art beside the scripts: `vcom/Characters/` holds the figure's `.vox` (`Character_Bigger.vox`, a copy
+of `MagicaVoxel/Characters/`'s) and what `BakeCharacter.gd` makes of it (`Character_BiggerBody.res`,
+the skinned mesh; `Character_BiggerAnimations.res`, the animation library), `vcom/Items/` the props'
+`.vox` (copies of `MagicaVoxel/`'s), and `vcom/Scenes/Props/` a scene
 for each prop: its mesh, placed so the grip is on the scene's origin, with markers where it fires from
 and where it is held. `vcom/Blocks/` holds the level pieces' `.vox` and `Pieces.tres` (every kind and
 brush), `vcom/Levels/` each map's pieces, and `vcom/addons/level_editor/` the level editor, a Godot
@@ -540,9 +543,14 @@ uses, items and the inventory, the Roster tab, how to probe them and their gaps.
 touching characters, equipment or items.
 
 **Every unit wears the one rigged voxel figure for now, and it is only for show.** A unit's `Model`
-child, squad or enemy, is an instance of `Scenes/BaseCharacter.tscn`, which
-`Scripts/Characters/BakeCharacter.gd` makes from `Characters/BaseCharacter.vox`, with its skinned mesh
-and its animation library (the two `.res` beside the model). After editing the `.vox`, the rig
+child, squad or enemy, is an instance of `Scenes/Character_Bigger.tscn`, which
+`Scripts/Characters/BakeCharacter.gd` makes from `Characters/Character_Bigger.vox`, with its skinned
+mesh and its animation library (the two `.res` beside the model). The user drew it to stand out in a
+busy battle and had it replace the first figure (`BaseCharacter.vox`) on 2026-11-04: a 9x8x8 head on
+a torso and limbs three voxels deep, 28 tall, its joints down the middle of the limbs at z -0.5;
+whatever a pose keeps clear of the head is placed by the head's box (`HumanoidAnimations._head_box`),
+and a hunkered figure kneels at the back of its tile and keeps its head down, so nothing of it
+enters the cover in front. After editing the `.vox`, the rig
 (`VoxelRig`: rigid, one bone per voxel, a layout per model in `VoxelRig.LAYOUTS`) or the animations
 (`HumanoidAnimations`: all 56 written as IK poses in code), bake again (Verification has the command),
 and never edit the scene or its `.res` by hand or in the editor. `CharacterModel` plays the clips
@@ -1090,7 +1098,7 @@ The figure is checked the same way, by its frames. Bake it after any change to i
 or its animations' scripts:
 
 ```bash
-# Rebuild Scenes/BaseCharacter.tscn, its mesh and its animations from the .vox (a few seconds).
+# Rebuild Scenes/Character_Bigger.tscn, its mesh and its animations from the .vox (a few seconds).
 "$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 ```
 

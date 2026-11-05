@@ -1283,7 +1283,7 @@ vcom/                     the Godot project
     BoundaryMap.tscn      the map random encounters are fought on, in a ring of forest
     CombatMap.tscn        the same battlefield without the forest, and one enemy
     LineOfSightTest.tscn  harness for the sight and shot rules
-    BaseCharacter.tscn    the figure every unit wears, baked from Characters/BaseCharacter.vox
+    Character_Bigger.tscn the figure every unit wears, baked from Characters/Character_Bigger.vox
     Destruct_*.tscn       the pieces a breakable block breaks into
 MapCreation/              the new world map as it was drawn: its pictures, the data under them
                           (SourceData/), Features.md, which describes them, and the programs that
@@ -1296,6 +1296,8 @@ MagicaVoxel/              source .vox art
                           made from the wall by make_windows.py
   Lamps/                  the street lamp, drawn whole, and the script that cuts it into the game's
                           three pieces
+  Characters/             the figure every unit wears, Character_Bigger.vox, and the first one,
+                          BaseCharacter.vox, which it replaced
 Images/                   screenshots: the world map, the menus, battles just begun and long fought,
                           clean and with blood, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one

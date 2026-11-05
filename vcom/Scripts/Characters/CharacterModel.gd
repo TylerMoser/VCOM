@@ -1,7 +1,7 @@
 ## A character's body on the combat map: the rigged voxel figure a [Unit]
 ## wears, the gear it is seen carrying, and what it is seen doing.
 ## [code]BakeCharacter.gd[/code] builds it from the model's voxels as
-## [code]Scenes/BaseCharacter.tscn[/code].
+## [code]Scenes/Character_Bigger.tscn[/code].
 ##
 ## It is only for show, like debris: the rules read the unit, never its body.
 ## Most of what it does follows from watching its unit move. It runs while the
@@ -85,7 +85,7 @@ const SELF_LOOK := Vector2(0.6, 0.7)
 ## The .vox the figure was baked from, which its voxels are read from while
 ## the game runs, for blood to land on them and for it to break apart
 ## ([method voxels]).
-@export var voxel_model := "res://Characters/BaseCharacter.vox"
+@export var voxel_model := "res://Characters/Character_Bigger.vox"
 ## How it breaks apart as its unit dies: how big its lumps are
 ## ([member VoxelDestruction.crumble_size]), and how heavy, rough and bouncy.
 ## [constant FIGURE_DESTRUCTION] unless set.
@@ -904,7 +904,11 @@ func _update_tree(delta: float) -> void:
 			_aim.set(&"aim_pitch", atan2(toward.y, Vector2(toward.x, toward.z).length()))
 		var look: Variant = _aim_point if aiming else _watch_point
 		# Leaning out, it has its eyes on whoever it leans out to look at.
-		var look_weight := 0.0 if look == null else (1.0 if aiming or leaning != 0 else 0.6)
+		# Hunkered down with nothing to attend to, it keeps its head down, as
+		# the pose bows it, rather than watching its foe: lifted toward a foe
+		# the head would rise over its cover and into it.
+		var ducked := String(_base).begins_with("hunker_") and _aim_point == null
+		var look_weight := 0.0 if look == null or ducked else (1.0 if aiming or leaning != 0 else 0.6)
 		if look != null:
 			_aim.set(&"look_point", look)
 		_aim.set(&"look_weight", move_toward(float(_aim.get(&"look_weight")), look_weight, delta * 3.0))

@@ -12,7 +12,7 @@ not in this file (Gotchas, Verification, Known gaps, another subsystem's notes) 
 emits `hurt(taken, from, at, blasted, sweep)` for every hit that takes health (none for one defense
 stops), before the unit can die of it. `Blood`, a node in each combat map after `Coins`, connects to
 every unit as it readies and does the rest. Each figure has read its rig and its gear's `.vox` as it
-readied, to be drawn from them (`Docs/VOXELS.md`; about 10 ms the first time for the base figure), so
+readied, to be drawn from them (`Docs/VOXELS.md`; about 13 ms the first time for the figure), so
 the first hit does not catch on them.
 
 **The player can play clean.** **Blood** on the pause menu's System tab, just under **Tile Grid**,
@@ -39,7 +39,8 @@ red. The lock is the menu's alone: `Blood` must not name `Campaign`, or no probe
 - **The figure bleeds and sprays.** A wound stains `WOUND_FACES` and 4 more a point of damage (counting
   at most `MOST_DAMAGE`) round where it landed. It leans a little downward rather than running down:
   the even splash round a wound (`FigureVoxels.WOUND_SPLAT`, 2 voxels) wraps round a torso only 5
-  voxels wide and 2 deep and takes most of the stain. Over 40 wounds of 24 faces its red faces sat
+  voxels wide and 3 deep (2 on the first figure, on which these numbers were measured) and takes
+  most of the stain. Over 40 wounds of 24 faces its red faces sat
   0.5 voxels below the wound on average and the lowest 2.8 below, against 0.0 and 2.0 with downhill
   costing no less (with stains on faces, 0.8 and 3.6 against 0.1 and 2.4: a voxel is red on every
   side now, its sides counting at its middle). In the standing pose the arms cover the chest, so many

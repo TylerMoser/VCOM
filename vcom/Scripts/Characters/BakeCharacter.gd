@@ -6,7 +6,7 @@
 ##   godot --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 ##   godot --headless --path . --script res://Scripts/Characters/BakeCharacter.gd -- <vox> <scene>
 ##
-## (defaults: res://Characters/BaseCharacter.vox -> res://Scenes/BaseCharacter.tscn).
+## (defaults: res://Characters/Character_Bigger.vox -> res://Scenes/Character_Bigger.tscn).
 ## Run it again after editing the model in MagicaVoxel, or after changing how
 ## it is rigged ([code]VoxelRig.gd[/code]) or animated
 ## ([code]HumanoidAnimations.gd[/code]). It overwrites the scene, and beside
@@ -16,7 +16,7 @@
 ##
 ## A model needs a layout in [constant VoxelRig.LAYOUTS]: where its joints are
 ## and which voxels each bone takes (see [code]VoxelRig.gd[/code]). One drawn
-## to the base character's proportions can share its layout. The figure keeps
+## to the figure's proportions can share its layout's numbers. The figure keeps
 ## the model's path ([member CharacterModel.voxel_model]), to read its voxels by
 ## while the game runs.
 ##
@@ -31,8 +31,8 @@ const AIM_SCRIPT := preload("res://Scripts/Characters/AimModifier.gd")
 ## The rifle whose foregrip the left hand is posed to hold.
 const RIFLE_SCENE := "res://Scenes/Props/Rifle.tscn"
 
-const DEFAULT_VOX := "res://Characters/BaseCharacter.vox"
-const DEFAULT_SCENE := "res://Scenes/BaseCharacter.tscn"
+const DEFAULT_VOX := "res://Characters/Character_Bigger.vox"
+const DEFAULT_SCENE := "res://Scenes/Character_Bigger.tscn"
 ## Model -> its layout.
 const LAYOUTS := VoxelRig.LAYOUTS
 
@@ -43,12 +43,16 @@ const LAYOUTS := VoxelRig.LAYOUTS
 ## belt by their handles, heads up, the outer two leaning out 25 degrees so
 ## the three heads stand apart rather than in one block.
 ## Each is [code][bone, origin, forward (+z of the prop), its left (+x)][/code].
+## The origin's z is measured back from the back of the bone's voxels, so gear
+## sits as close to a deeper body as to a thinner one; its x and y are from the
+## joint. The sword's grip is out by the right shoulder so that its hilt, which
+## rises above the shoulders, clears the side of the head (9 voxels wide).
 const SLOTS := {
-	&"Back/RifleSlot": [&"Chest", Vector3(-1.25, -0.6, -2.6), Vector3(0.5, 0.85, 0.0), Vector3(0, 0, 1)],
-	&"Back/SwordSlot": [&"Chest", Vector3(-2.5, 4.0, -2.2), Vector3(0.45, -0.9, 0.0), Vector3(0, 0, 1)],
-	&"Belt/Grenade1": [&"Hips", Vector3(2.2, 1.5, -2.1), Vector3(0, 0, 1), Vector3(0.906, -0.423, 0)],
-	&"Belt/Grenade2": [&"Hips", Vector3(-2.2, 1.5, -2.1), Vector3(0, 0, 1), Vector3(0.906, 0.423, 0)],
-	&"Belt/Grenade3": [&"Hips", Vector3(0.0, 1.5, -2.7), Vector3(0, 0, 1), Vector3(1, 0, 0)],
+	&"Back/RifleSlot": [&"Chest", Vector3(-1.25, -0.6, -1.6), Vector3(0.5, 0.85, 0.0), Vector3(0, 0, 1)],
+	&"Back/SwordSlot": [&"Chest", Vector3(-3.5, 4.0, -1.2), Vector3(0.45, -0.9, 0.0), Vector3(0, 0, 1)],
+	&"Belt/Grenade1": [&"Hips", Vector3(2.2, 1.5, -1.1), Vector3(0, 0, 1), Vector3(0.906, -0.423, 0)],
+	&"Belt/Grenade2": [&"Hips", Vector3(-2.2, 1.5, -1.1), Vector3(0, 0, 1), Vector3(0.906, 0.423, 0)],
+	&"Belt/Grenade3": [&"Hips", Vector3(0.0, 1.5, -1.7), Vector3(0, 0, 1), Vector3(1, 0, 0)],
 }
 ## Grenades on the belt are shown smaller than one in hand, so three fit.
 const BELT_SCALE := 0.8
@@ -150,7 +154,9 @@ func _sockets(skeleton: Skeleton3D, root: Node, rig: VoxelRig, animations: Human
 		var left: Vector3 = spec[3]
 		var up := forward.cross(left).normalized()
 		left = up.cross(forward).normalized()
-		var slot := Transform3D(Basis(left, up, forward), spec[1])
+		var origin: Vector3 = spec[1]
+		origin.z += rig.bone_box(spec[0]).position.z / rig.scale
+		var slot := Transform3D(Basis(left, up, forward), origin)
 		if String(path).begins_with("Belt"):
 			slot.basis = slot.basis.scaled(Vector3.ONE * BELT_SCALE)
 		var holder: Node = holders[StringName(String(path).get_slice("/", 0))]

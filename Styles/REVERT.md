@@ -151,7 +151,7 @@ current = true
 - **Import options**, the `[params]` of each `.vox.import`:
   - `Blocks/BrightGrass1`, `BrightCrate1`, `SkinnyTree1Bottom`, `SkinnyTree1Top`: `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
   - `Blocks/Destruct_BrightCrate1` (imported as a scene): `Scale=0.0625 GreedyMeshGenerator=true SnapToGround=false OriginsToGeometry=false ImportAnimation=true AnimationFPS=8.0 AnimationLoop=true AnimationAutoplay=false`
-  - `Characters/BaseCharacter`, `Items/Coin2`, `Rifle2`, `Shortsword2`, `StickGrenade`: `Scale=0.063 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
+  - `Characters/Character_Bigger` (the figure since 2026-11-04; the first one, `Characters/BaseCharacter`, had the same), `Items/Coin2`, `Rifle2`, `Shortsword2`, `StickGrenade`: `Scale=0.063 GreedyMeshGenerator=true SnapToGround=false FirstKeyframeOnly=true`
 - **The blocks' libraries are gone (2026-10-20).** The combat maps are levels (`Docs/LEVELS.md`): `Blocks/Pieces.tres` lists every kind of piece with its mesh taken straight from the `.vox` and no material, and the level is drawn by `vcom/Scripts/Terrain/Voxels.gdshader` (once `vcom/Scripts/Level/LevelVoxels.gdshader`; since 2026-10-20 it draws every voxel model, `Docs/VOXELS.md`), which draws as the importer's material does (`render_mode diffuse_burley, specular_schlick_ggx`, colours as they are in the model). A style applied since goes into that shader: undo it there. The scenery casting no shadow and drawing coarser copies of its pieces further from the battlefield (`SceneryRenderer`, `Docs/LEVELS.md`, "Level of detail") is its performance setup, not a style, so keep it.
 - **No runtime material hookup** (APPLYING.md option **a**). In the baseline:
   - nothing calls `surface_set_material()` on the blocks' meshes;
@@ -188,7 +188,7 @@ current = true
 
 ### 5. Unit materials
 
-Every unit wears `Scenes/BaseCharacter.tscn` (baked; never edit it by hand), drawn by `Voxels.gdshader` through its `VoxelModel` and painted one flat colour, its `CharacterModel.tint` (until 2026-10-20 a `body_material`, a `StandardMaterial3D` per scene: `Mat_unit`, `Mat_enemy1`, `Mat_player1`-`8`, gone since):
+Every unit wears `Scenes/Character_Bigger.tscn` (baked; never edit it by hand; `Scenes/BaseCharacter.tscn` until 2026-11-04), drawn by `Voxels.gdshader` through its `VoxelModel` and painted one flat colour, its `CharacterModel.tint` (until 2026-10-20 a `body_material`, a `StandardMaterial3D` per scene: `Mat_unit`, `Mat_enemy1`, `Mat_player1`-`8`, gone since):
 
 - **Squad:** `vcom/Scenes/SquadUnit.tscn` sets no `tint`; `Unit._paint()` hands the character's `color` to `CharacterModel.paint()`. If a style changed `CharacterModel.paint()`, `_paint_body()`, `VoxelModel.paint()` or `Unit._paint()`, restore those.
 - **Enemies:** each enemy's `Model` has `tint = Color(0.32, 0.35, 0.4, 1)`, in CombatMap, BoundaryMap and LineOfSightTest. That slate grey is not part of any style: the enemies were red, `Color(0.85, 0.15, 0.15, 1)`, until blood was added, and were made grey so their wounds show. Reverting a style leaves them grey.

@@ -47,33 +47,41 @@ const BONES := [
 	[&"RightFoot", &"RightLowerLeg"],
 ]
 
-## [code]Characters/BaseCharacter.vox[/code]: the grey mannequin every unit
-## wears for now, 25 voxels across its outstretched arms and 27 tall.
-const BASE_CHARACTER := {
+## [code]Characters/Character_Bigger.vox[/code]: the grey mannequin every unit
+## wears for now, 25 voxels across its outstretched arms and 28 tall: a head of
+## 9x8x8 voxels on a body whose torso, arms and legs are 3 voxels deep, feet 5
+## long. It replaced the first mannequin, [code]BaseCharacter.vox[/code] (a
+## 7x7x6 head on limbs 2 deep, 27 tall), on 2026-11-04, so that units stand out
+## in a busy battle; that model is in [code]MagicaVoxel/Characters/[/code] and
+## git, its layout this one's but every joint at z 0.
+const CHARACTER_BIGGER := {
 	## Godot units a voxel: what the plain import of the model used, so the
-	## figure stands 1.7 cells tall.
+	## figure stands 1.76 cells tall.
 	"scale": 0.063,
+	## Half a voxel behind the middle of the model's box, z -0.5, where the
+	## middle of the 3-deep torso and limbs is: the head is centred on the box,
+	## the body a voxel deeper at the back than in front of it.
 	"joints": {
 		&"Root": Vector3(0, 0, 0),
-		&"Hips": Vector3(0, 9, 0),
-		&"Spine": Vector3(0, 12, 0),
-		&"Chest": Vector3(0, 15, 0),
-		&"Neck": Vector3(0, 19, 0),
-		&"Head": Vector3(0, 20, 0),
+		&"Hips": Vector3(0, 9, -0.5),
+		&"Spine": Vector3(0, 12, -0.5),
+		&"Chest": Vector3(0, 15, -0.5),
+		&"Neck": Vector3(0, 19, -0.5),
+		&"Head": Vector3(0, 20, -0.5),
 		# A voxel in from where the arm meets the body, so that a lowered arm
 		# hangs flush beside it instead of sinking into it.
-		&"LeftUpperArm": Vector3(3.5, 18, 0),
-		&"LeftLowerArm": Vector3(7.5, 18, 0),
-		&"LeftHand": Vector3(10.5, 18, 0),
-		&"RightUpperArm": Vector3(-3.5, 18, 0),
-		&"RightLowerArm": Vector3(-7.5, 18, 0),
-		&"RightHand": Vector3(-10.5, 18, 0),
-		&"LeftUpperLeg": Vector3(1.5, 9, 0),
-		&"LeftLowerLeg": Vector3(1.5, 5, 0),
-		&"LeftFoot": Vector3(1.5, 1, 0),
-		&"RightUpperLeg": Vector3(-1.5, 9, 0),
-		&"RightLowerLeg": Vector3(-1.5, 5, 0),
-		&"RightFoot": Vector3(-1.5, 1, 0),
+		&"LeftUpperArm": Vector3(3.5, 18, -0.5),
+		&"LeftLowerArm": Vector3(7.5, 18, -0.5),
+		&"LeftHand": Vector3(10.5, 18, -0.5),
+		&"RightUpperArm": Vector3(-3.5, 18, -0.5),
+		&"RightLowerArm": Vector3(-7.5, 18, -0.5),
+		&"RightHand": Vector3(-10.5, 18, -0.5),
+		&"LeftUpperLeg": Vector3(1.5, 9, -0.5),
+		&"LeftLowerLeg": Vector3(1.5, 5, -0.5),
+		&"LeftFoot": Vector3(1.5, 1, -0.5),
+		&"RightUpperLeg": Vector3(-1.5, 9, -0.5),
+		&"RightLowerLeg": Vector3(-1.5, 5, -0.5),
+		&"RightFoot": Vector3(-1.5, 1, -0.5),
 	},
 	## [code][bone, lowest corner, highest corner][/code], inclusive, in the
 	## model's voxel coordinates (z up, the face toward -y).
@@ -102,7 +110,7 @@ const BASE_CHARACTER := {
 ## [code]BakeCharacter.gd[/code] bakes it with, and what a figure reads its
 ## voxels by while the game runs ([FigureVoxels]).
 const LAYOUTS := {
-	"res://Characters/BaseCharacter.vox": BASE_CHARACTER,
+	"res://Characters/Character_Bigger.vox": CHARACTER_BIGGER,
 }
 
 ## The layout this rig was made from.

@@ -139,7 +139,8 @@ Notes on each:
 - **A figure** is a `VoxelModel` of its rig's shape (the figure as drawn, standing, every bone's
   voxels side by side: `VoxelRig.make_shape()`) shown on its `Body` with the mesh it has
   (`show_on(body, true)`), made as the figure readies (`CharacterModel._ready()`, through
-  `FigureVoxels`: about 10 ms the first time, shared by every figure of the model after) and painted
+  `FigureVoxels`: about 13 ms the first time, 10 for the first figure, shared by every figure of the
+  model after) and painted
   its unit's colour (`CharacterModel.tint`, set in the scene for enemies and the harness,
   `Unit._paint()` from its character for the squad). The bake (`VoxelRig.make_mesh()`) meshes each
   bone on its own in the figure's box by `ChunkMesher`, so a bent joint still shows the ends of the

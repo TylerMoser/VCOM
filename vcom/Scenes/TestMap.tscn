@@ -39,7 +39,7 @@
 [ext_resource type="Resource" uid="uid://2lwj8p6vil4o" path="res://Blocks/Pieces.tres" id="51_pieces"]
 [ext_resource type="Resource" uid="uid://8bifgr30ciex" path="res://Levels/TestMap.tres" id="52_level"]
 [ext_resource type="Resource" path="res://Levels/TestMapScenery.tres" id="53_scenery"]
-[ext_resource type="PackedScene" path="res://Scenes/BaseCharacter.tscn" id="90_base_character"]
+[ext_resource type="PackedScene" path="res://Scenes/Character_Bigger.tscn" id="90_character_bigger"]
 [ext_resource type="Script" path="res://Scripts/Combat/TimeOfDay.gd" id="70_time_of_day"]
 [ext_resource type="Script" path="res://Scripts/Combat/Lamps.gd" id="71_lamps"]
 
@@ -121,7 +121,7 @@ display_name = "Enemy 1"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_base_character")]
+[node name="Model" parent="Units/Enemy1" unique_id=1000015 instance=ExtResource("90_character_bigger")]
 tint = Color(0.32, 0.35, 0.4, 1)
 
 [node name="Enemy2" type="Node3D" parent="Units" unique_id=2083987690 groups=["enemies"]]
@@ -131,7 +131,7 @@ display_name = "Enemy 2"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Model" parent="Units/Enemy2" unique_id=1005904212 instance=ExtResource("90_base_character")]
+[node name="Model" parent="Units/Enemy2" unique_id=1005904212 instance=ExtResource("90_character_bigger")]
 tint = Color(0.32, 0.35, 0.4, 1)
 
 [node name="Enemy3" type="Node3D" parent="Units" unique_id=1426418454 groups=["enemies"]]
@@ -141,7 +141,7 @@ display_name = "Enemy 3"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Model" parent="Units/Enemy3" unique_id=1136463094 instance=ExtResource("90_base_character")]
+[node name="Model" parent="Units/Enemy3" unique_id=1136463094 instance=ExtResource("90_character_bigger")]
 tint = Color(0.32, 0.35, 0.4, 1)
 
 [node name="Enemy4" type="Node3D" parent="Units" unique_id=1606010239 groups=["enemies"]]
@@ -151,7 +151,7 @@ display_name = "Enemy 4"
 weapon = ExtResource("4_kno35")
 ai = ExtResource("5_a76y3")
 
-[node name="Model" parent="Units/Enemy4" unique_id=1269855328 instance=ExtResource("90_base_character")]
+[node name="Model" parent="Units/Enemy4" unique_id=1269855328 instance=ExtResource("90_character_bigger")]
 tint = Color(0.32, 0.35, 0.4, 1)
 
 [node name="SquadStarts" type="Node3D" parent="." unique_id=1985919296]
