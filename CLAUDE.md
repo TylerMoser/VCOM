@@ -16,7 +16,7 @@ wall, tall grass); `MagicaVoxel/Buildings/` the building pieces, all four in the
 drawn whole and cut into the game's three pieces by its `make_street_lamp.py` (`Lamps/README.md`);
 `MagicaVoxel/Characters/` the figure every unit wears, `Character_Bigger.vox`, and the first one it
 replaced, `BaseCharacter.vox`, no longer in the game.
-`Images/` holds screenshots of the game
+`Images/EndOfFirstWeek/` holds the first-week screenshots of the game
 (the old world map and the new, the menus, battles just begun and long fought, clean and with blood, the level
 editor), two of them shown in `README.md`, one in `Docs/LEVEL_EDITOR.md`; outside `vcom/`, so Godot does not import them. `Styles/` holds candidate visual styles
 (screenshots, exact settings, a render harness); `Styles/APPLYING.md` explains how to apply one.

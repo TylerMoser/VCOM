@@ -10,7 +10,7 @@ voxels they add up to, how it is drawn, what the rules see of it, how it wears) 
 `Docs/LEVELS.md`'s; `CLAUDE.md` keeps a summary of both. Written 2026-10-20, as the levels and the
 editor were built (2026-10-19/20).
 
-![The level editor on BoundaryMap](../Images/level-editor-boundary-map.png)
+![The level editor on BoundaryMap](../Images/EndOfFirstWeek/level-editor-boundary-map.png)
 
 *BoundaryMap in Godot's editor, its `Level` node selected: the **Level** panel on the right of the 3D
 view, its palette below; four lengths of fence just painted along an edge, the slot for the next

@@ -7,10 +7,10 @@ Squad members take on a map of enemies, a tile at a time: spend action points to
 cover behind terrain, lean out around it to find a firing angle, and roll against a percentage
 chance to hit.
 
-![A squad member lines up a shot at an enemy across ground torn up by a long fight](Images/combat-clean-06-long-fight-shot.png)
+![A squad member lines up a shot at an enemy across ground torn up by a long fight](Images/EndOfFirstWeek/combat-clean-06-long-fight-shot.png)
 
 *A shot lined up late in a long fight, with blood turned off: grenade craters, broken crates and the
-coins they left, and the heaps the fallen broke into. More screenshots are in [`Images/`](Images):
+coins they left, and the heaps the fallen broke into. More screenshots are in [`Images/EndOfFirstWeek/`](Images/EndOfFirstWeek):
 the world map, the menus, and battles just begun and long fought, clean and with blood.*
 
 ## Controls
@@ -186,7 +186,7 @@ spends anything. Travelling through a forest (the green areas) risks an ambush: 
 stretch of the way has a chance to start a battle. The clock in the top left corner counts the
 days left, and runs only while the party travels; nothing happens yet when it runs out.
 
-![The world map: the party setting off for a city, by way of the town near where it starts](Images/map-01-travelling.png)
+![The world map: the party setting off for a city, by way of the town near where it starts](Images/EndOfFirstWeek/map-01-travelling.png)
 
 *The world map: the party, the red dot, just set off for the city to the south-east. Its dashed
 line crosses open ground to the road at the town with the hiring board and market, then follows
@@ -1298,7 +1298,7 @@ MagicaVoxel/              source .vox art
                           three pieces
   Characters/             the figure every unit wears, Character_Bigger.vox, and the first one,
                           BaseCharacter.vox, which it replaced
-Images/                   screenshots: the world map, the menus, battles just begun and long fought,
+Images/EndOfFirstWeek/     screenshots: the world map, the menus, battles just begun and long fought,
                           clean and with blood, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
 MapStyles/                proposals for the new world map's look (02, 04, 05, 10's forests, 10b, 14b,
