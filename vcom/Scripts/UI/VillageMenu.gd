@@ -62,7 +62,7 @@ func open_village(village: Destination) -> bool:
 	var details := Location.new()
 	details.display_name = "Details"
 	details.description = "General information about this settlement will appear here."
-	tabs.add_child(LocationTab.new(details))
+	tabs.add_child(LocationTab.new(details, village.display_name))
 	for location in village.locations:
 		if location == null:
 			continue

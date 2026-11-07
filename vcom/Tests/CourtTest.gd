@@ -29,8 +29,10 @@ func _run() -> void:
 				locations = state.get_node_property_value(node, property)
 		assert(not locations.is_empty() and locations[0] is Court)
 		var court := locations[0] as Court
-		assert(court.display_name == "Court of " + title)
-		assert(court.ruler_name == title and court.favor == Court.Favor.NEUTRAL)
+		assert(court.ruler_name.begins_with(title + " "))
+		assert(not court.ruler_name.trim_prefix(title + " ").strip_edges().is_empty())
+		assert(court.display_name == "Court of " + court.ruler_name)
+		assert(court.favor == Court.Favor.NEUTRAL)
 		assert(court.gain_favor_by == ["none"] and court.lose_favor_by == ["none"])
 		assert(not court.description.is_empty() and not seen.has(court))
 		seen.append(court)
@@ -46,8 +48,8 @@ func _run() -> void:
 		menu.tabs.add_child(location.make_tab())
 	menu.open()
 	var page := menu.tabs.get_current_tab_control() as CourtTab
-	assert(page != null and menu.tabs.get_tab_title(0) == "Court of Count")
-	assert(page._ruler.text == "Count")
+	assert(page != null and menu.tabs.get_tab_title(0) == "Court of Count Velfeyald")
+	assert(page._ruler.text == "Count Velfeyald")
 	assert(page._favor.texture == CourtTab.FAVOR_ICONS[Court.Favor.NEUTRAL])
 	assert(page._favor.tooltip_text == "Favor: Neutral")
 	await get_tree().process_frame
