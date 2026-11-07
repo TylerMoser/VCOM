@@ -1,10 +1,10 @@
-## A village's own menu: a tab for each [Location] in it, in the order its
-## [member Destination.locations] lists them. Framed and pausing like the pause
-## menu.
+## A village's own menu: Details first, then a tab for each [Location] in the
+## order its [member Destination.locations] lists them. Framed and pausing
+## like the pause menu.
 ##
 ## A left click (select_unit, as a unit is picked in combat) on the icon of
 ## the village the party is standing in opens it, as does the gamepad's A with
-## the map's reticle on it; a village with nothing in it does not open. The
+## the map's reticle on it; even a village with no locations has Details. The
 ## tabs are made afresh each time, since every village has its own mix. Esc
 ## closes it, as do the gamepad's B and Menu. Being in the scene, after the
 ## pause menu's autoload in the tree, it sees them first and takes them, so the
@@ -51,14 +51,18 @@ func enterable() -> Destination:
 	return village if village != null and _party != null and _party.is_at(village) else null
 
 
-## Opens on the first of [param village]'s locations, with a tab for each.
-## False, opening nothing, when it has none or the menu is already open.
+## Opens on Details, followed by each of [param village]'s locations.
+## False when no village is supplied or the menu is already open.
 func open_village(village: Destination) -> bool:
-	if is_open():
+	if village == null or is_open():
 		return false
 	for tab in tabs.get_children():
 		tabs.remove_child(tab)
 		tab.queue_free()
+	var details := Location.new()
+	details.display_name = "Details"
+	details.description = "General information about this settlement will appear here."
+	tabs.add_child(LocationTab.new(details))
 	for location in village.locations:
 		if location == null:
 			continue
@@ -66,7 +70,5 @@ func open_village(village: Destination) -> bool:
 		# Titled here rather than by the node name, which cannot hold every
 		# character a name might.
 		tabs.set_tab_title(tabs.get_tab_count() - 1, location.display_name)
-	if tabs.get_tab_count() == 0:
-		return false
 	open()
 	return true

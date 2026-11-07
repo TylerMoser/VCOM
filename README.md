@@ -7,11 +7,11 @@ Squad members take on a map of enemies, a tile at a time: spend action points to
 cover behind terrain, lean out around it to find a firing angle, and roll against a percentage
 chance to hit.
 
-![A squad member lines up a shot at an enemy across ground torn up by a long fight](Images/EndOfFirstWeek/combat-clean-06-long-fight-shot.png)
+![A battlefield strewn with broken crates, debris and dropped coins](Images/EndOfFirstMonth/combat-clean-01-heavy-destruction.png)
 
-*A shot lined up late in a long fight, with blood turned off: grenade craters, broken crates and the
-coins they left, and the heaps the fallen broke into. More screenshots are in [`Images/EndOfFirstWeek/`](Images/EndOfFirstWeek):
-the world map, the menus, and battles just begun and long fought, clean and with blood.*
+*A heavy-destruction combat demonstration: broken crates, scattered debris and the coins they left.
+More screenshots are in [`Images/EndOfFirstMonth/`](Images/EndOfFirstMonth): the world map and navigation,
+all menu tabs, fresh and busy combat, and day, dusk and night lighting. Browse the [screenshot gallery](Images/EndOfFirstMonth/index.html).*
 
 ## Controls
 
@@ -42,7 +42,7 @@ when it was sent there by a right-click on the icon, not somewhere near it.
 
 #### Menus
 
-The pause menu (its Campaign, Roster, Inventory and System tabs), a settlement's menu (a tab for each
+The pause menu (its Campaign, Quests, Roster, Inventory and System tabs), a settlement's menu (a tab for each
 place in it, such as the Hiring Board and the Market) and the roster that comes up before a battle
 all pause the game behind them, and all work the same way.
 
@@ -186,11 +186,10 @@ spends anything. Travelling through a forest (the green areas) risks an ambush: 
 stretch of the way has a chance to start a battle. The clock in the top left corner counts the
 days left, and runs only while the party travels; nothing happens yet when it runs out.
 
-![The world map: the party setting off for a city, by way of the town near where it starts](Images/EndOfFirstWeek/map-01-travelling.png)
+![The world map: the party travelling along a planned route to a nearby hamlet](Images/EndOfFirstMonth/worldmap-04-travelling.png)
 
-*The world map: the party, the red dot, just set off for the city to the south-east. Its dashed
-line crosses open ground to the road at the town with the hiring board and market, then follows
-the road, faster than the fields, along the river.*
+*The world map: the party, the red dot, travelling from County 115's capital toward a nearby
+hamlet. The dashed red line shows the remaining route, with the destination marked at its end.*
 
 Before it starts, the roster comes up to choose who fights: tick up to four, then hold **Start** for
 two seconds (see [Menus](#menus)). It opens with the last battle's squad ticked, less anyone who
@@ -1073,13 +1072,20 @@ view back to it. The old map keeps a party of its own.
 - A step that ends in a forest may meet a battle there (below). The dot and the dashed line to
   where it is going are red, which since 2026-10-18 nothing else on the map is.
 
-**One town has a hiring board and a market.** The capital of county 115, the town 9 km from where
-the party starts, has a hiring board and a market (see [Controls](#world-map)): its tooltip lists
-the two under its name, and once the party is in the town, sent there by a right-click on its icon,
+**Every settlement opens on Details**, currently showing placeholder general information,
+even when it has no other locations.
+
+**Every capital has a court after Details.** County capitals have Court of Count, duchy capitals
+Court of Duke, and kingdom capitals Court of King. Each court shows the ruler's
+title as a placeholder name, neutral favor, and placeholder information and favor lists
+(see [Courts](Docs/COURTS.md)).
+
+**One town also has a quest board, a hiring board, and a market.** The capital of county 115, the town 9 km from where
+the party starts, has these after Court of Count (see [Controls](#world-map)): its tooltip lists
+the locations under its name, and once the party is in the town, sent there by a right-click on its icon,
 a left-click on the icon opens its menu, a tab for each. With the gamepad both are `A` with the
 reticle on the town. The menu is the scene's `VillageMenu` node, the old map's, and opens for any
-settlement that has something in it; the other 2,219 have nothing, so a click on one of them does
-nothing.
+settlement, including ordinary settlements with only the Details tab.
 
 - **They were the old map's village's**, moved here for good as the game moved to this map:
   `County115HiringBoard.tres` and `County115Market.tres` in `vcom/Resources/Locations/`, on the
@@ -1298,8 +1304,8 @@ MagicaVoxel/              source .vox art
                           three pieces
   Characters/             the figure every unit wears, Character_Bigger.vox, and the first one,
                           BaseCharacter.vox, which it replaced
-Images/EndOfFirstWeek/     screenshots: the world map, the menus, battles just begun and long fought,
-                          clean and with blood, and the level editor
+Images/EndOfFirstMonth/    screenshots: the world map and navigation, menus, fresh and busy battles,
+                          clean and with blood, day/dusk/night lighting, and the level editor
 Styles/                   visual styles (05 is applied, the rest are candidates), and how to apply or revert one
 MapStyles/                proposals for the new world map's look (02, 04, 05, 10's forests, 10b, 14b,
                           19a and 12b are applied), pictures of the look as it is, 12 and 20 explored

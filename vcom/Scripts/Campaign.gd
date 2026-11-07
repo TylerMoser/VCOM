@@ -37,6 +37,10 @@ var inventory: Inventory = STARTING_INVENTORY.duplicate_deep()
 ## [member TurnManager.victory_gold]), and so does selling; hiring and buying
 ## spend it.
 var gold := STARTING_GOLD
+## Journal entries displayed by category in the pause menu.
+var quests: Array[Quest] = []
+## Remaining offers per board; authored resources are never changed.
+var _quest_offers := {}
 ## Whether a battle is being fought. Set by the combat scene's [TurnManager]
 ## while it is in the tree. Equipment and skills cannot change during one: a
 ## unit took its gear when the map loaded, and would not see the change.
@@ -110,6 +114,29 @@ func for_hire(board: HiringBoard) -> Array[Character]:
 		_for_hire[board] = board.characters.duplicate()
 	var available: Array[Character] = _for_hire[board]
 	return available.duplicate()
+
+
+## Runtime copies persist across visits, separately from the board's source.
+func quests_on(board: QuestBoard) -> Array[Quest]:
+	if board == null:
+		return []
+	if not _quest_offers.has(board):
+		var offers: Array[Quest] = []
+		for quest in board.quests:
+			if quest != null:
+				offers.append(quest.duplicate_deep())
+		_quest_offers[board] = offers
+	var available: Array[Quest] = _quest_offers[board]
+	return available.duplicate()
+
+
+## Moves one offered quest to the party journal, once, without granting rewards.
+func accept_quest(board: QuestBoard, quest: Quest) -> bool:
+	if in_mission or quest == null or quests.has(quest) or not quests_on(board).has(quest):
+		return false
+	(_quest_offers[board] as Array).erase(quest)
+	quests.append(quest)
+	return true
 
 
 ## Pays [param character]'s [member Character.hire_cost] and moves them from

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="QuestBoard" format=3]
+
+[ext_resource type="Script" path="res://Scripts/WorldMap/QuestBoard.gd" id="1_board"]
+
+[resource]
+script = ExtResource("1_board")
+display_name = "Quest Board"
+description = "Requests for help posted by the settlement."
