@@ -3,7 +3,7 @@
 A gun's magazine in full: `Weapon.magazine` and `reload`, `Unit.rounds`, `ReloadAction`, the
 enemies' reloads and the `AmmoIndicator`. It was split out of `CLAUDE.md`, which keeps a summary and
 the rule that must not drift ("Every shot spends a round, in `Unit.shoot_at()`, as the trigger is
-pulled"). The reload's clip is `ANIMATIONS.md`'s. A section named here that is not in this file
+pulled"). The reload's clip is `Docs/ANIMATIONS.md`'s. A section named here that is not in this file
 (Gotchas, Verification, Known gaps, another subsystem's notes) is `CLAUDE.md`'s.
 
 ## How it works

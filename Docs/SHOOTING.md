@@ -6,7 +6,7 @@ arrives, and where its round goes: `LineOfSight`, `HitChance`, `Ballistics`, `Sh
 `ShootAction`, `StrikeAction`, and `Unit.shoot_at()` and `strike()`. It was split out of
 `CLAUDE.md`, which keeps a summary, the rules that must not drift (sight, cover, flanking, the hit
 chance, where rounds go) and the harness they are checked on (`Scenes/LineOfSightTest.tscn`,
-Verification). The figure's side of it, aiming and leaning out, is `ANIMATIONS.md`'s (9.13); reaction
+Verification). The figure's side of it, aiming and leaning out, is `Docs/ANIMATIONS.md`'s (9.13); reaction
 fire, which takes the same path once the odds are worked out, is `Reactions`'. A section named here
 that is not in this file (Gotchas, Verification, Known gaps, another subsystem's notes) is
 `CLAUDE.md`'s.
@@ -168,7 +168,7 @@ A shot from the action bar is driven as the player takes it: select the shooter
 (`_cycle(1)`) until `current_shot()` is the one wanted, and `_fire()`; its `_estimate` is the
 `HitChance.Estimate` it rolls (`terms`, `chance`), which a probe can set to 100 to see a hit. A
 strike is the same through `StrikeAction` (`_strike()`), with its target next to the striker and a
-melee weapon given it (`unit.melee_weapon`, and in its `equipment`). `ANIMATIONS.md` (14.3) has a
+melee weapon given it (`unit.melee_weapon`, and in its `equipment`). `Docs/ANIMATIONS.md` (14.3) has a
 probe that renders both as they play.
 
 ## Known gaps

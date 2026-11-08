@@ -27,7 +27,7 @@ by day; at dusk and at night `TimeOfDay` lights copies of them otherwise (`Docs/
 new world map's look, 02, 04, 05 and 10's forests applied, and of 10, 14 and 19 revisited on that look 10b, 14b and 19a
 (`Docs/MAP.md`, "Its look"): the harness that renders them from `Map.tscn`, `MapStyles/README.md` on what each changes and
 how to apply it, and pictures of the look as it is (`render.sh 0 91` draws them again); 12 (biome ground colours), whose
-12b is applied, and 20 (fog of war), still open, are explored there in sub-folders, 25 and 24 variants written up. `ANIMATIONS.md` documents the characters' rig and animations in full: where they came
+12b is applied, and 20 (fog of war), still open, are explored there in sub-folders, 25 and 24 variants written up. `Docs/ANIMATIONS.md` documents the characters' rig and animations in full: where they came
 from, every clip, every decision and gap, and recipes for adding more. Read it before touching them.
 
 `Docs/` holds what was split out of this file to keep it under its 150,000-character limit, a
@@ -45,7 +45,7 @@ MagicaVoxel and overriding it, omni and area lights, broken lamps going dark),
 `MAP.md` (the new map: its scene, look, forests and level of detail), `MEDKIT.md`, `ROSTER.md`
 (characters and the units they become, equipment, items and the inventory), `SHOOTING.md` (sight and
 leaning out, lining up, confirming and settling shots and strikes), `SKILLS.md` and `VOXELS.md` (every
-voxel model: how it is drawn and recoloured, and adding one). `ANIMATIONS.md`, beside this file, is
+voxel model: how it is drawn and recoloured, and adding one). `Docs/ANIMATIONS.md` is
 the figure's in the same way. This file keeps a summary of each and every rule that must not drift.
 Read a subsystem's file before touching it, and put new detail about it there, not here; when this
 file nears the limit again, split another subsystem out the same way.
@@ -184,7 +184,7 @@ vcom/Scripts/
     Medkit.gd          BattleItem: heal (4); never used up, each usable once a battle (Unit.medkits)
     ItemStack.gd       an item and how many
     Inventory.gd       stacks in display order; stacks_of(kind), count_of, take, add; emits changed
-  Characters/          the rigged figure every unit wears, and how it is baked (ANIMATIONS.md; its scripts in full in 18)
+  Characters/          the rigged figure every unit wears, and how it is baked (Docs/ANIMATIONS.md; its scripts in full in 18)
     CharacterModel.gd  the figure's runtime (Character_Bigger.tscn's root): its AnimationTree, facing, hops, gear in its
                        sockets, leaning out, the calls that only show things; break_apart(); tint / paint()
     FigureVoxels.gd    a figure's voxels, read from its .vox at run time: body, posed bones, pick_wound(), crumble()
@@ -566,7 +566,7 @@ figure one flat colour (`CharacterModel.tint`), its character's `color` or the e
 keep every unit's colour off red, on which blood barely shows. As a unit dies
 `TerrainDestruction.break_figure()` breaks its figure into lumps of `VoxelDebris`, knocked the way the
 killing blow went, and drops its gear whole as pieces that wear; both stay for the battle, debris like
-any other (decided with the user, in place of the ragdolls the dead were). `ANIMATIONS.md` has all of
+any other (decided with the user, in place of the ragdolls the dead were). `Docs/ANIMATIONS.md` has all of
 it: the rig, every clip and its moments, the tree, the runtime and its calls, the sockets and props,
 breaking apart, recipes for adding more, how to bake, preview and drive them, the figure's gotchas and
 its gaps. Read it before touching the figure.
@@ -1085,7 +1085,7 @@ Bake after changing the map's land, forests, roads, bridges or water, and read t
 `Map.tscn` as saved, so it bakes for the user only once their changes are saved.
 
 A death is probed headless too, with or without its unit dying: how, and how to read its lumps and
-dropped gear, is `ANIMATIONS.md`'s (14.5).
+dropped gear, is `Docs/ANIMATIONS.md`'s (14.5).
 
 An enemy's choice is `unit.ai.choose_action(Tactics.new(unit, grid, squad.members))` (its `kind`), and
 `TurnManager._take_enemy_turn(enemy)` plays a turn out (await it through a lambda, sharing a
@@ -1102,7 +1102,7 @@ or its animations' scripts:
 "$G" --headless --path . --script res://Scripts/Characters/BakeCharacter.gd
 ```
 
-`ANIMATIONS.md` has the command that renders its clips to images (section 1) and how to check an
+`Docs/ANIMATIONS.md` has the command that renders its clips to images (section 1) and how to check an
 animation (14). In a map, drive the actions themselves (`controller.activate()`, then
 `ShootAction._fire()`, `StrikeAction._strike()`, `ThrowGrenadeAction._aim(tile)` +
 `_throw_lined_up()`, `MoveAction._move_to()`) and capture frames as they play: that tests the timing
@@ -1301,7 +1301,7 @@ the scene and the level directly, or write a fresh generator.
 scripts, never them), an `AnimationTree`'s `tree_root` is shared by every figure (set only
 `parameters/...`), `Vector2.UP` is screen up, a rotation key must be on the same side as the one
 before it, its sockets exist only once it is ready, and a destruction preloaded anywhere
-`CharacterModel` reaches breaks every script after it. `ANIMATIONS.md`, section 16, has each with its
+`CharacterModel` reaches breaks every script after it. `Docs/ANIMATIONS.md`, section 16, has each with its
 fix.
 
 **A typed array parameter refuses a plain array literal from untyped code.** A `--script` probe that
@@ -1311,7 +1311,7 @@ passes `[]` to `CharacterModel.equip()`'s `Array[Item]`, or a literal list of po
 ## Known gaps
 
 The gaps of each subsystem split out into `Docs/` are in its file, under "Known gaps", voxel wear's and
-loose models' among them, and the figure's are `ANIMATIONS.md`'s (section 15); the rest are here.
+loose models' among them, and the figure's are `Docs/ANIMATIONS.md`'s (section 15); the rest are here.
 
 - A shared `Weapon` resource must stay stateless: per-unit state goes on the unit, as the rounds left
   in its magazine do (`Unit.rounds`), not on the weapon.

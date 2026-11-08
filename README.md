@@ -1314,7 +1314,7 @@ Docs/                     each subsystem in full, split out of CLAUDE.md: ammo, 
                           the combat camera, destruction, the gamepad, glass and windows, grenades,
                           hunkering down, levels, the level editor, lights and the time of day, the
                           new world map, medkits, the roster, shooting, skills and voxel models
-ANIMATIONS.md             the figure's rig and animations, in full
+Docs/ANIMATIONS.md        the figure's rig and animations, in full
 ```
 
 ## Credits

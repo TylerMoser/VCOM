@@ -2842,7 +2842,7 @@ each):
 | `vcom/Items/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` (+ `.import`) | the props, imported at 0.063 (they replaced the placeholders `Rifle.vox`, `Shortsword.vox`, `FragGrenade.vox`) |
 | `MagicaVoxel/Rifle2.vox`, `Shortsword2.vox`, `StickGrenade.vox` | the props' source copies |
 | `vcom/Scenes/Props/Rifle.tscn`, `Shortsword.tscn`, `FragGrenade.tscn` | the prop scenes and markers |
-| `ANIMATIONS.md` | this file |
+| `Docs/ANIMATIONS.md` | this file |
 
 (Each new `.gd` has its `.gd.uid` beside it.)
 

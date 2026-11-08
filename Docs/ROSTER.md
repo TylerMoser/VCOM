@@ -52,7 +52,7 @@ starts at its character's `health`. A grenade a member throws is gone for good: 
 `used_up`, and `PlayerSquad` calls `Campaign.use_up()`, which empties the first slot holding it and
 puts nothing back in the inventory. A member who dies is taken off the roster by `Campaign.lose()`,
 which returns everything they still had equipped to the inventory. Those two are the only ways gear
-leaves a character mid-battle. The gear a dying member is seen to drop on the map (`ANIMATIONS.md`,
+leaves a character mid-battle. The gear a dying member is seen to drop on the map (`Docs/ANIMATIONS.md`,
 9.8) is only for show: it is in the inventory already. Wounds mend on the road: every step the party
 travels (`Party.step_length`, the same step the encounters are rolled on) calls
 `Campaign.heal(heal_per_step)` (1), which takes that off every roster character's `wounds`, down to

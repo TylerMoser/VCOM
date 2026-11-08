@@ -4,7 +4,7 @@ Throwing a grenade in full: `ThrowGrenadeAction`, `Throwing` (the arc and the bl
 `ThrownGrenade` and `Explosion`. It was split out of `CLAUDE.md`, which keeps a summary and the rules
 that must not drift ("A throw is never rolled, and a blocked arc is never thrown", "The blast is
 what the preview shows"). What a blast breaks and throws about is `Docs/DESTRUCTION.md`'s, and the
-throw's clips `ANIMATIONS.md`'s. A section named here that is not in this file (Gotchas,
+throw's clips `Docs/ANIMATIONS.md`'s. A section named here that is not in this file (Gotchas,
 Verification, Known gaps, another subsystem's notes) is `CLAUDE.md`'s.
 
 ## How it works

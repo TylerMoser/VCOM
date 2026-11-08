@@ -159,7 +159,7 @@ renders.
    middle by as much as its box is off its body's: two voxels forward for the crocodile, whose tail
    is longer than its snout (`RigTest/Centre_vs_shift_top.png`, the centred one first).
 4. Bake: `--headless --path . --script res://Scripts/Characters/BakeCharacter.gd -- res://Characters/<model>.vox res://Scenes/<model>.tscn`,
-   and preview it with `PreviewAnimations.gd --scene res://Scenes/<model>.tscn`, as ANIMATIONS.md
+   and preview it with `PreviewAnimations.gd --scene res://Scenes/<model>.tscn`, as Docs/ANIMATIONS.md
    (section 1) has.
 5. A unit wearing it still **paints its figure one flat colour**: `Unit._paint()` sets
    `CharacterModel.tint` to its character's colour (or the enemies' slate grey). The model's own
